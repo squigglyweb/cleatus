@@ -1,0 +1,560 @@
+<!-- CHS × VendorPrint — Business Cards v6.1 (with proof screenshots) -->
+<div id="vp-bc-app">
+ <div style="max-width:1100px;margin:0 auto;padding:16px;color:#6b7280">Loading…</div>
+</div>
+
+<style>
+/* ===== base ===== */
+#vp-bc-app{font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial;color:#111827}
+#vp-bc-app *{box-sizing:border-box}
+.vp-wrap{max-width:1100px;margin:0 auto;padding:16px}
+.grid{display:grid;gap:14px}
+label{font-size:12px;color:#374151;font-weight:600}
+input,textarea,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-radius:10px;margin-top:6px;font-size:16px}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid #1d3557;background:#1d3557;color:#fff;border-radius:10px;padding:10px 16px;cursor:pointer;font-size:14px}
+.btn.ghost{background:#fff;color:#1d3557}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.panel{background:#fff;border:1px solid #cbd5e1;border-radius:14px;padding:14px}
+.meta{font-size:12px;color:#6b7280}
+.thumb{position:relative;width:220px;aspect-ratio:1050/600;border:1px solid #e5e7eb;border-radius:10px;background-size:cover;background-position:center;overflow:hidden;flex-shrink:0}
+.thumb .cta{position:absolute;left:8px;top:8px;background:rgba(2,6,23,.82);color:#fff;font-weight:700;font-size:12px;padding:4px 8px;border-radius:8px}
+.pill{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:#fff7ed;color:#b45309;border:1px solid #fed7aa;font-weight:700;font-size:12px}
+
+/* ===== CHS skin ===== */
+:root{--chs-navy:#0b2a5c;--chs-border:#cbd5e1;--chs-green:#16a34a}
+.h2{background:var(--chs-navy);color:#fff;padding:10px 14px;border-radius:12px;font-size:16px;font-weight:800;margin:10px 0 14px}
+#vp-bc-app .btn:not(.ghost){background:var(--chs-navy);border-color:var(--chs-navy);color:#fff;font-weight:700}
+#vp-bc-app .btn.ghost{background:#fff;color:var(--chs-navy);border:1px solid var(--chs-border)}
+/* Approval buttons: green until approved, then grey + disabled */
+#approveFront:not([disabled]),
+#approveBack:not([disabled]){
+ background:var(--chs-green)!important;
+ border-color:var(--chs-green)!important;
+ color:#fff!important;
+ font-weight:800;
+}
+#approveFront[disabled],
+#approveBack[disabled]{
+ background:#e5e7eb!important;
+ border-color:#cbd5e1!important;
+ color:#334155!important;
+ cursor:not-allowed;
+}
+
+#submitOrder{background:var(--chs-navy);border-color:var(--chs-navy);font-weight:800;border-radius:10px}
+
+/* ===== flip cards ===== */
+.bc-scene{perspective:1200px}
+.bc-card{position:relative;width:100%;border-radius:12px;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.2,.6,.2,1);border:1px solid #e5e7eb;cursor:pointer}
+.bc-card.is-back{transform:rotateY(180deg)}
+.bc-face{position:relative;width:100%;padding-top:57%;border-radius:12px;overflow:hidden;background-size:cover;background-position:center}
+.bc-face.front{backface-visibility:hidden}
+.bc-face.back{position:absolute;left:0;top:0;backface-visibility:hidden;transform:rotateY(180deg)}
+.bc-canvas{position:absolute;inset:0}
+
+/* ===== Lightbox ===== */
+.lb{position:fixed;inset:0;background:rgba(2,6,23,.72);display:none;align-items:center;justify-content:center;z-index:999999}
+.lb.show{display:flex}
+.lb-body{background:#fff;border-radius:16px;max-width:min(1000px,94vw);width:100%;padding:14px}
+.lb-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.lb-title{font-weight:800;color:#0f172a}
+.lb-actions{display:flex;gap:8px}
+.lb-scene{perspective:1200px}
+.lb-card{border:1px solid #e5e7eb;border-radius:12px;transform-style:preserve-3d;transition:transform .6s cubic-bezier(.2,.6,.2,1);cursor:zoom-out;position:relative}
+.lb-card.is-back{transform:rotateY(180deg)}
+.lb-face{position:relative;width:min(960px,92vw);padding-top:57%;border-radius:12px;background-size:cover;background-position:center}
+.lb-face.front{backface-visibility:hidden}
+.lb-face.back{position:absolute;left:0;top:0;backface-visibility:hidden;transform:rotateY(180deg)}
+.lb-canvas{position:absolute;inset:0}
+
+/* ===== Pending card with proof thumbnails ===== */
+.pending-proof{display:flex;gap:8px;margin-top:8px}
+.pending-proof img{width:60px;height:34px;object-fit:cover;border-radius:4px;border:1px solid #e5e7eb}
+</style>
+
+<script>
+(function(){
+ /* ✅ UPDATED: your NEW Apps Script URL (v6.1) */
+ const WEBHOOK_URL="https://script.google.com/macros/s/AKfycby6j5v-45VEyew0buXsvmbnPQYCnyg8bByjiuRgcdXgdRCjnl7Bln4tS83nBYxTiHnz/exec";
+ const TOKEN="d!dxQPNM38zm";
+
+ const IMG={
+ field:{front:"https://www.squigglymarketing.com/wp-content/uploads/2025/09/CHS-BC-Front-Template-scaled.png",
+ back :"https://www.squigglymarketing.com/wp-content/uploads/2025/10/field-back.png"},
+ corporate:{front:"https://www.squigglymarketing.com/wp-content/uploads/2025/09/CHS-BC-Front-Template-scaled.png",
+ back :"https://www.squigglymarketing.com/wp-content/uploads/2025/10/Corporate-BC-Back-1.png"},
+ ra:{front:"https://www.squigglymarketing.com/wp-content/uploads/2025/10/RA-front.png",
+ back :"https://www.squigglymarketing.com/wp-content/uploads/2025/10/RA-back.png"}
+ };
+
+ const save=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v));}catch{}};
+ const load=(k,f)=>{try{const r=localStorage.getItem(k);return r?JSON.parse(r):f;}catch{return f;}};
+ const toast=(m)=>{const d=document.createElement('div');d.style.cssText='position:fixed;left:50%;top:12px;transform:translateX(-50%);background:#0f172a;color:#fff;padding:8px 12px;border-radius:10px;font-size:14px;z-index:999999';d.textContent=m;document.body.appendChild(d);setTimeout(()=>d.remove(),1400);};
+ const fmtPhone=v=>{const d=(v||'').replace(/[^\d]/g,'');if(d.length===10)return`${d.slice(0,3)}-${d.slice(3,6)}-${d.slice(6)}`;if(d.length===11&&d[0]==='1')return`${d.slice(1,4)}-${d.slice(4,7)}-${d.slice(7)}`;return(v||'').replace(/[()]/g,'');};
+ const fullEmail=s=>{const e=(s||'').trim();return e.includes('@')?e:`${e}@housingservices.com`;};
+ const escapeHTML=s=>String(s).replace(/[&<>"']/g,m=>({'&':'&','<':'<','>':'>','"':'"',"'":'&#39;'}[m]));
+ const uid=p=>`${p}-${new Date().toISOString().replace(/[-:.TZ]/g,'').slice(0,14)}-${Math.random().toString(36).slice(2,7)}`;
+
+ function jsonp(action,payload){
+ return new Promise((resolve,reject)=>{
+ const cb='vp_cb_'+Math.random().toString(36).slice(2);
+ const s=document.createElement('script');
+ const q=new URLSearchParams({action,token:TOKEN,callback:cb,payload:JSON.stringify(payload||{}),t:String(Date.now())}).toString();
+ s.src=WEBHOOK_URL+(WEBHOOK_URL.includes('?')?'&':'?')+q;
+ let done=false;
+ window[cb]=(data)=>{done=true;resolve(data);cleanup();};
+ s.onerror=()=>{if(!done){reject(new Error('network'));cleanup();}};
+ document.head.appendChild(s);
+ function cleanup(){try{delete window[cb];document.head.removeChild(s);}catch{}}
+ setTimeout(()=>{if(!done){reject(new Error('timeout'));cleanup();}},9000);
+ });
+ }
+
+ const LS_KEY="chs_bc_pending_v610";
+ let state={
+ mode:'field',
+ side:'front',
+ draft:{
+ name:'Employee Name',title:'Employee Title',emailFront:'jemployee',
+ office:'317-524-1212',cell:'123-555-1212',shipTo:'',qty:250,
+ approverName:'',frontApprovedBy:'',frontAt:'',backApprovedBy:'',backAt:'',id:'',
+ proofFrontUrl:'',proofBackUrl:'',proofFrontData:'',proofBackData:''
+ },
+ pending:load(LS_KEY,[]),
+ lbOpen:false,lbSide:'front',lbItem:null
+ };
+
+ const imgs=()=>IMG[state.mode];
+
+ /* ===== Proof capture ===== */
+ function captureCanvas(canvasId) {
+ const c=document.getElementById(canvasId);
+ if(!c) return null;
+ try {
+ return c.toDataURL('image/png');
+ } catch(e) {
+ console.error('Canvas capture failed:',e);
+ return null;
+ }
+ }
+
+ function captureFrontProof() {
+ const data = captureCanvas('bcCanvas');
+ if(data) {
+ state.draft.proofFrontData = data;
+ state.draft.proofFrontUrl = 'pending-upload'; // Mark as needing upload
+ }
+ }
+
+ function captureBackProof() {
+ const c=document.getElementById('bcCanvasBack');
+ if(!c) return null;
+ try {
+ return c.toDataURL('image/png');
+ } catch(e) {
+ return null;
+ }
+ }
+
+ /* ===== Upload proofs to Drive ===== */
+ async function uploadProof(base64, orderId, side) {
+ try {
+ const result = await jsonp('proof.upload', {
+ orderId: orderId,
+ side: side,
+ fileName: side + '.png',
+ base64: base64
+ });
+ if(result && result.ok) {
+ return result.url;
+ }
+ } catch(e) {
+ console.error('Proof upload failed:',e);
+ }
+ return '';
+ }
+
+ /* ===== Submit batch with proof URLs ===== */
+ async function submitBatch() {
+ if(!canSubmit()) return;
+
+ toast('Uploading proofs and submitting...');
+
+ // First pass: upload proofs for each card
+ for(let i=0; i<state.pending.length; i++) {
+ const card = state.pending[i];
+ const tempId = card.id || 'ORD-' + Date.now() + '-' + i;
+
+ // Upload front proof if we have it
+ if(card.proofFrontData && card.proofFrontData.startsWith('data:')) {
+ const url = await uploadProof(card.proofFrontData, tempId, 'front');
+ card.proofFrontUrl = url;
+ card.proofFrontData = ''; // Clear after upload
+ }
+
+ // Upload back proof if we have it
+ if(card.proofBackData && card.proofBackData.startsWith('data:')) {
+ const url = await uploadProof(card.proofBackData, tempId, 'back');
+ card.proofBackUrl = url;
+ card.proofBackData = ''; // Clear after upload
+ }
+ }
+
+ // Second pass: submit to API
+ let ok=0,fail=0,lastErr='';
+ for(const card of state.pending){
+ const row={
+ requesterName: card.approverName || 'CHS',
+ item: 'Business Cards',
+ qty: card.qty || 250,
+ shipTo: card.shipTo || '',
+ name: card.name || '',
+ title: card.title || '',
+ email: fullEmail(card.emailFront) || '',
+ office: fmtPhone(card.office) || '',
+ cell: fmtPhone(card.cell) || '',
+ approverName: card.approverName || 'CHS',
+ proofFrontUrl: card.proofFrontUrl || '',
+ proofBackUrl: card.proofBackUrl || ''
+ };
+ try{const r=await jsonp('order.submit',{card});if(r&&r.ok)ok++;else{fail++;lastErr=(r&&(r.error||r.raw))?String(r.error||r.raw):'unknown';}}
+ catch{fail++;lastErr='network';}
+ }
+ if(ok&&!fail){toast('Order submitted');state.pending=[];save(LS_KEY,state.pending);state.draft={...state.draft,id:'',frontApprovedBy:'',backApprovedBy:'',frontAt:'',backAt:'',approverName:'',proofFrontUrl:'',proofBackUrl:'',proofFrontData:'',proofBackData:''};}
+ else alert(`Could not submit — ${lastErr||'unknown'}.`);
+ render();
+ }
+
+ function drawFrontCanvas(){
+ if(state.mode==='ra'||state.side!=='front')return;
+ const c=document.getElementById('bcCanvas');if(!c)return;
+ const r=c.parentElement.getBoundingClientRect();
+ const dpr=window.devicePixelRatio||1,w=r.width,h=r.height;
+ c.width=w*dpr;c.height=h*dpr;c.style.width=w+'px';c.style.height=h+'px';
+ const ctx=c.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
+ const s=w/1050;let x=70*s,y=70*s;
+ ctx.fillStyle='#111';ctx.textBaseline='top';
+ ctx.font=`700 ${46*s}px Arial`;ctx.fillText(state.draft.name,x,y);y+=56*s;
+ ctx.font=`400 ${36*s}px Arial`;ctx.fillText(state.draft.title,x,y);y+=64*s;
+ ctx.font=`400 ${28*s}px Arial`;
+ ctx.fillText(`${state.draft.emailFront}@housingservices.com`,x,y);y+=44*s;
+ ctx.fillText(`Office: ${fmtPhone(state.draft.office)}`,x,y);y+=38*s;
+ ctx.fillText(`Cell: ${fmtPhone(state.draft.cell)}`,x,y);
+ }
+
+ function drawLBFront(){
+ if(!state.lbOpen||!state.lbItem||state.lbItem.mode==='ra'||state.lbSide!=='front')return;
+ const c=document.getElementById('lbCanvas');if(!c)return;
+ const r=c.parentElement.getBoundingClientRect();
+ const dpr=window.devicePixelRatio||1,w=r.width,h=r.height;
+ c.width=w*dpr;c.height=h*dpr;c.style.width=w+'px';c.style.height=h+'px';
+ const ctx=c.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,w,h);
+ const s=w/1050;let x=70*s,y=70*s;
+ ctx.fillStyle='#111';ctx.textBaseline='top';
+ ctx.font=`700 ${52*s}px Arial`;ctx.fillText(state.lbItem.name||'',x,y);y+=60*s;
+ ctx.font=`400 ${40*s}px Arial`;ctx.fillText(state.lbItem.title||'',x,y);y+=70*s;
+ ctx.font=`400 ${30*s}px Arial`;
+ ctx.fillText(`${(state.lbItem.emailFront||'')+'@housingservices.com'}`,x,y);y+=46*s;
+ ctx.fillText(`Office: ${fmtPhone(state.lbItem.office||'')}`,x,y);y+=40*s;
+ ctx.fillText(`Cell: ${fmtPhone(state.lbItem.cell||'')}`,x,y);
+ }
+
+ function pendingRow(it,i){
+ const ok=it.frontApprovedBy&&it.backApprovedBy;
+ const warn=ok?'':`<span class="pill">⚠ Needs front & back approval</span>`;
+ const proofThumbs = (it.proofFrontUrl || it.proofBackUrl) ? `
+ <div class="pending-proof">
+ ${it.proofFrontUrl ? `<img src="${it.proofFrontUrl}" alt="Front proof">` : ''}
+ ${it.proofBackUrl ? `<img src="${it.proofBackUrl}" alt="Back proof">` : ''}
+ </div>` : '';
+ return `<div class="panel" style="display:flex;gap:14px;align-items:flex-start">
+ <div class="thumb" data-lb="${i}" style="background-image:url('${IMG[it.mode].front}')">
+ <div class="cta">Click to View</div>
+ </div>
+ <div style="flex:1">
+ <div style="font-weight:800">${escapeHTML(it.name||'')}</div>
+ <div class="meta">${escapeHTML(it.title||'')}</div>
+ <div class="meta" style="margin-top:6px">${escapeHTML(fullEmail(it.emailFront)||'')}</div>
+ <div class="meta">Office: ${escapeHTML(fmtPhone(it.office)||'')}</div>
+ <div class="meta">Cell: ${escapeHTML(fmtPhone(it.cell)||'')}</div>
+ <div style="margin-top:8px"><strong>Ship To:</strong><br>${escapeHTML(it.shipTo||'')}</div>
+ <div class="meta" style="margin-top:8px">Qty: ${it.qty||250}</div>
+ ${proofThumbs}
+ <div class="meta" style="margin-top:8px">
+ ${it.frontApprovedBy ? `✔ Front OK (${escapeHTML(it.frontApprovedBy)} • ${new Date(it.frontAt).toLocaleString()})` : '✖ Front not approved'}<br>
+ ${it.backApprovedBy ? `✔ Back OK (${escapeHTML(it.backApprovedBy)} • ${new Date(it.backAt).toLocaleString()})` : '✖ Back not approved'}
+ ${warn ? `<div style="margin-top:6px">${warn}</div>` : ''}
+</div>
+
+ <div style="margin-top:10px;display:flex;gap:8px">
+ <button class="btn ghost" data-edit="${i}">Edit</button>
+ <button class="btn ghost" data-remove="${i}">Remove</button>
+ </div>
+ </div>
+ </div>`;
+ }
+
+ const canSubmit=()=>state.pending.length>0&&state.pending.every(p=>p.frontApprovedBy&&p.backApprovedBy);
+
+ function layout(){
+ const d=state.draft,disabled=!canSubmit();
+ const pending=state.pending.length?state.pending.map(pendingRow).join(''):
+ `<div class="panel"><div style="color:#6b7280;text-align:center;padding:12px">No pending cards yet.</div></div>`;
+ return `
+ <div class="vp-wrap">
+ <div class="h2">New Business Card (front & back approval)</div>
+ <div class="panel">
+ <div style="display:flex;gap:10px;margin-bottom:10px">
+ <button class="btn ${state.mode==='field'?'':'ghost'}" data-mode="field">Field Rep</button>
+ <button class="btn ${state.mode==='corporate'?'':'ghost'}" data-mode="corporate">Corporate</button>
+ <button class="btn ${state.mode==='ra'?'':'ghost'}" data-mode="ra">RA</button>
+ </div>
+ <div class="grid" style="grid-template-columns:1.05fr .95fr;align-items:start">
+ <div class="grid">
+ <div class="grid" style="grid-template-columns:1fr 1fr">
+ <label>Name<input id="bcName" value="${d.name||''}" placeholder="Employee Name" ${state.mode==='ra'?'disabled':''}></label>
+ <label>Title<input id="bcTitle" value="${d.title||''}" placeholder="Employee Title" ${state.mode==='ra'?'disabled':''}></label>
+ </div>
+ <label>Email (front part only)<input id="bcEmailFront" value="${d.emailFront||''}" placeholder="jemployee" ${state.mode==='ra'?'disabled':''}></label>
+ <div class="grid" style="grid-template-columns:1fr 1fr">
+ <label>Office<input id="bcOffice" value="${d.office||''}" placeholder="317-524-1212" ${state.mode==='ra'?'disabled':''}></label>
+ <label>Cell<input id="bcCell" value="${d.cell||''}" placeholder="123-555-1212" ${state.mode==='ra'?'disabled':''}></label>
+ </div>
+ <label>Ship To<textarea id="bcShipTo" rows="2" placeholder="Street, City, ST ZIP">${d.shipTo||''}</textarea></label>
+ <div class="grid" style="grid-template-columns:1fr auto;align-items:end">
+ <label>Qty
+ <select id="bcQty">
+ <option ${d.qty==250?'selected':''}>250</option>
+ <option ${d.qty==500?'selected':''}>500</option>
+ </select>
+ </label>
+ <button class="btn" id="addToOrder">Add to Order</button>
+ </div>
+ <div class="meta">Both front and back must be approved. Proof screenshots will be saved.</div>
+ </div>
+ <div>
+ <div class="bc-scene">
+ <div id="bcCard" class="bc-card ${state.side==='back'?'is-back':''}">
+ <div class="bc-face front" style="background-image:url('${imgs().front}')">
+ <canvas id="bcCanvas" class="bc-canvas"></canvas>
+ </div>
+ <div class="bc-face back" style="background-image:url('${imgs().back}')"></div>
+ </div>
+ </div>
+ <div style="display:flex;gap:10px;margin-top:10px;flex-wrap:wrap">
+ <button class="btn ghost" id="openPreview">Open Preview</button>
+ <button class="btn ${state.side==='front'?'':'ghost'}" id="showFront">Front</button>
+ <button class="btn ${state.side==='back'?'':'ghost'}" id="showBack">Back</button>
+ <button class="btn ghost" id="newCard">New Card</button>
+</div>
+
+ <div class="grid" style="grid-template-columns:1fr auto;align-items:center;margin-top:10px">
+ <input id="bcApprover" placeholder="Your Name Here" value="${d.approverName||''}">
+<button class="btn" id="approveFront" ${d.frontApprovedBy?'disabled':''}>
+ ${d.frontApprovedBy?'✅ Front Approved':'Approve Front'}
+</button>
+
+ </div>
+ <div class="grid" style="grid-template-columns:1fr auto;align-items:center;margin-top:8px">
+ <div class="meta">${d.frontApprovedBy?`Front approved by ${escapeHTML(d.frontApprovedBy)} on ${new Date(d.frontAt).toLocaleString()}`:'Not approved yet'}</div>
+<button class="btn" id="approveBack" ${d.backApprovedBy?'disabled':''}>
+ ${d.backApprovedBy?'✅ Back Approved':'Approve Back'}
+</button>
+
+ </div>
+ <div class="meta">${d.backApprovedBy?`Back approved by ${escapeHTML(d.backApprovedBy)} on ${new Date(d.backAt).toLocaleString()}`:''}</div>
+ </div>
+ </div>
+ </div>
+ <div class="h2">Pending Cards (not yet submitted)</div>
+ <div class="grid" style="grid-template-columns:1fr">${pending}</div>
+ <div style="margin-top:12px">
+ <button class="btn" id="submitOrder" ${disabled?'disabled':''}>Submit Order (${state.pending.length||0})</button>
+ ${disabled && state.pending.length ? `<div class="meta" style="margin-top:6px;color:#b91c1c">All cards must be approved (front & back) before submitting.</div>`:''}
+ </div>
+ <div id="bcLB" class="lb" aria-hidden="true">
+ <div class="lb-body" role="dialog" aria-modal="true">
+ <div class="lb-head">
+ <div class="lb-title">Proof Preview</div>
+ <div class="lb-actions">
+ <button class="btn ghost" id="lbFront">Front</button>
+ <button class="btn ghost" id="lbBack">Back</button>
+ <button class="btn" id="lbClose">Close</button>
+ </div>
+ </div>
+ <div class="lb-scene">
+ <div id="lbCard" class="lb-card">
+ <div id="lbFaceFront" class="lb-face front" style="background-image:url('')">
+ <canvas id="lbCanvas" class="lb-canvas"></canvas>
+ </div>
+ <div id="lbFaceBack" class="lb-face back" style="background-image:url('')"></div>
+ </div>
+ </div>
+ </div>
+ </div>
+ </div>`;
+ }
+
+ function render(){
+ document.getElementById('vp-bc-app').innerHTML=layout();
+ drawFrontCanvas();
+ if(state.lbOpen){openLB(state.lbItem,true);}
+ }
+
+ /* Inputs */
+ document.addEventListener('input',e=>{
+ const id=e.target&&e.target.id;
+ if(!id)return;
+ if(['bcName','bcTitle','bcEmailFront','bcOffice','bcCell','bcShipTo','bcQty','bcApprover'].includes(id)){
+ state.draft={
+ ...state.draft,
+ name:bcName.value,
+ title:bcTitle.value,
+ emailFront:bcEmailFront.value,
+ office:bcOffice.value,
+ cell:bcCell.value,
+ shipTo:bcShipTo.value,
+ qty:+bcQty.value,
+ approverName:bcApprover.value
+ };
+ drawFrontCanvas();
+ if(state.lbOpen&&state.lbSide==='front')drawLBFront();
+ }
+ });
+
+ /* Clicks */
+ document.addEventListener('click',async e=>{
+ const t=e.target;
+ if(t.matches('[data-mode]')){state.mode=t.dataset.mode;state.draft.frontApprovedBy='';state.draft.backApprovedBy='';state.side='front';render();return;}
+ if(t.id==='bcCard'){state.side=(state.side==='front'?'back':'front');render();return;}
+ if(t.id==='showFront'){state.side='front';render();return;}
+ if(t.id==='showBack'){state.side='back';render();return;}
+ if(t.id==='openPreview'){openLB({...state.draft,mode:state.mode});return;}
+ const thumb=t.closest('[data-lb]');if(thumb){openLB(state.pending[+thumb.dataset.lb]);return;}
+
+ if(t.id==='approveFront'){
+ if(!bcApprover.value.trim()) return alert('Enter your name');
+ state.side='front';
+ // Capture proof screenshot BEFORE approving
+ const proofData = captureCanvas('bcCanvas');
+ state.draft.proofFrontData = proofData || '';
+ state.draft.frontApprovedBy=bcApprover.value.trim();
+ state.draft.frontAt=new Date().toISOString();
+ toast('Front approved - proof captured');
+ render();
+ if(state.lbOpen) setLBSide('front');
+ return;
+}
+
+if(t.id==='approveBack'){
+ if(!bcApprover.value.trim()) return alert('Enter your name');
+ state.side='back';
+ // Capture back proof screenshot
+ const c=document.getElementById('bcCanvasBack');
+ let proofData = null;
+ if(c) {
+ try { proofData = c.toDataURL('image/png'); } catch(err) {}
+ }
+ state.draft.proofBackData = proofData || '';
+ state.draft.backApprovedBy=bcApprover.value.trim();
+ state.draft.backAt=new Date().toISOString();
+ toast('Back approved - proof captured');
+ render();
+ if(state.lbOpen) setLBSide('back');
+ return;
+}
+
+if(t.id==='addToOrder'){
+ const d=state.draft;
+ const id=d.id||uid('ORD');
+ const entry={
+ ...d,
+ id,
+ mode:state.mode,
+ proofFrontUrl: d.proofFrontData ? 'pending' : '',
+ proofBackUrl: d.proofBackData ? 'pending' : ''
+ };
+ const i=state.pending.findIndex(p=>p.id===id);
+ if(i>-1) state.pending[i]=entry;
+ else state.pending.unshift(entry);
+
+ save(LS_KEY,state.pending);
+ toast(i>-1?'Updated':'Added');
+
+ // ✅ reset for next new card (keep shipTo/qty/approver for speed)
+ state.draft={
+ ...state.draft,
+ id:'',
+ name:'',
+ title:'',
+ emailFront:'',
+ office:'',
+ cell:'',
+ frontApprovedBy:'',
+ backApprovedBy:'',
+ frontAt:'',
+ backAt:'',
+ proofFrontData:'',
+ proofBackData:'',
+ proofFrontUrl:'',
+ proofBackUrl:''
+ };
+ state.side='front';
+ render();
+ return;
+}
+
+
+ const rm=t.closest('[data-remove]');if(rm){state.pending.splice(+rm.dataset.remove,1);save(LS_KEY,state.pending);render();return;}
+ const ed=t.closest('[data-edit]');if(ed){state.draft={...state.pending[+ed.dataset.edit]};state.mode=state.pending[+ed.dataset.edit].mode||'field';render();return;}
+ if(t.id==='submitOrder'){
+ await submitBatch();
+ return;
+ }
+ if(t.id==='lbClose'||t.id==='bcLB'){closeLB();return;}
+ if(t.id==='lbFront'){setLBSide('front');return;}
+ if(t.id==='lbBack'){setLBSide('back');return;}
+ });
+
+ function openLB(item,keep=false){
+ state.lbItem=item;if(!keep)state.lbSide='front';
+ const lb=document.getElementById('bcLB'),f=document.getElementById('lbFaceFront'),b=document.getElementById('lbFaceBack');
+
+ if(t.id==='newCard'){
+ // Keep Ship To + Qty + Approver name for speed
+ const keepShipTo=state.draft.shipTo||'';
+ const keepQty=state.draft.qty||250;
+ const keepApprover=state.draft.approverName||'';
+
+ state.draft={
+ name:'',
+ title:'',
+ emailFront:'',
+ office:'',
+ cell:'',
+ shipTo:keepShipTo,
+ qty:keepQty,
+ approverName:keepApprover,
+ frontApprovedBy:'',
+ frontAt:'',
+ backApprovedBy:'',
+ backAt:'',
+ id:'',
+ proofFrontData:'',
+ proofBackData:'',
+ proofFrontUrl:'',
+ proofBackUrl:''
+ };
+ state.side='front';
+ render();
+ return;
+}
+ f.style.backgroundImage=`url('${IMG[item.mode||'field'].front}')`;b.style.backgroundImage=`url('${IMG[item.mode||'field'].back}')`;
+ setLBSide(state.lbSide,true);state.lbOpen=true;lb.classList.add('show');drawLBFront();
+ }
+ function closeLB(){state.lbOpen=false;state.lbItem=null;document.getElementById('bcLB')?.classList.remove('show');}
+ function setLBSide(s,skip){state.lbSide=s;const c=document.getElementById('lbCard');if(!c)return;if(s==='back')c.classList.add('is-back');else c.classList.remove('is-back');if(!skip&&s==='front')drawLBFront();}
+ function init(){document.getElementById('vp-bc-app').innerHTML='<div class="vp-wrap" style="color:#6b7280">Loading…</div>';render();}
+ init();
+})();
+</script>
