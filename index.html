@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appliance Repair Near Me | Fast Service</title>
+    <meta name="description" content="Need appliance repair? Get fast, reliable service from verified local pros. Book now and get your appliances fixed today.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #1a5f2a;
+            --primary-dark: #0d3d16;
+            --accent: #f5a623;
+            --text: #333;
+            --text-light: #666;
+            --bg: #fff;
+            --bg-light: #f8f9fa;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--bg);
+        }
+        
+        /* Header */
+        .header {
+            background: var(--primary);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            color: #fff;
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        /* Hero */
+        .hero {
+            position: relative;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                        url('https://reviewsnearme.com/wp-content/uploads/2026/01/working-hand-phone.webp');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            padding: 4rem 2rem;
+        }
+        
+        .hero-content {
+            max-width: 600px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .hero .btn {
+            display: inline-block;
+            background: var(--accent);
+            color: #000;
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+        
+        .hero .btn:hover {
+            transform: scale(1.05);
+        }
+        
+        /* Services */
+        .services {
+            padding: 4rem 2rem;
+            background: var(--bg-light);
+            text-align: center;
+        }
+        
+        .services h2 {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--primary);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .service-card {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            transition: transform 0.2s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-4px);
+        }
+        
+        .service-card .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .service-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .service-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+        
+        /* Form Section */
+        .form-section {
+            padding: 4rem 2rem;
+            background: var(--primary);
+            color: #fff;
+        }
+        
+        .form-section h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .form-section .subtitle {
+            text-align: center;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            color: var(--text);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.875rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .consent {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+        
+        .consent input {
+            width: auto;
+            margin-top: 0.25rem;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background: var(--primary);
+            color: #fff;
+            padding: 1rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .submit-btn:hover {
+            background: var(--primary-dark);
+        }
+        
+        .submit-btn:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+        
+        /* Success Message */
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .success-message h3 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .success-message p {
+            color: var(--text-light);
+        }
+        
+        /* Footer */
+        .footer {
+            background: #222;
+            color: #fff;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+        
+        /* Mobile */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .header {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <a href="https://reviewsnearme.com" class="logo">ReviewsNear<span>Me</span></a>
+    </header>
+    
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Need Appliance Repair?</h1>
+            <p>Fast, reliable service from verified local professionals. Get your appliances fixed today.</p>
+            <a href="#book-now" class="btn">Book Repair</a>
+        </div>
+    </section>
+    
+    <section class="services">
+        <h2>We Fix All Major Appliances</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="icon">🧺</div>
+                <h3>Washers & Dryers</h3>
+                <p>All brands — washing machine and dryer repairs</p>
+            </div>
+            <div class="service-card">
+                <div class="icon">❄️</div>
+                <h3>Refrigerators</h3>
+                <p>Cooling issues, leaks, ice makers & more</p>
+            </div>
+            <div class="service-card">
+                <div class="icon">🍳</div>
+                <h3>Ovens & Ranges</h3>
+                <p>Gas & electric — heating, ignition repairs</p>
+            </div>
+            <div class="service-card">
+                <div class="icon">🍽️</div>
+                <h3>Dishwashers</h3>
+                <p>Drainage, leaks, and cleaning issues</p>
+            </div>
+            <div class="service-card">
+                <div class="icon">🏠</div>
+                <h3>Microwaves</h3>
+                <p>All sizes — turntable, heating repairs</p>
+            </div>
+            <div class="service-card">
+                <div class="icon">🔧</div>
+                <h3>All Other Appliances</h3>
+                <p>Garbage disposals, AC units, and more</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="form-section" id="book-now">
+        <h2>Schedule Your Repair</h2>
+        <p class="subtitle">Fill out the form below and we'll get a tech to you fast.</p>
+        
+        <div class="form-container">
+            <form id="leadForm">
+                <div class="form-group">
+                    <label for="name">Your Name *</label>
+                    <input type="text" id="name" name="name" required placeholder="John Smith">
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number *</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="(555) 123-4567">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="john@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Service Address *</label>
+                    <input type="text" id="address" name="address" required placeholder="123 Main St, City, State">
+                </div>
+                
+                <div class="form-group">
+                    <label for="appliance">What needs repair? *</label>
+                    <select id="appliance" name="appliance" required>
+                        <option value="">Select appliance...</option>
+                        <option value="washer">Washer</option>
+                        <option value="dryer">Dryer</option>
+                        <option value="refrigerator">Refrigerator</option>
+                        <option value="oven">Oven/Range</option>
+                        <option value="dishwasher">Dishwasher</option>
+                        <option value="microwave">Microwave</option>
+                        <option value="ac">Air Conditioner</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="issue">Describe the problem *</label>
+                    <textarea id="issue" name="issue" required placeholder="What is the appliance doing? How long has it been happening?"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="preferred_time">Preferred Service Time</label>
+                    <select id="preferred_time" name="preferred_time">
+                        <option value="morning">Morning (8am-12pm)</option>
+                        <option value="afternoon">Afternoon (12pm-5pm)</option>
+                        <option value="evening">Evening (5pm-8pm)</option>
+                        <option value="any">Any time / ASAP</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="brand">Appliance Brand (if known)</label>
+                    <input type="text" id="brand" name="brand" placeholder="Whirlpool, Samsung, GE, etc.">
+                </div>
+                
+                <div class="form-group consent">
+                    <input type="checkbox" id="consent" name="consent" required>
+                    <label for="consent">I agree to receive service updates and tracking notifications via text and email. I understand standard message rates may apply.</label>
+                </div>
+                
+                <button type="submit" class="submit-btn">Submit Request</button>
+            </form>
+            
+            <div class="success-message" id="successMessage">
+                <h3>✅ Request Received!</h3>
+                <p>Thank you! We've received your request and a technician will contact you shortly to confirm the appointment.</p>
+                <p style="margin-top: 1rem; font-size: 0.9rem;">Check your phone for a confirmation message.</p>
+            </div>
+        </div>
+    </section>
+    
+    <footer class="footer">
+        <p>© 2026 <a href="https://reviewsnearme.com">ReviewsNearMe</a> — Connecting you with verified local professionals</p>
+    </footer>
+    
+    <script>
+        // Simple form handling - sends to a Google Sheet or can be extended
+        document.getElementById('leadForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
+            
+            // Collect form data
+            const formData = {
+                name: document.getElementById('name').value,
+                phone: document.getElementById('phone').value,
+                email: document.getElementById('email').value,
+                address: document.getElementById('address').value,
+                appliance: document.getElementById('appliance').value,
+                issue: document.getElementById('issue').value,
+                preferred_time: document.getElementById('preferred_time').value,
+                brand: document.getElementById('brand').value,
+                consent: document.getElementById('consent').checked,
+                submitted_at: new Date().toISOString()
+            };
+            
+            // Log to console for now (can connect to backend later)
+            console.log('Lead submitted:', formData);
+            
+            // Show success message
+            document.getElementById('leadForm').style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+            
+            // In production, you'd send this to a backend:
+            // fetch('/api/leads', { method: 'POST', body: JSON.stringify(formData) })
+        });
+    </script>
+</body>
+</html>
