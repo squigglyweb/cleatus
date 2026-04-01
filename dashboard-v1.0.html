@@ -1,0 +1,421 @@
+<!-- CHS VendorPrint Dashboard v1.0 -->
+<div id="vp-dashboard">
+ <div style="max-width:1100px;margin:0 auto;padding:16px;color:#6b7280">Loading dashboard…</div>
+</div>
+
+<style>
+/* ===== base ===== */
+#vp-dashboard{font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,'Helvetica Neue',Arial;color:#111827}
+#vp-dashboard *{box-sizing:border-box}
+.vp-wrap{max-width:1100px;margin:0 auto;padding:16px}
+.grid{display:grid;gap:14px}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid #1d3557;background:#1d3557;color:#fff;border-radius:10px;padding:10px 16px;cursor:pointer;font-size:14px}
+.btn.ghost{background:#fff;color:#1d3557}
+.btn.small{padding:6px 12px;font-size:13px}
+.panel{background:#fff;border:1px solid #cbd5e1;border-radius:14px;padding:16px;margin-bottom:16px}
+.h2{background:#0b2a5c;color:#fff;padding:12px 16px;border-radius:12px;font-size:16px;font-weight:800;margin:0 0 14px}
+
+/* ===== stats ===== */
+.stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:20px}
+.stat-card{background:#fff;border:1px solid #cbd5e1;border-radius:12px;padding:16px;text-align:center}
+.stat-num{font-size:28px;font-weight:800;color:#0b2a5c}
+.stat-label{font-size:12px;color:#64748b;margin-top:4px}
+.stat-card.active{border-color:#3b82f6;background:#eff6ff}
+.stat-card.delivered{border-color:#16a34a;background:#f0fdf4}
+
+/* ===== orders table ===== */
+.order-table{width:100%;border-collapse:collapse;font-size:13px}
+.order-table th{text-align:left;padding:10px 12px;background:#f8fafc;border-bottom:2px solid #e2e8f0;font-size:12px;color:#475569}
+.order-table td{padding:12px;border-bottom:1px solid #f1f5f9}
+.order-table tr:hover{background:#f8fafc}
+.order-table .status{font-weight:600;font-size:12px;padding:4px 10px;border-radius:20px;display:inline-block}
+.status-pending{background:#fef3c7;color:#b45309}
+.status-approved{background:#dbeafe;color:#1d4ed8}
+.status-in-production{background:#e0e7ff;color:#4338ca}
+.status-shipped{background:#fce7f3;color:#be185d}
+.status-delivered{background:#dcfce7;color:#15803d}
+
+/* ===== inventory ===== */
+.inv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.inv-card{border:1px solid #e5e7eb;border-radius:10px;padding:12px;background:#fff}
+.inv-card.low{border-color:#f59e0b;background:#fffbeb}
+.inv-card.reorder{border-color:#ef4444;background:#fef2f2}
+.inv-name{font-weight:700;font-size:14px;margin-bottom:4px}
+.inv-qty{font-size:13px;color:#64748b}
+.inv-badge{font-size:11px;padding:2px 8px;border-radius:10px;margin-left:8px}
+.inv-badge.good{background:#dcfce7;color:#15803d}
+.inv-badge.low{background:#fef3c7;color:#b45309}
+.inv-badge.reorder{background:#fee2e2;color:#dc2626}
+
+/* ===== tabs ===== */
+.tabs{display:flex;gap:4px;border-bottom:1px solid #e5e7eb;margin-bottom:16px}
+.tab{padding:10px 20px;cursor:pointer;font-size:14px;font-weight:600;color:#64748b;border-bottom:2px solid transparent}
+.tab:hover{color:#1d3557}
+.tab.active{color:#0b2a5c;border-bottom-color:#0b2a5c}
+
+/* ===== reorder modal ===== */
+.reorder-modal{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:999999}
+.reorder-modal.show{display:flex}
+.modal-body{background:#fff;border-radius:16px;padding:24px;max-width:500px;width:90%;max-height:90vh;overflow-y:auto}
+.modal-title{font-size:18px;font-weight:800;margin-bottom:16px}
+.modal-field{margin-bottom:12px}
+.modal-field label{display:block;font-size:12px;font-weight:600;color:#374151;margin-bottom:4px}
+.modal-field input,.modal-field textarea{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px}
+.modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px}
+
+/* ===== empty state ===== */
+.empty{text-align:center;padding:30px;color:#94a3b8}
+
+/* ===== loading ===== */
+.loading{text-align:center;padding:40px;color:#94a3b8}
+</style>
+
+<script>
+(function(){
+ /* Config */
+ const API_URL = "https://script.google.com/macros/s/AKfycby6j5v-45VEyew0buXsvmbnPQYCnyg8bByjiuRgcdXgdRCjnl7Bln4tS83nBYxTiHnz/exec";
+ const TOKEN = "d!dxQPNM38zm";
+ const USER_EMAIL = "bryan.somers@housingservices.com"; // TODO: make dynamic
+
+ /* Utils */
+ const qs = s => document.querySelector(s);
+ const toast = m => {
+   const d = document.createElement('div');
+   d.style.cssText = 'position:fixed;left:50%;top:12px;transform:translateX(-50%);background:#0f172a;color:#fff;padding:8px 16px;border-radius:10px;font-size:14px;z-index:999999';
+   d.textContent = m;
+   document.body.appendChild(d);
+   setTimeout(() => d.remove(), 2000);
+ };
+
+ function jsonp(action, payload) {
+   return new Promise((resolve, reject) => {
+     const cb = 'dash_cb_' + Math.random().toString(36).slice(2);
+     const s = document.createElement('script');
+     const q = new URLSearchParams({ action, token: TOKEN, callback: cb, t: Date.now() });
+     if (payload) q.set('payload', JSON.stringify(payload));
+     s.src = API_URL + (API_URL.includes('?') ? '&' : '?') + q.toString();
+     window[cb] = data => { resolve(data || {}); cleanup(); };
+     s.onerror = () => { reject(new Error('network')); cleanup(); };
+     document.head.appendChild(s);
+     function cleanup() { try { delete window[cb]; document.head.removeChild(s); } catch {} }
+     setTimeout(() => { reject(new Error('timeout')); cleanup(); }, 12000);
+   });
+ }
+
+ /* State */
+ let state = {
+   activeTab: 'active',
+   stats: {},
+   activeOrders: [],
+   pastOrders: [],
+   inventory: []
+ };
+
+ /* Status helpers */
+ function statusClass(s) {
+   const ss = String(s).toLowerCase();
+   if (ss.includes('production')) return 'status-in-production';
+   if (ss.includes('shipp')) return 'status-shipped';
+   if (ss.includes('deliver')) return 'status-delivered';
+   if (ss.includes('approv')) return 'status-approved';
+   return 'status-pending';
+ }
+
+ function statusLabel(s) {
+   return String(s || 'PENDING').toUpperCase();
+ }
+
+ /* Render stats */
+ function renderStats() {
+   const s = state.stats;
+   return `
+     <div class="stats-row">
+       <div class="stat-card active">
+         <div class="stat-num">${s.inProduction || 0}</div>
+         <div class="stat-label">In Production</div>
+       </div>
+       <div class="stat-card delivered">
+         <div class="stat-num">${s.delivered || 0}</div>
+         <div class="stat-label">Delivered</div>
+       </div>
+       <div class="stat-card">
+         <div class="stat-num">${s.thisMonth || 0}</div>
+         <div class="stat-label">This Month</div>
+       </div>
+       <div class="stat-card">
+         <div class="stat-num">${s.total || 0}</div>
+         <div class="stat-label">Total Orders</div>
+       </div>
+     </div>
+   `;
+ }
+
+ /* Render active orders */
+ function renderActiveOrders() {
+   if (!state.activeOrders.length) {
+     return `<div class="empty">No orders currently in production</div>`;
+   }
+   
+   let html = `
+     <table class="order-table">
+       <thead>
+         <tr>
+           <th>Order #</th>
+           <th>Name</th>
+           <th>Qty</th>
+           <th>Status</th>
+           <th>Last Update</th>
+         </tr>
+       </thead>
+       <tbody>
+   `;
+   
+   state.activeOrders.forEach(o => {
+     const statusDt = o.statusChangedAt || o.timestamp;
+     const dt = statusDt ? new Date(statusDt).toLocaleDateString() : '-';
+     html += `
+       <tr>
+         <td><b>${o.orderId}</b></td>
+         <td>${o.name || '-'}</td>
+         <td>${o.qty}</td>
+         <td><span class="status ${statusClass(o.status)}">${statusLabel(o.status)}</span></td>
+         <td>${dt}</td>
+       </tr>
+     `;
+   });
+   
+   html += '</tbody></table>';
+   return html;
+ }
+
+ /* Render past orders */
+ function renderPastOrders() {
+   if (!state.pastOrders.length) {
+     return `<div class="empty">No past orders</div>`;
+   }
+   
+   let html = `
+     <table class="order-table">
+       <thead>
+         <tr>
+           <th>Order #</th>
+           <th>Name</th>
+           <th>Qty</th>
+           <th>Status</th>
+           <th>Date</th>
+           <th>Action</th>
+         </tr>
+       </thead>
+       <tbody>
+   `;
+   
+   state.pastOrders.forEach(o => {
+     const dt = o.timestamp ? new Date(o.timestamp).toLocaleDateString() : '-';
+     html += `
+       <tr>
+         <td><b>${o.orderId}</b></td>
+         <td>${o.name || '-'}</td>
+         <td>${o.qty}</td>
+         <td><span class="status ${statusClass(o.status)}">${statusLabel(o.status)}</span></td>
+         <td>${dt}</td>
+         <td><button class="btn small ghost" data-reorder="${o.orderId}">Reorder</button></td>
+       </tr>
+     `;
+   });
+   
+   html += '</tbody></table>';
+   return html;
+ }
+
+ /* Render inventory */
+ function renderInventory() {
+   if (!state.inventory.length) {
+     return `<div class="empty">No inventory items</div>`;
+   }
+   
+   let html = '<div class="inv-grid">';
+   
+   state.inventory.forEach(item => {
+     const onHand = Number(item.onHand || 0);
+     const low = Number(item.low || 0);
+     const reorder = Number(item.reorder || 0);
+     
+     let badgeClass = 'good';
+     let badgeText = 'Good';
+     if (onHand <= reorder) {
+       badgeClass = 'reorder';
+       badgeText = 'Reorder';
+     } else if (onHand <= low) {
+       badgeClass = 'low';
+       badgeText = 'Low';
+     }
+     
+     html += `
+       <div class="inv-card ${badgeClass === 'reorder' ? 'reorder' : (badgeClass === 'low' ? 'low' : '')}">
+         <div class="inv-name">${item.name || item.id}</div>
+         <div class="inv-qty">On hand: <b>${onHand}</b></div>
+         <div style="margin-top:4px;font-size:11px;color:#94a3b8">Low: ${low} • Reorder: ${reorder}</div>
+         <span class="inv-badge ${badgeClass}">${badgeText}</span>
+       </div>
+     `;
+   });
+   
+   html += '</div>';
+   return html;
+ }
+
+ /* Main render */
+ function render() {
+   const root = document.getElementById('vp-dashboard');
+   if (!root) return;
+   
+   root.innerHTML = `
+     <div class="vp-wrap">
+       <div class="h2">📊 Dashboard</div>
+       
+       ${renderStats()}
+       
+       <div class="panel">
+         <div class="tabs">
+           <div class="tab ${state.activeTab === 'active' ? 'active' : ''}" data-tab="active">Active Orders</div>
+           <div class="tab ${state.activeTab === 'past' ? 'active' : ''}" data-tab="past">Past Orders</div>
+           <div class="tab ${state.activeTab === 'inventory' ? 'active' : ''}" data-tab="inventory">Inventory</div>
+         </div>
+         
+         ${state.activeTab === 'active' ? renderActiveOrders() : ''}
+         ${state.activeTab === 'past' ? renderPastOrders() : ''}
+         ${state.activeTab === 'inventory' ? renderInventory() : ''}
+       </div>
+       
+       <div class="panel">
+         <div class="h2" style="background:#16a34a;margin-bottom:0">➕ New Order</div>
+         <div style="padding:16px">
+           <p style="margin:0;color:#64748b">Ready to order business cards?</p>
+           <button class="btn" style="margin-top:12px" onclick="window.location.href='?page=order'">Start New Order</button>
+         </div>
+       </div>
+     </div>
+     
+     <!-- Reorder Modal -->
+     <div class="reorder-modal" id="reorderModal">
+       <div class="modal-body">
+         <div class="modal-title">Reorder from Past Order</div>
+         <div id="reorderContent"></div>
+       </div>
+     </div>
+   `;
+ }
+
+ /* Load data */
+ async function loadData() {
+   try {
+     // Quick stats
+     const stats = await jsonp('dashboard.quickStats', { email: USER_EMAIL });
+     if (stats && stats.ok) state.stats = stats;
+     
+     // All orders (for active + past split)
+     const orders = await jsonp('orders.myOrders', { email: USER_EMAIL, limit: 50 });
+     if (orders && orders.ok && orders.orders) {
+       // Active = in production, shipped, approved, submitted
+       const activeStatuses = ['APPROVED', 'SUBMITTED', 'IN PRODUCTION', 'SHIPPED'];
+       state.activeOrders = orders.orders.filter(o => activeStatuses.some(s => String(o.status).toUpperCase().includes(s)));
+       state.pastOrders = orders.orders.filter(o => !activeStatuses.some(s => String(o.status).toUpperCase().includes(s)));
+     }
+     
+     // Inventory (using existing endpoint if available)
+     try {
+       const inv = await jsonp('inventory.list', {});
+       if (inv && inv.ok && inv.items) {
+         state.inventory = inv.items;
+       }
+     } catch(e) {
+       // Inventory endpoint might not exist yet
+       state.inventory = [];
+     }
+     
+     render();
+   } catch(err) {
+     console.error('Dashboard load error:', err);
+     qs('#vp-dashboard').innerHTML = '<div class="vp-wrap"><div class="panel">Failed to load dashboard. Please refresh.</div></div>';
+   }
+ }
+
+ /* Events */
+ document.addEventListener('click', e => {
+   // Tab switch
+   const tab = e.target.closest('[data-tab]');
+   if (tab) {
+     state.activeTab = tab.dataset.tab;
+     render();
+     return;
+   }
+   
+   // Reorder button
+   const reorder = e.target.closest('[data-reorder]');
+   if (reorder) {
+     const orderId = reorder.dataset.reorder;
+     const order = state.pastOrders.find(o => o.orderId === orderId);
+     if (order) {
+       showReorderModal(order);
+     }
+     return;
+   }
+   
+   // Close modal
+   if (e.target.classList.contains('reorder-modal')) {
+     e.target.classList.remove('show');
+   }
+   
+   // Cancel reorder
+   if (e.target.dataset.cancelReorder) {
+     qs('#reorderModal').classList.remove('show');
+   }
+ });
+
+ function showReorderModal(order) {
+   const content = qs('#reorderContent');
+   content.innerHTML = `
+     <div class="modal-field">
+       <label>Order #</label>
+       <input value="${order.orderId}" disabled>
+     </div>
+     <div class="modal-field">
+       <label>Name</label>
+       <input id="reorderName" value="${order.name || ''}">
+     </div>
+     <div class="modal-field">
+       <label>Title</label>
+       <input id="reorderTitle" value="${order.title || ''}">
+     </div>
+     <div class="modal-field">
+       <label>Quantity</label>
+       <input type="number" id="reorderQty" value="${order.qty || 250}" min="1">
+     </div>
+     <div class="modal-field">
+       <label>Ship To</label>
+       <textarea id="reorderShipTo" rows="2">${order.shipTo || ''}</textarea>
+     </div>
+     <div class="modal-actions">
+       <button class="btn ghost" data-cancel-reorder>Cancel</button>
+       <button class="btn" id="confirmReorder">Proceed to Order</button>
+     </div>
+   `;
+   
+   qs('#reorderModal').classList.add('show');
+   
+   qs('#confirmReorder').onclick = () => {
+     // Pack data and redirect to order page with pre-filled fields
+     const params = new URLSearchParams({
+       name: qs('#reorderName').value,
+       title: qs('#reorderTitle').value,
+       qty: qs('#reorderQty').value,
+       shipTo: qs('#reorderShipTo').value
+     });
+     window.location.href = '?page=order&' + params.toString();
+   };
+ }
+
+ /* Init */
+ loadData();
+})();
+</script>
