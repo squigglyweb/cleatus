@@ -236,13 +236,14 @@
     .nb-status.loss { background: #fce8e6; color: var(--nb-red); }
     
     .nb-selection-bar {
-        background: var(--nb-yellow);
-        color: #333;
-        padding: 10px 20px;
+        background: linear-gradient(135deg, #ff9800, #f57c00);
+        color: white;
+        padding: 15px 20px;
         text-align: center;
-        font-weight: 500;
-        font-size: 0.85rem;
+        font-weight: 600;
+        font-size: 0.95rem;
         display: none;
+        border-radius: 0 0 8px 8px;
     }
     
     .nb-selection-bar.show {
@@ -250,13 +251,14 @@
     }
     
     .nb-help-text {
-        background: #e3f2fd;
-        border: 1px solid #2196f3;
-        padding: 10px 15px;
+        background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+        border: 2px solid #4caf50;
+        padding: 12px 15px;
         margin: 10px 20px;
-        border-radius: 6px;
-        font-size: 0.8rem;
-        color: #1565c0;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        color: #2e7d32;
+        font-weight: 500;
     }
     
     /* Controls Section */
@@ -443,8 +445,8 @@
     
     <div class="nb-selection-bar" id="nbSelectionBar">
         <span id="nbSelectionText">0 spots selected</span>
-        <button class="nb-btn nb-btn-warning" style="margin-left:10px;padding:6px 12px;font-size:0.8rem" onclick="nbCombineSelected()">Combine Selected</button>
-        <button class="nb-btn nb-btn-secondary" style="margin-left:5px;padding:6px 12px;font-size:0.8rem" onclick="nbClearSelection()">Clear</button>
+        <button class="nb-btn" style="margin-left:15px;padding:10px 20px;font-size:0.9rem;background:#fff;color:#f57c00;font-weight:bold;border:2px solid #f57c00;border-radius:20px" onclick="nbCombineSelected()">🔥 COMBINE SELECTED</button>
+        <button class="nb-btn" style="margin-left:10px;padding:10px 15px;font-size:0.85rem;background:rgba(255,255,255,0.3);color:white;border:1px solid white;border-radius:20px" onclick="nbClearSelection()">Clear ✕</button>
     </div>
     
     <!-- Stats Dashboard -->
