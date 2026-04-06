@@ -7,7 +7,8 @@
         --nb-blue: #d32f2f;
         --nb-green: #34a853;
         --nb-red: #ea4335;
-        --nb-yellow: #fbbc04;
+        --nb-yellow: #ffc107;
+        --nb-orange: #ff9800;
         --nb-bg: #f8f9fa;
     }
     
@@ -33,7 +34,7 @@
         font-size: 0.85rem;
     }
     
-    /* Postcard Visual - Now the Hero */
+    /* Postcard Visual */
     .nb-postcard-section {
         padding: 20px;
         text-align: center;
@@ -62,10 +63,6 @@
         padding: 15px;
     }
     
-    .nb-postcard-side.front {
-        background: #fafafa;
-    }
-    
     .nb-header-row {
         display: flex;
         justify-content: space-between;
@@ -84,7 +81,6 @@
         font-size: 0.4rem;
         color: #666;
         text-align: right;
-        line-height: 1.2;
     }
     
     .nb-row-label {
@@ -95,18 +91,8 @@
         letter-spacing: 0.5px;
     }
     
-    /* 9-Slot Grid (Initial State) */
-    .nb-ad-grid-9 {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 6px;
-        background: #333;
-        padding: 6px;
-        border-radius: 4px;
-    }
-    
-    /* 6-Slot Grid (After Combine) */
-    .nb-ad-grid-6 {
+    /* 9-Slot Grid - Always */
+    .nb-ad-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 6px;
@@ -130,18 +116,19 @@
         padding: 4px;
         aspect-ratio: 3.8/2.5;
         cursor: pointer;
+        position: relative;
     }
     
     .nb-ad-slot:hover {
         border-color: var(--nb-blue);
         transform: scale(1.02);
+        z-index: 1;
     }
     
     .nb-slot-number {
         font-weight: bold;
-        font-size: 0.65rem;
+        font-size: 0.7rem;
         color: var(--nb-blue);
-        margin-bottom: 1px;
     }
     
     .nb-slot-business {
@@ -159,34 +146,40 @@
         color: white;
     }
     
-    .nb-ad-slot.sold .nb-slot-number {
-        color: white;
-    }
-    
+    .nb-ad-slot.sold .nb-slot-number,
     .nb-ad-slot.sold .nb-slot-business {
         color: white;
     }
     
-    /* Duplex slot - spans 2 columns */
-    .nb-ad-slot.duplex {
+    /* Combined slot - stacks vertically */
+    .nb-ad-slot.combined {
         background: var(--nb-yellow);
         border-color: var(--nb-yellow);
         color: #333;
-        grid-column: span 2;
+        z-index: 2;
     }
     
-    .nb-ad-slot.duplex .nb-slot-business {
+    .nb-ad-slot.combined .nb-slot-number,
+    .nb-ad-slot.combined .nb-slot-business {
         color: #333;
     }
     
-    .nb-ad-slot.selected {
-        border: 3px solid var(--nb-yellow) !important;
-        box-shadow: 0 0 0 2px var(--nb-yellow);
+    /* Show the consumed slot as stacked below */
+    .nb-ad-slot.consumed {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--nb-yellow);
+        border: 1px solid var(--nb-yellow);
+        font-size: 0.35rem;
+        color: #333;
+        padding: 2px;
     }
     
-    .nb-ad-slot.consumed {
-        opacity: 0.2;
-        pointer-events: none;
+    .nb-ad-slot.selected {
+        border: 3px solid var(--nb-orange) !important;
+        box-shadow: 0 0 0 2px var(--nb-orange);
     }
     
     /* Stats Dashboard */
@@ -231,10 +224,11 @@
         font-size: 0.85rem;
     }
     
-    .nb-status.break-even { background: #e6f4ea; color: var(--nb-green); }
-    .nb-status.profit { background: #e6f4ea; color: var(--nb-green); }
-    .nb-status.loss { background: #fce8e6; color: var(--nb-red); }
+    .nb-status.break-even { background: #e8f5e9; color: var(--nb-green); }
+    .nb-status.profit { background: #e8f5e9; color: var(--nb-green); }
+    .nb-status.loss { background: #ffebee; color: var(--nb-red); }
     
+    /* Combine Selection Bar */
     .nb-selection-bar {
         background: linear-gradient(135deg, #ff9800, #f57c00);
         color: white;
@@ -292,7 +286,7 @@
     .nb-btn-primary:hover { background: #b71c1c; }
     
     .nb-btn-warning { background: var(--nb-yellow); color: #333; }
-    .nb-btn-warning:hover { background: #e9a800; }
+    .nb-btn-warning:hover { background: #ffb300; }
     
     .nb-btn-danger { background: var(--nb-red); color: white; }
     .nb-btn-danger:hover { background: #c5221f; }
@@ -420,7 +414,7 @@
     
     <!-- Postcard Visual -->
     <div class="nb-postcard-section">
-        <h3>Ad Template</h3>
+        <h3>Ad Template - Click any spot to sell or combine</h3>
         
         <div class="nb-postcard">
             <div class="nb-postcard-side front">
@@ -429,18 +423,14 @@
                     <div class="nb-mail-indicia">ECRWSS<br>POSTAL INFO</div>
                 </div>
                 
-                <!-- 9-Slot Layout -->
-                <div class="nb-row-label">Standard Ad Spaces</div>
-                <div class="nb-ad-grid-9" id="nbGrid9"></div>
-                
-                <!-- 6-Slot Layout (hidden initially) -->
-                <div class="nb-ad-grid-6" id="nbGrid6" style="display:none;"></div>
+                <div class="nb-row-label">Ad Spaces - Click to Sell</div>
+                <div class="nb-ad-grid" id="nbAdGrid"></div>
             </div>
         </div>
     </div>
     
-    <div class="nb-help-text" id="nbHelpText">
-        💡 Click any available spot to assign a business. To combine 2 spots into one Duplex, select 2 spots first.
+    <div class="nb-help-text">
+        💡 <strong>Click any slot</strong> to sell it. <strong>Select 2 slots</strong> then click "COMBINE" to merge them into one Duplex spot ($900).
     </div>
     
     <div class="nb-selection-bar" id="nbSelectionBar">
@@ -478,7 +468,7 @@
     </div>
     
     <div class="nb-status" id="nbStatus">
-        Click any available spot to assign a business!
+        Click any available spot to sell it!
     </div>
     
     <!-- Controls -->
@@ -515,11 +505,10 @@
     const STANDARD_PRICE = 450;
     const DUPLEX_PRICE = 900;
     
-    // State
+    // 9 slots: S-1 through S-9
     let slots = [];
     let selectedSlots = [];
     let currentEditSlot = null;
-    let hasCombined = false;
     
     function initSlots() {
         slots = [];
@@ -527,9 +516,10 @@
             slots.push({
                 index: i,
                 spotId: 'S-' + (i + 1),
-                status: 'available',
+                status: 'available', // available, sold, combined, consumed
                 business: '',
-                price: STANDARD_PRICE
+                price: STANDARD_PRICE,
+                combinedWith: null // index of other slot in combo
             });
         }
     }
@@ -559,7 +549,7 @@
         var statusEl = document.getElementById('nbStatus');
         if (revenue === 0) {
             statusEl.className = 'nb-status';
-            statusEl.textContent = 'Click any available spot to assign a business!';
+            statusEl.textContent = 'Click any available spot to sell it!';
         } else if (profit < 0) {
             statusEl.className = 'nb-status loss';
             statusEl.textContent = '$' + Math.abs(profit).toLocaleString() + ' until break-even';
@@ -571,20 +561,7 @@
             statusEl.textContent = '$${profit.toLocaleString()} profit!';
         }
         
-        // Show appropriate grid
-        var grid9 = document.getElementById('nbGrid9');
-        var grid6 = document.getElementById('nbGrid6');
-        
-        if (hasCombined) {
-            grid9.style.display = 'none';
-            grid6.style.display = 'grid';
-            renderGrid6();
-        } else {
-            grid9.style.display = 'grid';
-            grid6.style.display = 'none';
-            renderGrid9();
-        }
-        
+        renderGrid();
         updateSelectionBar();
         renderAdList();
     }
@@ -601,96 +578,76 @@
         }
     }
     
-    function renderGrid9() {
-        var grid = document.getElementById('nbGrid9');
+    function renderGrid() {
+        var grid = document.getElementById('nbAdGrid');
         grid.innerHTML = '';
         
         slots.forEach(function(slot) {
-            var el = createSlotElement(slot);
-            grid.appendChild(el);
-        });
-    }
-    
-    function renderGrid6() {
-        var grid = document.getElementById('nbGrid6');
-        grid.innerHTML = '';
-        
-        // 6-slot layout: top row S-1,S-2,S-3 (standard)
-        // bottom row: S-4 (duplex or standard), S-5, S-6 (standard)
-        // Mapping: 9-slot indices to 6-slot view
-        var mapping = [0, 1, 2, 3, 4, 5]; // First 6 slots
-        
-        mapping.forEach(function(originalIdx) {
-            var slot = slots[originalIdx];
-            var el = createSlotElement(slot);
+            var el = document.createElement('div');
+            el.className = 'nb-ad-slot';
+            el.id = 'nbSlot-' + slot.index;
             
-            // If this is slot 3 (index 3, which is S-4), it's the first slot of bottom row
-            // Could be duplex if combined
-            if (originalIdx === 3 && slot.status === 'combined') {
-                el.classList.add('duplex');
+            // Slot number always shown
+            var numberEl = document.createElement('div');
+            numberEl.className = 'nb-slot-number';
+            numberEl.textContent = slot.spotId;
+            el.appendChild(numberEl);
+            
+            if (slot.status === 'available') {
+                el.textContent = 'Click to Sell';
+                
+                if (selectedSlots.indexOf(slot.index) !== -1) {
+                    el.classList.add('selected');
+                }
+                
+                el.onclick = function() { nbToggleSelection(slot.index); };
+            } else if (slot.status === 'sold') {
+                el.classList.add('sold');
+                el.onclick = function() { nbOpenAssignModal(slot.index); };
+                
+                var businessEl = document.createElement('div');
+                businessEl.className = 'nb-slot-business';
+                businessEl.textContent = slot.business || 'SOLD';
+                el.appendChild(businessEl);
+            } else if (slot.status === 'combined') {
+                el.classList.add('combined');
+                el.onclick = function() { nbOpenAssignModal(slot.index); };
+                
+                var businessEl = document.createElement('div');
+                businessEl.className = 'nb-slot-business';
+                businessEl.textContent = slot.business || 'DUPLEX';
+                el.appendChild(businessEl);
+                
+                // Show consumed slot stacked below
+                if (slot.combinedWith !== null) {
+                    var consumedEl = document.createElement('div');
+                    consumedEl.className = 'nb-ad-slot consumed';
+                    consumedEl.textContent = slots[slot.combinedWith].spotId;
+                    el.appendChild(consumedEl);
+                }
+            } else if (slot.status === 'consumed') {
+                // Hide consumed slots entirely
+                el.style.display = 'none';
             }
             
             grid.appendChild(el);
         });
-    }
-    
-    function createSlotElement(slot) {
-        var el = document.createElement('div');
-        el.className = 'nb-ad-slot';
-        
-        var numberEl = document.createElement('div');
-        numberEl.className = 'nb-slot-number';
-        numberEl.textContent = slot.spotId;
-        el.appendChild(numberEl);
-        
-        if (slot.status === 'available') {
-            el.textContent = 'Available';
-            
-            if (selectedSlots.indexOf(slot.index) !== -1) {
-                el.classList.add('selected');
-            }
-            
-            el.onclick = function() { nbToggleSelection(slot.index); };
-        } else if (slot.status === 'sold') {
-            el.classList.add('sold');
-            el.onclick = function() { nbOpenAssignModal(slot.index); };
-            
-            var businessEl = document.createElement('div');
-            businessEl.className = 'nb-slot-business';
-            businessEl.textContent = slot.business || 'SOLD';
-            el.appendChild(businessEl);
-        } else if (slot.status === 'combined') {
-            el.classList.add('duplex');
-            el.onclick = function() { nbOpenAssignModal(slot.index); };
-            
-            var businessEl = document.createElement('div');
-            businessEl.className = 'nb-slot-business';
-            businessEl.textContent = slot.business || 'DUPLEX';
-            el.appendChild(businessEl);
-        } else if (slot.status === 'consumed') {
-            el.classList.add('consumed');
-            el.textContent = '';
-            el.style.display = 'none'; // Hide consumed slots
-        }
-        
-        return el;
     }
     
     function renderAdList() {
         var list = document.getElementById('nbAdList');
         
-        // Get first 6 slots for display
-        var displaySlots = slots.slice(0, 6).filter(function(s) { 
+        var soldSlots = slots.filter(function(s) { 
             return s.status === 'sold' || s.status === 'combined'; 
         });
         
-        if (displaySlots.length === 0) {
+        if (soldSlots.length === 0) {
             list.innerHTML = '<p class="nb-empty">No ads sold yet.</p>';
             return;
         }
         
         list.innerHTML = '';
-        displaySlots.forEach(function(ad) {
+        soldSlots.forEach(function(ad) {
             var item = document.createElement('div');
             item.className = 'nb-ad-item' + (ad.status === 'combined' ? ' combined-item' : '');
             
@@ -706,11 +663,17 @@
         });
     }
     
+    // Toggle selection for combining
     window.nbToggleSelection = function(idx) {
         var slot = slots[idx];
         
-        if (slot.status !== 'available') return;
+        if (slot.status === 'sold' || slot.status === 'combined') {
+            // Already sold - open modal to edit
+            nbOpenAssignModal(idx);
+            return;
+        }
         
+        // Available - toggle selection
         var pos = selectedSlots.indexOf(idx);
         if (pos !== -1) {
             selectedSlots.splice(pos, 1);
@@ -723,27 +686,29 @@
         updateDashboard();
     };
     
+    // Combine selected slots
     window.nbCombineSelected = function() {
         if (selectedSlots.length !== 2) {
             alert('Please select exactly 2 spots to combine.');
             return;
         }
         
-        selectedSlots.sort(function(a, b) { return a - b; });
+        var idx1 = selectedSlots[0];
+        var idx2 = selectedSlots[1];
         
-        var firstIdx = selectedSlots[0];
+        // First slot becomes combined
+        slots[idx1].status = 'combined';
+        slots[idx1].price = DUPLEX_PRICE;
+        slots[idx1].combinedWith = idx2;
         
-        // Mark combined and consumed
-        slots[firstIdx].status = 'combined';
-        slots[firstIdx].price = DUPLEX_PRICE;
+        // Second slot becomes consumed
+        slots[idx2].status = 'consumed';
+        slots[idx2].combinedWith = idx1;
         
-        slots[selectedSlots[1]].status = 'consumed';
-        
-        hasCombined = true;
         selectedSlots = [];
         
-        // Open modal
-        nbOpenAssignModal(firstIdx);
+        // Open modal to assign business
+        nbOpenAssignModal(idx1);
     };
     
     window.nbClearSelection = function() {
@@ -751,11 +716,12 @@
         updateDashboard();
     };
     
+    // Modal functions
     window.nbOpenAssignModal = function(idx) {
         currentEditSlot = idx;
         var slot = slots[idx];
         
-        var title = slot.status === 'combined' ? 'Assign Duplex ' + slot.spotId : 'Assign ' + slot.spotId;
+        var title = slot.status === 'combined' ? 'Assign ' + slot.spotId + ' (Duplex)' : 'Assign ' + slot.spotId;
         document.getElementById('nbModalTitle').textContent = title;
         document.getElementById('nbBusinessName').value = slot.business || '';
         document.getElementById('nbModal').classList.add('show');
@@ -772,6 +738,13 @@
         
         if (currentEditSlot !== null) {
             var slot = slots[currentEditSlot];
+            
+            // If selling an available slot for the first time
+            if (slot.status === 'available') {
+                slot.status = 'sold';
+                slot.price = STANDARD_PRICE;
+            }
+            
             slot.business = name;
         }
         
@@ -783,23 +756,21 @@
         var slot = slots[idx];
         
         if (slot.status === 'combined') {
+            // Uncombine
+            var otherIdx = slot.combinedWith;
+            
             slot.status = 'available';
             slot.business = '';
             slot.price = STANDARD_PRICE;
+            slot.combinedWith = null;
             
-            // Find and unconsume
-            if (idx > 0 && slots[idx-1].status === 'consumed') {
-                slots[idx-1].status = 'available';
-            } else if (idx < 8 && slots[idx+1].status === 'consumed') {
-                slots[idx+1].status = 'available';
-            }
-            
-            // Check if no more combined - could revert to 9-grid
-            var anyCombined = slots.some(function(s) { return s.status === 'combined'; });
-            if (!anyCombined) {
-                hasCombined = false;
+            // Free the consumed slot
+            if (otherIdx !== null) {
+                slots[otherIdx].status = 'available';
+                slots[otherIdx].combinedWith = null;
             }
         } else {
+            // Regular unsell
             slot.status = 'available';
             slot.business = '';
             slot.price = STANDARD_PRICE;
@@ -812,7 +783,6 @@
         if (confirm('Reset all sold ads?')) {
             initSlots();
             selectedSlots = [];
-            hasCombined = false;
             updateDashboard();
         }
     };
