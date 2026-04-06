@@ -1,0 +1,587 @@
+<!-- NearBuy Postcard Tracker - Divi Embed Version -->
+<!-- Paste this entire block into a Divi Code Module -->
+
+<style>
+    .nb-tracker-wrapper {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        --nb-blue: #1a73e8;
+        --nb-green: #34a853;
+        --nb-red: #ea4335;
+        --nb-yellow: #fbbc04;
+        --nb-bg: #f8f9fa;
+    }
+    
+    .nb-tracker-wrapper * {
+        box-sizing: border-box;
+    }
+    
+    .nb-tracker-header {
+        background: var(--nb-blue);
+        color: white;
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .nb-tracker-header h2 {
+        margin: 0 0 5px;
+        font-size: 1.4rem;
+    }
+    
+    .nb-tracker-header p {
+        margin: 0;
+        opacity: 0.9;
+        font-size: 0.85rem;
+    }
+    
+    .nb-dashboard {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        padding: 20px;
+        background: var(--nb-bg);
+    }
+    
+    .nb-stat {
+        background: white;
+        padding: 15px 10px;
+        border-radius: 8px;
+        text-align: center;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+    
+    .nb-stat-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        color: #666;
+        margin-bottom: 5px;
+        font-weight: 600;
+    }
+    
+    .nb-stat-value {
+        font-size: 1.3rem;
+        font-weight: bold;
+    }
+    
+    .nb-stat-value.green { color: var(--nb-green); }
+    .nb-stat-value.red { color: var(--nb-red); }
+    .nb-stat-value.yellow { color: var(--nb-yellow); }
+    
+    /* Postcard Visual */
+    .nb-postcard-section {
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .nb-postcard-section h3 {
+        font-size: 1rem;
+        margin: 0 0 15px;
+        color: #333;
+    }
+    
+    .nb-postcard {
+        display: inline-block;
+        width: 360px;
+        max-width: 100%;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+    }
+    
+    .nb-postcard-side {
+        padding: 12px;
+    }
+    
+    .nb-postcard-side.front {
+        background: #fafafa;
+    }
+    
+    .nb-postcard-side.back {
+        background: #fff;
+    }
+    
+    .nb-side-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #999;
+        margin-bottom: 8px;
+        font-weight: 600;
+    }
+    
+    /* Ad Grid - 6 spots: 3 top, 3 bottom */
+    .nb-ad-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 6px;
+    }
+    
+    /* Top row: 3 Standard ads */
+    .nb-standard-row {
+        display: contents;
+    }
+    
+    .nb-ad-slot {
+        background: white;
+        border: 2px dashed #ccc;
+        border-radius: 3px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.5rem;
+        color: #999;
+        font-weight: 500;
+        transition: all 0.2s;
+        text-align: center;
+        padding: 4px;
+    }
+    
+    /* Standard: 3.8" x 2.5" aspect */
+    .nb-ad-slot.standard {
+        aspect-ratio: 3.8/2.5;
+    }
+    
+    /* Premium: 3.8" x 5" - taller */
+    .nb-ad-slot.premium {
+        aspect-ratio: 3.8/5;
+    }
+    
+    .nb-ad-slot.sold {
+        background: var(--nb-green);
+        border-color: var(--nb-green);
+        border-style: solid;
+        color: white;
+    }
+    
+    /* Bottom row spacer for premium height */
+    .nb-premium-row {
+        display: contents;
+    }
+    
+    /* Mail indicia area */
+    .nb-header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+        padding: 0 4px;
+    }
+    
+    .nb-logo {
+        font-size: 0.7rem;
+        font-weight: bold;
+        color: #333;
+    }
+    
+    .nb-mail-indicia {
+        font-size: 0.45rem;
+        color: #666;
+        text-align: right;
+        line-height: 1.2;
+    }
+    
+    .nb-row-label {
+        font-size: 0.5rem;
+        text-transform: uppercase;
+        color: #999;
+        margin: 8px 0 6px;
+        letter-spacing: 0.5px;
+    }
+    
+    .nb-postcard-back-text {
+        font-size: 0.55rem;
+        color: #999;
+        line-height: 1.3;
+        padding: 8px;
+        background: #f8f8f8;
+        border-radius: 3px;
+        text-align: left;
+    }
+    
+    .nb-layout-name {
+        color: var(--nb-blue);
+        font-weight: 600;
+    }
+    
+    .nb-status {
+        padding: 12px 20px;
+        margin: 0 20px;
+        border-radius: 6px;
+        text-align: center;
+        font-weight: 500;
+        font-size: 0.9rem;
+    }
+    
+    .nb-status.break-even { background: #e6f4ea; color: var(--nb-green); }
+    .nb-status.profit { background: #e6f4ea; color: var(--nb-green); }
+    .nb-status.loss { background: #fce8e6; color: var(--nb-red); }
+    
+    .nb-alert {
+        background: #fef7e0;
+        border: 1px solid var(--nb-yellow);
+        padding: 12px 20px;
+        margin: 0 20px 15px;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        display: none;
+    }
+    
+    .nb-alert.show { display: block; }
+    
+    .nb-controls {
+        padding: 20px;
+    }
+    
+    .nb-controls h3 {
+        font-size: 1rem;
+        margin: 0 0 15px;
+    }
+    
+    .nb-buttons {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    
+    .nb-btn {
+        padding: 10px 18px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.85rem;
+        font-weight: 600;
+        transition: all 0.2s;
+    }
+    
+    .nb-btn-primary { background: var(--nb-blue); color: white; }
+    .nb-btn-primary:hover { background: #1557b0; }
+    
+    .nb-btn-success { background: var(--nb-green); color: white; }
+    .nb-btn-success:hover { background: #2d8e47; }
+    
+    .nb-btn-danger { background: var(--nb-red); color: white; }
+    .nb-btn-danger:hover { background: #c5221f; }
+    
+    .nb-ad-list {
+        margin-top: 20px;
+    }
+    
+    .nb-ad-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 12px;
+        background: var(--nb-bg);
+        border-radius: 6px;
+        margin-bottom: 6px;
+        font-size: 0.85rem;
+    }
+    
+    .nb-ad-item .type { font-weight: 500; }
+    .nb-ad-item .price { color: var(--nb-green); font-weight: 600; }
+    
+    .nb-empty {
+        color: #666;
+        font-size: 0.85rem;
+    }
+    
+    @media (max-width: 480px) {
+        .nb-dashboard { grid-template-columns: 1fr 1fr; }
+        .nb-postcard { width: 100%; }
+        .nb-postcard-side { padding: 8px; }
+        .nb-buttons { flex-direction: column; }
+        .nb-btn { width: 100%; }
+    }
+</style>
+
+<div class="nb-tracker-wrapper" id="nbTracker">
+    <div class="nb-tracker-header">
+        <h2>📮 NearBuy Postcard Tracker</h2>
+        <p>Campaign Revenue Management</p>
+    </div>
+    
+    <div class="nb-dashboard">
+        <div class="nb-stat">
+            <div class="nb-stat-label">Available</div>
+            <div class="nb-stat-value" id="nbAvailable">6</div>
+        </div>
+        <div class="nb-stat">
+            <div class="nb-stat-label">Sold</div>
+            <div class="nb-stat-value" id="nbSold">0</div>
+        </div>
+        <div class="nb-stat">
+            <div class="nb-stat-label">Revenue</div>
+            <div class="nb-stat-value green" id="nbRevenue">$0</div>
+        </div>
+        <div class="nb-stat">
+            <div class="nb-stat-label">Print Cost</div>
+            <div class="nb-stat-value" id="nbCost">$2,344</div>
+        </div>
+        <div class="nb-stat">
+            <div class="nb-stat-label">Profit</div>
+            <div class="nb-stat-value red" id="nbProfit">-$2,344</div>
+        </div>
+        <div class="nb-stat">
+            <div class="nb-stat-label">Max Possible</div>
+            <div class="nb-stat-value" id="nbMaxRevenue">$4,050</div>
+        </div>
+    </div>
+    
+    <!-- Postcard Visual -->
+    <div class="nb-postcard-section">
+        <h3>Current Layout: <span class="nb-layout-name" id="nbLayoutName">All Standard (6 spots)</span></h3>
+        
+        <div class="nb-postcard">
+            <!-- Front Side -->
+            <div class="nb-postcard-side front">
+                <!-- Header with logo + mail indicia -->
+                <div class="nb-header-row">
+                    <div class="nb-logo">🏘️ Local Nearby</div>
+                    <div class="nb-mail-indicia">
+                        ECRWSS<br>
+                        POSTAL INFORMAITON
+                    </div>
+                </div>
+                
+                <!-- Top Row: 3 Standard Ads -->
+                <div class="nb-row-label">Standard Ad (3.8" × 2.5")</div>
+                <div class="nb-ad-grid">
+                    <div class="nb-ad-slot standard" id="nbSlot0">Available</div>
+                    <div class="nb-ad-slot standard" id="nbSlot1">Available</div>
+                    <div class="nb-ad-slot standard" id="nbSlot2">Available</div>
+                </div>
+                
+                <!-- Bottom Row: 3 Premium/Duplex Ads -->
+                <div class="nb-row-label">Duplex Ad (3.8" × 5")</div>
+                <div class="nb-ad-grid">
+                    <div class="nb-ad-slot premium" id="nbSlot3">Available</div>
+                    <div class="nb-ad-slot premium" id="nbSlot4">Available</div>
+                    <div class="nb-ad-slot premium" id="nbSlot5">Available</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="nb-alert" id="nbAlert">
+        <strong>⚠️ Layout Change Required!</strong><br>
+        Current ad mix no longer fits revenue templates.<br>
+        <span id="nbAlertDetails"></span>
+    </div>
+    
+    <div class="nb-status" id="nbStatus">
+        Fill the grid to start generating revenue!
+    </div>
+    
+    <div class="nb-controls">
+        <h3>Sell Ad Space</h3>
+        <div class="nb-buttons">
+            <button class="nb-btn nb-btn-primary" onclick="nbSellAd('standard')">Sell Standard ($450)</button>
+            <button class="nb-btn nb-btn-success" onclick="nbSellAd('premium')">Sell Duplex ($750)</button>
+        </div>
+        
+        <div class="nb-ad-list" id="nbAdList">
+            <p class="nb-empty">No ads sold yet.</p>
+        </div>
+        
+        <div class="nb-buttons" style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee;">
+            <button class="nb-btn nb-btn-danger" onclick="nbReset()">Reset Campaign</button>
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    if (window.nbTrackerInitialized) return;
+    window.nbTrackerInitialized = true;
+    
+    const PRINT_COST = 2344;
+    const STANDARD_PRICE = 450;
+    const PREMIUM_PRICE = 750;
+    
+    // 6 slots: 0-2 are standard, 3-5 are premium
+    let soldAds = []; // array of {type, price}
+    
+    function updateDashboard() {
+        const standardsSold = soldAds.filter(function(ad) { return ad.type === 'standard'; }).length;
+        const premiumsSold = soldAds.filter(function(ad) { return ad.type === 'premium'; }).length;
+        const totalSold = soldAds.length;
+        
+        // Available: 3 standards, 3 premiums
+        const standardsAvailable = 3 - standardsSold;
+        const premiumsAvailable = 3 - premiumsSold;
+        const totalAvailable = standardsAvailable + premiumsAvailable;
+        
+        const revenue = (standardsSold * STANDARD_PRICE) + (premiumsSold * PREMIUM_PRICE);
+        const profit = revenue - PRINT_COST;
+        
+        // Max possible: remaining standards at standard price
+        const maxRevenue = (standardsAvailable * STANDARD_PRICE) + (premiumsAvailable * PREMIUM_PRICE);
+        
+        document.getElementById('nbAvailable').textContent = totalAvailable;
+        document.getElementById('nbSold').textContent = totalSold;
+        document.getElementById('nbRevenue').textContent = '$' + revenue.toLocaleString();
+        
+        var profitEl = document.getElementById('nbProfit');
+        profitEl.textContent = (profit >= 0 ? '$' : '-$') + Math.abs(profit).toLocaleString();
+        profitEl.className = 'nb-stat-value ' + (profit >= 0 ? 'green' : 'red');
+        
+        document.getElementById('nbMaxRevenue').textContent = '$' + maxRevenue.toLocaleString();
+        
+        // Status message
+        var statusEl = document.getElementById('nbStatus');
+        if (revenue === 0) {
+            statusEl.className = 'nb-status';
+            statusEl.textContent = 'Fill the grid to start generating revenue!';
+        } else if (profit < 0) {
+            statusEl.className = 'nb-status loss';
+            statusEl.textContent = '$' + Math.abs(profit).toLocaleString() + ' until break-even';
+        } else if (profit === 0) {
+            statusEl.className = 'nb-status break-even';
+            statusEl.textContent = '🎉 Break-even reached!';
+        } else {
+            statusEl.className = 'nb-status profit';
+            statusEl.textContent = '$${profit.toLocaleString()} profit!';
+        }
+        
+        // Check layout
+        checkLayout(standardsSold, premiumsSold, standardsAvailable, premiumsAvailable);
+        
+        // Render grid
+        renderGrid(standardsSold, premiumsSold);
+        
+        // Render ad list
+        renderAdList();
+    }
+    
+    function checkLayout(standardsSold, premiumsSold, standardsAvailable, premiumsAvailable) {
+        var layoutEl = document.getElementById('nbLayoutName');
+        var alertEl = document.getElementById('nbAlert');
+        
+        // Templates:
+        // - All Standard (6 spots) = 6 * 450 = $2,700
+        // - Mix (3 Std + 3 Prem) = (3*450) + (3*750) = $3,600
+        
+        var totalSold = standardsSold + premiumsSold;
+        
+        // Can we still hit one of the templates?
+        // Template 1: 6 standard (remaining: 3-standardsSold standards, 3 premiums)
+        // Actually initial is 3 std + 3 prem
+        // If we sell all 3 standard first -> 3 standard sold, 0 premium = $1,350 (less than template)
+        // Better templates:
+        
+        // If sold only standard: max is 3*450 = $1,350 (not a template)
+        // If sold mix (some std + some prem): can hit $3,600 if 3+3 sold
+        // If sold all premium first: 3*750 = $2,250 (not a template)
+        
+        // Check which template we can hit
+        var canHitMix = (standardsSold >= 3 && premiumsSold >= 3);
+        var canHitAllStd = (standardsSold <= 3 && premiumsSold === 0);
+        var canHitAllPrem = (standardsSold === 0 && premiumsSold <= 3);
+        
+        // Current max possible revenue
+        var possibleRevenue = (standardsAvailable * STANDARD_PRICE) + (premiumsAvailable * PREMIUM_PRICE);
+        
+        if (canHitMix) {
+            layoutEl.textContent = 'Mix (3 Premium + 3 Standard) = $3,600';
+            alertEl.classList.remove('show');
+            document.getElementById('nbMaxRevenue').textContent = '$3,600';
+        } else if (canHitAllStd && standardsSold > 0) {
+            // Actually if we start selling standard, we can't hit $2700 unless we sell exactly 6 standards
+            // But we only have 3 standard slots
+            layoutEl.textContent = 'Custom Layout';
+            alertEl.classList.add('show');
+            document.getElementById('nbAlertDetails').textContent = 
+                'Available: ' + standardsAvailable + ' std, ' + premiumsAvailable + ' prem | Sold: ' + standardsSold + ' std, ' + premiumsSold + ' prem';
+            document.getElementById('nbMaxRevenue').textContent = '$' + possibleRevenue.toLocaleString();
+        } else if (canHitAllPrem && premiumsSold > 0) {
+            layoutEl.textContent = 'Custom Layout';
+            alertEl.classList.add('show');
+            document.getElementById('nbAlertDetails').textContent = 
+                'Available: ' + standardsAvailable + ' std, ' + premiumsAvailable + ' prem | Sold: ' + standardsSold + ' std, ' + premiumsSold + ' prem';
+            document.getElementById('nbMaxRevenue').textContent = '$' + possibleRevenue.toLocaleString();
+        } else {
+            layoutEl.textContent = 'Custom Layout';
+            alertEl.classList.add('show');
+            document.getElementById('nbAlertDetails').textContent = 
+                'Available: ' + standardsAvailable + ' std, ' + premiumsAvailable + ' prem | Sold: ' + standardsSold + ' std, ' + premiumsSold + ' prem';
+            document.getElementById('nbMaxRevenue').textContent = '$' + possibleRevenue.toLocaleString();
+        }
+    }
+    
+    function renderGrid(standardsSold, premiumsSold) {
+        // Slots 0-2: Standard
+        for (var i = 0; i < 3; i++) {
+            var slot = document.getElementById('nbSlot' + i);
+            if (i < standardsSold) {
+                slot.classList.add('sold');
+                slot.textContent = 'SOLD';
+            } else {
+                slot.classList.remove('sold');
+                slot.textContent = 'Standard';
+            }
+        }
+        
+        // Slots 3-5: Premium
+        for (var j = 3; j < 6; j++) {
+            var slotP = document.getElementById('nbSlot' + j);
+            if ((j - 3) < premiumsSold) {
+                slotP.classList.add('sold');
+                slotP.textContent = 'SOLD';
+            } else {
+                slotP.classList.remove('sold');
+                slotP.textContent = 'Duplex';
+            }
+        }
+    }
+    
+    function renderAdList() {
+        var list = document.getElementById('nbAdList');
+        
+        if (soldAds.length === 0) {
+            list.innerHTML = '<p class="nb-empty">No ads sold yet.</p>';
+            return;
+        }
+        
+        list.innerHTML = '';
+        soldAds.forEach(function(ad, index) {
+            var item = document.createElement('div');
+            item.className = 'nb-ad-item';
+            item.innerHTML = '<span class="type">' + (ad.type === 'premium' ? 'Duplex' : 'Standard') + ' Ad #' + (index + 1) + '</span><span class="price">$' + ad.price + '</span>';
+            list.appendChild(item);
+        });
+    }
+    
+    window.nbSellAd = function(type) {
+        var price = type === 'premium' ? PREMIUM_PRICE : STANDARD_PRICE;
+        
+        // Check availability
+        var standardsSold = soldAds.filter(function(ad) { return ad.type === 'standard'; }).length;
+        var premiumsSold = soldAds.filter(function(ad) { return ad.type === 'premium'; }).length;
+        
+        if (type === 'standard' && standardsSold >= 3) {
+            alert('All standard ads sold out!');
+            return;
+        }
+        if (type === 'premium' && premiumsSold >= 3) {
+            alert('All duplex ads sold out!');
+            return;
+        }
+        
+        soldAds.push({ type: type, price: price });
+        updateDashboard();
+    };
+    
+    window.nbReset = function() {
+        if (confirm('Reset all sold ads?')) {
+            soldAds = [];
+            updateDashboard();
+        }
+    };
+    
+    // Initialize on load
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', updateDashboard);
+    } else {
+        updateDashboard();
+    }
+})();
+</script>
