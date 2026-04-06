@@ -410,7 +410,21 @@
     </div>
     
     <div class="nb-help-text">
-        💡 <strong>Click any slot</strong> to sell it. <strong>Select 2 slots</strong> then click "COMBINE" to merge them.
+        💡 <strong>Click any slot</strong> to sell it. Check boxes below to select slots for combining.
+    </div>
+    
+    <!-- Checkboxes to select for combine -->
+    <div style="padding:10px 20px;background:#fff3cd;text-align:center;">
+        <span style="font-size:0.8rem;color:#856404;">☐ Select for combine: </span>
+        <label style="font-size:0.75rem;margin-right:8px;"><input type="checkbox" onclick="nbToggleSelection(0)" id="cb0"> S-1</label>
+        <label style="font-size:0.75rem;margin-right:8px;"><input type="checkbox" onclick="nbToggleSelection(1)" id="cb1"> S-2</label>
+        <label style="font-size:0.75rem;margin-right:8px;"><input type="checkbox" onclick="nbToggleSelection(2)" id="cb2"> S-3</label>
+        <label style="font-size:0.75rem;margin-right:8px;"><input type="checkbox" onclick="nbToggleSelection(3)" id="cb3"> S-4</label>
+        <label style="font-size:0.75rem;margin-right:8px;"><input type="checkbox" onclick="nbToggleSelection(4)" id="cb4"> S-5</label>
+        <label style="font-size:0.75rem;margin-right:8px;"><input type="checkbox" onclick="nbToggleSelection(5)" id="cb5"> S-6</label>
+        <label style="font-size:0.75rem;margin-right:8px;"><input type="checkbox" onclick="nbToggleSelection(6)" id="cb6"> S-7</label>
+        <label style="font-size:0.75rem;margin-right:8px;"><input type="checkbox" onclick="nbToggleSelection(7)" id="cb7"> S-8</label>
+        <label style="font-size:0.75rem;"><input type="checkbox" onclick="nbToggleSelection(8)" id="cb8"> S-9</label>
     </div>
     
     <div class="nb-selection-bar" id="nbSelectionBar">
@@ -550,6 +564,15 @@
     
     function updateSelectionBar() {
         var bar = document.getElementById('nbSelectionBar');
+        
+        // Update checkboxes
+        for (var i = 0; i < 9; i++) {
+            var cb = document.getElementById('cb' + i);
+            if (cb) {
+                cb.checked = selectedSlots.indexOf(i) !== -1;
+            }
+        }
+        
         if (selectedSlots.length === 0) {
             bar.classList.remove('show');
         } else {
@@ -575,14 +598,10 @@
             if (slot.status === 'available') {
                 var statusEl = document.createElement('div');
                 statusEl.className = 'nb-slot-status';
-                statusEl.textContent = 'AVAILABLE';
+                statusEl.textContent = 'CLICK TO SELL';
                 el.appendChild(statusEl);
                 
-                if (selectedSlots.indexOf(slot.index) !== -1) {
-                    el.classList.add('selected');
-                }
-                
-                el.onclick = function() { nbToggleSelection(slot.index); };
+                el.onclick = function() { nbOpenAssignModal(slot.index); };
             } else if (slot.status === 'sold') {
                 el.classList.add('sold');
                 var statusEl = document.createElement('div');
@@ -634,21 +653,26 @@
     window.nbToggleSelection = function(idx) {
         var slot = slots[idx];
         
-        if (slot.status === 'sold' || slot.status === 'combined') {
-            nbOpenAssignModal(idx);
-            return;
-        }
+        // Toggle checkbox
+        var cb = document.getElementById('cb' + idx);
+        if (!cb) return;
         
         var pos = selectedSlots.indexOf(idx);
         if (pos !== -1) {
             selectedSlots.splice(pos, 1);
+            cb.checked = false;
         } else {
             if (selectedSlots.length === 1 && !canCombine(selectedSlots[0], idx)) {
                 alert('Cannot combine vertically in top row.');
+                cb.checked = false;
                 return;
             }
             if (selectedSlots.length < 2) {
                 selectedSlots.push(idx);
+                cb.checked = true;
+            } else {
+                cb.checked = false;
+                alert('Select only 2 slots to combine');
             }
         }
         updateDashboard();
