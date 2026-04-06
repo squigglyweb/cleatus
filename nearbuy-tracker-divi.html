@@ -163,6 +163,12 @@
         grid-column: span 2;
     }
     
+    .nb-ad-slot.selected {
+        border: 3px solid var(--nb-yellow);
+        border-style: solid;
+        box-shadow: 0 0 0 2px var(--nb-yellow);
+    }
+    
     /* Stats Dashboard - Below the postcard */
     .nb-dashboard {
         display: grid;
@@ -209,6 +215,19 @@
     .nb-status.profit { background: #e6f4ea; color: var(--nb-green); }
     .nb-status.loss { background: #fce8e6; color: var(--nb-red); }
     
+    .nb-selection-bar {
+        background: var(--nb-yellow);
+        color: #333;
+        padding: 10px 20px;
+        text-align: center;
+        font-weight: 500;
+        display: none;
+    }
+    
+    .nb-selection-bar.show {
+        display: block;
+    }
+    
     /* Controls Section */
     .nb-controls {
         padding: 20px;
@@ -245,6 +264,9 @@
     .nb-btn-danger { background: var(--nb-red); color: white; }
     .nb-btn-danger:hover { background: #c5221f; }
     
+    .nb-btn-secondary { background: #eee; color: #333; }
+    .nb-btn-secondary:hover { background: #ddd; }
+    
     .nb-ad-list {
         margin-top: 20px;
     }
@@ -272,6 +294,10 @@
     .nb-ad-item .price { 
         color: var(--nb-green); 
         font-weight: 600; 
+    }
+    
+    .nb-ad-item.combined-item {
+        border-left-color: var(--nb-yellow);
     }
     
     .nb-ad-item .remove-btn {
@@ -340,6 +366,16 @@
         flex: 1;
     }
     
+    .nb-combine-help {
+        background: #fff3cd;
+        border: 1px solid #ffc107;
+        padding: 10px 15px;
+        margin: 10px 20px;
+        border-radius: 6px;
+        font-size: 0.85rem;
+        color: #856404;
+    }
+    
     @media (max-width: 480px) {
         .nb-dashboard { grid-template-columns: 1fr 1fr; }
         .nb-postcard { width: 100%; }
@@ -356,7 +392,7 @@
     
     <!-- Postcard Visual - HERO -->
     <div class="nb-postcard-section">
-        <h3>Ad Template - Click any spot to assign</h3>
+        <h3>Ad Template - Click available spots to select</h3>
         
         <div class="nb-postcard">
             <div class="nb-postcard-side front">
@@ -369,6 +405,16 @@
                 <div class="nb-ad-grid" id="nbAdGrid"></div>
             </div>
         </div>
+    </div>
+    
+    <div class="nb-combine-help">
+        💡 <strong>Tip:</strong> Click any 2 available spots to combine them into one large ad space ($900)
+    </div>
+    
+    <div class="nb-selection-bar" id="nbSelectionBar">
+        <span id="nbSelectionText">0 spots selected</span>
+        <button class="nb-btn nb-btn-warning" style="margin-left:10px;padding:6px 12px;font-size:0.8rem" onclick="nbCombineSelected()">Combine Selected</button>
+        <button class="nb-btn nb-btn-secondary" style="margin-left:5px;padding:6px 12px;font-size:0.8rem" onclick="nbClearSelection()">Clear</button>
     </div>
     
     <!-- Stats Dashboard -->
@@ -400,21 +446,18 @@
     </div>
     
     <div class="nb-status" id="nbStatus">
-        Fill the grid to start generating revenue!
+        Click any available spot to assign a business!
     </div>
     
     <!-- Controls -->
     <div class="nb-controls">
-        <h3>Quick Actions</h3>
-        <div class="nb-buttons">
-            <button class="nb-btn nb-btn-primary" onclick="nbSellStandard()">+ Sell Standard ($450)</button>
-            <button class="nb-btn nb-btn-warning" onclick="nbCombineTwo()">+ Combine 2 ($900)</button>
-            <button class="nb-btn nb-btn-danger" onclick="nbReset()">Reset All</button>
-        </div>
-        
-        <h3 style="margin-top: 20px;">Sold Spots</h3>
+        <h3>Sold Spots</h3>
         <div class="nb-ad-list" id="nbAdList">
             <p class="nb-empty">No ads sold yet.</p>
+        </div>
+        
+        <div class="nb-buttons" style="margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee;">
+            <button class="nb-btn nb-btn-danger" onclick="nbReset()">Reset All</button>
         </div>
     </div>
     
@@ -442,6 +485,7 @@
     
     // 9 slots: numbered S-1 through S-9
     let slots = [];
+    let selectedSlots = [];
     let currentEditSlot = null;
     
     function initSlots() {
@@ -482,7 +526,7 @@
         var statusEl = document.getElementById('nbStatus');
         if (revenue === 0) {
             statusEl.className = 'nb-status';
-            statusEl.textContent = 'Click any spot to assign a business!';
+            statusEl.textContent = 'Click any available spot to assign a business!';
         } else if (profit < 0) {
             statusEl.className = 'nb-status loss';
             statusEl.textContent = '$' + Math.abs(profit).toLocaleString() + ' until break-even';
@@ -496,6 +540,19 @@
         
         renderGrid();
         renderAdList();
+        updateSelectionBar();
+    }
+    
+    function updateSelectionBar() {
+        var bar = document.getElementById('nbSelectionBar');
+        var text = document.getElementById('nbSelectionText');
+        
+        if (selectedSlots.length === 0) {
+            bar.classList.remove('show');
+        } else {
+            bar.classList.add('show');
+            text.textContent = selectedSlots.length + ' spot' + (selectedSlots.length > 1 ? 's' : '') + ' selected';
+        }
     }
     
     function renderGrid() {
@@ -513,7 +570,13 @@
             
             if (slot.status === 'available') {
                 el.textContent = 'Available';
-                el.onclick = function() { nbOpenAssignModal(slot.index); };
+                
+                // Check if selected
+                if (selectedSlots.indexOf(slot.index) !== -1) {
+                    el.classList.add('selected');
+                }
+                
+                el.onclick = function() { nbToggleSelection(slot.index); };
             } else if (slot.status === 'sold') {
                 el.classList.add('sold');
                 el.onclick = function() { nbOpenAssignModal(slot.index); };
@@ -530,6 +593,10 @@
                 businessEl.className = 'nb-slot-business';
                 businessEl.textContent = slot.business || 'COMBINED';
                 el.appendChild(businessEl);
+            } else if (slot.status === 'consumed') {
+                el.style.opacity = '0.3';
+                el.style.pointerEvents = 'none';
+                el.textContent = 'Used';
             }
             
             grid.appendChild(el);
@@ -548,7 +615,7 @@
         list.innerHTML = '';
         soldSlots.forEach(function(ad) {
             var item = document.createElement('div');
-            item.className = 'nb-ad-item';
+            item.className = 'nb-ad-item' + (ad.status === 'combined' ? ' combined-item' : '');
             
             var label = ad.status === 'combined' ? 'Combined (2×)' : 'Standard';
             item.innerHTML = '<span><span class="spot-id">' + ad.spotId + '</span> - ' + (ad.business || 'TBD') + '</span><span class="price">$' + ad.price + '</span>';
@@ -563,6 +630,56 @@
             list.appendChild(item);
         });
     }
+    
+    // Toggle slot selection for combining
+    window.nbToggleSelection = function(idx) {
+        var slot = slots[idx];
+        
+        if (slot.status !== 'available') return;
+        
+        var pos = selectedSlots.indexOf(idx);
+        if (pos !== -1) {
+            // Deselect
+            selectedSlots.splice(pos, 1);
+        } else {
+            // Select (max 2)
+            if (selectedSlots.length < 2) {
+                selectedSlots.push(idx);
+            }
+        }
+        
+        updateDashboard();
+    };
+    
+    // Combine selected slots
+    window.nbCombineSelected = function() {
+        if (selectedSlots.length !== 2) {
+            alert('Please select exactly 2 spots to combine.');
+            return;
+        }
+        
+        // Sort by index so we combine adjacent in order
+        selectedSlots.sort(function(a, b) { return a - b; });
+        
+        var firstIdx = selectedSlots[0];
+        var secondIdx = selectedSlots[1];
+        
+        // Mark first as combined, second as consumed
+        slots[firstIdx].status = 'combined';
+        slots[firstIdx].price = COMBINED_PRICE;
+        
+        slots[secondIdx].status = 'consumed';
+        
+        selectedSlots = [];
+        
+        // Open modal to assign business name
+        nbOpenAssignModal(firstIdx);
+    };
+    
+    window.nbClearSelection = function() {
+        selectedSlots = [];
+        updateDashboard();
+    };
     
     // Modal functions
     window.nbOpenAssignModal = function(idx) {
@@ -585,46 +702,11 @@
         
         if (currentEditSlot !== null) {
             var slot = slots[currentEditSlot];
-            
-            if (slot.status === 'available') {
-                // Selling this spot
-                slot.status = 'sold';
-                slot.price = STANDARD_PRICE;
-            }
-            
             slot.business = name;
         }
         
         nbCloseModal();
         updateDashboard();
-    };
-    
-    window.nbSellStandard = function() {
-        var availableIdx = slots.findIndex(function(s) { return s.status === 'available'; });
-        if (availableIdx === -1) {
-            alert('All standard ad spaces sold!');
-            return;
-        }
-        
-        // Open modal immediately for new sale
-        nbOpenAssignModal(availableIdx);
-    };
-    
-    window.nbCombineTwo = function() {
-        var available = slots.filter(function(s) { return s.status === 'available'; });
-        
-        if (available.length < 2) {
-            alert('Need at least 2 available slots to combine!');
-            return;
-        }
-        
-        // Combine first two available
-        slots[available[0].index].status = 'combined';
-        slots[available[0].index].price = COMBINED_PRICE;
-        slots[available[1].index].status = 'consumed';
-        
-        // Open modal for the combined slot
-        nbOpenAssignModal(available[0].index);
     };
     
     window.nbRemoveSlot = function(idx) {
@@ -653,6 +735,7 @@
     window.nbReset = function() {
         if (confirm('Reset all sold ads?')) {
             initSlots();
+            selectedSlots = [];
             updateDashboard();
         }
     };
