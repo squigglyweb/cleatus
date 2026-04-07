@@ -1,20 +1,16 @@
 /**
- * CHS VendorPrint API v6.1 - With Proof Screenshots
+ * CHS VendorPrint API v6.2 - With Dashboard Endpoints + Order Lookup
  * 
- * Flow:
- * 1. Customer fills form → sees live proof on screen
- * 2. Customer clicks Approve Front → Approve Back
- * 3. Front/back canvas screenshots captured and uploaded to Drive
- * 4. Card added to pending queue with proof URLs
- * 5. Customer submits batch → writes to Sheet with status APPROVED + proof URLs
- * 6. VendorPrint gets email notification, pulls APPROVED orders from sheet
- * 7. VendorPrint updates status as it moves through production
+ * Endpoints added:
+ * - orders.myOrders: get orders by requester email
+ * - orders.byOrderId: get single order by order number
+ * - dashboard.quickStats: get quick stats for a requester
  */
 
 const CONFIG = {
   SHEET_ID: '1jfOqV3ykRJwBPQLX5QegBbuarwirqJtObywZmEzhK8E',
   SHEET_NAME: 'Orders',
-  DRIVE_FOLDER_ID: '1n9Pxm6dBYhYaeegbMMSzdUhGhREJxM8k', // Proofs root folder
+  DRIVE_FOLDER_ID: '1n9Pxm6dBYhYaeegbMMSzdUhGhREJxM8k',
   TOKEN: 'd!dxQPNM38zm',
   ALLOWED_DOMAIN: 'housingservices.com'
 };
@@ -54,6 +50,14 @@ function doGet(e) {
       return jsonpOut(cb, handleOrdersList(params));
     }
 
+    if (action === 'orders.myOrders') {
+      return jsonpOut(cb, handleMyOrders(params));
+    }
+
+    if (action === 'orders.byOrderId') {
+      return jsonpOut(cb, handleOrderById(params));
+    }
+
     if (action === 'orders.approved') {
       return jsonpOut(cb, handleApprovedOrders(params));
     }
@@ -66,8 +70,12 @@ function doGet(e) {
       return jsonpOut(cb, handleDashboardStats());
     }
 
+    if (action === 'dashboard.quickStats') {
+      return jsonpOut(cb, handleQuickStats(params));
+    }
+
     // Health check
-    return jsonpOut(cb, { ok: true, status: 'API v6.1 running' });
+    return jsonpOut(cb, { ok: true, status: 'API v6.2 running' });
 
   } catch (err) {
     return jsonpOut(cb, { ok: false, error: String(err) });
@@ -76,8 +84,6 @@ function doGet(e) {
 
 /* --------------------------------------------------
  SUBMIT BATCH
- Takes array of cards from frontend, each with proofFrontUrl + proofBackUrl
- Writes all to sheet as APPROVED
 --------------------------------------------------- */
 function handleSubmitBatch(params) {
   const ss = SpreadsheetApp.openById(CONFIG.SHEET_ID);
@@ -95,7 +101,6 @@ function handleSubmitBatch(params) {
   }
   if (!Object.keys(incoming).length) incoming = params;
 
-  // Accept either single card or array of cards
   let cards = [];
   if (Array.isArray(incoming.cards)) {
     cards = incoming.cards;
@@ -122,7 +127,6 @@ function handleSubmitBatch(params) {
   let submittedCount = 0;
   const orderIds = [];
 
-  // Write each card as its own row
   for (let i = 0; i < cards.length; i++) {
     const card = cards[i];
     const orderId = generateOrderId(sh, idxMap['Order #'], i + 1);
@@ -145,7 +149,6 @@ function handleSubmitBatch(params) {
     rowArr[idxMap['Approved By']] = card.approverName || card.requesterName || '';
     rowArr[idxMap['Approved At']] = now;
 
-    // Proof URLs (paper trail)
     if (idxMap['Proof Front URL'] != null && card.proofFrontUrl) {
       rowArr[idxMap['Proof Front URL']] = card.proofFrontUrl;
     }
@@ -153,7 +156,6 @@ function handleSubmitBatch(params) {
       rowArr[idxMap['Proof Back URL']] = card.proofBackUrl;
     }
 
-    // Auto-generate 4O-File Name for Business Cards
     const idxItem = idxMap['Item'];
     const idxEmail = idxMap['Email'];
     const idx4OFile = idxMap['4O-File Name'];
@@ -171,7 +173,6 @@ function handleSubmitBatch(params) {
     submittedCount++;
   }
 
-  // Send notification to VendorPrint
   sendBatchSubmittedEmail(submittedCount, orderIds);
 
   return { 
@@ -184,12 +185,10 @@ function handleSubmitBatch(params) {
 
 /* --------------------------------------------------
  PROOF UPLOAD
- Upload a single proof image (front or back) to Drive
- Returns URL to store with the card
 --------------------------------------------------- */
 function handleProofUpload(params) {
   const orderId = params.orderId || 'ORD-' + Date.now();
-  const side = params.side || 'proof'; // front, back, or generic
+  const side = params.side || 'proof';
   const fileName = params.fileName || 'proof.png';
   const base64 = params.base64 || '';
 
@@ -199,11 +198,8 @@ function handleProofUpload(params) {
 
   const rootFolder = DriveApp.getFolderById(CONFIG.DRIVE_FOLDER_ID);
   const safeId = String(orderId).replace(/[^\w\-]/g, '_');
-  
-  // Create folder for this order's proofs
   const orderFolder = getOrCreateFolder(rootFolder, 'Proofs_' + safeId);
 
-  // Determine mime type
   let mimeType = 'image/png';
   if (fileName.toLowerCase().endsWith('.pdf')) {
     mimeType = 'application/pdf';
@@ -211,7 +207,6 @@ function handleProofUpload(params) {
     mimeType = 'image/jpeg';
   }
 
-  // Decode base64
   let blob;
   try {
     const clean = base64.replace(/^data:\w+\/\w+;base64,/, '');
@@ -220,7 +215,6 @@ function handleProofUpload(params) {
     return { ok: false, error: 'decode_failed', message: String(err) };
   }
 
-  // Save to Drive
   const file = orderFolder.createFile(blob);
   file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
   const url = file.getUrl();
@@ -235,7 +229,7 @@ function handleProofUpload(params) {
 }
 
 /* --------------------------------------------------
- LIST ORDERS (with optional filters)
+ LIST ORDERS
 --------------------------------------------------- */
 function handleOrdersList(params) {
   const ss = SpreadsheetApp.openById(CONFIG.SHEET_ID);
@@ -268,14 +262,80 @@ function handleOrdersList(params) {
 }
 
 /* --------------------------------------------------
- APPROVED ORDERS (for VendorPrint to pull)
+ MY ORDERS - by email
+--------------------------------------------------- */
+function handleMyOrders(params) {
+  const ss = SpreadsheetApp.openById(CONFIG.SHEET_ID);
+  const sh = ss.getSheetByName(CONFIG.SHEET_NAME);
+
+  const email = String(params.email || '').toLowerCase().trim();
+  if (!email) {
+    return { ok: false, error: 'missing_email', message: 'Email required' };
+  }
+
+  const data = sh.getDataRange().getValues();
+  if (!data || data.length < 2) {
+    return { ok: true, orders: [] };
+  }
+
+  const idx = getHeaderIndex(sh);
+  const limit = parseInt(params.limit, 10) || 20;
+
+  const orders = [];
+  for (let r = 1; r < data.length; r++) {
+    const row = data[r];
+    const orderEmail = String(row[idx['Email']] || '').toLowerCase().trim();
+    
+    // Match by email
+    if (orderEmail !== email) continue;
+
+    orders.push(buildOrderObject(row, idx));
+  }
+
+  orders.reverse();
+  return { ok: true, orders: orders.slice(0, limit) };
+}
+
+/* --------------------------------------------------
+ ORDER BY ID
+--------------------------------------------------- */
+function handleOrderById(params) {
+  const ss = SpreadsheetApp.openById(CONFIG.SHEET_ID);
+  const sh = ss.getSheetByName(CONFIG.SHEET_NAME);
+
+  const orderId = String(params.orderId || '').trim();
+  if (!orderId) {
+    return { ok: false, error: 'missing_orderId' };
+  }
+
+  const data = sh.getDataRange().getValues();
+  if (!data || data.length < 2) {
+    return { ok: false, error: 'order_not_found' };
+  }
+
+  const idx = getHeaderIndex(sh);
+
+  for (let r = 1; r < data.length; r++) {
+    const row = data[r];
+    const thisOrderId = String(row[idx['Order #']] || '').trim();
+    
+    if (thisOrderId === orderId) {
+      return { ok: true, order: buildOrderObject(row, idx) };
+    }
+  }
+
+  return { ok: false, error: 'order_not_found' };
+}
+
+/* --------------------------------------------------
+ APPROVED ORDERS
 --------------------------------------------------- */
 function handleApprovedOrders(params) {
   return handleOrdersList({ status: STATUS.APPROVED, limit: 100 });
 }
 
 /* --------------------------------------------------
- UPDATE STATUS (for VendorPrint workflow)
+ UPDATE STATUS
 --------------------------------------------------- */
 function handleUpdateStatus(params) {
   const ss = SpreadsheetApp.openById(CONFIG.SHEET_ID);
@@ -314,7 +374,7 @@ function handleUpdateStatus(params) {
 }
 
 /* --------------------------------------------------
- DASHBOARD STATS
+ DASHBOARD STATS (all orders)
 --------------------------------------------------- */
 function handleDashboardStats() {
   const ss = SpreadsheetApp.openById(CONFIG.SHEET_ID);
@@ -347,6 +407,75 @@ function handleDashboardStats() {
   }
 
   return { ok: true, stats };
+}
+
+/* --------------------------------------------------
+ QUICK STATS (by email)
+--------------------------------------------------- */
+function handleQuickStats(params) {
+  const ss = SpreadsheetApp.openById(CONFIG.SHEET_ID);
+  const sh = ss.getSheetByName(CONFIG.SHEET_NAME);
+
+  const email = String(params.email || '').toLowerCase().trim();
+  
+  const data = sh.getDataRange().getValues();
+  if (!data || data.length < 2) {
+    return {
+      ok: true,
+      total: 0,
+      inProduction: 0,
+      delivered: 0,
+      thisMonth: 0
+    };
+  }
+
+  const idx = getHeaderIndex(sh);
+  const now = new Date();
+  const thisMonth = now.getMonth();
+  const thisYear = now.getFullYear();
+
+  let total = 0;
+  let inProduction = 0;
+  let delivered = 0;
+  let thisMonthCount = 0;
+
+  for (let r = 1; r < data.length; r++) {
+    const row = data[r];
+    const orderEmail = String(row[idx['Email']] || '').toLowerCase().trim();
+    
+    if (email && orderEmail !== email) continue;
+
+    const status = String(row[idx['Status']] || '').trim();
+    if (status === STATUS.IN_PRODUCTION || status === STATUS.SHIPPED) {
+      inProduction++;
+    }
+    if (status === STATUS.DELIVERED) {
+      delivered++;
+    }
+    total++;
+
+    // This month
+    const ts = row[idx['Timestamp']];
+    if (ts) {
+      let d;
+      if (ts instanceof Date) {
+        d = ts;
+      } else {
+        d = new Date(String(ts));
+      }
+      if (!isNaN(d) && d.getMonth() === thisMonth && d.getFullYear() === thisYear) {
+        thisMonthCount++;
+      }
+    }
+  }
+
+  return { 
+    ok: true, 
+    total: total,
+    inProduction: inProduction,
+    delivered: delivered,
+    thisMonth: thisMonthCount
+  };
 }
 
 /* --------------------------------------------------
@@ -447,9 +576,8 @@ https://docs.google.com/spreadsheets/d/${CONFIG.SHEET_ID}
 
 - CHS VendorPrint System`;
 
-  // TODO: Replace with VendorPrint email address
   MailApp.sendEmail({
-    to: 'bryan.somers@housingservices.com', // Replace with actual VendorPrint contact
+    to: 'bryan.somers@housingservices.com',
     subject: subject,
     body: body,
     name: 'CHS VendorPrint'
