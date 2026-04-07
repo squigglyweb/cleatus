@@ -366,13 +366,13 @@
             
             if (claimRate >= 30) {
                 successDiv.className = 'campaign-success great';
-                successDiv.innerHTML = '<div class="campaign-msg"><strong>🎉 Amazing results!</strong> ' + claimRate + '% of scanners claimed your offer.</div><div class="campaign-cta">Want to run again? Early bird pricing available!</div>';
+                successDiv.innerHTML = '<div class="campaign-msg"><strong>🎉 Amazing results!</strong> ' + claimRate + '% of scanners claimed your offer.</div><div class="campaign-cta">Ready to book your next campaign? Message me when ready.</div>';
             } else if (claimRate >= 15) {
                 successDiv.className = 'campaign-success good';
-                successDiv.innerHTML = '<div class="campaign-msg"><strong>👍 Good results!</strong> ' + claimRate + '% claim rate. Let\'s try a different offer to boost it!</div><div class="campaign-cta">Want to discuss next month\'s campaign?</div>';
+                successDiv.innerHTML = '<div class="campaign-msg"><strong>👍 Solid results.</strong> ' + claimRate + '% claim rate. Would definitely recommend running again!</div><div class="campaign-cta">Let me know if you want to run the next one.</div>';
             } else {
                 successDiv.className = 'campaign-success low';
-                successDiv.innerHTML = '<div class="campaign-msg"><strong>📈 Room to grow.</strong> Only ' + claimRate + '% claimed. Want to try a different offer that might resonate more?</div><div class="campaign-cta">I\'d love to help you test a new approach. Message me!</div>';
+                successDiv.innerHTML = '<div class="campaign-msg"><strong>📈 Room to grow.</strong> Only ' + claimRate + '% claimed. We can try a different offer approach if you want.</div><div class="campaign-cta">Let me know if you want to test something new next month.</div>';
             }
             
             // Postcard preview - highlight YOUR spots
