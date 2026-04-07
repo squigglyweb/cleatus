@@ -333,20 +333,18 @@
         function doLogin() {
             const codeInput = document.getElementById('loginCode');
             const code = codeInput ? codeInput.value.trim().toUpperCase() : '';
-            console.log('Login attempt:', code);
-            console.log('Available codes:', Object.keys(businesses));
             
-            if (!code) {
-                alert('Please enter a code');
+            // Demo mode - just show JGL Repair
+            if (!code || code === 'DEMO') {
+                showDashboard('BUSINESS001');
                 return;
             }
             
             if (businesses[code]) {
-                console.log('Login success for:', code);
                 localStorage.setItem('nearbuy_code', code);
                 showDashboard(code);
             } else {
-                alert('Invalid access code: ' + code + '\nTry: BUSINESS001');
+                alert('Invalid code. Try: BUSINESS001, BUSINESS002, BUSINESS003, or leave blank for demo');
             }
         }
         
