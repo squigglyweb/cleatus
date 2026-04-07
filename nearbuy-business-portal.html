@@ -398,7 +398,14 @@
                     rosterHTML += '<div><span style="color:#999;">○</span> <strong>' + spotNum + ':</strong> Available</div>';
                 } else {
                     const isDuplex = item.type === 'duplex';
-                    rosterHTML += '<div><span style="color:#34a853;font-weight:bold;">✓</span> <strong>' + spotNum + ':</strong> ' + item.name + (isDuplex ? ' <span style="background:#ffc107;font-size:0.65rem;padding:2px 4px;border-radius:3px;">DUPLEX</span>' : '') + '</div>';
+                    const isStandard = item.type === 'standard';
+                    let badge = '';
+                    if (isDuplex) {
+                        badge = ' <span style="background:rgba(255,193,7,0.6);font-size:0.65rem;padding:2px 4px;border-radius:3px;">DUPLEX</span>';
+                    } else if (isStandard) {
+                        badge = ' <span style="background:rgba(52,168,83,0.4);font-size:0.65rem;padding:2px 4px;border-radius:3px;">STD</span>';
+                    }
+                    rosterHTML += '<div><span style="color:#34a853;font-weight:bold;">✓</span> <strong>' + spotNum + ':</strong> ' + item.name + badge + '</div>';
                 }
             });
             rosterHTML += '</div>';
