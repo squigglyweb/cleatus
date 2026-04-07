@@ -338,10 +338,17 @@
     function getCol(idx) { return idx % 3; }
     
     function canCombine(idx1, idx2) {
-        var r1 = getRow(idx1), r2 = getRow(idx2), c1 = getCol(idx1), c2 = getCol(idx2);
-        if (r1 === r2) return true; // same row - horizontal OK
-        if (r1 === 0 || r2 === 0) return false; // top row no vertical
-        return true; // rows 1-2 can vertical
+        var r1 = getRow(idx1), r2 = getRow(idx2);
+        // Top row: horizontal only (same row)
+        if (r1 === 0 && r2 === 0) return true;
+        // Top row with other rows: NOT allowed
+        if (r1 === 0 || r2 === 0) return false;
+        // Rows 1-2: allow both horizontal and vertical
+        return true;
+    }
+    
+    function isHorizontalCombine(idx1, idx2) {
+        return getRow(idx1) === getRow(idx2);
     }
     
     function isHorizontalCombine(idx1, idx2) {
@@ -416,12 +423,12 @@
                 el.appendChild(statusEl);
                 el.onclick = function() { nbOpenAssignModal(slot.index); };
             } else if (slot.status === 'combined') {
-                // Determine if horizontal or vertical
-                var isHoriz = selectedSlots.length > 0 && isHorizontalCombine(selectedSlots[0], slot.combinedWith);
+                // Determine if horizontal (same row) or vertical (same column)
+                var isHoriz = isHorizontalCombine(slot.index, slot.combinedWith);
                 el.classList.add(isHoriz ? 'combined-h' : 'combined-v');
                 var statusEl = document.createElement('div');
                 statusEl.className = 'nb-slot-status';
-                statusEl.textContent = slot.business || 'DUPLEX';
+                statusEl.textContent = slot.business || (isHoriz ? 'HORIZONTAL' : 'VERTICAL');
                 el.appendChild(statusEl);
                 el.onclick = function() { nbOpenAssignModal(slot.index); };
             } else if (slot.status === 'consumed') {
