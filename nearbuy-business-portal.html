@@ -169,7 +169,7 @@
     <!-- Login Screen -->
     <div class="login-screen" id="loginScreen">
         <div class="login-box">
-            <img src="TLN-logo-V1.png" alt="THE LOCAL NEARBUY" class="login-logo-img">
+            <img src="https://raw.githubusercontent.com/squigglyweb/cleatus/main/TLN-logo-V1.png" alt="THE LOCAL NEARBUY" class="login-logo-img">
             <div class="login-tagline">Business Portal</div>
             <input type="text" class="login-input" id="loginCode" placeholder="Enter your access code">
             <button class="login-btn" onclick="doLogin()">Enter Portal</button>
@@ -180,13 +180,14 @@
     <!-- Dashboard -->
     <div class="dashboard" id="dashboard">
         <div class="dash-header">
-            <img src="TLN-logo-V1.png" alt="The Local NearBuy" class="dash-header-logo">
+            <img src="https://raw.githubusercontent.com/squigglyweb/cleatus/main/TLN-logo-V1.png" alt="The Local NearBuy" class="dash-header-logo" style="height:35px;">
             <button class="dash-logout" onclick="doLogout()">Logout</button>
         </div>
         
         <div class="dash-business-info">
             <div class="dash-business-name" id="businessName">Loading...</div>
             <div class="dash-business-spot" id="spotId">Spot #--</div>
+            <div class="dash-business-details" id="spotDetails" style="font-size:0.8rem;color:#666;margin-top:5px;"></div>
         </div>
         
         <!-- Stats -->
@@ -353,6 +354,7 @@
             
             document.getElementById('businessName').textContent = biz.name;
             document.getElementById('spotId').textContent = 'Ad Spot: ' + biz.spot;
+            document.getElementById('spotDetails').textContent = biz.isDuplex ? 'Ad Type: DUPLEX (3.8" × 5") • Horizontal orientation' : 'Ad Type: STANDARD (3.8" × 2.5")';
             document.getElementById('scanCount').textContent = biz.scans;
             document.getElementById('claimCount').textContent = biz.claims;
             document.getElementById('redeemCount').textContent = biz.redeemed;
