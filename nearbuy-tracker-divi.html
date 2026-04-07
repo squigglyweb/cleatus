@@ -416,23 +416,24 @@
     </div>
     
     <!-- Checkboxes to select for combine -->
-    <div style="padding:10px 20px;background:#fff3cd;text-align:center;">
-        <span style="font-size:0.8rem;color:#856404;">☐ Select for combine: </span>
-        <label style="font-size:0.75rem;margin-right:8px;"><input type="checkbox" onclick="nbToggleSelection(0)" id="cb0"> S-1</label>
-        <label style="font-size:0.75rem;margin-right:8px;"><input type="checkbox" onclick="nbToggleSelection(1)" id="cb1"> S-2</label>
-        <label style="font-size:0.75rem;margin-right:8px;"><input type="checkbox" onclick="nbToggleSelection(2)" id="cb2"> S-3</label>
-        <label style="font-size:0.75rem;margin-right:8px;"><input type="checkbox" onclick="nbToggleSelection(3)" id="cb3"> S-4</label>
-        <label style="font-size:0.75rem;margin-right:8px;"><input type="checkbox" onclick="nbToggleSelection(4)" id="cb4"> S-5</label>
-        <label style="font-size:0.75rem;margin-right:8px;"><input type="checkbox" onclick="nbToggleSelection(5)" id="cb5"> S-6</label>
-        <label style="font-size:0.75rem;margin-right:8px;"><input type="checkbox" onclick="nbToggleSelection(6)" id="cb6"> S-7</label>
-        <label style="font-size:0.75rem;margin-right:8px;"><input type="checkbox" onclick="nbToggleSelection(7)" id="cb7"> S-8</label>
-        <label style="font-size:0.75rem;"><input type="checkbox" onclick="nbToggleSelection(8)" id="cb8"> S-9</label>
+    <div style="padding:15px 20px;background:#fff8e1;border-top:1px solid #ffc107;border-bottom:1px solid #ffc107;">
+        <div style="font-size:0.85rem;color:#856404;margin-bottom:10px;font-weight:bold;">☐ Select EXACTLY 2 spots to combine:</div>
+        <div style="display:flex;flex-wrap:wrap;gap:5px;justify-content:center;">
+            <label style="font-size:0.8rem;background:#fff;padding:5px 8px;border-radius:4px;border:1px solid #ddd;"><input type="checkbox" onclick="nbToggleSelection(0)" id="cb0"> S-1</label>
+            <label style="font-size:0.8rem;background:#fff;padding:5px 8px;border-radius:4px;border:1px solid #ddd;"><input type="checkbox" onclick="nbToggleSelection(1)" id="cb1"> S-2</label>
+            <label style="font-size:0.8rem;background:#fff;padding:5px 8px;border-radius:4px;border:1px solid #ddd;"><input type="checkbox" onclick="nbToggleSelection(2)" id="cb2"> S-3</label>
+            <label style="font-size:0.8rem;background:#fff;padding:5px 8px;border-radius:4px;border:1px solid #ddd;"><input type="checkbox" onclick="nbToggleSelection(3)" id="cb3"> S-4</label>
+            <label style="font-size:0.8rem;background:#fff;padding:5px 8px;border-radius:4px;border:1px solid #ddd;"><input type="checkbox" onclick="nbToggleSelection(4)" id="cb4"> S-5</label>
+            <label style="font-size:0.8rem;background:#fff;padding:5px 8px;border-radius:4px;border:1px solid #ddd;"><input type="checkbox" onclick="nbToggleSelection(5)" id="cb5"> S-6</label>
+            <label style="font-size:0.8rem;background:#fff;padding:5px 8px;border-radius:4px;border:1px solid #ddd;"><input type="checkbox" onclick="nbToggleSelection(6)" id="cb6"> S-7</label>
+            <label style="font-size:0.8rem;background:#fff;padding:5px 8px;border-radius:4px;border:1px solid #ddd;"><input type="checkbox" onclick="nbToggleSelection(7)" id="cb7"> S-8</label>
+            <label style="font-size:0.8rem;background:#fff;padding:5px 8px;border-radius:4px;border:1px solid #ddd;"><input type="checkbox" onclick="nbToggleSelection(8)" id="cb8"> S-9</label>
+        </div>
     </div>
     
-    <div class="nb-selection-bar" id="nbSelectionBar">
-        <span id="nbSelectionText">0 selected</span>
-        <button class="nb-btn" style="background:#fff;color:#f57c00;margin-left:15px" onclick="nbCombineSelected()">🔥 COMBINE</button>
-        <button class="nb-btn" style="background:rgba(255,255,255,0.3);color:#fff;margin-left:5px" onclick="nbClearSelection()">Clear</button>
+    <div class="nb-selection-bar" id="nbSelectionBar" style="display:flex;align-items:center;justify-content:center;gap:10px;">
+        <span id="nbSelectionText" style="font-size:0.9rem;">Select 2 boxes above to combine</span>
+        <button class="nb-btn" style="background:#fff;color:#f57c00;font-weight:bold;padding:12px 24px;border-radius:25px;font-size:1rem" onclick="nbCombineSelected()">🔥 COMBINE NOW</button>
     </div>
     
     <!-- Stats -->
