@@ -331,12 +331,22 @@
         if (savedCode && businesses[savedCode]) showDashboard(savedCode);
         
         function doLogin() {
-            const code = document.getElementById('loginCode').value.trim().toUpperCase();
+            const codeInput = document.getElementById('loginCode');
+            const code = codeInput ? codeInput.value.trim().toUpperCase() : '';
+            console.log('Login attempt:', code);
+            console.log('Available codes:', Object.keys(businesses));
+            
+            if (!code) {
+                alert('Please enter a code');
+                return;
+            }
+            
             if (businesses[code]) {
+                console.log('Login success for:', code);
                 localStorage.setItem('nearbuy_code', code);
                 showDashboard(code);
             } else {
-                alert('Invalid access code');
+                alert('Invalid access code: ' + code + '\nTry: BUSINESS001');
             }
         }
         
