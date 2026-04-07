@@ -4,6 +4,178 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Local NearBuy - Business Portal</title>
+    <script>
+        // Load businesses data early
+        var businesses = {
+            'BUSINESS001': { name: 'JGL Repair', spot: 'S-1', spots: [0], scans: 47, claims: 23, redeemed: 12, qrCode: 'NEARBUY-JGL001' },
+            'BUSINESS002': { name: 'Papaya Skin Care', spot: 'S-2', spots: [1], scans: 31, claims: 18, redeemed: 9, qrCode: 'NEARBUY-PAPAYA002' },
+            'BUSINESS003': { name: 'Marvin Pressure Washing', spot: 'S-4,S-7 (DUPLEX)', spots: [3, 6], scans: 52, claims: 31, redeemed: 18, qrCode: 'NEARBUY-MARVIN003', isDuplex: true },
+            'TEST123': { name: 'Test Business', spot: 'S-5', spots: [4], scans: 15, claims: 8, redeemed: 4, qrCode: 'NEARBUY-TEST123' }
+        };
+        var campaignRoster = [
+            { id: 0, name: 'JGL Repair', type: 'standard' },
+            { id: 1, name: 'Papaya Skin Care', type: 'standard' },
+            { id: 2, name: 'The Waxhaw Bakery', type: 'standard' },
+            { id: 3, name: 'Marvin Pressure Washing (DUPLEX)', type: 'duplex', combinedWith: 6 },
+            { id: 4, name: 'Downtown Coffee Co', type: 'standard' },
+            { id: 5, name: null, type: 'available' },
+            { id: 6, name: null, type: 'consumed' },
+            { id: 7, name: "Smith's Auto Detailing", type: 'standard' },
+            { id: 8, name: null, type: 'available' }
+        ];
+        var upgradeOpportunities = {0: [1, 3], 1: [0, 2, 4], 2: [1, 5], 3: [4], 4: [1, 5, 7], 5: [2, 4, 8], 7: [4, 8], 8: [5, 7]};
+        var selectedSlots = [];
+        var currentEditSlot = null;
+        
+        function doLogin() {
+            var codeInput = document.getElementById('loginCode');
+            var code = codeInput ? codeInput.value.trim().toUpperCase() : '';
+            if (!code || code === 'DEMO') {
+                showDashboard('BUSINESS001');
+                return;
+            }
+            if (businesses[code]) {
+                localStorage.setItem('nearbuy_code', code);
+                showDashboard(code);
+            } else {
+                alert('Invalid code. Try: BUSINESS001, BUSINESS002, BUSINESS003');
+            }
+        }
+        
+        function doLogout() {
+            localStorage.removeItem('nearbuy_code');
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('dashboard').style.display = 'none';
+        }
+        
+        function showDashboard(code) {
+            var biz = businesses[code];
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            document.getElementById('businessName').textContent = biz.name;
+            document.getElementById('spotId').textContent = 'Ad Spot: ' + biz.spot;
+            document.getElementById('spotDetails').textContent = biz.isDuplex ? 'Ad Type: DUPLEX (3.8" × 5") • Horizontal orientation' : 'Ad Type: STANDARD (3.8" × 2.5")';
+            document.getElementById('scanCount').textContent = biz.scans;
+            document.getElementById('claimCount').textContent = biz.claims;
+            document.getElementById('redeemCount').textContent = biz.redeemed;
+            document.getElementById('qrCode').textContent = biz.qrCode;
+            
+            var claimRate = Math.round((biz.claims / biz.scans) * 100);
+            var successDiv = document.getElementById('campaignSuccess');
+            if (claimRate >= 30) {
+                successDiv.className = 'campaign-success great';
+                successDiv.innerHTML = '<div class="campaign-msg"><strong>🎉 Amazing results!</strong> ' + claimRate + '% of scanners claimed your offer.</div><div class="campaign-cta">Ready to book your next campaign? Message me when ready.</div>';
+            } else if (claimRate >= 15) {
+                successDiv.className = 'campaign-success good';
+                successDiv.innerHTML = '<div class="campaign-msg"><strong>👍 Solid results.</strong> ' + claimRate + '% claim rate. Would definitely recommend running again!</div><div class="campaign-cta">Let me know if you want to run the next one.</div>';
+            } else {
+                successDiv.className = 'campaign-success low';
+                successDiv.innerHTML = '<div class="campaign-msg"><strong>📈 Room to grow.</strong> Only ' + claimRate + '% claimed. We can try a different offer approach if you want.</div><div class="campaign-cta">Let me know if you want to test something new next month.</div>';
+            }
+            
+            var preview = document.getElementById('postcardPreview');
+            preview.innerHTML = '';
+            for (var i = 0; i < 9; i++) {
+                var isMine = biz.spots.includes(i);
+                var rosterItem = campaignRoster[i];
+                var spot = document.createElement('div');
+                spot.className = 'postcard-spot' + (isMine ? ' yours' : '');
+                if (rosterItem.type === 'consumed') { spot.style.opacity = '0.2'; spot.innerHTML = ''; }
+                else if (rosterItem.type === 'duplex') { spot.innerHTML = isMine ? '<span>DUPLEX</span>' : 'DUPLEX'; }
+                else if (rosterItem.type === 'available') { spot.style.background = '#888'; spot.innerHTML = 'AVAIL'; }
+                else { spot.innerHTML = isMine ? '<span>S-' + (i + 1) + '</span>' : 'S-' + (i + 1); }
+                preview.appendChild(spot);
+            }
+            
+            var rosterDiv = document.getElementById('rosterList');
+            var rosterHTML = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">';
+            campaignRoster.forEach(function(item, idx) {
+                if (item.type === 'consumed') return;
+                var spotNum = 'S-' + (idx + 1);
+                if (item.name === null) { rosterHTML += '<div><span style="color:#999;">○</span> <strong>' + spotNum + ':</strong> Available</div>'; }
+                else {
+                    var isDuplex = item.type === 'duplex';
+                    var isStandard = item.type === 'standard';
+                    var badge = isDuplex ? ' <span style="background:rgba(255,193,7,0.6);font-size:0.65rem;padding:2px 4px;border-radius:3px;">DUPLEX</span>' : (isStandard ? ' <span style="background:rgba(52,168,83,0.4);font-size:0.65rem;padding:2px 4px;border-radius:3px;">STD</span>' : '');
+                    rosterHTML += '<div><span style="color:#34a853;font-weight:bold;">✓</span> <strong>' + spotNum + ':</strong> ' + item.name + badge + '</div>';
+                }
+            });
+            rosterHTML += '</div>';
+            rosterDiv.innerHTML = rosterHTML;
+            
+            checkUpgradeOpportunities(biz);
+            startCountdown();
+        }
+        
+        function checkUpgradeOpportunities(biz) {
+            var mySpots = biz.spots;
+            var availableUpgrades = [];
+            mySpots.forEach(function(spotIdx) {
+                var adjacents = upgradeOpportunities[spotIdx] || [];
+                adjacents.forEach(function(adjIdx) {
+                    var rosterItem = campaignRoster[adjIdx];
+                    if (rosterItem && rosterItem.type === 'available') { availableUpgrades.push('S-' + (adjIdx + 1)); }
+                });
+            });
+            if (availableUpgrades.length > 0 && !biz.isDuplex) {
+                var alertDiv = document.createElement('div');
+                alertDiv.style.cssText = 'background:#fff3e0;border:1px solid #ff9800;padding:15px;border-radius:8px;margin:20px;font-size:0.9rem;';
+                alertDiv.innerHTML = '<strong>🚀 Upgrade Opportunity!</strong><br>Adjacent spots are available: ' + availableUpgrades.join(', ') + '<br><span style="color:#666;font-size:0.8rem;">Combine spots for a bigger impact! Contact Bryan to upgrade.</span>';
+                var dashboard = document.getElementById('dashboard');
+                var firstSection = dashboard.querySelector('.dash-campaign');
+                if (firstSection) { firstSection.parentNode.insertBefore(alertDiv, firstSection.nextSibling); }
+            }
+        }
+        
+        function startCountdown() {
+            var time = 7 * 24 * 60 * 60 * 1000;
+            setInterval(function() {
+                time -= 1000;
+                var days = Math.floor(time / (24 * 60 * 60 * 1000));
+                var hours = Math.floor((time % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+                var mins = Math.floor((time % (60 * 60 * 1000)) / (60 * 1000));
+                document.getElementById('countdownTimer').textContent = days + 'd ' + hours + 'h ' + mins + 'm';
+            }, 1000);
+        }
+        
+        function validateVoucher() {
+            var code = document.getElementById('voucherCode').value.trim().toUpperCase();
+            var result = document.getElementById('validatorResult');
+            if (!code) { result.style.display = 'none'; return; }
+            result.style.display = 'block';
+            result.className = 'validator-result';
+            if (code.startsWith('WAX-')) {
+                result.textContent = '✓ VALID - Customer gets their offer!';
+                result.classList.add('valid');
+            } else if (code === 'EXPIRED') {
+                result.textContent = '⚠ EXPIRED - This voucher is no longer valid';
+                result.classList.add('expired');
+            } else {
+                result.textContent = '✕ INVALID - Code not recognized';
+                result.classList.add('invalid');
+            }
+        }
+        
+        function sendChat() {
+            var input = document.getElementById('chatInput');
+            var msg = input.value.trim();
+            if (!msg) return;
+            var container = document.getElementById('chatMessages');
+            var msgEl = document.createElement('div');
+            msgEl.className = 'chat-msg business';
+            msgEl.textContent = msg;
+            container.appendChild(msgEl);
+            input.value = '';
+            container.scrollTop = container.scrollHeight;
+            setTimeout(function() {
+                var replyEl = document.createElement('div');
+                replyEl.className = 'chat-msg you';
+                replyEl.textContent = 'Thanks! Bryan will respond shortly.';
+                container.appendChild(replyEl);
+                container.scrollTop = container.scrollHeight;
+            }, 2000);
+        }
+    </script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
         
