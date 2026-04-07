@@ -11,9 +11,7 @@
         --nb-bg: #f8f9fa;
     }
     
-    .nb-tracker-wrapper * {
-        box-sizing: border-box;
-    }
+    .nb-tracker-wrapper * { box-sizing: border-box; }
     
     .nb-tracker-header {
         background: var(--nb-red);
@@ -22,18 +20,9 @@
         text-align: center;
     }
     
-    .nb-tracker-header h2 {
-        margin: 0 0 5px;
-        font-size: 1.4rem;
-    }
+    .nb-tracker-header h2 { margin: 0 0 5px; font-size: 1.4rem; }
+    .nb-tracker-header p { margin: 0; opacity: 0.9; font-size: 0.85rem; }
     
-    .nb-tracker-header p {
-        margin: 0;
-        opacity: 0.9;
-        font-size: 0.85rem;
-    }
-    
-    /* Postcard Visual */
     .nb-postcard-section {
         padding: 20px;
         text-align: center;
@@ -45,7 +34,6 @@
         margin: 0 0 10px;
         color: #333;
         text-transform: uppercase;
-        letter-spacing: 1px;
     }
     
     .nb-postcard {
@@ -58,19 +46,15 @@
         box-shadow: 0 4px 20px rgba(0,0,0,0.2);
     }
     
-    .nb-postcard-side {
-        padding: 15px;
-    }
+    .nb-postcard-side { padding: 15px; }
     
     .nb-header-row {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 10px;
-        padding: 0 4px;
     }
     
-    /* Logo - using the actual logo text */
     .nb-logo {
         font-size: 0.6rem;
         font-weight: bold;
@@ -78,40 +62,14 @@
         line-height: 1.2;
     }
     
-    .nb-logo .main {
-        display: block;
-        font-size: 0.7rem;
-    }
+    .nb-logo .main { display: block; font-size: 0.7rem; }
+    .nb-logo .nearbuy { display: block; font-size: 0.85rem; margin-top: 2px; }
+    .nb-logo .tagline { font-size: 0.35rem; color: #999; font-weight: normal; }
     
-    .nb-logo .nearbuy {
-        display: block;
-        font-size: 0.85rem;
-        margin-top: 2px;
-    }
+    .nb-mail-indicia { font-size: 0.4rem; color: #666; text-align: right; }
     
-    .nb-logo .tagline {
-        font-size: 0.35rem;
-        color: #999;
-        font-weight: normal;
-        margin-top: 2px;
-    }
+    .nb-row-label { font-size: 0.45rem; text-transform: uppercase; color: #999; margin: 10px 0 6px; }
     
-    .nb-mail-indicia {
-        font-size: 0.4rem;
-        color: #666;
-        text-align: right;
-        line-height: 1.2;
-    }
-    
-    .nb-row-label {
-        font-size: 0.45rem;
-        text-transform: uppercase;
-        color: #999;
-        margin: 10px 0 6px;
-        letter-spacing: 0.5px;
-    }
-    
-    /* 9-Slot Grid */
     .nb-ad-grid {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -129,20 +87,13 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        font-size: 0.5rem;
-        color: #666;
-        transition: all 0.2s;
-        text-align: center;
         padding: 4px;
         aspect-ratio: 3.8/2.5;
-        cursor: pointer;
         position: relative;
+        cursor: pointer;
     }
     
-    .nb-ad-slot:hover {
-        border-color: var(--nb-red);
-        transform: scale(1.02);
-    }
+    .nb-ad-slot:hover { border-color: var(--nb-red); }
     
     .nb-slot-id {
         font-weight: bold;
@@ -152,44 +103,47 @@
     
     .nb-slot-status {
         font-size: 0.45rem;
+        color: #666;
         margin-top: 2px;
     }
     
-    .nb-ad-slot.sold {
-        background: var(--nb-green);
-        border-color: var(--nb-green);
+    .nb-slot-checkbox {
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
     }
     
-    .nb-ad-slot.sold .nb-slot-id,
-    .nb-ad-slot.sold .nb-slot-status {
-        color: white;
-    }
+    .nb-ad-slot.sold { background: var(--nb-green); border-color: var(--nb-green); }
+    .nb-ad-slot.sold .nb-slot-id, .nb-ad-slot.sold .nb-slot-status { color: white; }
     
-    /* Combined slot - spans 2 columns HORIZONTALLY */
-    .nb-ad-slot.combined {
+    /* Horizontal combined (same row) */
+    .nb-ad-slot.combined-h {
         background: var(--nb-yellow);
         border-color: var(--nb-yellow);
         grid-column: span 2;
         aspect-ratio: 7.6/2.5;
-        font-size: 0.7rem;
     }
     
-    .nb-ad-slot.combined .nb-slot-id,
-    .nb-ad-slot.combined .nb-slot-status {
+    /* Vertical combined (same column, different rows) */
+    .nb-ad-slot.combined-v {
+        background: var(--nb-yellow);
+        border-color: var(--nb-yellow);
+        grid-row: span 2;
+        aspect-ratio: 3.8/5;
+    }
+    
+    .nb-ad-slot.combined-h .nb-slot-id,
+    .nb-ad-slot.combined-h .nb-slot-status,
+    .nb-ad-slot.combined-v .nb-slot-id,
+    .nb-ad-slot.combined-v .nb-slot-status {
         color: #333;
     }
     
-    .nb-ad-slot.selected {
-        border: 3px solid var(--nb-orange) !important;
-        box-shadow: 0 0 0 2px var(--nb-orange);
-    }
+    .nb-ad-slot.consumed { display: none; }
     
-    /* Consumed slot */
-    .nb-ad-slot.consumed {
-        display: none;
-    }
-    
-    /* Stats Dashboard */
     .nb-dashboard {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -203,22 +157,10 @@
         padding: 12px 8px;
         border-radius: 8px;
         text-align: center;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
     
-    .nb-stat-label {
-        font-size: 0.55rem;
-        text-transform: uppercase;
-        color: #666;
-        margin-bottom: 4px;
-        font-weight: 600;
-    }
-    
-    .nb-stat-value {
-        font-size: 1.1rem;
-        font-weight: bold;
-    }
-    
+    .nb-stat-label { font-size: 0.55rem; text-transform: uppercase; color: #666; font-weight: 600; }
+    .nb-stat-value { font-size: 1.1rem; font-weight: bold; }
     .nb-stat-value.green { color: var(--nb-green); }
     .nb-stat-value.red { color: #c62828; }
     
@@ -228,66 +170,51 @@
         border-radius: 6px;
         text-align: center;
         font-weight: 500;
-        font-size: 0.85rem;
     }
     
-    .nb-status.break-even { background: #e8f5e9; color: var(--nb-green); }
-    .nb-status.profit { background: #e8f5e9; color: var(--nb-green); }
     .nb-status.loss { background: #ffebee; color: #c62828; }
+    .nb-status.profit { background: #e8f5e9; color: var(--nb-green); }
+    .nb-status.break-even { background: #e8f5e9; color: var(--nb-green); }
     
-    /* Combine Bar */
-    .nb-selection-bar {
-        background: linear-gradient(135deg, #ff9800, #f57c00);
-        color: white;
-        padding: 15px 20px;
-        text-align: center;
-        font-weight: 600;
-        font-size: 0.95rem;
+    .nb-combine-bar {
         display: none;
+        padding: 15px 20px;
+        background: linear-gradient(135deg, #ff9800, #f57c00);
+        text-align: center;
     }
     
-    .nb-selection-bar.show {
-        display: block;
-    }
+    .nb-combine-bar.show { display: block; }
     
-    .nb-help-text {
-        background: #e3f2fd;
-        border: 2px solid #1976d2;
-        padding: 12px 15px;
-        margin: 10px 20px;
-        border-radius: 8px;
-        font-size: 0.85rem;
-        color: #1565c0;
-    }
+    .nb-combine-bar .info { color: white; font-weight: 600; margin-bottom: 10px; }
     
-    /* Controls */
-    .nb-controls {
-        padding: 20px;
-        background: var(--nb-bg);
-    }
-    
-    .nb-controls h3 {
+    .nb-combine-btn {
+        background: white;
+        color: #f57c00;
+        font-weight: bold;
+        padding: 12px 30px;
+        border-radius: 25px;
         font-size: 1rem;
-        margin: 0 0 15px;
-    }
-    
-    .nb-btn {
-        padding: 10px 18px;
         border: none;
-        border-radius: 6px;
         cursor: pointer;
-        font-size: 0.85rem;
-        font-weight: 600;
     }
     
-    .nb-btn-primary { background: var(--nb-red); color: white; }
-    .nb-btn-warning { background: var(--nb-yellow); color: #333; }
+    .nb-clear-btn {
+        background: rgba(255,255,255,0.3);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 20px;
+        border: 1px solid white;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+    
+    .nb-controls { padding: 20px; background: var(--nb-bg); }
+    .nb-controls h3 { font-size: 1rem; margin: 0 0 15px; }
+    
+    .nb-btn { padding: 10px 18px; border: none; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 600; }
     .nb-btn-danger { background: #c62828; color: white; }
-    .nb-btn-secondary { background: #eee; color: #333; }
     
-    .nb-ad-list {
-        margin-top: 20px;
-    }
+    .nb-ad-list { margin-top: 20px; }
     
     .nb-ad-item {
         display: flex;
@@ -301,46 +228,15 @@
         border-left: 4px solid var(--nb-green);
     }
     
-    .nb-ad-item.combined-item {
-        border-left-color: var(--nb-yellow);
-    }
+    .nb-ad-item.combined-item { border-left-color: var(--nb-yellow); }
+    .nb-ad-item .spot-id { font-weight: bold; color: var(--nb-red); margin-right: 8px; }
+    .nb-ad-item .price { color: var(--nb-green); font-weight: 600; }
+    .nb-ad-item .remove-btn { background: none; border: none; color: #999; cursor: pointer; }
     
-    .nb-ad-item .spot-id {
-        font-weight: bold;
-        color: var(--nb-red);
-        margin-right: 8px;
-    }
-    
-    .nb-ad-item .business {
-        color: #333;
-        flex: 1;
-    }
-    
-    .nb-ad-item .price { 
-        color: var(--nb-green); 
-        font-weight: 600; 
-    }
-    
-    .nb-ad-item .remove-btn {
-        background: none;
-        border: none;
-        color: #999;
-        cursor: pointer;
-    }
-    
-    .nb-empty {
-        color: #666;
-        font-size: 0.85rem;
-    }
-    
-    /* Modal */
     .nb-modal {
         display: none;
         position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        top: 0; left: 0; right: 0; bottom: 0;
         background: rgba(0,0,0,0.5);
         align-items: center;
         justify-content: center;
@@ -348,40 +244,13 @@
     }
     
     .nb-modal.show { display: flex; }
-    
-    .nb-modal-content {
-        background: white;
-        padding: 25px;
-        border-radius: 8px;
-        width: 320px;
-        max-width: 90%;
-    }
-    
-    .nb-modal-content h4 {
-        margin: 0 0 15px;
-        color: var(--nb-red);
-    }
-    
-    .nb-modal-content input {
-        width: 100%;
-        padding: 12px;
-        border: 2px solid #ddd;
-        border-radius: 4px;
-        font-size: 1rem;
-        margin-bottom: 15px;
-    }
-    
-    .nb-modal-buttons {
-        display: flex;
-        gap: 10px;
-    }
-    
+    .nb-modal-content { background: white; padding: 25px; border-radius: 8px; width: 320px; }
+    .nb-modal-content h4 { margin: 0 0 15px; color: var(--nb-red); }
+    .nb-modal-content input { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 4px; font-size: 1rem; margin-bottom: 15px; }
+    .nb-modal-buttons { display: flex; gap: 10px; }
     .nb-modal-buttons button { flex: 1; }
-    
-    @media (max-width: 480px) {
-        .nb-dashboard { grid-template-columns: 1fr 1fr; }
-        .nb-postcard { width: 100%; }
-    }
+    .nb-btn-primary { background: var(--nb-red); color: white; }
+    .nb-btn-secondary { background: #eee; color: #333; }
 </style>
 
 <div class="nb-tracker-wrapper" id="nbTracker">
@@ -390,10 +259,8 @@
         <p>Reference spots by ID: S-1, S-2, S-3...</p>
     </div>
     
-    <!-- Postcard Visual -->
     <div class="nb-postcard-section">
         <h3>Ad Template</h3>
-        
         <div class="nb-postcard">
             <div class="nb-postcard-side front">
                 <div class="nb-header-row">
@@ -402,79 +269,36 @@
                         <span class="nearbuy">NEARBUY</span>
                         <span class="tagline">WHERE TO BUY... NEARBY</span>
                     </div>
-                    <div class="nb-mail-indicia">ECRWSS<br>POSTAL INFO</div>
+                    <div class="nb-mail-indicia">ECRWSS<br>POSTAL</div>
                 </div>
-                
-                <div class="nb-row-label">Ad Spaces - Click to Sell</div>
+                <div class="nb-row-label">☐ Click checkbox to combine • Click slot to sell</div>
                 <div class="nb-ad-grid" id="nbAdGrid"></div>
             </div>
         </div>
     </div>
     
-    <div class="nb-help-text">
-        💡 <strong>Click any slot</strong> to sell it. Check boxes below to select slots for combining.
-    </div>
-    
-    <!-- Checkboxes to select for combine -->
-    <div style="padding:15px 20px;background:#fff8e1;border-top:1px solid #ffc107;border-bottom:1px solid #ffc107;">
-        <div style="font-size:0.85rem;color:#856404;margin-bottom:10px;font-weight:bold;">☐ Select EXACTLY 2 spots to combine:</div>
-        <div style="display:flex;flex-wrap:wrap;gap:5px;justify-content:center;">
-            <label style="font-size:0.8rem;background:#fff;padding:5px 8px;border-radius:4px;border:1px solid #ddd;"><input type="checkbox" onclick="nbToggleSelection(0)" id="cb0"> S-1</label>
-            <label style="font-size:0.8rem;background:#fff;padding:5px 8px;border-radius:4px;border:1px solid #ddd;"><input type="checkbox" onclick="nbToggleSelection(1)" id="cb1"> S-2</label>
-            <label style="font-size:0.8rem;background:#fff;padding:5px 8px;border-radius:4px;border:1px solid #ddd;"><input type="checkbox" onclick="nbToggleSelection(2)" id="cb2"> S-3</label>
-            <label style="font-size:0.8rem;background:#fff;padding:5px 8px;border-radius:4px;border:1px solid #ddd;"><input type="checkbox" onclick="nbToggleSelection(3)" id="cb3"> S-4</label>
-            <label style="font-size:0.8rem;background:#fff;padding:5px 8px;border-radius:4px;border:1px solid #ddd;"><input type="checkbox" onclick="nbToggleSelection(4)" id="cb4"> S-5</label>
-            <label style="font-size:0.8rem;background:#fff;padding:5px 8px;border-radius:4px;border:1px solid #ddd;"><input type="checkbox" onclick="nbToggleSelection(5)" id="cb5"> S-6</label>
-            <label style="font-size:0.8rem;background:#fff;padding:5px 8px;border-radius:4px;border:1px solid #ddd;"><input type="checkbox" onclick="nbToggleSelection(6)" id="cb6"> S-7</label>
-            <label style="font-size:0.8rem;background:#fff;padding:5px 8px;border-radius:4px;border:1px solid #ddd;"><input type="checkbox" onclick="nbToggleSelection(7)" id="cb7"> S-8</label>
-            <label style="font-size:0.8rem;background:#fff;padding:5px 8px;border-radius:4px;border:1px solid #ddd;"><input type="checkbox" onclick="nbToggleSelection(8)" id="cb8"> S-9</label>
-        </div>
-    </div>
-    
-    <div class="nb-selection-bar" id="nbSelectionBar" style="display:flex;align-items:center;justify-content:center;gap:10px;">
-        <span id="nbSelectionText" style="font-size:0.9rem;">Select 2 boxes above to combine</span>
-        <button class="nb-btn" style="background:#fff;color:#f57c00;font-weight:bold;padding:12px 24px;border-radius:25px;font-size:1rem" onclick="nbCombineSelected()">🔥 COMBINE NOW</button>
+    <!-- Combine Bar -->
+    <div class="nb-combine-bar" id="nbCombineBar">
+        <div class="info" id="nbCombineInfo">2 spots selected</div>
+        <button class="nb-combine-btn" onclick="nbCombineSelected()">🔥 COMBINE NOW</button>
+        <button class="nb-clear-btn" onclick="nbClearSelection()">Clear ✕</button>
     </div>
     
     <!-- Stats -->
     <div class="nb-dashboard">
-        <div class="nb-stat">
-            <div class="nb-stat-label">Available</div>
-            <div class="nb-stat-value" id="nbAvailable">9</div>
-        </div>
-        <div class="nb-stat">
-            <div class="nb-stat-label">Sold</div>
-            <div class="nb-stat-value" id="nbSold">0</div>
-        </div>
-        <div class="nb-stat">
-            <div class="nb-stat-label">Revenue</div>
-            <div class="nb-stat-value green" id="nbRevenue">$0</div>
-        </div>
-        <div class="nb-stat">
-            <div class="nb-stat-label">Cost</div>
-            <div class="nb-stat-value" id="nbCost">$2,344</div>
-        </div>
-        <div class="nb-stat">
-            <div class="nb-stat-label">Profit</div>
-            <div class="nb-stat-value red" id="nbProfit">-$2,344</div>
-        </div>
-        <div class="nb-stat">
-            <div class="nb-stat-label">Max</div>
-            <div class="nb-stat-value" id="nbMaxRevenue">$4,050</div>
-        </div>
+        <div class="nb-stat"><div class="nb-stat-label">Available</div><div class="nb-stat-value" id="nbAvailable">9</div></div>
+        <div class="nb-stat"><div class="nb-stat-label">Sold</div><div class="nb-stat-value" id="nbSold">0</div></div>
+        <div class="nb-stat"><div class="nb-stat-label">Revenue</div><div class="nb-stat-value green" id="nbRevenue">$0</div></div>
+        <div class="nb-stat"><div class="nb-stat-label">Cost</div><div class="nb-stat-value" id="nbCost">$2,344</div></div>
+        <div class="nb-stat"><div class="nb-stat-label">Profit</div><div class="nb-stat-value red" id="nbProfit">-$2,344</div></div>
+        <div class="nb-stat"><div class="nb-stat-label">Max</div><div class="nb-stat-value" id="nbMaxRevenue">$4,050</div></div>
     </div>
     
-    <div class="nb-status" id="nbStatus">
-        Click any slot to sell it!
-    </div>
+    <div class="nb-status" id="nbStatus">Click any slot to sell it!</div>
     
-    <!-- Controls -->
     <div class="nb-controls">
         <h3>Sold Spots</h3>
-        <div class="nb-ad-list" id="nbAdList">
-            <p class="nb-empty">No ads sold yet.</p>
-        </div>
-        
+        <div class="nb-ad-list" id="nbAdList"><p style="color:#666;font-size:0.85rem;">No ads sold yet.</p></div>
         <div style="margin-top:20px;padding-top:15px;border-top:1px solid #eee;">
             <button class="nb-btn nb-btn-danger" onclick="nbReset()">Reset All</button>
         </div>
@@ -498,25 +322,14 @@
     if (window.nbTrackerInitialized) return;
     window.nbTrackerInitialized = true;
     
-    const PRINT_COST = 2344;
-    const STANDARD_PRICE = 450;
-    const DUPLEX_PRICE = 900;
+    const PRINT_COST = 2344, STANDARD_PRICE = 450, DUPLEX_PRICE = 900;
     
-    let slots = [];
-    let selectedSlots = [];
-    let currentEditSlot = null;
+    let slots = [], selectedSlots = [], currentEditSlot = null;
     
     function initSlots() {
         slots = [];
         for (var i = 0; i < 9; i++) {
-            slots.push({
-                index: i,
-                spotId: 'S-' + (i + 1),
-                status: 'available',
-                business: '',
-                price: STANDARD_PRICE,
-                combinedWith: null
-            });
+            slots.push({ index: i, spotId: 'S-' + (i + 1), status: 'available', business: '', price: STANDARD_PRICE, combinedWith: null });
         }
     }
     initSlots();
@@ -525,20 +338,20 @@
     function getCol(idx) { return idx % 3; }
     
     function canCombine(idx1, idx2) {
-        var row1 = getRow(idx1);
-        var row2 = getRow(idx2);
-        if (row1 === row2) return true; // horizontal OK
-        if (row1 === 0 || row2 === 0) return false; // top row no vertical
+        var r1 = getRow(idx1), r2 = getRow(idx2), c1 = getCol(idx1), c2 = getCol(idx2);
+        if (r1 === r2) return true; // same row - horizontal OK
+        if (r1 === 0 || r2 === 0) return false; // top row no vertical
         return true; // rows 1-2 can vertical
+    }
+    
+    function isHorizontalCombine(idx1, idx2) {
+        return getRow(idx1) === getRow(idx2);
     }
     
     function updateDashboard() {
         var soldCount = slots.filter(function(s) { return s.status === 'sold' || s.status === 'combined'; }).length;
         var availableCount = slots.filter(function(s) { return s.status === 'available'; }).length;
-        
-        var revenue = slots.reduce(function(sum, s) { 
-            return sum + (s.status === 'sold' || s.status === 'combined' ? s.price : 0); 
-        }, 0);
+        var revenue = slots.reduce(function(sum, s) { return sum + (s.status === 'sold' || s.status === 'combined' ? s.price : 0); }, 0);
         var profit = revenue - PRINT_COST;
         
         document.getElementById('nbAvailable').textContent = availableCount;
@@ -549,38 +362,22 @@
         document.getElementById('nbMaxRevenue').textContent = '$' + (availableCount * STANDARD_PRICE);
         
         var statusEl = document.getElementById('nbStatus');
-        if (profit < 0) {
-            statusEl.className = 'nb-status loss';
-            statusEl.textContent = '$' + Math.abs(profit) + ' until break-even';
-        } else if (profit > 0) {
-            statusEl.className = 'nb-status profit';
-            statusEl.textContent = '$${profit} profit!';
-        } else {
-            statusEl.className = 'nb-status break-even';
-            statusEl.textContent = '🎉 Break-even!';
-        }
+        if (profit < 0) { statusEl.className = 'nb-status loss'; statusEl.textContent = '$' + Math.abs(profit) + ' until break-even'; }
+        else if (profit > 0) { statusEl.className = 'nb-status profit'; statusEl.textContent = '$${profit} profit!'; }
+        else { statusEl.className = 'nb-status break-even'; statusEl.textContent = '🎉 Break-even!'; }
         
         renderGrid();
-        updateSelectionBar();
+        updateCombineBar();
         renderAdList();
     }
     
-    function updateSelectionBar() {
-        var bar = document.getElementById('nbSelectionBar');
-        
-        // Update checkboxes
-        for (var i = 0; i < 9; i++) {
-            var cb = document.getElementById('cb' + i);
-            if (cb) {
-                cb.checked = selectedSlots.indexOf(i) !== -1;
-            }
-        }
-        
+    function updateCombineBar() {
+        var bar = document.getElementById('nbCombineBar');
         if (selectedSlots.length === 0) {
             bar.classList.remove('show');
         } else {
             bar.classList.add('show');
-            document.getElementById('nbSelectionText').textContent = selectedSlots.length + ' selected';
+            document.getElementById('nbCombineInfo').textContent = selectedSlots.length + ' spots selected - Click COMBINE or clear to undo';
         }
     }
     
@@ -592,7 +389,14 @@
             var el = document.createElement('div');
             el.className = 'nb-ad-slot';
             
-            // Always show ID
+            // Checkbox INSIDE the slot
+            var cb = document.createElement('input');
+            cb.type = 'checkbox';
+            cb.className = 'nb-slot-checkbox';
+            cb.checked = selectedSlots.indexOf(slot.index) !== -1;
+            cb.onclick = function(e) { e.stopPropagation(); nbToggleSelection(slot.index); };
+            el.appendChild(cb);
+            
             var idEl = document.createElement('div');
             idEl.className = 'nb-slot-id';
             idEl.textContent = slot.spotId;
@@ -603,7 +407,6 @@
                 statusEl.className = 'nb-slot-status';
                 statusEl.textContent = 'CLICK TO SELL';
                 el.appendChild(statusEl);
-                
                 el.onclick = function() { nbOpenAssignModal(slot.index); };
             } else if (slot.status === 'sold') {
                 el.classList.add('sold');
@@ -611,15 +414,15 @@
                 statusEl.className = 'nb-slot-status';
                 statusEl.textContent = slot.business || 'SOLD';
                 el.appendChild(statusEl);
-                
                 el.onclick = function() { nbOpenAssignModal(slot.index); };
             } else if (slot.status === 'combined') {
-                el.classList.add('combined');
+                // Determine if horizontal or vertical
+                var isHoriz = selectedSlots.length > 0 && isHorizontalCombine(selectedSlots[0], slot.combinedWith);
+                el.classList.add(isHoriz ? 'combined-h' : 'combined-v');
                 var statusEl = document.createElement('div');
                 statusEl.className = 'nb-slot-status';
                 statusEl.textContent = slot.business || 'DUPLEX';
                 el.appendChild(statusEl);
-                
                 el.onclick = function() { nbOpenAssignModal(slot.index); };
             } else if (slot.status === 'consumed') {
                 el.classList.add('consumed');
@@ -634,7 +437,7 @@
         var soldSlots = slots.filter(function(s) { return s.status === 'sold' || s.status === 'combined'; });
         
         if (soldSlots.length === 0) {
-            list.innerHTML = '<p class="nb-empty">No ads sold yet.</p>';
+            list.innerHTML = '<p style="color:#666;font-size:0.85rem;">No ads sold yet.</p>';
             return;
         }
         
@@ -654,48 +457,35 @@
     }
     
     window.nbToggleSelection = function(idx) {
-        var slot = slots[idx];
-        
-        // Toggle checkbox
-        var cb = document.getElementById('cb' + idx);
-        if (!cb) return;
-        
         var pos = selectedSlots.indexOf(idx);
         if (pos !== -1) {
             selectedSlots.splice(pos, 1);
-            cb.checked = false;
         } else {
-            if (selectedSlots.length === 1 && !canCombine(selectedSlots[0], idx)) {
-                alert('Cannot combine vertically in top row.');
-                cb.checked = false;
+            if (selectedSlots.length >= 2) {
+                alert('Select max 2 spots. Clear first if needed.');
                 return;
             }
-            if (selectedSlots.length < 2) {
-                selectedSlots.push(idx);
-                cb.checked = true;
-            } else {
-                cb.checked = false;
-                alert('Select only 2 slots to combine');
+            if (selectedSlots.length === 1 && !canCombine(selectedSlots[0], idx)) {
+                alert('Cannot combine vertically in top row (S-1, S-2, S-3).');
+                return;
             }
+            selectedSlots.push(idx);
         }
         updateDashboard();
     };
     
     window.nbCombineSelected = function() {
-        if (selectedSlots.length !== 2) return;
+        if (selectedSlots.length !== 2) { alert('Select exactly 2 spots.'); return; }
         
         if (!canCombine(selectedSlots[0], selectedSlots[1])) {
-            alert('Cannot combine vertically in top row (S-1, S-2, S-3).');
-            return;
+            alert('Cannot combine vertically in top row.'); return;
         }
         
-        var idx1 = selectedSlots[0];
-        var idx2 = selectedSlots[1];
+        var idx1 = selectedSlots[0], idx2 = selectedSlots[1];
         
         slots[idx1].status = 'combined';
         slots[idx1].price = DUPLEX_PRICE;
         slots[idx1].combinedWith = idx2;
-        
         slots[idx2].status = 'consumed';
         slots[idx2].combinedWith = idx1;
         
@@ -726,10 +516,7 @@
         var name = document.getElementById('nbBusinessName').value.trim();
         if (currentEditSlot !== null) {
             var slot = slots[currentEditSlot];
-            if (slot.status === 'available') {
-                slot.status = 'sold';
-                slot.price = STANDARD_PRICE;
-            }
+            if (slot.status === 'available') { slot.status = 'sold'; slot.price = STANDARD_PRICE; }
             slot.business = name;
         }
         nbCloseModal();
@@ -740,33 +527,17 @@
         var slot = slots[idx];
         if (slot.status === 'combined') {
             var otherIdx = slot.combinedWith;
-            slot.status = 'available';
-            slot.business = '';
-            slot.price = STANDARD_PRICE;
-            slot.combinedWith = null;
-            if (otherIdx !== null) {
-                slots[otherIdx].status = 'available';
-                slots[otherIdx].combinedWith = null;
-            }
+            slot.status = 'available'; slot.business = ''; slot.price = STANDARD_PRICE; slot.combinedWith = null;
+            if (otherIdx !== null) { slots[otherIdx].status = 'available'; slots[otherIdx].combinedWith = null; }
         } else {
-            slot.status = 'available';
-            slot.business = '';
-            slot.price = STANDARD_PRICE;
+            slot.status = 'available'; slot.business = ''; slot.price = STANDARD_PRICE;
         }
         updateDashboard();
     };
     
-    window.nbReset = function() {
-        if (confirm('Reset all?')) {
-            initSlots();
-            selectedSlots = [];
-            updateDashboard();
-        }
-    };
+    window.nbReset = function() { if (confirm('Reset all?')) { initSlots(); selectedSlots = []; updateDashboard(); } };
     
-    document.getElementById('nbBusinessName').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') nbSaveBusiness();
-    });
+    document.getElementById('nbBusinessName').addEventListener('keypress', function(e) { if (e.key === 'Enter') nbSaveBusiness(); });
     
     updateDashboard();
 })();
