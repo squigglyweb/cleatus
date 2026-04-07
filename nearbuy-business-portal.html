@@ -210,7 +210,14 @@
         
         <!-- Campaign Details -->
         <div class="dash-campaign">
-            <h2>📊 Campaign Performance</h2>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;">
+                <h2>📊 Campaign Performance</h2>
+                <select style="padding:8px 12px;border-radius:6px;border:1px solid #ddd;font-size:0.9rem;">
+                    <option>March 2026</option>
+                    <option>February 2026</option>
+                    <option>January 2026</option>
+                </select>
+            </div>
             <div class="campaign-dates">
                 <div class="campaign-date"><strong>Mailing Date</strong>March 15, 2026</div>
                 <div class="campaign-date"><strong>Valid Through</strong>May 15, 2026</div>
@@ -445,6 +452,28 @@
                 }
             }
         }
+        
+        <!-- Past Campaigns Summary -->
+        <div class="dash-section">
+            <h2>📈 Past Campaigns</h2>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:15px;">
+                <div style="background:#f5f5f5;padding:15px;border-radius:8px;text-align:center;">
+                    <div style="font-size:0.8rem;color:#666;">Feb 2026</div>
+                    <div style="font-size:1.2rem;font-weight:bold;color:#34a853;">$2,400</div>
+                    <div style="font-size:0.75rem;color:#999;">7 spots sold</div>
+                </div>
+                <div style="background:#f5f5f5;padding:15px;border-radius:8px;text-align:center;">
+                    <div style="font-size:0.8rem;color:#666;">Jan 2026</div>
+                    <div style="font-size:1.2rem;font-weight:bold;color:#34a853;">$3,100</div>
+                    <div style="font-size:0.75rem;color:#999;">8 spots sold</div>
+                </div>
+                <div style="background:#f5f5f5;padding:15px;border-radius:8px;text-align:center;">
+                    <div style="font-size:0.8rem;color:#666;">Dec 2025</div>
+                    <div style="font-size:1.2rem;font-weight:bold;color:#34a853;">$2,700</div>
+                    <div style="font-size:0.75rem;color:#999;">6 spots sold</div>
+                </div>
+            </div>
+        </div>
         
         function startCountdown() {
             let time = 7 * 24 * 60 * 60 * 1000;
