@@ -247,7 +247,24 @@
         </div>
         
         <div class="dash-section">
-            <h2>✅ Validate Voucher</h2>
+            <h2>📧 Captured Emails <span class="info-icon" data-tooltip="Email addresses of customers who claimed your voucher - you can email them directly!">?</span></h2>
+            <div style="margin-bottom:15px;">
+                <span style="font-size:1.5rem;font-weight:bold;color:#34a853;" id="emailCount">23</span>
+                <span style="color:#666;margin-left:8px;">emails captured</span>
+                <button style="margin-left:15px;padding:8px 15px;background:#d32f2f;color:white;border:none;border-radius:6px;cursor:pointer;font-size:0.8rem;" onclick="exportEmails()">📥 Export Emails</button>
+            </div>
+            <div style="max-height:200px;overflow-y:auto;border:1px solid #eee;border-radius:8px;">
+                <table style="width:100%;font-size:0.85rem;">
+                    <tr style="background:#f5f5f5;"><th style="padding:10px;text-align:left;">Email</th><th style="padding:10px;text-align:left;">Claimed</th><th style="padding:10px;text-align:left;">Status</th></tr>
+                    <tr><td style="padding:10px;border-bottom:1px solid #eee;">mike...@email.com</td><td style="padding:10px;border-bottom:1px solid #eee;">Mar 16</td><td style="padding:10px;border-bottom:1px solid #eee;color:#34a853;">✓ Redeemed</td></tr>
+                    <tr><td style="padding:10px;border-bottom:1px solid #eee;">sarah...@email.com</td><td style="padding:10px;border-bottom:1px solid #eee;">Mar 17</td><td style="padding:10px;border-bottom:1px solid #eee;color:#34a853;">✓ Redeemed</td></tr>
+                    <tr><td style="padding:10px;border-bottom:1px solid #eee;">james...@email.com</td><td style="padding:10px;border-bottom:1px solid #eee;">Mar 18</td><td style="padding:10px;border-bottom:1px solid #eee;color:#ff9800;">Pending</td></tr>
+                    <tr><td style="padding:10px;border-bottom:1px solid #eee;">lisa...@email.com</td><td style="padding:10px;border-bottom:1px solid #eee;">Mar 19</td><td style="padding:10px;border-bottom:1px solid #eee;color:#34a853;">✓ Redeemed</td></tr>
+                    <tr><td style="padding:10px;border-bottom:1px solid #eee;">david...@email.com</td><td style="padding:10px;border-bottom:1px solid #eee;">Mar 20</td><td style="padding:10px;border-bottom:1px solid #eee;color:#999;">Not used</td></tr>
+                </table>
+            </div>
+            <div style="font-size:0.8rem;color:#666;margin-top:10px;">💡 Tip: These customers asked for your offer. They!</div>
+        </div>
             <input type="text" class="validator-input" id="voucherCode" placeholder="Enter voucher code (e.g., WAX-1001)">
             <button class="login-btn" style="background:#34a853;" onclick="validateVoucher()">Check Voucher</button>
             <div class="validator-result" id="validatorResult"></div>
@@ -362,6 +379,31 @@
                 result.textContent = '✕ INVALID - Code not recognized';
                 result.classList.add('invalid');
             }
+        }
+        
+        function exportEmails() {
+            // In a real app, this would generate a CSV
+            const emails = [
+                'mike.johnson@email.com',
+                'sarah.wilson@email.com',
+                'james.brown@email.com',
+                'lisa.davis@email.com',
+                'david.miller@email.com'
+            ];
+            
+            const csv = 'Email,Date Claimed,Status\n' + 
+                'mike.johnson@email.com,Mar 16 2026,Redeemed\n' +
+                'sarah.wilson@email.com,Mar 17 2026,Redeemed\n' +
+                'james.brown@email.com,Mar 18 2026,Pending\n' +
+                'lisa.davis@email.com,Mar 19 2026,Redeemed\n' +
+                'david.miller@email.com,Mar 20 2026,Not Used';
+            
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'customer-emails.csv';
+            a.click();
         }
         
         function sendChat() {
