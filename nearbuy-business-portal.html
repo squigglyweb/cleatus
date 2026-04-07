@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Local NearBuy - Business Portal</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        
+        body { background: #f8f9fa; min-height: 100vh; }
+        
+        /* Login Screen */
+        .login-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+        }
+        
+        .login-box {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 360px;
+            text-align: center;
+        }
+        
+        .login-logo { font-size: 1.5rem; font-weight: bold; color: #d32f2f; margin-bottom: 5px; }
+        .login-tagline { font-size: 0.85rem; color: #666; margin-bottom: 25px; }
+        
+        .login-input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            transition: border-color 0.2s;
+        }
+        
+        .login-input:focus { outline: none; border-color: #d32f2f; }
+        
+        .login-btn {
+            width: 100%;
+            padding: 14px;
+            background: #d32f2f;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .login-btn:hover { background: #b71c1c; }
+        
+        .login-note { font-size: 0.75rem; color: #999; margin-top: 20px; }
+        
+        /* Dashboard */
+        .dashboard { display: none; }
+        
+        .dash-header {
+            background: #d32f2f;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .dash-header h1 { font-size: 1.1rem; }
+        
+        .dash-logout {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        
+        .dash-business-info {
+            background: white;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .dash-business-name { font-size: 1.3rem; font-weight: bold; color: #333; margin-bottom: 5px; }
+        .dash-business-spot { font-size: 0.9rem; color: #666; }
+        
+        .dash-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            padding: 0 20px;
+        }
+        
+        .dash-stat {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .dash-stat-value { font-size: 1.8rem; font-weight: bold; }
+        .dash-stat-value.green { color: #34a853; }
+        .dash-stat-value.red { color: #d32f2f; }
+        .dash-stat-label { font-size: 0.75rem; color: #666; text-transform: uppercase; margin-top: 5px; }
+        
+        .dash-section {
+            background: white;
+            margin: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .dash-section h2 { font-size: 1rem; color: #333; margin-bottom: 15px; }
+        
+        .qr-display {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .qr-display .qr-code {
+            width: 150px;
+            height: 150px;
+            background: #ddd;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            color: #666;
+        }
+        
+        .validator-input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .validator-result {
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-align: center;
+            display: none;
+        }
+        
+        .validator-result.valid { background: #e8f5e9; color: #34a853; }
+        .validator-result.invalid { background: #ffebee; color: #d32f2f; }
+        .validator-result.expired { background: #fff3e0; color: #e65100; }
+        
+        .chat-messages {
+            height: 250px;
+            overflow-y: auto;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .chat-msg {
+            padding: 10px 14px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+        
+        .chat-msg.business {
+            background: #e3f2fd;
+            margin-left: 20%;
+            border-bottom-right-radius: 4px;
+        }
+        
+        .chat-msg.you {
+            background: #f5f5f5;
+            margin-right: 20%;
+            border-bottom-left-radius: 4px;
+        }
+        
+        .chat-input-wrap {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .chat-input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+        
+        .chat-send {
+            background: #d32f2f;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 500px) {
+            .dash-stats { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-box">
+            <div class="login-logo">🏠 THE LOCAL NEARBUY</div>
+            <div class="login-tagline">Business Portal</div>
+            
+            <input type="text" class="login-input" id="loginCode" placeholder="Enter your access code">
+            <button class="login-btn" onclick="doLogin()">Enter Portal</button>
+            
+            <div class="login-note">
+                Your access code was provided in your welcome email.
+            </div>
+        </div>
+    </div>
+    
+    <!-- Dashboard -->
+    <div class="dashboard" id="dashboard">
+        <div class="dash-header">
+            <h1>📮 NearBuy Business Portal</h1>
+            <button class="dash-logout" onclick="doLogout()">Logout</button>
+        </div>
+        
+        <div class="dash-business-info">
+            <div class="dash-business-name" id="businessName">Loading...</div>
+            <div class="dash-business-spot" id="spotId">Spot #--</div>
+        </div>
+        
+        <div class="dash-stats">
+            <div class="dash-stat">
+                <div class="dash-stat-value green" id="scanCount">0</div>
+                <div class="dash-stat-label">Scans</div>
+            </div>
+            <div class="dash-stat">
+                <div class="dash-stat-value" id="claimCount">0</div>
+                <div class="dash-stat-label">Claims</div>
+            </div>
+            <div class="dash-stat">
+                <div class="dash-stat-value" id="redeemCount">0</div>
+                <div class="dash-stat-label">Redeemed</div>
+            </div>
+        </div>
+        
+        <div class="dash-section">
+            <h2>📱 Your QR Code</h2>
+            <div class="qr-display">
+                <div class="qr-code" id="qrCode">QR CODE</div>
+                <div style="font-size:0.85rem;color:#666;">Scan to view your offer</div>
+            </div>
+        </div>
+        
+        <div class="dash-section">
+            <h2>✅ Validate Voucher</h2>
+            <input type="text" class="validator-input" id="voucherCode" placeholder="Enter voucher code (e.g., WAX-1001)">
+            <button class="login-btn" style="background:#34a853;" onclick="validateVoucher()">Check Voucher</button>
+            <div class="validator-result" id="validatorResult"></div>
+        </div>
+        
+        <div class="dash-section">
+            <h2>💬 Message Bryan</h2>
+            <div class="chat-messages" id="chatMessages">
+                <!-- Messages go here -->
+            </div>
+            <div class="chat-input-wrap">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type a message...">
+                <button class="chat-send" onclick="sendChat()">Send</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Sample business data - in real app this comes from a database
+        const businesses = {
+            'BUSINESS001': {
+                name: 'JGL Repair',
+                spot: 'S-1',
+                scans: 47,
+                claims: 23,
+                redeemed: 12,
+                qrCode: 'NEARBUY-JGL001'
+            },
+            'BUSINESS002': {
+                name: 'Papaya Skin Care',
+                spot: 'S-2',
+                scans: 31,
+                claims: 18,
+                redeemed: 9,
+                qrCode: 'NEARBUY-PAPAYA002'
+            },
+            'TEST123': {
+                name: 'Test Business',
+                spot: 'S-5',
+                scans: 15,
+                claims: 8,
+                redeemed: 4,
+                qrCode: 'NEARBUY-TEST123'
+            }
+        };
+        
+        // Check if already logged in
+        const savedCode = localStorage.getItem('nearbuy_code');
+        if (savedCode && businesses[savedCode]) {
+            showDashboard(savedCode);
+        }
+        
+        function doLogin() {
+            const code = document.getElementById('loginCode').value.trim().toUpperCase();
+            
+            if (businesses[code]) {
+                localStorage.setItem('nearbuy_code', code);
+                showDashboard(code);
+            } else {
+                alert('Invalid access code. Please check your email.');
+            }
+        }
+        
+        function doLogout() {
+            localStorage.removeItem('nearbuy_code');
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('dashboard').style.display = 'none';
+            document.getElementById('loginCode').value = '';
+        }
+        
+        function showDashboard(code) {
+            const biz = businesses[code];
+            
+            document.getElementById('loginScreen').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            
+            document.getElementById('businessName').textContent = biz.name;
+            document.getElementById('spotId').textContent = 'Ad Spot: ' + biz.spot;
+            document.getElementById('scanCount').textContent = biz.scans;
+            document.getElementById('claimCount').textContent = biz.claims;
+            document.getElementById('redeemCount').textContent = biz.redeemed;
+            document.getElementById('qrCode').textContent = biz.qrCode;
+        }
+        
+        function validateVoucher() {
+            const code = document.getElementById('voucherCode').value.trim().toUpperCase();
+            const result = document.getElementById('validatorResult');
+            
+            // Sample validation logic
+            if (!code) {
+                result.style.display = 'none';
+                return;
+            }
+            
+            result.style.display = 'block';
+            result.className = 'validator-result';
+            
+            // Simulate validation
+            if (code.startsWith('WAX-')) {
+                result.textContent = '✓ VALID - Customer gets their offer!';
+                result.classList.add('valid');
+            } else if (code === 'EXPIRED') {
+                result.textContent = '⚠ EXPIRED - This voucher is no longer valid';
+                result.classList.add('expired');
+            } else {
+                result.textContent = '✕ INVALID - Code not recognized';
+                result.classList.add('invalid');
+            }
+        }
+        
+        function sendChat() {
+            const input = document.getElementById('chatInput');
+            const msg = input.value.trim();
+            if (!msg) return;
+            
+            const container = document.getElementById('chatMessages');
+            
+            // Add business message
+            const msgEl = document.createElement('div');
+            msgEl.className = 'chat-msg business';
+            msgEl.textContent = msg;
+            container.appendChild(msgEl);
+            
+            input.value = '';
+            container.scrollTop = container.scrollHeight;
+            
+            // Simulate reply after 2 seconds
+            setTimeout(() => {
+                const replyEl = document.createElement('div');
+                replyEl.className = 'chat-msg you';
+                replyEl.textContent = 'Thanks for reaching out! Bryan will get back to you shortly.';
+                container.appendChild(replyEl);
+                container.scrollTop = container.scrollHeight;
+            }, 2000);
+        }
+        
+        // Enter key sends chat
+        document.getElementById('chatInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') sendChat();
+        });
+    </script>
+</body>
+</html>
