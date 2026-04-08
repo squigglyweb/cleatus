@@ -26,13 +26,13 @@
         /* Dashboard */
         .dashboard { display: none; }
         
-        /* Header */
+        /* Header - Red Banner Style */
         .header { background: #d32f2f; color: white; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; }
         .header-logo { display: flex; align-items: center; gap: 10px; }
-        .header-logo-icon { width: 32px; height: 32px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-        .header-logo-icon .nb { color: #d32f2f; font-weight: bold; font-size: 0.8rem; }
-        .header-logo-text { font-size: 1rem; font-weight: bold; white-space: nowrap; }
-        .header-logout { background: rgba(255,255,255,0.2); color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.9rem; }
+        .header-logo-icon { width: 32px; height: 32px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .header-logo-icon svg { width: 20px; height: 20px; }
+        .header-logo-text { font-size: 1.2rem; font-weight: bold; white-space: nowrap; letter-spacing: 0.5px; }
+        .header-logout { background: #ffc0cb; color: white; border: none; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: 600; }
         
         /* Sections */
         .section { background: white; margin: 15px; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
@@ -160,8 +160,7 @@
     <!-- Login Screen -->
     <div class="login-screen" id="loginScreen">
         <div class="login-logo">
-            <div class="header-logo-icon"><span class="nb">NB</span></div>
-            <div class="login-logo-text"><span>THE LOCAL NEARBUY POSTCARD</span></div>
+            <img src="https://raw.githubusercontent.com/squigglyweb/cleatus/main/TLN-logo-V1.png" alt="The Local NearBuy" style="max-width:280px;">
         </div>
         <div class="login-box">
             <h2>Business Login</h2>
@@ -176,8 +175,13 @@
         <!-- Header -->
         <div class="header">
             <div class="header-logo">
-                <div class="header-logo-icon"><span class="nb">NB</span></div>
-                <div class="header-logo-text">THE LOCAL NEARBUY POSTCARD</div>
+                <div class="header-logo-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#d32f2f" stroke-width="2">
+                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                        <circle cx="12" cy="10" r="3"/>
+                    </svg>
+                </div>
+                <div class="header-logo-text">THE LOCAL NEARBUY</div>
             </div>
             <button class="header-logout" onclick="doLogout()">Logout</button>
         </div>
