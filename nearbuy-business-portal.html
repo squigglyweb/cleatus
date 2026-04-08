@@ -402,11 +402,15 @@
                     spot.classList.add('available');
                     spot.innerHTML = 'AVAIL';
                 } else if (item.type === 'duplex') {
-                    spot.classList.add('duplex');
-                    if (biz.isDuplex && biz.spots.includes(idx)) {
-                        spot.innerHTML = '<span class="spot-label">YOUR AD</span>';
+                    // Show actual ad image for duplex (colored, not text)
+                    const isMine = biz.isDuplex && biz.spots.includes(idx);
+                    if (isMine && item.adImage) {
+                        // Your duplex - show ad image
+                        spot.innerHTML = '<img src="' + item.adImage + '" alt="Ad"><span class="spot-label">YOUR AD</span>';
                     } else {
-                        spot.innerHTML = 'DUPLEX';
+                        // Other person's duplex - show colored box with their ad
+                        spot.classList.add('duplex');
+                        spot.innerHTML = item.adImage ? '<img src="' + item.adImage + '" alt="Ad">' : '<span class="spot-label">DUPLEX</span>';
                     }
                 } else {
                     // Standard spot
