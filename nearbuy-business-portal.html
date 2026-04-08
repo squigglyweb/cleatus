@@ -4,38 +4,336 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Local NearBuy - Business Portal</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; }
+        
+        /* Login Screen */
+        .login-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; }
+        .login-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 30px; }
+        .login-logo-icon { width: 40px; height: 40px; background: #d32f2f; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .login-logo-icon svg { fill: white; width: 24px; height: 24px; }
+        .login-logo-text { font-size: 1.8rem; font-weight: bold; }
+        .login-logo-text span:first-child { color: #d32f2f; }
+        .login-logo-text span:last-child { color: #333; }
+        .login-box { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        .login-box h2 { margin-bottom: 20px; text-align: center; color: #333; }
+        .login-input { width: 100%; padding: 14px; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; margin-bottom: 15px; }
+        .login-btn { width: 100%; padding: 14px; background: #d32f2f; color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; }
+        .login-btn:hover { background: #b71c1c; }
+        .login-note { text-align: center; margin-top: 15px; color: #666; font-size: 0.85rem; }
+        
+        /* Dashboard */
+        .dashboard { display: none; }
+        
+        /* Header */
+        .header { background: #d32f2f; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
+        .header-logo { display: flex; align-items: center; gap: 10px; }
+        .header-logo-icon { width: 32px; height: 32px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .header-logo-icon .nb { color: #d32f2f; font-weight: bold; font-size: 0.9rem; }
+        .header-logo-text { font-size: 1.2rem; font-weight: bold; }
+        .header-logout { background: rgba(255,255,255,0.2); color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.9rem; }
+        
+        /* Sections */
+        .section { background: white; margin: 15px; padding: 20px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .section-title { display: flex; align-items: center; gap: 8px; font-size: 1rem; font-weight: 600; color: #333; margin-bottom: 15px; }
+        
+        /* Business Info */
+        .biz-info { padding: 0; }
+        .biz-name { font-size: 1.5rem; font-weight: bold; color: #333; margin-bottom: 10px; }
+        .biz-details { display: flex; gap: 20px; flex-wrap: wrap; font-size: 0.9rem; color: #666; }
+        .biz-details span { display: flex; gap: 5px; }
+        .biz-details strong { color: #333; }
+        
+        /* Ad Preview in Grid */
+        .ad-preview-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; background: #333; padding: 6px; border-radius: 4px; }
+        .ad-spot { aspect-ratio: 3.8/2.5; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; color: white; border-radius: 2px; overflow: hidden; position: relative; }
+        .ad-spot img { width: 100%; height: 100%; object-fit: cover; }
+        .ad-spot.standard { background: #34a853; }
+        .ad-spot.duplex { background: #f59e0b; }
+        .ad-spot.available { background: #888; }
+        .ad-spot .spot-label { position: absolute; bottom: 2px; right: 2px; font-size: 0.5rem; opacity: 0.8; }
+        
+        /* Stats */
+        .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 15px; }
+        .stat-card { background: #f8f9fa; padding: 20px; border-radius: 8px; text-align: center; position: relative; }
+        .stat-value { font-size: 2rem; font-weight: bold; color: #333; }
+        .stat-label { font-size: 0.75rem; color: #666; text-transform: uppercase; margin-top: 5px; }
+        .stat-icon { position: absolute; top: 10px; right: 10px; width: 20px; height: 20px; background: #ddd; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.7rem; color: #666; cursor: help; }
+        
+        /* Campaign Details */
+        .campaign-meta { display: flex; gap: 20px; flex-wrap: wrap; margin: 15px 0; }
+        .meta-item { background: #f5f5f5; padding: 10px 15px; border-radius: 6px; font-size: 0.85rem; }
+        .meta-item strong { display: block; color: #d32f2f; font-size: 0.75rem; }
+        
+        /* Campaign Status */
+        .campaign-status { background: #e8f5e9; border-left: 4px solid #34a853; padding: 15px; border-radius: 4px; }
+        .campaign-status.low { background: #ffebee; border-color: #d32f2f; }
+        .campaign-status.medium { background: #fff3e0; border-color: #ff9800; }
+        .status-text { display: flex; align-items: center; gap: 8px; font-weight: 600; }
+        
+        /* Roster */
+        .roster-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 0.85rem; }
+        .roster-item { display: flex; align-items: center; gap: 8px; padding: 8px; background: #f5f5f5; border-radius: 4px; }
+        .roster-item .check { color: #34a853; }
+        .roster-item .open { color: #999; }
+        .roster-badge { font-size: 0.65rem; padding: 2px 6px; border-radius: 3px; margin-left: 5px; }
+        .roster-badge.std { background: #e8f5e9; color: #2e7d32; }
+        .roster-badge.duplex { background: #fff3e0; color: #e65100; }
+        
+        /* Buttons */
+        .btn-row { display: flex; gap: 15px; margin-top: 15px; }
+        .btn { flex: 1; padding: 14px; border: none; border-radius: 8px; font-size: 1rem; font-weight: bold; cursor: pointer; }
+        .btn-renew { background: #34a853; color: white; }
+        .btn-upgrade { background: #ff9800; color: white; }
+        
+        /* Timer */
+        .timer-section { background: linear-gradient(135deg, #ff9800, #f57c00); color: white; text-align: center; padding: 20px; border-radius: 8px; }
+        .timer-title { font-size: 0.9rem; opacity: 0.9; }
+        .timer-value { font-size: 1.8rem; font-weight: bold; margin: 10px 0; }
+        .timer-sub { font-size: 0.8rem; opacity: 0.8; }
+        
+        /* QR Code */
+        .qr-display { display: flex; flex-direction: column; align-items: center; padding: 20px; }
+        .qr-code { width: 150px; height: 150px; background: #333; border-radius: 8px; margin-bottom: 10px; }
+        .qr-note { font-size: 0.85rem; color: #666; }
+        
+        /* Emails */
+        .email-count { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
+        .email-count .num { font-size: 1.5rem; font-weight: bold; color: #34a853; }
+        .export-btn { background: #d32f2f; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; }
+        .email-table { width: 100%; font-size: 0.85rem; border-collapse: collapse; }
+        .email-table th { text-align: left; padding: 10px; background: #f5f5f5; border-bottom: 2px solid #ddd; }
+        .email-table td { padding: 10px; border-bottom: 1px solid #eee; }
+        .status-redeemed { color: #34a853; }
+        .status-pending { color: #ff9800; }
+        
+        /* Voucher Validator */
+        .validator { display: flex; gap: 10px; margin-top: 15px; }
+        .validator-input { flex: 1; padding: 12px; border: 2px solid #ddd; border-radius: 6px; }
+        .validator-btn { background: #34a853; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; }
+        
+        /* Chat */
+        .chat-messages { background: #f5f5f5; height: 150px; overflow-y: auto; padding: 10px; border-radius: 8px; margin-bottom: 10px; }
+        .chat-input-wrap { display: flex; gap: 10px; }
+        .chat-input { flex: 1; padding: 12px; border: 2px solid #ddd; border-radius: 6px; }
+        .chat-send { background: #d32f2f; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; }
+        
+        /* Footer */
+        .footer { text-align: center; padding: 20px; color: #999; font-size: 0.8rem; }
+        
+        /* Info tooltips */
+        .info-icon:hover::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            top: -35px;
+            right: 0;
+            background: #333;
+            color: white;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 0.7rem;
+            white-space: nowrap;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div class="login-screen" id="loginScreen">
+        <div class="login-logo">
+            <div class="header-logo-icon"><span class="nb">NB</span></div>
+            <div class="login-logo-text"><span>NEARBUY</span></div>
+        </div>
+        <div class="login-box">
+            <h2>Business Login</h2>
+            <input type="text" class="login-input" id="loginCode" placeholder="Enter your access code">
+            <button class="login-btn" onclick="doLogin()">Login</button>
+            <p class="login-note">Demo: leave blank or type DEMO</p>
+        </div>
+    </div>
+    
+    <!-- Dashboard -->
+    <div class="dashboard" id="dashboard">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-logo">
+                <div class="header-logo-icon"><span class="nb">NB</span></div>
+                <div class="header-logo-text">NEARBUY</div>
+            </div>
+            <button class="header-logout" onclick="doLogout()">Logout</button>
+        </div>
+        
+        <!-- Business Info -->
+        <div class="section biz-info">
+            <div class="biz-name" id="businessName">JGL Repair</div>
+            <div class="biz-details">
+                <span><strong>Ad Spot:</strong> <span id="adSpot">S-1</span></span>
+                <span><strong>Ad Type:</strong> <span id="adType">STANDARD (3.8" × 2.5")</span></span>
+            </div>
+        </div>
+        
+        <!-- Your Ad Preview -->
+        <div class="section">
+            <div class="section-title">📄 Campaign Performance</div>
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-value" id="scanCount">47</div>
+                    <div class="stat-label">SCANS</div>
+                    <div class="stat-icon info-icon" data-tooltip="Times people scanned your QR code">?</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="claimCount">23</div>
+                    <div class="stat-label">CLAIMS</div>
+                    <div class="stat-icon info-icon" data-tooltip="People who claimed your voucher">?</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="redeemCount">12</div>
+                    <div class="stat-label">REDEEMED</div>
+                    <div class="stat-icon info-icon" data-tooltip="People who actually used the voucher">?</div>
+                </div>
+            </div>
+            
+            <div class="campaign-meta">
+                <div class="meta-item">
+                    <strong>REGIONS</strong>
+                    WAXHAW | MARVIN | WEDDINGTON
+                </div>
+                <div class="meta-item">
+                    <strong>CAMPAIGN</strong>
+                    <span id="campaignMonth">February 2026</span> ▼
+                </div>
+            </div>
+            
+            <div class="campaign-meta">
+                <div class="meta-item">
+                    <strong>Mailing Date</strong>
+                    March 15, 2026
+                </div>
+                <div class="meta-item">
+                    <strong>Valid Through</strong>
+                    May 15, 2026
+                </div>
+                <div class="meta-item">
+                    <strong>Households</strong>
+                    5,000
+                </div>
+            </div>
+            
+            <div class="campaign-status" id="campaignStatus">
+                <div class="status-text">✓ Amazing results! 49% of scanners claimed your offer.</div>
+                <div style="margin-top:8px;font-size:0.9rem;">Ready to book your next campaign? Message me when ready.</div>
+            </div>
+        </div>
+        
+        <!-- Your Ad in Context -->
+        <div class="section">
+            <div class="section-title">📄 Your Ad in Context</div>
+            <p style="font-size:0.85rem;color:#666;margin-bottom:10px;">See who else was on this mailing with you:</p>
+            
+            <div class="ad-preview-grid" id="adPreviewGrid">
+                <!-- Filled by JS -->
+            </div>
+            
+            <div style="margin-top:15px;font-size:0.9rem;font-weight:600;">Full Campaign Roster</div>
+            <div class="roster-grid" id="rosterList">
+                <!-- Filled by JS -->
+            </div>
+        </div>
+        
+        <!-- Next Campaign -->
+        <div class="section">
+            <div class="btn-row">
+                <button class="btn btn-renew" onclick="renewCampaign()">RENEW</button>
+                <button class="btn btn-upgrade" onclick="upgradeCampaign()">UPGRADE</button>
+            </div>
+            <div class="timer-section" style="margin-top:15px;">
+                <div class="timer-title">⏰ Next Campaign Decision</div>
+                <div class="timer-value" id="timerValue">6d 23h 45m</div>
+                <div class="timer-sub">Reserve your spot for the next mailing!</div>
+            </div>
+        </div>
+        
+        <!-- QR Code -->
+        <div class="section">
+            <div class="section-title">📱 Your QR Code</div>
+            <div class="qr-display">
+                <div class="qr-code" id="qrCode"></div>
+                <div class="qr-note">Print and display in your business</div>
+            </div>
+        </div>
+        
+        <!-- Emails -->
+        <div class="section">
+            <div class="section-title">📧 Captured Emails</div>
+            <div class="email-count">
+                <span class="num" id="emailCount">23</span>
+                <span>emails captured</span>
+                <button class="export-btn" onclick="exportEmails()">Export Emails</button>
+            </div>
+            <table class="email-table">
+                <thead><tr><th>Email</th><th>Claimed</th><th>Status</th></tr></thead>
+                <tbody id="emailTable">
+                    <tr><td>mike...@email.com</td><td>Mar 16</td><td class="status-redeemed">✓ Redeemed</td></tr>
+                    <tr><td>sarah...@email.com</td><td>Mar 17</td><td class="status-redeemed">✓ Redeemed</td></tr>
+                    <tr><td>james...@email.com</td><td>Mar 18</td><td class="status-pending">Pending</td></tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Voucher Validator -->
+        <div class="section">
+            <div class="section-title">🎟️ Enter Voucher Code</div>
+            <div class="validator">
+                <input type="text" class="validator-input" id="voucherCode" placeholder="Enter voucher code (e.g., WAX-1001)">
+                <button class="validator-btn" onclick="validateVoucher()">Check Voucher</button>
+            </div>
+        </div>
+        
+        <!-- Message Bryan -->
+        <div class="section">
+            <div class="section-title">💬 Message Bryan</div>
+            <div class="chat-messages" id="chatMessages"></div>
+            <div class="chat-input-wrap">
+                <input type="text" class="chat-input" id="chatInput" placeholder="Type a message...">
+                <button class="chat-send" onclick="sendChat()">Send</button>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div class="footer">
+            Powered by VendorPrint © 2025-2026 All rights reserved.
+        </div>
+    </div>
+    
     <script>
-        // Load businesses data early
-        var businesses = {
+        // Business data
+        const businesses = {
             'BUSINESS001': { name: 'JGL Repair', spot: 'S-1', spots: [0], scans: 47, claims: 23, redeemed: 12, qrCode: 'NEARBUY-JGL001', adImage: 'https://raw.githubusercontent.com/squigglyweb/cleatus/main/jgl-sample-ad.webp' },
             'BUSINESS002': { name: 'Papaya Skin Care', spot: 'S-2', spots: [1], scans: 31, claims: 18, redeemed: 9, qrCode: 'NEARBUY-PAPAYA002', adImage: 'https://raw.githubusercontent.com/squigglyweb/cleatus/main/papaya-sample-ad.webp' },
-            'BUSINESS003': { name: 'Marvin Pressure Washing', spot: 'S-4,S-7 (DUPLEX)', spots: [3, 6], scans: 52, claims: 31, redeemed: 18, qrCode: 'NEARBUY-MARVIN003', isDuplex: true, adImage: 'https://raw.githubusercontent.com/squigglyweb/cleatus/main/marvin-sample-ad.webp' },
-            'TEST123': { name: 'Test Business', spot: 'S-5', spots: [4], scans: 15, claims: 8, redeemed: 4, qrCode: 'NEARBUY-TEST123', adImage: '' }
+            'BUSINESS003': { name: 'Marvin Pressure Washing', spot: 'S-4,S-7 (DUPLEX)', spots: [3, 6], scans: 52, claims: 31, redeemed: 18, qrCode: 'NEARBUY-MARVIN003', isDuplex: true, adImage: 'https://raw.githubusercontent.com/squigglyweb/cleatus/main/marvin-sample-ad.webp' }
         };
-        var campaignRoster = [
-            { id: 0, name: 'JGL Repair', type: 'standard' },
-            { id: 1, name: 'Papaya Skin Care', type: 'standard' },
-            { id: 2, name: 'The Waxhaw Bakery', type: 'standard' },
-            { id: 3, name: 'Marvin Pressure Washing (DUPLEX)', type: 'duplex', combinedWith: 6 },
-            { id: 4, name: 'Downtown Coffee Co', type: 'standard' },
-            { id: 5, name: null, type: 'available' },
-            { id: 6, name: null, type: 'consumed' },
-            { id: 7, name: "Smith's Auto Detailing", type: 'standard' },
-            { id: 8, name: null, type: 'available' }
+        
+        const campaignRoster = [
+            { name: 'JGL Repair', type: 'standard', adImage: 'https://raw.githubusercontent.com/squigglyweb/cleatus/main/jgl-sample-ad.webp' },
+            { name: 'Papaya Skin Care', type: 'standard', adImage: 'https://raw.githubusercontent.com/squigglyweb/cleatus/main/papaya-sample-ad.webp' },
+            { name: 'The Waxhaw Bakery', type: 'standard', adImage: '' },
+            { name: 'Marvin Pressure Washing', type: 'duplex', adImage: 'https://raw.githubusercontent.com/squigglyweb/cleatus/main/marvin-sample-ad.webp' },
+            { name: "Downtown Coffee Co", type: 'standard', adImage: '' },
+            { name: null, type: 'available' },
+            { name: null, type: 'consumed' },
+            { name: "Smith's Auto Detailing", type: 'standard', adImage: '' },
+            { name: null, type: 'available' }
         ];
-        var upgradeOpportunities = {0: [1, 3], 1: [0, 2, 4], 2: [1, 5], 3: [4], 4: [1, 5, 7], 5: [2, 4, 8], 7: [4, 8], 8: [5, 7]};
-        var selectedSlots = [];
-        var currentEditSlot = null;
         
         function doLogin() {
-            var codeInput = document.getElementById('loginCode');
-            var code = codeInput ? codeInput.value.trim().toUpperCase() : '';
+            const codeInput = document.getElementById('loginCode');
+            const code = codeInput ? codeInput.value.trim().toUpperCase() : '';
             if (!code || code === 'DEMO') {
                 showDashboard('BUSINESS001');
                 return;
             }
             if (businesses[code]) {
-                localStorage.setItem('nearbuy_code', code);
                 showDashboard(code);
             } else {
                 alert('Invalid code. Try: BUSINESS001, BUSINESS002, BUSINESS003');
@@ -43,761 +341,149 @@
         }
         
         function doLogout() {
-            localStorage.removeItem('nearbuy_code');
-            document.getElementById('loginScreen').style.display = 'flex';
-            document.getElementById('dashboard').style.display = 'none';
-        }
-        
-        function showDashboard(code) {
-            var biz = businesses[code];
-            document.getElementById('loginScreen').style.display = 'none';
-            document.getElementById('dashboard').style.display = 'block';
-            document.getElementById('businessName').textContent = biz.name;
-            document.getElementById('spotId').textContent = 'Ad Spot: ' + biz.spot;
-            document.getElementById('spotDetails').textContent = biz.isDuplex ? 'Ad Type: DUPLEX (3.8" × 5") • Horizontal orientation' : 'Ad Type: STANDARD (3.8" × 2.5")';
-            document.getElementById('scanCount').textContent = biz.scans;
-            document.getElementById('claimCount').textContent = biz.claims;
-            document.getElementById('redeemCount').textContent = biz.redeemed;
-            document.getElementById('qrCode').textContent = biz.qrCode;
-            
-            var claimRate = Math.round((biz.claims / biz.scans) * 100);
-            var successDiv = document.getElementById('campaignSuccess');
-            if (claimRate >= 30) {
-                successDiv.className = 'campaign-success great';
-                successDiv.innerHTML = '<div class="campaign-msg"><strong>🎉 Amazing results!</strong> ' + claimRate + '% of scanners claimed your offer.</div><div class="campaign-cta">Ready to book your next campaign? Message me when ready.</div>';
-            } else if (claimRate >= 15) {
-                successDiv.className = 'campaign-success good';
-                successDiv.innerHTML = '<div class="campaign-msg"><strong>👍 Solid results.</strong> ' + claimRate + '% claim rate. Would definitely recommend running again!</div><div class="campaign-cta">Let me know if you want to run the next one.</div>';
-            } else {
-                successDiv.className = 'campaign-success low';
-                successDiv.innerHTML = '<div class="campaign-msg"><strong>📈 Room to grow.</strong> Only ' + claimRate + '% claimed. We can try a different offer approach if you want.</div><div class="campaign-cta">Let me know if you want to test something new next month.</div>';
-            }
-            
-            var preview = document.getElementById('postcardPreview');
-            preview.innerHTML = '';
-            for (var i = 0; i < 9; i++) {
-                var isMine = biz.spots.includes(i);
-                var rosterItem = campaignRoster[i];
-                var spot = document.createElement('div');
-                spot.className = 'postcard-spot' + (isMine ? ' yours' : '');
-                if (rosterItem.type === 'consumed') { spot.style.opacity = '0.2'; spot.innerHTML = ''; }
-                else if (rosterItem.type === 'duplex') { spot.innerHTML = isMine ? '<span>DUPLEX</span>' : 'DUPLEX'; }
-                else if (rosterItem.type === 'available') { spot.style.background = '#888'; spot.innerHTML = 'AVAIL'; }
-                else { spot.innerHTML = isMine ? '<span>S-' + (i + 1) + '</span>' : 'S-' + (i + 1); }
-                preview.appendChild(spot);
-            }
-            
-            var rosterDiv = document.getElementById('rosterList');
-            var rosterHTML = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">';
-            campaignRoster.forEach(function(item, idx) {
-                if (item.type === 'consumed') return;
-                var spotNum = 'S-' + (idx + 1);
-                if (item.name === null) { rosterHTML += '<div><span style="color:#999;">○</span> <strong>' + spotNum + ':</strong> Available</div>'; }
-                else {
-                    var isDuplex = item.type === 'duplex';
-                    var isStandard = item.type === 'standard';
-                    var badge = isDuplex ? ' <span style="background:rgba(255,193,7,0.6);font-size:0.65rem;padding:2px 4px;border-radius:3px;">DUPLEX</span>' : (isStandard ? ' <span style="background:rgba(52,168,83,0.4);font-size:0.65rem;padding:2px 4px;border-radius:3px;">STD</span>' : '');
-                    rosterHTML += '<div><span style="color:#34a853;font-weight:bold;">✓</span> <strong>' + spotNum + ':</strong> ' + item.name + badge + '</div>';
-                }
-            });
-            rosterHTML += '</div>';
-            rosterDiv.innerHTML = rosterHTML;
-            
-            checkUpgradeOpportunities(biz);
-            startCountdown();
-        }
-        
-        function checkUpgradeOpportunities(biz) {
-            var mySpots = biz.spots;
-            var availableUpgrades = [];
-            mySpots.forEach(function(spotIdx) {
-                var adjacents = upgradeOpportunities[spotIdx] || [];
-                adjacents.forEach(function(adjIdx) {
-                    var rosterItem = campaignRoster[adjIdx];
-                    if (rosterItem && rosterItem.type === 'available') { availableUpgrades.push('S-' + (adjIdx + 1)); }
-                });
-            });
-            if (availableUpgrades.length > 0 && !biz.isDuplex) {
-                var alertDiv = document.createElement('div');
-                alertDiv.style.cssText = 'background:#fff3e0;border:1px solid #ff9800;padding:15px;border-radius:8px;margin:20px;font-size:0.9rem;';
-                alertDiv.innerHTML = '<strong>🚀 Upgrade Opportunity!</strong><br>Adjacent spots are available: ' + availableUpgrades.join(', ') + '<br><span style="color:#666;font-size:0.8rem;">Combine spots for a bigger impact! Contact Bryan to upgrade.</span>';
-                var dashboard = document.getElementById('dashboard');
-                var firstSection = dashboard.querySelector('.dash-campaign');
-                if (firstSection) { firstSection.parentNode.insertBefore(alertDiv, firstSection.nextSibling); }
-            }
-        }
-        
-        function startCountdown() {
-            var time = 7 * 24 * 60 * 60 * 1000;
-            setInterval(function() {
-                time -= 1000;
-                var days = Math.floor(time / (24 * 60 * 60 * 1000));
-                var hours = Math.floor((time % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
-                var mins = Math.floor((time % (60 * 60 * 1000)) / (60 * 1000));
-                document.getElementById('countdownTimer').textContent = days + 'd ' + hours + 'h ' + mins + 'm';
-            }, 1000);
-        }
-        
-        function validateVoucher() {
-            var code = document.getElementById('voucherCode').value.trim().toUpperCase();
-            var result = document.getElementById('validatorResult');
-            if (!code) { result.style.display = 'none'; return; }
-            result.style.display = 'block';
-            result.className = 'validator-result';
-            if (code.startsWith('WAX-')) {
-                result.textContent = '✓ VALID - Customer gets their offer!';
-                result.classList.add('valid');
-            } else if (code === 'EXPIRED') {
-                result.textContent = '⚠ EXPIRED - This voucher is no longer valid';
-                result.classList.add('expired');
-            } else {
-                result.textContent = '✕ INVALID - Code not recognized';
-                result.classList.add('invalid');
-            }
-        }
-        
-        function sendChat() {
-            var input = document.getElementById('chatInput');
-            var msg = input.value.trim();
-            if (!msg) return;
-            var container = document.getElementById('chatMessages');
-            var msgEl = document.createElement('div');
-            msgEl.className = 'chat-msg business';
-            msgEl.textContent = msg;
-            container.appendChild(msgEl);
-            input.value = '';
-            container.scrollTop = container.scrollHeight;
-            setTimeout(function() {
-                var replyEl = document.createElement('div');
-                replyEl.className = 'chat-msg you';
-                replyEl.textContent = 'Thanks! Bryan will respond shortly.';
-                container.appendChild(replyEl);
-                container.scrollTop = container.scrollHeight;
-            }, 2000);
-        }
-    </script>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
-        
-        body { background: #f8f9fa; min-height: 100vh; }
-        
-        /* Login Screen */
-        .login-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 20px; background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%); }
-        
-        .login-box { background: white; padding: 40px 30px; border-radius: 12px; box-shadow: 0 8px 30px rgba(0,0,0,0.2); width: 100%; max-width: 380px; text-align: center; }
-        
-        .login-logo-img { width: 220px; margin-bottom: 15px; }
-        
-        .login-tagline { font-size: 0.9rem; color: #666; margin-bottom: 25px; }
-        
-        .login-input { width: 100%; padding: 14px; border: 2px solid #ddd; border-radius: 8px; font-size: 1rem; margin-bottom: 15px; transition: border-color 0.2s; }
-        .login-input:focus { outline: none; border-color: #d32f2f; }
-        
-        .login-btn { width: 100%; padding: 14px; background: #d32f2f; color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
-        .login-btn:hover { background: #b71c1c; }
-        
-        .login-note { font-size: 0.75rem; color: #999; margin-top: 20px; }
-        
-        /* Dashboard */
-        .dashboard { display: none; }
-        
-        .dash-header { background: #d32f2f; color: white; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; }
-        .dash-header-logo { height: 40px; }
-        .dash-logout { background: rgba(255,255,255,0.2); color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 0.85rem; }
-        
-        .dash-business-info { background: white; padding: 20px; margin: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .dash-business-name { font-size: 1.3rem; font-weight: bold; color: #333; margin-bottom: 5px; }
-        .dash-business-spot { font-size: 0.9rem; color: #666; }
-        
-        /* Stats with Info Icons */
-        .dash-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; padding: 0 20px; position: relative; }
-        
-        .dash-stat { background: white; padding: 20px; border-radius: 8px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: relative; }
-        
-        .dash-stat-value { font-size: 1.8rem; font-weight: bold; }
-        .dash-stat-value.green { color: #34a853; }
-        .dash-stat-value.red { color: #d32f2f; }
-        .dash-stat-label { font-size: 0.75rem; color: #666; text-transform: uppercase; margin-top: 5px; }
-        
-        .info-icon {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            width: 20px;
-            height: 20px;
-            background: #e0e0e0;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.7rem;
-            color: #666;
-            cursor: help;
-            font-weight: bold;
-        }
-        
-        .info-icon:hover::after {
-            content: attr(data-tooltip);
-            position: absolute;
-            top: -40px;
-            right: 0;
-            background: #333;
-            color: white;
-            padding: 8px 12px;
-            border-radius: 6px;
-            font-size: 0.7rem;
-            font-weight: normal;
-            white-space: nowrap;
-            z-index: 100;
-            width: 180px;
-        }
-        
-        /* Campaign Section */
-        .dash-campaign { background: white; margin: 20px; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .dash-campaign h2 { font-size: 1rem; color: #333; margin-bottom: 15px; }
-        
-        .campaign-dates { display: flex; gap: 20px; margin-bottom: 15px; flex-wrap: wrap; }
-        .campaign-date { background: #f5f5f5; padding: 10px 15px; border-radius: 6px; font-size: 0.85rem; }
-        .campaign-date strong { display: block; color: #d32f2f; }
-        
-        .campaign-success { margin-top: 15px; padding: 15px; border-radius: 8px; }
-        .campaign-success.great { background: #e8f5e9; border-left: 4px solid #34a853; }
-        .campaign-success.good { background: #fff3e0; border-left: 4px solid #ff9800; }
-        .campaign-success.low { background: #ffebee; border-left: 4px solid #d32f2f; }
-        
-        .campaign-msg { font-size: 0.9rem; margin-bottom: 10px; }
-        .campaign-cta { font-size: 0.8rem; color: #666; }
-        
-        .renew-btn {
-            margin-top: 15px;
-            background: linear-gradient(135deg, #34a853, #2e7d32);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            font-weight: bold;
-            cursor: pointer;
-            width: 100%;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        
-        .renew-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(52,168,83,0.4);
-        }
-        
-        /* Postcard Preview */
-        .dash-postcard { background: white; margin: 20px; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .dash-postcard h2 { font-size: 1rem; color: #333; margin-bottom: 15px; }
-        
-        .postcard-preview { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; background: #333; padding: 8px; border-radius: 4px; }
-        
-        .postcard-spot {
-            aspect-ratio: 3.8/2.5;
-            background: #666;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.5rem;
-            color: white;
-            border-radius: 2px;
-            opacity: 0.3;
-        }
-        
-        .postcard-spot.yours {
-            background: #34a853;
-            opacity: 1;
-            font-weight: bold;
-        }
-        
-        .postcard-spot.yours span { font-size: 0.6rem; }
-        
-        .postcard-spot.duplex-yours {
-            grid-row: span 2; /* Span two rows vertically */
-            background: linear-gradient(135deg, rgba(255,193,7,0.85) 0%, rgba(255,215,0,0.9) 100%) !important;
-            border: 2px solid #e6c200;
-            opacity: 1;
-            font-size: 0.7rem;
-            text-align: center;
-        }
-        
-        .postcard-spot.duplex-yours span { color: #333; }
-        
-        /* Countdown */
-        .dash-countdown {
-            background: linear-gradient(135deg, #ff9800, #f57c00);
-            color: white;
-            margin: 20px;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-        }
-        
-        .countdown-title { font-weight: bold; margin-bottom: 10px; }
-        .countdown-timer { font-size: 1.5rem; font-weight: bold; }
-        .countdown-sub { font-size: 0.85rem; opacity: 0.9; margin-top: 8px; }
-        
-        .dash-section { background: white; margin: 20px; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .dash-section h2 { font-size: 1rem; color: #333; margin-bottom: 15px; }
-        
-        .qr-display { background: #f5f5f5; padding: 20px; border-radius: 8px; text-align: center; }
-        .qr-display .qr-code { width: 150px; height: 150px; background: #ddd; margin: 0 auto 10px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; color: #666; }
-        .qr-display .qr-note { font-size: 0.75rem; color: #999; margin-top: 10px; }
-        
-        .validator-input { width: 100%; padding: 14px; border: 2px solid #ddd; border-radius: 8px; font-size: 1.1rem; text-transform: uppercase; text-align: center; margin-bottom: 15px; }
-        
-        .validator-result { padding: 20px; border-radius: 8px; font-size: 1.2rem; font-weight: bold; text-align: center; display: none; }
-        .validator-result.valid { background: #e8f5e9; color: #34a853; }
-        .validator-result.invalid { background: #ffebee; color: #d32f2f; }
-        .validator-result.expired { background: #fff3e0; color: #e65100; }
-        
-        .chat-messages { height: 250px; overflow-y: auto; border: 1px solid #eee; border-radius: 8px; padding: 10px; margin-bottom: 15px; }
-        .chat-msg { padding: 10px 14px; border-radius: 12px; margin-bottom: 10px; font-size: 0.9rem; }
-        .chat-msg.business { background: #e3f2fd; margin-left: 20%; border-bottom-right-radius: 4px; }
-        .chat-msg.you { background: #f5f5f5; margin-right: 20%; border-bottom-left-radius: 4px; }
-        
-        .chat-input-wrap { display: flex; gap: 10px; }
-        .chat-input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 8px; }
-        .chat-send { background: #d32f2f; color: white; border: none; padding: 12px 20px; border-radius: 8px; cursor: pointer; font-weight: 600; }
-        
-        @media (max-width: 500px) {
-            .dash-stats { grid-template-columns: 1fr; }
-            .campaign-dates { flex-direction: column; }
-        }
-    </style>
-</head>
-<body>
-    <!-- Login Screen -->
-    <div class="login-screen" id="loginScreen">
-        <div class="login-box">
-            <div class="login-logo-img" style="font-size:1.5rem;font-weight:bold;color:#d32f2f;">🏠 THE LOCAL <span style="color:#ffc107;">NEARBUY</span></div>
-            <div class="login-tagline" style="font-size:0.9rem;color:#666;margin-bottom:25px;">Business Portal</div>
-            <input type="text" class="login-input" id="loginCode" placeholder="Enter your access code">
-            <button class="login-btn" onclick="doLogin()">Enter Portal</button>
-            <div class="login-note">Your access code was provided in your welcome email.</div>
-        </div>
-    </div>
-    
-    <!-- Dashboard -->
-    <div class="dashboard" id="dashboard">
-        <div class="dash-header" style="background:#d32f2f;color:white;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;">
-            <div style="font-weight:bold;font-size:1.1rem;">🏠 THE LOCAL <span style="color:#ffc107;">NEARBUY</span></div>
-            <button class="dash-logout" onclick="doLogout()">Logout</button>
-        </div>
-        
-        <div class="dash-business-info">
-            <div class="dash-business-name" id="businessName">Loading...</div>
-            <div class="dash-business-spot" id="spotId">Spot #--</div>
-            <div class="dash-business-details" id="spotDetails" style="font-size:0.8rem;color:#666;margin-top:5px;"></div>
-        </div>
-        
-        <!-- Stats -->
-        <div class="dash-stats">
-            <div class="dash-stat">
-                <div class="info-icon" data-tooltip="How many people scanned your QR code on the postcard">?</div>
-                <div class="dash-stat-value green" id="scanCount">0</div>
-                <div class="dash-stat-label">Scans</div>
-            </div>
-            <div class="dash-stat">
-                <div class="info-icon" data-tooltip="How many people claimed your voucher offer">?</div>
-                <div class="dash-stat-value" id="claimCount">0</div>
-                <div class="dash-stat-label">Claims</div>
-            </div>
-            <div class="dash-stat">
-                <div class="info-icon" data-tooltip="Customers who used their voucher at your business">?</div>
-                <div class="dash-stat-value" id="redeemCount">0</div>
-                <div class="dash-stat-label">Redeemed</div>
-            </div>
-        </div>
-        
-        <!-- Campaign Details -->
-        <div class="dash-campaign">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:15px;">
-                <h2>📊 Campaign Performance</h2>
-                <select style="padding:8px 12px;border-radius:6px;border:1px solid #ddd;font-size:0.9rem;">
-                    <option>March 2026</option>
-                    <option>February 2026</option>
-                    <option>January 2026</option>
-                </select>
-            </div>
-            <div class="campaign-dates">
-                <div class="campaign-date"><strong>Mailing Date</strong>March 15, 2026</div>
-                <div class="campaign-date"><strong>Valid Through</strong>May 15, 2026</div>
-                <div class="campaign-date"><strong>Households</strong>5,000</div>
-            </div>
-            
-            <div class="campaign-success" id="campaignSuccess">
-                <!-- Filled by JS -->
-            </div>
-        </div>
-        
-        <!-- Your Ad Preview -->
-        <div class="dash-section">
-            <h2>🎨 Your Ad Preview</h2>
-            <p style="font-size:0.85rem;color:#666;margin-bottom:15px;">Here's how your ad appears on the mailing:</p>
-            <div id="adPreview" style="background:#f5f5f5;padding:20px;border-radius:8px;text-align:center;">
-                <!-- Filled by JS with ad image -->
-            </div>
-        </div>
-        
-        <!-- Postcard Preview -->
-        <div class="dash-postcard">
-            <h2>🗺️ Your Ad in Context</h2>
-            <p style="font-size:0.85rem;color:#666;margin-bottom:10px;">See who else was on this mailing with you:</p>
-            <div class="postcard-preview" id="postcardPreview">
-                <!-- Filled by JS -->
-            </div>
-            
-            <h3 style="font-size:0.9rem;color:#333;margin-top:20px;margin-bottom:10px;">📋 Full Campaign Roster</h3>
-            <div id="rosterList" style="background:#f5f5f5;border-radius:8px;padding:15px;font-size:0.8rem;">
-                <!-- Dynamically filled -->
-            </div>
-        </div>
-        
-        <!-- Countdown -->
-        <div class="dash-countdown">
-            <div class="countdown-title">⏰ Next Campaign Decision</div>
-            <div class="countdown-timer" id="countdownTimer">--:--:--</div>
-            <div class="countdown-sub">Reserve your spot for the next mailing!</div>
-        </div>
-        
-        <div class="dash-section">
-            <h2>📱 Your QR Code <span class="info-icon" data-tooltip="Print this and put it in your store. Customers scan to get your voucher!">?</span></h2>
-            <div class="qr-display">
-                <div class="qr-code" id="qrCode">QR CODE</div>
-                <div class="qr-note">Print and display in your business</div>
-            </div>
-        </div>
-        
-        <div class="dash-section">
-            <h2>📧 Captured Emails <span class="info-icon" data-tooltip="Email addresses of customers who claimed your voucher - you can email them directly!">?</span></h2>
-            <div style="margin-bottom:15px;">
-                <span style="font-size:1.5rem;font-weight:bold;color:#34a853;" id="emailCount">23</span>
-                <span style="color:#666;margin-left:8px;">emails captured</span>
-                <button style="margin-left:15px;padding:8px 15px;background:#d32f2f;color:white;border:none;border-radius:6px;cursor:pointer;font-size:0.8rem;" onclick="exportEmails()">📥 Export Emails</button>
-            </div>
-            <div style="max-height:200px;overflow-y:auto;border:1px solid #eee;border-radius:8px;">
-                <table style="width:100%;font-size:0.85rem;">
-                    <tr style="background:#f5f5f5;"><th style="padding:10px;text-align:left;">Email</th><th style="padding:10px;text-align:left;">Claimed</th><th style="padding:10px;text-align:left;">Status</th></tr>
-                    <tr><td style="padding:10px;border-bottom:1px solid #eee;">mike...@email.com</td><td style="padding:10px;border-bottom:1px solid #eee;">Mar 16</td><td style="padding:10px;border-bottom:1px solid #eee;color:#34a853;">✓ Redeemed</td></tr>
-                    <tr><td style="padding:10px;border-bottom:1px solid #eee;">sarah...@email.com</td><td style="padding:10px;border-bottom:1px solid #eee;">Mar 17</td><td style="padding:10px;border-bottom:1px solid #eee;color:#34a853;">✓ Redeemed</td></tr>
-                    <tr><td style="padding:10px;border-bottom:1px solid #eee;">james...@email.com</td><td style="padding:10px;border-bottom:1px solid #eee;">Mar 18</td><td style="padding:10px;border-bottom:1px solid #eee;color:#ff9800;">Pending</td></tr>
-                    <tr><td style="padding:10px;border-bottom:1px solid #eee;">lisa...@email.com</td><td style="padding:10px;border-bottom:1px solid #eee;">Mar 19</td><td style="padding:10px;border-bottom:1px solid #eee;color:#34a853;">✓ Redeemed</td></tr>
-                    <tr><td style="padding:10px;border-bottom:1px solid #eee;">david...@email.com</td><td style="padding:10px;border-bottom:1px solid #eee;">Mar 20</td><td style="padding:10px;border-bottom:1px solid #eee;color:#999;">Not used</td></tr>
-                </table>
-            </div>
-            <div style="font-size:0.8rem;color:#666;margin-top:10px;">💡 Tip: These customers asked for your offer — they're warm leads! Want help sending them emails? Message me and I'll show you how to use them.</div>
-        </div>
-            <input type="text" class="validator-input" id="voucherCode" placeholder="Enter voucher code (e.g., WAX-1001)">
-            <button class="login-btn" style="background:#34a853;" onclick="validateVoucher()">Check Voucher</button>
-            <div class="validator-result" id="validatorResult"></div>
-        </div>
-        
-        <div class="dash-section">
-            <h2>💬 Message Bryan</h2>
-            <div class="chat-messages" id="chatMessages"></div>
-            <div class="chat-input-wrap">
-                <input type="text" class="chat-input" id="chatInput" placeholder="Type a message...">
-                <button class="chat-send" onclick="sendChat()">Send</button>
-            </div>
-        </div>
-    </div>
-    
-    <script>
-        const businesses = {
-            'BUSINESS001': { name: 'JGL Repair', spot: 'S-1', spots: [0], scans: 47, claims: 23, redeemed: 12, qrCode: 'NEARBUY-JGL001', adImage: 'https://raw.githubusercontent.com/squigglyweb/cleatus/main/jgl-sample-ad.webp' },
-            'BUSINESS002': { name: 'Papaya Skin Care', spot: 'S-2', spots: [1], scans: 31, claims: 18, redeemed: 9, qrCode: 'NEARBUY-PAPAYA002', adImage: 'https://raw.githubusercontent.com/squigglyweb/cleatus/main/papaya-sample-ad.webp' },
-            'BUSINESS003': { name: 'Marvin Pressure Washing', spot: 'S-4,S-7 (DUPLEX)', spots: [3, 6], scans: 52, claims: 31, redeemed: 18, qrCode: 'NEARBUY-MARVIN003', isDuplex: true, adImage: 'https://raw.githubusercontent.com/squigglyweb/cleatus/main/marvin-sample-ad.webp' },
-            'TEST123': { name: 'Test Business', spot: 'S-5', spots: [4], scans: 15, claims: 8, redeemed: 4, qrCode: 'NEARBUY-TEST123', adImage: '' }
-        };
-        
-        // Campaign roster - what's actually on the postcard
-        const campaignRoster = [
-            { id: 0, name: 'JGL Repair', type: 'standard' },
-            { id: 1, name: 'Papaya Skin Care', type: 'standard' },
-            { id: 2, name: 'The Waxhaw Bakery', type: 'standard' },
-            { id: 3, name: 'Marvin Pressure Washing (DUPLEX)', type: 'duplex', combinedWith: 6 },
-            { id: 4, name: 'Downtown Coffee Co', type: 'standard' },
-            { id: 5, name: null, type: 'available' }, // S-6 available
-            { id: 6, name: null, type: 'consumed' }, // combined with S-4
-            { id: 7, name: "Smith's Auto Detailing", type: 'standard' },
-            { id: 8, name: null, type: 'available' }  // S-9 available - showing demo
-        ];
-        
-        // Available adjacent upgrades for each business
-        const upgradeOpportunities = {
-            0: [1, 3], // JGL - can expand to S-2 or S-4 (if available)
-            1: [0, 2, 4],
-            2: [1, 5],
-            3: [4], // Marvin Duplex - could also take S-5
-            4: [1, 5, 7],
-            5: [2, 4, 8],
-            7: [4, 8],
-            8: [5, 7]
-        };
-        
-        // Check login
-        const savedCode = localStorage.getItem('nearbuy_code');
-        if (savedCode && businesses[savedCode]) showDashboard(savedCode);
-        
-        function doLogin() {
-            const codeInput = document.getElementById('loginCode');
-            const code = codeInput ? codeInput.value.trim().toUpperCase() : '';
-            
-            // Demo mode - just show JGL Repair
-            if (!code || code === 'DEMO') {
-                showDashboard('BUSINESS001');
-                return;
-            }
-            
-            if (businesses[code]) {
-                localStorage.setItem('nearbuy_code', code);
-                showDashboard(code);
-            } else {
-                alert('Invalid code. Try: BUSINESS001, BUSINESS002, BUSINESS003, or leave blank for demo');
-            }
-        }
-        
-        function doLogout() {
-            localStorage.removeItem('nearbuy_code');
             document.getElementById('loginScreen').style.display = 'flex';
             document.getElementById('dashboard').style.display = 'none';
         }
         
         function showDashboard(code) {
             const biz = businesses[code];
-            
             document.getElementById('loginScreen').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
             
+            // Business info
             document.getElementById('businessName').textContent = biz.name;
-            document.getElementById('spotId').textContent = 'Ad Spot: ' + biz.spot;
-            document.getElementById('spotDetails').textContent = biz.isDuplex ? 'Ad Type: DUPLEX (3.8" × 5") • Horizontal orientation' : 'Ad Type: STANDARD (3.8" × 2.5")';
+            document.getElementById('adSpot').textContent = biz.spot;
+            document.getElementById('adType').textContent = biz.isDuplex ? 'DUPLEX (3.8" × 5")' : 'STANDARD (3.8" × 2.5")';
+            
+            // Stats
             document.getElementById('scanCount').textContent = biz.scans;
             document.getElementById('claimCount').textContent = biz.claims;
             document.getElementById('redeemCount').textContent = biz.redeemed;
-            document.getElementById('qrCode').textContent = biz.qrCode;
+            document.getElementById('emailCount').textContent = biz.claims;
             
-            // Ad preview - show actual ad image
-            const adPreview = document.getElementById('adPreview');
-            if (biz.adImage && biz.adImage !== '') {
-                adPreview.innerHTML = '<img src="' + biz.adImage + '" alt="Your Ad" style="max-width:100%;max-height:300px;border-radius:4px;border:2px solid #ddd;">';
-            } else {
-                adPreview.innerHTML = '<div style="background:white;padding:40px;border-radius:8px;border:2px dashed #ccc;">' +
-                    '<div style="font-size:1.2rem;color:#666;margin-bottom:10px;">📝 No ad submitted yet</div>' +
-                    '<div style="font-size:0.85rem;color:#999;">Send your ad artwork to Bryan to see it here</div>' +
-                    '</div>';
-            }
-            
-            // Campaign success
-            const successDiv = document.getElementById('campaignSuccess');
+            // Claim rate
             const claimRate = Math.round((biz.claims / biz.scans) * 100);
-            const renewBtn = '<button class="renew-btn" onclick="renewCampaign()">🔄 Renew for Next Campaign</button>';
-            
+            const statusDiv = document.getElementById('campaignStatus');
             if (claimRate >= 30) {
-                successDiv.className = 'campaign-success great';
-                successDiv.innerHTML = '<div class="campaign-msg"><strong>🎉 Amazing results!</strong> ' + claimRate + '% of scanners claimed your offer.</div><div class="campaign-cta">Ready to book your next campaign? Message me when ready.</div>' + renewBtn;
+                statusDiv.className = 'campaign-status';
+                statusDiv.innerHTML = '<div class="status-text">✓ Amazing results! ' + claimRate + '% of scanners claimed your offer.</div><div>Ready to book your next campaign? Message me when ready.</div>';
             } else if (claimRate >= 15) {
-                successDiv.className = 'campaign-success good';
-                successDiv.innerHTML = '<div class="campaign-msg"><strong>👍 Solid results.</strong> ' + claimRate + '% claim rate. Would definitely recommend running again!</div><div class="campaign-cta">Let me know if you want to run the next one.</div>' + renewBtn;
+                statusDiv.className = 'campaign-status medium';
+                statusDiv.innerHTML = '<div class="status-text">✓ Good results! ' + claimRate + '% claim rate.</div><div>Let me know if you want to run the next one.</div>';
             } else {
-                successDiv.className = 'campaign-success low';
-                successDiv.innerHTML = '<div class="campaign-msg"><strong>📈 Room to grow.</strong> Only ' + claimRate + '% claimed. We can try a different offer approach if you want.</div><div class="campaign-cta">Let me know if you want to test something new next month.</div>' + renewBtn;
+                statusDiv.className = 'campaign-status low';
+                statusDiv.innerHTML = '<div class="status-text">📈 Room to grow. ' + claimRate + '% claimed.</div><div>We can try a different offer approach next month.</div>';
             }
             
-            // Postcard preview - show actual ad images and duplex handling
-            const preview = document.getElementById('postcardPreview');
-            preview.innerHTML = '';
-            // Handle duplex case - render as ONE combined box
-            if (biz.isDuplex) {
-                // For duplex, show S-4 and S-7 as ONE combined yellow/transparent box
-                // Grid layout: row 1 = S-1,S-2,S-3; row 2 = S-4,S-5,S-6; row 3 = S-7,S-8,S-9
-                // Duplex spans S-4 (row 2, col 1) and S-7 (row 3, col 1) - vertically adjacent
-                const duplexSpots = [3, 6]; // S-4 and S-7 are indices 3 and 6
-                for (let i = 0; i < 9; i++) {
-                    const isMine = duplexSpots.includes(i);
-                    const rosterItem = campaignRoster[i];
-                    const spot = document.createElement('div');
-                    spot.className = 'postcard-spot';
-                    if (rosterItem.type === 'consumed') {
-                        spot.style.opacity = '0.2';
-                    } else if (i === 3) {
-                        // This is S-4 - the duplex top half - show as combined
-                        spot.className = 'postcard-spot duplex-yours';
-                        spot.style.background = 'linear-gradient(135deg, rgba(255,193,7,0.8) 0%, rgba(255,215,0,0.9) 100%)';
-                        spot.style.border = '2px solid #ffc107';
-                        spot.innerHTML = '<span style="color:#333;font-weight:bold;">DUPLEX<br>YOUR AD</span>';
-                    } else if (i === 6) {
-                        // This is S-7 - the duplex bottom half - combine with S-4
-                        spot.style.display = 'none'; // Hide S-7, it's combined with S-4
-                    } else if (rosterItem.type === 'available') {
-                        spot.style.background = '#888';
-                        spot.innerHTML = 'AVAIL';
+            // QR Code placeholder
+            document.getElementById('qrCode').innerHTML = '<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:white;font-size:0.7rem;">' + biz.qrCode + '</div>';
+            
+            // Build ad preview grid
+            buildAdPreviewGrid(biz);
+            
+            // Build roster
+            buildRoster(biz);
+            
+            // Start timer
+            startTimer();
+        }
+        
+        function buildAdPreviewGrid(biz) {
+            const grid = document.getElementById('adPreviewGrid');
+            grid.innerHTML = '';
+            
+            campaignRoster.forEach((item, idx) => {
+                const spot = document.createElement('div');
+                spot.className = 'ad-spot';
+                
+                if (item.type === 'consumed') {
+                    spot.style.opacity = '0.2';
+                } else if (item.type === 'available') {
+                    spot.classList.add('available');
+                    spot.innerHTML = 'AVAIL';
+                } else if (item.type === 'duplex') {
+                    spot.classList.add('duplex');
+                    if (biz.isDuplex && biz.spots.includes(idx)) {
+                        spot.innerHTML = '<span class="spot-label">YOUR AD</span>';
                     } else {
-                        spot.innerHTML = 'S-' + (i + 1);
-                        spot.style.opacity = '0.5';
-                    }
-                    preview.appendChild(spot);
-                }
-            } else {
-                // Standard single spots
-                for (let i = 0; i < 9; i++) {
-                    const isMine = biz.spots.includes(i);
-                    const rosterItem = campaignRoster[i];
-                    const spot = document.createElement('div');
-                    spot.className = 'postcard-spot' + (isMine ? ' yours' : '');
-                    if (rosterItem.type === 'consumed') {
-                        spot.style.opacity = '0.2';
-                    } else if (rosterItem.type === 'duplex') {
                         spot.innerHTML = 'DUPLEX';
-                        spot.style.opacity = '0.5';
-                    } else if (rosterItem.type === 'available') {
-                        spot.style.background = '#888';
-                        spot.innerHTML = 'AVAIL';
-                    } else {
-                        spot.innerHTML = isMine ? '<span>S-' + (i + 1) + '</span>' : 'S-' + (i + 1);
                     }
-                    preview.appendChild(spot);
+                } else {
+                    // Standard spot
+                    const isMine = biz.spots.includes(idx);
+                    if (isMine && item.adImage) {
+                        // Show actual ad image
+                        spot.innerHTML = '<img src="' + item.adImage + '" alt="Ad"><span class="spot-label">YOUR AD</span>';
+                    } else {
+                        spot.classList.add('standard');
+                        spot.innerHTML = isMine ? '<span class="spot-label">YOUR AD</span>' : 'STD';
+                    }
                 }
-            }
+                
+                grid.appendChild(spot);
+            });
+        }
+        
+        function buildRoster(biz) {
+            const roster = document.getElementById('rosterList');
+            let html = '';
             
-            // Build roster dynamically
-            const rosterDiv = document.getElementById('rosterList');
-            let rosterHTML = '<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">';
             campaignRoster.forEach((item, idx) => {
                 if (item.type === 'consumed') return;
-                const spotNum = 'S-' + (idx + 1);
-                if (item.name === null) {
-                    rosterHTML += '<div><span style="color:#999;">○</span> <strong>' + spotNum + ':</strong> Available</div>';
-                } else {
-                    const isDuplex = item.type === 'duplex';
-                    const isStandard = item.type === 'standard';
-                    let badge = '';
-                    if (isDuplex) {
-                        badge = ' <span style="background:rgba(255,193,7,0.6);font-size:0.65rem;padding:2px 4px;border-radius:3px;">DUPLEX</span>';
-                    } else if (isStandard) {
-                        badge = ' <span style="background:rgba(52,168,83,0.4);font-size:0.65rem;padding:2px 4px;border-radius:3px;">STD</span>';
-                    }
-                    rosterHTML += '<div><span style="color:#34a853;font-weight:bold;">✓</span> <strong>' + spotNum + ':</strong> ' + item.name + badge + '</div>';
-                }
-            });
-            rosterHTML += '</div>';
-            rosterDiv.innerHTML = rosterHTML;
-            
-            // Check for upgrade opportunities
-            checkUpgradeOpportunities(biz);
-            
-            startCountdown();
-        }
-        
-        function checkUpgradeOpportunities(biz) {
-            // Find available adjacent spots
-            const mySpots = biz.spots;
-            const availableUpgrades = [];
-            
-            mySpots.forEach(spotIdx => {
-                const adjacents = upgradeOpportunities[spotIdx] || [];
-                adjacents.forEach(adjIdx => {
-                    const rosterItem = campaignRoster[adjIdx];
-                    if (rosterItem && rosterItem.type === 'available') {
-                        availableUpgrades.push('S-' + (adjIdx + 1));
-                    }
-                });
-            });
-            
-            // Add upgrade alert if opportunities exist
-            if (availableUpgrades.length > 0 && !biz.isDuplex) {
-                const alertDiv = document.createElement('div');
-                alertDiv.style.cssText = 'background:#fff3e0;border:1px solid #ff9800;padding:15px;border-radius:8px;margin:20px;font-size:0.9rem;';
-                alertDiv.innerHTML = '<strong>🚀 Upgrade Opportunity!</strong><br>Adjacent spots are available: ' + availableUpgrades.join(', ') + '<br><span style="color:#666;font-size:0.8rem;">Combine spots for a bigger impact! Contact Bryan to upgrade.</span>';
                 
-                const dashboard = document.getElementById('dashboard');
-                const firstSection = dashboard.querySelector('.dash-campaign');
-                if (firstSection) {
-                    firstSection.parentNode.insertBefore(alertDiv, firstSection.nextSibling);
+                const spotNum = 'S-' + (idx + 1);
+                let badge = '';
+                if (item.type === 'standard') badge = '<span class="roster-badge std">STD</span>';
+                if (item.type === 'duplex') badge = '<span class="roster-badge duplex">DUPLEX</span>';
+                
+                if (item.name === null) {
+                    html += '<div class="roster-item"><span class="open">○</span> ' + spotNum + ': Available</div>';
+                } else {
+                    const isMine = biz.spots.includes(idx);
+                    const name = isMine ? item.name + ' (YOU)' : item.name;
+                    html += '<div class="roster-item"><span class="check">✓</span> ' + spotNum + ': ' + name + badge + '</div>';
                 }
-            }
+            });
+            
+            roster.innerHTML = html;
         }
         
-        <!-- Past Campaigns Summary -->
-        <div class="dash-section">
-            <h2>📈 Past Campaigns</h2>
-            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:15px;">
-                <div style="background:#f5f5f5;padding:15px;border-radius:8px;text-align:center;">
-                    <div style="font-size:0.8rem;color:#666;">Feb 2026</div>
-                    <div style="font-size:1.2rem;font-weight:bold;color:#34a853;">$2,400</div>
-                    <div style="font-size:0.75rem;color:#999;">7 spots sold</div>
-                </div>
-                <div style="background:#f5f5f5;padding:15px;border-radius:8px;text-align:center;">
-                    <div style="font-size:0.8rem;color:#666;">Jan 2026</div>
-                    <div style="font-size:1.2rem;font-weight:bold;color:#34a853;">$3,100</div>
-                    <div style="font-size:0.75rem;color:#999;">8 spots sold</div>
-                </div>
-                <div style="background:#f5f5f5;padding:15px;border-radius:8px;text-align:center;">
-                    <div style="font-size:0.8rem;color:#666;">Dec 2025</div>
-                    <div style="font-size:1.2rem;font-weight:bold;color:#34a853;">$2,700</div>
-                    <div style="font-size:0.75rem;color:#999;">6 spots sold</div>
-                </div>
-            </div>
-        </div>
-        
-        function startCountdown() {
-            let time = 7 * 24 * 60 * 60 * 1000;
+        function startTimer() {
+            // Mock countdown
+            const timerEl = document.getElementById('timerValue');
+            let timeLeft = 6 * 24 * 60 + 23 * 60 + 45; // 6 days, 23 hours, 45 minutes
             
             setInterval(() => {
-                time -= 1000;
-                const days = Math.floor(time / (24 * 60 * 60 * 1000));
-                const hours = Math.floor((time % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
-                const mins = Math.floor((time % (60 * 60 * 1000)) / (60 * 1000));
-                document.getElementById('countdownTimer').textContent = days + 'd ' + hours + 'h ' + mins + 'm';
-            }, 1000);
+                timeLeft--;
+                if (timeLeft < 0) timeLeft = 7 * 24 * 60;
+                
+                const days = Math.floor(timeLeft / (24 * 60));
+                const hours = Math.floor((timeLeft % (24 * 60)) / 60);
+                const mins = timeLeft % 60;
+                
+                timerEl.textContent = days + 'd ' + hours + 'h ' + mins + 'm';
+            }, 60000); // Update every minute
         }
         
-        function validateVoucher() {
-            const code = document.getElementById('voucherCode').value.trim().toUpperCase();
-            const result = document.getElementById('validatorResult');
-            
-            if (!code) { result.style.display = 'none'; return; }
-            
-            result.style.display = 'block';
-            result.className = 'validator-result';
-            
-            if (code.startsWith('WAX-')) {
-                result.textContent = '✓ VALID - Customer gets their offer!';
-                result.classList.add('valid');
-            } else if (code === 'EXPIRED') {
-                result.textContent = '⚠ EXPIRED - This voucher is no longer valid';
-                result.classList.add('expired');
-            } else {
-                result.textContent = '✕ INVALID - Code not recognized';
-                result.classList.add('invalid');
-            }
+        function renewCampaign() {
+            alert('✓ Renewal request sent! Bryan will contact you shortly.');
+        }
+        
+        function upgradeCampaign() {
+            alert('To upgrade your ad, contact Bryan for availability and pricing.');
         }
         
         function exportEmails() {
-            // In a real app, this would generate a CSV
-            const emails = [
-                'mike.johnson@email.com',
-                'sarah.wilson@email.com',
-                'james.brown@email.com',
-                'lisa.davis@email.com',
-                'david.miller@email.com'
-            ];
-            
-            const csv = 'Email,Date Claimed,Status\n' + 
-                'mike.johnson@email.com,Mar 16 2026,Redeemed\n' +
-                'sarah.wilson@email.com,Mar 17 2026,Redeemed\n' +
-                'james.brown@email.com,Mar 18 2026,Pending\n' +
-                'lisa.davis@email.com,Mar 19 2026,Redeemed\n' +
-                'david.miller@email.com,Mar 20 2026,Not Used';
-            
-            const blob = new Blob([csv], { type: 'text/csv' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'customer-emails.csv';
-            a.click();
+            alert('Exporting emails to CSV...');
+        }
+        
+        function validateVoucher() {
+            const code = document.getElementById('voucherCode').value.trim();
+            if (!code) {
+                alert('Please enter a voucher code');
+                return;
+            }
+            alert('Voucher valid! This code can be redeemed at ' + document.getElementById('businessName').textContent);
         }
         
         function sendChat() {
@@ -807,40 +493,25 @@
             
             const container = document.getElementById('chatMessages');
             const msgEl = document.createElement('div');
-            msgEl.className = 'chat-msg business';
+            msgEl.style.cssText = 'background:#e3f2fd;padding:8px 12px;border-radius:8px;margin-bottom:8px;';
             msgEl.textContent = msg;
             container.appendChild(msgEl);
             input.value = '';
             container.scrollTop = container.scrollHeight;
             
             setTimeout(() => {
-                const replyEl = document.createElement('div');
-                replyEl.className = 'chat-msg you';
-                replyEl.textContent = 'Thanks! Bryan will respond shortly.';
-                container.appendChild(replyEl);
+                const reply = document.createElement('div');
+                reply.style.cssText = 'background:#f5f5f5;padding:8px 12px;border-radius:8px;margin-bottom:8px;';
+                reply.textContent = 'Thanks! Bryan will respond shortly.';
+                container.appendChild(reply);
                 container.scrollTop = container.scrollHeight;
-            }, 2000);
+            }, 1500);
         }
         
-        document.getElementById('chatInput').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') sendChat();
-        });
-        
-        function renewCampaign() {
-            const code = localStorage.getItem('nearbuy_code');
-            const biz = businesses[code];
-            const msg = 'Hi Bryan! I want to renew my ad spot (' + biz.spot + ') for the next campaign. Count me in!';
-            
-            // Add message to chat
-            const container = document.getElementById('chatMessages');
-            const msgEl = document.createElement('div');
-            msgEl.className = 'chat-msg business';
-            msgEl.textContent = msg;
-            container.appendChild(msgEl);
-            container.scrollTop = container.scrollHeight;
-            
-            // Show confirmation
-            alert('✓ Renewal request sent! Bryan will contact you shortly to confirm your spot for the next campaign.');
+        // Check for saved login
+        const savedCode = localStorage.getItem('nearbuy_code');
+        if (savedCode && businesses[savedCode]) {
+            showDashboard(savedCode);
         }
     </script>
 </body>
