@@ -123,6 +123,12 @@
         .chat-input { flex: 1; padding: 12px; border: 2px solid #ddd; border-radius: 6px; }
         .chat-send { background: #d32f2f; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; }
         
+        /* Validator */
+        .validator { display: flex; gap: 10px; margin-top: 15px; }
+        .validator-input { flex: 1; padding: 12px; border: 2px solid #ddd; border-radius: 6px; font-size: 1rem; }
+        .validator-btn { background: #34a853; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; font-weight: bold; white-space: nowrap; }
+        .validator-btn:hover { background: #2e7d32; }
+        
         /* Footer */
         .footer { text-align: center; padding: 20px; color: #999; font-size: 0.8rem; }
         
@@ -300,6 +306,17 @@
                     <tr><td>james...@email.com</td><td>Mar 18</td><td class="status-pending">Pending</td></tr>
                 </tbody>
             </table>
+        </div>
+        
+        <!-- Voucher Validator -->
+        <div class="section">
+            <div class="section-title">🎟️ Validate Customer Voucher</div>
+            <p style="font-size:0.85rem;color:#666;margin-bottom:15px;">When a customer presents a voucher code, enter it here to verify it's valid:</p>
+            <div class="validator">
+                <input type="text" class="validator-input" id="voucherCode" placeholder="Enter voucher code (e.g., NEARBUY-JGL001-ABC123)">
+                <button class="validator-btn" onclick="validateVoucher()">Check Voucher</button>
+            </div>
+            <div class="validator-result" id="validatorResult" style="margin-top:15px;padding:15px;border-radius:8px;display:none;"></div>
         </div>
         
         <!-- Renew / Upgrade -->
@@ -501,6 +518,32 @@
         
         function exportEmails() {
             alert('Exporting emails to CSV...');
+        }
+        
+        function validateVoucher() {
+            const code = document.getElementById('voucherCode').value.trim().toUpperCase();
+            const resultDiv = document.getElementById('validatorResult');
+            
+            if (!code) {
+                resultDiv.style.display = 'block';
+                resultDiv.style.background = '#ffebee';
+                resultDiv.style.color = '#d32f2f';
+                resultDiv.textContent = 'Please enter a voucher code';
+                return;
+            }
+            
+            // Simple validation logic - in real app this would check against stored data
+            if (code.includes('NEARBUY')) {
+                resultDiv.style.display = 'block';
+                resultDiv.style.background = '#e8f5e9';
+                resultDiv.style.color = '#2e7d32';
+                resultDiv.innerHTML = '<strong>✓ Voucher Valid!</strong><br>This voucher can be redeemed at ' + document.getElementById('businessName').textContent;
+            } else {
+                resultDiv.style.display = 'block';
+                resultDiv.style.background = '#ffebee';
+                resultDiv.style.color = '#d32f2f';
+                resultDiv.innerHTML = '<strong>✗ Invalid Voucher</strong><br>This code was not found in our system. Please check the code and try again.';
+            }
         }
         
         function sendChat() {
