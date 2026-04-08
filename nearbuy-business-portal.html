@@ -437,10 +437,14 @@
             const grid = document.getElementById('adPreviewGrid');
             grid.innerHTML = '';
             
+            // Color palette for placeholder ads
+            const colors = ['#34a853', '#e91e63', '#2196f3', '#ff9800', '#9c27b0', '#00bcd4', '#795548', '#607d8b'];
+            
             campaignRoster.forEach((item, idx) => {
                 const spot = document.createElement('div');
                 spot.className = 'ad-spot';
                 const isMine = biz.spots.includes(idx);
+                const colorIdx = idx % colors.length;
                 
                 if (item.type === 'consumed') {
                     spot.style.opacity = '0.2';
@@ -448,21 +452,15 @@
                     spot.classList.add('available');
                     spot.innerHTML = 'AVAIL';
                 } else if (item.type === 'duplex') {
-                    if (item.adImage) {
-                        // Show actual ad image for this business
-                        spot.innerHTML = '<img src="' + item.adImage + '" alt="Ad">' + (isMine ? '<span class="spot-label" style="background:rgba(0,0,0,0.5);padding:2px 4px;border-radius:3px;">YOUR AD</span>' : '');
-                    } else {
-                        spot.classList.add('duplex');
-                        spot.innerHTML = '<span class="spot-label" style="background:rgba(0,0,0,0.5);padding:2px 4px;border-radius:3px;">DUPLEX</span>';
-                    }
+                    // For duplex - show colored placeholder with business name
+                    const color = colors[idx % colors.length];
+                    spot.style.background = color;
+                    spot.innerHTML = '<span class="spot-label" style="background:rgba(0,0,0,0.5);padding:4px 8px;border-radius:4px;font-size:0.7rem;">' + (item.name || 'DUPLEX') + '</span>';
                 } else {
-                    // Standard spot - show ad image if available
-                    if (item.adImage) {
-                        spot.innerHTML = '<img src="' + item.adImage + '" alt="Ad">' + (isMine ? '<span class="spot-label" style="background:rgba(0,0,0,0.5);padding:2px 4px;border-radius:3px;">YOUR AD</span>' : '');
-                    } else {
-                        spot.classList.add('standard');
-                        spot.innerHTML = isMine ? '<span class="spot-label">YOUR AD</span>' : 'STD';
-                    }
+                    // For standard spots - show colored placeholder with business name
+                    const color = colors[idx % colors.length];
+                    spot.style.background = color;
+                    spot.innerHTML = '<span class="spot-label" style="background:rgba(0,0,0,0.5);padding:4px 8px;border-radius:4px;font-size:0.7rem;">' + (item.name || 'STD') + '</span>';
                 }
                 
                 grid.appendChild(spot);
