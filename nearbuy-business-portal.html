@@ -195,6 +195,12 @@
             </div>
         </div>
         
+        <!-- YOUR Ad Preview - Shows your actual ad when logged in -->
+        <div class="section" id="yourAdPreviewSection" style="display:none;">
+            <div class="section-title">🎨 Your Ad</div>
+            <div id="yourAdImage" style="text-align:center;"></div>
+        </div>
+        
         <!-- Stats -->
         <div class="section">
             <div class="stats-row">
@@ -345,7 +351,7 @@
     <script>
         // Business data
         const businesses = {
-            'BUSINESS001': { name: 'JGL Repair', spot: 'S-1', spots: [0], scans: 47, claims: 23, redeemed: 12, qrCode: 'NEARBUY-JGL001', validThrough: 'May 15, 2026', adImage: 'https://raw.githubusercontent.com/squigglyweb/cleatus/main/jgl-sample-ad.webp' },
+            'BUSINESS001': { name: 'JGL Repair', spot: 'S-1', spots: [0], scans: 47, claims: 23, redeemed: 12, qrCode: 'NEARBUY-JGL001', validThrough: 'May 15, 2026', adImage: 'https://raw.githubusercontent.com/squigglyweb/cleatus/main/jgl-REAL-ad.webp' },
             'BUSINESS002': { name: 'Papaya Skin Care', spot: 'S-2', spots: [1], scans: 31, claims: 18, redeemed: 9, qrCode: 'NEARBUY-PAPAYA002', validThrough: 'May 15, 2026', adImage: 'https://raw.githubusercontent.com/squigglyweb/cleatus/main/papaya-sample-ad.webp' },
             'BUSINESS003': { name: 'Marvin Pressure Washing', spot: 'S-4,S-7 (DUPLEX)', spots: [3, 6], scans: 52, claims: 31, redeemed: 18, qrCode: 'NEARBUY-MARVIN003', validThrough: 'May 15, 2026', isDuplex: true, adImage: 'https://raw.githubusercontent.com/squigglyweb/cleatus/main/marvin-sample-ad.webp' }
         };
@@ -390,6 +396,16 @@
             document.getElementById('businessName').textContent = biz.name;
             document.getElementById('adSpot').textContent = biz.spot;
             document.getElementById('adType').textContent = biz.isDuplex ? 'DUPLEX (3.8" × 5")' : 'STANDARD (3.8" × 2.5")';
+            
+            // YOUR Ad Preview - show your actual ad
+            const adSection = document.getElementById('yourAdPreviewSection');
+            const adImageDiv = document.getElementById('yourAdImage');
+            if (biz.adImage) {
+                adSection.style.display = 'block';
+                adImageDiv.innerHTML = '<img src="' + biz.adImage + '" alt="Your Ad" style="max-width:100%;max-height:200px;border-radius:8px;border:2px solid #ddd;">';
+            } else {
+                adSection.style.display = 'none';
+            }
             
             // Stats
             document.getElementById('scanCount').textContent = biz.scans;
