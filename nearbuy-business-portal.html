@@ -432,6 +432,15 @@
             </div>
         </div>
         
+        <!-- Your Ad Preview -->
+        <div class="dash-section">
+            <h2>🎨 Your Ad Preview</h2>
+            <p style="font-size:0.85rem;color:#666;margin-bottom:15px;">Here's how your ad appears on the mailing:</p>
+            <div id="adPreview" style="background:#f5f5f5;padding:20px;border-radius:8px;text-align:center;">
+                <!-- Filled by JS with ad image -->
+            </div>
+        </div>
+        
         <!-- Postcard Preview -->
         <div class="dash-postcard">
             <h2>🗺️ Your Ad in Context</h2>
@@ -569,6 +578,17 @@
             document.getElementById('claimCount').textContent = biz.claims;
             document.getElementById('redeemCount').textContent = biz.redeemed;
             document.getElementById('qrCode').textContent = biz.qrCode;
+            
+            // Ad preview - show actual ad image
+            const adPreview = document.getElementById('adPreview');
+            if (biz.adImage && biz.adImage !== '') {
+                adPreview.innerHTML = '<img src="' + biz.adImage + '" alt="Your Ad" style="max-width:100%;max-height:300px;border-radius:4px;border:2px solid #ddd;">';
+            } else {
+                adPreview.innerHTML = '<div style="background:white;padding:40px;border-radius:8px;border:2px dashed #ccc;">' +
+                    '<div style="font-size:1.2rem;color:#666;margin-bottom:10px;">📝 No ad submitted yet</div>' +
+                    '<div style="font-size:0.85rem;color:#999;">Send your ad artwork to Bryan to see it here</div>' +
+                    '</div>';
+            }
             
             // Campaign success
             const successDiv = document.getElementById('campaignSuccess');
