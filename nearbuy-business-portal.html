@@ -7,10 +7,10 @@
     <script>
         // Load businesses data early
         var businesses = {
-            'BUSINESS001': { name: 'JGL Repair', spot: 'S-1', spots: [0], scans: 47, claims: 23, redeemed: 12, qrCode: 'NEARBUY-JGL001' },
-            'BUSINESS002': { name: 'Papaya Skin Care', spot: 'S-2', spots: [1], scans: 31, claims: 18, redeemed: 9, qrCode: 'NEARBUY-PAPAYA002' },
-            'BUSINESS003': { name: 'Marvin Pressure Washing', spot: 'S-4,S-7 (DUPLEX)', spots: [3, 6], scans: 52, claims: 31, redeemed: 18, qrCode: 'NEARBUY-MARVIN003', isDuplex: true },
-            'TEST123': { name: 'Test Business', spot: 'S-5', spots: [4], scans: 15, claims: 8, redeemed: 4, qrCode: 'NEARBUY-TEST123' }
+            'BUSINESS001': { name: 'JGL Repair', spot: 'S-1', spots: [0], scans: 47, claims: 23, redeemed: 12, qrCode: 'NEARBUY-JGL001', adImage: 'https://raw.githubusercontent.com/squigglyweb/cleatus/main/jgl-sample-ad.webp' },
+            'BUSINESS002': { name: 'Papaya Skin Care', spot: 'S-2', spots: [1], scans: 31, claims: 18, redeemed: 9, qrCode: 'NEARBUY-PAPAYA002', adImage: 'https://raw.githubusercontent.com/squigglyweb/cleatus/main/papaya-sample-ad.webp' },
+            'BUSINESS003': { name: 'Marvin Pressure Washing', spot: 'S-4,S-7 (DUPLEX)', spots: [3, 6], scans: 52, claims: 31, redeemed: 18, qrCode: 'NEARBUY-MARVIN003', isDuplex: true, adImage: 'https://raw.githubusercontent.com/squigglyweb/cleatus/main/marvin-sample-ad.webp' },
+            'TEST123': { name: 'Test Business', spot: 'S-5', spots: [4], scans: 15, claims: 8, redeemed: 4, qrCode: 'NEARBUY-TEST123', adImage: '' }
         };
         var campaignRoster = [
             { id: 0, name: 'JGL Repair', type: 'standard' },
@@ -268,6 +268,25 @@
         .campaign-msg { font-size: 0.9rem; margin-bottom: 10px; }
         .campaign-cta { font-size: 0.8rem; color: #666; }
         
+        .renew-btn {
+            margin-top: 15px;
+            background: linear-gradient(135deg, #34a853, #2e7d32);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .renew-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(52,168,83,0.4);
+        }
+        
         /* Postcard Preview */
         .dash-postcard { background: white; margin: 20px; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .dash-postcard h2 { font-size: 1rem; color: #333; margin-bottom: 15px; }
@@ -293,6 +312,17 @@
         }
         
         .postcard-spot.yours span { font-size: 0.6rem; }
+        
+        .postcard-spot.duplex-yours {
+            grid-row: span 2; /* Span two rows vertically */
+            background: linear-gradient(135deg, rgba(255,193,7,0.85) 0%, rgba(255,215,0,0.9) 100%) !important;
+            border: 2px solid #e6c200;
+            opacity: 1;
+            font-size: 0.7rem;
+            text-align: center;
+        }
+        
+        .postcard-spot.duplex-yours span { color: #333; }
         
         /* Countdown */
         .dash-countdown {
@@ -467,10 +497,10 @@
     
     <script>
         const businesses = {
-            'BUSINESS001': { name: 'JGL Repair', spot: 'S-1', spots: [0], scans: 47, claims: 23, redeemed: 12, qrCode: 'NEARBUY-JGL001' },
-            'BUSINESS002': { name: 'Papaya Skin Care', spot: 'S-2', spots: [1], scans: 31, claims: 18, redeemed: 9, qrCode: 'NEARBUY-PAPAYA002' },
-            'BUSINESS003': { name: 'Marvin Pressure Washing', spot: 'S-4,S-7 (DUPLEX)', spots: [3, 6], scans: 52, claims: 31, redeemed: 18, qrCode: 'NEARBUY-MARVIN003', isDuplex: true },
-            'TEST123': { name: 'Test Business', spot: 'S-5', spots: [4], scans: 15, claims: 8, redeemed: 4, qrCode: 'NEARBUY-TEST123' }
+            'BUSINESS001': { name: 'JGL Repair', spot: 'S-1', spots: [0], scans: 47, claims: 23, redeemed: 12, qrCode: 'NEARBUY-JGL001', adImage: 'https://raw.githubusercontent.com/squigglyweb/cleatus/main/jgl-sample-ad.webp' },
+            'BUSINESS002': { name: 'Papaya Skin Care', spot: 'S-2', spots: [1], scans: 31, claims: 18, redeemed: 9, qrCode: 'NEARBUY-PAPAYA002', adImage: 'https://raw.githubusercontent.com/squigglyweb/cleatus/main/papaya-sample-ad.webp' },
+            'BUSINESS003': { name: 'Marvin Pressure Washing', spot: 'S-4,S-7 (DUPLEX)', spots: [3, 6], scans: 52, claims: 31, redeemed: 18, qrCode: 'NEARBUY-MARVIN003', isDuplex: true, adImage: 'https://raw.githubusercontent.com/squigglyweb/cleatus/main/marvin-sample-ad.webp' },
+            'TEST123': { name: 'Test Business', spot: 'S-5', spots: [4], scans: 15, claims: 8, redeemed: 4, qrCode: 'NEARBUY-TEST123', adImage: '' }
         };
         
         // Campaign roster - what's actually on the postcard
@@ -543,38 +573,73 @@
             // Campaign success
             const successDiv = document.getElementById('campaignSuccess');
             const claimRate = Math.round((biz.claims / biz.scans) * 100);
+            const renewBtn = '<button class="renew-btn" onclick="renewCampaign()">🔄 Renew for Next Campaign</button>';
             
             if (claimRate >= 30) {
                 successDiv.className = 'campaign-success great';
-                successDiv.innerHTML = '<div class="campaign-msg"><strong>🎉 Amazing results!</strong> ' + claimRate + '% of scanners claimed your offer.</div><div class="campaign-cta">Ready to book your next campaign? Message me when ready.</div>';
+                successDiv.innerHTML = '<div class="campaign-msg"><strong>🎉 Amazing results!</strong> ' + claimRate + '% of scanners claimed your offer.</div><div class="campaign-cta">Ready to book your next campaign? Message me when ready.</div>' + renewBtn;
             } else if (claimRate >= 15) {
                 successDiv.className = 'campaign-success good';
-                successDiv.innerHTML = '<div class="campaign-msg"><strong>👍 Solid results.</strong> ' + claimRate + '% claim rate. Would definitely recommend running again!</div><div class="campaign-cta">Let me know if you want to run the next one.</div>';
+                successDiv.innerHTML = '<div class="campaign-msg"><strong>👍 Solid results.</strong> ' + claimRate + '% claim rate. Would definitely recommend running again!</div><div class="campaign-cta">Let me know if you want to run the next one.</div>' + renewBtn;
             } else {
                 successDiv.className = 'campaign-success low';
-                successDiv.innerHTML = '<div class="campaign-msg"><strong>📈 Room to grow.</strong> Only ' + claimRate + '% claimed. We can try a different offer approach if you want.</div><div class="campaign-cta">Let me know if you want to test something new next month.</div>';
+                successDiv.innerHTML = '<div class="campaign-msg"><strong>📈 Room to grow.</strong> Only ' + claimRate + '% claimed. We can try a different offer approach if you want.</div><div class="campaign-cta">Let me know if you want to test something new next month.</div>' + renewBtn;
             }
             
-            // Postcard preview - highlight YOUR spots
+            // Postcard preview - show actual ad images and duplex handling
             const preview = document.getElementById('postcardPreview');
             preview.innerHTML = '';
-            for (let i = 0; i < 9; i++) {
-                const isMine = biz.spots.includes(i);
-                const rosterItem = campaignRoster[i];
-                const spot = document.createElement('div');
-                spot.className = 'postcard-spot' + (isMine ? ' yours' : '');
-                if (rosterItem.type === 'consumed') {
-                    spot.style.opacity = '0.2';
-                    spot.innerHTML = '';
-                } else if (rosterItem.type === 'duplex') {
-                    spot.innerHTML = isMine ? '<span>DUPLEX</span>' : 'DUPLEX';
-                } else if (rosterItem.type === 'available') {
-                    spot.style.background = '#888';
-                    spot.innerHTML = 'AVAIL';
-                } else {
-                    spot.innerHTML = isMine ? '<span>S-' + (i + 1) + '</span>' : 'S-' + (i + 1);
+            // Handle duplex case - render as ONE combined box
+            if (biz.isDuplex) {
+                // For duplex, show S-4 and S-7 as ONE combined yellow/transparent box
+                // Grid layout: row 1 = S-1,S-2,S-3; row 2 = S-4,S-5,S-6; row 3 = S-7,S-8,S-9
+                // Duplex spans S-4 (row 2, col 1) and S-7 (row 3, col 1) - vertically adjacent
+                const duplexSpots = [3, 6]; // S-4 and S-7 are indices 3 and 6
+                for (let i = 0; i < 9; i++) {
+                    const isMine = duplexSpots.includes(i);
+                    const rosterItem = campaignRoster[i];
+                    const spot = document.createElement('div');
+                    spot.className = 'postcard-spot';
+                    if (rosterItem.type === 'consumed') {
+                        spot.style.opacity = '0.2';
+                    } else if (i === 3) {
+                        // This is S-4 - the duplex top half - show as combined
+                        spot.className = 'postcard-spot duplex-yours';
+                        spot.style.background = 'linear-gradient(135deg, rgba(255,193,7,0.8) 0%, rgba(255,215,0,0.9) 100%)';
+                        spot.style.border = '2px solid #ffc107';
+                        spot.innerHTML = '<span style="color:#333;font-weight:bold;">DUPLEX<br>YOUR AD</span>';
+                    } else if (i === 6) {
+                        // This is S-7 - the duplex bottom half - combine with S-4
+                        spot.style.display = 'none'; // Hide S-7, it's combined with S-4
+                    } else if (rosterItem.type === 'available') {
+                        spot.style.background = '#888';
+                        spot.innerHTML = 'AVAIL';
+                    } else {
+                        spot.innerHTML = 'S-' + (i + 1);
+                        spot.style.opacity = '0.5';
+                    }
+                    preview.appendChild(spot);
                 }
-                preview.appendChild(spot);
+            } else {
+                // Standard single spots
+                for (let i = 0; i < 9; i++) {
+                    const isMine = biz.spots.includes(i);
+                    const rosterItem = campaignRoster[i];
+                    const spot = document.createElement('div');
+                    spot.className = 'postcard-spot' + (isMine ? ' yours' : '');
+                    if (rosterItem.type === 'consumed') {
+                        spot.style.opacity = '0.2';
+                    } else if (rosterItem.type === 'duplex') {
+                        spot.innerHTML = 'DUPLEX';
+                        spot.style.opacity = '0.5';
+                    } else if (rosterItem.type === 'available') {
+                        spot.style.background = '#888';
+                        spot.innerHTML = 'AVAIL';
+                    } else {
+                        spot.innerHTML = isMine ? '<span>S-' + (i + 1) + '</span>' : 'S-' + (i + 1);
+                    }
+                    preview.appendChild(spot);
+                }
             }
             
             // Build roster dynamically
@@ -740,6 +805,23 @@
         document.getElementById('chatInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') sendChat();
         });
+        
+        function renewCampaign() {
+            const code = localStorage.getItem('nearbuy_code');
+            const biz = businesses[code];
+            const msg = 'Hi Bryan! I want to renew my ad spot (' + biz.spot + ') for the next campaign. Count me in!';
+            
+            // Add message to chat
+            const container = document.getElementById('chatMessages');
+            const msgEl = document.createElement('div');
+            msgEl.className = 'chat-msg business';
+            msgEl.textContent = msg;
+            container.appendChild(msgEl);
+            container.scrollTop = container.scrollHeight;
+            
+            // Show confirmation
+            alert('✓ Renewal request sent! Bryan will contact you shortly to confirm your spot for the next campaign.');
+        }
     </script>
 </body>
 </html>
