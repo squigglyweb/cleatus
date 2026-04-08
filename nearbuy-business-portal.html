@@ -54,6 +54,11 @@
         .ad-spot.available { background: #888; }
         .ad-spot .spot-label { position: absolute; bottom: 2px; right: 2px; font-size: 0.5rem; opacity: 0.8; }
         
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        
         /* Stats */
         .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 15px; }
         .stat-card { background: #f8f9fa; padding: 20px; border-radius: 8px; text-align: center; position: relative; }
@@ -196,9 +201,21 @@
         </div>
         
         <!-- YOUR Ad Preview - Shows your actual ad when logged in -->
-        <div class="section" id="yourAdPreviewSection" style="display:none;">
+        <div class="section" id="yourAdPreviewSection">
             <div class="section-title">🎨 Your Ad</div>
             <div id="yourAdImage" style="text-align:center;"></div>
+            <div id="yourAdPrompt" style="display:none;background:#fff3e0;border:2px dashed #ff9800;padding:20px;border-radius:8px;text-align:center;margin-top:15px;">
+                <div style="font-size:1.1rem;font-weight:bold;color:#e65100;margin-bottom:10px;">📝 Need Your Ad Artwork!</div>
+                <div style="font-size:0.9rem;color:#333;margin-bottom:15px;">
+                    To get your spot on the next mailing, we need your ad artwork.<br>
+                    You can either:
+                </div>
+                <div style="display:flex;gap:15px;justify-content:center;">
+                    <button style="background:#34a853;color:white;border:none;padding:12px 20px;border-radius:6px;cursor:pointer;font-weight:bold;" onclick="alert('Upload feature coming soon! Send your artwork to Bryan.')">📤 Upload My Artwork</button>
+                    <button style="background:#d32f2f;color:white;border:none;padding:12px 20px;border-radius:6px;cursor:pointer;font-weight:bold;" onclick="alert('Bryan will design your ad! He\'ll reach out to discuss pricing.')">🎨 Design It For Me</button>
+                </div>
+                <div style="font-size:0.8rem;color:#666;margin-top:15px;">Contact Bryan: support@thelocalnearbuy.com</div>
+            </div>
         </div>
         
         <!-- Stats -->
@@ -397,14 +414,18 @@
             document.getElementById('adSpot').textContent = biz.spot;
             document.getElementById('adType').textContent = biz.isDuplex ? 'DUPLEX (3.8" × 5")' : 'STANDARD (3.8" × 2.5")';
             
-            // YOUR Ad Preview - show your actual ad
+            // YOUR Ad Preview - show your actual ad OR prompt for artwork
             const adSection = document.getElementById('yourAdPreviewSection');
             const adImageDiv = document.getElementById('yourAdImage');
+            const adPromptDiv = document.getElementById('yourAdPrompt');
+            
             if (biz.adImage) {
-                adSection.style.display = 'block';
                 adImageDiv.innerHTML = '<img src="' + biz.adImage + '" alt="Your Ad" style="max-width:100%;max-height:200px;border-radius:8px;border:2px solid #ddd;">';
+                adPromptDiv.style.display = 'none';
             } else {
-                adSection.style.display = 'none';
+                // No ad yet - show prompt to provide artwork
+                adImageDiv.innerHTML = '<div style="background:#f5f5f5;padding:40px;border-radius:8px;text-align:center;"><div style="font-size:3rem;">🎨</div><div style="font-size:1.2rem;color:#666;">No artwork uploaded yet</div></div>';
+                adPromptDiv.style.display = 'block';
             }
             
             // Stats
@@ -460,20 +481,20 @@
                 const spot = document.createElement('div');
                 spot.className = 'ad-spot';
                 const isMine = biz.spots.includes(idx);
-                const colorIdx = idx % colors.length;
                 
                 if (item.type === 'consumed') {
                     spot.style.opacity = '0.2';
                 } else if (item.type === 'available') {
-                    spot.classList.add('available');
-                    spot.innerHTML = 'AVAIL';
+                    // Emphasize available spots!
+                    spot.style.background = 'linear-gradient(135deg, #ff6b6b, #ee5a24)';
+                    spot.style.border = '3px dashed #fff';
+                    spot.style.animation = 'pulse 2s infinite';
+                    spot.innerHTML = '<span style="background:rgba(0,0,0,0.6);padding:6px 10px;border-radius:6px;font-size:0.75rem;font-weight:bold;">🎉 AVAILABLE<br><span style="font-size:0.6rem;">YOUR AD HERE!</span></span>';
                 } else if (item.type === 'duplex') {
-                    // For duplex - show colored placeholder with business name
                     const color = colors[idx % colors.length];
                     spot.style.background = color;
                     spot.innerHTML = '<span class="spot-label" style="background:rgba(0,0,0,0.5);padding:4px 8px;border-radius:4px;font-size:0.7rem;">' + (item.name || 'DUPLEX') + '</span>';
                 } else {
-                    // For standard spots - show colored placeholder with business name
                     const color = colors[idx % colors.length];
                     spot.style.background = color;
                     spot.innerHTML = '<span class="spot-label" style="background:rgba(0,0,0,0.5);padding:4px 8px;border-radius:4px;font-size:0.7rem;">' + (item.name || 'STD') + '</span>';
