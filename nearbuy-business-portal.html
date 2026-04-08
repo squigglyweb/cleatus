@@ -440,6 +440,7 @@
             campaignRoster.forEach((item, idx) => {
                 const spot = document.createElement('div');
                 spot.className = 'ad-spot';
+                const isMine = biz.spots.includes(idx);
                 
                 if (item.type === 'consumed') {
                     spot.style.opacity = '0.2';
@@ -447,17 +448,17 @@
                     spot.classList.add('available');
                     spot.innerHTML = 'AVAIL';
                 } else if (item.type === 'duplex') {
-                    const isMine = biz.isDuplex && biz.spots.includes(idx);
-                    if (isMine && item.adImage) {
-                        spot.innerHTML = '<img src="' + item.adImage + '" alt="Ad"><span class="spot-label">YOUR AD</span>';
+                    if (item.adImage) {
+                        // Show actual ad image for this business
+                        spot.innerHTML = '<img src="' + item.adImage + '" alt="Ad">' + (isMine ? '<span class="spot-label" style="background:rgba(0,0,0,0.5);padding:2px 4px;border-radius:3px;">YOUR AD</span>' : '');
                     } else {
                         spot.classList.add('duplex');
-                        spot.innerHTML = item.adImage ? '<img src="' + item.adImage + '" alt="Ad">' : '<span class="spot-label">DUPLEX</span>';
+                        spot.innerHTML = '<span class="spot-label" style="background:rgba(0,0,0,0.5);padding:2px 4px;border-radius:3px;">DUPLEX</span>';
                     }
                 } else {
-                    const isMine = biz.spots.includes(idx);
-                    if (isMine && item.adImage) {
-                        spot.innerHTML = '<img src="' + item.adImage + '" alt="Ad"><span class="spot-label">YOUR AD</span>';
+                    // Standard spot - show ad image if available
+                    if (item.adImage) {
+                        spot.innerHTML = '<img src="' + item.adImage + '" alt="Ad">' + (isMine ? '<span class="spot-label" style="background:rgba(0,0,0,0.5);padding:2px 4px;border-radius:3px;">YOUR AD</span>' : '');
                     } else {
                         spot.classList.add('standard');
                         spot.innerHTML = isMine ? '<span class="spot-label">YOUR AD</span>' : 'STD';
