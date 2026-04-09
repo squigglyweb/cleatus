@@ -161,6 +161,9 @@
     <div class="hero">
         <h1>Get Your Business on the Mailing</h1>
         <p>Reach 5,000+ households in your area with a tracked QR code voucher ad.</p>
+        <div style="margin-top:20px;">
+            <button class="btn btn-primary" onclick="scrollToForm()" style="padding:16px 40px;font-size:1.1rem;">Get Started →</button>
+        </div>
         <div class="hero-stats">
             <div class="hero-stat">
                 <div class="hero-stat-num">5,000+</div>
@@ -204,6 +207,12 @@
                 </ul>
                 <button class="btn btn-primary" onclick="scrollToForm()">Get Started</button>
             </div>
+        </div>
+        
+        <!-- No Hidden Fees Banner -->
+        <div style="background:#dcfce7;border:1px solid #86efac;border-radius:12px;padding:20px;text-align:center;margin-top:30px;">
+            <div style="font-weight:bold;color:#166534;font-size:1.1rem;">🔒 No Hidden Fees. No Surprises.</div>
+            <div style="color:#15803d;font-size:0.95rem;margin-top:6px;">Everything is included: your ad design, printing, delivery, QR code, and dashboard. One simple price.</div>
         </div>
     </div>
     
@@ -353,6 +362,12 @@
                         <textarea id="businessInfo" rows="4" placeholder="What services do you offer? Any special deals? Phone number? Tagline?"></textarea>
                     </div>
                 </div>
+                <div class="form-group" style="margin-top:20px;">
+                    <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;">
+                        <input type="checkbox" id="agreeTerms" style="margin-top:4px;">
+                        <span style="font-size:0.85rem;font-weight:normal;">I agree to the <a href="#" style="color:#d32f2f;">Terms of Service</a> and <a href="#" style="color:#d32f2f;">Privacy Policy</a>. I understand my ad will be reviewed and I will receive an email to verify my account.</span>
+                    </label>
+                </div>
                 <button class="btn btn-secondary" onclick="goToStep(1)" style="margin-right:10px;">Back</button>
                 <button class="btn btn-primary" onclick="goToStep3()">Continue to Payment</button>
             </div>
@@ -377,7 +392,15 @@
             <div id="success" style="display:none; text-align:center; padding: 40px 0;">
                 <div style="font-size:4rem; margin-bottom:20px;">🎉</div>
                 <h3>You're In!</h3>
-                <p style="color:#6b7280; margin-bottom:30px;">Check your email to verify your address, then we'll be in touch about your ad design.</p>
+                <p style="color:#6b7280; margin-bottom:20px;">Check your email to verify your account. Once verified, you'll be able to access your business portal.</p>
+                <div style="background:#f5f5f5;border-radius:12px;padding:20px;margin:20px 0;text-align:left;max-width:400px;margin-left:auto;margin-right:auto;">
+                    <div style="font-weight:bold;margin-bottom:12px;">📋 What's Next:</div>
+                    <div style="font-size:0.9rem;margin-bottom:8px;">1. Check your email & verify your account</div>
+                    <div style="font-size:0.9rem;margin-bottom:8px;">2. We'll design your ad (if you chose that option)</div>
+                    <div style="font-size:0.9rem;margin-bottom:8px;">3. You'll approve your proof</div>
+                    <div style="font-size:0.9rem;margin-bottom:8px;">4. Complete payment to secure your spot</div>
+                    <div style="font-size:0.9rem;">5. Your ad goes LIVE on the next mailing!</div>
+                </div>
                 <button class="btn btn-primary" onclick="location.reload()">Back to Home</button>
             </div>
         </div>
@@ -518,6 +541,10 @@
         function goToStep3() {
             if (!selectedSpot) {
                 showToast('Please select an ad spot');
+                return;
+            }
+            if (!document.getElementById('agreeTerms').checked) {
+                showToast('Please agree to the Terms of Service to continue');
                 return;
             }
             goToStep(3);
