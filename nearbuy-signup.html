@@ -106,6 +106,17 @@
         .footer { background: #1f2937; color: #9ca3af; padding: 40px 20px; text-align: center; }
         .footer a { color: white; text-decoration: none; }
         
+        /* FAQ Section */
+        .faq { padding: 60px 20px; background: white; }
+        .faq h2 { text-align: center; font-size: 1.8rem; margin-bottom: 40px; }
+        .faq-grid { max-width: 800px; margin: 0 auto; }
+        .faq-item { border-bottom: 1px solid #e5e7eb; }
+        .faq-question { padding: 16px 0; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; font-size: 1rem; }
+        .faq-question::after { content: '+'; font-size: 1.5rem; color: #d32f2f; }
+        .faq-answer { display: none; padding: 0 0 16px; color: #6b7280; line-height: 1.6; font-size: 0.95rem; }
+        .faq-item.open .faq-answer { display: block; }
+        .faq-item.open .faq-question::after { content: '-'; }
+        
         /* Toast */
         .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: #1f2937; color: white; padding: 12px 24px; border-radius: 10px; font-size: 0.95rem; z-index: 1000; display: none; }
         .toast.show { display: block; }
@@ -372,6 +383,61 @@
         </div>
     </div>
     
+    <!-- FAQ Section -->
+    <div class="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-grid">
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">Is this just a simple ad, or is there more?</div>
+                <div class="faq-answer">It's so much more than a simple ad. Each business gets a tracked QR code that leads to a custom voucher page. You'll see exactly how many people scanned your code, claimed your offer, and most importantly — REDEEMED it. You also capture every customer's email who claims a voucher, building your own marketing list.</div>
+            </div>
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">How do I track my campaign performance?</div>
+                <div class="faq-answer">You'll get a personalized business dashboard that shows real-time metrics: scans, claims, and redemptions. See which neighborhoods responded best, track email captures, and even validate customer vouchers right from your phone or computer. It's marketing you can actually measure.</div>
+            </div>
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">What if I want to upgrade my ad space later?</div>
+                <div class="faq-answer">Easy! You can upgrade from a standard spot to a duplex (double-wide) ad anytime. Since we use dynamic QR codes, your customers keep the same code — it just redirects to your new, bigger ad. You'll get billed the difference, and the upgrade takes effect on your next mailing.</div>
+            </div>
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">Is 9x12 postcard advertising actually effective for local businesses?</div>
+                <div class="faq-answer">Absolutely. Direct mail has a 1-3% response rate for targeted lists — far higher than digital ads. Our oversized 9x12 format physically can't be ignored, and when combined with a tracked QR code, you get proof of results. Local restaurants, salons, home services, and retail shops all see great returns.</div>
+            </div>
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">What is a voucher and how does it help my business?</div>
+                <div class="faq-answer">A voucher is a tracked discount or offer that customers claim by scanning your QR code. For restaurants, it could be "20% off their bill." For salons, "Free upgrade with service." For home services, "$50 off any repair." The key benefit: customers physically come to your business to redeem it — they're not just scrolling past.</div>
+            </div>
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">How does voucher validation work for my staff?</div>
+                <div class="faq-answer">Your staff can validate vouchers three easy ways: (1) The customer shows their claimed voucher on their phone — your staff just checks the code is valid, (2) Your staff scans the QR code directly from the customer's phone using any camera, (3) Enter the voucher code in your business portal dashboard to verify it's unused. It's that simple.</div>
+            </div>
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">What types of businesses can advertise?</div>
+                <div class="faq-answer">We welcome all local businesses! This includes restaurants and food service, salons and barbershops, auto repair and car washes, home services (plumbers, HVAC, electricians), landscaping and lawn care, retail shops and boutiques, health and wellness businesses, and more. Each category gets exclusive placement per mailing.</div>
+            </div>
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">How does the design service work if I don't have artwork?</div>
+                <div class="faq-answer">No problem — we design it for you! Just tell us your business name, services, phone number, and any special offer. We'll create a professional ad that fits our template and matches your business. You get 2 free revisions. We'll send you a proof to approve before your ad goes live.</div>
+            </div>
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">When and how do I pay for my ad?</div>
+                <div class="faq-answer">You'll pay securely online through our checkout. Once you submit your info and choose your spot, you'll be directed to payment. We accept all major cards. Payment is due before your ad goes to print. You can also request an invoice if you prefer to pay differently.</div>
+            </div>
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">How does the category exclusivity work?</div>
+                <div class="faq-answer">Each mailing features only ONE business per category. If you're a restaurant, no other restaurant will be on that mailing. This means your ad stands alone — customers see YOUR offer, not your competitor's. You get first right of refusal to renew for the next month.</div>
+            </div>
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">Can I target specific neighborhoods?</div>
+                <div class="faq-answer">Yes! You choose which areas we mail to. Whether you want just one neighborhood or multiple zip codes, we geo-target exactly where your customers live. This avoids wasted mail and ensures you're reaching the right audience for your business.</div>
+            </div>
+            <div class="faq-item" onclick="toggleFAQ(this)">
+                <div class="faq-question">What happens after my ad is mailed?</div>
+                <div class="faq-answer">After mailing, you'll see your dashboard populate with real-time data: how many people scanned your QR code, claimed your voucher, and most importantly — redeemed it at your business. You'll also have their emails for follow-up marketing. Then you can renew for the next month!</div>
+            </div>
+        </div>
+    </div>
+    
     <!-- Footer -->
     <div class="footer">
         <p>© 2026 The Local NearBuy. All rights reserved.</p>
@@ -492,6 +558,10 @@
             // Show/hide relevant input
             document.getElementById('designUpload').style.display = selectedDesign === 'upload' ? 'block' : 'none';
             document.getElementById('designService').style.display = selectedDesign === 'design' ? 'block' : 'none';
+        }
+        
+        function toggleFAQ(el) {
+            el.classList.toggle('open');
         }
         
         function submitOrder() {
