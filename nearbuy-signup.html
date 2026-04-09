@@ -356,6 +356,11 @@
                         <option value="other">Other</option>
                     </select>
                 </div>
+                <div class="form-group">
+                    <label>Your Offer/Voucher *</label>
+                    <input type="text" id="businessOffer" placeholder="e.g., 20% off any service, Free appetizer with entree, $50 off any repair">
+                    <div class="hint">What discount or offer will customers get? Be specific!</div>
+                </div>
                 <button class="btn btn-primary" onclick="goToStep2()">Continue</button>
             </div>
             
@@ -564,9 +569,15 @@
             const email = document.getElementById('email').value.trim();
             const phone = document.getElementById('phone').value.trim();
             const category = document.getElementById('category').value;
+            const offer = document.getElementById('businessOffer').value.trim();
             
-            if (!name || !contact || !email || !phone || !category) {
+            if (!name || !contact || !email || !phone || !category || !offer) {
                 showToast('Please fill in all required fields');
+                return;
+            }
+            
+            if (!offer || offer.length < 5) {
+                showToast('Please describe your offer (e.g., "20% off")');
                 return;
             }
             
