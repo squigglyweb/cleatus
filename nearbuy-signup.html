@@ -31,6 +31,17 @@
         .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
         .pricing-card.featured { border-color: #d32f2f; position: relative; }
         .pricing-card.featured::before { content: 'MOST POPULAR'; position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #d32f2f; color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold; }
+        
+        /* Features Section */
+        .features { padding: 60px 20px; background: #f9fafb; }
+        .features h2 { text-align: center; font-size: 1.8rem; margin-bottom: 40px; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; max-width: 1000px; margin: 0 auto; }
+        .feature-card { background: white; border-radius: 16px; padding: 30px 20px; text-align: center; box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+        .feature-icon { width: 60px; height: 60px; background: linear-gradient(135deg, #d32f2f, #b71c1c); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px; }
+        .feature-icon span { font-size: 1.8rem; }
+        .feature-card h3 { font-size: 1.1rem; margin-bottom: 10px; }
+        .feature-card p { font-size: 0.9rem; color: #6b7280; line-height: 1.5; }
+        
         .pricing-card h3 { font-size: 1.4rem; margin-bottom: 10px; }
         .pricing-card .price { font-size: 2.5rem; font-weight: bold; color: #d32f2f; }
         .pricing-card .price span { font-size: 1rem; color: #6b7280; }
@@ -164,6 +175,33 @@
                     <li>2 free design revisions</li>
                 </ul>
                 <button class="btn btn-primary" onclick="scrollToForm()">Get Started</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Features - 4 Sections -->
+    <div class="features">
+        <h2>Why The Local NearBuy?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon"><span>📮</span></div>
+                <h3>9×12 Postcard Format</h3>
+                <p>Oversized postcard format ensures your ad stands out in every mailbox.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><span>🏷️</span></div>
+                <h3>9 Premium Ad Spaces</h3>
+                <p>Limited spots available. Each business gets their own tracked QR code.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><span>📬</span></div>
+                <h3>Every Door Direct Mail</h3>
+                <p>We handle printing and delivery to every mailbox in your target area.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon"><span>📍</span></div>
+                <h3>Geo-Targeted Distribution</h3>
+                <p>Choose exactly which neighborhoods you want to reach. No wasted mail.</p>
             </div>
         </div>
     </div>
