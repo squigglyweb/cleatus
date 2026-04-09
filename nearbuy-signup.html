@@ -344,7 +344,7 @@
                 </div>
                 <div class="form-group">
                     <label>Business Category *</label>
-                    <select id="category">
+                    <select id="category" onchange="updateOfferPlaceholder()">
                         <option value="">Select a category...</option>
                         <option value="restaurant">Restaurant / Food</option>
                         <option value="salon">Salon / Barbershop</option>
@@ -358,7 +358,7 @@
                 </div>
                 <div class="form-group">
                     <label>Your Offer/Voucher *</label>
-                    <input type="text" id="businessOffer" placeholder="e.g., 20% off any service, Free appetizer with entree, $50 off any repair">
+                    <input type="text" id="businessOffer" placeholder="e.g., 20% off any service, Free appetizer with entree, $50 off any repair" onchange="updateOfferPlaceholder()">
                     <div class="hint">What discount or offer will customers get? Be specific!</div>
                 </div>
                 <button class="btn btn-primary" onclick="goToStep2()">Continue</button>
@@ -542,6 +542,27 @@
         
         function scrollToForm() {
             document.getElementById('signupForm').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function updateOfferPlaceholder() {
+            const category = document.getElementById('category').value;
+            const offerInput = document.getElementById('businessOffer');
+            const placeholders = {
+                'restaurant': 'e.g., 20% off dinner, Free appetizer with entree, Date Night Special for 2+',
+                'salon': 'e.g., 20% off any service, Free shampoo with haircut, New client 15% off',
+                'auto': 'e.g., 15% off any service, Free inspection, Oil change $39 (reg. $69)',
+                'home': 'e.g., $50 off repairs over $150, Free estimate (reg. $75), Spring tune-up $79',
+                'landscape': 'e.g., 20% off first service, Free lawn evaluation, Spring cleanup $99',
+                'retail': 'e.g., 10% off any purchase, Free gift with $50+, Buy one get one 50% off',
+                'health': 'e.g., 20% off first visit, Free consultation, Package deal 25% off',
+                'other': 'e.g., 20% off your first order, Free [service] with purchase, $X off'
+            };
+            
+            if (placeholders[category]) {
+                offerInput.placeholder = placeholders[category];
+            } else {
+                offerInput.placeholder = 'e.g., 20% off any service, Free appetizer with entree, $50 off any repair';
+            }
         }
         
         function goToStep(step) {
