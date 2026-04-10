@@ -48,22 +48,18 @@
         .header-cta:hover { background: #b71c1c; }
 
         /* ============================================
-           HERO SECTION
+           HERO SECTION - NearBuy Red Theme
            ============================================ */
         .hero {
-            /* NOTE: For "small town flyover" effect, you could use a CSS animation 
-               or video background. Options:
-               1. Replace with actual video: background: url('video-thumb.jpg') cover;
-               2. Use CSS parallax effect
-               3. Use animated gradient */
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            /* The Local NearBuy red gradient theme */
+            background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 50%, #8e0000 100%);
             color: white;
             padding: 100px 40px 80px;
             text-align: center;
             position: relative;
             overflow: hidden;
         }
-        /* Subtle animated overlay for flyover effect */
+        /* Animated flyover background effect - streets/grid moving */
         .hero::before {
             content: '';
             position: absolute;
@@ -71,12 +67,27 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.03)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
-            animation: pan 60s linear infinite;
+            background: 
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 40px 40px;
+            animation: flyover 20s linear infinite;
         }
-        @keyframes pan {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-100px); }
+        /* Optional: Add subtle neighborhood silhouettes */
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 150" preserveAspectRatio="none"><path d="M0,150 L0,100 Q50,80 100,100 T200,100 T300,90 T400,100 T500,85 T600,100 T700,90 T800,100 T900,85 T1000,100 T1100,90 T1200,100 L1200,150 Z" fill="rgba(0,0,0,0.2)"/></svg>');
+            background-size: cover;
+            animation: flyover 30s linear infinite reverse;
+        }
+        @keyframes flyover {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-40px) translateY(-40px); }
         }
         .hero-content { 
             position: relative; 
@@ -548,10 +559,10 @@
     <!-- HERO -->
     <section class="hero">
         <div class="hero-content">
-            <h1>Reach <span>10,000+ Local Buyers</span> with The Local NearBuy</h1>
+            <h1>Reach <span>5,000 Local Buyers</span> with Your Exclusive Offer</h1>
             <p>Promote your business in a powerful co-op postcard mailer that drives real local traffic, builds community, and feeds families — all in one.</p>
             <div class="hero-buttons">
-                <a href="#pricing" class="btn btn-primary">Get Your Spot</a>
+                <a href="#pricing" class="btn btn-primary" style="background:#fff;color:#d32f2f;">Get Your Spot</a>
                 <a href="#how-it-works" class="btn btn-secondary">How It Works</a>
             </div>
         </div>
@@ -561,7 +572,7 @@
     <div class="stats-bar">
         <div class="stats-grid">
             <div class="stat-item">
-                <div class="stat-number">10,000+</div>
+                <div class="stat-number">5,000</div>
                 <div class="stat-label">Homes Mailed</div>
             </div>
             <div class="stat-item">
@@ -623,8 +634,8 @@
                 <div class="impact-badge">
                     ❤️ Every redemption = 5 meals donated
                 </div>
-                <h2>12" x 15" Oversized Postcard</h2>
-                <p>Your business gets noticed in a big way. Our high-quality, full-color postcard stands out in every mailbox and drives real traffic to your door.</p>
+                <h2>6" x 9" Premium Postcard</h2>
+                <p>Your business gets noticed. Our high-quality, full-color postcard stands out in every mailbox and drives real traffic to your door.</p>
                 <p><strong>When customers scan to claim your offer, you're not just getting a sale — you're helping feed families in your community.</strong></p>
                 <p>That's the Local NearBuy difference.</p>
             </div>
@@ -645,7 +656,7 @@
                 <ul class="pricing-includes">
                     <li>Your ad on the postcard</li>
                     <li>Professional design included</li>
-                    <li>Mailed to 10,000 homes</li>
+                    <li>Mailed to 5,000 homes</li>
                     <li>5 meals donated</li>
                     <li>Builds Meals4Good</li>
                 </ul>
@@ -660,7 +671,7 @@
                 <ul class="pricing-includes">
                     <li>Premium front placement</li>
                     <li>Professional design included</li>
-                    <li>Mailed to 10,000 homes</li>
+                    <li>Mailed to 5,000 homes</li>
                     <li>5 meals donated</li>
                     <li>Builds Meals4Good</li>
                 </ul>
@@ -675,7 +686,7 @@
                 <ul class="pricing-includes">
                     <li>Double the visibility</li>
                     <li>Professional design included</li>
-                    <li>Mailed to 10,000 homes</li>
+                    <li>Mailed to 5,000 homes</li>
                     <li>5 meals donated</li>
                     <li>Builds Meals4Good</li>
                 </ul>
@@ -691,7 +702,7 @@
                     <li>Largest ad space available</li>
                     <li>Dominant placement</li>
                     <li>Professional design included</li>
-                    <li>Mailed to 10,000 homes</li>
+                    <li>Mailed to 5,000 homes</li>
                     <li>5 meals donated</li>
                     <li>Builds Meals4Good</li>
                 </ul>
