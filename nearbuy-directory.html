@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover — The Local NearBuy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --nearbuy-red: #d32f2f;
+            --nearbuy-red-dark: #b12727;
+            --nearbuy-cream: #faf8f5;
+            --nearbuy-charcoal: #1a1a1a;
+            --nearbuy-gray: #666;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--nearbuy-cream);
+            color: var(--nearbuy-charcoal);
+        }
+        
+        /* HEADER */
+        .site-header {
+            background: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--nearbuy-red);
+            text-decoration: none;
+        }
+        
+        .logo span { color: var(--nearbuy-charcoal); }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--nearbuy-charcoal);
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        /* PAGE HEADER */
+        .page-header {
+            background: var(--nearbuy-charcoal);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 15px;
+        }
+        
+        .page-header p {
+            font-size: 18px;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* FILTERS */
+        .filters {
+            background: white;
+            padding: 25px 40px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .filter-pill {
+            padding: 10px 20px;
+            border-radius: 25px;
+            background: var(--nearbuy-cream);
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 2px solid transparent;
+        }
+        
+        .filter-pill:hover, .filter-pill.active {
+            background: var(--nearbuy-red);
+            color: white;
+        }
+        
+        /* DIRECTORY GRID */
+        .directory-section {
+            padding: 60px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-label {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--nearbuy-gray);
+            margin-bottom: 20px;
+        }
+        
+        .directory-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        /* BUSINESS CARD */
+        .business-card {
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .business-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+        }
+        
+        .card-image {
+            height: 180px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 14px;
+            position: relative;
+        }
+        
+        .card-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--nearbuy-red);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        
+        .card-content {
+            padding: 25px;
+        }
+        
+        .card-category {
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--nearbuy-red);
+            margin-bottom: 8px;
+        }
+        
+        .card-name {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .card-address {
+            font-size: 14px;
+            color: var(--nearbuy-gray);
+            margin-bottom: 15px;
+        }
+        
+        .card-rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .stars {
+            color: #f1c40f;
+            font-size: 14px;
+        }
+        
+        .rating-count {
+            font-size: 12px;
+            color: var(--nearbuy-gray);
+        }
+        
+        .card-review {
+            font-size: 14px;
+            line-height: 1.6;
+            font-style: italic;
+            color: var(--nearbuy-charcoal);
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+        }
+        
+        .card-footer {
+            padding: 0 25px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .meals-donated {
+            font-size: 12px;
+            color: var(--nearbuy-red);
+            font-weight: 600;
+        }
+        
+        .view-btn {
+            color: var(--nearbuy-red);
+            font-size: 14px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        
+        /* MAP VIEW TOGGLE */
+        .view-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 30px;
+        }
+        
+        .toggle-btn {
+            padding: 12px 24px;
+            border: 2px solid var(--nearbuy-red);
+            background: transparent;
+            color: var(--nearbuy-red);
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .toggle-btn.active {
+            background: var(--nearbuy-red);
+            color: white;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .directory-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .page-header h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="site-header">
+        <a href="#" class="logo">Near<span>Buy</span></a>
+        <nav class="nav-links">
+            <a href="#">Discover</a>
+            <a href="#">For Businesses</a>
+            <a href="#">Our Mission</a>
+            <a href="#">Subscribe</a>
+        </nav>
+    </header>
+    
+    <!-- PAGE HEADER -->
+    <section class="page-header">
+        <h1>Discover Great Local Spots</h1>
+        <p>Honest reviews. Great deals. Every business helps feed children.</p>
+    </section>
+    
+    <!-- FILTERS -->
+    <div class="filters">
+        <div class="filter-pill active">All</div>
+        <div class="filter-pill">☕ Coffee Corner</div>
+        <div class="filter-pill">🍕 Pizza Files</div>
+        <div class="filter-pill">💜 Date Night</div>
+        <div class="filter-pill">🍦 Sweet Spot</div>
+        <div class="filter-pill">🔧 Home Heroes</div>
+        <div class="filter-pill">😁 Smile Squad</div>
+        <div class="filter-pill">💎 Hidden Gems</div>
+    </div>
+    
+    <!-- VIEW TOGGLE -->
+    <div class="view-toggle">
+        <button class="toggle-btn active">Grid View</button>
+        <button class="toggle-btn">Map View</button>
+    </div>
+    
+    <!-- DIRECTORY GRID -->
+    <section class="directory-section">
+        <h2 class="section-label">Editor's Picks</h2>
+        <div class="directory-grid">
+            <!-- BUSINESS CARD 1 -->
+            <div class="business-card">
+                <div class="card-image">
+                    <span>📸 Photo</span>
+                    <div class="card-badge">Featured</div>
+                </div>
+                <div class="card-content">
+                    <div class="card-category">Coffee Corner</div>
+                    <div class="card-name">The Daily Grind</div>
+                    <div class="card-address">123 Main St, Waxhaw</div>
+                    <div class="card-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="rating-count">(24 reviews)</span>
+                    </div>
+                    <p class="card-review">"Best espresso in the area. Try their vanilla oat latte!"</p>
+                </div>
+                <div class="card-footer">
+                    <span class="meals-donated">🍽️ 25 meals donated</span>
+                    <a href="#" class="view-btn">View →</a>
+                </div>
+            </div>
+            
+            <!-- BUSINESS CARD 2 -->
+            <div class="business-card">
+                <div class="card-image" style="background: linear-gradient(135deg, #e67e22 0%, #d35400 100%);">
+                    <span>📸 Photo</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-category">Pizza Files</div>
+                    <div class="card-name">Tony's Pie Shop</div>
+                    <div class="card-address">456 Oak Ave, Monroe</div>
+                    <div class="card-rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-count">(18 reviews)</span>
+                    </div>
+                    <p class="card-review">"Authentic NY style. The pepperoni is incredible."</p>
+                </div>
+                <div class="card-footer">
+                    <span class="meals-donated">🍽️ 25 meals donated</span>
+                    <a href="#" class="view-btn">View →</a>
+                </div>
+            </div>
+            
+            <!-- BUSINESS CARD 3 -->
+            <div class="business-card">
+                <div class="card-image" style="background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);">
+                    <span>📸 Photo</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-category">Date Night Worthy</div>
+                    <div class="card-name">The Secret Garden</div>
+                    <div class="card-address">321 Garden Ln, Weddington</div>
+                    <div class="card-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="rating-count">(42 reviews)</span>
+                    </div>
+                    <p class="card-review">"Perfect for special occasions. Book early!"</p>
+                </div>
+                <div class="card-footer">
+                    <span class="meals-donated">🍽️ 25 meals donated</span>
+                    <a href="#" class="view-btn">View →</a>
+                </div>
+            </div>
+            
+            <!-- BUSINESS CARD 4 -->
+            <div class="business-card">
+                <div class="card-image" style="background: linear-gradient(135deg, #c9a66b 0%, #8b6914 100%);">
+                    <span>📸 Photo</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-category">Coffee Corner</div>
+                    <div class="card-name">Bean & Brew</div>
+                    <div class="card-address">789 Central Ave, Marvin</div>
+                    <div class="card-rating">
+                        <span class="stars">★★★★☆</span>
+                        <span class="rating-count">(31 reviews)</span>
+                    </div>
+                    <p class="card-review">"Hidden gem. Their cold brew is next level."</p>
+                </div>
+                <div class="card-footer">
+                    <span class="meals-donated">🍽️ 25 meals donated</span>
+                    <a href="#" class="view-btn">View →</a>
+                </div>
+            </div>
+            
+            <!-- BUSINESS CARD 5 -->
+            <div class="business-card">
+                <div class="card-image" style="background: linear-gradient(135deg, #e91e63 0%, #c2185b 100%);">
+                    <span>📸 Photo</span>
+                </div>
+                <div class="card-content">
+                    <div class="card-category">The Sweet Spot</div>
+                    <div class="card-name">Scoops & Cones</div>
+                    <div class="card-address">555 Sweet St, Waxhaw</div>
+                    <div class="card-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="rating-count">(56 reviews)</span>
+                    </div>
+                    <p class="card-review">"Kids love it. So does everyone else."</p>
+                </div>
+                <div class="card-footer">
+                    <span class="meals-donated">🍽️ 25 meals donated</span>
+                    <a href="#" class="view-btn">View →</a>
+                </div>
+            </div>
+            
+            <!-- BUSINESS CARD 6 -->
+            <div class="business-card">
+                <div class="card-image" style="background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);">
+                    <span>📸 Photo</span>
+                    <div class="card-badge">New</div>
+                </div>
+                <div class="card-content">
+                    <div class="card-category">Home Heroes</div>
+                    <div class="card-name">Quick Fix Plumbing</div>
+                    <div class="card-address">888 Service Rd, Indian Trail</div>
+                    <div class="card-rating">
+                        <span class="stars">★★★★★</span>
+                        <span class="rating-count">(12 reviews)</span>
+                    </div>
+                    <p class="card-review">"Fast, fair, reliable. Saved us on a Sunday."</p>
+                </div>
+                <div class="card-footer">
+                    <span class="meals-donated">🍽️ 25 meals donated</span>
+                    <a href="#" class="view-btn">View →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

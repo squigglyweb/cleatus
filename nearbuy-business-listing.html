@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Daily Grind — The Local NearBuy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --nearbuy-red: #d32f2f;
+            --nearbuy-red-dark: #b12727;
+            --nearbuy-cream: #faf8f5;
+            --nearbuy-charcoal: #1a1a1a;
+            --nearbuy-gray: #666;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--nearbuy-cream);
+            color: var(--nearbuy-charcoal);
+        }
+        
+        /* HEADER */
+        .site-header {
+            background: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--nearbuy-red);
+            text-decoration: none;
+        }
+        
+        .logo span { color: var(--nearbuy-charcoal); }
+        
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--nearbuy-charcoal);
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        /* BREADCRUMB */
+        .breadcrumb {
+            background: white;
+            padding: 15px 40px;
+            font-size: 14px;
+        }
+        
+        .breadcrumb a {
+            color: var(--nearbuy-red);
+            text-decoration: none;
+        }
+        
+        .breadcrumb span {
+            color: var(--nearbuy-gray);
+            margin: 0 10px;
+        }
+        
+        /* HERO SECTION */
+        .business-hero {
+            height: 400px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+        }
+        
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            color: white;
+            padding: 40px;
+            width: 100%;
+        }
+        
+        .business-category {
+            display: inline-block;
+            background: var(--nearbuy-red);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+        
+        .business-name {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+        
+        .business-meta {
+            display: flex;
+            gap: 30px;
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        /* MAIN CONTENT */
+        .business-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+        }
+        
+        /* LEFT COLUMN */
+        .content-main h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .review-section {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .nearbuy-rating {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .rating-stars {
+            font-size: 32px;
+            color: #f1c40f;
+        }
+        
+        .rating-label {
+            font-size: 14px;
+            color: var(--nearbuy-gray);
+        }
+        
+        .rating-label strong {
+            display: block;
+            font-size: 18px;
+            color: var(--nearbuy-charcoal);
+        }
+        
+        .editor-review {
+            font-size: 18px;
+            line-height: 1.7;
+            font-style: italic;
+        }
+        
+        .editor-name {
+            margin-top: 15px;
+            font-size: 14px;
+            color: var(--nearbuy-gray);
+            font-style: normal;
+        }
+        
+        /* GALLERY */
+        .photo-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .gallery-photo {
+            height: 150px;
+            background: linear-gradient(135deg, #ddd 0%, #bbb 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--nearbuy-gray);
+            font-size: 14px;
+        }
+        
+        /* DETAILS */
+        .business-details {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+        
+        .detail-label {
+            color: var(--nearbuy-gray);
+            font-size: 14px;
+        }
+        
+        .detail-value {
+            font-weight: 600;
+        }
+        
+        /* YOUTUBE VIDEO */
+        .video-section {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .video-placeholder {
+            background: var(--nearbuy-charcoal);
+            height: 300px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+        }
+        
+        /* GOOGLE REVIEWS */
+        .google-reviews {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+        }
+        
+        .google-review-item {
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .google-review-item:last-child {
+            border-bottom: none;
+        }
+        
+        .reviewer-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+        
+        .reviewer-avatar {
+            width: 40px;
+            height: 40px;
+            background: #ddd;
+            border-radius: 50%;
+        }
+        
+        .reviewer-name {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .reviewer-stars {
+            color: #f1c40f;
+            font-size: 12px;
+        }
+        
+        .review-text {
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--nearbuy-charcoal);
+        }
+        
+        /* RIGHT COLUMN - SIDEBAR */
+        .sidebar {
+            position: sticky;
+            top: 100px;
+        }
+        
+        /* OFFER CARD */
+        .offer-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            border: 2px solid var(--nearbuy-red);
+        }
+        
+        .offer-label {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--nearbuy-red);
+            margin-bottom: 10px;
+        }
+        
+        .offer-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .offer-description {
+            font-size: 14px;
+            color: var(--nearbuy-gray);
+            margin-bottom: 20px;
+        }
+        
+        .offer-cta {
+            display: block;
+            background: var(--nearbuy-red);
+            color: white;
+            text-align: center;
+            padding: 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            margin-bottom: 15px;
+            transition: background 0.2s;
+        }
+        
+        .offer-cta:hover {
+            background: var(--nearbuy-red-dark);
+        }
+        
+        .offer-qr {
+            background: var(--nearbuy-cream);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .qr-placeholder {
+            width: 100px;
+            height: 100px;
+            background: white;
+            margin: 0 auto 10px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: var(--nearbuy-gray);
+        }
+        
+        .qr-label {
+            font-size: 12px;
+            color: var(--nearbuy-gray);
+        }
+        
+        /* MEALS DONATED */
+        .meals-card {
+            background: linear-gradient(135deg, var(--nearbuy-red) 0%, #e53935 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .meals-card h3 {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.9;
+            margin-bottom: 10px;
+        }
+        
+        .meals-count {
+            font-size: 48px;
+            font-weight: 900;
+        }
+        
+        .meals-card p {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        /* ACTIONS */
+        .action-buttons {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+        }
+        
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 15px;
+            border: none;
+            background: transparent;
+            width: 100%;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background 0.2s;
+            text-align: left;
+        }
+        
+        .action-btn:hover {
+            background: var(--nearbuy-cream);
+        }
+        
+        .action-icon {
+            font-size: 20px;
+        }
+        
+        /* NEARBY SUGGESTIONS */
+        .nearby-suggestions {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 20px;
+        }
+        
+        .nearby-suggestions h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        
+        .suggestion-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px 0;
+            border-top: 1px solid #eee;
+            cursor: pointer;
+        }
+        
+        .suggestion-item:first-child {
+            border-top: none;
+        }
+        
+        .suggestion-thumb {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ddd 0%, #bbb 100%);
+            border-radius: 8px;
+        }
+        
+        .suggestion-info h4 {
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .suggestion-info p {
+            font-size: 12px;
+            color: var(--nearbuy-gray);
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .business-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .business-name {
+                font-size: 32px;
+            }
+            
+            .photo-gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="site-header">
+        <a href="#" class="logo">Near<span>Buy</span></a>
+        <nav class="nav-links">
+            <a href="#">Discover</a>
+            <a href="#">For Businesses</a>
+            <a href="#">Our Mission</a>
+            <a href="#">Subscribe</a>
+        </nav>
+    </header>
+    
+    <!-- BREADCRUMB -->
+    <div class="breadcrumb">
+        <a href="#">Home</a> <span>›</span>
+        <a href="#">Discover</a> <span>›</span>
+        <a href="#">Coffee Corner</a> <span>›</span>
+        The Daily Grind
+    </div>
+    
+    <!-- HERO -->
+    <section class="business-hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="business-category">☕ Coffee Corner</div>
+            <h1 class="business-name">The Daily Grind</h1>
+            <div class="business-meta">
+                <span>📍 123 Main St, Waxhaw, NC 28173</span>
+                <span>⭐⭐⭐⭐⭐ (24 reviews)</span>
+            </div>
+        </div>
+    </section>
+    
+    <!-- MAIN CONTENT -->
+    <div class="business-content">
+        <!-- LEFT COLUMN -->
+        <div class="content-main">
+            <!-- EDITOR REVIEW -->
+            <div class="review-section">
+                <div class="nearbuy-rating">
+                    <div class="rating-stars">★★★★★</div>
+                    <div class="rating-label">
+                        The Local NearBuy Rating
+                        <strong>Editor's Choice</strong>
+                    </div>
+                </div>
+                <p class="editor-review">"Best espresso in the area. Try their vanilla oat latte — it's become my morning ritual. The atmosphere is perfect for working or meeting a friend. Cozy corners, friendly staff, and consistent quality every time. This is exactly the kind of local spot that makes Waxhaw special."</p>
+                <p class="editor-name">— The Local NearBuy Team</p>
+            </div>
+            
+            <!-- PHOTO GALLERY -->
+            <div class="photo-gallery">
+                <div class="gallery-photo">📸 Photo 1</div>
+                <div class="gallery-photo">📸 Photo 2</div>
+                <div class="gallery-photo">📸 Photo 3</div>
+            </div>
+            
+            <!-- BUSINESS DETAILS -->
+            <div class="business-details">
+                <h2>Business Details</h2>
+                <div class="detail-row">
+                    <span class="detail-label">Address</span>
+                    <span class="detail-value">123 Main St, Waxhaw, NC 28173</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Phone</span>
+                    <span class="detail-value">(704) 555-0123</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Website</span>
+                    <span class="detail-value">www.thedailygrind.com</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Hours</span>
+                    <span class="detail-value">Mon-Fri 6am-6pm, Sat-Sun 7am-5pm</span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Price Range</span>
+                    <span class="detail-value">$</span>
+                </div>
+            </div>
+            
+            <!-- YOUTUBE VIDEO -->
+            <div class="video-section">
+                <h2>Our Review</h2>
+                <div class="video-placeholder">
+                    ▶ YouTube Video Embed Area
+                </div>
+            </div>
+            
+            <!-- GOOGLE REVIEWS -->
+            <div class="google-reviews">
+                <h2>Community Reviews</h2>
+                <div class="google-review-item">
+                    <div class="reviewer-info">
+                        <div class="reviewer-avatar"></div>
+                        <div>
+                            <div class="reviewer-name">Sarah M.</div>
+                            <div class="reviewer-stars">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="review-text">Best coffee in town! Been coming here for years and it never disappoints. Staff knows my order now 😂</p>
+                </div>
+                <div class="google-review-item">
+                    <div class="reviewer-info">
+                        <div class="reviewer-avatar"></div>
+                        <div>
+                            <div class="reviewer-name">Mike T.</div>
+                            <div class="reviewer-stars">★★★★★</div>
+                        </div>
+                    </div>
+                    <p class="review-text">Great spot to work from. Good WiFi, plenty of outlets, and the staff doesn't mind if you stay for hours.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- RIGHT COLUMN - SIDEBAR -->
+        <div class="sidebar">
+            <!-- OFFER CARD -->
+            <div class="offer-card">
+                <div class="offer-label">Current Offer</div>
+                <div class="offer-title">20% Off Any Drink</div>
+                <p class="offer-description">Show this QR code to redeem your offer. Valid for dine-in only.</p>
+                <a href="#" class="offer-cta">Get Offer</a>
+                <div class="offer-qr">
+                    <div class="qr-placeholder">QR CODE</div>
+                    <p class="qr-label">Scan to redeem</p>
+                </div>
+            </div>
+            
+            <!-- MEALS DONATED -->
+            <div class="meals-card">
+                <h3>Meals Donated</h3>
+                <div class="meals-count">247</div>
+                <p>Through NearBuy campaigns</p>
+            </div>
+            
+            <!-- ACTION BUTTONS -->
+            <div class="action-buttons">
+                <button class="action-btn">
+                    <span class="action-icon">💾</span>
+                    Save to List
+                </button>
+                <button class="action-btn">
+                    <span class="action-icon">📤</span>
+                    Share
+                </button>
+                <button class="action-btn">
+                    <span class="action-icon">📍</span>
+                    Get Directions
+                </button>
+                <button class="action-btn">
+                    <span class="action-icon">📱</span>
+                    Add to Contacts
+                </button>
+            </div>
+            
+            <!-- NEARBY SUGGESTIONS -->
+            <div class="nearby-suggestions">
+                <h3>Locals Also Love</h3>
+                <div class="suggestion-item">
+                    <div class="suggestion-thumb"></div>
+                    <div class="suggestion-info">
+                        <h4>Bean & Brew</h4>
+                        <p>☕ Coffee Corner • 0.3 mi away</p>
+                    </div>
+                </div>
+                <div class="suggestion-item">
+                    <div class="suggestion-thumb"></div>
+                    <div class="suggestion-info">
+                        <h4>Scoops & Cones</h4>
+                        <p>🍦 The Sweet Spot • 0.5 mi away</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
