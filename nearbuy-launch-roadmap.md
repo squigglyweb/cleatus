@@ -161,11 +161,55 @@ A step-by-step guide to building The Local NearBuy from the ground up.
 
 ---
 
+## Website Mockups Created
+
+The following HTML mockups are ready to view on GitHub:
+
+1. **Homepage** — nearbuy-homepage.html
+   - Meal counter banner
+   - Hero section with mission
+   - Category pillars grid
+   - Featured business section
+   - Current campaign slider
+   - Newsletter signup
+   - Footer
+
+2. **Directory/Discover Page** — nearbuy-directory.html
+   - Filter pills by category
+   - Grid/list view toggle
+   - Business cards with:
+     - Photo area
+     - Category badge
+     - Name, address, rating
+     - Editor review snippet
+     - Meals donated counter
+
+3. **Business Listing Page** — nearbuy-business-listing.html
+   - Hero with business photo
+   - Breadcrumb navigation
+   - Editor review section
+   - Photo gallery
+   - Business details (hours, phone, etc.)
+   - YouTube video embed area
+   - Google reviews section
+   - Sidebar: Offer card with QR code
+   - Meals donated card
+   - Action buttons (Save, Share, Directions)
+   - "Locals Also Love" suggestions
+
 ## What to Start RIGHT NOW
 
-1. **Export your logo files** — Needed for site mockups
+1. **Export your logo files** — Needed to finalize designs
 2. **Set up social accounts** — Get them live with basic info
 3. **Start visiting businesses** — Content is the engine
+4. **Get hosting** — Need WordPress + Extra theme to build for real
+
+## What's Next
+
+- Ad Builder Interface (click-to-select grid)
+- For Businesses landing page
+- Business Portal (advertiser login)
+- Newsletter sign-up flow
 
 ---
 
