@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Local NearBuy — Greater Waxhaw's Local Guide</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --nearbuy-red: #d32f2f;
+            --nearbuy-red-dark: #b12727;
+            --nearbuy-cream: #faf8f5;
+            --nearbuy-charcoal: #1a1a1a;
+            --nearbuy-gray: #666;
+            --coffee-brown: #c9a66b;
+            --pizza-orange: #e67e22;
+            --date-purple: #9b59b6;
+            --sweet-pink: #e91e63;
+            --home-blue: #3498db;
+            --smile-teal: #1abc9c;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--nearbuy-cream);
+            color: var(--nearbuy-charcoal);
+            line-height: 1.6;
+        }
+        
+        /* HEADER */
+        .site-header {
+            background: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--nearbuy-red);
+        }
+        
+        .logo span {
+            color: var(--nearbuy-charcoal);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--nearbuy-charcoal);
+            font-weight: 600;
+            font-size: 14px;
+            transition: color 0.2s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--nearbuy-red);
+        }
+        
+        .cta-button {
+            background: var(--nearbuy-red);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+        
+        .cta-button:hover {
+            background: var(--nearbuy-red-dark);
+        }
+        
+        /* MEAL COUNTER BANNER */
+        .meal-counter-banner {
+            background: linear-gradient(135deg, var(--nearbuy-red) 0%, #e53935 100%);
+            color: white;
+            padding: 30px 40px;
+            text-align: center;
+        }
+        
+        .meal-counter-banner h2 {
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+        
+        .meal-counter {
+            font-size: 64px;
+            font-weight: 900;
+            line-height: 1;
+        }
+        
+        .meal-counter span {
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .meal-counter-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+        
+        /* HERO SECTION */
+        .hero {
+            background: var(--nearbuy-charcoal);
+            color: white;
+            padding: 80px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="white" stroke-width="0.5" opacity="0.1"/></svg>');
+            background-size: 200px;
+            opacity: 0.3;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+        
+        .hero h1 span {
+            color: var(--nearbuy-red);
+        }
+        
+        .hero p {
+            font-size: 20px;
+            opacity: 0.8;
+            margin-bottom: 40px;
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .hero-btn {
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        
+        .hero-btn-primary {
+            background: var(--nearbuy-red);
+            color: white;
+        }
+        
+        .hero-btn-primary:hover {
+            background: var(--nearbuy-red-dark);
+            transform: translateY(-2px);
+        }
+        
+        .hero-btn-secondary {
+            background: white;
+            color: var(--nearbuy-charcoal);
+        }
+        
+        .hero-btn-secondary:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* CATEGORY PILLARS */
+        .categories {
+            padding: 60px 40px;
+            background: white;
+        }
+        
+        .section-title {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--nearbuy-gray);
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .category-card {
+            background: var(--nearbuy-cream);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--nearbuy-red);
+        }
+        
+        .category-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+        
+        .category-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .category-card p {
+            font-size: 14px;
+            color: var(--nearbuy-gray);
+        }
+        
+        .category-card.coffee { border-left: 4px solid var(--coffee-brown); }
+        .category-card.pizza { border-left: 4px solid var(--pizza-orange); }
+        .category-card.date { border-left: 4px solid var(--date-purple); }
+        .category-card.sweet { border-left: 4px solid var(--sweet-pink); }
+        .category-card.home { border-left: 4px solid var(--home-blue); }
+        .category-card.smile { border-left: 4px solid var(--smile-teal); }
+        .category-card.hidden { border-left: 4px solid #9b59b6; }
+        .category-card.local { border-left: 4px solid var(--nearbuy-red); }
+        
+        /* FEATURED BUSINESS */
+        .featured-business {
+            padding: 80px 40px;
+            background: var(--nearbuy-cream);
+        }
+        
+        .featured-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        
+        .featured-image {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+        }
+        
+        .featured-details h2 {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--nearbuy-red);
+            margin-bottom: 10px;
+        }
+        
+        .featured-details h3 {
+            font-size: 36px;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+        
+        .featured-address {
+            color: var(--nearbuy-gray);
+            margin-bottom: 20px;
+        }
+        
+        .featured-review {
+            font-size: 18px;
+            font-style: italic;
+            margin-bottom: 20px;
+            padding-left: 20px;
+            border-left: 3px solid var(--nearbuy-red);
+        }
+        
+        .featured-meta {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--nearbuy-gray);
+        }
+        
+        .featured-cta {
+            display: inline-block;
+            background: var(--nearbuy-red);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        /* CURRENT CAMPAIGN */
+        .current-campaign {
+            background: var(--nearbuy-charcoal);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+        
+        .campaign-header h2 {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.7;
+            margin-bottom: 10px;
+        }
+        
+        .campaign-header h3 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 40px;
+        }
+        
+        .campaign-slider {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .campaign-offer {
+            background: white;
+            color: var(--nearbuy-charcoal);
+            border-radius: 12px;
+            padding: 20px;
+            width: 200px;
+            text-align: left;
+        }
+        
+        .campaign-offer h4 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .campaign-offer p {
+            font-size: 12px;
+            color: var(--nearbuy-gray);
+            margin-bottom: 12px;
+        }
+        
+        .campaign-offer .price {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--nearbuy-red);
+        }
+        
+        /* NEWSLETTER */
+        .newsletter {
+            background: var(--nearbuy-red);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+        
+        .newsletter h3 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .newsletter p {
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            padding: 16px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        
+        .newsletter-form button {
+            padding: 16px 30px;
+            background: var(--nearbuy-charcoal);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .newsletter-form button:hover {
+            background: black;
+        }
+        
+        /* FOOTER */
+        .site-footer {
+            background: var(--nearbuy-charcoal);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.7;
+            font-size: 14px;
+        }
+        
+        .footer-links a:hover {
+            opacity: 1;
+        }
+        
+        .footer-meals {
+            font-size: 14px;
+            opacity: 0.5;
+        }
+        
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .site-header {
+                padding: 15px 20px;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .category-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .featured-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .meal-counter {
+                font-size: 48px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="site-header">
+        <div class="logo">Near<span>Buy</span></div>
+        <nav class="nav-links">
+            <a href="#">Discover</a>
+            <a href="#">For Businesses</a>
+            <a href="#">Our Mission</a>
+            <a href="#">Subscribe</a>
+        </nav>
+        <a href="#" class="cta-button">Get Your Offer</a>
+    </header>
+    
+    <!-- MEAL COUNTER BANNER -->
+    <div class="meal-counter-banner">
+        <h2>Together, We've Donated</h2>
+        <div class="meal-counter">14,382 <span>meals</span></div>
+        <p class="meal-counter-subtitle">Every offer redeemed helps feed children</p>
+    </div>
+    
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Discover the Best of <span>Greater Waxhaw</span></h1>
+            <p>Local reviews. Honest opinions. Great deals. And every deal helps feed children in our community.</p>
+            <div class="hero-buttons">
+                <a href="#" class="hero-btn hero-btn-primary">Explore Directory</a>
+                <a href="#" class="hero-btn hero-btn-secondary">For Businesses</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CATEGORIES -->
+    <section class="categories">
+        <h2 class="section-title">Explore By Category</h2>
+        <div class="category-grid">
+            <div class="category-card coffee">
+                <div class="category-icon">☕</div>
+                <h3>Coffee Corner</h3>
+                <p>Best local coffee shops</p>
+            </div>
+            <div class="category-card pizza">
+                <div class="category-icon">🍕</div>
+                <h3>Pizza Files</h3>
+                <p>Local pizza ranked</p>
+            </div>
+            <div class="category-card date">
+                <div class="category-icon">💜</div>
+                <h3>Date Night Worthy</h3>
+                <p>Special occasion spots</p>
+            </div>
+            <div class="category-card sweet">
+                <div class="category-icon">🍦</div>
+                <h3>The Sweet Spot</h3>
+                <p>Ice cream & desserts</p>
+            </div>
+            <div class="category-card home">
+                <div class="category-icon">🔧</div>
+                <h3>Home Heroes</h3>
+                <p>Plumbers, HVAC & more</p>
+            </div>
+            <div class="category-card smile">
+                <div class="category-icon">😁</div>
+                <h3>Smile Squad</h3>
+                <p>Dentists & orthodontists</p>
+            </div>
+            <div class="category-card hidden">
+                <div class="category-icon">💎</div>
+                <h3>Hidden Gems</h3>
+                <p>Under-the-radar spots</p>
+            </div>
+            <div class="category-card local">
+                <div class="category-icon">🧡</div>
+                <h3>Local Love</h3>
+                <p>Community favorites</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FEATURED BUSINESS -->
+    <section class="featured-business">
+        <div class="featured-content">
+            <div class="featured-image">
+                📸 Business Photo
+            </div>
+            <div class="featured-details">
+                <h2>Featured This Week</h2>
+                <h3>The Daily Grind</h3>
+                <p class="featured-address">123 Main St, Waxhaw, NC 28173</p>
+                <p class="featured-review">"Best espresso in the area. Try their vanilla oat latte — it's become my morning ritual. Cozy spot, friendly staff, consistent quality."</p>
+                <div class="featured-meta">
+                    <div class="meta-item">📍 Waxhaw</div>
+                    <div class="meta-item">⭐ Editor's Pick</div>
+                    <div class="meta-item">🍽️ Coffee Shop</div>
+                </div>
+                <a href="#" class="featured-cta">View Deal →</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CURRENT CAMPAIGN -->
+    <section class="current-campaign">
+        <div class="campaign-header">
+            <h2>Current Campaign</h2>
+            <h3>Spring 2026 EDDM Mailer</h3>
+        </div>
+        <div class="campaign-slider">
+            <div class="campaign-offer">
+                <h4>Joe's Pizza</h4>
+                <p>20% off any large pizza</p>
+                <div class="price">$250</div>
+            </div>
+            <div class="campaign-offer">
+                <h4>Bean & Brew</h4>
+                <p>Free pastry with drink</p>
+                <div class="price">$250</div>
+            </div>
+            <div class="campaign-offer">
+                <h4>The Groomer</h4>
+                <p>$10 off any service</p>
+                <div class="price">$250</div>
+            </div>
+            <div class="campaign-offer">
+                <h4>Smile Dental</h4>
+                <p>Free exam for new patients</p>
+                <div class="price">$250</div>
+            </div>
+            <div class="campaign-offer">
+                <h4>+ 3 more offers</h4>
+                <p>Available spots</p>
+                <div class="price">$250</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- NEWSLETTER -->
+    <section class="newsletter">
+        <h3>Never Miss a Great Spot</h3>
+        <p>Weekly local discoveries delivered to your inbox.</p>
+        <form class="newsletter-form">
+            <input type="email" placeholder="Your email address">
+            <button type="submit">Subscribe</button>
+        </form>
+    </section>
+    
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="#">About</a>
+            <a href="#">For Businesses</a>
+            <a href="#">Privacy</a>
+            <a href="#">Contact</a>
+        </div>
+        <p class="footer-meals">© 2026 The Local NearBuy. Every redemption feeds a child. 🧡</p>
+    </footer>
+</body>
+</html>
