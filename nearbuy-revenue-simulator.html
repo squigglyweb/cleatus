@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revenue Simulator — The Local NearBuy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --nearbuy-red: #d32f2f;
+            --nearbuy-red-dark: #b12727;
+            --nearbuy-cream: #faf8f5;
+            --nearbuy-charcoal: #1a1a1a;
+            --nearbuy-gray: #666;
+            --success: #4caf50;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--nearbuy-cream);
+            color: var(--nearbuy-charcoal);
+        }
+        
+        /* HEADER */
+        .site-header {
+            background: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--nearbuy-red);
+            text-decoration: none;
+        }
+        
+        .logo span { color: var(--nearbuy-charcoal); }
+        
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--nearbuy-charcoal);
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        /* HERO */
+        .page-hero {
+            background: var(--nearbuy-charcoal);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+        
+        .page-hero h1 {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 15px;
+        }
+        
+        .page-hero h1 span {
+            color: var(--nearbuy-red);
+        }
+        
+        .page-hero p {
+            font-size: 18px;
+            opacity: 0.8;
+        }
+        
+        /* CALCULATOR */
+        .calculator-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+        
+        .calculator-card {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        
+        .calculator-card h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--nearbuy-gray);
+        }
+        
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+        
+        .input-group input:focus,
+        .input-group select:focus {
+            outline: none;
+            border-color: var(--nearbuy-red);
+        }
+        
+        .input-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        /* RESULTS CARD */
+        .results-card {
+            background: var(--nearbuy-charcoal);
+            color: white;
+        }
+        
+        .results-card h2 {
+            color: white;
+        }
+        
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .result-row:last-of-type {
+            border-bottom: none;
+        }
+        
+        .result-label {
+            opacity: 0.8;
+            font-size: 15px;
+        }
+        
+        .result-value {
+            font-size: 28px;
+            font-weight: 900;
+        }
+        
+        .result-value.highlight {
+            color: var(--nearbuy-red);
+        }
+        
+        .result-value.success {
+            color: var(--success);
+        }
+        
+        .result-sub {
+            font-size: 12px;
+            opacity: 0.6;
+        }
+        
+        /* MEALS CARD */
+        .meals-card {
+            background: linear-gradient(135deg, var(--nearbuy-red) 0%, #e53935 100%);
+            color: white;
+            padding: 35px;
+            border-radius: 20px;
+            text-align: center;
+        }
+        
+        .meals-card h2 {
+            color: white;
+            margin-bottom: 20px;
+            justify-content: center;
+        }
+        
+        .meals-card .big-number {
+            font-size: 72px;
+            font-weight: 900;
+            line-height: 1;
+        }
+        
+        .meals-card .label {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+        
+        .meals-card .disclaimer {
+            font-size: 12px;
+            opacity: 0.7;
+            margin-top: 20px;
+        }
+        
+        /* BREAKDOWN */
+        .breakdown-card {
+            background: white;
+            border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        
+        .breakdown-card h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+        
+        .breakdown-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f0f0f0;
+            font-size: 14px;
+        }
+        
+        .breakdown-item:last-child {
+            border-bottom: none;
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--nearbuy-red);
+        }
+        
+        /* BUTTON */
+        .calculate-btn {
+            width: 100%;
+            background: var(--nearbuy-red);
+            color: white;
+            padding: 18px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background 0.2s;
+        }
+        
+        .calculate-btn:hover {
+            background: var(--nearbuy-red-dark);
+        }
+        
+        @media (max-width: 900px) {
+            .calculator-section {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="site-header">
+        <a href="#" class="logo">Near<span>Buy</span></a>
+        <nav class="nav-links">
+            <a href="#">Home</a>
+            <a href="#">Dashboard</a>
+            <a href="#">About</a>
+        </nav>
+    </header>
+    
+    <!-- HERO -->
+    <section class="page-hero">
+        <h1>Revenue <span>Simulator</span></h1>
+        <p>Model your NearBuy campaigns and see the impact</p>
+    </section>
+    
+    <!-- CALCULATOR -->
+    <div class="calculator-section">
+        <!-- INPUTS -->
+        <div class="calculator-card">
+            <h2>📊 Campaign Inputs</h2>
+            
+            <div class="input-group">
+                <label>Campaigns Per Year</label>
+                <input type="number" id="campaignsPerYear" value="4" min="1" max="12">
+            </div>
+            
+            <div class="input-group">
+                <label>Households Reached Per Campaign</label>
+                <input type="number" id="households" value="5000" min="1000">
+            </div>
+            
+            <div class="input-row">
+                <div class="input-group">
+                    <label>Avg Ads Per Campaign</label>
+                    <input type="number" id="adsPerCampaign" value="8" min="1" max="10">
+                </div>
+                <div class="input-group">
+                    <label>Avg Revenue Per Ad</label>
+                    <input type="number" id="avgRevenuePerAd" value="350" min="100">
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label>Expected Redemption Rate (%)</label>
+                <input type="number" id="redemptionRate" value="2.5" min="0.1" max="20" step="0.1">
+            </div>
+            
+            <div class="input-group">
+                <label>Cost Per Meal Donation ($)</label>
+                <input type="number" id="costPerMeal" value="0.30" min="0.10" max="1.00" step="0.05">
+            </div>
+            
+            <button class="calculate-btn" onclick="calculate()">Calculate</button>
+        </div>
+        
+        <!-- RESULTS -->
+        <div>
+            <div class="results-card results-card" style="background: var(--nearbuy-charcoal); border-radius: 20px; padding: 35px; margin-bottom: 30px;">
+                <h2 style="color: white; margin-bottom: 25px;">💰 Annual Revenue</h2>
+                
+                <div class="result-row">
+                    <span class="result-label">Gross Revenue</span>
+                    <span class="result-value" id="grossRevenue">$11,200</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">Print Costs (10 campaigns)</span>
+                    <span class="result-value" id="printCosts" style="font-size: 22px;">-$2,344</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">Meals Cost (donations)</span>
+                    <span class="result-value" id="mealsCost" style="font-size: 22px;">-$240</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">M4G Fund Reserve</span>
+                    <span class="result-value" id="m4gFund" style="font-size: 22px;">-$160</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label" style="font-weight: 700;">Net Profit</span>
+                    <span class="result-value highlight" id="netProfit">$8,456</span>
+                </div>
+            </div>
+            
+            <div class="meals-card">
+                <h2>🍽️ Impact</h2>
+                <div class="big-number" id="totalMeals">1,000</div>
+                <div class="label">meals donated annually</div>
+                <div class="disclaimer">Based on redemption rate and meals per tier</div>
+            </div>
+        </div>
+        
+        <!-- BREAKDOWN -->
+        <div class="breakdown-card" style="grid-column: span 2;">
+            <h2>📋 Campaign Breakdown (Per Campaign)</h2>
+            
+            <div class="breakdown-item">
+                <span>Ad Revenue</span>
+                <span id="campaignRevenue">$2,800</span>
+            </div>
+            <div class="breakdown-item">
+                <span>Print & Postage Cost</span>
+                <span id="campaignPrintCost">-$586</span>
+            </div>
+            <div class="breakdown-item">
+                <span>Meals Donated (included in price)</span>
+                <span id="includedMeals">250 meals</span>
+            </div>
+            <div class="breakdown-item">
+                <span>Extra Redemptions (est.)</span>
+                <span id="extraRedemptions">100 redemptions</span>
+            </div>
+            <div class="breakdown-item">
+                <span>Additional Meals Cost</span>
+                <span id="additionalMealsCost">-$60</span>
+            </div>
+            <div class="breakdown-item">
+                <span>Net Per Campaign</span>
+                <span id="netPerCampaign">$2,154</span>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Constants
+        const PRINT_COST = 234.40; // Per campaign for 5K households
+        const M4G_FUND_PER_MEAL = 0.20; // Reserve per meal
+        
+        function calculate() {
+            // Get inputs
+            const campaignsPerYear = parseInt(document.getElementById('campaignsPerYear').value);
+            const households = parseInt(document.getElementById('households').value);
+            const adsPerCampaign = parseInt(document.getElementById('adsPerCampaign').value);
+            const avgRevenuePerAd = parseInt(document.getElementById('avgRevenuePerAd').value);
+            const redemptionRate = parseFloat(document.getElementById('redemptionRate').value);
+            const costPerMeal = parseFloat(document.getElementById('costPerMeal').value);
+            
+            // Calculate per campaign
+            const campaignRevenue = adsPerCampaign * avgRevenuePerAd;
+            const printCosts = PRINT_COST;
+            
+            // Meals
+            const baseMeals = adsPerCampaign * 25; // Assume average 25 meals per ad
+            const extraRedemptions = Math.round((households * campaignsPerYear) * (redemptionRate / 100));
+            const additionalMealsCost = extraRedemptions * costPerMeal;
+            const totalMealsCost = (baseMeals * costPerMeal) + additionalMealsCost;
+            
+            // M4G Fund (reserve)
+            const totalMealsPerCampaign = baseMeals + extraRedemptions;
+            const m4gFund = totalMealsPerCampaign * M4G_FUND_PER_MEAL;
+            
+            // Net per campaign
+            const netPerCampaign = campaignRevenue - printCosts - totalMealsCost - m4gFund;
+            
+            // Annual
+            const grossRevenue = campaignRevenue * campaignsPerYear;
+            const annualPrintCosts = printCosts * campaignsPerYear;
+            const annualMealsCost = totalMealsCost * campaignsPerYear;
+            const annualM4gFund = m4gFund * campaignsPerYear;
+            const netProfit = grossRevenue - annualPrintCosts - annualMealsCost - annualM4gFund;
+            const totalMeals = totalMealsPerCampaign * campaignsPerYear;
+            
+            // Update UI
+            document.getElementById('grossRevenue').textContent = '$' + grossRevenue.toLocaleString();
+            document.getElementById('printCosts').textContent = '-$' + annualPrintCosts.toLocaleString();
+            document.getElementById('mealsCost').textContent = '-$' + annualMealsCost.toLocaleString();
+            document.getElementById('m4gFund').textContent = '-$' + annualM4gFund.toLocaleString();
+            document.getElementById('netProfit').textContent = '$' + netProfit.toLocaleString();
+            document.getElementById('totalMeals').textContent = totalMeals.toLocaleString();
+            
+            // Breakdown
+            document.getElementById('campaignRevenue').textContent = '$' + campaignRevenue.toLocaleString();
+            document.getElementById('campaignPrintCost').textContent = '-$' + printCosts.toLocaleString();
+            document.getElementById('includedMeals').textContent = baseMeals + ' meals';
+            document.getElementById('extraRedemptions').textContent = extraRedemptions + ' redemptions';
+            document.getElementById('additionalMealsCost').textContent = '-$' + additionalMealsCost.toFixed(2);
+            document.getElementById('netPerCampaign').textContent = '$' + netPerCampaign.toFixed(2);
+        }
+        
+        // Run on load
+        calculate();
+    </script>
+</body>
+</html>
