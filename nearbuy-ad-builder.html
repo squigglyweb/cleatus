@@ -570,7 +570,7 @@
         <div class="postcard-section">
             <!-- FRONT SIDE -->
             <div id="front-view">
-                <div class="side-label">FRONT — One featured spot</div>
+                <div class="side-label">FRONT — Business ads only</div>
                 
                 <div class="postcard-front">
                     <div class="front-header">
@@ -579,10 +579,13 @@
                         <div class="sponsor-tag">Sponsored by Local Businesses</div>
                     </div>
                     
-                    <div class="front-ad-space available" data-tier="header" data-price="500" data-meals="60" onclick="selectFrontAd(this)">
-                        <div class="tier-label">HEADER SPOT</div>
-                        <div class="price-label">$500 • 60 meals</div>
-                        <div style="font-size:11px;color:var(--nearbuy-gray);margin-top:8px;">Explain what this mailer is</div>
+                    <div class="front-ads-grid">
+                        <div class="grid-cell available" data-tier="smallfront" data-price="325" data-meals="40" onclick="selectBackAd(this)">
+                            <div>
+                                <div class="tier-label">SMALL FRONT</div>
+                                <div class="price-label">$325 • 40 meals</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -715,15 +718,6 @@
             <!-- TIER SELECTION -->
             <div class="tier-selection">
                 <h3>Select Ad Size</h3>
-                
-                <div class="tier-option" data-tier="header" data-price="500" data-meals="60">
-                    <div class="tier-radio"></div>
-                    <div class="tier-info">
-                        <h4>Header Spot</h4>
-                        <p>Front of postcard — explain the mailer</p>
-                    </div>
-                    <div class="tier-price">$500</div>
-                </div>
                 
                 <div class="tier-option" data-tier="small" data-price="250" data-meals="25">
                     <div class="tier-radio"></div>
@@ -897,7 +891,6 @@
             };
             
             const tierNames = {
-                header: 'Header Spot',
                 small: 'Small (3.8" × 2.5")',
                 smallfront: 'Small Front (3.8" × 5")',
                 medium: 'Medium (7.6" × 5")',
