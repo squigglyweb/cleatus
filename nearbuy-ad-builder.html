@@ -46,37 +46,58 @@
         
         .back-content { flex: 1; display: flex; flex-direction: column; }
         
-        /* Grid of ad blocks */
-        .ad-blocks { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 2px; background: #ccc; padding: 2px; }
+        /* 3x3 grid of individual slots */
+        .slots-grid { 
+            flex: 1; 
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr); 
+            grid-template-rows: repeat(3, 1fr); 
+            gap: 2px; 
+            background: #ccc; 
+            padding: 2px; 
+        }
         
-        .ad-block { 
+        .slot-cell { 
             background: white; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
-            flex-direction: column;
             cursor: pointer;
             transition: all 0.2s;
+            font-size: 10px;
             position: relative;
         }
         
-        .ad-block.available { background: var(--available-bg); border: 1px solid var(--available-border); }
-        .ad-block.available:hover { border-width: 2px; }
-        .ad-block.taken { background: var(--taken-bg); border: 1px solid var(--taken-border); cursor: not-allowed; opacity: 0.7; }
-        .ad-block.selected { background: var(--selected-bg); border: 2px solid var(--selected-border); }
+        .slot-cell.available { background: var(--available-bg); border: 1px solid var(--available-border); }
+        .slot-cell.available:hover { border-width: 2px; }
+        .slot-cell.taken { background: var(--taken-bg); border: 1px solid var(--taken-border); cursor: not-allowed; opacity: 0.7; }
+        .slot-cell.selected { background: var(--selected-bg); border: 2px solid var(--selected-border); }
         
-        .ad-block .block-label { font-weight: 700; font-size: 12px; }
-        .ad-block .block-price { font-size: 10px; color: var(--nearbuy-gray); }
+        .slot-cell .slot-num { font-weight: 700; }
         
-        /* Combined states */
-        .ad-block.combined-2 { grid-column: span 2; }
-        .ad-block.combined-3 { grid-column: span 3; }
+        /* Combined ad blocks appear over slots */
+        .ad-block {
+            position: absolute;
+            top: 2px; left: 2px; right: 2px; bottom: 2px;
+            background: var(--selected-bg);
+            border: 2px solid var(--selected-border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            border-radius: 4px;
+        }
         
-        /* Indicia */
+        .ad-block.combined-2 { right: calc(-33.33% - 2px); }
+        .ad-block.combined-3 { right: calc(-66.66% - 4px); }
+        
+        .ad-block .block-label { font-weight: 700; font-size: 14px; }
+        .ad-block .block-price { font-size: 11px; color: var(--nearbuy-gray); }
+        
         .indicia-area { background: #ddd; padding: 10px 12px; display: flex; justify-content: space-between; font-size: 7px; color: var(--nearbuy-gray); }
         
-        /* Full back mode */
-        .postcard.full-back .ad-blocks { grid-template-rows: repeat(4, 1fr); }
+        .postcard.full-back .slots-grid { grid-template-rows: repeat(4, 1fr); }
         .postcard.full-back .indicia-area { display: none; }
         
         .legend { display: flex; gap: 15px; justify-content: center; margin-top: 15px; font-size: 11px; }
@@ -105,6 +126,8 @@
         .summary-total { margin-top: 15px; padding-top: 15px; border-top: 2px solid rgba(255,255,255,0.2); display: flex; justify-content: space-between; align-items: center; }
         .summary-total .value { font-size: 24px; font-weight: 900; }
         
+        .clear-btn { width: 100%; padding: 10px; border: 2px solid #ddd; background: white; border-radius: 8px; cursor: pointer; font-size: 13px; margin-top: 10px; }
+        
         @media (max-width: 800px) { .builder-content { grid-template-columns: 1fr; } }
     </style>
 </head>
@@ -130,45 +153,16 @@
                 
                 <div class="back-view">
                     <div class="back-content">
-                        <div class="ad-blocks" id="grid">
-                            <!-- Row 1 -->
-                            <div class="ad-block available" data-slots="1" onclick="selectSlots(1, this)">
-                                <div class="block-label">SMALL</div>
-                                <div class="block-price">$250</div>
-                            </div>
-                            <div class="ad-block available" data-slots="1" onclick="selectSlots(1, this)">
-                                <div class="block-label">SMALL</div>
-                                <div class="block-price">$250</div>
-                            </div>
-                            <div class="ad-block taken">
-                                <div class="block-label">SOLD</div>
-                            </div>
-                            <!-- Row 2 -->
-                            <div class="ad-block available" data-slots="2" onclick="selectSlots(2, this)">
-                                <div class="block-label">MEDIUM</div>
-                                <div class="block-price">$500</div>
-                            </div>
-                            <div class="ad-block available" data-slots="1" onclick="selectSlots(1, this)">
-                                <div class="block-label">SMALL</div>
-                                <div class="block-price">$250</div>
-                            </div>
-                            <div class="ad-block available" data-slots="1" onclick="selectSlots(1, this)">
-                                <div class="block-label">SMALL</div>
-                                <div class="block-price">$250</div>
-                            </div>
-                            <!-- Row 3 -->
-                            <div class="ad-block available" data-slots="3" onclick="selectSlots(3, this)">
-                                <div class="block-label">LARGE</div>
-                                <div class="block-price">$750</div>
-                            </div>
-                            <div class="ad-block available" data-slots="2" onclick="selectSlots(2, this)">
-                                <div class="block-label">MEDIUM</div>
-                                <div class="block-price">$500</div>
-                            </div>
-                            <div class="ad-block available" data-slots="1" onclick="selectSlots(1, this)">
-                                <div class="block-label">SMALL</div>
-                                <div class="block-price">$250</div>
-                            </div>
+                        <div class="slots-grid" id="grid">
+                            <div class="slot-cell available" data-i="0" onclick="toggleSlot(0)"><span class="slot-num">1</span></div>
+                            <div class="slot-cell available" data-i="1" onclick="toggleSlot(1)"><span class="slot-num">2</span></div>
+                            <div class="slot-cell taken" data-i="2"><span class="slot-num">SOLD</span></div>
+                            <div class="slot-cell available" data-i="3" onclick="toggleSlot(3)"><span class="slot-num">4</span></div>
+                            <div class="slot-cell available" data-i="4" onclick="toggleSlot(4)"><span class="slot-num">5</span></div>
+                            <div class="slot-cell available" data-i="5" onclick="toggleSlot(5)"><span class="slot-num">6</span></div>
+                            <div class="slot-cell available" data-i="6" onclick="toggleSlot(6)"><span class="slot-num">7</span></div>
+                            <div class="slot-cell available" data-i="7" onclick="toggleSlot(7)"><span class="slot-num">8</span></div>
+                            <div class="slot-cell available" data-i="8" onclick="toggleSlot(8)"><span class="slot-num">9</span></div>
                         </div>
                         <div class="indicia-area" id="indicia">
                             <span>LOCAL POSTAL CUSTOMER</span>
@@ -179,20 +173,18 @@
             </div>
             
             <div class="legend">
-                <span><span class="legend-dot" style="background:var(--available-bg);border:1px solid var(--available-border)"></span>Available</span>
+                <span><span class="legend-dot" style="background:var(--available-bg);border:1px solid var(--available-border)"></span>Click slots to select</span>
                 <span><span class="legend-dot" style="background:var(--taken-bg);border:1px solid var(--taken-border)"></span>Taken</span>
-                <span><span class="legend-dot" style="background:var(--selected-bg);border:2px solid var(--selected-border)"></span>Selected</span>
             </div>
         </div>
         
         <div class="builder-sidebar">
             <div class="tier-card">
-                <h3>Select Ad Size</h3>
+                <h3>Or select size</h3>
                 <div class="tier-btn" data-slots="1" onclick="selectTier(1)"><div class="tier-radio"></div><div class="tier-info"><h4>Small</h4><p>1 slot • 25 children fed</p></div><div class="tier-price">$250</div></div>
                 <div class="tier-btn" data-slots="2" onclick="selectTier(2)"><div class="tier-radio"></div><div class="tier-info"><h4>Medium</h4><p>2 slots • 50 children fed</p></div><div class="tier-price">$500</div></div>
                 <div class="tier-btn" data-slots="3" onclick="selectTier(3)"><div class="tier-radio"></div><div class="tier-info"><h4>Large</h4><p>3 slots • 75 children fed</p></div><div class="tier-price">$750</div></div>
-                <div class="tier-btn" data-slots="6" onclick="selectTier(6)"><div class="tier-radio"></div><div class="tier-info"><h4>X-Large</h4><p>6 slots • 150 children fed</p></div><div class="tier-price">$1,500</div></div>
-                <div class="tier-btn" data-slots="9" onclick="selectTier(9)"><div class="tier-radio"></div><div class="tier-info"><h4>Full Back</h4><p>9 slots • All space</p></div><div class="tier-price">$2,250</div></div>
+                <button class="clear-btn" onclick="clearSelection()">Clear Selection</button>
             </div>
             
             <div class="summary-card">
@@ -206,7 +198,7 @@
     </div>
     
     <script>
-        let selectedCount = 0;
+        let selected = [];
         
         function switchView(view) {
             document.querySelectorAll('.front-view, .back-view').forEach(v => v.classList.remove('active'));
@@ -215,54 +207,57 @@
             event.target.classList.add('active');
         }
         
-        function selectSlots(n, el) {
-            if (el.classList.contains('taken')) return;
+        function toggleSlot(i) {
+            const cell = document.querySelectorAll('.slot-cell')[i];
+            if (cell.classList.contains('taken')) return;
             
-            // Clear previous selection
-            document.querySelectorAll('.ad-block').forEach(b => b.classList.remove('selected'));
+            if (selected.includes(i)) {
+                selected = selected.filter(s => s !== i);
+                cell.classList.remove('selected');
+            } else {
+                selected.push(i);
+                cell.classList.add('selected');
+            }
             
-            // Select this block
-            el.classList.add('selected');
-            selectedCount = n;
-            
-            updateSummary();
+            selected.sort((a, b) => a - b);
+            updateDisplay();
         }
         
         function selectTier(n) {
             document.querySelectorAll('.tier-btn').forEach(b => b.classList.remove('selected'));
             document.querySelector('[data-slots="' + n + '"]').classList.add('selected');
             
-            // Find first available block with matching slots
-            const blocks = document.querySelectorAll('.ad-block.available');
-            let targetBlock = null;
+            clearSelection();
             
-            blocks.forEach(block => {
-                if (!targetBlock && parseInt(block.dataset.slots) >= n) {
-                    targetBlock = block;
-                }
-            });
-            
-            if (targetBlock) {
-                document.querySelectorAll('.ad-block').forEach(b => b.classList.remove('selected'));
-                targetBlock.classList.add('selected');
-                selectedCount = n;
+            const cells = document.querySelectorAll('.slot-cell.available');
+            for (let i = 0; i < n && i < cells.length; i++) {
+                cells[i].classList.add('selected');
+                selected.push(parseInt(cells[i].dataset.i));
             }
             
-            updateSummary();
+            selected.sort((a, b) => a - b);
+            updateDisplay();
         }
         
-        function updateSummary() {
-            const price = selectedCount * 250;
-            const meals = selectedCount * 25;
+        function clearSelection() {
+            selected = [];
+            document.querySelectorAll('.slot-cell').forEach(c => c.classList.remove('selected'));
+            updateDisplay();
+        }
+        
+        function updateDisplay() {
+            const count = selected.length;
+            const price = count * 250;
+            const meals = count * 25;
             
-            document.getElementById('s-slots').textContent = selectedCount;
-            document.getElementById('s-size').textContent = selectedCount === 0 ? '—' : getSizeName(selectedCount);
+            document.getElementById('s-slots').textContent = count;
+            document.getElementById('s-size').textContent = count === 0 ? '—' : getSizeName(count);
             document.getElementById('s-meals').textContent = meals;
             document.getElementById('s-total').textContent = '$' + price;
             
             // Full back mode
             const postcard = document.getElementById('postcard');
-            if (selectedCount >= 9) {
+            if (count >= 9) {
                 postcard.classList.add('full-back');
             } else {
                 postcard.classList.remove('full-back');
@@ -273,7 +268,8 @@
             if (n === 1) return 'Small';
             if (n === 2) return 'Medium';
             if (n === 3) return 'Large';
-            if (n === 6) return 'X-Large';
+            if (n >= 4 && n <= 5) return 'X-Large';
+            if (n >= 6 && n <= 8) return 'Super';
             if (n === 9) return 'Full Back';
             return n + ' slots';
         }
