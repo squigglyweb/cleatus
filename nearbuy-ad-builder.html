@@ -28,6 +28,7 @@
         .builder-content { max-width: 1100px; margin: 0 auto; padding: 30px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 30px; }
         
         .postcard-container { background: white; border-radius: 16px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+        
         .side-toggle { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
         .side-toggle button { padding: 12px 30px; border: 2px solid #ddd; background: white; font-size: 14px; font-weight: 700; border-radius: 8px; cursor: pointer; }
         .side-toggle button.active { border-color: var(--nearbuy-red); background: var(--nearbuy-red); color: white; }
@@ -43,30 +44,43 @@
         .front-content h2 { font-size: 32px; font-weight: 900; color: white; }
         .front-content p { font-size: 16px; color: rgba(255,255,255,0.9); margin-top: 8px; }
         
-        .grid-area { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 1px; background: #ccc; padding: 1px; }
+        .back-content { flex: 1; display: flex; flex-direction: column; }
         
-        .slot { background: var(--nearbuy-cream); display: flex; align-items: center; justify-content: center; flex-direction: column; cursor: pointer; font-size: 10px; transition: all 0.15s; position: relative; }
-        .slot:hover { z-index: 1; }
-        .slot.available { background: var(--available-bg); border: 1px solid var(--available-border); }
-        .slot.available:hover { border-width: 2px; }
-        .slot.taken { background: var(--taken-bg); border: 1px solid var(--taken-border); cursor: not-allowed; opacity: 0.7; }
-        .slot.selected { background: var(--selected-bg); border: 2px solid var(--selected-border); z-index: 1; }
-        .slot.selected.combined { border: 3px solid var(--selected-border); }
+        /* Grid of ad blocks */
+        .ad-blocks { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 2px; background: #ccc; padding: 2px; }
         
-        .slot-num { font-weight: 700; font-size: 11px; }
+        .ad-block { 
+            background: white; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            flex-direction: column;
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
         
-        /* Combined ad states */
-        .slot.combined-2h { grid-column: span 2; }
-        .slot.combined-2v { grid-row: span 2; }
-        .slot.combined-2x2 { grid-column: span 2; grid-row: span 2; }
-        .slot.combined-3h { grid-column: span 3; }
-        .slot.combined-full { grid-column: span 3; grid-row: span 3; }
+        .ad-block.available { background: var(--available-bg); border: 1px solid var(--available-border); }
+        .ad-block.available:hover { border-width: 2px; }
+        .ad-block.taken { background: var(--taken-bg); border: 1px solid var(--taken-border); cursor: not-allowed; opacity: 0.7; }
+        .ad-block.selected { background: var(--selected-bg); border: 2px solid var(--selected-border); }
         
+        .ad-block .block-label { font-weight: 700; font-size: 12px; }
+        .ad-block .block-price { font-size: 10px; color: var(--nearbuy-gray); }
+        
+        /* Combined states */
+        .ad-block.combined-2 { grid-column: span 2; }
+        .ad-block.combined-3 { grid-column: span 3; }
+        
+        /* Indicia */
         .indicia-area { background: #ddd; padding: 10px 12px; display: flex; justify-content: space-between; font-size: 7px; color: var(--nearbuy-gray); }
         
         /* Full back mode */
-        .postcard.full-back .grid-area { grid-template-rows: repeat(4, 1fr); }
+        .postcard.full-back .ad-blocks { grid-template-rows: repeat(4, 1fr); }
         .postcard.full-back .indicia-area { display: none; }
+        
+        .legend { display: flex; gap: 15px; justify-content: center; margin-top: 15px; font-size: 11px; }
+        .legend-dot { width: 12px; height: 12px; border-radius: 3px; display: inline-block; margin-right: 4px; }
         
         .builder-sidebar { position: sticky; top: 20px; }
         .tier-card { background: white; border-radius: 16px; padding: 20px; margin-bottom: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
@@ -90,9 +104,6 @@
         .summary-value { font-weight: 700; }
         .summary-total { margin-top: 15px; padding-top: 15px; border-top: 2px solid rgba(255,255,255,0.2); display: flex; justify-content: space-between; align-items: center; }
         .summary-total .value { font-size: 24px; font-weight: 900; }
-        
-        .legend { display: flex; gap: 15px; justify-content: center; margin-top: 15px; font-size: 11px; }
-        .legend-dot { width: 12px; height: 12px; border-radius: 3px; display: inline-block; margin-right: 4px; }
         
         @media (max-width: 800px) { .builder-content { grid-template-columns: 1fr; } }
     </style>
@@ -118,20 +129,51 @@
                 </div>
                 
                 <div class="back-view">
-                    <div class="grid-area" id="grid">
-                        <div class="slot available" data-i="0" onclick="toggleSlot(0)"><div class="slot-num">1</div></div>
-                        <div class="slot available" data-i="1" onclick="toggleSlot(1)"><div class="slot-num">2</div></div>
-                        <div class="slot taken" data-i="2"><div class="slot-num">SOLD</div></div>
-                        <div class="slot available" data-i="3" onclick="toggleSlot(3)"><div class="slot-num">4</div></div>
-                        <div class="slot available" data-i="4" onclick="toggleSlot(4)"><div class="slot-num">5</div></div>
-                        <div class="slot available" data-i="5" onclick="toggleSlot(5)"><div class="slot-num">6</div></div>
-                        <div class="slot available" data-i="6" onclick="toggleSlot(6)"><div class="slot-num">7</div></div>
-                        <div class="slot available" data-i="7" onclick="toggleSlot(7)"><div class="slot-num">8</div></div>
-                        <div class="slot available" data-i="8" onclick="toggleSlot(8)"><div class="slot-num">9</div></div>
-                    </div>
-                    <div class="indicia-area" id="indicia">
-                        <span>LOCAL POSTAL CUSTOMER</span>
-                        <span>PRSRT STD U.S. POSTAGE PAID</span>
+                    <div class="back-content">
+                        <div class="ad-blocks" id="grid">
+                            <!-- Row 1 -->
+                            <div class="ad-block available" data-slots="1" onclick="selectSlots(1, this)">
+                                <div class="block-label">SMALL</div>
+                                <div class="block-price">$250</div>
+                            </div>
+                            <div class="ad-block available" data-slots="1" onclick="selectSlots(1, this)">
+                                <div class="block-label">SMALL</div>
+                                <div class="block-price">$250</div>
+                            </div>
+                            <div class="ad-block taken">
+                                <div class="block-label">SOLD</div>
+                            </div>
+                            <!-- Row 2 -->
+                            <div class="ad-block available" data-slots="2" onclick="selectSlots(2, this)">
+                                <div class="block-label">MEDIUM</div>
+                                <div class="block-price">$500</div>
+                            </div>
+                            <div class="ad-block available" data-slots="1" onclick="selectSlots(1, this)">
+                                <div class="block-label">SMALL</div>
+                                <div class="block-price">$250</div>
+                            </div>
+                            <div class="ad-block available" data-slots="1" onclick="selectSlots(1, this)">
+                                <div class="block-label">SMALL</div>
+                                <div class="block-price">$250</div>
+                            </div>
+                            <!-- Row 3 -->
+                            <div class="ad-block available" data-slots="3" onclick="selectSlots(3, this)">
+                                <div class="block-label">LARGE</div>
+                                <div class="block-price">$750</div>
+                            </div>
+                            <div class="ad-block available" data-slots="2" onclick="selectSlots(2, this)">
+                                <div class="block-label">MEDIUM</div>
+                                <div class="block-price">$500</div>
+                            </div>
+                            <div class="ad-block available" data-slots="1" onclick="selectSlots(1, this)">
+                                <div class="block-label">SMALL</div>
+                                <div class="block-price">$250</div>
+                            </div>
+                        </div>
+                        <div class="indicia-area" id="indicia">
+                            <span>LOCAL POSTAL CUSTOMER</span>
+                            <span>PRSRT STD U.S. POSTAGE PAID</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -164,7 +206,7 @@
     </div>
     
     <script>
-        let selected = [];
+        let selectedCount = 0;
         
         function switchView(view) {
             document.querySelectorAll('.front-view, .back-view').forEach(v => v.classList.remove('active'));
@@ -173,55 +215,54 @@
             event.target.classList.add('active');
         }
         
-        function toggleSlot(i) {
-            const slot = document.querySelectorAll('.slot.available')[i];
-            if (!slot) return;
+        function selectSlots(n, el) {
+            if (el.classList.contains('taken')) return;
             
-            if (selected.includes(i)) {
-                selected = selected.filter(s => s !== i);
-                slot.classList.remove('selected');
-            } else {
-                selected.push(i);
-                slot.classList.add('selected');
-            }
-            updateDisplay();
+            // Clear previous selection
+            document.querySelectorAll('.ad-block').forEach(b => b.classList.remove('selected'));
+            
+            // Select this block
+            el.classList.add('selected');
+            selectedCount = n;
+            
+            updateSummary();
         }
         
         function selectTier(n) {
             document.querySelectorAll('.tier-btn').forEach(b => b.classList.remove('selected'));
             document.querySelector('[data-slots="' + n + '"]').classList.add('selected');
             
-            // Select first n available slots
-            const available = document.querySelectorAll('.slot.available');
-            selected = [];
-            document.querySelectorAll('.slot').forEach(s => s.classList.remove('selected'));
+            // Find first available block with matching slots
+            const blocks = document.querySelectorAll('.ad-block.available');
+            let targetBlock = null;
             
-            available.forEach((slot, i) => {
-                if (i < n) {
-                    slot.classList.add('selected');
-                    selected.push(i);
+            blocks.forEach(block => {
+                if (!targetBlock && parseInt(block.dataset.slots) >= n) {
+                    targetBlock = block;
                 }
             });
             
-            updateDisplay();
+            if (targetBlock) {
+                document.querySelectorAll('.ad-block').forEach(b => b.classList.remove('selected'));
+                targetBlock.classList.add('selected');
+                selectedCount = n;
+            }
+            
+            updateSummary();
         }
         
-        function updateDisplay() {
-            const count = selected.length;
-            const price = count * 250;
-            const meals = count * 25;
+        function updateSummary() {
+            const price = selectedCount * 250;
+            const meals = selectedCount * 25;
             
-            // Update summary
-            document.getElementById('s-slots').textContent = count;
-            document.getElementById('s-size').textContent = count === 0 ? '—' : getSizeName(count);
+            document.getElementById('s-slots').textContent = selectedCount;
+            document.getElementById('s-size').textContent = selectedCount === 0 ? '—' : getSizeName(selectedCount);
             document.getElementById('s-meals').textContent = meals;
             document.getElementById('s-total').textContent = '$' + price;
             
-            // Handle full back
+            // Full back mode
             const postcard = document.getElementById('postcard');
-            const indicia = document.getElementById('indicia');
-            
-            if (count >= 9) {
+            if (selectedCount >= 9) {
                 postcard.classList.add('full-back');
             } else {
                 postcard.classList.remove('full-back');
