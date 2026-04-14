@@ -18,190 +18,223 @@
             --selected-bg: #fff3e0;
             --selected-border: #ff9800;
         }
-        
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: var(--nearbuy-cream); color: var(--nearbuy-charcoal); }
         
-        .site-header { background: white; padding: 20px 40px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 20px rgba(0,0,0,0.05); }
-        .logo { font-size: 28px; font-weight: 900; color: var(--nearbuy-red); text-decoration: none; }
-        .logo span { color: var(--nearbuy-charcoal); }
-        
-        .page-hero { background: var(--nearbuy-charcoal); color: white; padding: 60px 40px; text-align: center; }
-        .page-hero h1 { font-size: 48px; font-weight: 900; margin-bottom: 15px; }
+        .page-hero { background: var(--nearbuy-charcoal); color: white; padding: 40px; text-align: center; }
+        .page-hero h1 { font-size: 36px; font-weight: 900; }
         .page-hero h1 span { color: var(--nearbuy-red); }
-        .page-hero p { font-size: 18px; opacity: 0.8; }
         
-        .side-toggle { display: flex; justify-content: center; gap: 10px; margin: 30px 0; }
-        .side-toggle button { padding: 15px 40px; border: 2px solid #ddd; background: white; font-size: 16px; font-weight: 700; border-radius: 10px; cursor: pointer; }
+        .builder-content { max-width: 1100px; margin: 0 auto; padding: 30px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 30px; }
+        
+        .postcard-container { background: white; border-radius: 16px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+        .side-toggle { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .side-toggle button { padding: 12px 30px; border: 2px solid #ddd; background: white; font-size: 14px; font-weight: 700; border-radius: 8px; cursor: pointer; }
         .side-toggle button.active { border-color: var(--nearbuy-red); background: var(--nearbuy-red); color: white; }
         
-        .builder-content { max-width: 1200px; margin: 0 auto; padding: 40px; display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; }
+        .postcard { aspect-ratio: 4/3; max-width: 420px; margin: 0 auto; border: 2px solid var(--nearbuy-charcoal); border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; }
         
-        .postcard-section { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
-        .side-label { text-align: center; font-size: 14px; color: var(--nearbuy-gray); margin-bottom: 15px; font-weight: 600; }
+        .front-view { display: none; }
+        .front-view.active { display: block; }
+        .back-view { display: none; }
+        .back-view.active { display: block; }
         
-        .postcard { aspect-ratio: 4/3; max-width: 500px; margin: 0 auto; border: 3px solid var(--nearbuy-charcoal); border-radius: 8px; overflow: hidden; display: flex; flex-direction: column; }
-        .postcard-grid { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(4, 1fr); gap: 2px; background: #ddd; padding: 2px; flex: 1; }
+        .front-content { background: var(--nearbuy-red); flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; }
+        .front-content h2 { font-size: 32px; font-weight: 900; color: white; }
+        .front-content p { font-size: 16px; color: rgba(255,255,255,0.9); margin-top: 8px; }
         
-        .slot-cell { background: var(--nearbuy-cream); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 8px; text-align: center; cursor: pointer; font-size: 10px; transition: all 0.2s; }
-        .slot-cell.available { background: var(--available-bg); border: 1px solid var(--available-border); }
-        .slot-cell.available:hover { border-width: 2px; }
-        .slot-cell.taken { background: var(--taken-bg); border: 1px solid var(--taken-border); cursor: not-allowed; opacity: 0.7; }
-        .slot-cell.selected { background: var(--selected-bg); border: 2px solid var(--selected-border); }
-        .slot-cell .slot-num { font-weight: 700; font-size: 11px; }
-        .slot-cell .slot-price { font-size: 9px; color: var(--nearbuy-gray); }
+        .grid-area { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 1px; background: #ccc; padding: 1px; }
         
-        .indicia-area { background: #e0e0e0; padding: 12px 15px; display: flex; justify-content: space-between; font-size: 8px; color: var(--nearbuy-gray); }
+        .slot { background: var(--nearbuy-cream); display: flex; align-items: center; justify-content: center; flex-direction: column; cursor: pointer; font-size: 10px; transition: all 0.15s; position: relative; }
+        .slot:hover { z-index: 1; }
+        .slot.available { background: var(--available-bg); border: 1px solid var(--available-border); }
+        .slot.available:hover { border-width: 2px; }
+        .slot.taken { background: var(--taken-bg); border: 1px solid var(--taken-border); cursor: not-allowed; opacity: 0.7; }
+        .slot.selected { background: var(--selected-bg); border: 2px solid var(--selected-border); z-index: 1; }
+        .slot.selected.combined { border: 3px solid var(--selected-border); }
         
-        .legend { display: flex; gap: 20px; justify-content: center; margin-top: 20px; }
-        .legend-item { display: flex; align-items: center; gap: 8px; font-size: 13px; }
-        .legend-dot { width: 16px; height: 16px; border-radius: 4px; }
-        .legend-dot.available { background: var(--available-bg); border: 2px solid var(--available-border); }
-        .legend-dot.taken { background: var(--taken-bg); border: 2px solid var(--taken-border); }
-        .legend-dot.selected { background: var(--selected-bg); border: 2px solid var(--selected-border); }
+        .slot-num { font-weight: 700; font-size: 11px; }
         
-        .builder-sidebar { position: sticky; top: 100px; }
-        .tier-selection { background: white; border-radius: 20px; padding: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); margin-bottom: 20px; }
-        .tier-selection h3 { font-size: 18px; font-weight: 700; margin-bottom: 20px; }
+        /* Combined ad states */
+        .slot.combined-2h { grid-column: span 2; }
+        .slot.combined-2v { grid-row: span 2; }
+        .slot.combined-2x2 { grid-column: span 2; grid-row: span 2; }
+        .slot.combined-3h { grid-column: span 3; }
+        .slot.combined-full { grid-column: span 3; grid-row: span 3; }
         
-        .tier-option { display: flex; align-items: center; gap: 15px; padding: 15px; border: 2px solid #eee; border-radius: 12px; margin-bottom: 12px; cursor: pointer; }
-        .tier-option.selected { border-color: var(--nearbuy-red); background: rgba(211,47,47,0.05); }
-        .tier-radio { width: 20px; height: 20px; border: 2px solid #ddd; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-        .tier-option.selected .tier-radio { border-color: var(--nearbuy-red); background: var(--nearbuy-red); }
-        .tier-option.selected .tier-radio::after { content: ''; width: 8px; height: 8px; background: white; border-radius: 50%; }
-        .tier-info { flex: 1; }
-        .tier-info h4 { font-size: 15px; font-weight: 700; }
-        .tier-info p { font-size: 12px; color: var(--nearbuy-gray); }
-        .tier-price { font-size: 18px; font-weight: 900; color: var(--nearbuy-red); }
+        .indicia-area { background: #ddd; padding: 10px 12px; display: flex; justify-content: space-between; font-size: 7px; color: var(--nearbuy-gray); }
         
-        .summary-card { background: var(--nearbuy-charcoal); color: white; border-radius: 20px; padding: 30px; }
-        .summary-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 20px; }
-        .summary-row { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1); }
-        .summary-label { opacity: 0.8; }
+        /* Full back mode */
+        .postcard.full-back .grid-area { grid-template-rows: repeat(4, 1fr); }
+        .postcard.full-back .indicia-area { display: none; }
+        
+        .builder-sidebar { position: sticky; top: 20px; }
+        .tier-card { background: white; border-radius: 16px; padding: 20px; margin-bottom: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .tier-card h3 { font-size: 14px; font-weight: 700; color: var(--nearbuy-gray); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
+        
+        .tier-btn { display: flex; align-items: center; gap: 12px; padding: 12px; border: 2px solid #eee; border-radius: 10px; margin-bottom: 8px; cursor: pointer; transition: all 0.2s; }
+        .tier-btn:hover { border-color: #bbb; }
+        .tier-btn.selected { border-color: var(--nearbuy-red); background: rgba(211,47,47,0.05); }
+        .tier-radio { width: 16px; height: 16px; border: 2px solid #ddd; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .tier-btn.selected .tier-radio { border-color: var(--nearbuy-red); background: var(--nearbuy-red); }
+        .tier-btn.selected .tier-radio::after { content: ''; width: 6px; height: 6px; background: white; border-radius: 50%; }
+        .tier-info h4 { font-size: 13px; font-weight: 700; }
+        .tier-info p { font-size: 10px; color: var(--nearbuy-gray); }
+        .tier-price { font-size: 14px; font-weight: 900; color: var(--nearbuy-red); }
+        
+        .summary-card { background: var(--nearbuy-charcoal); color: white; border-radius: 16px; padding: 20px; }
+        .summary-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 15px; }
+        .summary-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 13px; }
+        .summary-row:last-of-type { border: none; }
+        .summary-label { opacity: 0.7; }
         .summary-value { font-weight: 700; }
-        .summary-total { margin-top: 20px; padding-top: 20px; border-top: 2px solid rgba(255,255,255,0.2); display: flex; justify-content: space-between; align-items: center; }
-        .summary-total .value { font-size: 28px; font-weight: 900; }
-        .meals-included { background: var(--nearbuy-red); color: white; padding: 10px 15px; border-radius: 8px; margin-top: 15px; text-align: center; font-size: 14px; font-weight: 600; }
-        .submit-btn { width: 100%; background: var(--nearbuy-red); color: white; padding: 18px; border: none; border-radius: 10px; font-size: 18px; font-weight: 700; cursor: pointer; margin-top: 20px; }
-        .submit-btn:disabled { background: var(--nearbuy-gray); cursor: not-allowed; }
+        .summary-total { margin-top: 15px; padding-top: 15px; border-top: 2px solid rgba(255,255,255,0.2); display: flex; justify-content: space-between; align-items: center; }
+        .summary-total .value { font-size: 24px; font-weight: 900; }
         
-        @media (max-width: 900px) { .builder-content { grid-template-columns: 1fr; } .builder-sidebar { position: static; } }
+        .legend { display: flex; gap: 15px; justify-content: center; margin-top: 15px; font-size: 11px; }
+        .legend-dot { width: 12px; height: 12px; border-radius: 3px; display: inline-block; margin-right: 4px; }
+        
+        @media (max-width: 800px) { .builder-content { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
-    <header class="site-header">
-        <a href="#" class="logo">The Local <span>NearBuy</span></a>
-    </header>
-    
     <section class="page-hero">
         <h1>Build Your <span>Ad</span></h1>
-        <p>The small ad is the building block — stack slots to create any size</p>
     </section>
     
-    <div class="side-toggle">
-        <button class="active" onclick="showSide('front')">📫 Front</button>
-        <button onclick="showSide('back')">📨 Back</button>
-    </div>
-    
     <div class="builder-content">
-        <div class="postcard-section">
-            <div id="front-view">
-                <div class="side-label">FRONT</div>
-                <div class="postcard" style="background: var(--nearbuy-red); display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 40px;">
-                    <h3 style="font-size: 36px; font-weight: 900; color: white;">The Local NearBuy</h3>
-                    <p style="font-size: 18px; color: rgba(255,255,255,0.9); margin-top: 10px;">Community Offers Inside</p>
-                </div>
+        <div class="postcard-container">
+            <div class="side-toggle">
+                <button class="active" onclick="switchView('front')">📫 Front</button>
+                <button onclick="switchView('back')">📨 Back</button>
             </div>
             
-            <div id="back-view" style="display: none;">
-                <div class="side-label">BACK — Click slots to select (1 slot = $250)</div>
-                <div class="postcard">
-                    <div class="postcard-grid">
-                        <div class="slot-cell available" onclick="toggleSlot(this)"><div class="slot-num">1</div><div class="slot-price">$250</div></div>
-                        <div class="slot-cell taken"><div class="slot-num">SOLD</div></div>
-                        <div class="slot-cell available" onclick="toggleSlot(this)"><div class="slot-num">3</div><div class="slot-price">$250</div></div>
-                        <div class="slot-cell available" onclick="toggleSlot(this)"><div class="slot-num">4</div><div class="slot-price">$250</div></div>
-                        <div class="slot-cell available" onclick="toggleSlot(this)"><div class="slot-num">5</div><div class="slot-price">$250</div></div>
-                        <div class="slot-cell available" onclick="toggleSlot(this)"><div class="slot-num">6</div><div class="slot-price">$250</div></div>
-                        <div class="slot-cell available" onclick="toggleSlot(this)"><div class="slot-num">7</div><div class="slot-price">$250</div></div>
-                        <div class="slot-cell available" onclick="toggleSlot(this)"><div class="slot-num">8</div><div class="slot-price">$250</div></div>
-                        <div class="slot-cell available" onclick="toggleSlot(this)"><div class="slot-num">9</div><div class="slot-price">$250</div></div>
-                        <div class="slot-cell available" onclick="toggleSlot(this)"><div class="slot-num">10</div><div class="slot-price">$250</div></div>
-                        <div class="slot-cell available" onclick="toggleSlot(this)"><div class="slot-num">11</div><div class="slot-price">$250</div></div>
-                        <div class="slot-cell available" onclick="toggleSlot(this)"><div class="slot-num">12</div><div class="slot-price">$250</div></div>
+            <div class="postcard" id="postcard">
+                <div class="front-view active">
+                    <div class="front-content">
+                        <h2>The Local NearBuy</h2>
+                        <p>Community Offers Inside</p>
                     </div>
-                    <div class="indicia-area">
+                </div>
+                
+                <div class="back-view">
+                    <div class="grid-area" id="grid">
+                        <div class="slot available" data-i="0" onclick="toggleSlot(0)"><div class="slot-num">1</div></div>
+                        <div class="slot available" data-i="1" onclick="toggleSlot(1)"><div class="slot-num">2</div></div>
+                        <div class="slot taken" data-i="2"><div class="slot-num">SOLD</div></div>
+                        <div class="slot available" data-i="3" onclick="toggleSlot(3)"><div class="slot-num">4</div></div>
+                        <div class="slot available" data-i="4" onclick="toggleSlot(4)"><div class="slot-num">5</div></div>
+                        <div class="slot available" data-i="5" onclick="toggleSlot(5)"><div class="slot-num">6</div></div>
+                        <div class="slot available" data-i="6" onclick="toggleSlot(6)"><div class="slot-num">7</div></div>
+                        <div class="slot available" data-i="7" onclick="toggleSlot(7)"><div class="slot-num">8</div></div>
+                        <div class="slot available" data-i="8" onclick="toggleSlot(8)"><div class="slot-num">9</div></div>
+                    </div>
+                    <div class="indicia-area" id="indicia">
                         <span>LOCAL POSTAL CUSTOMER</span>
                         <span>PRSRT STD U.S. POSTAGE PAID</span>
                     </div>
                 </div>
-                <div class="legend">
-                    <div class="legend-item"><div class="legend-dot available"></div><span>Available</span></div>
-                    <div class="legend-item"><div class="legend-dot taken"></div><span>Taken</span></div>
-                    <div class="legend-item"><div class="legend-dot selected"></div><span>Selected</span></div>
-                </div>
+            </div>
+            
+            <div class="legend">
+                <span><span class="legend-dot" style="background:var(--available-bg);border:1px solid var(--available-border)"></span>Available</span>
+                <span><span class="legend-dot" style="background:var(--taken-bg);border:1px solid var(--taken-border)"></span>Taken</span>
+                <span><span class="legend-dot" style="background:var(--selected-bg);border:2px solid var(--selected-border)"></span>Selected</span>
             </div>
         </div>
         
         <div class="builder-sidebar">
-            <div class="tier-selection">
-                <h3>Or select by size</h3>
-                <div class="tier-option" data-slots="1" data-price="250"><div class="tier-radio"></div><div class="tier-info"><h4>Small</h4><p>1 slot • 25 children fed</p></div><div class="tier-price">$250</div></div>
-                <div class="tier-option" data-slots="2" data-price="500"><div class="tier-radio"></div><div class="tier-info"><h4>Medium</h4><p>2 slots • 50 children fed</p></div><div class="tier-price">$500</div></div>
-                <div class="tier-option" data-slots="3" data-price="750"><div class="tier-radio"></div><div class="tier-info"><h4>Large</h4><p>3 slots • 75 children fed</p></div><div class="tier-price">$750</div></div>
-                <div class="tier-option" data-slots="4" data-price="1000"><div class="tier-radio"></div><div class="tier-info"><h4>X-Large</h4><p>4 slots • 100 children fed</p></div><div class="tier-price">$1,000</div></div>
+            <div class="tier-card">
+                <h3>Select Ad Size</h3>
+                <div class="tier-btn" data-slots="1" onclick="selectTier(1)"><div class="tier-radio"></div><div class="tier-info"><h4>Small</h4><p>1 slot • 25 children fed</p></div><div class="tier-price">$250</div></div>
+                <div class="tier-btn" data-slots="2" onclick="selectTier(2)"><div class="tier-radio"></div><div class="tier-info"><h4>Medium</h4><p>2 slots • 50 children fed</p></div><div class="tier-price">$500</div></div>
+                <div class="tier-btn" data-slots="3" onclick="selectTier(3)"><div class="tier-radio"></div><div class="tier-info"><h4>Large</h4><p>3 slots • 75 children fed</p></div><div class="tier-price">$750</div></div>
+                <div class="tier-btn" data-slots="6" onclick="selectTier(6)"><div class="tier-radio"></div><div class="tier-info"><h4>X-Large</h4><p>6 slots • 150 children fed</p></div><div class="tier-price">$1,500</div></div>
+                <div class="tier-btn" data-slots="9" onclick="selectTier(9)"><div class="tier-radio"></div><div class="tier-info"><h4>Full Back</h4><p>9 slots • All space</p></div><div class="tier-price">$2,250</div></div>
             </div>
             
             <div class="summary-card">
                 <h3>Your Selection</h3>
-                <div class="summary-row"><span class="summary-label">Slots</span><span class="summary-value" id="summary-slots">0</span></div>
-                <div class="summary-row"><span class="summary-label">Ad Size</span><span class="summary-value" id="summary-size">—</span></div>
-                <div class="summary-row"><span class="summary-label">Children Fed</span><span class="summary-value" id="summary-meals">0</span></div>
-                <div class="summary-total"><span class="label">Total</span><span class="value" id="summary-total">$0</span></div>
-                <button class="submit-btn" id="submit-btn" disabled>Continue to Checkout</button>
+                <div class="summary-row"><span class="summary-label">Slots</span><span class="summary-value" id="s-slots">0</span></div>
+                <div class="summary-row"><span class="summary-label">Size</span><span class="summary-value" id="s-size">—</span></div>
+                <div class="summary-row"><span class="summary-label">Children Fed</span><span class="summary-value" id="s-meals">0</span></div>
+                <div class="summary-total"><span class="label">Total</span><span class="value" id="s-total">$0</span></div>
             </div>
         </div>
     </div>
     
     <script>
-        let selectedSlots = [];
+        let selected = [];
         
-        function showSide(side) {
-            document.getElementById('front-view').style.display = side === 'front' ? 'block' : 'none';
-            document.getElementById('back-view').style.display = side === 'back' ? 'block' : 'none';
+        function switchView(view) {
+            document.querySelectorAll('.front-view, .back-view').forEach(v => v.classList.remove('active'));
+            document.getElementById(view + '-view').classList.add('active');
             document.querySelectorAll('.side-toggle button').forEach(b => b.classList.remove('active'));
             event.target.classList.add('active');
         }
         
-        function toggleSlot(el) {
-            if (el.classList.contains('taken')) return;
-            el.classList.toggle('selected');
-            updateSummary();
+        function toggleSlot(i) {
+            const slot = document.querySelectorAll('.slot.available')[i];
+            if (!slot) return;
+            
+            if (selected.includes(i)) {
+                selected = selected.filter(s => s !== i);
+                slot.classList.remove('selected');
+            } else {
+                selected.push(i);
+                slot.classList.add('selected');
+            }
+            updateDisplay();
         }
         
-        document.querySelectorAll('.tier-option').forEach(opt => {
-            opt.addEventListener('click', () => {
-                const slots = parseInt(opt.dataset.slots);
-                document.querySelectorAll('.slot-cell').forEach(c => c.classList.remove('selected'));
-                document.querySelectorAll('.slot-cell.available').forEach((c, i) => {
-                    if (i < slots) c.classList.add('selected');
-                });
-                document.querySelectorAll('.tier-option').forEach(o => o.classList.remove('selected'));
-                opt.classList.add('selected');
-                updateSummary();
+        function selectTier(n) {
+            document.querySelectorAll('.tier-btn').forEach(b => b.classList.remove('selected'));
+            document.querySelector('[data-slots="' + n + '"]').classList.add('selected');
+            
+            // Select first n available slots
+            const available = document.querySelectorAll('.slot.available');
+            selected = [];
+            document.querySelectorAll('.slot').forEach(s => s.classList.remove('selected'));
+            
+            available.forEach((slot, i) => {
+                if (i < n) {
+                    slot.classList.add('selected');
+                    selected.push(i);
+                }
             });
-        });
+            
+            updateDisplay();
+        }
         
-        function updateSummary() {
-            const count = document.querySelectorAll('.slot-cell.selected').length;
+        function updateDisplay() {
+            const count = selected.length;
             const price = count * 250;
             const meals = count * 25;
-            const sizes = ['','Small','Medium','Large','X-Large'];
-            document.getElementById('summary-slots').textContent = count;
-            document.getElementById('summary-size').textContent = sizes[Math.min(count, 4)] || count + ' slots';
-            document.getElementById('summary-meals').textContent = meals;
-            document.getElementById('summary-total').textContent = '$' + price;
-            document.getElementById('submit-btn').disabled = count === 0;
+            
+            // Update summary
+            document.getElementById('s-slots').textContent = count;
+            document.getElementById('s-size').textContent = count === 0 ? '—' : getSizeName(count);
+            document.getElementById('s-meals').textContent = meals;
+            document.getElementById('s-total').textContent = '$' + price;
+            
+            // Handle full back
+            const postcard = document.getElementById('postcard');
+            const indicia = document.getElementById('indicia');
+            
+            if (count >= 9) {
+                postcard.classList.add('full-back');
+            } else {
+                postcard.classList.remove('full-back');
+            }
+        }
+        
+        function getSizeName(n) {
+            if (n === 1) return 'Small';
+            if (n === 2) return 'Medium';
+            if (n === 3) return 'Large';
+            if (n === 6) return 'X-Large';
+            if (n === 9) return 'Full Back';
+            return n + ' slots';
         }
     </script>
 </body>
