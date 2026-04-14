@@ -14,8 +14,8 @@
             --nearbuy-gray: #666;
             --available-bg: #e8f5e9;
             --available-border: #4caf50;
-            --taken-bg: #ffebee;
-            --taken-border: #f44336;
+            --taken-bg: #fce4ec;
+            --taken-border: #e91e63;
             --selected-bg: #fff3e0;
             --selected-border: #ff9800;
         }
@@ -140,10 +140,10 @@
             font-weight: 600;
         }
         
-        /* FRONT OF POSTCARD */
-        .postcard-front {
+        /* POSTCARD CONTAINER - 9x12 landscape */
+        .postcard {
             aspect-ratio: 4/3;
-            max-width: 400px;
+            max-width: 500px;
             margin: 0 auto;
             border: 3px solid var(--nearbuy-charcoal);
             border-radius: 8px;
@@ -152,182 +152,174 @@
             flex-direction: column;
         }
         
-        .front-header {
-            background: var(--nearbuy-red);
-            color: white;
-            padding: 25px;
-            text-align: center;
+        /* GRID LAYOUT - 3 columns */
+        .postcard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: 1fr auto 1fr;
             flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .front-header h3 {
-            font-size: 24px;
-            font-weight: 900;
-            margin-bottom: 10px;
-        }
-        
-        .front-header p {
-            font-size: 14px;
-            opacity: 0.9;
-        }
-        
-        .front-header .sponsor-tag {
-            background: white;
-            color: var(--nearbuy-red);
-            padding: 6px 16px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-            margin-top: 15px;
-            text-transform: uppercase;
-        }
-        
-        .front-ad-space {
-            background: var(--nearbuy-cream);
-            padding: 20px;
-            text-align: center;
-            border-top: 2px dashed #ddd;
-        }
-        
-        .front-ad-space.available {
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .front-ad-space.available:hover {
-            background: var(--available-bg);
-            border: 2px solid var(--available-border);
-            margin: -2px;
-        }
-        
-        .front-ad-space.selected {
-            background: var(--selected-bg);
-            border: 3px solid var(--selected-border);
-            margin: -3px;
-        }
-        
-        .front-ad-space.taken {
-            background: var(--taken-bg);
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
-        
-        .front-ad-space .tier-label {
-            font-weight: 700;
-            font-size: 14px;
-        }
-        
-        .front-ad-space .price-label {
-            font-size: 12px;
-            color: var(--nearbuy-gray);
-            margin-top: 5px;
-        }
-        
-        /* BACK OF POSTCARD */
-        .postcard-back {
-            aspect-ratio: 4/3;
-            max-width: 400px;
-            margin: 0 auto;
-            border: 3px solid var(--nearbuy-charcoal);
-            border-radius: 8px;
-            overflow: hidden;
-            display: grid;
-            grid-template-rows: 1fr auto;
-        }
-        
-        .back-ads {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(5, 1fr);
             gap: 2px;
             background: #ddd;
             padding: 2px;
         }
         
+        /* TOP ROW - Small ads */
         .grid-cell {
             background: var(--nearbuy-cream);
-            border-radius: 2px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            font-size: 9px;
+            padding: 10px;
             text-align: center;
             cursor: pointer;
             transition: all 0.2s;
-            padding: 3px;
+            font-size: 11px;
         }
         
         .grid-cell.available {
             background: var(--available-bg);
-            border: 1px solid var(--available-border);
+            border: 2px solid var(--available-border);
         }
         
         .grid-cell.available:hover {
-            border-width: 2px;
+            border-width: 3px;
             transform: scale(1.02);
             z-index: 1;
         }
         
         .grid-cell.taken {
             background: var(--taken-bg);
-            border: 1px solid var(--taken-border);
+            border: 2px solid var(--taken-border);
             cursor: not-allowed;
-            opacity: 0.6;
+            opacity: 0.7;
         }
         
         .grid-cell.selected {
             background: var(--selected-bg);
-            border: 2px solid var(--selected-border);
+            border: 3px solid var(--selected-border);
             z-index: 1;
         }
         
         .grid-cell .tier-label {
             font-weight: 700;
-            font-size: 8px;
-            line-height: 1.2;
+            font-size: 12px;
+            margin-bottom: 4px;
         }
         
         .grid-cell .price-label {
-            font-size: 7px;
+            font-size: 10px;
             color: var(--nearbuy-gray);
         }
         
-        .grid-cell.large {
-            grid-column: span 2;
+        .grid-cell .meals-label {
+            font-size: 9px;
+            color: var(--nearbuy-red);
+            font-weight: 600;
+            margin-top: 4px;
         }
         
-        .grid-cell.smallfront {
-            grid-column: span 4;
-            background: var(--available-bg);
-            border: 1px solid var(--available-border);
+        /* MIDDLE ROW - Branding */
+        .middle-row {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            background: white;
+            padding: 15px;
+            gap: 10px;
         }
         
-        .mailing-area {
-            background: var(--nearbuy-charcoal);
-            color: white;
-            padding: 15px 20px;
+        .middle-left {
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            font-size: 11px;
+            justify-content: center;
         }
         
-        .mailing-area .left {
-            text-align: left;
-        }
-        
-        .mailing-area .nearbuy-promo {
-            font-weight: 700;
+        .middle-left .logo-text {
+            font-size: 14px;
+            font-weight: 900;
             color: var(--nearbuy-red);
         }
         
-        .mailing-area .indicia {
+        .middle-center {
+            text-align: center;
+            font-size: 9px;
+            color: var(--nearbuy-gray);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .middle-right {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            font-size: 7px;
+            color: var(--nearbuy-gray);
             text-align: right;
-            opacity: 0.7;
+        }
+        
+        /* BOTTOM ROW - Larger ads */
+        .bottom-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+            background: #ddd;
+            padding: 2px;
+            flex: 1;
+        }
+        
+        /* FRONT VIEW */
+        .front-view {
+            display: none;
+        }
+        
+        .front-view.active {
+            display: block;
+        }
+        
+        .back-view {
+            display: none;
+        }
+        
+        .back-view.active {
+            display: block;
+        }
+        
+        .postcard-front {
+            aspect-ratio: 4/3;
+            max-width: 500px;
+            margin: 0 auto;
+            border: 3px solid var(--nearbuy-charcoal);
+            border-radius: 8px;
+            background: var(--nearbuy-red);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .front-view h3 {
+            font-size: 36px;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 10px;
+        }
+        
+        .front-view p {
+            font-size: 18px;
+            color: rgba(255,255,255,0.9);
+        }
+        
+        .front-view .sponsor-tag {
+            background: white;
+            color: var(--nearbuy-red);
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            margin-top: 20px;
         }
         
         /* LEGEND */
@@ -534,7 +526,7 @@
             .builder-sidebar {
                 position: static;
             }
-            .postcard-front, .postcard-back {
+            .postcard, .postcard-front {
                 max-width: 100%;
             }
         }
@@ -543,7 +535,7 @@
 <body>
     <!-- HEADER -->
     <header class="site-header">
-        <a href="#" class="logo">Near<span>Buy</span></a>
+        <a href="#" class="logo">The Local <span>NearBuy</span></a>
         <nav class="nav-links">
             <a href="#">Discover</a>
             <a href="#">For Businesses</a>
@@ -568,130 +560,69 @@
     <div class="builder-content">
         <!-- POSTCARD VISUAL -->
         <div class="postcard-section">
-            <!-- FRONT SIDE -->
-            <div id="front-view">
-                <div class="side-label">FRONT — Business ads only</div>
+            <!-- FRONT VIEW -->
+            <div id="front-view" class="front-view active">
+                <div class="side-label">FRONT</div>
                 
                 <div class="postcard-front">
-                    <div class="front-header">
-                        <h3>The Local NearBuy</h3>
-                        <p>Your Guide to Local Favorites</p>
-                        <div class="sponsor-tag">Sponsored by Local Businesses</div>
-                    </div>
-                    
-                    <div class="front-ads-grid">
-                        <div class="grid-cell available" data-tier="smallfront" data-price="325" data-meals="40" onclick="selectBackAd(this)">
-                            <div>
-                                <div class="tier-label">SMALL FRONT</div>
-                                <div class="price-label">$325 • 40 meals</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="legend">
-                    <div class="legend-item">
-                        <div class="legend-dot available"></div>
-                        <span>Available</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-dot taken"></div>
-                        <span>Taken</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-dot selected"></div>
-                        <span>Selected</span>
-                    </div>
+                    <h3>The Local NearBuy</h3>
+                    <p>Community Offers Inside</p>
+                    <div class="sponsor-tag">Sponsored by Local Businesses</div>
                 </div>
             </div>
             
-            <!-- BACK SIDE -->
-            <div id="back-view" style="display: none;">
-                <div class="side-label">BACK — Multiple ad spaces + mailing</div>
+            <!-- BACK VIEW -->
+            <div id="back-view" class="back-view">
+                <div class="side-label">BACK — Click a spot to select</div>
                 
-                <div class="postcard-back">
-                    <div class="back-ads">
-                        <!-- ROW 1 -->
-                        <div class="grid-cell available" data-tier="small" data-price="250" data-meals="25" onclick="selectBackAd(this)">
-                            <div>
-                                <div class="tier-label">SM</div>
-                                <div class="price-label">$250</div>
-                            </div>
+                <div class="postcard">
+                    <!-- TOP ROW - Small ads -->
+                    <div class="postcard-grid">
+                        <div class="grid-cell available" data-tier="small" data-price="250" data-meals="25" onclick="selectAd(this)">
+                            <div class="tier-label">SMALL</div>
+                            <div class="price-label">$250</div>
+                            <div class="meals-label">25 children fed</div>
                         </div>
-                        <div class="grid-cell available" data-tier="small" data-price="250" data-meals="25" onclick="selectBackAd(this)">
-                            <div>
-                                <div class="tier-label">SM</div>
-                                <div class="price-label">$250</div>
-                            </div>
+                        <div class="grid-cell taken" data-tier="sold">
+                            <div class="tier-label">SOLD</div>
                         </div>
-                        <div class="grid-cell taken">
-                            <div>
-                                <div class="tier-label">SOLD</div>
-                            </div>
-                        </div>
-                        <div class="grid-cell available" data-tier="small" data-price="250" data-meals="25" onclick="selectBackAd(this)">
-                            <div>
-                                <div class="tier-label">SM</div>
-                                <div class="price-label">$250</div>
-                            </div>
-                        </div>
-                        
-                        <!-- ROW 2 -->
-                        <div class="grid-cell available" data-tier="small" data-price="250" data-meals="25" onclick="selectBackAd(this)">
-                            <div><div class="tier-label">SM</div></div>
-                        </div>
-                        <div class="grid-cell available" data-tier="small" data-price="250" data-meals="25" onclick="selectBackAd(this)">
-                            <div><div class="tier-label">SM</div></div>
-                        </div>
-                        <div class="grid-cell available" data-tier="small" data-price="250" data-meals="25" onclick="selectBackAd(this)">
-                            <div><div class="tier-label">SM</div></div>
-                        </div>
-                        <div class="grid-cell available" data-tier="small" data-price="250" data-meals="25" onclick="selectBackAd(this)">
-                            <div><div class="tier-label">SM</div></div>
-                        </div>
-                        
-                        <!-- ROW 3: Medium -->
-                        <div class="grid-cell available large" data-tier="medium" data-price="625" data-meals="75" onclick="selectBackAd(this)">
-                            <div>
-                                <div class="tier-label">MEDIUM</div>
-                                <div class="price-label">$625 • 75 meals</div>
-                            </div>
-                        </div>
-                        
-                        <!-- ROW 4 -->
-                        <div class="grid-cell taken">
-                            <div><div class="tier-label">SOLD</div></div>
-                        </div>
-                        <div class="grid-cell available" data-tier="small" data-price="250" data-meals="25" onclick="selectBackAd(this)">
-                            <div><div class="tier-label">SM</div></div>
-                        </div>
-                        <div class="grid-cell available" data-tier="small" data-price="250" data-meals="25" onclick="selectBackAd(this)">
-                            <div><div class="tier-label">SM</div></div>
-                        </div>
-                        <div class="grid-cell available" data-tier="small" data-price="250" data-meals="25" onclick="selectBackAd(this)">
-                            <div><div class="tier-label">SM</div></div>
-                        </div>
-                        
-                        <!-- ROW 5: Small Front -->
-                        <div class="grid-cell available smallfront" data-tier="smallfront" data-price="325" data-meals="40" onclick="selectBackAd(this)">
-                            <div>
-                                <div class="tier-label">SMALL FRONT</div>
-                                <div class="price-label">$325 • 40 meals</div>
-                            </div>
+                        <div class="grid-cell available" data-tier="small" data-price="250" data-meals="25" onclick="selectAd(this)">
+                            <div class="tier-label">SMALL</div>
+                            <div class="price-label">$250</div>
+                            <div class="meals-label">25 children fed</div>
                         </div>
                     </div>
                     
-                    <!-- MAILING AREA -->
-                    <div class="mailing-area">
-                        <div class="left">
-                            <div style="font-weight:700;margin-bottom:3px;">POSTAL CUSTOMER</div>
-                            <div>Greater Waxhaw, NC</div>
+                    <!-- MIDDLE ROW - Branding -->
+                    <div class="middle-row">
+                        <div class="middle-left">
+                            <div class="logo-text">The Local NearBuy</div>
                         </div>
-                        <div class="nearbuy-promo">NearBuy 🧡</div>
-                        <div class="indicia">
-                            <div>STD</div>
-                            <div>US Postage</div>
-                            <div>Paid</div>
+                        <div class="middle-center">
+                            <strong>Scan - Redeem - Provide A Meal</strong><br>
+                            The more offers you claim, the more you help provide meals!
+                        </div>
+                        <div class="middle-right">
+                            LOCAL POSTAL CUSTOMER<br>
+                            PRSRT STD U.S. POSTAGE<br>
+                            PAID EDDM RETAIL
+                        </div>
+                    </div>
+                    
+                    <!-- BOTTOM ROW - Medium/Large ads -->
+                    <div class="bottom-row">
+                        <div class="grid-cell available" data-tier="medium" data-price="625" data-meals="75" onclick="selectAd(this)">
+                            <div class="tier-label">MEDIUM</div>
+                            <div class="price-label">$625</div>
+                            <div class="meals-label">75 children fed</div>
+                        </div>
+                        <div class="grid-cell taken" data-tier="sold">
+                            <div class="tier-label">SOLD</div>
+                        </div>
+                        <div class="grid-cell available" data-tier="medium" data-price="625" data-meals="75" onclick="selectAd(this)">
+                            <div class="tier-label">MEDIUM</div>
+                            <div class="price-label">$625</div>
+                            <div class="meals-label">75 children fed</div>
                         </div>
                     </div>
                 </div>
@@ -723,36 +654,18 @@
                     <div class="tier-radio"></div>
                     <div class="tier-info">
                         <h4>Small</h4>
-                        <p>3.8" × 2.5" • Back of postcard</p>
+                        <p>Top row • 25 children fed</p>
                     </div>
                     <div class="tier-price">$250</div>
-                </div>
-                
-                <div class="tier-option" data-tier="smallfront" data-price="325" data-meals="40">
-                    <div class="tier-radio"></div>
-                    <div class="tier-info">
-                        <h4>Small Front</h4>
-                        <p>3.8" × 5" • Front of postcard</p>
-                    </div>
-                    <div class="tier-price">$325</div>
                 </div>
                 
                 <div class="tier-option" data-tier="medium" data-price="625" data-meals="75">
                     <div class="tier-radio"></div>
                     <div class="tier-info">
                         <h4>Medium</h4>
-                        <p>7.6" × 5" • Half page</p>
+                        <p>Bottom row • 75 children fed</p>
                     </div>
                     <div class="tier-price">$625</div>
-                </div>
-                
-                <div class="tier-option" data-tier="large" data-price="800" data-meals="110">
-                    <div class="tier-radio"></div>
-                    <div class="tier-info">
-                        <h4>Large</h4>
-                        <p>7.6" × 7.5" • Full back</p>
-                    </div>
-                    <div class="tier-price">$800</div>
                 </div>
             </div>
             
@@ -762,7 +675,7 @@
                 
                 <div class="summary-row">
                     <span class="summary-label">Side</span>
-                    <span class="summary-value" id="summary-side">—</span>
+                    <span class="summary-value" id="summary-side">Back</span>
                 </div>
                 <div class="summary-row">
                     <span class="summary-label">Ad Size</span>
@@ -783,7 +696,7 @@
                 </div>
                 
                 <div class="meals-included" id="meals-badge" style="display: none;">
-                    🍽️ <span id="meals-count">0</span> meals for kids included
+                    🍽️ <span id="meals-count">0</span> children fed
                 </div>
                 
                 <button class="submit-btn" id="submit-btn" disabled>Continue to Checkout</button>
@@ -792,7 +705,6 @@
     </div>
     
     <script>
-        let currentSide = 'front';
         let selectedAd = null;
         let selectedTier = null;
         let selectedPrice = 0;
@@ -800,31 +712,18 @@
         
         // Toggle front/back
         function showSide(side) {
-            document.getElementById('front-view').style.display = side === 'front' ? 'block' : 'none';
-            document.getElementById('back-view').style.display = side === 'back' ? 'block' : 'none';
+            document.querySelectorAll('.front-view, .back-view').forEach(v => v.classList.remove('active'));
+            if (side === 'front') {
+                document.getElementById('front-view').classList.add('active');
+            } else {
+                document.getElementById('back-view').classList.add('active');
+            }
             document.querySelectorAll('.side-toggle button').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
-            currentSide = side;
         }
         
-        // Select front ad
-        function selectFrontAd(el) {
-            if (el.classList.contains('taken')) return;
-            
-            document.querySelectorAll('.front-ad-space').forEach(c => c.classList.remove('selected'));
-            el.classList.add('selected');
-            
-            selectedAd = el;
-            selectedTier = el.dataset.tier;
-            selectedPrice = parseInt(el.dataset.price);
-            selectedMeals = parseInt(el.dataset.meals);
-            
-            updateTierOptions();
-            updateSummary();
-        }
-        
-        // Select back ad
-        function selectBackAd(el) {
+        // Select ad
+        function selectAd(el) {
             if (el.classList.contains('taken')) return;
             
             document.querySelectorAll('.grid-cell').forEach(c => c.classList.remove('selected'));
@@ -859,24 +758,14 @@
                 document.querySelectorAll('.tier-option').forEach(opt => opt.classList.remove('selected'));
                 option.classList.add('selected');
                 
-                // Find and select first available of this tier on current side
-                if (currentSide === 'front' && selectedTier === 'header') {
-                    const frontEl = document.querySelector('.front-ad-space.available');
-                    if (frontEl) {
-                        document.querySelectorAll('.front-ad-space').forEach(c => c.classList.remove('selected'));
-                        frontEl.classList.add('selected');
-                        selectedAd = frontEl;
+                // Find first available of this tier
+                document.querySelectorAll('.grid-cell.available').forEach(cell => {
+                    if (cell.dataset.tier === selectedTier) {
+                        document.querySelectorAll('.grid-cell').forEach(c => c.classList.remove('selected'));
+                        cell.classList.add('selected');
+                        selectedAd = cell;
                     }
-                } else {
-                    const cells = document.querySelectorAll('.grid-cell.available');
-                    cells.forEach(cell => {
-                        if (cell.dataset.tier === selectedTier) {
-                            document.querySelectorAll('.grid-cell').forEach(c => c.classList.remove('selected'));
-                            cell.classList.add('selected');
-                            selectedAd = cell;
-                        }
-                    });
-                }
+                });
                 
                 updateSummary();
             });
@@ -885,19 +774,11 @@
         function updateSummary() {
             if (!selectedTier) return;
             
-            const sideNames = {
-                front: 'Front',
-                back: 'Back'
-            };
-            
             const tierNames = {
-                small: 'Small (3.8" × 2.5")',
-                smallfront: 'Small Front (3.8" × 5")',
-                medium: 'Medium (7.6" × 5")',
-                large: 'Large (7.6" × 7.5")'
+                small: 'Small (top row)',
+                medium: 'Medium (bottom row)'
             };
             
-            document.getElementById('summary-side').textContent = sideNames[currentSide];
             document.getElementById('summary-size').textContent = tierNames[selectedTier];
             document.getElementById('summary-total').textContent = '$' + selectedPrice;
             
