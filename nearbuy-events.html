@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events — The Local NearBuy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --nearbuy-red: #d32f2f;
+            --nearbuy-red-dark: #b12727;
+            --nearbuy-cream: #faf8f5;
+            --nearbuy-charcoal: #1a1a1a;
+            --nearbuy-gray: #666;
+            --success: #4caf50;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--nearbuy-cream);
+            color: var(--nearbuy-charcoal);
+        }
+        
+        /* HEADER */
+        .site-header {
+            background: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--nearbuy-red);
+            text-decoration: none;
+        }
+        
+        .logo span { color: var(--nearbuy-charcoal); }
+        
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--nearbuy-charcoal);
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        /* HERO */
+        .page-hero {
+            background: linear-gradient(135deg, var(--nearbuy-charcoal) 0%, #333 100%);
+            color: white;
+            padding: 80px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .page-hero::before {
+            content: '🍽️';
+            position: absolute;
+            font-size: 300px;
+            opacity: 0.1;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .page-hero h1 {
+            font-size: 56px;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+        
+        .page-hero h1 span {
+            color: var(--nearbuy-red);
+        }
+        
+        .page-hero p {
+            font-size: 20px;
+            opacity: 0.8;
+            max-width: 550px;
+            margin: 0 auto 30px;
+        }
+        
+        /* COMING SOON */
+        .coming-soon {
+            background: white;
+            padding: 80px 40px;
+            text-align: center;
+        }
+        
+        .coming-soon-icon {
+            font-size: 80px;
+            margin-bottom: 25px;
+        }
+        
+        .coming-soon h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .coming-soon p {
+            font-size: 18px;
+            color: var(--nearbuy-gray);
+            max-width: 500px;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+        }
+        
+        .email-capture {
+            max-width: 400px;
+            margin: 0 auto;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .email-capture input {
+            flex: 1;
+            padding: 14px 16px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        
+        .email-capture input:focus {
+            outline: none;
+            border-color: var(--nearbuy-red);
+        }
+        
+        .email-capture button {
+            padding: 14px 24px;
+            background: var(--nearbuy-red);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        
+        /* MISSION SECTION */
+        .mission-section {
+            background: white;
+            padding: 80px 40px;
+        }
+        
+        .mission-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .mission-section h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+        
+        .mission-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .mission-card {
+            background: var(--nearbuy-cream);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .mission-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .mission-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .mission-card p {
+            font-size: 14px;
+            color: var(--nearbuy-gray);
+            line-height: 1.5;
+        }
+        
+        /* PAST EVENTS */
+        .past-events {
+            padding: 80px 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .past-events h2 {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 40px;
+        }
+        
+        .event-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            display: flex;
+            gap: 30px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        
+        .event-date {
+            background: var(--nearbuy-cream);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            min-width: 100px;
+            height: fit-content;
+        }
+        
+        .event-date .month {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--nearbuy-gray);
+        }
+        
+        .event-date .day {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--nearbuy-red);
+        }
+        
+        .event-details h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .event-details p {
+            color: var(--nearbuy-gray);
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .event-stats {
+            display: flex;
+            gap: 25px;
+        }
+        
+        .event-stat {
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .event-stat span {
+            color: var(--nearbuy-red);
+            font-weight: 900;
+        }
+        
+        /* SPONSOR CTA */
+        .sponsor-cta {
+            background: var(--nearbuy-charcoal);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+        
+        .sponsor-cta h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .sponsor-cta p {
+            font-size: 18px;
+            opacity: 0.8;
+            margin-bottom: 30px;
+        }
+        
+        .sponsor-btn {
+            display: inline-block;
+            background: var(--nearbuy-red);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 16px;
+            text-decoration: none;
+        }
+        
+        /* FOOTER */
+        .site-footer {
+            background: var(--nearbuy-charcoal);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.7;
+            font-size: 14px;
+        }
+        
+        .footer-meals {
+            font-size: 14px;
+            opacity: 0.5;
+        }
+        
+        @media (max-width: 768px) {
+            .mission-cards {
+                grid-template-columns: 1fr;
+            }
+            .event-card {
+                flex-direction: column;
+            }
+            .email-capture {
+                flex-direction: column;
+            }
+            .page-hero h1 {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="site-header">
+        <a href="#" class="logo">Near<span>Buy</span></a>
+        <nav class="nav-links">
+            <a href="#">Discover</a>
+            <a href="#">For Businesses</a>
+            <a href="#">Our Mission</a>
+            <a href="#">Subscribe</a>
+        </nav>
+    </header>
+    
+    <!-- HERO -->
+    <section class="page-hero">
+        <div class="hero-content">
+            <h1>Community <span>Events</span></h1>
+            <p>Join us as we pack meals, bring people together, and make a real difference in our community.</p>
+        </div>
+    </section>
+    
+    <!-- COMING SOON -->
+    <section class="coming-soon">
+        <div class="coming-soon-icon">📅</div>
+        <h2>Events Coming Soon</h2>
+        <p>We're building toward our first meal-packing event. These will be quarterly gatherings where local businesses, families, and community members come together to pack meals for children in need.</p>
+        <p>Be the first to know when we announce our launch date:</p>
+        
+        <form class="email-capture">
+            <input type="email" placeholder="Your email address">
+            <button type="submit">Notify Me</button>
+        </form>
+    </section>
+    
+    <!-- MISSION -->
+    <section class="mission-section">
+        <div class="mission-content">
+            <h2>What These Events Are</h2>
+            
+            <div class="mission-cards">
+                <div class="mission-card">
+                    <div class="mission-icon">🍽️</div>
+                    <h3>Pack Meals</h3>
+                    <p>Volunteers gather to package nutritious meals. It's hands-on, family-friendly, and impactful.</p>
+                </div>
+                <div class="mission-card">
+                    <div class="mission-icon">🤝</div>
+                    <h3>Build Community</h3>
+                    <p>Local business owners, families, and neighbors all work side by side. Relationships form.</p>
+                </div>
+                <div class="mission-card">
+                    <div class="mission-icon">💚</div>
+                    <h3>Make an Impact</h3>
+                    <p>Every meal packed goes to a child who needs it. You see the result of your effort immediately.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- PAST EVENTS (Placeholder for future) -->
+    <section class="past-events">
+        <h2>When Events Happen, We'll Share Here</h2>
+        
+        <div class="event-card">
+            <div class="event-date">
+                <div class="month">Jul</div>
+                <div class="day">15</div>
+            </div>
+            <div class="event-details">
+                <h3>Summer Meal-Packing Event</h3>
+                <p>Our first community meal-packing event. Stay tuned for details on time, location, and how to register.</p>
+                <div class="event-stats">
+                    <div class="event-stat">Target: <span>10,000 meals</span></div>
+                    <div class="event-stat">Sponsors: <span>5</span></div>
+                    <div class="event-stat">Volunteers: <span>TBD</span></div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- SPONSOR CTA -->
+    <section class="sponsor-cta">
+        <h2>Want to Sponsor an Event?</h2>
+        <p>When events launch, businesses can sponsor to have their logo on event t-shirts, provide refreshments, or host the venue.</p>
+        <a href="#" class="sponsor-btn">Learn About Sponsorship</a>
+    </section>
+    
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="#">About</a>
+            <a href="#">For Businesses</a>
+            <a href="#">Privacy</a>
+            <a href="#">Contact</a>
+        </div>
+        <p class="footer-meals">© 2026 The Local NearBuy. Every redemption feeds a child. 🧡</p>
+    </footer>
+</body>
+</html>

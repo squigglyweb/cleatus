@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Coverage Area — The Local NearBuy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --nearbuy-red: #d32f2f;
+            --nearbuy-red-dark: #b12727;
+            --nearbuy-cream: #faf8f5;
+            --nearbuy-charcoal: #1a1a1a;
+            --nearbuy-gray: #666;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--nearbuy-cream);
+            color: var(--nearbuy-charcoal);
+        }
+        
+        /* HEADER */
+        .site-header {
+            background: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--nearbuy-red);
+            text-decoration: none;
+        }
+        
+        .logo span { color: var(--nearbuy-charcoal); }
+        
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--nearbuy-charcoal);
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        /* HERO */
+        .page-hero {
+            background: var(--nearbuy-charcoal);
+            color: white;
+            padding: 80px 40px;
+            text-align: center;
+        }
+        
+        .page-hero h1 {
+            font-size: 56px;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+        
+        .page-hero h1 span {
+            color: var(--nearbuy-red);
+        }
+        
+        .page-hero p {
+            font-size: 20px;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* MAP SECTION */
+        .map-section {
+            background: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+        
+        .map-placeholder {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            height: 400px;
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: var(--nearbuy-charcoal);
+            font-size: 18px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .map-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 200px;
+            height: 200px;
+            border: 3px dashed var(--nearbuy-red);
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+        
+        .map-icon {
+            font-size: 60px;
+            margin-bottom: 15px;
+        }
+        
+        .map-note {
+            font-size: 14px;
+            color: var(--nearbuy-gray);
+            margin-top: 10px;
+        }
+        
+        /* STATS */
+        .stats-section {
+            background: linear-gradient(135deg, var(--nearbuy-red) 0%, #e53935 100%);
+            color: white;
+            padding: 60px 40px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .stat-item .number {
+            font-size: 56px;
+            font-weight: 900;
+            line-height: 1;
+        }
+        
+        .stat-item .label {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+        
+        /* TOWNS LIST */
+        .towns-section {
+            padding: 80px 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .towns-section h2 {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 40px;
+        }
+        
+        .towns-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .town-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            transition: transform 0.2s;
+        }
+        
+        .town-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .town-icon {
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+        
+        .town-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .town-card p {
+            font-size: 13px;
+            color: var(--nearbuy-gray);
+        }
+        
+        .town-card.primary {
+            border: 2px solid var(--nearbuy-red);
+            background: rgba(211,47,47,0.05);
+        }
+        
+        .town-card.primary h3 {
+            color: var(--nearbuy-red);
+        }
+        
+        /* STRATEGY */
+        .strategy-section {
+            background: white;
+            padding: 80px 40px;
+        }
+        
+        .strategy-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .strategy-section h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+        
+        .strategy-section p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--nearbuy-gray);
+            margin-bottom: 20px;
+        }
+        
+        .strategy-steps {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .strategy-step {
+            background: var(--nearbuy-cream);
+            padding: 20px 30px;
+            border-radius: 12px;
+            text-align: center;
+            flex: 1;
+            min-width: 200px;
+            max-width: 250px;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--nearbuy-red);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            margin: 0 auto 15px;
+        }
+        
+        .strategy-step h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .strategy-step p {
+            font-size: 14px;
+            margin: 0;
+        }
+        
+        /* CTA */
+        .cta-section {
+            background: var(--nearbuy-charcoal);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .cta-section p {
+            font-size: 18px;
+            opacity: 0.8;
+            margin-bottom: 30px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--nearbuy-red);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 16px;
+            text-decoration: none;
+        }
+        
+        /* FOOTER */
+        .site-footer {
+            background: var(--nearbuy-charcoal);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.7;
+            font-size: 14px;
+        }
+        
+        .footer-meals {
+            font-size: 14px;
+            opacity: 0.5;
+        }
+        
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .towns-grid {
+                grid-template-columns: 1fr;
+            }
+            .strategy-steps {
+                flex-direction: column;
+                align-items: center;
+            }
+            .strategy-step {
+                max-width: 100%;
+            }
+            .page-hero h1 {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="site-header">
+        <a href="#" class="logo">Near<span>Buy</span></a>
+        <nav class="nav-links">
+            <a href="#">Discover</a>
+            <a href="#">For Businesses</a>
+            <a href="#">Our Mission</a>
+            <a href="#">Subscribe</a>
+        </nav>
+    </header>
+    
+    <!-- HERO -->
+    <section class="page-hero">
+        <h1>Greater <span>Waxhaw</span></h1>
+        <p>We start local. We go deep. Here's where we make an impact.</p>
+    </section>
+    
+    <!-- MAP -->
+    <section class="map-section">
+        <div class="map-placeholder">
+            <div class="map-icon">🗺️</div>
+            <div>Interactive coverage map</div>
+            <div class="map-note">Coming soon</div>
+        </div>
+    </section>
+    
+    <!-- STATS -->
+    <section class="stats-section">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="number">5,000+</div>
+                <div class="label">Households Reached<br>per Campaign</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">20K+</div>
+                <div class="label">Total Households<br>in Service Area</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">9</div>
+                <div class="label">Towns & Areas<br>Covered</div>
+            </div>
+            <div class="stat-item">
+                <div class="number">20</div>
+                <div class="label">Minute Drive<br>Radius</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- TOWNS -->
+    <section class="towns-section">
+        <h2>Communities We Cover</h2>
+        <div class="towns-grid">
+            <div class="town-card primary">
+                <div class="town-icon">🏠</div>
+                <h3>Waxhaw</h3>
+                <p>Our home base</p>
+            </div>
+            <div class="town-card">
+                <div class="town-icon">🏘️</div>
+                <h3>Marvin</h3>
+                <p>Just minutes away</p>
+            </div>
+            <div class="town-card">
+                <div class="town-icon">🏡</div>
+                <h3>Weddington</h3>
+                <p>Growing community</p>
+            </div>
+            <div class="town-card">
+                <div class="town-icon">🏬</div>
+                <h3>Monroe</h3>
+                <p>Downtown district</p>
+            </div>
+            <div class="town-card">
+                <div class="town-icon">🏗️</div>
+                <h3>Indian Trail</h3>
+                <p>Family-oriented</p>
+            </div>
+            <div class="town-card">
+                <div class="town-icon">🌳</div>
+                <h3>Stallings</h3>
+                <p>Quiet neighborhoods</p>
+            </div>
+            <div class="town-card">
+                <div class="town-icon">🌿</div>
+                <h3>Mint Hill</h3>
+                <p>Rural charm</p>
+            </div>
+            <div class="town-card">
+                <div class="town-icon">🏢</div>
+                <h3>Ballantyne</h3>
+                <p>Business district</p>
+            </div>
+            <div class="town-card">
+                <div class="town-icon">🏙️</div>
+                <h3>South Charlotte</h3>
+                <p>City outskirts</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- STRATEGY -->
+    <section class="strategy-section">
+        <div class="strategy-content">
+            <h2>Our Approach</h2>
+            <p>You can't be everywhere. So we start with a specific community and own it.</p>
+            <p>Just like a church plants in a city and grows from there, we believe in going deep before going wide. Greater Waxhaw is our Jerusalem. Everything starts here.</p>
+            
+            <div class="strategy-steps">
+                <div class="strategy-step">
+                    <div class="step-number">1</div>
+                    <h4>Start Local</h4>
+                    <p>Dominate Waxhaw first</p>
+                </div>
+                <div class="strategy-step">
+                    <div class="step-number">2</div>
+                    <h4>Expand Outward</h4>
+                    <p>Move into surrounding areas</p>
+                </div>
+                <div class="strategy-step">
+                    <div class="step-number">3</div>
+                    <h4>Scale Up</h4>
+                    <p>Reach Union County & beyond</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- CTA -->
+    <section class="cta-section">
+        <h2>Want to Reach These Communities?</h2>
+        <p>Every ad reaches 5,000+ local households. Let's talk.</p>
+        <a href="#" class="cta-button">Get Started</a>
+    </section>
+    
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="#">About</a>
+            <a href="#">For Businesses</a>
+            <a href="#">Privacy</a>
+            <a href="#">Contact</a>
+        </div>
+        <p class="footer-meals">© 2026 The Local NearBuy. Every redemption feeds a child. 🧡</p>
+    </footer>
+</body>
+</html>
