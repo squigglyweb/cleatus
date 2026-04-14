@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact — The Local NearBuy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --nearbuy-red: #d32f2f;
+            --nearbuy-red-dark: #b12727;
+            --nearbuy-cream: #faf8f5;
+            --nearbuy-charcoal: #1a1a1a;
+            --nearbuy-gray: #666;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--nearbuy-cream);
+            color: var(--nearbuy-charcoal);
+        }
+        
+        /* HEADER */
+        .site-header {
+            background: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--nearbuy-red);
+            text-decoration: none;
+        }
+        
+        .logo span { color: var(--nearbuy-charcoal); }
+        
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--nearbuy-charcoal);
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        /* HERO */
+        .page-hero {
+            background: var(--nearbuy-charcoal);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+        }
+        
+        .page-hero h1 {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 15px;
+        }
+        
+        .page-hero p {
+            font-size: 18px;
+            opacity: 0.8;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+        
+        /* CONTENT */
+        .contact-content {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+        
+        /* FORM */
+        .contact-form {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        
+        .contact-form h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #eee;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: border-color 0.2s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--nearbuy-red);
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background: var(--nearbuy-red);
+            color: white;
+            padding: 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .submit-btn:hover {
+            background: var(--nearbuy-red-dark);
+        }
+        
+        /* INFO */
+        .contact-info h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 25px;
+        }
+        
+        .info-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--nearbuy-red);
+            color: white;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        
+        .info-details h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .info-details p {
+            font-size: 15px;
+            color: var(--nearbuy-gray);
+            line-height: 1.5;
+        }
+        
+        .info-details a {
+            color: var(--nearbuy-red);
+            text-decoration: none;
+        }
+        
+        /* RESPONSE TYPES */
+        .response-types {
+            margin-top: 40px;
+        }
+        
+        .response-types h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .response-pill {
+            display: inline-block;
+            padding: 10px 20px;
+            background: var(--nearbuy-cream);
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            margin: 0 8px 10px 0;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .response-pill:hover, .response-pill.active {
+            background: var(--nearbuy-red);
+            color: white;
+        }
+        
+        /* MAP PLACEHOLDER */
+        .map-section {
+            background: white;
+            padding: 20px;
+            margin-top: 40px;
+            border-radius: 16px;
+        }
+        
+        .map-placeholder {
+            background: linear-gradient(135deg, #ddd 0%, #bbb 100%);
+            height: 250px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--nearbuy-gray);
+            font-size: 16px;
+        }
+        
+        /* FOOTER */
+        .site-footer {
+            background: var(--nearbuy-charcoal);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.7;
+            font-size: 14px;
+        }
+        
+        .footer-meals {
+            font-size: 14px;
+            opacity: 0.5;
+        }
+        
+        @media (max-width: 768px) {
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+            .page-hero h1 {
+                font-size: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="site-header">
+        <a href="#" class="logo">Near<span>Buy</span></a>
+        <nav class="nav-links">
+            <a href="#">Discover</a>
+            <a href="#">For Businesses</a>
+            <a href="#">Our Mission</a>
+            <a href="#">Subscribe</a>
+        </nav>
+    </header>
+    
+    <!-- HERO -->
+    <section class="page-hero">
+        <h1>Get In Touch</h1>
+        <p>Questions? Want to partner up? Just want to say hi? We're here.</p>
+    </section>
+    
+    <!-- CONTENT -->
+    <div class="contact-content">
+        <!-- FORM -->
+        <div class="contact-form">
+            <h2>Send Us a Message</h2>
+            
+            <form>
+                <div class="form-group">
+                    <label>I'm reaching out about...</label>
+                    <div class="response-types">
+                        <span class="response-pill">General Question</span>
+                        <span class="response-pill">Advertise With You</span>
+                        <span class="response-pill">Feature My Business</span>
+                        <span class="response-pill">Partnership</span>
+                        <span class="response-pill">Something Else</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Your Name *</label>
+                    <input type="text" placeholder="Your name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Email Address *</label>
+                    <input type="email" placeholder="your@email.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Business Name (if applicable)</label>
+                    <input type="text" placeholder="Your business name">
+                </div>
+                
+                <div class="form-group">
+                    <label>Message *</label>
+                    <textarea placeholder="Tell us what's on your mind..." required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+        
+        <!-- INFO -->
+        <div class="contact-info">
+            <h2>Other Ways to Reach Us</h2>
+            
+            <div class="info-item">
+                <div class="info-icon">📧</div>
+                <div class="info-details">
+                    <h3>Email</h3>
+                    <p><a href="mailto:hello@thelocalnearbuy.com">hello@thelocalnearbuy.com</a></p>
+                </div>
+            </div>
+            
+            <div class="info-item">
+                <div class="info-icon">📱</div>
+                <div class="info-details">
+                    <h3>Phone</h3>
+                    <p><a href="tel:+17045550123">(704) 555-0123</a></p>
+                    <p>Mon-Fri, 9am-5pm</p>
+                </div>
+            </div>
+            
+            <div class="info-item">
+                <div class="info-icon">📍</div>
+                <div class="info-details">
+                    <h3>Location</h3>
+                    <p>Greater Waxhaw Area</p>
+                    <p>North Carolina</p>
+                </div>
+            </div>
+            
+            <div class="info-item">
+                <div class="info-icon">💬</div>
+                <div class="info-details">
+                    <h3>Social</h3>
+                    <p>@TheLocalNearBuy</p>
+                    <p>Follow us on Instagram & Facebook</p>
+                </div>
+            </div>
+            
+            <div class="map-section">
+                <h3 style="margin-bottom: 15px; font-size: 16px;">📍 Our Service Area</h3>
+                <div class="map-placeholder">
+                    Map of Greater Waxhaw Area
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="#">About</a>
+            <a href="#">For Businesses</a>
+            <a href="#">Privacy</a>
+            <a href="#">Contact</a>
+        </div>
+        <p class="footer-meals">© 2026 The Local NearBuy. Every redemption feeds a child. 🧡</p>
+    </footer>
+</body>
+</html>

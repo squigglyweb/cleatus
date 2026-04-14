@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subscribe — The Local NearBuy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --nearbuy-red: #d32f2f;
+            --nearbuy-red-dark: #b12727;
+            --nearbuy-cream: #faf8f5;
+            --nearbuy-charcoal: #1a1a1a;
+            --nearbuy-gray: #666;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--nearbuy-cream);
+            color: var(--nearbuy-charcoal);
+        }
+        
+        /* HEADER */
+        .site-header {
+            background: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--nearbuy-red);
+            text-decoration: none;
+        }
+        
+        .logo span { color: var(--nearbuy-charcoal); }
+        
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--nearbuy-charcoal);
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        /* HERO */
+        .subscribe-hero {
+            background: linear-gradient(135deg, var(--nearbuy-red) 0%, #e53935 100%);
+            color: white;
+            padding: 80px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .subscribe-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="30" fill="none" stroke="white" stroke-width="0.5" opacity="0.1"/></svg>');
+            background-size: 150px;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            background: white;
+            color: var(--nearbuy-red);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+        
+        .subscribe-hero h1 {
+            font-size: 56px;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+        
+        .subscribe-hero p {
+            font-size: 20px;
+            opacity: 0.9;
+            max-width: 550px;
+            margin: 0 auto 30px;
+        }
+        
+        /* EMAIL SIGNUP */
+        .signup-section {
+            max-width: 600px;
+            margin: -40px auto 40px;
+            position: relative;
+            z-index: 10;
+            padding: 0 20px;
+        }
+        
+        .signup-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+        
+        .signup-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .signup-form input[type="email"] {
+            padding: 18px 20px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-size: 18px;
+            transition: border-color 0.2s;
+        }
+        
+        .signup-form input[type="email"]:focus {
+            outline: none;
+            border-color: var(--nearbuy-red);
+        }
+        
+        .signup-form button {
+            padding: 18px;
+            background: var(--nearbuy-red);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .signup-form button:hover {
+            background: var(--nearbuy-red-dark);
+        }
+        
+        .privacy-note {
+            font-size: 13px;
+            color: var(--nearbuy-gray);
+            margin-top: 15px;
+            text-align: center;
+        }
+        
+        .privacy-note a {
+            color: var(--nearbuy-red);
+            text-decoration: none;
+        }
+        
+        /* WHAT YOU GET */
+        .benefits-section {
+            padding: 40px 40px 60px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .benefits-section h2 {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 40px;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .benefit-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        
+        .benefit-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .benefit-card h3 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .benefit-card p {
+            font-size: 14px;
+            color: var(--nearbuy-gray);
+            line-height: 1.5;
+        }
+        
+        /* PREVIEW */
+        .preview-section {
+            background: white;
+            padding: 60px 40px;
+        }
+        
+        .preview-section h2 {
+            text-align: center;
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+        
+        .preview-card {
+            max-width: 500px;
+            margin: 0 auto;
+            border: 1px solid #eee;
+            border-radius: 16px;
+            overflow: hidden;
+        }
+        
+        .preview-header {
+            background: var(--nearbuy-charcoal);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .preview-header .logo {
+            color: white;
+            font-size: 20px;
+        }
+        
+        .preview-header .logo span {
+            color: var(--nearbuy-red);
+        }
+        
+        .preview-body {
+            padding: 25px;
+            background: #fafafa;
+        }
+        
+        .preview-tag {
+            display: inline-block;
+            background: var(--nearbuy-red);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+        
+        .preview-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .preview-excerpt {
+            font-size: 15px;
+            color: var(--nearbuy-gray);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .preview-cta {
+            display: inline-block;
+            background: var(--nearbuy-red);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-weight: 600;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        /* SUBSCRIBER COUNT */
+        .subscriber-count {
+            text-align: center;
+            padding: 40px;
+            background: var(--nearbuy-cream);
+        }
+        
+        .subscriber-count .number {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--nearbuy-red);
+        }
+        
+        .subscriber-count .label {
+            font-size: 16px;
+            color: var(--nearbuy-gray);
+        }
+        
+        /* FOOTER */
+        .site-footer {
+            background: var(--nearbuy-charcoal);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.7;
+            font-size: 14px;
+        }
+        
+        .footer-meals {
+            font-size: 14px;
+            opacity: 0.5;
+        }
+        
+        @media (max-width: 768px) {
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+            .subscribe-hero h1 {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="site-header">
+        <a href="#" class="logo">Near<span>Buy</span></a>
+        <nav class="nav-links">
+            <a href="#">Discover</a>
+            <a href="#">For Businesses</a>
+            <a href="#">Our Mission</a>
+            <a href="#">Subscribe</a>
+        </nav>
+    </header>
+    
+    <!-- HERO -->
+    <section class="subscribe-hero">
+        <div class="hero-content">
+            <div class="hero-badge">📬 Weekly Newsletter</div>
+            <h1>Never Miss a Great Spot</h1>
+            <p>Get weekly discoveries, local deals, and behind-the-scenes stories delivered to your inbox.</p>
+        </div>
+    </section>
+    
+    <!-- SIGNUP FORM -->
+    <div class="signup-section">
+        <div class="signup-card">
+            <form class="signup-form">
+                <input type="email" placeholder="Your email address" required>
+                <button type="submit">Subscribe</button>
+            </form>
+            <p class="privacy-note">We respect your inbox. Unsubscribe anytime. <a href="#">Privacy Policy</a></p>
+        </div>
+    </div>
+    
+    <!-- SUBSCRIBER COUNT -->
+    <div class="subscriber-count">
+        <div class="number">2,847</div>
+        <div class="label">local residents already subscribed</div>
+    </div>
+    
+    <!-- BENEFITS -->
+    <section class="benefits-section">
+        <h2>What You'll Get</h2>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <div class="benefit-icon">☕</div>
+                <h3>Weekly Spotlights</h3>
+                <p>Each week, we feature a new local business with our honest take and photos.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🎁</div>
+                <h3>Exclusive Offers</h3>
+                <p>Subscriber-only deals you won't find anywhere else. Save at local spots.</p>
+            </div>
+            <div class="benefit-card">
+                <div class="benefit-icon">🍽️</div>
+                <h3>Insider Picks</h3>
+                <p>Hidden gems, date night ideas, and what the locals actually love.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- PREVIEW -->
+    <section class="preview-section">
+        <h2>What a Typical Newsletter Looks Like</h2>
+        <div class="preview-card">
+            <div class="preview-header">
+                <div class="logo">Near<span>Buy</span></div>
+            </div>
+            <div class="preview-body">
+                <span class="preview-tag">This Week</span>
+                <h3 class="preview-title">☕ Coffee Corner: Bean & Brew</h3>
+                <p class="preview-excerpt">This Marvin hidden gem is serving up some of the best cold brew in Greater Waxhaw. Here's our full review, plus their exclusive subscriber offer...</p>
+                <a href="#" class="preview-cta">Read More →</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="#">About</a>
+            <a href="#">For Businesses</a>
+            <a href="#">Privacy</a>
+            <a href="#">Contact</a>
+        </div>
+        <p class="footer-meals">© 2026 The Local NearBuy. Every redemption feeds a child. 🧡</p>
+    </footer>
+</body>
+</html>
