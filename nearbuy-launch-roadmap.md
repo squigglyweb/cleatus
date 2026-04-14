@@ -206,10 +206,18 @@ The following HTML mockups are ready to view on GitHub:
 
 ## What's Next
 
-- Ad Builder Interface (click-to-select grid)
-- For Businesses landing page
-- Business Portal (advertiser login)
-- Newsletter sign-up flow
+- Ad Builder Interface (click-to-select grid) — pending
+- For Businesses landing page — DONE
+- Business Portal (advertiser login) — pending
+- Newsletter sign-up flow — pending
+
+### Pages Created So Far
+1. **nearbuy-homepage.html** — Main homepage
+2. **nearbuy-directory.html** — Browse directory
+3. **nearbuy-business-listing.html** — Individual business page
+4. **nearbuy-about.html** — About us
+5. **nearbuy-mission.html** — Meals4Good mission
+6. **nearbuy-for-businesses.html** — EDDM advertising page
 
 ---
 
