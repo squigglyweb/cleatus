@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us — The Local NearBuy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --nearbuy-red: #d32f2f;
+            --nearbuy-red-dark: #b12727;
+            --nearbuy-cream: #faf8f5;
+            --nearbuy-charcoal: #1a1a1a;
+            --nearbuy-gray: #666;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--nearbuy-cream);
+            color: var(--nearbuy-charcoal);
+        }
+        
+        /* HEADER */
+        .site-header {
+            background: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--nearbuy-red);
+            text-decoration: none;
+        }
+        
+        .logo span { color: var(--nearbuy-charcoal); }
+        
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--nearbuy-charcoal);
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        /* HERO */
+        .page-hero {
+            background: var(--nearbuy-charcoal);
+            color: white;
+            padding: 80px 40px;
+            text-align: center;
+        }
+        
+        .page-hero h1 {
+            font-size: 56px;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+        
+        .page-hero p {
+            font-size: 20px;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* CONTENT */
+        .content-section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+        
+        .story-block {
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        
+        .story-block h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--nearbuy-red);
+        }
+        
+        .story-block p {
+            font-size: 18px;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: var(--nearbuy-charcoal);
+        }
+        
+        .story-block p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, var(--nearbuy-red) 0%, #e53935 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+        }
+        
+        .highlight h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .highlight p {
+            color: white;
+            opacity: 0.9;
+            margin-bottom: 0;
+        }
+        
+        /* STATS */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin: 40px 0;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--nearbuy-red);
+            line-height: 1;
+        }
+        
+        .stat-label {
+            font-size: 14px;
+            color: var(--nearbuy-gray);
+            margin-top: 10px;
+        }
+        
+        /* VALUES */
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .value-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        
+        .value-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .value-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .value-card p {
+            font-size: 15px;
+            color: var(--nearbuy-gray);
+            line-height: 1.6;
+        }
+        
+        /* CTA */
+        .cta-section {
+            background: var(--nearbuy-red);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            border-radius: 20px;
+            margin: 40px 0;
+        }
+        
+        .cta-section h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .cta-section p {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--nearbuy-red);
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        
+        /* FOOTER */
+        .site-footer {
+            background: var(--nearbuy-charcoal);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.7;
+            font-size: 14px;
+        }
+        
+        .footer-meals {
+            font-size: 14px;
+            opacity: 0.5;
+        }
+        
+        @media (max-width: 768px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .values-grid { grid-template-columns: 1fr; }
+            .page-hero h1 { font-size: 36px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="site-header">
+        <a href="#" class="logo">Near<span>Buy</span></a>
+        <nav class="nav-links">
+            <a href="#">Discover</a>
+            <a href="#">For Businesses</a>
+            <a href="#">Our Mission</a>
+            <a href="#">Subscribe</a>
+        </nav>
+    </header>
+    
+    <!-- HERO -->
+    <section class="page-hero">
+        <h1>About The Local NearBuy</h1>
+        <p>Your guide to the best of Greater Waxhaw — and a movement to feed children, one meal at a time.</p>
+    </section>
+    
+    <!-- OUR STORY -->
+    <section class="content-section">
+        <div class="story-block">
+            <h2>Our Story</h2>
+            <p>The Local NearBuy started with a simple observation: there's so much greatness in our community, but no one was telling those stories. Great coffee shops, hidden gem restaurants, reliable service businesses — they existed, but people didn't know about them.</p>
+            <p>At the same time, we wanted to build something that mattered. Not just another local directory, but a platform that actually made our community better.</p>
+            
+            <div class="highlight">
+                <h3>💡 The Idea</h3>
+                <p>What if every local business ad helped feed children? What if every deal redeemed made a difference? That's when Meals4Good was born.</p>
+            </div>
+            
+            <p>Now, when a business advertises with The Local NearBuy, they're not just getting reach — they're helping provide meals to children who need them. Every ad space. Every redemption. Every interaction makes an impact.</p>
+            <p>This isn't just local marketing. It's a movement disguised as a directory. And you're invited to be part of it.</p>
+        </div>
+        
+        <!-- STATS -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">14,382</div>
+                <div class="stat-label">Meals Donated</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">127</div>
+                <div class="stat-label">Businesses Featured</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">5,000+</div>
+                <div class="stat-label">Homes Reached</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2,400+</div>
+                <div class="stat-label">Newsletter Readers</div>
+            </div>
+        </div>
+        
+        <!-- VALUES -->
+        <h2 style="font-size: 32px; font-weight: 700; text-align: center; margin: 40px 0;">What We Believe</h2>
+        <div class="values-grid">
+            <div class="value-card">
+                <div class="value-icon">🏆</div>
+                <h3>Local First</h3>
+                <p>We believe in the power of local business. They're the heartbeat of our community, and we exist to help them thrive.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">💚</div>
+                <h3>Profit With Purpose</h3>
+                <p>Making money and doing good aren't mutually exclusive. Every business we support helps feed children.</p>
+            </div>
+            <div class="value-card">
+                <div class="value-icon">📣</div>
+                <h3>Honest Voices</h3>
+                <p>We give real reviews from a local perspective. Not paid endorsements. Not fake ratings. Just our honest take.</p>
+            </div>
+        </div>
+        
+        <!-- CTA -->
+        <div class="cta-section">
+            <h2>Join the Movement</h2>
+            <p>Whether you're a local business wanting to reach more customers, or a resident who wants to discover the best of Greater Waxhaw — there's a place for you here.</p>
+            <a href="#" class="cta-button">Get Started</a>
+        </div>
+    </section>
+    
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="#">About</a>
+            <a href="#">For Businesses</a>
+            <a href="#">Privacy</a>
+            <a href="#">Contact</a>
+        </div>
+        <p class="footer-meals">© 2026 The Local NearBuy. Every redemption feeds a child. 🧡</p>
+    </footer>
+</body>
+</html>

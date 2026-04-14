@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Mission — The Local NearBuy & Meals4Good</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --nearbuy-red: #d32f2f;
+            --nearbuy-red-dark: #b12727;
+            --nearbuy-cream: #faf8f5;
+            --nearbuy-charcoal: #1a1a1a;
+            --nearbuy-gray: #666;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--nearbuy-cream);
+            color: var(--nearbuy-charcoal);
+        }
+        
+        /* HEADER */
+        .site-header {
+            background: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--nearbuy-red);
+            text-decoration: none;
+        }
+        
+        .logo span { color: var(--nearbuy-charcoal); }
+        
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--nearbuy-charcoal);
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        /* HERO - MEALS */
+        .mission-hero {
+            background: linear-gradient(135deg, var(--nearbuy-red) 0%, #e53935 50%, #ff7043 100%);
+            color: white;
+            padding: 100px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .mission-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="30" fill="none" stroke="white" stroke-width="0.5" opacity="0.1"/></svg>');
+            background-size: 150px;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            background: white;
+            color: var(--nearbuy-red);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+        
+        .mission-hero h1 {
+            font-size: 64px;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+        
+        .mission-hero h1 span {
+            display: block;
+            font-size: 24px;
+            font-weight: 600;
+            opacity: 0.9;
+            margin-top: 10px;
+        }
+        
+        .mission-hero p {
+            font-size: 22px;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* MEAL COUNTER */
+        .meal-counter {
+            background: white;
+            padding: 40px;
+            text-align: center;
+            margin: -40px auto 40px;
+            max-width: 500px;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .meal-counter h2 {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--nearbuy-gray);
+            margin-bottom: 10px;
+        }
+        
+        .meal-counter .number {
+            font-size: 72px;
+            font-weight: 900;
+            color: var(--nearbuy-red);
+            line-height: 1;
+        }
+        
+        .meal-counter .label {
+            font-size: 20px;
+            color: var(--nearbuy-gray);
+            margin-top: 5px;
+        }
+        
+        /* HOW IT WORKS */
+        .how-it-works {
+            padding: 60px 40px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 50px;
+        }
+        
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        
+        .step-card {
+            text-align: center;
+        }
+        
+        .step-number {
+            width: 60px;
+            height: 60px;
+            background: var(--nearbuy-red);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 900;
+            margin: 0 auto 20px;
+        }
+        
+        .step-card h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .step-card p {
+            font-size: 15px;
+            color: var(--nearbuy-gray);
+            line-height: 1.6;
+        }
+        
+        /* IMPACT SECTION */
+        .impact-section {
+            background: var(--nearbuy-charcoal);
+            color: white;
+            padding: 80px 40px;
+            text-align: center;
+        }
+        
+        .impact-section h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .impact-section > p {
+            font-size: 18px;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto 50px;
+        }
+        
+        .impact-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .impact-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 30px;
+        }
+        
+        .impact-card .icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        
+        .impact-card h3 {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .impact-card p {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        /* VOUCHER SECTION */
+        .voucher-section {
+            padding: 80px 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .voucher-section h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .voucher-section p {
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--nearbuy-gray);
+            margin-bottom: 30px;
+        }
+        
+        .voucher-highlight {
+            background: linear-gradient(135deg, var(--nearbuy-red) 0%, #e53935 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 16px;
+        }
+        
+        .voucher-highlight h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+        
+        .voucher-highlight p {
+            color: white;
+            opacity: 0.9;
+        }
+        
+        /* CTA */
+        .cta-section {
+            background: white;
+            padding: 80px 40px;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 18px;
+            color: var(--nearbuy-gray);
+            margin-bottom: 30px;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        
+        .cta-button {
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 16px;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        
+        .cta-button-primary {
+            background: var(--nearbuy-red);
+            color: white;
+        }
+        
+        .cta-button-primary:hover {
+            background: var(--nearbuy-red-dark);
+        }
+        
+        .cta-button-secondary {
+            background: var(--nearbuy-charcoal);
+            color: white;
+        }
+        
+        /* FOOTER */
+        .site-footer {
+            background: var(--nearbuy-charcoal);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 30px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            opacity: 0.7;
+            font-size: 14px;
+        }
+        
+        .footer-meals {
+            font-size: 14px;
+            opacity: 0.5;
+        }
+        
+        @media (max-width: 768px) {
+            .steps-grid { grid-template-columns: 1fr; }
+            .impact-grid { grid-template-columns: 1fr; }
+            .mission-hero h1 { font-size: 40px; }
+            .meal-counter .number { font-size: 48px; }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="site-header">
+        <a href="#" class="logo">Near<span>Buy</span></a>
+        <nav class="nav-links">
+            <a href="#">Discover</a>
+            <a href="#">For Businesses</a>
+            <a href="#">Our Mission</a>
+            <a href="#">Subscribe</a>
+        </nav>
+    </header>
+    
+    <!-- HERO -->
+    <section class="mission-hero">
+        <div class="hero-content">
+            <div class="hero-badge">A Project of The Local NearBuy</div>
+            <h1>Meals4Good<span>Every purchase helps feed children</span></h1>
+            <p>We believe doing good and doing business should be the same thing. Every ad space. Every offer. Every redemption.</p>
+        </div>
+    </section>
+    
+    <!-- MEAL COUNTER -->
+    <div class="meal-counter">
+        <h2>Total Meals Donated</h2>
+        <div class="number">14,382</div>
+        <div class="label">and counting...</div>
+    </div>
+    
+    <!-- HOW IT WORKS -->
+    <section class="how-it-works">
+        <h2 class="section-title">How It Works</h2>
+        <div class="steps-grid">
+            <div class="step-card">
+                <div class="step-number">1</div>
+                <h3>Business Advertises</h3>
+                <p>Local businesses purchase ad space in our EDDM postcard campaign. Every ad space includes meals as part of the package.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">2</div>
+                <h3>Community Redeems</h3>
+                <p>Residents receive the postcard, scan the QR code, and redeem offers from local businesses they love.</p>
+            </div>
+            <div class="step-card">
+                <div class="step-number">3</div>
+                <h3>Meals Are Donated</h3>
+                <p>For every redemption, we donate a meal to a child in need. The more deals redeemed, the more meals provided.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- IMPACT SECTION -->
+    <section class="impact-section">
+        <h2>Our Impact</h2>
+        <p>Here's what your support makes possible</p>
+        
+        <div class="impact-grid">
+            <div class="impact-card">
+                <div class="icon">🍽️</div>
+                <h3>14,382</h3>
+                <p>Meals donated to date</p>
+            </div>
+            <div class="impact-card">
+                <div class="icon">👶</div>
+                <h3>847</h3>
+                <p>Children fed this month</p>
+            </div>
+            <div class="impact-card">
+                <div class="icon">💚</div>
+                <h3>52</h3>
+                <p>Partner businesses</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- VOUCHER SECTION -->
+    <section class="voucher-section">
+        <h2>The Voucher Multiplier</h2>
+        <p>Here's where it gets powerful. Not only do meals come from the ad purchase — every time someone actually redeems their offer, we donate more meals.</p>
+        
+        <div class="voucher-highlight">
+            <h3>🎯 Current Campaign Goal</h3>
+            <p>Every redemption up to 2,000 offers = 1 meal donated. Help us hit our goal!</p>
+        </div>
+    </section>
+    
+    <!-- CTA -->
+    <section class="cta-section">
+        <h2>Be Part of the Solution</h2>
+        <p>Whether you're a business looking to advertise or a resident looking for great deals — you're helping feed children.</p>
+        
+        <div class="cta-buttons">
+            <a href="#" class="cta-button cta-button-primary">For Businesses</a>
+            <a href="#" class="cta-button cta-button-secondary">Discover Local</a>
+        </div>
+    </section>
+    
+    <!-- FOOTER -->
+    <footer class="site-footer">
+        <div class="footer-links">
+            <a href="#">About</a>
+            <a href="#">For Businesses</a>
+            <a href="#">Privacy</a>
+            <a href="#">Contact</a>
+        </div>
+        <p class="footer-meals">© 2026 The Local NearBuy. Every redemption feeds a child. 🧡</p>
+    </footer>
+</body>
+</html>
