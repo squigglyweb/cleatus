@@ -14,7 +14,6 @@
             --nearbuy-charcoal: #1a1a1a;
         }
         
-        /* HEADER */
         header {
             background: white;
             padding: 20px 40px;
@@ -35,7 +34,6 @@
             font-size: 14px;
         }
         
-        /* HERO */
         .hero {
             background: var(--nearbuy-charcoal);
             color: white;
@@ -68,7 +66,6 @@
             text-decoration: none;
         }
         
-        /* SECTIONS */
         section {
             padding: 60px 40px;
             max-width: 900px;
@@ -108,7 +105,6 @@
         .feature-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
         .feature-card p { font-size: 14px; margin: 0; }
         
-        /* RADIO PLAYER */
         .radio-section {
             background: var(--nearbuy-charcoal);
             color: white;
@@ -164,6 +160,7 @@
             font-size: 16px;
             color: #aaa;
             margin-bottom: 30px;
+            min-height: 24px;
         }
         
         .player-controls {
@@ -203,13 +200,23 @@
             border-radius: 3px;
             overflow: hidden;
             margin-bottom: 15px;
+            cursor: pointer;
         }
         
         .progress-fill {
             height: 100%;
             background: var(--nearbuy-red);
-            width: 35%;
+            width: 0%;
             border-radius: 3px;
+            transition: width 0.1s;
+        }
+        
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 15px;
         }
         
         .volume-control {
@@ -219,11 +226,44 @@
             gap: 10px;
             color: #888;
             font-size: 12px;
+            margin-bottom: 20px;
         }
         
         .volume-slider {
             width: 100px;
             accent-color: var(--nearbuy-red);
+        }
+        
+        .upload-section {
+            background: #222;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .upload-section h4 {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        
+        .upload-btn {
+            display: inline-block;
+            background: var(--nearbuy-red);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        .upload-btn:hover { background: #b12727; }
+        
+        .file-input {
+            display: none;
         }
         
         .playlist {
@@ -232,6 +272,8 @@
             padding: 15px;
             margin-top: 20px;
             text-align: left;
+            max-height: 200px;
+            overflow-y: auto;
         }
         
         .playlist h4 {
@@ -247,6 +289,9 @@
             font-size: 13px;
             color: #888;
             cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         
         .playlist-item:hover, .playlist-item.active {
@@ -254,7 +299,24 @@
             color: white;
         }
         
-        /* FOOTER */
+        .playlist-item .track-name {
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .playlist-item .remove-btn {
+            background: none;
+            border: none;
+            color: #e53935;
+            cursor: pointer;
+            font-size: 16px;
+            opacity: 0;
+        }
+        
+        .playlist-item:hover .remove-btn { opacity: 1; }
+        
         footer {
             background: var(--nearbuy-charcoal);
             color: white;
@@ -277,77 +339,76 @@
             <a href="#about">About</a>
             <a href="#services">Services</a>
             <a href="#radio">Radio</a>
-            <a href="#contact">Contact</a>
         </nav>
     </header>
     
-    <!-- HERO -->
     <section class="hero">
         <h1>Your Connection to <span>Greater Waxhaw</span></h1>
         <p>The only hyperlocal media company dedicated to showcasing your town's best businesses — while feeding local kids in need.</p>
         <a href="#" class="hero-cta">Explore Local</a>
     </section>
     
-    <!-- ABOUT -->
     <section id="about">
         <h2>What is The Local NearBuy?</h2>
         <p>We're a hyperlocal media brand built for Greater Waxhaw and surrounding communities. Our mission: help you discover the best local businesses while making a real difference.</p>
-        <p>Every recommendation we make, every business we feature, every ad we run — it all comes back to supporting our community. That's the NearBuy difference.</p>
     </section>
     
-    <!-- SERVICES -->
     <section id="services">
         <h2>What We Do</h2>
         <div class="features">
             <div class="feature-card">
                 <div class="feature-icon">📱</div>
                 <h3>Social Media</h3>
-                <p>Daily content featuring local businesses, hidden gems, and community highlights.</p>
+                <p>Daily content featuring local businesses.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">📍</div>
                 <h3>Local Directory</h3>
-                <p>Your online guide to every great spot in town. Claim your listing for free.</p>
+                <p>Your guide to every great spot in town.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">📬</div>
                 <h3>EDDM Postcards</h3>
-                <p>Quarterly mailers reaching 5,000+ households with local deals and specials.</p>
+                <p>Quarterly mailers reaching 5,000+ households.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">📧</div>
                 <h3>Newsletter</h3>
-                <p>Weekly updates on new businesses, events, and community news.</p>
+                <p>Weekly updates on local news.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">🍽️</div>
                 <h3>Meals4Good</h3>
-                <p>Every ad purchase helps provide meals for local children in need.</p>
+                <p>Every ad helps feed local kids.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">📻</div>
                 <h3>NearBuy Radio</h3>
-                <p>Our own jingle station celebrating local businesses and community spirit.</p>
+                <p>Our local jingles and community anthems.</p>
             </div>
         </div>
     </section>
     
-    <!-- RADIO -->
     <section class="radio-section" id="radio">
         <h2>📻 NearBuy Radio</h2>
-        <p style="color: rgba(255,255,255,0.7);">Stream our local jingles and community anthems</p>
+        <p style="color: rgba(255,255,255,0.7);">Upload your jingles and local music</p>
         
         <div class="radio-player">
             <div class="on-air">
-                <div class="on-air-light"></div>
-                <span class="on-air-label">ON AIR</span>
+                <div class="on-air-light" id="onAirLight"></div>
+                <span class="on-air-label" id="onAirLabel">ON AIR</span>
             </div>
             
             <div class="station-name">🎵 NearBuy FM</div>
-            <div class="now-playing" id="nowPlaying">Now Playing: NearBuy Anthem</div>
+            <div class="now-playing" id="nowPlaying">No track loaded — upload your jingles below</div>
             
-            <div class="progress-bar">
-                <div class="progress-fill"></div>
+            <div class="progress-bar" onclick="seekTrack(event)">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            
+            <div class="time-display">
+                <span id="currentTime">0:00</span>
+                <span id="totalTime">0:00</span>
             </div>
             
             <div class="player-controls">
@@ -358,87 +419,174 @@
             
             <div class="volume-control">
                 <span>🔈</span>
-                <input type="range" class="volume-slider" min="0" max="100" value="75">
+                <input type="range" class="volume-slider" min="0" max="100" value="75" onchange="setVolume(this.value)">
                 <span>🔊</span>
             </div>
             
-            <div class="playlist">
-                <h4>Up Next</h4>
-                <div class="playlist-item active" onclick="playTrack(0)">🎵 NearBuy Anthem</div>
-                <div class="playlist-item" onclick="playTrack(1)">🎵 Shop Local Jingle</div>
-                <div class="playlist-item" onclick="playTrack(2)">🎵 Community Spirit</div>
-                <div class="playlist-item" onclick="playTrack(3)">🎵 Coffee Corner Theme</div>
-                <div class="playlist-item" onclick="playTrack(4)">🎵 Pizza Night Anthem</div>
+            <div class="upload-section">
+                <h4>Add Your Jingles</h4>
+                <label class="upload-btn">
+                    📁 Upload MP3 Files
+                    <input type="file" class="file-input" id="fileInput" accept="audio/*" multiple onchange="handleFileUpload(event)">
+                </label>
             </div>
-        </div>
-    </section>
-    
-    <!-- FUTURE PLANS -->
-    <section>
-        <h2>What's Coming Next</h2>
-        <p>We're just getting started. Here's what's on our roadmap:</p>
-        <div class="features">
-            <div class="feature-card">
-                <div class="feature-icon">🎉</div>
-                <h3>Community Events</h3>
-                <p>Quarterly meal-packing events bringing businesses and families together.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🎙️</div>
-                <h3>Podcast</h3>
-                <p>Interviews with local business owners and community leaders.</p>
-            </div>
-            <div class="feature-card">
-                <div class="feature-icon">🗺️</div>
-                <h3>Expansion</h3>
-                <p>Growing to surrounding areas while staying hyperlocal.</p>
+            
+            <div class="playlist" id="playlist">
+                <h4>Your Jingles</h4>
+                <div id="playlistItems">
+                    <div style="color: #666; font-size: 13px; padding: 10px;">No tracks yet. Upload MP3 files above.</div>
+                </div>
             </div>
         </div>
     </section>
     
     <footer>
         <div class="logo">The Local <span>NearBuy</span></div>
-        <p>Greater Waxhaw's media hub. Shop local. Feed families. Support community.</p>
+        <p>Greater Waxhaw's media hub. Shop local. Feed families.</p>
     </footer>
     
+    <audio id="audioPlayer"></audio>
+    
     <script>
+        let tracks = [];
+        let currentTrackIndex = -1;
         let isPlaying = false;
-        let currentTrack = 0;
+        const audio = document.getElementById('audioPlayer');
         
-        const tracks = [
-            "NearBuy Anthem",
-            "Shop Local Jingle",
-            "Community Spirit",
-            "Coffee Corner Theme",
-            "Pizza Night Anthem"
-        ];
-        
-        function togglePlay() {
-            isPlaying = !isPlaying;
-            document.getElementById('playBtn').textContent = isPlaying ? '⏸' : '▶';
+        function handleFileUpload(event) {
+            const files = event.target.files;
+            
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                const trackUrl = URL.createObjectURL(file);
+                
+                tracks.push({
+                    name: file.name.replace(/\.mp3$/i, ''),
+                    url: trackUrl
+                });
+            }
+            
+            renderPlaylist();
+            
+            if (currentTrackIndex === -1 && tracks.length > 0) {
+                playTrack(0);
+            }
         }
         
-        function prevTrack() {
-            currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
-            playCurrentTrack();
-        }
-        
-        function nextTrack() {
-            currentTrack = (currentTrack + 1) % tracks.length;
-            playCurrentTrack();
+        function renderPlaylist() {
+            const container = document.getElementById('playlistItems');
+            
+            if (tracks.length === 0) {
+                container.innerHTML = '<div style="color: #666; font-size: 13px; padding: 10px;">No tracks yet. Upload MP3 files above.</div>';
+                return;
+            }
+            
+            container.innerHTML = tracks.map((track, index) => `
+                <div class="playlist-item ${index === currentTrackIndex ? 'active' : ''}" onclick="playTrack(${index})">
+                    <span class="track-name">🎵 ${track.name}</span>
+                    <button class="remove-btn" onclick="event.stopPropagation(); removeTrack(${index})">✕</button>
+                </div>
+            `).join('');
         }
         
         function playTrack(index) {
-            currentTrack = index;
-            playCurrentTrack();
+            if (index < 0 || index >= tracks.length) return;
+            
+            currentTrackIndex = index;
+            audio.src = tracks[index].url;
+            audio.play();
+            
+            isPlaying = true;
+            document.getElementById('playBtn').textContent = '⏸';
+            document.getElementById('nowPlaying').textContent = 'Now Playing: ' + tracks[index].name;
+            document.getElementById('onAirLight').style.animation = 'blink 1s infinite';
+            
+            renderPlaylist();
         }
         
-        function playCurrentTrack() {
-            document.getElementById('nowPlaying').textContent = 'Now Playing: ' + tracks[currentTrack];
+        function removeTrack(index) {
+            if (index === currentTrackIndex) {
+                audio.pause();
+                isPlaying = false;
+                document.getElementById('playBtn').textContent = '▶';
+                currentTrackIndex = -1;
+            }
             
-            document.querySelectorAll('.playlist-item').forEach((item, i) => {
-                item.classList.toggle('active', i === currentTrack);
-            });
+            tracks.splice(index, 1);
+            
+            if (currentTrackIndex > index) {
+                currentTrackIndex--;
+            }
+            
+            renderPlaylist();
+        }
+        
+        function togglePlay() {
+            if (tracks.length === 0) {
+                alert('Upload some MP3 files first!');
+                return;
+            }
+            
+            if (currentTrackIndex === -1) {
+                playTrack(0);
+                return;
+            }
+            
+            if (isPlaying) {
+                audio.pause();
+                document.getElementById('playBtn').textContent = '▶';
+                document.getElementById('onAirLight').style.animation = 'none';
+            } else {
+                audio.play();
+                document.getElementById('playBtn').textContent = '⏸';
+                document.getElementById('onAirLight').style.animation = 'blink 1s infinite';
+            }
+            
+            isPlaying = !isPlaying;
+        }
+        
+        function prevTrack() {
+            if (tracks.length === 0) return;
+            const newIndex = currentTrackIndex <= 0 ? tracks.length - 1 : currentTrackIndex - 1;
+            playTrack(newIndex);
+        }
+        
+        function nextTrack() {
+            if (tracks.length === 0) return;
+            const newIndex = (currentTrackIndex + 1) % tracks.length;
+            playTrack(newIndex);
+        }
+        
+        function setVolume(value) {
+            audio.volume = value / 100;
+        }
+        
+        function seekTrack(event) {
+            if (!audio.duration) return;
+            const rect = event.target.getBoundingClientRect();
+            const percent = (event.clientX - rect.left) / rect.width;
+            audio.currentTime = percent * audio.duration;
+        }
+        
+        // Update progress bar
+        audio.addEventListener('timeupdate', () => {
+            if (audio.duration) {
+                const percent = (audio.currentTime / audio.duration) * 100;
+                document.getElementById('progressFill').style.width = percent + '%';
+                document.getElementById('currentTime').textContent = formatTime(audio.currentTime);
+                document.getElementById('totalTime').textContent = formatTime(audio.duration);
+            }
+        });
+        
+        // Auto-play next track
+        audio.addEventListener('ended', () => {
+            nextTrack();
+        });
+        
+        function formatTime(seconds) {
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return mins + ':' + (secs < 10 ? '0' : '') + secs;
         }
     </script>
 </body>
