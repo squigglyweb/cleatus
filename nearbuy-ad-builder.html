@@ -48,7 +48,8 @@
         
         .slots-grid { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 2px; background: #ccc; padding: 2px; }
         
-        .slot-cell { background: white; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; font-size: 10px; }
+        .slot-cell { background: white; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; font-size: 10px; min-height: 50px; }
+.slot-cell .slot-num { background: #e8f5e9; padding: 8px 15px; border-radius: 4px; border: 2px solid #4caf50; }
         
         .slot-cell.available { background: var(--available-bg); border: 1px solid var(--available-border); }
         .slot-cell.available:hover { border-width: 2px; }
