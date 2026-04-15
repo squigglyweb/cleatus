@@ -6,137 +6,95 @@
     <title>Build Your Ad — The Local NearBuy</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --nearbuy-red: #d32f2f;
-            --nearbuy-cream: #faf8f5;
-            --nearbuy-charcoal: #1a1a1a;
-            --nearbuy-gray: #666;
-            --available-bg: #e8f5e9;
-            --available-border: #4caf50;
-            --taken-bg: #ffcdd2;
-            --taken-border: #e53935;
-            --selected-bg: #fff3e0;
-            --selected-border: #ff9800;
-        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: var(--nearbuy-cream); color: var(--nearbuy-charcoal); }
+        body { font-family: 'Inter', sans-serif; background: #faf8f5; color: #1a1a1a; padding: 20px; }
         
-        .page-hero { background: var(--nearbuy-charcoal); color: white; padding: 40px; text-align: center; }
+        .page-hero { background: #1a1a1a; color: white; padding: 40px; text-align: center; }
         .page-hero h1 { font-size: 36px; font-weight: 900; }
-        .page-hero h1 span { color: var(--nearbuy-red); }
         
-        .builder-content { max-width: 1100px; margin: 0 auto; padding: 30px; display: grid; grid-template-columns: 1.3fr 1fr; gap: 30px; }
+        .builder-content { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 300px; gap: 30px; }
         
         .postcard-container { background: white; border-radius: 16px; padding: 20px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
         
         .side-toggle { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
         .side-toggle button { padding: 12px 30px; border: 2px solid #ddd; background: white; font-size: 14px; font-weight: 700; border-radius: 8px; cursor: pointer; }
-        .side-toggle button.active { border-color: var(--nearbuy-red); background: var(--nearbuy-red); color: white; }
+        .side-toggle button.active { background: #d32f2f; color: white; border-color: #d32f2f; }
         
-        .postcard { aspect-ratio: 4/3; max-width: 420px; margin: 0 auto; border: 2px solid var(--nearbuy-charcoal); border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; }
+        .postcard { aspect-ratio: 4/3; max-width: 380px; margin: 0 auto; border: 2px solid #1a1a1a; border-radius: 6px; overflow: hidden; }
         
         .front-view { display: none; }
-        .front-view.active { display: block; }
-        .back-view { display: none; }
-        .back-view.active { display: block; }
+        .back-view { display: block; }
         
-        .front-content { background: var(--nearbuy-red); flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 30px; }
-        .front-content h2 { font-size: 32px; font-weight: 900; color: white; }
-        .front-content p { font-size: 16px; color: rgba(255,255,255,0.9); margin-top: 8px; }
+        .front-content { background: #d32f2f; padding: 40px; text-align: center; color: white; }
+        .front-content h2 { font-size: 28px; font-weight: 900; }
         
-        .back-content { flex: 1; display: flex; flex-direction: column; }
-        
+        /* THE GRID */
         .slots-grid { 
-            flex: 1; 
             display: grid; 
             grid-template-columns: repeat(3, 1fr); 
             grid-template-rows: repeat(3, 1fr); 
             gap: 4px; 
             background: #999; 
             padding: 4px; 
+            height: 100%;
         }
         
-        .slot-box { 
-            background: var(--available-bg); 
-            border: 3px solid var(--available-border);
-            display: flex; 
+        .slot-box {
+            background: #e8f5e9;
+            border: 3px solid #4caf50;
+            display: flex;
             flex-direction: column;
-            align-items: center; 
-            justify-content: center; 
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            transition: all 0.15s;
             border-radius: 4px;
+            min-height: 60px;
         }
         
-        .slot-box:hover { 
-            border-color: #388e3c; 
-            transform: scale(1.02);
+        .slot-box:hover {
+            background: #c8e6c9;
+            border-width: 4px;
         }
         
-        .slot-box.taken { 
-            background: var(--taken-bg); 
-            border-color: var(--taken-border); 
-            cursor: not-allowed; 
-            opacity: 0.6;
+        .slot-box.taken {
+            background: #ffcdd2;
+            border: 3px solid #e53935;
+            cursor: not-allowed;
         }
         
-        .slot-box.selected { 
-            background: var(--selected-bg); 
-            border: 4px solid var(--selected-border); 
+        .slot-box.selected {
+            background: #fff3e0;
+            border: 4px solid #ff9800;
         }
         
-        .slot-box .box-num { font-weight: 800; font-size: 18px; color: #1a1a1a; }
-        .slot-box .box-label { font-size: 10px; color: #1a1a1a; margin-top: 4px; }
+        .slot-number { font-size: 20px; font-weight: 900; color: #1a1a1a; }
+        .slot-price { font-size: 11px; color: #1a1a1a; margin-top: 4px; }
         
-        .slot-box.taken .box-num { color: #c62828; }
+        .slot-box.taken .slot-number { color: #c62828; }
         
-        .indicia-area { background: #ccc; padding: 10px 12px; display: flex; justify-content: space-between; font-size: 7px; color: #333; }
+        .indicia-area { background: #ccc; padding: 10px; display: flex; justify-content: space-between; font-size: 8px; color: #333; }
         
-        .postcard.full-back .slots-grid { grid-template-rows: repeat(4, 1fr); }
-        .postcard.full-back .indicia-area { display: none; }
+        .legend { display: flex; gap: 20px; justify-content: center; margin-top: 15px; font-size: 12px; }
         
-        .legend { display: flex; gap: 15px; justify-content: center; margin-top: 15px; font-size: 11px; }
-        .legend-dot { width: 14px; height: 14px; border-radius: 3px; display: inline-block; margin-right: 4px; }
+        .sidebar { background: white; padding: 20px; border-radius: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); height: fit-content; }
+        .sidebar h3 { font-size: 14px; color: #666; text-transform: uppercase; margin-bottom: 12px; }
         
-        .builder-sidebar { position: sticky; top: 20px; }
-        .tier-card { background: white; border-radius: 16px; padding: 20px; margin-bottom: 15px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .tier-card h3 { font-size: 14px; font-weight: 700; color: var(--nearbuy-gray); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 12px; }
-        
-        .tier-btn { display: flex; align-items: center; gap: 12px; padding: 12px; border: 2px solid #eee; border-radius: 10px; margin-bottom: 8px; cursor: pointer; transition: all 0.2s; }
+        .tier-btn { display: flex; align-items: center; gap: 10px; padding: 12px; border: 2px solid #eee; border-radius: 10px; margin-bottom: 8px; cursor: pointer; }
+        .tier-btn.selected { border-color: #d32f2f; background: rgba(211,47,47,0.05); }
         .tier-btn:hover { border-color: #bbb; }
-        .tier-btn.selected { border-color: var(--nearbuy-red); background: rgba(211,47,47,0.05); }
-        .tier-radio { width: 16px; height: 16px; border: 2px solid #ddd; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-        .tier-btn.selected .tier-radio { border-color: var(--nearbuy-red); background: var(--nearbuy-red); }
-        .tier-btn.selected .tier-radio::after { content: ''; width: 6px; height: 6px; background: white; border-radius: 50%; }
-        .tier-info h4 { font-size: 13px; font-weight: 700; }
-        .tier-info p { font-size: 10px; color: var(--nearbuy-gray); }
-        .tier-price { font-size: 14px; font-weight: 900; color: var(--nearbuy-red); }
+        .tier-name { font-weight: 700; font-size: 13px; }
+        .tier-desc { font-size: 11px; color: #666; }
+        .tier-price { font-weight: 900; color: #d32f2f; margin-left: auto; }
         
-        .summary-card { background: var(--nearbuy-charcoal); color: white; border-radius: 16px; padding: 20px; }
-        .summary-card h3 { font-size: 16px; font-weight: 700; margin-bottom: 15px; }
-        .summary-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 13px; }
-        .summary-row:last-of-type { border: none; }
-        .summary-label { opacity: 0.7; }
-        .summary-value { font-weight: 700; }
-        .summary-total { margin-top: 15px; padding-top: 15px; border-top: 2px solid rgba(255,255,255,0.2); display: flex; justify-content: space-between; align-items: center; }
-        .summary-total .value { font-size: 24px; font-weight: 900; }
+        .summary { background: #1a1a1a; color: white; padding: 20px; border-radius: 16px; margin-top: 20px; }
+        .summary h3 { margin-bottom: 15px; }
+        .summary-row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 13px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .summary-total { display: flex; justify-content: space-between; padding-top: 15px; margin-top: 10px; border-top: 2px solid rgba(255,255,255,0.2); font-size: 18px; font-weight: 900; }
         
-        .quote-btn { width: 100%; background: var(--nearbuy-red); color: white; padding: 14px; border: none; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; margin-top: 15px; }
-        .quote-btn:hover { background: #b12727; }
+        .quote-btn { width: 100%; background: #d32f2f; color: white; padding: 14px; border: none; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; margin-top: 15px; }
         .quote-btn:disabled { background: #999; cursor: not-allowed; }
-        
         .clear-btn { width: 100%; padding: 10px; border: 2px solid #ddd; background: white; border-radius: 8px; cursor: pointer; font-size: 13px; margin-top: 10px; }
-        
-        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); z-index: 100; align-items: center; justify-content: center; }
-        .modal-overlay.active { display: flex; }
-        .modal { background: white; border-radius: 16px; padding: 30px; max-width: 400px; width: 90%; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
-        .modal h2 { font-size: 24px; font-weight: 700; margin-bottom: 10px; }
-        .modal p { font-size: 14px; color: var(--nearbuy-gray); margin-bottom: 20px; }
-        .modal input { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px; margin-bottom: 15px; }
-        .modal input:focus { outline: none; border-color: var(--nearbuy-red); }
-        .modal-submit { width: 100%; background: var(--nearbuy-red); color: white; padding: 14px; border: none; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; }
-        .modal-close { margin-top: 15px; background: transparent; border: none; color: var(--nearbuy-gray); cursor: pointer; font-size: 13px; }
-        
+
         @media (max-width: 800px) { .builder-content { grid-template-columns: 1fr; } }
     </style>
 </head>
@@ -148,12 +106,12 @@
     <div class="builder-content">
         <div class="postcard-container">
             <div class="side-toggle">
-                <button class="active" onclick="switchView('front')">📫 Front</button>
-                <button onclick="switchView('back')">📨 Back</button>
+                <button onclick="switchView('front')">📫 Front</button>
+                <button class="active" onclick="switchView('back')">📨 Back</button>
             </div>
             
-            <div class="postcard" id="postcard">
-                <div class="front-view active">
+            <div class="postcard">
+                <div class="front-view" style="display:none;">
                     <div class="front-content">
                         <h2>The Local NearBuy</h2>
                         <p>Community Offers Inside</p>
@@ -161,129 +119,98 @@
                 </div>
                 
                 <div class="back-view">
-                    <div class="back-content">
-                        <div class="slots-grid" id="grid">
-                            <div class="slot-box" data-i="0" onclick="toggleSlot(0)">
-                                <div class="box-num">1</div>
-                                <div class="box-label">$250</div>
-                            </div>
-                            <div class="slot-box" data-i="1" onclick="toggleSlot(1)">
-                                <div class="box-num">2</div>
-                                <div class="box-label">$250</div>
-                            </div>
-                            <div class="slot-box taken" data-i="2">
-                                <div class="box-num">SOLD</div>
-                            </div>
-                            <div class="slot-box" data-i="3" onclick="toggleSlot(3)">
-                                <div class="box-num">4</div>
-                                <div class="box-label">$250</div>
-                            </div>
-                            <div class="slot-box" data-i="4" onclick="toggleSlot(4)">
-                                <div class="box-num">5</div>
-                                <div class="box-label">$250</div>
-                            </div>
-                            <div class="slot-box" data-i="5" onclick="toggleSlot(5)">
-                                <div class="box-num">6</div>
-                                <div class="box-label">$250</div>
-                            </div>
-                            <div class="slot-box" data-i="6" onclick="toggleSlot(6)">
-                                <div class="box-num">7</div>
-                                <div class="box-label">$250</div>
-                            </div>
-                            <div class="slot-box" data-i="7" onclick="toggleSlot(7)">
-                                <div class="box-num">8</div>
-                                <div class="box-label">$250</div>
-                            </div>
-                            <div class="slot-box" data-i="8" onclick="toggleSlot(8)">
-                                <div class="box-num">9</div>
-                                <div class="box-label">$250</div>
-                            </div>
+                    <div class="slots-grid">
+                        <div class="slot-box" onclick="toggleSlot(0)">
+                            <div class="slot-number">1</div>
+                            <div class="slot-price">$250</div>
                         </div>
-                        <div class="indicia-area" id="indicia">
-                            <span>LOCAL POSTAL CUSTOMER</span>
-                            <span>PRSRT STD U.S. POSTAGE PAID</span>
+                        <div class="slot-box" onclick="toggleSlot(1)">
+                            <div class="slot-number">2</div>
+                            <div class="slot-price">$250</div>
                         </div>
+                        <div class="slot-box taken">
+                            <div class="slot-number">SOLD</div>
+                        </div>
+                        <div class="slot-box" onclick="toggleSlot(3)">
+                            <div class="slot-number">4</div>
+                            <div class="slot-price">$250</div>
+                        </div>
+                        <div class="slot-box" onclick="toggleSlot(4)">
+                            <div class="slot-number">5</div>
+                            <div class="slot-price">$250</div>
+                        </div>
+                        <div class="slot-box" onclick="toggleSlot(5)">
+                            <div class="slot-number">6</div>
+                            <div class="slot-price">$250</div>
+                        </div>
+                        <div class="slot-box" onclick="toggleSlot(6)">
+                            <div class="slot-number">7</div>
+                            <div class="slot-price">$250</div>
+                        </div>
+                        <div class="slot-box" onclick="toggleSlot(7)">
+                            <div class="slot-number">8</div>
+                            <div class="slot-price">$250</div>
+                        </div>
+                        <div class="slot-box" onclick="toggleSlot(8)">
+                            <div class="slot-number">9</div>
+                            <div class="slot-price">$250</div>
+                        </div>
+                    </div>
+                    <div class="indicia-area">
+                        <span>LOCAL POSTAL CUSTOMER</span>
+                        <span>PRSRT STD U.S. POSTAGE PAID</span>
                     </div>
                 </div>
             </div>
             
             <div class="legend">
-                <span><span class="legend-dot" style="background:var(--available-bg);border:2px solid var(--available-border)"></span>Available</span>
-                <span><span class="legend-dot" style="background:var(--taken-bg);border:2px solid var(--taken-border)"></span>Taken</span>
-                <span><span class="legend-dot" style="background:var(--selected-bg);border:2px solid var(--selected-border)"></span>Selected</span>
+                <span>🟩 Available</span>
+                <span>🟥 Taken</span>
+                <span>🟧 Selected</span>
             </div>
         </div>
         
-        <div class="builder-sidebar">
-            <div class="tier-card">
-                <h3>Or select size</h3>
-                <div class="tier-btn" data-slots="1" onclick="selectTier(1)"><div class="tier-radio"></div><div class="tier-info"><h4>Small</h4><p>1 slot • 25 children fed</p></div><div class="tier-price">$250</div></div>
-                <div class="tier-btn" data-slots="2" onclick="selectTier(2)"><div class="tier-radio"></div><div class="tier-info"><h4>Medium</h4><p>2 slots • 50 children fed</p></div><div class="tier-price">$500</div></div>
-                <div class="tier-btn" data-slots="3" onclick="selectTier(3)"><div class="tier-radio"></div><div class="tier-info"><h4>Large</h4><p>3 slots • 75 children fed</p></div><div class="tier-price">$750</div></div>
-                <button class="clear-btn" onclick="clearSelection()">Clear Selection</button>
-            </div>
+        <div class="sidebar">
+            <h3>Select Size</h3>
+            <div class="tier-btn" onclick="selectTier(1)"><span class="tier-name">Small</span><span class="tier-desc">1 slot</span><span class="tier-price">$250</span></div>
+            <div class="tier-btn" onclick="selectTier(2)"><span class="tier-name">Medium</span><span class="tier-desc">2 slots</span><span class="tier-price">$500</span></div>
+            <div class="tier-btn" onclick="selectTier(3)"><span class="tier-name">Large</span><span class="tier-desc">3 slots</span><span class="tier-price">$750</span></div>
+            <button class="clear-btn" onclick="clearSelection()">Clear</button>
             
-            <div class="summary-card">
+            <div class="summary">
                 <h3>Your Selection</h3>
-                <div class="summary-row"><span class="summary-label">Slots</span><span class="summary-value" id="s-slots">0</span></div>
-                <div class="summary-row"><span class="summary-label">Size</span><span class="summary-value" id="s-size">—</span></div>
-                <div class="summary-row"><span class="summary-label">Children Fed</span><span class="summary-value" id="s-meals">0</span></div>
-                <div class="summary-total"><span class="label">Total</span><span class="value" id="s-total">$0</span></div>
-                <button class="quote-btn" id="quote-btn" onclick="showQuoteModal()" disabled>Get Quote</button>
+                <div class="summary-row"><span>Slots</span><span id="s-slots">0</span></div>
+                <div class="summary-row"><span>Children Fed</span><span id="s-meals">0</span></div>
+                <div class="summary-total"><span>Total</span><span id="s-total">$0</span></div>
+                <button class="quote-btn" id="quote-btn" onclick="alert('This would capture lead info')" disabled>Get Quote</button>
             </div>
-        </div>
-    </div>
-    
-    <div class="modal-overlay" id="modal">
-        <div class="modal">
-            <h2>Get Your Quote</h2>
-            <p>Enter your email to save your selection and get a custom quote.</p>
-            <input type="email" id="email-input" placeholder="your@email.com">
-            <input type="text" id="business-name" placeholder="Business Name">
-            <button class="modal-submit" onclick="submitQuote()">Submit</button>
-            <button class="modal-close" onclick="closeModal()">Cancel</button>
         </div>
     </div>
     
     <script>
         let selected = [];
         
-        function switchView(view) {
-            document.querySelectorAll('.front-view, .back-view').forEach(v => v.classList.remove('active'));
-            document.getElementById(view + '-view').classList.add('active');
-            document.querySelectorAll('.side-toggle button').forEach(b => b.classList.remove('active'));
-            event.target.classList.add('active');
-        }
-        
         function toggleSlot(i) {
-            const box = document.querySelectorAll('.slot-box')[i];
-            if (box.classList.contains('taken')) return;
+            const boxes = document.querySelectorAll('.slot-box');
+            if (boxes[i].classList.contains('taken')) return;
             
             if (selected.includes(i)) {
                 selected = selected.filter(s => s !== i);
-                box.classList.remove('selected');
+                boxes[i].classList.remove('selected');
             } else {
                 selected.push(i);
-                box.classList.add('selected');
+                boxes[i].classList.add('selected');
             }
-            
-            selected.sort((a, b) => a - b);
             updateDisplay();
         }
         
         function selectTier(n) {
-            document.querySelectorAll('.tier-btn').forEach(b => b.classList.remove('selected'));
-            document.querySelector('[data-slots="' + n + '"]').classList.add('selected');
-            
             clearSelection();
-            
             const boxes = document.querySelectorAll('.slot-box:not(.taken)');
             for (let i = 0; i < n && i < boxes.length; i++) {
                 boxes[i].classList.add('selected');
-                selected.push(parseInt(boxes[i].dataset.i));
+                selected.push(i);
             }
-            
-            selected.sort((a, b) => a - b);
             updateDisplay();
         }
         
@@ -295,55 +222,10 @@
         
         function updateDisplay() {
             const count = selected.length;
-            const price = count * 250;
-            const meals = count * 25;
-            
             document.getElementById('s-slots').textContent = count;
-            document.getElementById('s-size').textContent = count === 0 ? '—' : getSizeName(count);
-            document.getElementById('s-meals').textContent = meals;
-            document.getElementById('s-total').textContent = '$' + price;
-            
+            document.getElementById('s-meals').textContent = count * 25;
+            document.getElementById('s-total').textContent = '$' + (count * 250);
             document.getElementById('quote-btn').disabled = count === 0;
-            
-            const postcard = document.getElementById('postcard');
-            if (count >= 9) {
-                postcard.classList.add('full-back');
-            } else {
-                postcard.classList.remove('full-back');
-            }
-        }
-        
-        function getSizeName(n) {
-            if (n === 1) return 'Small';
-            if (n === 2) return 'Medium';
-            if (n === 3) return 'Large';
-            if (n >= 4 && n <= 5) return 'X-Large';
-            if (n >= 6 && n <= 8) return 'Super';
-            if (n === 9) return 'Full Back';
-            return n + ' slots';
-        }
-        
-        function showQuoteModal() {
-            document.getElementById('modal').classList.add('active');
-        }
-        
-        function closeModal() {
-            document.getElementById('modal').classList.remove('active');
-        }
-        
-        function submitQuote() {
-            const email = document.getElementById('email-input').value;
-            const business = document.getElementById('business-name').value;
-            
-            if (!email || !business) {
-                alert('Please enter both email and business name');
-                return;
-            }
-            
-            alert('Thanks! We received your request. We\'ll contact you at ' + email + ' shortly.');
-            
-            closeModal();
-            clearSelection();
         }
     </script>
 </body>
