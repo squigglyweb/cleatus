@@ -16,99 +16,40 @@
         
         body {
             font-family: 'Inter', sans-serif;
-            background: white;
+            background: var(--nearbuy-cream);
             color: var(--nearbuy-charcoal);
         }
         
-        /* HERO WITH ILLUSTRATION + OVERLAY BOXES */
-        .hero-container {
-            position: relative;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        
-        .hero-img {
+        /* ILLUSTRATION */
+        .illustration {
             width: 100%;
-            height: auto;
+            max-width: 900px;
+            margin: 0 auto;
             display: block;
         }
         
-        /* OVERLAY BOXES ON THE ILLUSTRATION */
-        .overlay-grid {
-            position: absolute;
-            top: 35%;
-            left: 10%;
-            right: 10%;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-        }
-        
-        .overlay-box {
-            background: white;
-            border: 3px solid var(--nearbuy-charcoal);
-            border-radius: 6px;
-            padding: 15px 10px;
-            text-align: center;
-            min-height: 100px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .overlay-box .icon {
-            font-size: 20px;
-            margin-bottom: 6px;
-        }
-        
-        .overlay-box h3 {
-            font-size: 11px;
-            font-weight: 800;
-            margin-bottom: 4px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            line-height: 1.2;
-        }
-        
-        .overlay-box p {
-            font-size: 9px;
-            color: #666;
-            line-height: 1.3;
-            margin: 0;
-        }
-        
-        .overlay-box.highlight {
-            border-color: var(--nearbuy-red);
-            background: rgba(211,47,47,0.08);
-        }
-        
-        .overlay-box.highlight h3 {
-            color: var(--nearbuy-red);
-        }
-        
-        /* EMAIL SIGNUP */
-        .email-section {
+        /* COMING SOON + EMAIL */
+        .signup-section {
             background: var(--nearbuy-charcoal);
-            padding: 50px 20px;
-            text-align: center;
             color: white;
+            padding: 60px 20px;
+            text-align: center;
         }
         
-        .email-section h2 {
-            font-size: 28px;
+        .signup-section h1 {
+            font-size: 42px;
             font-weight: 900;
             margin-bottom: 10px;
         }
         
-        .email-section h2 span {
+        .signup-section h1 span {
             color: var(--nearbuy-red);
         }
         
-        .email-section p {
-            font-size: 16px;
+        .signup-section p {
+            font-size: 18px;
             opacity: 0.8;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
         
         .email-form {
@@ -121,25 +62,81 @@
         
         .email-form input {
             flex: 1;
-            padding: 14px 18px;
+            padding: 16px 20px;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-size: 16px;
         }
         
         .email-form button {
-            padding: 14px 28px;
+            padding: 16px 32px;
             background: var(--nearbuy-red);
             color: white;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             font-weight: 700;
             font-size: 16px;
             cursor: pointer;
+            white-space: nowrap;
         }
         
         .email-form button:hover {
             background: #b12727;
+        }
+        
+        /* BOXES */
+        .content-section {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .content-box {
+            background: white;
+            border: 3px solid var(--nearbuy-charcoal);
+            border-radius: 10px;
+            padding: 30px 20px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        
+        .content-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        }
+        
+        .content-box .icon {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+        
+        .content-box h3 {
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+        
+        .content-box p {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        .content-box.highlight {
+            border-color: var(--nearbuy-red);
+            background: rgba(211,47,47,0.05);
+        }
+        
+        .content-box.highlight h3 {
+            color: var(--nearbuy-red);
         }
         
         /* FOOTER */
@@ -151,7 +148,7 @@
         }
         
         .footer-logo {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: 900;
             color: var(--nearbuy-red);
         }
@@ -168,31 +165,12 @@
         
         /* MOBILE */
         @media (max-width: 768px) {
-            .overlay-grid {
-                position: relative;
-                top: auto;
-                left: auto;
-                right: auto;
-                margin: -30px 10px 0;
-                grid-template-columns: repeat(2, 1fr);
-                gap: 8px;
+            .signup-section h1 {
+                font-size: 28px;
             }
             
-            .overlay-box {
-                min-height: 90px;
-                padding: 10px 8px;
-            }
-            
-            .overlay-box .icon {
-                font-size: 18px;
-            }
-            
-            .overlay-box h3 {
-                font-size: 10px;
-            }
-            
-            .overlay-box p {
-                font-size: 8px;
+            .signup-section p {
+                font-size: 16px;
             }
             
             .email-form {
@@ -202,81 +180,78 @@
             .email-form button {
                 width: 100%;
             }
-        }
-        
-        @media (max-width: 480px) {
-            .overlay-grid {
+            
+            .content-grid {
                 grid-template-columns: 1fr;
-                margin: -20px 15px 0;
+                gap: 15px;
             }
             
-            .overlay-box {
-                min-height: 80px;
+            .content-box {
+                padding: 25px 20px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- HERO WITH ILLUSTRATION + OVERLAY BOXES -->
-    <div class="hero-container">
-        <!-- Replace src with your illustration file -->
-        <img src="town-illustration.png" alt="Greater Waxhaw" class="hero-img">
-        
-        <!-- 6 Boxes Overlaid on Illustration -->
-        <div class="overlay-grid">
-            <!-- Box 1: TLN Radio -->
-            <div class="overlay-box">
-                <div class="icon">📻</div>
-                <h3>TLN Radio</h3>
-                <p>Listen to local jingles</p>
-            </div>
-            
-            <!-- Box 2: Recommend -->
-            <div class="overlay-box">
-                <div class="icon">💡</div>
-                <h3>Recommend a Business</h3>
-                <p>Tell us who to feature</p>
-            </div>
-            
-            <!-- Box 3: Mission (Highlighted) -->
-            <div class="overlay-box highlight">
-                <div class="icon">🍽️</div>
-                <h3>Our Mission</h3>
-                <p>Shop local. Feed families.</p>
-            </div>
-            
-            <!-- Box 4: Content Pillars -->
-            <div class="overlay-box">
-                <div class="icon">☕</div>
-                <h3>Content Pillars</h3>
-                <p>Coffee, Pizza, Date Night & more</p>
-            </div>
-            
-            <!-- Box 5: Coverage Area -->
-            <div class="overlay-box">
-                <div class="icon">🗺️</div>
-                <h3>Coverage Area</h3>
-                <p>Waxhaw & surrounding areas</p>
-            </div>
-            
-            <!-- Box 6: For Businesses -->
-            <div class="overlay-box">
-                <div class="icon">📣</div>
-                <h3>For Businesses</h3>
-                <p>Advertise with us</p>
-            </div>
-        </div>
-    </div>
+    <!-- ILLUSTRATION -->
+    <img src="town-illustration.png" alt="Greater Waxhaw" class="illustration">
     
-    <!-- EMAIL SIGNUP -->
-    <section class="email-section">
-        <h2>The Local <span>NearBuy</span></h2>
+    <!-- SIGNUP SECTION -->
+    <section class="signup-section">
+        <h1>The Local <span>NearBuy</span></h1>
         <p>Your guide to the best of Greater Waxhaw. Coming soon.</p>
         
         <form class="email-form" onsubmit="alert('Thanks! We\'ll notify you when we launch.'); return false;">
             <input type="email" placeholder="Your email address" required>
             <button type="submit">Notify Me</button>
         </form>
+    </section>
+    
+    <!-- CONTENT BOXES -->
+    <section class="content-section">
+        <div class="content-grid">
+            <!-- Box 1: TLN Radio -->
+            <div class="content-box">
+                <div class="icon">📻</div>
+                <h3>TLN Radio</h3>
+                <p>Listen to local jingles and community anthems. Stream anytime.</p>
+            </div>
+            
+            <!-- Box 2: Recommend -->
+            <div class="content-box">
+                <div class="icon">💡</div>
+                <h3>Recommend a Business</h3>
+                <p>Know a great local spot? Tell us who to feature next!</p>
+            </div>
+            
+            <!-- Box 3: Mission -->
+            <div class="content-box highlight">
+                <div class="icon">🍽️</div>
+                <h3>Our Mission</h3>
+                <p>Shop local. Feed families. Every scan donates a meal.</p>
+            </div>
+            
+            <!-- Box 4: Content Pillars -->
+            <div class="content-box">
+                <div class="icon">☕</div>
+                <h3>Content Pillars</h3>
+                <p>Coffee Corner, Pizza Files, Date Night, Sweet Spot & more.</p>
+            </div>
+            
+            <!-- Box 5: Coverage Area -->
+            <div class="content-box">
+                <div class="icon">🗺️</div>
+                <h3>Coverage Area</h3>
+                <p>Waxhaw, Marvin, Weddington, Monroe & surrounding areas.</p>
+            </div>
+            
+            <!-- Box 6: For Businesses -->
+            <div class="content-box">
+                <div class="icon">📣</div>
+                <h3>For Businesses</h3>
+                <p>Advertise with us. Reach thousands of local households.</p>
+            </div>
+        </div>
     </section>
     
     <!-- FOOTER -->
