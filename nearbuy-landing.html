@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Local NearBuy — Greater Waxhaw's Media Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #faf8f5; color: #1a1a1a; }
+        
+        :root {
+            --nearbuy-red: #d32f2f;
+            --nearbuy-charcoal: #1a1a1a;
+        }
+        
+        /* HEADER */
+        header {
+            background: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+        
+        .logo { font-size: 24px; font-weight: 900; color: var(--nearbuy-red); }
+        .logo span { color: var(--nearbuy-charcoal); }
+        
+        nav a {
+            margin-left: 30px;
+            text-decoration: none;
+            color: #1a1a1a;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        /* HERO */
+        .hero {
+            background: var(--nearbuy-charcoal);
+            color: white;
+            padding: 80px 40px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+        
+        .hero h1 span { color: var(--nearbuy-red); }
+        
+        .hero p {
+            font-size: 20px;
+            opacity: 0.8;
+            max-width: 600px;
+            margin: 0 auto 30px;
+        }
+        
+        .hero-cta {
+            display: inline-block;
+            background: var(--nearbuy-red);
+            color: white;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+        }
+        
+        /* SECTIONS */
+        section {
+            padding: 60px 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        section h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        section p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+        
+        .feature-icon { font-size: 40px; margin-bottom: 15px; }
+        .feature-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; }
+        .feature-card p { font-size: 14px; margin: 0; }
+        
+        /* RADIO PLAYER */
+        .radio-section {
+            background: var(--nearbuy-charcoal);
+            color: white;
+            text-align: center;
+            padding: 60px 40px;
+        }
+        
+        .radio-section h2 { color: white; }
+        
+        .radio-player {
+            background: #2a2a2a;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            margin: 30px auto;
+            border: 3px solid #444;
+        }
+        
+        .on-air {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .on-air-light {
+            width: 16px;
+            height: 16px;
+            background: #e53935;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        
+        .on-air-label {
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+        
+        .station-name {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+        
+        .now-playing {
+            font-size: 16px;
+            color: #aaa;
+            margin-bottom: 30px;
+        }
+        
+        .player-controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .control-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background: #444;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .control-btn.play {
+            width: 70px;
+            height: 70px;
+            background: var(--nearbuy-red);
+            font-size: 28px;
+        }
+        
+        .control-btn:hover { background: #555; }
+        .control-btn.play:hover { background: #b12727; }
+        
+        .progress-bar {
+            height: 6px;
+            background: #444;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-bottom: 15px;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: var(--nearbuy-red);
+            width: 35%;
+            border-radius: 3px;
+        }
+        
+        .volume-control {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: #888;
+            font-size: 12px;
+        }
+        
+        .volume-slider {
+            width: 100px;
+            accent-color: var(--nearbuy-red);
+        }
+        
+        .playlist {
+            background: #222;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 20px;
+            text-align: left;
+        }
+        
+        .playlist h4 {
+            font-size: 12px;
+            color: #666;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        
+        .playlist-item {
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #888;
+            cursor: pointer;
+        }
+        
+        .playlist-item:hover, .playlist-item.active {
+            background: #333;
+            color: white;
+        }
+        
+        /* FOOTER */
+        footer {
+            background: var(--nearbuy-charcoal);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        footer p { opacity: 0.5; font-size: 14px; }
+        
+        @media (max-width: 768px) {
+            .features { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 36px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">The Local <span>NearBuy</span></div>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#radio">Radio</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+    
+    <!-- HERO -->
+    <section class="hero">
+        <h1>Your Connection to <span>Greater Waxhaw</span></h1>
+        <p>The only hyperlocal media company dedicated to showcasing your town's best businesses — while feeding local kids in need.</p>
+        <a href="#" class="hero-cta">Explore Local</a>
+    </section>
+    
+    <!-- ABOUT -->
+    <section id="about">
+        <h2>What is The Local NearBuy?</h2>
+        <p>We're a hyperlocal media brand built for Greater Waxhaw and surrounding communities. Our mission: help you discover the best local businesses while making a real difference.</p>
+        <p>Every recommendation we make, every business we feature, every ad we run — it all comes back to supporting our community. That's the NearBuy difference.</p>
+    </section>
+    
+    <!-- SERVICES -->
+    <section id="services">
+        <h2>What We Do</h2>
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">📱</div>
+                <h3>Social Media</h3>
+                <p>Daily content featuring local businesses, hidden gems, and community highlights.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📍</div>
+                <h3>Local Directory</h3>
+                <p>Your online guide to every great spot in town. Claim your listing for free.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📬</div>
+                <h3>EDDM Postcards</h3>
+                <p>Quarterly mailers reaching 5,000+ households with local deals and specials.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📧</div>
+                <h3>Newsletter</h3>
+                <p>Weekly updates on new businesses, events, and community news.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🍽️</div>
+                <h3>Meals4Good</h3>
+                <p>Every ad purchase helps provide meals for local children in need.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📻</div>
+                <h3>NearBuy Radio</h3>
+                <p>Our own jingle station celebrating local businesses and community spirit.</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- RADIO -->
+    <section class="radio-section" id="radio">
+        <h2>📻 NearBuy Radio</h2>
+        <p style="color: rgba(255,255,255,0.7);">Stream our local jingles and community anthems</p>
+        
+        <div class="radio-player">
+            <div class="on-air">
+                <div class="on-air-light"></div>
+                <span class="on-air-label">ON AIR</span>
+            </div>
+            
+            <div class="station-name">🎵 NearBuy FM</div>
+            <div class="now-playing" id="nowPlaying">Now Playing: NearBuy Anthem</div>
+            
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+            
+            <div class="player-controls">
+                <button class="control-btn" onclick="prevTrack()">⏮</button>
+                <button class="control-btn play" id="playBtn" onclick="togglePlay()">▶</button>
+                <button class="control-btn" onclick="nextTrack()">⏭</button>
+            </div>
+            
+            <div class="volume-control">
+                <span>🔈</span>
+                <input type="range" class="volume-slider" min="0" max="100" value="75">
+                <span>🔊</span>
+            </div>
+            
+            <div class="playlist">
+                <h4>Up Next</h4>
+                <div class="playlist-item active" onclick="playTrack(0)">🎵 NearBuy Anthem</div>
+                <div class="playlist-item" onclick="playTrack(1)">🎵 Shop Local Jingle</div>
+                <div class="playlist-item" onclick="playTrack(2)">🎵 Community Spirit</div>
+                <div class="playlist-item" onclick="playTrack(3)">🎵 Coffee Corner Theme</div>
+                <div class="playlist-item" onclick="playTrack(4)">🎵 Pizza Night Anthem</div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- FUTURE PLANS -->
+    <section>
+        <h2>What's Coming Next</h2>
+        <p>We're just getting started. Here's what's on our roadmap:</p>
+        <div class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🎉</div>
+                <h3>Community Events</h3>
+                <p>Quarterly meal-packing events bringing businesses and families together.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎙️</div>
+                <h3>Podcast</h3>
+                <p>Interviews with local business owners and community leaders.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🗺️</div>
+                <h3>Expansion</h3>
+                <p>Growing to surrounding areas while staying hyperlocal.</p>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="logo">The Local <span>NearBuy</span></div>
+        <p>Greater Waxhaw's media hub. Shop local. Feed families. Support community.</p>
+    </footer>
+    
+    <script>
+        let isPlaying = false;
+        let currentTrack = 0;
+        
+        const tracks = [
+            "NearBuy Anthem",
+            "Shop Local Jingle",
+            "Community Spirit",
+            "Coffee Corner Theme",
+            "Pizza Night Anthem"
+        ];
+        
+        function togglePlay() {
+            isPlaying = !isPlaying;
+            document.getElementById('playBtn').textContent = isPlaying ? '⏸' : '▶';
+        }
+        
+        function prevTrack() {
+            currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
+            playCurrentTrack();
+        }
+        
+        function nextTrack() {
+            currentTrack = (currentTrack + 1) % tracks.length;
+            playCurrentTrack();
+        }
+        
+        function playTrack(index) {
+            currentTrack = index;
+            playCurrentTrack();
+        }
+        
+        function playCurrentTrack() {
+            document.getElementById('nowPlaying').textContent = 'Now Playing: ' + tracks[currentTrack];
+            
+            document.querySelectorAll('.playlist-item').forEach((item, i) => {
+                item.classList.toggle('active', i === currentTrack);
+            });
+        }
+    </script>
+</body>
+</html>
