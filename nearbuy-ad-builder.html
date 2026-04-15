@@ -46,27 +46,9 @@
         
         .back-content { flex: 1; display: flex; flex-direction: column; }
         
-        /* 3x3 grid of individual slots */
-        .slots-grid { 
-            flex: 1; 
-            display: grid; 
-            grid-template-columns: repeat(3, 1fr); 
-            grid-template-rows: repeat(3, 1fr); 
-            gap: 2px; 
-            background: #ccc; 
-            padding: 2px; 
-        }
+        .slots-grid { flex: 1; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); gap: 2px; background: #ccc; padding: 2px; }
         
-        .slot-cell { 
-            background: white; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            cursor: pointer;
-            transition: all 0.2s;
-            font-size: 10px;
-            position: relative;
-        }
+        .slot-cell { background: white; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s; font-size: 10px; }
         
         .slot-cell.available { background: var(--available-bg); border: 1px solid var(--available-border); }
         .slot-cell.available:hover { border-width: 2px; }
@@ -74,26 +56,6 @@
         .slot-cell.selected { background: var(--selected-bg); border: 2px solid var(--selected-border); }
         
         .slot-cell .slot-num { font-weight: 700; }
-        
-        /* Combined ad blocks appear over slots */
-        .ad-block {
-            position: absolute;
-            top: 2px; left: 2px; right: 2px; bottom: 2px;
-            background: var(--selected-bg);
-            border: 2px solid var(--selected-border);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-            border-radius: 4px;
-        }
-        
-        .ad-block.combined-2 { right: calc(-33.33% - 2px); }
-        .ad-block.combined-3 { right: calc(-66.66% - 4px); }
-        
-        .ad-block .block-label { font-weight: 700; font-size: 14px; }
-        .ad-block .block-price { font-size: 11px; color: var(--nearbuy-gray); }
         
         .indicia-area { background: #ddd; padding: 10px 12px; display: flex; justify-content: space-between; font-size: 7px; color: var(--nearbuy-gray); }
         
@@ -126,7 +88,25 @@
         .summary-total { margin-top: 15px; padding-top: 15px; border-top: 2px solid rgba(255,255,255,0.2); display: flex; justify-content: space-between; align-items: center; }
         .summary-total .value { font-size: 24px; font-weight: 900; }
         
+        .quote-btn { width: 100%; background: var(--nearbuy-red); color: white; padding: 14px; border: none; border-radius: 10px; font-size: 14px; font-weight: 700; cursor: pointer; margin-top: 15px; }
+        .quote-btn:hover { background: #b12727; }
+        .quote-btn:disabled { background: var(--nearbuy-gray); cursor: not-allowed; }
+        
         .clear-btn { width: 100%; padding: 10px; border: 2px solid #ddd; background: white; border-radius: 8px; cursor: pointer; font-size: 13px; margin-top: 10px; }
+        
+        /* Modal */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); z-index: 100; align-items: center; justify-content: center; }
+        .modal-overlay.active { display: flex; }
+        .modal { background: white; border-radius: 16px; padding: 30px; max-width: 400px; width: 90%; text-align: center; }
+        .modal h2 { font-size: 24px; font-weight: 700; margin-bottom: 10px; }
+        .modal p { font-size: 14px; color: var(--nearbuy-gray); margin-bottom: 20px; }
+        .modal input { width: 100%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 14px; margin-bottom: 15px; }
+        .modal input:focus { outline: none; border-color: var(--nearbuy-red); }
+        .modal-submit { width: 100%; background: var(--nearbuy-red); color: white; padding: 14px; border: none; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; }
+        .modal-close { margin-top: 15px; background: transparent; border: none; color: var(--nearbuy-gray); cursor: pointer; font-size: 13px; }
+        
+        .success-message { display: none; }
+        .success-message.show { display: block; }
         
         @media (max-width: 800px) { .builder-content { grid-template-columns: 1fr; } }
     </style>
@@ -193,7 +173,20 @@
                 <div class="summary-row"><span class="summary-label">Size</span><span class="summary-value" id="s-size">—</span></div>
                 <div class="summary-row"><span class="summary-label">Children Fed</span><span class="summary-value" id="s-meals">0</span></div>
                 <div class="summary-total"><span class="label">Total</span><span class="value" id="s-total">$0</span></div>
+                <button class="quote-btn" id="quote-btn" onclick="showQuoteModal()" disabled>Get Quote</button>
             </div>
+        </div>
+    </div>
+    
+    <!-- Quote Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <h2>Get Your Quote</h2>
+            <p>Enter your email to save your selection and get a custom quote.</p>
+            <input type="email" id="email-input" placeholder="your@email.com">
+            <input type="text" id="business-name" placeholder="Business Name">
+            <button class="modal-submit" onclick="submitQuote()">Submit</button>
+            <button class="modal-close" onclick="closeModal()">Cancel</button>
         </div>
     </div>
     
@@ -255,7 +248,8 @@
             document.getElementById('s-meals').textContent = meals;
             document.getElementById('s-total').textContent = '$' + price;
             
-            // Full back mode
+            document.getElementById('quote-btn').disabled = count === 0;
+            
             const postcard = document.getElementById('postcard');
             if (count >= 9) {
                 postcard.classList.add('full-back');
@@ -272,6 +266,33 @@
             if (n >= 6 && n <= 8) return 'Super';
             if (n === 9) return 'Full Back';
             return n + ' slots';
+        }
+        
+        function showQuoteModal() {
+            document.getElementById('modal').classList.add('active');
+        }
+        
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+        
+        function submitQuote() {
+            const email = document.getElementById('email-input').value;
+            const business = document.getElementById('business-name').value;
+            
+            if (!email || !business) {
+                alert('Please enter both email and business name');
+                return;
+            }
+            
+            // In production, you'd send this to your backend/CRM
+            const slots = selected.length;
+            const price = slots * 250;
+            
+            alert('Thanks! We received your request for ' + slots + ' slots ($' + price + '). We\'ll contact you at ' + email + ' shortly.');
+            
+            closeModal();
+            clearSelection();
         }
     </script>
 </body>
