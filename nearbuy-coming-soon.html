@@ -23,12 +23,12 @@
         /* ILLUSTRATION */
         .illustration {
             width: 100%;
-            max-width: 900px;
+            max-width: 1000px;
             margin: 0 auto;
             display: block;
         }
         
-        /* COMING SOON + EMAIL */
+        /* SIGNUP SECTION */
         .signup-section {
             background: var(--nearbuy-charcoal);
             color: white;
@@ -77,101 +77,162 @@
             font-weight: 700;
             font-size: 16px;
             cursor: pointer;
-            white-space: nowrap;
         }
         
-        .email-form button:hover {
-            background: #b12727;
-        }
-        
-        /* BOXES */
-        .content-section {
-            max-width: 900px;
+        /* FLIP CARDS GRID */
+        .cards-section {
+            max-width: 1000px;
             margin: 0 auto;
             padding: 60px 20px;
         }
         
-        .content-grid {
+        .cards-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+            gap: 25px;
         }
         
-        .content-box {
-            background: white;
-            border: 3px solid var(--nearbuy-charcoal);
-            border-radius: 10px;
-            padding: 25px 20px;
-            text-align: center;
-        }
-        
-        .content-box .box-icon {
-            font-size: 28px;
-            margin-bottom: 12px;
-        }
-        
-        .content-box h3 {
-            font-size: 13px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-        }
-        
-        .content-box p {
-            font-size: 12px;
-            color: #666;
-            line-height: 1.5;
-        }
-        
-        .content-box.highlight {
-            border-color: var(--nearbuy-red);
-            background: rgba(211,47,47,0.05);
-        }
-        
-        .content-box.highlight h3 {
-            color: var(--nearbuy-red);
-        }
-        
-        /* RADIO PLAYER IN BOX */
-        .radio-mini {
-            margin-top: 10px;
-        }
-        
-        .radio-mini button {
-            background: var(--nearbuy-charcoal);
-            color: white;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 12px;
+        /* FLIP CARD CONTAINER */
+        .flip-card {
+            height: 280px;
+            perspective: 1000px;
             cursor: pointer;
         }
         
-        .radio-mini p {
-            font-size: 10px;
-            margin-top: 6px;
+        /* THE CARD ITSELF */
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
         }
         
-        /* FORM IN RECOMMEND BOX */
-        .recommend-form {
+        /* Flip on hover (unless clicked open) */
+        .flip-card:hover .flip-card-inner:not(.flipped) {
+            transform: rotateY(180deg);
+        }
+        
+        /* When explicitly flipped/stayed open */
+        .flip-card-inner.flipped {
+            transform: rotateY(180deg);
+        }
+        
+        /* FRONT AND BACK */
+        .flip-card-front,
+        .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border: 3px solid var(--nearbuy-charcoal);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: white;
+        }
+        
+        /* BACK SIDE - ROTATED */
+        .flip-card-back {
+            transform: rotateY(180deg);
+            background: white;
+            overflow-y: auto;
+        }
+        
+        /* CARD STYLING */
+        .flip-card-front .card-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+        
+        .flip-card-front h3 {
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .flip-card-front .hint {
+            font-size: 11px;
+            color: #999;
+            margin-top: 15px;
+        }
+        
+        /* HIGHLIGHTED CARD */
+        .flip-card.highlight .flip-card-front,
+        .flip-card.highlight .flip-card-back {
+            border-color: var(--nearbuy-red);
+        }
+        
+        .flip-card.highlight .flip-card-front h3 {
+            color: var(--nearbuy-red);
+        }
+        
+        /* CLOSE BUTTON */
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--nearbuy-charcoal);
+            color: white;
+            border: none;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .close-btn:hover {
+            background: var(--nearbuy-red);
+        }
+        
+        /* RADIO PLAYER */
+        .radio-player-mini {
+            text-align: center;
+            width: 100%;
+        }
+        
+        .radio-player-mini button {
+            background: var(--nearbuy-charcoal);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+        
+        .radio-player-mini p {
+            font-size: 11px;
+            color: #666;
+        }
+        
+        /* FORM */
+        .card-form {
             display: flex;
             flex-direction: column;
             gap: 8px;
-            margin-top: 10px;
-            text-align: left;
+            width: 100%;
+            max-width: 200px;
         }
         
-        .recommend-form input,
-        .recommend-form select {
-            padding: 10px 12px;
+        .card-form input,
+        .card-form select {
+            padding: 10px;
             border: 2px solid #ddd;
             border-radius: 6px;
-            font-size: 13px;
-            font-family: inherit;
+            font-size: 12px;
         }
         
-        .recommend-form button {
+        .card-form button {
             background: var(--nearbuy-charcoal);
             color: white;
             border: none;
@@ -182,8 +243,23 @@
             cursor: pointer;
         }
         
-        .recommend-form button:hover {
+        .card-form button:hover {
             background: var(--nearbuy-red);
+        }
+        
+        /* CONTENT STYLES */
+        .flip-card-back h4 {
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            color: var(--nearbuy-red);
+        }
+        
+        .flip-card-back p {
+            font-size: 11px;
+            line-height: 1.5;
+            color: #666;
         }
         
         /* FOOTER */
@@ -204,33 +280,18 @@
             color: var(--nearbuy-charcoal);
         }
         
-        footer p {
-            font-size: 14px;
-            color: #666;
-            margin-top: 10px;
+        /* DESKTOP ONLY MESSAGE */
+        .desktop-note {
+            text-align: center;
+            padding: 20px;
+            color: #999;
+            font-size: 12px;
         }
         
-        /* MOBILE */
+        /* MOBILE WARNING */
         @media (max-width: 768px) {
-            .signup-section h1 {
-                font-size: 28px;
-            }
-            
-            .signup-section p {
-                font-size: 16px;
-            }
-            
-            .email-form {
-                flex-direction: column;
-            }
-            
-            .email-form button {
-                width: 100%;
-            }
-            
-            .content-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
+            .desktop-note {
+                display: block;
             }
         }
     </style>
@@ -250,69 +311,125 @@
         </form>
     </section>
     
-    <!-- CONTENT BOXES -->
-    <section class="content-section">
-        <div class="content-grid">
-            <!-- Box 1: TLN Radio -->
-            <div class="content-box">
-                <div class="box-icon">📻</div>
-                <h3>TLN Radio</h3>
-                <div class="radio-mini">
-                    <button type="button" onclick="alert('Upload your jingles to enable radio playback')">▶ Play Jingles</button>
-                    <p>Stream local jingles</p>
+    <!-- FLIP CARDS -->
+    <section class="cards-section">
+        <div class="cards-grid">
+            
+            <!-- Card 1: TLN Radio -->
+            <div class="flip-card" onclick="toggleCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-icon">📻</div>
+                        <h3>TLN Radio</h3>
+                        <div class="hint">Hover or click</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <button class="close-btn" onclick="event.stopPropagation(); closeCard(this.parentElement.parentElement)">✕</button>
+                        <div class="radio-player-mini">
+                            <button type="button">▶ Play Jingles</button>
+                            <p>Stream local jingles</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <!-- Box 2: Recommend a Business -->
-            <div class="content-box">
-                <div class="box-icon">💡</div>
-                <h3>Recommend a Business</h3>
-                <form class="recommend-form" onsubmit="alert('Thanks! We received your recommendation.'); return false;">
-                    <input type="text" placeholder="Business Name" required>
-                    <select required>
-                        <option value="">Select Category</option>
-                        <option value="coffee">Coffee Corner</option>
-                        <option value="pizza">Pizza Files</option>
-                        <option value="datenight">Date Night Worthy</option>
-                        <option value="sweet">The Sweet Spot</option>
-                        <option value="home">Home Heroes</option>
-                        <option value="health">Smile Squad</option>
-                        <option value="hidden">Hidden Gems</option>
-                        <option value="kid">Kid-Friendly Favorites</option>
-                        <option value="other">Other</option>
-                    </select>
-                    <button type="submit">Submit</button>
-                </form>
+            <!-- Card 2: Recommend a Business -->
+            <div class="flip-card" onclick="toggleCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-icon">💡</div>
+                        <h3>Recommend a Business</h3>
+                        <div class="hint">Hover or click</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <button class="close-btn" onclick="event.stopPropagation(); closeCard(this.parentElement.parentElement)">✕</button>
+                        <form class="card-form" onsubmit="alert('Thanks! We received your recommendation.'); return false;">
+                            <input type="text" placeholder="Business Name" required>
+                            <select required>
+                                <option value="">Category</option>
+                                <option value="coffee">Coffee Corner</option>
+                                <option value="pizza">Pizza Files</option>
+                                <option value="datenight">Date Night Worthy</option>
+                                <option value="sweet">The Sweet Spot</option>
+                                <option value="home">Home Heroes</option>
+                                <option value="health">Smile Squad</option>
+                                <option value="hidden">Hidden Gems</option>
+                                <option value="kid">Kid-Friendly</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <button type="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
             </div>
             
-            <!-- Box 3: Mission -->
-            <div class="content-box highlight">
-                <div class="box-icon">🍽️</div>
-                <h3>Our Mission</h3>
-                <p>Shop local. Feed families. Every scan donates a meal to a local child in need.</p>
+            <!-- Card 3: Our Mission (Highlighted) -->
+            <div class="flip-card highlight" onclick="toggleCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-icon">🍽️</div>
+                        <h3>Our Mission</h3>
+                        <div class="hint">Hover or click</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <button class="close-btn" onclick="event.stopPropagation(); closeCard(this.parentElement.parentElement)">✕</button>
+                        <h4>Shop Local. Feed Families.</h4>
+                        <p>Every time someone scans a QR code from our featured businesses, we donate a meal to a local child in need. Up to 2,000 meals per campaign.</p>
+                    </div>
+                </div>
             </div>
             
-            <!-- Box 4: Content Pillars -->
-            <div class="content-box">
-                <div class="box-icon">☕</div>
-                <h3>Content Pillars</h3>
-                <p>Coffee Corner • Pizza Files • Date Night • Sweet Spot • Home Heroes • Smile Squad • Hidden Gems • Kid-Friendly</p>
+            <!-- Card 4: Content Pillars -->
+            <div class="flip-card" onclick="toggleCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-icon">☕</div>
+                        <h3>Content Pillars</h3>
+                        <div class="hint">Hover or click</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <button class="close-btn" onclick="event.stopPropagation(); closeCard(this.parentElement.parentElement)">✕</button>
+                        <h4>Our Categories</h4>
+                        <p>Coffee Corner • Pizza Files<br>Date Night Worthy • The Sweet Spot<br>Home Heroes • Smile Squad<br>Hidden Gems • Kid-Friendly</p>
+                    </div>
+                </div>
             </div>
             
-            <!-- Box 5: Coverage Area -->
-            <div class="content-box">
-                <div class="box-icon">🗺️</div>
-                <h3>Coverage Area</h3>
-                <p>Waxhaw, Marvin, Weddington, Monroe & surrounding areas.</p>
+            <!-- Card 5: Coverage Area -->
+            <div class="flip-card" onclick="toggleCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-icon">🗺️</div>
+                        <h3>Coverage Area</h3>
+                        <div class="hint">Hover or click</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <button class="close-btn" onclick="event.stopPropagation(); closeCard(this.parentElement.parentElement)">✕</button>
+                        <h4>Greater Waxhaw</h4>
+                        <p>Waxhaw, Marvin, Weddington, Monroe, Indian Trail, Stallings, Mint Hill, Ballantyne & South Charlotte.</p>
+                    </div>
+                </div>
             </div>
             
-            <!-- Box 6: For Businesses -->
-            <div class="content-box">
-                <div class="box-icon">📣</div>
-                <h3>For Businesses</h3>
-                <p>Advertise with us. Reach thousands of local households. Every ad feeds kids.</p>
+            <!-- Card 6: For Businesses -->
+            <div class="flip-card" onclick="toggleCard(this)">
+                <div class="flip-card-inner">
+                    <div class="flip-card-front">
+                        <div class="card-icon">📣</div>
+                        <h3>For Businesses</h3>
+                        <div class="hint">Hover or click</div>
+                    </div>
+                    <div class="flip-card-back">
+                        <button class="close-btn" onclick="event.stopPropagation(); closeCard(this.parentElement.parentElement)">✕</button>
+                        <h4>Advertise With Us</h4>
+                        <p>Social media features, directory listings, quarterly postcards to 5,000+ households. Every ad helps feed local kids.</p>
+                    </div>
+                </div>
             </div>
+            
         </div>
+        
+        <p class="desktop-note">Best viewed on desktop. Hover to flip, click to keep open.</p>
     </section>
     
     <!-- FOOTER -->
@@ -320,5 +437,16 @@
         <div class="footer-logo">The Local <span>NearBuy</span></div>
         <p>Greater Waxhaw's media hub. Shop local. Feed families.</p>
     </footer>
+    
+    <script>
+        function toggleCard(card) {
+            const inner = card.querySelector('.flip-card-inner');
+            inner.classList.toggle('flipped');
+        }
+        
+        function closeCard(inner) {
+            inner.classList.remove('flipped');
+        }
+    </script>
 </body>
 </html>
