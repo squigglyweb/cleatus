@@ -16,7 +16,7 @@
         
         .container { position: relative; z-index: 1; min-height: 100vh; padding: 30px; display: flex; flex-direction: column; justify-content: space-between; }
         
-        /* TOP ROW - 6 BUTTONS IN A ROW */
+        /* TOP ROW - 6 BUTTONS */
         .nav-row {
             display: flex;
             justify-content: center;
@@ -38,14 +38,13 @@
         }
         
         .nav-btn:hover { transform: translateY(-2px); }
-        
         .nav-btn .icon { font-size: 14px; }
         .nav-btn .label { font-size: 10px; font-weight: 800; text-transform: uppercase; }
         
         .nav-btn.highlight { border-color: var(--red); background: rgba(211,47,47,0.08); }
         .nav-btn.highlight .label { color: var(--red); }
         
-        /* EMAIL SIGNUP - BOTTOM */
+        /* EMAIL SIGNUP */
         .signup-box {
             background: rgba(255,255,255,0.97);
             padding: 18px 22px;
@@ -71,40 +70,18 @@
     </style>
 </head>
 <body>
+    <!-- THE ILLUSTRATION WITH 8 SECTIONS - AS THE BACKGROUND -->
     <img src="town-illustration.png" class="bg-image" alt="">
     
     <div class="container">
-        <!-- TOP ROW - 6 BUTTONS -->
+        <!-- TOP NAV -->
         <div class="nav-row">
-            <button class="nav-btn">
-                <span class="icon">📻</span>
-                <span class="label">TLN Radio</span>
-            </button>
-            
-            <button class="nav-btn">
-                <span class="icon">💡</span>
-                <span class="label">Recommend</span>
-            </button>
-            
-            <button class="nav-btn">
-                <span class="icon">☕</span>
-                <span class="label">Content Pillars</span>
-            </button>
-            
-            <button class="nav-btn highlight">
-                <span class="icon">🍽️</span>
-                <span class="label">Our Mission</span>
-            </button>
-            
-            <button class="nav-btn">
-                <span class="icon">🗺️</span>
-                <span class="label">Coverage</span>
-            </button>
-            
-            <button class="nav-btn">
-                <span class="icon">📣</span>
-                <span class="label">Businesses</span>
-            </button>
+            <button class="nav-btn"><span class="icon">📻</span><span class="label">TLN Radio</span></button>
+            <button class="nav-btn"><span class="icon">💡</span><span class="label">Recommend</span></button>
+            <button class="nav-btn"><span class="icon">☕</span><span class="label">Content Pillars</span></button>
+            <button class="nav-btn highlight"><span class="icon">🍽️</span><span class="label">Our Mission</span></button>
+            <button class="nav-btn"><span class="icon">🗺️</span><span class="label">Coverage</span></button>
+            <button class="nav-btn"><span class="icon">📣</span><span class="label">Businesses</span></button>
         </div>
         
         <!-- EMAIL SIGNUP -->
