@@ -20,7 +20,7 @@
             color: var(--nearbuy-charcoal);
         }
         
-        /* MOBILE: PARALLAX BG */
+        /* PARALLAX BG (MOBILE) */
         .parallax-container {
             position: fixed;
             top: 0;
@@ -29,6 +29,7 @@
             height: 100vh;
             z-index: -1;
             overflow: hidden;
+            display: none;
         }
         
         .parallax-bg {
@@ -36,41 +37,111 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 120%; /* Taller for parallax */
+            height: 120%;
             object-fit: cover;
-            will-change: transform;
         }
         
-        /* DESKTOP ILLUSTRATION */
-        .desktop-illustration {
-            width: 100%;
+        /* HERO + OVERLAY BOXES (DESKTOP) */
+        .hero-with-cards {
+            position: relative;
             max-width: 1000px;
             margin: 0 auto;
+        }
+        
+        .hero-img {
+            width: 100%;
             display: block;
         }
         
-        /* SIGNUP SECTION */
-        .signup-section {
-            background: var(--nearbuy-charcoal);
-            color: white;
-            padding: 60px 20px;
+        /* OVERLAY GRID ON ILLUSTRATION */
+        .overlay-grid {
+            position: absolute;
+            top: 45%;
+            left: 5%;
+            right: 5%;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        
+        .overlay-card {
+            background: white;
+            border: 3px solid var(--nearbuy-charcoal);
+            border-radius: 10px;
+            padding: 20px 15px;
             text-align: center;
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
         }
         
-        .signup-section h1 {
-            font-size: 42px;
-            font-weight: 900;
-            margin-bottom: 10px;
+        .overlay-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
         }
         
-        .signup-section h1 span {
+        .overlay-card .card-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        
+        .overlay-card h3 {
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+        
+        .overlay-card p {
+            font-size: 10px;
+            color: #666;
+            display: none;
+        }
+        
+        .overlay-card.highlight {
+            border-color: var(--nearbuy-red);
+        }
+        
+        .overlay-card.highlight h3 {
             color: var(--nearbuy-red);
         }
         
-        .signup-section p {
+        /* WHEN HOVERED: SHOW CONTENT */
+        .overlay-card:hover p {
+            display: block;
+        }
+        
+        .overlay-card:hover h3 {
+            margin-bottom: 8px;
+        }
+        
+        /* EMAIL SIGNUP AREA */
+        .signup-area {
+            background: var(--nearbuy-charcoal);
+            color: white;
+            padding: 80px 20px 60px;
+            text-align: center;
+            /* Extend up to cover bottom of illustration */
+            margin-top: -1px;
+        }
+        
+        .signup-area h1 {
+            font-size: 42px;
+            font-weight: 900;
+        }
+        
+        .signup-area h1 span {
+            color: var(--nearbuy-red);
+        }
+        
+        .signup-area p {
             font-size: 18px;
             opacity: 0.8;
-            margin-bottom: 30px;
+            margin: 15px 0 30px;
         }
         
         .email-form {
@@ -96,165 +167,7 @@
             border: none;
             border-radius: 8px;
             font-weight: 700;
-            font-size: 16px;
             cursor: pointer;
-        }
-        
-        /* FLIP CARDS */
-        .cards-section {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 60px 20px;
-        }
-        
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
-        }
-        
-        .flip-card {
-            height: 280px;
-            perspective: 1000px;
-            cursor: pointer;
-        }
-        
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-        }
-        
-        .flip-card:hover .flip-card-inner:not(.flipped) {
-            transform: rotateY(180deg);
-        }
-        
-        .flip-card-inner.flipped {
-            transform: rotateY(180deg);
-        }
-        
-        .flip-card-front,
-        .flip-card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border: 3px solid var(--nearbuy-charcoal);
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            background: white;
-        }
-        
-        .flip-card-back {
-            transform: rotateY(180deg);
-            background: white;
-            overflow-y: auto;
-        }
-        
-        .flip-card-front .card-icon {
-            font-size: 40px;
-            margin-bottom: 15px;
-        }
-        
-        .flip-card-front h3 {
-            font-size: 14px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .flip-card-front .hint {
-            font-size: 11px;
-            color: #999;
-            margin-top: 15px;
-        }
-        
-        .flip-card.highlight .flip-card-front,
-        .flip-card.highlight .flip-card-back {
-            border-color: var(--nearbuy-red);
-        }
-        
-        .flip-card.highlight .flip-card-front h3 {
-            color: var(--nearbuy-red);
-        }
-        
-        .close-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--nearbuy-charcoal);
-            color: white;
-            border: none;
-            width: 28px;
-            height: 28px;
-            border-radius: 50%;
-            font-size: 14px;
-            cursor: pointer;
-        }
-        
-        .close-btn:hover {
-            background: var(--nearbuy-red);
-        }
-        
-        .radio-player-mini {
-            text-align: center;
-        }
-        
-        .radio-player-mini button {
-            background: var(--nearbuy-charcoal);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 25px;
-            font-size: 14px;
-            cursor: pointer;
-        }
-        
-        .card-form {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            width: 100%;
-            max-width: 200px;
-        }
-        
-        .card-form input,
-        .card-form select {
-            padding: 10px;
-            border: 2px solid #ddd;
-            border-radius: 6px;
-            font-size: 12px;
-        }
-        
-        .card-form button {
-            background: var(--nearbuy-charcoal);
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-        
-        .flip-card-back h4 {
-            font-size: 12px;
-            font-weight: 800;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-            color: var(--nearbuy-red);
-        }
-        
-        .flip-card-back p {
-            font-size: 11px;
-            line-height: 1.5;
-            color: #666;
         }
         
         footer {
@@ -274,24 +187,28 @@
             color: var(--nearbuy-charcoal);
         }
         
-        /* MOBILE */
+        /* MOBILE STYLES */
         @media (max-width: 768px) {
-            .desktop-illustration {
+            .parallax-container {
+                display: block;
+            }
+            
+            .hero-with-cards {
                 display: none;
             }
             
-            .signup-section {
+            .signup-area {
                 background: transparent;
                 background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.8) 100%);
                 padding: 100px 20px 60px;
             }
             
-            .signup-section h1 {
-                font-size: 36px;
+            .signup-area h1 {
+                font-size: 32px;
             }
             
-            .signup-section p {
-                font-size: 16px;
+            .signup-area p {
+                font-size: 15px;
             }
             
             .email-form {
@@ -302,66 +219,90 @@
                 width: 100%;
             }
             
-            .cards-section {
-                padding: 40px 15px;
+            .cards-section-mobile {
+                padding: 30px 15px;
                 background: rgba(255,255,255,0.93);
-                margin: 0;
             }
             
-            .cards-grid {
+            .cards-grid-mobile {
+                display: grid;
                 grid-template-columns: 1fr;
-                gap: 15px;
+                gap: 12px;
             }
             
-            .flip-card {
-                height: 200px;
+            .mobile-card {
+                background: white;
+                border: 2px solid var(--nearbuy-charcoal);
+                border-radius: 8px;
+                padding: 18px;
             }
             
-            .flip-card-inner {
-                transform: none !important;
+            .mobile-card.expanded {
+                background: #fafafa;
             }
             
-            .flip-card-front {
+            .mobile-card-header {
                 display: flex;
+                align-items: center;
+                gap: 12px;
             }
             
-            .flip-card-back {
+            .mobile-card-header .icon {
+                font-size: 20px;
+            }
+            
+            .mobile-card-header h3 {
+                font-size: 12px;
+                font-weight: 700;
+                text-transform: uppercase;
+                flex: 1;
+            }
+            
+            .mobile-card-header .arrow {
+                font-size: 14px;
+                transition: transform 0.2s;
+            }
+            
+            .mobile-card.expanded .mobile-card-header .arrow {
+                transform: rotate(180deg);
+            }
+            
+            .mobile-card-content {
                 display: none;
-                position: relative;
-                transform: none;
-                margin-top: 10px;
-                border-top: none;
-                border-radius: 0 0 12px 12px;
-                padding: 15px;
+                margin-top: 15px;
+                padding-top: 15px;
+                border-top: 1px solid #eee;
             }
             
-            .flip-card.mobile-open .flip-card-back {
+            .mobile-card.expanded .mobile-card-content {
                 display: block;
             }
             
-            .flip-card.mobile-open .flip-card-front {
-                border-radius: 12px 12px 0 0;
-            }
-            
-            .close-btn {
-                display: none;
-            }
-            
-            .desktop-note {
-                display: none;
-            }
-        }
-        
-        @media (min-width: 769px) {
-            .desktop-note {
-                text-align: center;
-                padding: 20px;
-                color: #999;
+            .mobile-card button {
+                background: var(--nearbuy-charcoal);
+                color: white;
+                border: none;
+                padding: 12px;
+                border-radius: 6px;
                 font-size: 12px;
+                font-weight: 600;
+                width: 100%;
+                cursor: pointer;
             }
             
-            .parallax-container {
-                display: none;
+            .mobile-card input,
+            .mobile-card select {
+                width: 100%;
+                padding: 10px;
+                border: 2px solid #ddd;
+                border-radius: 6px;
+                font-size: 13px;
+                margin-bottom: 8px;
+            }
+            
+            .mobile-card form {
+                display: flex;
+                flex-direction: column;
             }
         }
     </style>
@@ -372,11 +313,51 @@
         <img src="town-illustration.png" class="parallax-bg" id="parallaxBg" alt="">
     </div>
     
-    <!-- DESKTOP ILLUSTRATION -->
-    <img src="town-illustration.png" class="desktop-illustration" alt="">
+    <!-- DESKTOP: HERO + OVERLAY BOXES -->
+    <div class="hero-with-cards">
+        <img src="town-illustration.png" class="hero-img" alt="Greater Waxhaw">
+        
+        <div class="overlay-grid">
+            <div class="overlay-card" onmouseenter="showContent(this)" onmouseleave="hideContent(this)">
+                <div class="card-icon">📻</div>
+                <h3>TLN Radio</h3>
+                <p>Stream local jingles</p>
+            </div>
+            
+            <div class="overlay-card" onmouseenter="showContent(this)" onmouseleave="hideContent(this)">
+                <div class="card-icon">💡</div>
+                <h3>Recommend</h3>
+                <p>Tell us about a great local business</p>
+            </div>
+            
+            <div class="overlay-card highlight" onmouseenter="showContent(this)" onmouseleave="hideContent(this)">
+                <div class="card-icon">🍽️</div>
+                <h3>Our Mission</h3>
+                <p>Shop local. Feed families.</p>
+            </div>
+            
+            <div class="overlay-card" onmouseenter="showContent(this)" onmouseleave="hideContent(this)">
+                <div class="card-icon">☕</div>
+                <h3>Content Pillars</h3>
+                <p>Coffee, Pizza, Date Night & more</p>
+            </div>
+            
+            <div class="overlay-card" onmouseenter="showContent(this)" onmouseleave="hideContent(this)">
+                <div class="card-icon">🗺️</div>
+                <h3>Coverage</h3>
+                <p>Greater Waxhaw area</p>
+            </div>
+            
+            <div class="overlay-card" onmouseenter="showContent(this)" onmouseleave="hideContent(this)">
+                <div class="card-icon">📣</div>
+                <h3>For Businesses</h3>
+                <p>Advertise with us</p>
+            </div>
+        </div>
+    </div>
     
-    <!-- SIGNUP -->
-    <section class="signup-section">
+    <!-- SIGNUP SECTION (Desktop + Mobile) -->
+    <section class="signup-area">
         <h1>The Local <span>NearBuy</span></h1>
         <p>Your guide to the best of Greater Waxhaw. Coming soon.</p>
         
@@ -386,116 +367,89 @@
         </form>
     </section>
     
-    <!-- FLIP CARDS -->
-    <section class="cards-section">
-        <div class="cards-grid">
-            <div class="flip-card" onclick="toggleCard(this)">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">
-                        <div class="card-icon">📻</div>
-                        <h3>TLN Radio</h3>
-                        <div class="hint">Hover or click</div>
-                    </div>
-                    <div class="flip-card-back">
-                        <button class="close-btn" onclick="event.stopPropagation(); closeCard(this.parentElement.parentElement)">✕</button>
-                        <div class="radio-player-mini">
-                            <button type="button">▶ Play Jingles</button>
-                            <p>Stream local jingles</p>
-                        </div>
-                    </div>
+    <!-- MOBILE: EXPANDABLE CARDS -->
+    <section class="cards-section-mobile">
+        <div class="cards-grid-mobile">
+            <div class="mobile-card" onclick="toggleMobileCard(this)">
+                <div class="mobile-card-header">
+                    <span class="icon">📻</span>
+                    <h3>TLN Radio</h3>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="mobile-card-content">
+                    <button>▶ Play Jingles</button>
                 </div>
             </div>
             
-            <div class="flip-card" onclick="toggleCard(this)">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">
-                        <div class="card-icon">💡</div>
-                        <h3>Recommend</h3>
-                        <div class="hint">Hover or click</div>
-                    </div>
-                    <div class="flip-card-back">
-                        <button class="close-btn" onclick="event.stopPropagation(); closeCard(this.parentElement.parentElement)">✕</button>
-                        <form class="card-form" onsubmit="alert('Thanks!'); return false;">
-                            <input type="text" placeholder="Business Name" required>
-                            <select required>
-                                <option value="">Category</option>
-                                <option value="coffee">Coffee Corner</option>
-                                <option value="pizza">Pizza Files</option>
-                                <option value="datenight">Date Night</option>
-                                <option value="sweet">Sweet Spot</option>
-                                <option value="home">Home Heroes</option>
-                                <option value="health">Smile Squad</option>
-                                <option value="hidden">Hidden Gems</option>
-                                <option value="kid">Kid-Friendly</option>
-                            </select>
-                            <button type="submit">Submit</button>
-                        </form>
-                    </div>
+            <div class="mobile-card" onclick="toggleMobileCard(this)">
+                <div class="mobile-card-header">
+                    <span class="icon">💡</span>
+                    <h3>Recommend a Business</h3>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="mobile-card-content">
+                    <form onsubmit="alert('Thanks!'); return false;">
+                        <input type="text" placeholder="Business Name" required>
+                        <select required>
+                            <option value="">Select Category</option>
+                            <option>Coffee Corner</option>
+                            <option>Pizza Files</option>
+                            <option>Date Night</option>
+                            <option>Sweet Spot</option>
+                            <option>Home Heroes</option>
+                            <option>Smile Squad</option>
+                            <option>Hidden Gems</option>
+                            <option>Kid-Friendly</option>
+                        </select>
+                        <button type="submit">Submit</button>
+                    </form>
                 </div>
             </div>
             
-            <div class="flip-card highlight" onclick="toggleCard(this)">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">
-                        <div class="card-icon">🍽️</div>
-                        <h3>Our Mission</h3>
-                        <div class="hint">Hover or click</div>
-                    </div>
-                    <div class="flip-card-back">
-                        <button class="close-btn" onclick="event.stopPropagation(); closeCard(this.parentElement.parentElement)">✕</button>
-                        <h4>Shop Local. Feed Families.</h4>
-                        <p>Every scan donates a meal. Up to 2,000 per campaign.</p>
-                    </div>
+            <div class="mobile-card" onclick="toggleMobileCard(this)">
+                <div class="mobile-card-header">
+                    <span class="icon">🍽️</span>
+                    <h3>Our Mission</h3>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="mobile-card-content">
+                    <p>Shop local. Feed families. Every scan donates a meal to a local child in need.</p>
                 </div>
             </div>
             
-            <div class="flip-card" onclick="toggleCard(this)">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">
-                        <div class="card-icon">☕</div>
-                        <h3>Content Pillars</h3>
-                        <div class="hint">Hover or click</div>
-                    </div>
-                    <div class="flip-card-back">
-                        <button class="close-btn" onclick="event.stopPropagation(); closeCard(this.parentElement.parentElement)">✕</button>
-                        <h4>Our Categories</h4>
-                        <p>Coffee, Pizza, Date Night, Sweet Spot, Home Heroes, Smile Squad, Hidden Gems, Kid-Friendly</p>
-                    </div>
+            <div class="mobile-card" onclick="toggleMobileCard(this)">
+                <div class="mobile-card-header">
+                    <span class="icon">☕</span>
+                    <h3>Content Pillars</h3>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="mobile-card-content">
+                    <p>Coffee Corner, Pizza Files, Date Night Worthy, The Sweet Spot, Home Heroes, Smile Squad, Hidden Gems, Kid-Friendly</p>
                 </div>
             </div>
             
-            <div class="flip-card" onclick="toggleCard(this)">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">
-                        <div class="card-icon">🗺️</div>
-                        <h3>Coverage</h3>
-                        <div class="hint">Hover or click</div>
-                    </div>
-                    <div class="flip-card-back">
-                        <button class="close-btn" onclick="event.stopPropagation(); closeCard(this.parentElement.parentElement)">✕</button>
-                        <h4>Greater Waxhaw</h4>
-                        <p>Waxhaw, Marvin, Weddington, Monroe, Indian Trail, Stallings, Mint Hill, Ballantyne, S. Charlotte</p>
-                    </div>
+            <div class="mobile-card" onclick="toggleMobileCard(this)">
+                <div class="mobile-card-header">
+                    <span class="icon">🗺️</span>
+                    <h3>Coverage Area</h3>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="mobile-card-content">
+                    <p>Waxhaw, Marvin, Weddington, Monroe, Indian Trail, Stallings, Mint Hill, Ballantyne, South Charlotte</p>
                 </div>
             </div>
             
-            <div class="flip-card" onclick="toggleCard(this)">
-                <div class="flip-card-inner">
-                    <div class="flip-card-front">
-                        <div class="card-icon">📣</div>
-                        <h3>For Businesses</h3>
-                        <div class="hint">Hover or click</div>
-                    </div>
-                    <div class="flip-card-back">
-                        <button class="close-btn" onclick="event.stopPropagation(); closeCard(this.parentElement.parentElement)">✕</button>
-                        <h4>Advertise With Us</h4>
-                        <p>Social, directory, postcards. Every ad feeds kids.</p>
-                    </div>
+            <div class="mobile-card" onclick="toggleMobileCard(this)">
+                <div class="mobile-card-header">
+                    <span class="icon">📣</span>
+                    <h3>For Businesses</h3>
+                    <span class="arrow">▼</span>
+                </div>
+                <div class="mobile-card-content">
+                    <p>Advertise with us. Social, directory, postcards. Every ad helps feed local kids.</p>
                 </div>
             </div>
         </div>
-        
-        <p class="desktop-note">Desktop: Hover to flip. Mobile: Tap to expand.</p>
     </section>
     
     <footer>
@@ -504,27 +458,27 @@
     </footer>
     
     <script>
-        // Desktop flip
-        function toggleCard(card) {
-            if (window.innerWidth > 768) {
-                card.querySelector('.flip-card-inner').classList.toggle('flipped');
-            } else {
-                card.classList.toggle('mobile-open');
-            }
+        // Desktop: Show content on hover
+        function showContent(card) {
+            card.querySelector('p').style.display = 'block';
         }
         
-        function closeCard(inner) {
-            inner.classList.remove('flipped');
+        function hideContent(card) {
+            card.querySelector('p').style.display = 'none';
         }
         
-        // Mobile Parallax Effect
+        // Mobile: Toggle card expansion
+        function toggleMobileCard(card) {
+            card.classList.toggle('expanded');
+        }
+        
+        // Mobile Parallax
         const parallaxBg = document.getElementById('parallaxBg');
         
         if (parallaxBg && window.innerWidth <= 768) {
             window.addEventListener('scroll', function() {
                 const scrolled = window.pageYOffset;
-                const parallaxSpeed = 0.4; // Adjust for more/less effect
-                parallaxBg.style.transform = 'translateY(' + (scrolled * parallaxSpeed) + 'px)';
+                parallaxBg.style.transform = 'translateY(' + (scrolled * 0.4) + 'px)';
             });
         }
     </script>
