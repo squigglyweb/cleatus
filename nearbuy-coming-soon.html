@@ -3,484 +3,238 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Coming Soon — The Local NearBuy</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <title>The Local NearBuy — Coming Soon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         :root {
-            --nearbuy-red: #d32f2f;
-            --nearbuy-charcoal: #1a1a1a;
-            --nearbuy-cream: #faf8f5;
+            --red: #d32f2f;
+            --black: #1a1a1a;
         }
         
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--nearbuy-cream);
-            color: var(--nearbuy-charcoal);
+            background: var(--black);
         }
         
-        /* PARALLAX BG (MOBILE) */
-        .parallax-container {
+        /* FULL BACKGROUND IMAGE */
+        .bg-image {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
-            z-index: -1;
-            overflow: hidden;
-            display: none;
-        }
-        
-        .parallax-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 120%;
+            height: 100%;
             object-fit: cover;
+            z-index: 0;
         }
         
-        /* HERO + OVERLAY BOXES (DESKTOP) */
-        .hero-with-cards {
+        /* CONTENT WRAPPER */
+        .content {
             position: relative;
-            max-width: 1000px;
-            margin: 0 auto;
+            z-index: 1;
+            min-height: 100vh;
+            padding: 40px 20px;
         }
         
-        .hero-img {
-            width: 100%;
-            display: block;
-        }
-        
-        /* OVERLAY GRID ON ILLUSTRATION */
-        .overlay-grid {
-            position: absolute;
-            top: 45%;
-            left: 5%;
-            right: 5%;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-        
-        .overlay-card {
-            background: white;
-            border: 3px solid var(--nearbuy-charcoal);
-            border-radius: 10px;
-            padding: 20px 15px;
+        /* EMAIL SIGNUP AT TOP */
+        .signup {
             text-align: center;
-            min-height: 140px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s;
+            margin-bottom: 40px;
         }
         
-        .overlay-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-        }
-        
-        .overlay-card .card-icon {
-            font-size: 24px;
+        .signup h1 {
+            color: var(--red);
+            font-size: 36px;
+            font-weight: 900;
             margin-bottom: 8px;
         }
         
-        .overlay-card h3 {
-            font-size: 11px;
+        .signup p {
+            color: white;
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+        
+        .signup form {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .signup input {
+            padding: 14px;
+            border: 2px solid white;
+            border-radius: 6px;
+            flex: 1;
+            font-size: 14px;
+        }
+        
+        .signup button {
+            background: var(--red);
+            color: white;
+            border: none;
+            padding: 14px 24px;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        
+        /* 6 BOXES OVERLAYED ON IMAGE */
+        .boxes-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        .box {
+            background: white;
+            border: 3px solid var(--black);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .box:hover {
+            transform: translateY(-5px);
+        }
+        
+        .box .icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        
+        .box h3 {
+            font-size: 12px;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
             margin-bottom: 5px;
         }
         
-        .overlay-card p {
+        .box p {
             font-size: 10px;
             color: #666;
             display: none;
         }
         
-        .overlay-card.highlight {
-            border-color: var(--nearbuy-red);
-        }
-        
-        .overlay-card.highlight h3 {
-            color: var(--nearbuy-red);
-        }
-        
-        /* WHEN HOVERED: SHOW CONTENT */
-        .overlay-card:hover p {
+        .box:hover p {
             display: block;
         }
         
-        .overlay-card:hover h3 {
-            margin-bottom: 8px;
+        .box.highlight {
+            border-color: var(--red);
         }
         
-        /* EMAIL SIGNUP AREA */
-        .signup-area {
-            background: var(--nearbuy-charcoal);
-            color: white;
-            padding: 80px 20px 60px;
-            text-align: center;
-            /* Extend up to cover bottom of illustration */
-            margin-top: -1px;
+        .box.highlight h3 {
+            color: var(--red);
         }
         
-        .signup-area h1 {
-            font-size: 42px;
-            font-weight: 900;
-        }
-        
-        .signup-area h1 span {
-            color: var(--nearbuy-red);
-        }
-        
-        .signup-area p {
-            font-size: 18px;
-            opacity: 0.8;
-            margin: 15px 0 30px;
-        }
-        
-        .email-form {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            max-width: 450px;
-            margin: 0 auto;
-        }
-        
-        .email-form input {
-            flex: 1;
-            padding: 16px 20px;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-        }
-        
-        .email-form button {
-            padding: 16px 32px;
-            background: var(--nearbuy-red);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-weight: 700;
-            cursor: pointer;
-        }
-        
+        /* FOOTER */
         footer {
-            background: white;
-            padding: 40px;
             text-align: center;
-            border-top: 3px solid var(--nearbuy-charcoal);
+            margin-top: 40px;
+            padding: 20px;
         }
         
-        .footer-logo {
-            font-size: 28px;
+        footer .logo {
+            font-size: 24px;
             font-weight: 900;
-            color: var(--nearbuy-red);
+            color: var(--red);
         }
         
-        .footer-logo span {
-            color: var(--nearbuy-charcoal);
+        footer p {
+            color: rgba(255,255,255,0.6);
+            font-size: 12px;
+            margin-top: 10px;
         }
         
-        /* MOBILE STYLES */
+        /* MOBILE */
         @media (max-width: 768px) {
-            .parallax-container {
-                display: block;
+            .boxes-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 10px;
             }
             
-            .hero-with-cards {
-                display: none;
+            .signup h1 {
+                font-size: 28px;
             }
-            
-            .signup-area {
-                background: transparent;
-                background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.8) 100%);
-                padding: 100px 20px 60px;
-            }
-            
-            .signup-area h1 {
-                font-size: 32px;
-            }
-            
-            .signup-area p {
-                font-size: 15px;
-            }
-            
-            .email-form {
-                flex-direction: column;
-            }
-            
-            .email-form button {
-                width: 100%;
-            }
-            
-            .cards-section-mobile {
-                padding: 30px 15px;
-                background: rgba(255,255,255,0.93);
-            }
-            
-            .cards-grid-mobile {
-                display: grid;
+        }
+        
+        @media (max-width: 480px) {
+            .boxes-grid {
                 grid-template-columns: 1fr;
-                gap: 12px;
-            }
-            
-            .mobile-card {
-                background: white;
-                border: 2px solid var(--nearbuy-charcoal);
-                border-radius: 8px;
-                padding: 18px;
-            }
-            
-            .mobile-card.expanded {
-                background: #fafafa;
-            }
-            
-            .mobile-card-header {
-                display: flex;
-                align-items: center;
-                gap: 12px;
-            }
-            
-            .mobile-card-header .icon {
-                font-size: 20px;
-            }
-            
-            .mobile-card-header h3 {
-                font-size: 12px;
-                font-weight: 700;
-                text-transform: uppercase;
-                flex: 1;
-            }
-            
-            .mobile-card-header .arrow {
-                font-size: 14px;
-                transition: transform 0.2s;
-            }
-            
-            .mobile-card.expanded .mobile-card-header .arrow {
-                transform: rotate(180deg);
-            }
-            
-            .mobile-card-content {
-                display: none;
-                margin-top: 15px;
-                padding-top: 15px;
-                border-top: 1px solid #eee;
-            }
-            
-            .mobile-card.expanded .mobile-card-content {
-                display: block;
-            }
-            
-            .mobile-card button {
-                background: var(--nearbuy-charcoal);
-                color: white;
-                border: none;
-                padding: 12px;
-                border-radius: 6px;
-                font-size: 12px;
-                font-weight: 600;
-                width: 100%;
-                cursor: pointer;
-            }
-            
-            .mobile-card input,
-            .mobile-card select {
-                width: 100%;
-                padding: 10px;
-                border: 2px solid #ddd;
-                border-radius: 6px;
-                font-size: 13px;
-                margin-bottom: 8px;
-            }
-            
-            .mobile-card form {
-                display: flex;
-                flex-direction: column;
             }
         }
     </style>
 </head>
 <body>
-    <!-- MOBILE PARALLAX BG -->
-    <div class="parallax-container">
-        <img src="town-illustration.png" class="parallax-bg" id="parallaxBg" alt="">
-    </div>
+    <!-- BACKGROUND IMAGE -->
+    <img src="town-illustration.png" class="bg-image" alt="">
     
-    <!-- DESKTOP: HERO + OVERLAY BOXES -->
-    <div class="hero-with-cards">
-        <img src="town-illustration.png" class="hero-img" alt="Greater Waxhaw">
+    <!-- CONTENT -->
+    <div class="content">
+        <!-- EMAIL SIGNUP -->
+        <div class="signup">
+            <h1>The Local NearBuy</h1>
+            <p>Your guide to Greater Waxhaw. Coming soon.</p>
+            <form onsubmit="alert('Thanks! We\'ll notify you.'); return false;">
+                <input type="email" placeholder="Your email" required>
+                <button type="submit">Notify Me</button>
+            </form>
+        </div>
         
-        <div class="overlay-grid">
-            <div class="overlay-card" onmouseenter="showContent(this)" onmouseleave="hideContent(this)">
-                <div class="card-icon">📻</div>
+        <!-- 6 BOXES OVERLAID -->
+        <div class="boxes-grid">
+            <div class="box">
+                <div class="icon">📻</div>
                 <h3>TLN Radio</h3>
                 <p>Stream local jingles</p>
             </div>
             
-            <div class="overlay-card" onmouseenter="showContent(this)" onmouseleave="hideContent(this)">
-                <div class="card-icon">💡</div>
+            <div class="box">
+                <div class="icon">💡</div>
                 <h3>Recommend</h3>
-                <p>Tell us about a great local business</p>
+                <p>Suggest a business</p>
             </div>
             
-            <div class="overlay-card highlight" onmouseenter="showContent(this)" onmouseleave="hideContent(this)">
-                <div class="card-icon">🍽️</div>
+            <div class="box highlight">
+                <div class="icon">🍽️</div>
                 <h3>Our Mission</h3>
                 <p>Shop local. Feed families.</p>
             </div>
             
-            <div class="overlay-card" onmouseenter="showContent(this)" onmouseleave="hideContent(this)">
-                <div class="card-icon">☕</div>
-                <h3>Content Pillars</h3>
-                <p>Coffee, Pizza, Date Night & more</p>
+            <div class="box">
+                <div class="icon">☕</div>
+                <h3>Pillars</h3>
+                <p>8 content categories</p>
             </div>
             
-            <div class="overlay-card" onmouseenter="showContent(this)" onmouseleave="hideContent(this)">
-                <div class="card-icon">🗺️</div>
+            <div class="box">
+                <div class="icon">🗺️</div>
                 <h3>Coverage</h3>
-                <p>Greater Waxhaw area</p>
+                <p>Greater Waxhaw</p>
             </div>
             
-            <div class="overlay-card" onmouseenter="showContent(this)" onmouseleave="hideContent(this)">
-                <div class="card-icon">📣</div>
-                <h3>For Businesses</h3>
+            <div class="box">
+                <div class="icon">📣</div>
+                <h3>Businesses</h3>
                 <p>Advertise with us</p>
             </div>
         </div>
+        
+        <!-- FOOTER -->
+        <footer>
+            <div class="logo">The Local NearBuy</div>
+            <p>Shop local. Feed families.</p>
+        </footer>
     </div>
-    
-    <!-- SIGNUP SECTION (Desktop + Mobile) -->
-    <section class="signup-area">
-        <h1>The Local <span>NearBuy</span></h1>
-        <p>Your guide to the best of Greater Waxhaw. Coming soon.</p>
-        
-        <form class="email-form" onsubmit="alert('Thanks! We\'ll notify you when we launch.'); return false;">
-            <input type="email" placeholder="Your email address" required>
-            <button type="submit">Notify Me</button>
-        </form>
-    </section>
-    
-    <!-- MOBILE: EXPANDABLE CARDS -->
-    <section class="cards-section-mobile">
-        <div class="cards-grid-mobile">
-            <div class="mobile-card" onclick="toggleMobileCard(this)">
-                <div class="mobile-card-header">
-                    <span class="icon">📻</span>
-                    <h3>TLN Radio</h3>
-                    <span class="arrow">▼</span>
-                </div>
-                <div class="mobile-card-content">
-                    <button>▶ Play Jingles</button>
-                </div>
-            </div>
-            
-            <div class="mobile-card" onclick="toggleMobileCard(this)">
-                <div class="mobile-card-header">
-                    <span class="icon">💡</span>
-                    <h3>Recommend a Business</h3>
-                    <span class="arrow">▼</span>
-                </div>
-                <div class="mobile-card-content">
-                    <form onsubmit="alert('Thanks!'); return false;">
-                        <input type="text" placeholder="Business Name" required>
-                        <select required>
-                            <option value="">Select Category</option>
-                            <option>Coffee Corner</option>
-                            <option>Pizza Files</option>
-                            <option>Date Night</option>
-                            <option>Sweet Spot</option>
-                            <option>Home Heroes</option>
-                            <option>Smile Squad</option>
-                            <option>Hidden Gems</option>
-                            <option>Kid-Friendly</option>
-                        </select>
-                        <button type="submit">Submit</button>
-                    </form>
-                </div>
-            </div>
-            
-            <div class="mobile-card" onclick="toggleMobileCard(this)">
-                <div class="mobile-card-header">
-                    <span class="icon">🍽️</span>
-                    <h3>Our Mission</h3>
-                    <span class="arrow">▼</span>
-                </div>
-                <div class="mobile-card-content">
-                    <p>Shop local. Feed families. Every scan donates a meal to a local child in need.</p>
-                </div>
-            </div>
-            
-            <div class="mobile-card" onclick="toggleMobileCard(this)">
-                <div class="mobile-card-header">
-                    <span class="icon">☕</span>
-                    <h3>Content Pillars</h3>
-                    <span class="arrow">▼</span>
-                </div>
-                <div class="mobile-card-content">
-                    <p>Coffee Corner, Pizza Files, Date Night Worthy, The Sweet Spot, Home Heroes, Smile Squad, Hidden Gems, Kid-Friendly</p>
-                </div>
-            </div>
-            
-            <div class="mobile-card" onclick="toggleMobileCard(this)">
-                <div class="mobile-card-header">
-                    <span class="icon">🗺️</span>
-                    <h3>Coverage Area</h3>
-                    <span class="arrow">▼</span>
-                </div>
-                <div class="mobile-card-content">
-                    <p>Waxhaw, Marvin, Weddington, Monroe, Indian Trail, Stallings, Mint Hill, Ballantyne, South Charlotte</p>
-                </div>
-            </div>
-            
-            <div class="mobile-card" onclick="toggleMobileCard(this)">
-                <div class="mobile-card-header">
-                    <span class="icon">📣</span>
-                    <h3>For Businesses</h3>
-                    <span class="arrow">▼</span>
-                </div>
-                <div class="mobile-card-content">
-                    <p>Advertise with us. Social, directory, postcards. Every ad helps feed local kids.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <footer>
-        <div class="footer-logo">The Local <span>NearBuy</span></div>
-        <p>Shop local. Feed families.</p>
-    </footer>
-    
-    <script>
-        // Desktop: Show content on hover
-        function showContent(card) {
-            card.querySelector('p').style.display = 'block';
-        }
-        
-        function hideContent(card) {
-            card.querySelector('p').style.display = 'none';
-        }
-        
-        // Mobile: Toggle card expansion
-        function toggleMobileCard(card) {
-            card.classList.toggle('expanded');
-        }
-        
-        // Mobile Parallax
-        const parallaxBg = document.getElementById('parallaxBg');
-        
-        if (parallaxBg && window.innerWidth <= 768) {
-            window.addEventListener('scroll', function() {
-                const scrolled = window.pageYOffset;
-                parallaxBg.style.transform = 'translateY(' + (scrolled * 0.4) + 'px)';
-            });
-        }
-    </script>
 </body>
 </html>
