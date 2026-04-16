@@ -3,100 +3,497 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Local NearBuy — Coming Soon</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>The Local NearBuy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
-        :root { --red: #d32f2f; --black: #1a1a1a; }
+        :root { 
+            --red: #d32f2f; 
+            --black: #1a1a1a;
+            --cream: #faf8f5;
+        }
         
-        body { font-family: 'Inter', sans-serif; background: var(--black); }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: var(--cream);
+        }
         
-        .bg-image { position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
+        .page {
+            position: relative;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 0 30px rgba(0,0,0,0.1);
+        }
         
-        .container { position: relative; z-index: 1; min-height: 100vh; padding: 30px; display: flex; flex-direction: column; justify-content: space-between; }
+        /* BACKGROUND ILLUSTRATION */
+        .bg-img {
+            width: 100%;
+            display: block;
+        }
         
-        /* TOP ROW - 6 BUTTONS */
-        .nav-row {
+        /* SECTIONS OVERLAY - POSITIONED ON ILLUSTRATION */
+        .section {
+            position: absolute;
+            background: white;
+            border: 2px solid var(--red);
+            border-radius: 8px;
+            padding: 15px;
+            overflow: auto;
+        }
+        
+        .section h3 {
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 10px;
+        }
+        
+        /* SECTION 1: TLN RADIO */
+        .sec1 {
+            left: 1%;
+            top: 2%;
+            width: 20%;
+            height: 45%;
+            min-height: 300px;
+        }
+        
+        .radio-player {
+            text-align: center;
+        }
+        
+        .radio-player .now-playing {
+            font-size: 11px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--black);
+        }
+        
+        .radio-player .controls {
             display: flex;
             justify-content: center;
             gap: 8px;
-            flex-wrap: wrap;
+            margin-bottom: 10px;
         }
         
-        .nav-btn {
-            background: white;
+        .radio-player .controls button {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
             border: 2px solid var(--black);
+            background: white;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        .radio-player .controls button.play {
+            background: var(--red);
+            color: white;
+            border-color: var(--red);
+        }
+        
+        .radio-player input[type="range"] {
+            width: 100%;
+            margin-top: 8px;
+        }
+        
+        .radio-player .track-list {
+            margin-top: 12px;
+            text-align: left;
+        }
+        
+        .radio-player .track-list .track {
+            font-size: 10px;
+            padding: 4px 0;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+        }
+        
+        .radio-player .track-list .track:hover {
+            color: var(--red);
+        }
+        
+        /* SECTION 2: FOR BUSINESSES */
+        .sec2 {
+            left: 22%;
+            top: 2%;
+            width: 30%;
+            height: 45%;
+            min-height: 300px;
+        }
+        
+        .biz-content {
+            font-size: 11px;
+            line-height: 1.5;
+        }
+        
+        .biz-content ul {
+            margin: 10px 0;
+            padding-left: 18px;
+        }
+        
+        .biz-content li {
+            margin-bottom: 6px;
+        }
+        
+        /* SECTION 3: CONTENT PILLARS */
+        .sec3 {
+            left: 53%;
+            top: 2%;
+            width: 46%;
+            height: 20%;
+            min-height: 120px;
+        }
+        
+        .pillars-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        
+        .pill {
+            background: var(--cream);
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            padding: 5px 12px;
+            font-size: 10px;
+            font-weight: 600;
+        }
+        
+        .pill.highlight {
+            background: var(--red);
+            color: white;
+            border-color: var(--red);
+        }
+        
+        /* SECTION 4: INSTAGRAM POSTS */
+        .sec4 {
+            left: 53%;
+            top: 23%;
+            width: 46%;
+            height: 24%;
+            min-height: 150px;
+        }
+        
+        .insta-slider {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+        }
+        
+        .insta-post {
+            min-width: 80px;
+            background: var(--cream);
             border-radius: 6px;
-            padding: 10px 14px;
+            padding: 6px;
+            text-align: center;
+        }
+        
+        .insta-post .placeholder {
+            width: 100%;
+            height: 60px;
+            background: #eee;
+            border-radius: 4px;
             display: flex;
             align-items: center;
-            gap: 6px;
-            cursor: pointer;
+            justify-content: center;
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        
+        .insta-post .handle {
+            font-size: 9px;
+            font-weight: 700;
+        }
+        
+        /* SECTION 5: RECOMMEND FORM */
+        .sec5 {
+            left: 1%;
+            top: 48%;
+            width: 35%;
+            height: 50%;
+            min-height: 250px;
+        }
+        
+        .recommend-form {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .recommend-form input,
+        .recommend-form select,
+        .recommend-form textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 11px;
             font-family: inherit;
-            transition: transform 0.2s;
         }
         
-        .nav-btn:hover { transform: translateY(-2px); }
-        .nav-btn .icon { font-size: 14px; }
-        .nav-btn .label { font-size: 10px; font-weight: 800; text-transform: uppercase; }
-        
-        .nav-btn.highlight { border-color: var(--red); background: rgba(211,47,47,0.08); }
-        .nav-btn.highlight .label { color: var(--red); }
-        
-        /* EMAIL SIGNUP */
-        .signup-box {
-            background: rgba(255,255,255,0.97);
-            padding: 18px 22px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.25);
-            max-width: 280px;
+        .recommend-form button {
+            background: var(--red);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 11px;
         }
         
-        .signup-box h3 { font-size: 13px; font-weight: 900; color: var(--red); margin-bottom: 10px; text-transform: uppercase; }
-        .signup-box form { display: flex; flex-direction: column; gap: 6px; }
-        .signup-box input { padding: 8px 10px; border: 2px solid #ddd; border-radius: 4px; font-size: 12px; }
-        .signup-box button { background: var(--red); color: white; border: none; padding: 8px; border-radius: 4px; font-weight: 700; cursor: pointer; font-size: 12px; }
+        /* SECTION 6: LOGO AREA */
+        .sec6 {
+            left: 37%;
+            top: 48%;
+            width: 26%;
+            height: 30%;
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
         
-        footer { text-align: left; }
-        footer .logo { font-size: 14px; font-weight: 900; color: var(--red); }
-        footer p { color: rgba(255,255,255,0.4); font-size: 8px; margin-top: 2px; }
+        .sec6 .logo-text {
+            font-size: 16px;
+            font-weight: 900;
+            color: var(--red);
+        }
         
+        .sec6 .tagline {
+            font-size: 9px;
+            margin-top: 5px;
+        }
+        
+        .sec6 .phone {
+            font-size: 14px;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+        
+        /* SECTION 7: OUR MISSION */
+        .sec7 {
+            left: 64%;
+            top: 48%;
+            width: 35%;
+            height: 30%;
+            min-height: 150px;
+        }
+        
+        .mission-content {
+            font-size: 11px;
+        }
+        
+        .mission-content .goal {
+            background: var(--red);
+            color: white;
+            padding: 10px;
+            border-radius: 6px;
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        .mission-content .goal .number {
+            font-size: 24px;
+            font-weight: 900;
+        }
+        
+        .mission-content .goal .label {
+            font-size: 10px;
+        }
+        
+        /* SECTION 8: NEWSLETTER SIGNUP */
+        .sec8 {
+            left: 64%;
+            top: 79%;
+            width: 35%;
+            height: 19%;
+            min-height: 100px;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .newsletter-form input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 11px;
+        }
+        
+        .newsletter-form button {
+            background: var(--red);
+            color: white;
+            border: none;
+            padding: 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            cursor: pointer;
+            font-size: 11px;
+        }
+        
+        /* MOBILE */
         @media (max-width: 768px) {
-            .nav-row { gap: 5px; }
-            .nav-btn { padding: 8px 10px; }
-            .nav-btn .label { font-size: 8px; }
+            .section {
+                position: relative;
+                top: auto !important;
+                left: auto !important;
+                width: 100% !important;
+                height: auto !important;
+                min-height: auto;
+                margin-bottom: 10px;
+                border-width: 1px;
+            }
+            
+            .page {
+                padding: 10px;
+            }
+            
+            .pillars-pills {
+                justify-content: center;
+            }
+            
+            .insta-slider {
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- THE ILLUSTRATION WITH 8 SECTIONS - AS THE BACKGROUND -->
-    <img src="town-illustration.png" class="bg-image" alt="">
-    
-    <div class="container">
-        <!-- TOP NAV -->
-        <div class="nav-row">
-            <button class="nav-btn"><span class="icon">📻</span><span class="label">TLN Radio</span></button>
-            <button class="nav-btn"><span class="icon">💡</span><span class="label">Recommend</span></button>
-            <button class="nav-btn"><span class="icon">☕</span><span class="label">Content Pillars</span></button>
-            <button class="nav-btn highlight"><span class="icon">🍽️</span><span class="label">Our Mission</span></button>
-            <button class="nav-btn"><span class="icon">🗺️</span><span class="label">Coverage</span></button>
-            <button class="nav-btn"><span class="icon">📣</span><span class="label">Businesses</span></button>
+    <div class="page">
+        <!-- BACKGROUND -->
+        <img src="town-illustration.png" class="bg-img" alt="">
+        
+        <!-- SECTION 1: TLN RADIO -->
+        <div class="section sec1">
+            <h3>📻 TLN Radio</h3>
+            <div class="radio-player">
+                <div class="now-playing">Now Playing: Jingle #1</div>
+                <div class="controls">
+                    <button>⏮</button>
+                    <button class="play">▶</button>
+                    <button>⏭</button>
+                </div>
+                <input type="range" value="30" max="100">
+                <div class="track-list">
+                    <div class="track">🎵 Local Jingle #1</div>
+                    <div class="track">🎵 Local Jingle #2</div>
+                    <div class="track">🎵 Local Jingle #3</div>
+                </div>
+            </div>
         </div>
         
-        <!-- EMAIL SIGNUP -->
-        <div class="signup-box">
-            <h3>Want Local Deals?</h3>
-            <form onsubmit="alert('Thanks!'); return false;">
-                <input type="email" placeholder="Your email" required>
-                <button type="submit">Notify Me</button>
+        <!-- SECTION 2: FOR BUSINESSES -->
+        <div class="section sec2">
+            <h3>📣 For Businesses</h3>
+            <div class="biz-content">
+                <p>Help local businesses in Greater Waxhaw reach more customers.</p>
+                <ul>
+                    <li>Social media promotion</li>
+                    <li>Directory listings</li>
+                    <li>Newsletter features</li>
+                    <li>EDDM postcard ads</li>
+                </ul>
+                <p><strong>Every ad feeds local kids.</strong></p>
+            </div>
+        </div>
+        
+        <!-- SECTION 3: CONTENT PILLARS -->
+        <div class="section sec3">
+            <h3>☕ Content Pillars</h3>
+            <div class="pillars-pills">
+                <span class="pill highlight">Coffee Corner</span>
+                <span class="pill">Pizza Files</span>
+                <span class="pill">Date Night</span>
+                <span class="pill">Sweet Spot</span>
+                <span class="pill">Home Heroes</span>
+                <span class="pill">Smile Squad</span>
+                <span class="pill">Hidden Gems</span>
+                <span class="pill">Kid-Friendly</span>
+            </div>
+        </div>
+        
+        <!-- SECTION 4: INSTAGRAM -->
+        <div class="section sec4">
+            <h3>📸 Latest Posts</h3>
+            <div class="insta-slider">
+                <div class="insta-post">
+                    <div class="placeholder">☕</div>
+                    <div class="handle">@thelocalnearbuy</div>
+                </div>
+                <div class="insta-post">
+                    <div class="placeholder">🍕</div>
+                    <div class="handle">@thelocalnearbuy</div>
+                </div>
+                <div class="insta-post">
+                    <div class="placeholder">🎉</div>
+                    <div class="handle">@thelocalnearbuy</div>
+                </div>
+                <div class="insta-post">
+                    <div class="placeholder">➡</div>
+                    <div class="handle">View 3 more</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SECTION 5: RECOMMEND -->
+        <div class="section sec5">
+            <h3>💡 Recommend A Business</h3>
+            <form class="recommend-form" onsubmit="alert('Thanks for the recommendation!'); return false;">
+                <input type="text" placeholder="Business Name" required>
+                <select required>
+                    <option value="">Select Category</option>
+                    <option>Coffee Corner</option>
+                    <option>Pizza Files</option>
+                    <option>Date Night</option>
+                    <option>Sweet Spot</option>
+                    <option>Home Heroes</option>
+                    <option>Smile Squad</option>
+                    <option>Hidden Gems</option>
+                    <option>Kid-Friendly</option>
+                </select>
+                <input type="text" placeholder="Your Name (optional)">
+                <button type="submit">Submit</button>
             </form>
         </div>
         
-        <footer>
-            <div class="logo">The Local NearBuy</div>
-            <p>Shop local. Feed families.</p>
-        </footer>
+        <!-- SECTION 6: LOGO -->
+        <div class="section sec6">
+            <div class="logo-text">THE LOCAL<br>NEARBUY</div>
+            <div class="tagline">Where To Buy, Nearby</div>
+            <div class="phone">1-833-NEARBUY</div>
+        </div>
+        
+        <!-- SECTION 7: MISSION -->
+        <div class="section sec7">
+            <h3>🍽️ Our Mission</h3>
+            <div class="mission-content">
+                <p>Shop local. Feed families.</p>
+                <p>Every purchase through NearBuy helps feed local children in need.</p>
+                <div class="goal">
+                    <div class="number">2,000</div>
+                    <div class="label">MEALS PER CAMPAIGN</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SECTION 8: NEWSLETTER -->
+        <div class="section sec8">
+            <h3>📧 Stay Updated</h3>
+            <form class="newsletter-form" onsubmit="alert('Thanks!'); return false;">
+                <input type="email" placeholder="Your email" required>
+                <button type="submit">Subscribe</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>
