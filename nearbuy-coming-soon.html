@@ -101,31 +101,25 @@
             background: white;
             border: 3px solid var(--nearbuy-charcoal);
             border-radius: 10px;
-            padding: 30px 20px;
+            padding: 25px 20px;
             text-align: center;
-            transition: transform 0.2s;
         }
         
-        .content-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-        }
-        
-        .content-box .icon {
-            font-size: 36px;
-            margin-bottom: 15px;
+        .content-box .box-icon {
+            font-size: 28px;
+            margin-bottom: 12px;
         }
         
         .content-box h3 {
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
         .content-box p {
-            font-size: 13px;
+            font-size: 12px;
             color: #666;
             line-height: 1.5;
         }
@@ -137,6 +131,59 @@
         
         .content-box.highlight h3 {
             color: var(--nearbuy-red);
+        }
+        
+        /* RADIO PLAYER IN BOX */
+        .radio-mini {
+            margin-top: 10px;
+        }
+        
+        .radio-mini button {
+            background: var(--nearbuy-charcoal);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+        
+        .radio-mini p {
+            font-size: 10px;
+            margin-top: 6px;
+        }
+        
+        /* FORM IN RECOMMEND BOX */
+        .recommend-form {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 10px;
+            text-align: left;
+        }
+        
+        .recommend-form input,
+        .recommend-form select {
+            padding: 10px 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-size: 13px;
+            font-family: inherit;
+        }
+        
+        .recommend-form button {
+            background: var(--nearbuy-charcoal);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+        }
+        
+        .recommend-form button:hover {
+            background: var(--nearbuy-red);
         }
         
         /* FOOTER */
@@ -185,10 +232,6 @@
                 grid-template-columns: 1fr;
                 gap: 15px;
             }
-            
-            .content-box {
-                padding: 25px 20px;
-            }
         }
     </style>
 </head>
@@ -212,44 +255,62 @@
         <div class="content-grid">
             <!-- Box 1: TLN Radio -->
             <div class="content-box">
-                <div class="icon">📻</div>
+                <div class="box-icon">📻</div>
                 <h3>TLN Radio</h3>
-                <p>Listen to local jingles and community anthems. Stream anytime.</p>
+                <div class="radio-mini">
+                    <button type="button" onclick="alert('Upload your jingles to enable radio playback')">▶ Play Jingles</button>
+                    <p>Stream local jingles</p>
+                </div>
             </div>
             
-            <!-- Box 2: Recommend -->
+            <!-- Box 2: Recommend a Business -->
             <div class="content-box">
-                <div class="icon">💡</div>
+                <div class="box-icon">💡</div>
                 <h3>Recommend a Business</h3>
-                <p>Know a great local spot? Tell us who to feature next!</p>
+                <form class="recommend-form" onsubmit="alert('Thanks! We received your recommendation.'); return false;">
+                    <input type="text" placeholder="Business Name" required>
+                    <select required>
+                        <option value="">Select Category</option>
+                        <option value="coffee">Coffee Corner</option>
+                        <option value="pizza">Pizza Files</option>
+                        <option value="datenight">Date Night Worthy</option>
+                        <option value="sweet">The Sweet Spot</option>
+                        <option value="home">Home Heroes</option>
+                        <option value="health">Smile Squad</option>
+                        <option value="hidden">Hidden Gems</option>
+                        <option value="kid">Kid-Friendly Favorites</option>
+                        <option value="other">Other</option>
+                    </select>
+                    <button type="submit">Submit</button>
+                </form>
             </div>
             
             <!-- Box 3: Mission -->
             <div class="content-box highlight">
-                <div class="icon">🍽️</div>
+                <div class="box-icon">🍽️</div>
                 <h3>Our Mission</h3>
-                <p>Shop local. Feed families. Every scan donates a meal.</p>
+                <p>Shop local. Feed families. Every scan donates a meal to a local child in need.</p>
             </div>
             
             <!-- Box 4: Content Pillars -->
             <div class="content-box">
-                <div class="icon">☕</div>
+                <div class="box-icon">☕</div>
                 <h3>Content Pillars</h3>
-                <p>Coffee Corner, Pizza Files, Date Night, Sweet Spot & more.</p>
+                <p>Coffee Corner • Pizza Files • Date Night • Sweet Spot • Home Heroes • Smile Squad • Hidden Gems • Kid-Friendly</p>
             </div>
             
             <!-- Box 5: Coverage Area -->
             <div class="content-box">
-                <div class="icon">🗺️</div>
+                <div class="box-icon">🗺️</div>
                 <h3>Coverage Area</h3>
                 <p>Waxhaw, Marvin, Weddington, Monroe & surrounding areas.</p>
             </div>
             
             <!-- Box 6: For Businesses -->
             <div class="content-box">
-                <div class="icon">📣</div>
+                <div class="box-icon">📣</div>
                 <h3>For Businesses</h3>
-                <p>Advertise with us. Reach thousands of local households.</p>
+                <p>Advertise with us. Reach thousands of local households. Every ad feeds kids.</p>
             </div>
         </div>
     </section>
