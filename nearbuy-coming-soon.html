@@ -14,54 +14,60 @@
         
         .bg-image { position: fixed; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0; }
         
-        .container { position: relative; z-index: 1; min-height: 100vh; padding: 30px; }
+        .container { position: relative; z-index: 1; min-height: 100vh; padding: 30px; display: flex; flex-direction: column; justify-content: space-between; }
         
-        /* MOSAIC - 6 FEATURES */
-        .mosaic {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            grid-template-rows: repeat(3, auto);
+        /* TOP ROW - 6 BUTTONS IN A ROW */
+        .nav-row {
+            display: flex;
+            justify-content: center;
             gap: 8px;
-            max-width: 600px;
-            margin: 0 auto;
+            flex-wrap: wrap;
         }
         
-        .m-box {
+        .nav-btn {
             background: white;
             border: 2px solid var(--black);
             border-radius: 6px;
-            padding: 12px;
-            text-align: center;
+            padding: 10px 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
             cursor: pointer;
+            font-family: inherit;
             transition: transform 0.2s;
         }
         
-        .m-box:hover { transform: scale(1.02); }
+        .nav-btn:hover { transform: translateY(-2px); }
         
-        .m-box .icon { font-size: 18px; }
-        .m-box h4 { font-size: 9px; font-weight: 800; text-transform: uppercase; margin-top: 5px; }
-        .m-box p { font-size: 8px; color: #666; display: none; margin-top: 4px; }
-        .m-box:hover p { display: block; }
+        .nav-btn .icon { font-size: 14px; }
+        .nav-btn .label { font-size: 10px; font-weight: 800; text-transform: uppercase; }
         
-        .m-box.highlight { border-color: var(--red); background: rgba(211,47,47,0.08); }
-        .m-box.highlight h4 { color: var(--red); }
+        .nav-btn.highlight { border-color: var(--red); background: rgba(211,47,47,0.08); }
+        .nav-btn.highlight .label { color: var(--red); }
         
-        /* Box positions - like the images */
-        .box-tln { grid-column: 1; grid-row: 1; }      /* top left */
-        .box-recommend { grid-column: 2; grid-row: 1; }  /* top center-left */
-        .box-pillars { grid-column: 3 / span 2; grid-row: 1; } /* top right, wider */
+        /* BOTTOM SECTION */
+        .bottom-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            gap: 20px;
+        }
         
-        .box-mission { grid-column: 1 / span 2; grid-row: 2; } /* middle left, wider */
-        .box-coverage { grid-column: 3; grid-row: 2; }  /* middle right */
-        .box-business { grid-column: 4; grid-row: 2; }  /* far right */
+        /* GET THE APP */
+        .app-box {
+            background: white;
+            border: 2px solid var(--black);
+            border-radius: 8px;
+            padding: 15px 20px;
+            text-align: center;
+        }
         
-        .box-bottom { grid-column: 1 / span 4; grid-row: 3; text-align: center; }
+        .app-box .icon { font-size: 24px; }
+        .app-box h4 { font-size: 12px; font-weight: 800; text-transform: uppercase; margin-top: 5px; }
+        .app-box p { font-size: 10px; color: #666; margin-top: 3px; }
         
-        /* Email signup - bottom left */
+        /* EMAIL SIGNUP */
         .signup-box {
-            position: absolute;
-            bottom: 60px;
-            left: 30px;
             background: rgba(255,255,255,0.97);
             padding: 18px 22px;
             border-radius: 10px;
@@ -74,17 +80,18 @@
         .signup-box input { padding: 8px 10px; border: 2px solid #ddd; border-radius: 4px; font-size: 12px; }
         .signup-box button { background: var(--red); color: white; border: none; padding: 8px; border-radius: 4px; font-weight: 700; cursor: pointer; font-size: 12px; }
         
-        footer { position: absolute; bottom: 20px; left: 30px; }
+        footer { text-align: left; }
         footer .logo { font-size: 14px; font-weight: 900; color: var(--red); }
         footer p { color: rgba(255,255,255,0.4); font-size: 8px; margin-top: 2px; }
         
         @media (max-width: 768px) {
-            .mosaic { grid-template-columns: 1fr 1fr; gap: 6px; }
-            .box-tln, .box-recommend, .box-pillars, .box-mission, .box-coverage, .box-business { grid-column: auto; grid-row: auto; }
-            .m-box { padding: 10px; }
-            .m-box h4 { font-size: 8px; }
-            .signup-box { position: relative; bottom: auto; left: auto; margin: 20px 0; max-width: 100%; }
-            footer { position: relative; bottom: auto; left: auto; margin-top: 30px; }
+            .nav-row { gap: 5px; }
+            .nav-btn { padding: 8px 10px; }
+            .nav-btn .label { font-size: 8px; }
+            .bottom-section { flex-direction: column; align-items: stretch; }
+            .app-box { order: 2; }
+            .signup-box { order: 3; }
+            footer { order: 4; margin-top: 20px; }
         }
     </style>
 </head>
@@ -92,58 +99,56 @@
     <img src="town-illustration.png" class="bg-image" alt="">
     
     <div class="container">
-        <!-- 6 FEATURE BOXES - MOSAIC LAYOUT -->
-        <div class="mosaic">
-            <div class="m-box box-tln">
-                <div class="icon">📻</div>
-                <h4>TLN Radio</h4>
-                <p>Stream local jingles</p>
-            </div>
+        <!-- TOP ROW - 6 BUTTONS -->
+        <div class="nav-row">
+            <button class="nav-btn">
+                <span class="icon">📻</span>
+                <span class="label">TLN Radio</span>
+            </button>
             
-            <div class="m-box box-recommend">
-                <div class="icon">💡</div>
-                <h4>Recommend</h4>
-                <p>Suggest a business</p>
-            </div>
+            <button class="nav-btn">
+                <span class="icon">💡</span>
+                <span class="label">Recommend</span>
+            </button>
             
-            <div class="m-box box-pillars">
-                <div class="icon">☕</div>
-                <h4>Content Pillars</h4>
-                <p>8 categories</p>
-            </div>
+            <button class="nav-btn">
+                <span class="icon">☕</span>
+                <span class="label">Content Pillars</span>
+            </button>
             
-            <div class="m-box box-mission highlight">
-                <div class="icon">🍽️</div>
-                <h4>Our Mission</h4>
-                <p>Shop local. Feed families.</p>
-            </div>
+            <button class="nav-btn highlight">
+                <span class="icon">🍽️</span>
+                <span class="label">Our Mission</span>
+            </button>
             
-            <div class="m-box box-coverage">
-                <div class="icon">🗺️</div>
-                <h4>Coverage</h4>
-                <p>Greater Waxhaw</p>
-            </div>
+            <button class="nav-btn">
+                <span class="icon">🗺️</span>
+                <span class="label">Coverage</span>
+            </button>
             
-            <div class="m-box box-business">
-                <div class="icon">📣</div>
-                <h4>Businesses</h4>
-                <p>Advertise with us</p>
-            </div>
-            
-            <div class="m-box box-bottom">
+            <button class="nav-btn">
+                <span class="icon">📣</span>
+                <span class="label">Businesses</span>
+            </button>
+        </div>
+        
+        <!-- BOTTOM SECTION -->
+        <div class="bottom-section">
+            <!-- GET THE APP -->
+            <div class="app-box">
                 <div class="icon">📱</div>
                 <h4>Get The App</h4>
                 <p>Scan QR to download</p>
             </div>
-        </div>
-        
-        <!-- Email Signup - Bottom Left -->
-        <div class="signup-box">
-            <h3>Want Local Deals?</h3>
-            <form onsubmit="alert('Thanks!'); return false;">
-                <input type="email" placeholder="Your email" required>
-                <button type="submit">Notify Me</button>
-            </form>
+            
+            <!-- EMAIL SIGNUP -->
+            <div class="signup-box">
+                <h3>Want Local Deals?</h3>
+                <form onsubmit="alert('Thanks!'); return false;">
+                    <input type="email" placeholder="Your email" required>
+                    <button type="submit">Notify Me</button>
+                </form>
+            </div>
         </div>
         
         <footer>
