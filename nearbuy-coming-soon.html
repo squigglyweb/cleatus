@@ -29,148 +29,91 @@
             z-index: 0;
         }
         
-        /* CONTENT WRAPPER */
-        .content {
+        /* CONTENT CONTAINER */
+        .container {
             position: relative;
             z-index: 1;
             min-height: 100vh;
-            padding: 40px 20px;
-        }
-        
-        /* EMAIL SIGNUP AT TOP */
-        .signup {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        
-        .signup h1 {
-            color: var(--red);
-            font-size: 36px;
-            font-weight: 900;
-            margin-bottom: 8px;
-        }
-        
-        .signup p {
-            color: white;
-            font-size: 16px;
-            margin-bottom: 20px;
-        }
-        
-        .signup form {
             display: flex;
-            justify-content: center;
-            gap: 10px;
-            max-width: 400px;
-            margin: 0 auto;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 40px;
         }
         
-        .signup input {
-            padding: 14px;
-            border: 2px solid white;
+        /* EMAIL SIGNUP - BOTTOM LEFT, OVER THE IMAGE */
+        .signup-box {
+            position: absolute;
+            bottom: 80px;
+            left: 40px;
+            background: rgba(255,255,255,0.95);
+            padding: 25px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            max-width: 350px;
+        }
+        
+        .signup-box h3 {
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--red);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        
+        .signup-box form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .signup-box input {
+            padding: 12px 14px;
+            border: 2px solid #ddd;
             border-radius: 6px;
-            flex: 1;
             font-size: 14px;
         }
         
-        .signup button {
+        .signup-box button {
             background: var(--red);
             color: white;
             border: none;
-            padding: 14px 24px;
+            padding: 12px;
             border-radius: 6px;
             font-weight: 700;
             cursor: pointer;
-        }
-        
-        /* 6 BOXES OVERLAYED ON IMAGE */
-        .boxes-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        .box {
-            background: white;
-            border: 3px solid var(--black);
-            border-radius: 10px;
-            padding: 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        
-        .box:hover {
-            transform: translateY(-5px);
-        }
-        
-        .box .icon {
-            font-size: 28px;
-            margin-bottom: 8px;
-        }
-        
-        .box h3 {
-            font-size: 12px;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
-        }
-        
-        .box p {
-            font-size: 10px;
-            color: #666;
-            display: none;
-        }
-        
-        .box:hover p {
-            display: block;
-        }
-        
-        .box.highlight {
-            border-color: var(--red);
-        }
-        
-        .box.highlight h3 {
-            color: var(--red);
+            font-size: 14px;
         }
         
         /* FOOTER */
         footer {
-            text-align: center;
-            margin-top: 40px;
-            padding: 20px;
+            text-align: left;
         }
         
         footer .logo {
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 900;
             color: var(--red);
         }
         
         footer p {
-            color: rgba(255,255,255,0.6);
-            font-size: 12px;
-            margin-top: 10px;
+            color: rgba(255,255,255,0.5);
+            font-size: 11px;
+            margin-top: 5px;
         }
         
         /* MOBILE */
         @media (max-width: 768px) {
-            .boxes-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 10px;
+            .signup-box {
+                position: relative;
+                bottom: auto;
+                left: auto;
+                margin: 20px;
+                max-width: calc(100% - 40px);
             }
             
-            .signup h1 {
-                font-size: 28px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .boxes-grid {
-                grid-template-columns: 1fr;
+            .container {
+                padding: 20px;
+                min-height: auto;
             }
         }
     </style>
@@ -180,54 +123,16 @@
     <img src="town-illustration.png" class="bg-image" alt="">
     
     <!-- CONTENT -->
-    <div class="content">
-        <!-- EMAIL SIGNUP -->
-        <div class="signup">
-            <h1>The Local NearBuy</h1>
-            <p>Your guide to Greater Waxhaw. Coming soon.</p>
-            <form onsubmit="alert('Thanks! We\'ll notify you.'); return false;">
-                <input type="email" placeholder="Your email" required>
+    <div class="container">
+        <!-- Empty - logo IS in the image -->
+        
+        <!-- EMAIL SIGNUP - BOTTOM LEFT, OVER IMAGE -->
+        <div class="signup-box">
+            <h3>Want Local Deals?</h3>
+            <form onsubmit="alert('Thanks! We\'ll notify you when we launch.'); return false;">
+                <input type="email" placeholder="Enter your email address" required>
                 <button type="submit">Notify Me</button>
             </form>
-        </div>
-        
-        <!-- 6 BOXES OVERLAID -->
-        <div class="boxes-grid">
-            <div class="box">
-                <div class="icon">📻</div>
-                <h3>TLN Radio</h3>
-                <p>Stream local jingles</p>
-            </div>
-            
-            <div class="box">
-                <div class="icon">💡</div>
-                <h3>Recommend</h3>
-                <p>Suggest a business</p>
-            </div>
-            
-            <div class="box highlight">
-                <div class="icon">🍽️</div>
-                <h3>Our Mission</h3>
-                <p>Shop local. Feed families.</p>
-            </div>
-            
-            <div class="box">
-                <div class="icon">☕</div>
-                <h3>Pillars</h3>
-                <p>8 content categories</p>
-            </div>
-            
-            <div class="box">
-                <div class="icon">🗺️</div>
-                <h3>Coverage</h3>
-                <p>Greater Waxhaw</p>
-            </div>
-            
-            <div class="box">
-                <div class="icon">📣</div>
-                <h3>Businesses</h3>
-                <p>Advertise with us</p>
-            </div>
         </div>
         
         <!-- FOOTER -->
