@@ -20,16 +20,25 @@
             color: var(--nearbuy-charcoal);
         }
         
-        /* MOBILE: FIXED BACKGROUND */
-        .mobile-bg {
-            display: none;
+        /* MOBILE: PARALLAX BG */
+        .parallax-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100vh;
-            object-fit: cover;
             z-index: -1;
+            overflow: hidden;
+        }
+        
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 120%; /* Taller for parallax */
+            object-fit: cover;
+            will-change: transform;
         }
         
         /* DESKTOP ILLUSTRATION */
@@ -91,7 +100,7 @@
             cursor: pointer;
         }
         
-        /* FLIP CARDS GRID */
+        /* FLIP CARDS */
         .cards-section {
             max-width: 1000px;
             margin: 0 auto;
@@ -104,7 +113,6 @@
             gap: 25px;
         }
         
-        /* FLIP CARD */
         .flip-card {
             height: 280px;
             perspective: 1000px;
@@ -266,21 +274,16 @@
             color: var(--nearbuy-charcoal);
         }
         
-        /* MOBILE STYLES */
+        /* MOBILE */
         @media (max-width: 768px) {
             .desktop-illustration {
                 display: none;
             }
             
-            .mobile-bg {
-                display: block;
-            }
-            
             .signup-section {
                 background: transparent;
-                /* Dark overlay so white text pops */
-                background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.9) 100%);
-                padding: 80px 20px;
+                background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.8) 100%);
+                padding: 100px 20px 60px;
             }
             
             .signup-section h1 {
@@ -301,8 +304,7 @@
             
             .cards-section {
                 padding: 40px 15px;
-                /* Semi-transparent overlay so content is readable over fixed background */
-                background: rgba(255,255,255,0.92);
+                background: rgba(255,255,255,0.93);
                 margin: 0;
             }
             
@@ -313,10 +315,8 @@
             
             .flip-card {
                 height: 200px;
-                /* On mobile: no flip, just tap to expand content inline */
             }
             
-            /* Non-flip mobile version - just show content stacked */
             .flip-card-inner {
                 transform: none !important;
             }
@@ -359,17 +359,23 @@
                 color: #999;
                 font-size: 12px;
             }
+            
+            .parallax-container {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- MOBILE FIXED BACKGROUND -->
-    <img src="town-illustration.png" class="mobile-bg" alt="">
+    <!-- MOBILE PARALLAX BG -->
+    <div class="parallax-container">
+        <img src="town-illustration.png" class="parallax-bg" id="parallaxBg" alt="">
+    </div>
     
     <!-- DESKTOP ILLUSTRATION -->
-    <img src="town-illustration.png" class="desktop-illustration" alt="Greater Waxhaw">
+    <img src="town-illustration.png" class="desktop-illustration" alt="">
     
-    <!-- SIGNUP SECTION -->
+    <!-- SIGNUP -->
     <section class="signup-section">
         <h1>The Local <span>NearBuy</span></h1>
         <p>Your guide to the best of Greater Waxhaw. Coming soon.</p>
@@ -383,8 +389,6 @@
     <!-- FLIP CARDS -->
     <section class="cards-section">
         <div class="cards-grid">
-            
-            <!-- Card 1: TLN Radio -->
             <div class="flip-card" onclick="toggleCard(this)">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
@@ -402,12 +406,11 @@
                 </div>
             </div>
             
-            <!-- Card 2: Recommend -->
             <div class="flip-card" onclick="toggleCard(this)">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
                         <div class="card-icon">💡</div>
-                        <h3>Recommend a Business</h3>
+                        <h3>Recommend</h3>
                         <div class="hint">Hover or click</div>
                     </div>
                     <div class="flip-card-back">
@@ -424,7 +427,6 @@
                                 <option value="health">Smile Squad</option>
                                 <option value="hidden">Hidden Gems</option>
                                 <option value="kid">Kid-Friendly</option>
-                                <option value="other">Other</option>
                             </select>
                             <button type="submit">Submit</button>
                         </form>
@@ -432,7 +434,6 @@
                 </div>
             </div>
             
-            <!-- Card 3: Mission -->
             <div class="flip-card highlight" onclick="toggleCard(this)">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
@@ -443,12 +444,11 @@
                     <div class="flip-card-back">
                         <button class="close-btn" onclick="event.stopPropagation(); closeCard(this.parentElement.parentElement)">✕</button>
                         <h4>Shop Local. Feed Families.</h4>
-                        <p>Every scan donates a meal to a local child. Up to 2,000 meals per campaign.</p>
+                        <p>Every scan donates a meal. Up to 2,000 per campaign.</p>
                     </div>
                 </div>
             </div>
             
-            <!-- Card 4: Pillars -->
             <div class="flip-card" onclick="toggleCard(this)">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
@@ -459,28 +459,26 @@
                     <div class="flip-card-back">
                         <button class="close-btn" onclick="event.stopPropagation(); closeCard(this.parentElement.parentElement)">✕</button>
                         <h4>Our Categories</h4>
-                        <p>Coffee Corner, Pizza Files, Date Night, Sweet Spot, Home Heroes, Smile Squad, Hidden Gems, Kid-Friendly</p>
+                        <p>Coffee, Pizza, Date Night, Sweet Spot, Home Heroes, Smile Squad, Hidden Gems, Kid-Friendly</p>
                     </div>
                 </div>
             </div>
             
-            <!-- Card 5: Coverage -->
             <div class="flip-card" onclick="toggleCard(this)">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
                         <div class="card-icon">🗺️</div>
-                        <h3>Coverage Area</h3>
+                        <h3>Coverage</h3>
                         <div class="hint">Hover or click</div>
                     </div>
                     <div class="flip-card-back">
                         <button class="close-btn" onclick="event.stopPropagation(); closeCard(this.parentElement.parentElement)">✕</button>
                         <h4>Greater Waxhaw</h4>
-                        <p>Waxhaw, Marvin, Weddington, Monroe, Indian Trail, Stallings, Mint Hill, Ballantyne & South Charlotte.</p>
+                        <p>Waxhaw, Marvin, Weddington, Monroe, Indian Trail, Stallings, Mint Hill, Ballantyne, S. Charlotte</p>
                     </div>
                 </div>
             </div>
             
-            <!-- Card 6: For Businesses -->
             <div class="flip-card" onclick="toggleCard(this)">
                 <div class="flip-card-inner">
                     <div class="flip-card-front">
@@ -491,34 +489,43 @@
                     <div class="flip-card-back">
                         <button class="close-btn" onclick="event.stopPropagation(); closeCard(this.parentElement.parentElement)">✕</button>
                         <h4>Advertise With Us</h4>
-                        <p>Social, directory, postcards. Every ad helps feed local kids.</p>
+                        <p>Social, directory, postcards. Every ad feeds kids.</p>
                     </div>
                 </div>
             </div>
-            
         </div>
         
-        <p class="desktop-note">Desktop: Hover to flip, click to keep open. Mobile: Tap to expand.</p>
+        <p class="desktop-note">Desktop: Hover to flip. Mobile: Tap to expand.</p>
     </section>
     
     <footer>
         <div class="footer-logo">The Local <span>NearBuy</span></div>
-        <p>Greater Waxhaw's media hub. Shop local. Feed families.</p>
+        <p>Shop local. Feed families.</p>
     </footer>
     
     <script>
+        // Desktop flip
         function toggleCard(card) {
-            // Desktop flip behavior
             if (window.innerWidth > 768) {
                 card.querySelector('.flip-card-inner').classList.toggle('flipped');
             } else {
-                // Mobile: toggle expanded state
                 card.classList.toggle('mobile-open');
             }
         }
         
         function closeCard(inner) {
             inner.classList.remove('flipped');
+        }
+        
+        // Mobile Parallax Effect
+        const parallaxBg = document.getElementById('parallaxBg');
+        
+        if (parallaxBg && window.innerWidth <= 768) {
+            window.addEventListener('scroll', function() {
+                const scrolled = window.pageYOffset;
+                const parallaxSpeed = 0.4; // Adjust for more/less effect
+                parallaxBg.style.transform = 'translateY(' + (scrolled * parallaxSpeed) + 'px)';
+            });
         }
     </script>
 </body>
