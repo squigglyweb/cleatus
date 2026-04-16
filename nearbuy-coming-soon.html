@@ -35,63 +35,52 @@
             padding: 30px;
         }
         
-        /* 6 BOXES - DIFFERENT SIZES, POSITIONED ON IMAGE */
-        .boxes-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
+        /* TOP NAV - 6 BOXES IN A ROW */
+        .top-nav {
+            display: flex;
+            justify-content: center;
             gap: 8px;
-            max-width: 500px;
-            margin: 0 auto 30px;
+            margin-bottom: 20px;
         }
         
-        .box {
+        .nav-box {
             background: white;
             border: 2px solid var(--black);
-            border-radius: 6px;
-            padding: 10px 8px;
-            text-align: center;
+            border-radius: 8px;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             cursor: pointer;
             transition: transform 0.2s;
+            min-width: 100px;
         }
         
-        .box:hover {
-            transform: scale(1.05);
+        .nav-box:hover {
+            transform: translateY(-3px);
         }
         
-        .box .icon {
+        .nav-box .icon {
             font-size: 16px;
         }
         
-        .box h4 {
-            font-size: 8px;
+        .nav-box h4 {
+            font-size: 10px;
             font-weight: 800;
             text-transform: uppercase;
-            margin-top: 4px;
-            letter-spacing: 0.5px;
         }
         
-        .box p {
-            font-size: 7px;
-            color: #666;
-            display: none;
-            margin-top: 3px;
+        .nav-box .arrow {
+            font-size: 10px;
+            color: #999;
         }
         
-        .box:hover p {
-            display: block;
-        }
-        
-        /* Different sizes - like postcard layout */
-        .box.small { grid-column: span 1; }
-        .box.medium { grid-column: span 1; }
-        .box.large { grid-column: span 2; }
-        
-        .box.highlight {
+        .nav-box.highlight {
             border-color: var(--red);
             background: rgba(211,47,47,0.05);
         }
         
-        .box.highlight h4 {
+        .nav-box.highlight h4 {
             color: var(--red);
         }
         
@@ -104,14 +93,14 @@
             padding: 20px 25px;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.25);
-            max-width: 320px;
+            max-width: 300px;
         }
         
         .signup-box h3 {
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 900;
             color: var(--red);
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             text-transform: uppercase;
         }
         
@@ -125,7 +114,7 @@
             padding: 10px 12px;
             border: 2px solid #ddd;
             border-radius: 5px;
-            font-size: 13px;
+            font-size: 12px;
         }
         
         .signup-box button {
@@ -136,7 +125,7 @@
             border-radius: 5px;
             font-weight: 700;
             cursor: pointer;
-            font-size: 13px;
+            font-size: 12px;
         }
         
         footer {
@@ -146,40 +135,26 @@
         }
         
         footer .logo {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 900;
             color: var(--red);
         }
         
         footer p {
             color: rgba(255,255,255,0.4);
-            font-size: 10px;
+            font-size: 9px;
             margin-top: 3px;
         }
         
         /* MOBILE */
         @media (max-width: 768px) {
-            .bg-image {
-                position: fixed;
+            .top-nav {
+                flex-wrap: wrap;
             }
             
-            .container {
-                min-height: auto;
-                padding: 20px;
-            }
-            
-            .boxes-container {
-                max-width: 100%;
-                gap: 6px;
-                margin-bottom: 20px;
-            }
-            
-            .box {
-                padding: 8px 6px;
-            }
-            
-            .box h4 {
-                font-size: 7px;
+            .nav-box {
+                min-width: auto;
+                padding: 10px 12px;
             }
             
             .signup-box {
@@ -203,50 +178,50 @@
     <img src="town-illustration.png" class="bg-image" alt="">
     
     <div class="container">
-        <!-- 6 BOXES - POSTCARD LAYOUT -->
-        <div class="boxes-container">
-            <div class="box small">
-                <div class="icon">📻</div>
+        <!-- TOP NAV - 6 BOXES IN A ROW -->
+        <div class="top-nav">
+            <div class="nav-box">
+                <span class="icon">📻</span>
                 <h4>TLN Radio</h4>
-                <p>Stream local jingles</p>
+                <span class="arrow">▾</span>
             </div>
             
-            <div class="box small">
-                <div class="icon">💡</div>
+            <div class="nav-box">
+                <span class="icon">💡</span>
                 <h4>Recommend</h4>
-                <p>Suggest a business</p>
+                <span class="arrow">▾</span>
             </div>
             
-            <div class="box small">
-                <div class="icon">☕</div>
-                <h4>Pillars</h4>
-                <p>8 categories</p>
-            </div>
-            
-            <div class="box medium highlight">
-                <div class="icon">🍽️</div>
+            <div class="nav-box highlight">
+                <span class="icon">🍽️</span>
                 <h4>Our Mission</h4>
-                <p>Shop local. Feed families.</p>
+                <span class="arrow">▾</span>
             </div>
             
-            <div class="box small">
-                <div class="icon">🗺️</div>
+            <div class="nav-box">
+                <span class="icon">☕</span>
+                <h4>Pillars</h4>
+                <span class="arrow">▾</span>
+            </div>
+            
+            <div class="nav-box">
+                <span class="icon">🗺️</span>
                 <h4>Coverage</h4>
-                <p>Greater Waxhaw</p>
+                <span class="arrow">▾</span>
             </div>
             
-            <div class="box small">
-                <div class="icon">📣</div>
+            <div class="nav-box">
+                <span class="icon">📣</span>
                 <h4>Businesses</h4>
-                <p>Advertise with us</p>
+                <span class="arrow">▾</span>
             </div>
         </div>
         
         <!-- EMAIL SIGNUP - BOTTOM LEFT -->
         <div class="signup-box">
             <h3>Want Local Deals?</h3>
-            <form onsubmit="alert('Thanks! We\'ll notify you when we launch.'); return false;">
-                <input type="email" placeholder="Enter your email address" required>
+            <form onsubmit="alert('Thanks!'); return false;">
+                <input type="email" placeholder="Enter your email" required>
                 <button type="submit">Notify Me</button>
             </form>
         </div>
