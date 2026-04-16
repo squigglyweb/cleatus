@@ -45,28 +45,7 @@
         .nav-btn.highlight { border-color: var(--red); background: rgba(211,47,47,0.08); }
         .nav-btn.highlight .label { color: var(--red); }
         
-        /* BOTTOM SECTION */
-        .bottom-section {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            gap: 20px;
-        }
-        
-        /* GET THE APP */
-        .app-box {
-            background: white;
-            border: 2px solid var(--black);
-            border-radius: 8px;
-            padding: 15px 20px;
-            text-align: center;
-        }
-        
-        .app-box .icon { font-size: 24px; }
-        .app-box h4 { font-size: 12px; font-weight: 800; text-transform: uppercase; margin-top: 5px; }
-        .app-box p { font-size: 10px; color: #666; margin-top: 3px; }
-        
-        /* EMAIL SIGNUP */
+        /* EMAIL SIGNUP - BOTTOM */
         .signup-box {
             background: rgba(255,255,255,0.97);
             padding: 18px 22px;
@@ -88,10 +67,6 @@
             .nav-row { gap: 5px; }
             .nav-btn { padding: 8px 10px; }
             .nav-btn .label { font-size: 8px; }
-            .bottom-section { flex-direction: column; align-items: stretch; }
-            .app-box { order: 2; }
-            .signup-box { order: 3; }
-            footer { order: 4; margin-top: 20px; }
         }
     </style>
 </head>
@@ -132,23 +107,13 @@
             </button>
         </div>
         
-        <!-- BOTTOM SECTION -->
-        <div class="bottom-section">
-            <!-- GET THE APP -->
-            <div class="app-box">
-                <div class="icon">📱</div>
-                <h4>Get The App</h4>
-                <p>Scan QR to download</p>
-            </div>
-            
-            <!-- EMAIL SIGNUP -->
-            <div class="signup-box">
-                <h3>Want Local Deals?</h3>
-                <form onsubmit="alert('Thanks!'); return false;">
-                    <input type="email" placeholder="Your email" required>
-                    <button type="submit">Notify Me</button>
-                </form>
-            </div>
+        <!-- EMAIL SIGNUP -->
+        <div class="signup-box">
+            <h3>Want Local Deals?</h3>
+            <form onsubmit="alert('Thanks!'); return false;">
+                <input type="email" placeholder="Your email" required>
+                <button type="submit">Notify Me</button>
+            </form>
         </div>
         
         <footer>
