@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Local NearBuy</title>
+    <title>The Local NearBuy - Coming Soon</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -24,8 +24,6 @@
             width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            box-shadow: 0 0 30px rgba(0,0,0,0.1);
         }
         
         /* BACKGROUND ILLUSTRATION */
@@ -34,7 +32,7 @@
             display: block;
         }
         
-        /* SECTIONS OVERLAY - POSITIONED ON ILLUSTRATION */
+        /* SECTIONS OVERLAY */
         .section {
             position: absolute;
             background: white;
@@ -50,6 +48,8 @@
             text-transform: uppercase;
             color: var(--red);
             margin-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 8px;
         }
         
         /* SECTION 1: TLN RADIO */
@@ -69,7 +69,6 @@
             font-size: 11px;
             font-weight: 600;
             margin-bottom: 8px;
-            color: var(--black);
         }
         
         .radio-player .controls {
@@ -246,7 +245,7 @@
             font-size: 11px;
         }
         
-        /* SECTION 6: LOGO AREA */
+        /* SECTION 6: LOGO */
         .sec6 {
             left: 37%;
             top: 48%;
@@ -254,27 +253,14 @@
             height: 30%;
             min-height: 150px;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            text-align: center;
+            padding: 10px;
         }
         
-        .sec6 .logo-text {
-            font-size: 16px;
-            font-weight: 900;
-            color: var(--red);
-        }
-        
-        .sec6 .tagline {
-            font-size: 9px;
-            margin-top: 5px;
-        }
-        
-        .sec6 .phone {
-            font-size: 14px;
-            font-weight: 700;
-            margin-top: 10px;
+        .sec6 img {
+            max-width: 100%;
+            max-height: 100%;
         }
         
         /* SECTION 7: OUR MISSION */
@@ -370,8 +356,8 @@
 </head>
 <body>
     <div class="page">
-        <!-- BACKGROUND -->
-        <img src="town-illustration.png" class="bg-img" alt="">
+        <!-- BACKGROUND IMAGE -->
+        <img src="https://chs.vendorprint.site/wp-content/uploads/2026/04/web-site-coming-soon-bkg-scaled.webp" class="bg-img" alt="The Local NearBuy">
         
         <!-- SECTION 1: TLN RADIO -->
         <div class="section sec1">
@@ -468,9 +454,7 @@
         
         <!-- SECTION 6: LOGO -->
         <div class="section sec6">
-            <div class="logo-text">THE LOCAL<br>NEARBUY</div>
-            <div class="tagline">Where To Buy, Nearby</div>
-            <div class="phone">1-833-NEARBUY</div>
+            <img src="https://chs.vendorprint.site/wp-content/uploads/2026/04/TLN-Box.png" alt="The Local NearBuy Logo">
         </div>
         
         <!-- SECTION 7: MISSION -->
