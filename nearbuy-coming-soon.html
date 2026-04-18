@@ -15,47 +15,61 @@
         .page { position: relative; width: 100%; max-width: 3254px; margin: 0 auto; aspect-ratio: 3254 / 2169; }
         .bg-img { width: 100%; height: 100%; object-fit: cover; display: block; }
         
-        /* Container positioned on the illustration */
         .sections {
             position: absolute;
-            top: 22.0627px;
-            left: 39.1688px;
-            right: 35.9112px;
-            bottom: 21.0349px;
+            top: 22px;
+            left: 39px;
+            right: 36px;
+            bottom: 21px;
             display: flex;
             flex-direction: column;
-            gap: 70.1539px;
+            gap: 70px;
         }
         
-        /* TOP ROW - 4 boxes */
-        .top-row {
+        /* TOP SECTION - 4 boxes */
+        .top-section {
             display: flex;
-            gap: 70.1539px;
-            height: 720.3783px;
+            gap: 70px;
+            height: 720px;
         }
         
-        .top-row .flip-card { }
-        .top-row .sec1 { width: 451.5826px; }
-        .top-row .sec2 { width: 1068.3044px; }
-        .top-row .right-col { width: 893.52px; display: flex; flex-direction: column; gap: 93.9582px; }
-        
-        /* MIDDLE - Instagram */
-        .mid-row {
-            height: 1237.5495px;
+        /* Left side: 3 boxes stacked vertically in 2 columns */
+        .left-col {
+            width: 452px;
             display: flex;
-            gap: 84.64px;
+            flex-direction: column;
+            gap: 70px;
         }
         
-        /* BOTTOM ROW - 3 boxes */
-        .bottom-row {
+        .left-col .box1 { height: 226px; } /* Radio */
+        .left-col .box2 { height: 226px; } /* For Businesses - moved left */
+        .left-col .box-new { height: 226px; } /* New box */
+        
+        /* Middle: For Businesses shifted */
+        .mid-col {
+            width: 1068px;
+        }
+        
+        /* Right: Tall stacked boxes */
+        .right-col {
+            flex: 1;
             display: flex;
-            gap: 78.49px;
-            height: 912.9842px;
+            flex-direction: column;
+            gap: 70px;
         }
         
-        .bottom-row .sec5 { width: 925.0528px; }
-        .bottom-row .sec6 { width: 1056.6469px; }
-        .bottom-row .right-stack { width: 893.52px; display: flex; flex-direction: column; gap: 61.7768px; }
+        .right-col .tall-box { flex: 1; } /* Pillars + Posts + Mission combined */
+        
+        /* BOTTOM SECTION */
+        .bottom-section {
+            display: flex;
+            gap: 78px;
+            height: 913px;
+        }
+        
+        .bottom-section .recommend-box { width: 925px; }
+        .bottom-section .logo-box { width: 1057px; }
+        .bottom-section .signup-stack { flex: 1; display: flex; flex-direction: column; gap: 62px; }
         
         /* FLIP CARD */
         .flip-card { perspective: 1000px; }
@@ -73,7 +87,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
             color: var(--red);
         }
@@ -86,16 +100,16 @@
             background: white;
             border: 2px solid var(--red);
             border-radius: 8px;
-            padding: 20px;
+            padding: 18px;
             overflow: auto;
             transform: rotateY(180deg);
         }
         
-        .flip-card-back h3 { font-size: 18px; font-weight: 800; text-transform: uppercase; color: var(--red); margin-bottom: 12px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
+        .flip-card-back h3 { font-size: 16px; font-weight: 800; text-transform: uppercase; color: var(--red); margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 8px; }
         
         /* Logo */
-        .sec6 { background: rgba(255,255,255,0.87); border: 2px solid var(--red); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
-        .sec6 img { max-width: 90%; max-height: 90%; }
+        .logo-box { background: rgba(255,255,255,0.87); border: 2px solid var(--red); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+        .logo-box img { max-width: 90%; max-height: 90%; }
         
         /* Newsletter dark */
         .sec8 .flip-card-front { background: rgba(255,255,255,0.87); }
@@ -104,59 +118,46 @@
         
         /* Radio */
         .radio-player { text-align: center; }
-        .radio-player .now-playing { font-size: 14px; font-weight: 600; margin-bottom: 8px; }
-        .radio-player .controls { display: flex; justify-content: center; gap: 10px; margin-bottom: 12px; }
-        .radio-player .controls button { width: 40px; height: 40px; border-radius: 50%; border: 2px solid var(--black); background: white; cursor: pointer; font-size: 16px; }
+        .radio-player .now-playing { font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+        .radio-player .controls { display: flex; justify-content: center; gap: 8px; margin-bottom: 10px; }
+        .radio-player .controls button { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--black); background: white; cursor: pointer; font-size: 14px; }
         .radio-player .controls button.play { background: var(--red); color: white; border-color: var(--red); }
-        .radio-player input[type="range"] { width: 100%; margin-top: 10px; }
-        .radio-player .track-list { margin-top: 12px; text-align: left; font-size: 13px; }
-        .radio-player .track-list .track { padding: 6px 0; border-bottom: 1px solid #eee; cursor: pointer; }
+        .radio-player input[type="range"] { width: 100%; margin-top: 8px; }
+        .radio-player .track-list { margin-top: 10px; text-align: left; font-size: 12px; }
+        .radio-player .track-list .track { padding: 5px 0; border-bottom: 1px solid #eee; cursor: pointer; }
         
         /* Biz */
-        .biz-content { font-size: 14px; line-height: 1.5; }
-        .biz-content ul { margin: 12px 0; padding-left: 20px; }
-        .biz-content li { margin-bottom: 6px; }
+        .biz-content { font-size: 13px; line-height: 1.5; }
+        .biz-content ul { margin: 10px 0; padding-left: 18px; }
+        .biz-content li { margin-bottom: 5px; }
         
         /* Pillars */
-        .pillars-pills { display: flex; flex-wrap: wrap; gap: 8px; }
-        .pill { background: var(--cream); border: 1px solid #ddd; border-radius: 20px; padding: 8px 14px; font-size: 12px; font-weight: 600; }
+        .pillars-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+        .pill { background: var(--cream); border: 1px solid #ddd; border-radius: 16px; padding: 6px 12px; font-size: 11px; font-weight: 600; }
         .pill.highlight { background: var(--red); color: white; border-color: var(--red); }
         
-        /* Instagram */
-        .insta-carousel { position: relative; height: 100%; display: flex; align-items: center; }
-        .insta-track { display: flex; gap: 10px; transition: transform 0.3s; width: 100%; }
-        .insta-post { min-width: 100%; background: white; border: 1px solid #ddd; border-radius: 8px; padding: 0; display: flex; flex-direction: column; }
-        .insta-post .post-img { height: 80px; background: #eee; display: flex; align-items: center; justify-content: center; font-size: 32px; }
-        .insta-post .post-info { padding: 8px; }
-        .insta-post .handle { font-size: 14px; font-weight: 700; }
-        .insta-post .biz-name { font-size: 12px; color: #666; }
-        .insta-post .tagline { font-size: 11px; color: var(--red); font-weight: 600; }
-        .insta-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 32px; height: 32px; background: var(--red); color: white; border: none; border-radius: 50%; cursor: pointer; font-size: 16px; }
-        .insta-arrow.left { left: 5px; }
-        .insta-arrow.right { right: 5px; }
-        
         /* Form */
-        .recommend-form { display: flex; flex-direction: column; gap: 10px; }
-        .recommend-form input, .recommend-form select { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; font-family: inherit; }
-        .recommend-form button { background: var(--red); color: white; border: none; padding: 12px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 14px; }
+        .recommend-form { display: flex; flex-direction: column; gap: 8px; }
+        .recommend-form input, .recommend-form select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 5px; font-size: 12px; font-family: inherit; }
+        .recommend-form button { background: var(--red); color: white; border: none; padding: 10px; border-radius: 5px; font-weight: 700; cursor: pointer; font-size: 12px; }
         
         /* Mission */
-        .mission-content { font-size: 14px; }
-        .mission-content .goal { background: var(--red); color: white; padding: 12px; border-radius: 8px; text-align: center; margin-top: 12px; }
-        .mission-content .goal .number { font-size: 24px; font-weight: 900; }
-        .mission-content .goal .label { font-size: 11px; }
+        .mission-content { font-size: 13px; }
+        .mission-content .goal { background: var(--red); color: white; padding: 10px; border-radius: 6px; text-align: center; margin-top: 10px; }
+        .mission-content .goal .number { font-size: 20px; font-weight: 900; }
+        .mission-content .goal .label { font-size: 10px; }
         
         /* Newsletter */
-        .newsletter-form { display: flex; flex-direction: column; gap: 10px; }
-        .newsletter-form input { padding: 12px; border: none; border-radius: 6px; font-size: 14px; background: white; }
-        .newsletter-form button { background: var(--red); color: white; border: none; padding: 12px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 14px; }
+        .newsletter-form { display: flex; flex-direction: column; gap: 8px; }
+        .newsletter-form input { padding: 10px; border: none; border-radius: 5px; font-size: 12px; background: white; }
+        .newsletter-form button { background: var(--red); color: white; border: none; padding: 10px; border-radius: 5px; font-weight: 700; cursor: pointer; font-size: 12px; }
         
         @media (max-width: 768px) {
             .page { aspect-ratio: auto; height: auto; }
             .sections { position: relative; top: auto; left: auto; right: auto; bottom: auto; padding: 10px; }
-            .top-row, .mid-row, .bottom-row { flex-direction: column; height: auto; }
-            .top-row .flip-card, .mid-row .flip-card, .bottom-row .flip-card, .sec6 { width: 100% !important; height: 200px; }
-            .right-col, .right-stack { width: 100% !important; }
+            .top-section, .bottom-section { flex-direction: column; height: auto; }
+            .flip-card, .logo-box { height: 180px; width: 100% !important; }
+            .left-col, .mid-col, .right-col { width: 100%; }
         }
     </style>
 </head>
@@ -165,88 +166,110 @@
         <img src="https://chs.vendorprint.site/wp-content/uploads/2026/04/web-site-coming-soon-bkg-scaled.webp" class="bg-img" alt="">
         
         <div class="sections">
-            <!-- TOP ROW: Box 1 | Box 2 | (Box 3 + Box 4 stacked) -->
-            <div class="top-row">
-                <div class="flip-card sec1" onclick="this.classList.toggle('flipped')">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">📻 TLN Radio</div>
-                        <div class="flip-card-back">
-                            <h3>📻 TLN Radio</h3>
-                            <div class="radio-player">
-                                <div class="now-playing">Now Playing: Jingle #1</div>
-                                <div class="controls"><button>⏮</button><button class="play">▶</button><button>⏭</button></div>
-                                <input type="range" value="30" max="100">
-                                <div class="track-list">
-                                    <div class="track">🎵 Local Jingle #1</div>
-                                    <div class="track">🎵 Local Jingle #2</div>
-                                    <div class="track">🎵 Local Jingle #3</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="flip-card sec2" onclick="this.classList.toggle('flipped')">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">📣 For Businesses</div>
-                        <div class="flip-card-back">
-                            <h3>📣 For Businesses</h3>
-                            <div class="biz-content">
-                                <p>Help local businesses in Greater Waxhaw reach more customers.</p>
-                                <ul>
-                                    <li>Social media promotion</li>
-                                    <li>Directory listings</li>
-                                    <li>Newsletter features</li>
-                                    <li>EDDM postcard ads</li>
-                                </ul>
-                                <p><strong>Every ad feeds local kids.</strong></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="right-col">
-                    <div class="flip-card sec3" onclick="this.classList.toggle('flipped')" style="flex:1;">
+            <!-- TOP SECTION -->
+            <div class="top-section">
+                <!-- Left: 3 small boxes -->
+                <div class="left-col">
+                    <div class="flip-card box1" onclick="this.classList.toggle('flipped')">
                         <div class="flip-card-inner">
-                            <div class="flip-card-front">☕ Content Pillars</div>
+                            <div class="flip-card-front">📻 TLN Radio</div>
                             <div class="flip-card-back">
-                                <h3>☕ Content Pillars</h3>
-                                <div class="pillars-pills">
-                                    <span class="pill highlight">Coffee Corner</span>
-                                    <span class="pill">Pizza Files</span>
-                                    <span class="pill">Date Night</span>
-                                    <span class="pill">Sweet Spot</span>
-                                    <span class="pill">Home Heroes</span>
-                                    <span class="pill">Smile Squad</span>
-                                    <span class="pill">Hidden Gems</span>
-                                    <span class="pill">Kid-Friendly</span>
+                                <h3>📻 TLN Radio</h3>
+                                <div class="radio-player">
+                                    <div class="now-playing">Now Playing: Jingle #1</div>
+                                    <div class="controls"><button>⏮</button><button class="play">▶</button><button>⏭</button></div>
+                                    <input type="range" value="30" max="100">
+                                    <div class="track-list">
+                                        <div class="track">🎵 Local Jingle #1</div>
+                                        <div class="track">🎵 Local Jingle #2</div>
+                                        <div class="track">🎵 Local Jingle #3</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     
-                    <div class="flip-card sec4" onclick="this.classList.toggle('flipped')" style="flex:1;">
+                    <div class="flip-card box2" onclick="this.classList.toggle('flipped')">
                         <div class="flip-card-inner">
-                            <div class="flip-card-front">📸 Latest Posts</div>
+                            <div class="flip-card-front">📣 For Businesses</div>
                             <div class="flip-card-back">
-                                <h3>📸 Latest Posts</h3>
-                                <div class="insta-carousel">
-                                    <button class="insta-arrow left" onclick="event.stopPropagation();slideInsta(-1)">❮</button>
-                                    <div class="insta-track" id="instaTrack">
-                                        <div class="insta-post">
-                                            <div class="post-img">☕</div>
-                                            <div class="post-info"><div class="handle">@thelocalnearbuy</div><div class="biz-name">Daily Grind</div><div class="tagline">A-MA-ZING Cold Brew</div></div>
-                                        </div>
-                                        <div class="insta-post">
-                                            <div class="post-img">🍕</div>
-                                            <div class="post-info"><div class="handle">@thelocalnearbuy</div><div class="biz-name">Antonio's Pizza</div><div class="tagline">Best Pizza</div></div>
-                                        </div>
-                                        <div class="insta-post">
-                                            <div class="post-img">🎉</div>
-                                            <div class="post-info"><div class="handle">@thelocalnearbuy</div><div class="biz-name">Local Event</div><div class="tagline">Coming Soon</div></div>
-                                        </div>
+                                <h3>📣 For Businesses</h3>
+                                <div class="biz-content">
+                                    <p>Help local businesses in Greater Waxhaw reach more customers.</p>
+                                    <ul>
+                                        <li>Social media promotion</li>
+                                        <li>Directory listings</li>
+                                        <li>Newsletter features</li>
+                                        <li>EDDM postcard ads</li>
+                                    </ul>
+                                    <p><strong>Every ad feeds local kids.</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="flip-card box-new" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">📱 Directory</div>
+                            <div class="flip-card-back">
+                                <h3>📱 Directory</h3>
+                                <p>Browse local businesses in Greater Waxhaw.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Middle: For Businesses (shifted) -->
+                <div class="mid-col">
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">📣 More Biz Info</div>
+                            <div class="flip-card-back">
+                                <h3>📣 For Businesses</h3>
+                                <div class="biz-content">
+                                    <p>Help local businesses in Greater Waxhaw reach more customers.</p>
+                                    <ul>
+                                        <li>Social media promotion</li>
+                                        <li>Directory listings</li>
+                                        <li>Newsletter features</li>
+                                        <li>EDDM postcard ads</li>
+                                    </ul>
+                                    <p><strong>Every ad feeds local kids.</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right: Tall box with stacked content -->
+                <div class="right-col">
+                    <div class="flip-card tall-box" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">☕ Content + Posts + Mission</div>
+                            <div class="flip-card-back" style="display:flex;flex-direction:column;gap:10px;">
+                                <div>
+                                    <h3>☕ Content Pillars</h3>
+                                    <div class="pillars-pills">
+                                        <span class="pill highlight">Coffee Corner</span>
+                                        <span class="pill">Pizza Files</span>
+                                        <span class="pill">Date Night</span>
+                                        <span class="pill">Sweet Spot</span>
+                                        <span class="pill">Home Heroes</span>
+                                        <span class="pill">Smile Squad</span>
+                                        <span class="pill">Hidden Gems</span>
+                                        <span class="pill">Kid-Friendly</span>
                                     </div>
-                                    <button class="insta-arrow right" onclick="event.stopPropagation();slideInsta(1)">❯</button>
+                                </div>
+                                <div>
+                                    <h3>📸 Latest Posts</h3>
+                                    <p>@thelocalnearbuy - Daily Grind, Antonio's Pizza, Local Events</p>
+                                </div>
+                                <div>
+                                    <h3>🍽️ Our Mission</h3>
+                                    <div class="mission-content">
+                                        <p>Shop local. Feed families.</p>
+                                        <div class="goal"><div class="number">2,000</div><div class="label">MEALS PER CAMPAIGN</div></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -254,9 +277,9 @@
                 </div>
             </div>
             
-            <!-- BOTTOM ROW: Box 5 | Box 6 | (Box 7 + Box 8 stacked) -->
-            <div class="bottom-row">
-                <div class="flip-card sec5" onclick="this.classList.toggle('flipped')">
+            <!-- BOTTOM SECTION -->
+            <div class="bottom-section">
+                <div class="flip-card recommend-box" onclick="this.classList.toggle('flipped')">
                     <div class="flip-card-inner">
                         <div class="flip-card-front">💡 Recommend</div>
                         <div class="flip-card-back">
@@ -271,12 +294,12 @@
                     </div>
                 </div>
                 
-                <div class="sec6">
+                <div class="logo-box">
                     <img src="https://chs.vendorprint.site/wp-content/uploads/2026/04/TLN-w-phone.png" alt="Logo">
                 </div>
                 
-                <div class="right-stack">
-                    <div class="flip-card" onclick="this.classList.toggle('flipped')" style="flex:1;">
+                <div class="signup-stack">
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
                         <div class="flip-card-inner">
                             <div class="flip-card-front">🍽️ Our Mission</div>
                             <div class="flip-card-back">
@@ -290,7 +313,7 @@
                         </div>
                     </div>
                     
-                    <div class="flip-card sec8" onclick="this.classList.toggle('flipped')" style="flex:1;">
+                    <div class="flip-card sec8" onclick="this.classList.toggle('flipped')">
                         <div class="flip-card-inner">
                             <div class="flip-card-front" style="color:var(--red)">📧 Sign Up</div>
                             <div class="flip-card-back">
@@ -306,17 +329,5 @@
             </div>
         </div>
     </div>
-    
-    <script>
-        let instaIndex = 0;
-        function slideInsta(dir) {
-            const track = document.getElementById('instaTrack');
-            const posts = track.children.length;
-            instaIndex += dir;
-            if (instaIndex < 0) instaIndex = posts - 1;
-            if (instaIndex >= posts) instaIndex = 0;
-            track.style.transform = 'translateX(-' + (instaIndex * 100) + '%)';
-        }
-    </script>
 </body>
 </html>
