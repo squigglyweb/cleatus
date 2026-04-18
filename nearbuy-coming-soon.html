@@ -175,38 +175,75 @@
             width: 46%;
             height: 24%;
             min-height: 150px;
+            display: flex;
+            flex-direction: column;
         }
         
-        .insta-slider {
+        .insta-carousel {
+            position: relative;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+        
+        .insta-track {
             display: flex;
             gap: 8px;
-            overflow-x: auto;
+            transition: transform 0.3s ease;
+            width: 100%;
         }
         
         .insta-post {
-            min-width: 80px;
+            min-width: 100%;
             background: var(--cream);
             border-radius: 6px;
-            padding: 6px;
+            padding: 8px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         
         .insta-post .placeholder {
             width: 100%;
-            height: 60px;
+            height: 80px;
             background: #eee;
             border-radius: 4px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 20px;
+            font-size: 28px;
             margin-bottom: 5px;
         }
         
         .insta-post .handle {
             font-size: 9px;
             font-weight: 700;
+            color: var(--red);
         }
+        
+        .insta-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            background: var(--red);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+        
+        .insta-arrow.left { left: 5px; }
+        .insta-arrow.right { right: 5px; }
         
         /* SECTION 5: RECOMMEND FORM */
         .sec5 {
@@ -425,25 +462,41 @@
         <!-- SECTION 4: INSTAGRAM -->
         <div class="section sec4">
             <h3>📸 Latest Posts</h3>
-            <div class="insta-slider">
-                <div class="insta-post">
-                    <div class="placeholder">☕</div>
-                    <div class="handle">@thelocalnearbuy</div>
+            <div class="insta-carousel">
+                <button class="insta-arrow left" onclick="slideInsta(-1)">❮</button>
+                <div class="insta-track" id="instaTrack">
+                    <div class="insta-post">
+                        <div class="placeholder">☕</div>
+                        <div class="handle">@thelocalnearbuy</div>
+                    </div>
+                    <div class="insta-post">
+                        <div class="placeholder">🍕</div>
+                        <div class="handle">@thelocalnearbuy</div>
+                    </div>
+                    <div class="insta-post">
+                        <div class="placeholder">🎉</div>
+                        <div class="handle">@thelocalnearbuy</div>
+                    </div>
+                    <div class="insta-post">
+                        <div class="placeholder">🏠</div>
+                        <div class="handle">@thelocalnearbuy</div>
+                    </div>
                 </div>
-                <div class="insta-post">
-                    <div class="placeholder">🍕</div>
-                    <div class="handle">@thelocalnearbuy</div>
-                </div>
-                <div class="insta-post">
-                    <div class="placeholder">🎉</div>
-                    <div class="handle">@thelocalnearbuy</div>
-                </div>
-                <div class="insta-post">
-                    <div class="placeholder">➡</div>
-                    <div class="handle">View 3 more</div>
-                </div>
+                <button class="insta-arrow right" onclick="slideInsta(1)">❯</button>
             </div>
         </div>
+        
+        <script>
+        let instaIndex = 0;
+        function slideInsta(dir) {
+            const track = document.getElementById('instaTrack');
+            const posts = track.children.length;
+            instaIndex += dir;
+            if (instaIndex < 0) instaIndex = posts - 1;
+            if (instaIndex >= posts) instaIndex = 0;
+            track.style.transform = 'translateX(-' + (instaIndex * 100) + '%)';
+        }
+        </script>
         
         <!-- SECTION 5: RECOMMEND -->
         <div class="section sec5">
