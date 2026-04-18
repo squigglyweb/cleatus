@@ -15,7 +15,6 @@
         .page { position: relative; width: 100%; max-width: 1200px; margin: 0 auto; }
         .bg-img { width: 100%; display: block; }
         
-        /* Container for all sections */
         .sections {
             position: absolute;
             top: 0;
@@ -23,40 +22,37 @@
             width: 100%;
             height: 100%;
             padding: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
         
-        /* TOP ROW - 3 boxes */
+        /* TOP ROW - 3 equal boxes */
         .top-row {
             display: flex;
             gap: 10px;
             height: 45%;
-            margin-bottom: 10px;
         }
         
         .top-row .flip-card {
             flex: 1;
-            position: relative;
             min-height: 200px;
         }
         
-        /* BOTTOM ROW - 4 boxes */
+        /* BOTTOM ROW */
         .bottom-row {
             display: flex;
             gap: 10px;
             height: 45%;
-            margin-top: 10px;
         }
         
-        .bottom-row .flip-card {
-            flex: 1;
-            position: relative;
+        .bottom-row .flip-card, .bottom-row .sec6 {
             min-height: 180px;
         }
         
-        .bottom-row .sec5 { flex: 0.8; }  /* Recommend */
-        .bottom-row .sec6 { flex: 1.2; } /* Logo */
-        .bottom-row .sec7 { flex: 0.8; } /* Mission */
-        .bottom-row .sec8 { flex: 0.7; } /* Sign Up */
+        .bottom-row .sec5 { flex: 0.8; }   /* Recommend */
+        .bottom-row .sec6 { flex: 1.4; }   /* Logo - BIG */
+        .bottom-row .right-stack { flex: 0.8; display: flex; flex-direction: column; gap: 10px; } /* Mission + Sign Up stacked */
         
         /* FLIP CARD */
         .flip-card { perspective: 1000px; }
@@ -74,7 +70,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
             color: var(--red);
         }
@@ -94,16 +90,16 @@
         
         .flip-card-back h3 { font-size: 12px; font-weight: 800; text-transform: uppercase; color: var(--red); margin-bottom: 8px; border-bottom: 1px solid #eee; padding-bottom: 6px; }
         
-        /* Logo box - no flip */
+        /* Logo box */
         .sec6 { background: rgba(255,255,255,0.87); border: 2px solid var(--red); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
         .sec6 img { max-width: 90%; max-height: 90%; }
         
-        /* Newsletter dark box */
+        /* Newsletter dark */
         .sec8 .flip-card-front { background: rgba(255,255,255,0.87); }
         .sec8 .flip-card-back { background: #333; }
         .sec8 .flip-card-back h3 { color: white; border-bottom-color: rgba(255,255,255,0.2); }
         
-        /* RADIO */
+        /* Radio */
         .radio-player { text-align: center; }
         .radio-player .now-playing { font-size: 10px; font-weight: 600; margin-bottom: 6px; }
         .radio-player .controls { display: flex; justify-content: center; gap: 6px; margin-bottom: 8px; }
@@ -113,49 +109,36 @@
         .radio-player .track-list { margin-top: 8px; text-align: left; font-size: 9px; }
         .radio-player .track-list .track { padding: 3px 0; border-bottom: 1px solid #eee; cursor: pointer; }
         
-        /* BIZ */
+        /* Biz */
         .biz-content { font-size: 10px; line-height: 1.4; }
         .biz-content ul { margin: 8px 0; padding-left: 14px; }
         .biz-content li { margin-bottom: 4px; }
         
-        /* PILLARS */
+        /* Pillars */
         .pillars-pills { display: flex; flex-wrap: wrap; gap: 4px; }
         .pill { background: var(--cream); border: 1px solid #ddd; border-radius: 12px; padding: 4px 8px; font-size: 8px; font-weight: 600; }
         .pill.highlight { background: var(--red); color: white; border-color: var(--red); }
         
-        /* INSTAGRAM */
-        .insta-carousel { position: relative; height: 100%; display: flex; align-items: center; }
-        .insta-track { display: flex; gap: 6px; transition: transform 0.3s; width: 100%; }
-        .insta-post { min-width: 100%; background: white; border: 1px solid #ddd; border-radius: 6px; padding: 0; display: flex; flex-direction: column; }
-        .insta-post .post-img { height: 50px; background: #eee; display: flex; align-items: center; justify-content: center; font-size: 20px; }
-        .insta-post .post-info { padding: 4px; }
-        .insta-post .handle { font-size: 9px; font-weight: 700; }
-        .insta-post .biz-name { font-size: 8px; color: #666; }
-        .insta-post .tagline { font-size: 7px; color: var(--red); font-weight: 600; }
-        .insta-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 20px; height: 20px; background: var(--red); color: white; border: none; border-radius: 50%; cursor: pointer; font-size: 10px; }
-        .insta-arrow.left { left: 3px; }
-        .insta-arrow.right { right: 3px; }
-        
-        /* FORM */
+        /* Recommend form */
         .recommend-form { display: flex; flex-direction: column; gap: 6px; }
         .recommend-form input, .recommend-form select { width: 100%; padding: 6px; border: 1px solid #ddd; border-radius: 4px; font-size: 10px; font-family: inherit; }
         .recommend-form button { background: var(--red); color: white; border: none; padding: 8px; border-radius: 4px; font-weight: 700; cursor: pointer; font-size: 10px; }
         
-        /* MISSION */
+        /* Mission */
         .mission-content { font-size: 10px; }
         .mission-content .goal { background: var(--red); color: white; padding: 8px; border-radius: 6px; text-align: center; margin-top: 8px; }
-        .mission-content .goal .number { font-size: 18px; font-weight: 900; }
-        .mission-content .goal .label { font-size: 8px; }
+        .mission-content .goal .number { font-size: 16px; font-weight: 900; }
+        .mission-content .goal .label { font-size: 7px; }
         
-        /* NEWSLETTER */
+        /* Newsletter */
         .newsletter-form { display: flex; flex-direction: column; gap: 6px; }
         .newsletter-form input { padding: 8px; border: none; border-radius: 4px; font-size: 10px; background: white; }
         .newsletter-form button { background: var(--red); color: white; border: none; padding: 8px; border-radius: 4px; font-weight: 700; cursor: pointer; font-size: 10px; }
         
         @media (max-width: 768px) {
             .top-row, .bottom-row { flex-direction: column; height: auto; }
-            .flip-card { min-height: 150px; margin-bottom: 10px; }
-            .sec6 { min-height: 150px; }
+            .bottom-row .right-stack { flex: 1; }
+            .flip-card, .sec6 { min-height: 150px; margin-bottom: 10px; }
             .page { padding: 10px; }
         }
     </style>
@@ -165,9 +148,8 @@
         <img src="https://chs.vendorprint.site/wp-content/uploads/2026/04/web-site-coming-soon-bkg-scaled.webp" class="bg-img" alt="">
         
         <div class="sections">
-            <!-- TOP ROW -->
+            <!-- TOP ROW: 3 equal boxes -->
             <div class="top-row">
-                <!-- SEC1: TLN Radio -->
                 <div class="flip-card" onclick="this.classList.toggle('flipped')">
                     <div class="flip-card-inner">
                         <div class="flip-card-front">📻 TLN Radio</div>
@@ -187,7 +169,6 @@
                     </div>
                 </div>
                 
-                <!-- SEC2: For Businesses -->
                 <div class="flip-card" onclick="this.classList.toggle('flipped')">
                     <div class="flip-card-inner">
                         <div class="flip-card-front">📣 For Businesses</div>
@@ -207,61 +188,28 @@
                     </div>
                 </div>
                 
-                <!-- Right side: pillars + insta stacked -->
-                <div style="flex: 1; display: flex; flex-direction: column; gap: 10px;">
-                    <!-- SEC3: Content Pillars -->
-                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front">☕ Content Pillars</div>
-                            <div class="flip-card-back">
-                                <h3>☕ Content Pillars</h3>
-                                <div class="pillars-pills">
-                                    <span class="pill highlight">Coffee Corner</span>
-                                    <span class="pill">Pizza Files</span>
-                                    <span class="pill">Date Night</span>
-                                    <span class="pill">Sweet Spot</span>
-                                    <span class="pill">Home Heroes</span>
-                                    <span class="pill">Smile Squad</span>
-                                    <span class="pill">Hidden Gems</span>
-                                    <span class="pill">Kid-Friendly</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- SEC4: Instagram -->
-                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
-                        <div class="flip-card-inner">
-                            <div class="flip-card-front">📸 Latest Posts</div>
-                            <div class="flip-card-back">
-                                <h3>📸 Latest Posts</h3>
-                                <div class="insta-carousel">
-                                    <button class="insta-arrow left" onclick="event.stopPropagation();slideInsta(-1)">❮</button>
-                                    <div class="insta-track" id="instaTrack">
-                                        <div class="insta-post">
-                                            <div class="post-img">☕</div>
-                                            <div class="post-info"><div class="handle">@thelocalnearbuy</div><div class="biz-name">Daily Grind</div><div class="tagline">A-MA-ZING Cold Brew</div></div>
-                                        </div>
-                                        <div class="insta-post">
-                                            <div class="post-img">🍕</div>
-                                            <div class="post-info"><div class="handle">@thelocalnearbuy</div><div class="biz-name">Antonio's Pizza</div><div class="tagline">Best Pizza</div></div>
-                                        </div>
-                                        <div class="insta-post">
-                                            <div class="post-img">🎉</div>
-                                            <div class="post-info"><div class="handle">@thelocalnearbuy</div><div class="biz-name">Local Event</div><div class="tagline">Coming Soon</div></div>
-                                        </div>
-                                    </div>
-                                    <button class="insta-arrow right" onclick="event.stopPropagation();slideInsta(1)">❯</button>
-                                </div>
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">☕ Content Pillars</div>
+                        <div class="flip-card-back">
+                            <h3>☕ Content Pillars</h3>
+                            <div class="pillars-pills">
+                                <span class="pill highlight">Coffee Corner</span>
+                                <span class="pill">Pizza Files</span>
+                                <span class="pill">Date Night</span>
+                                <span class="pill">Sweet Spot</span>
+                                <span class="pill">Home Heroes</span>
+                                <span class="pill">Smile Squad</span>
+                                <span class="pill">Hidden Gems</span>
+                                <span class="pill">Kid-Friendly</span>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
             
-            <!-- BOTTOM ROW -->
+            <!-- BOTTOM ROW: Recommend | Logo (big) | (Mission + Sign Up stacked) -->
             <div class="bottom-row">
-                <!-- SEC5: Recommend -->
                 <div class="flip-card sec5" onclick="this.classList.toggle('flipped')">
                     <div class="flip-card-inner">
                         <div class="flip-card-front">💡 Recommend</div>
@@ -277,53 +225,40 @@
                     </div>
                 </div>
                 
-                <!-- SEC6: Logo -->
                 <div class="sec6">
                     <img src="https://chs.vendorprint.site/wp-content/uploads/2026/04/TLN-w-phone.png" alt="Logo">
                 </div>
                 
-                <!-- SEC7: Mission -->
-                <div class="flip-card sec7" onclick="this.classList.toggle('flipped')">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">🍽️ Our Mission</div>
-                        <div class="flip-card-back">
-                            <h3>🍽️ Our Mission</h3>
-                            <div class="mission-content">
-                                <p>Shop local. Feed families.</p>
-                                <p>Every purchase through NearBuy helps feed local children.</p>
-                                <div class="goal"><div class="number">2,000</div><div class="label">MEALS PER CAMPAIGN</div></div>
+                <div class="right-stack">
+                    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">🍽️ Our Mission</div>
+                            <div class="flip-card-back">
+                                <h3>🍽️ Our Mission</h3>
+                                <div class="mission-content">
+                                    <p>Shop local. Feed families.</p>
+                                    <p>Every purchase helps feed local children.</p>
+                                    <div class="goal"><div class="number">2,000</div><div class="label">MEALS PER CAMPAIGN</div></div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                
-                <!-- SEC8: Newsletter -->
-                <div class="flip-card sec8" onclick="this.classList.toggle('flipped')">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front" style="color:var(--red)">📧 Sign Up</div>
-                        <div class="flip-card-back">
-                            <h3>📧 WANT LOCAL DEALS?</h3>
-                            <form class="newsletter-form" onsubmit="alert('Thanks!');return false;">
-                                <input type="email" placeholder="Your email address" required>
-                                <button type="submit">Notify Me</button>
-                            </form>
+                    
+                    <div class="flip-card sec8" onclick="this.classList.toggle('flipped')">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front" style="color:var(--red)">📧 Sign Up</div>
+                            <div class="flip-card-back">
+                                <h3>📧 WANT LOCAL DEALS?</h3>
+                                <form class="newsletter-form" onsubmit="alert('Thanks!');return false;">
+                                    <input type="email" placeholder="Your email address" required>
+                                    <button type="submit">Notify Me</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    
-    <script>
-        let instaIndex = 0;
-        function slideInsta(dir) {
-            const track = document.getElementById('instaTrack');
-            const posts = track.children.length;
-            instaIndex += dir;
-            if (instaIndex < 0) instaIndex = posts - 1;
-            if (instaIndex >= posts) instaIndex = 0;
-            track.style.transform = 'translateX(-' + (instaIndex * 100) + '%)';
-        }
-    </script>
 </body>
 </html>
