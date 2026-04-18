@@ -26,23 +26,58 @@
             margin: 0 auto;
         }
         
-        /* BACKGROUND ILLUSTRATION */
-        .bg-img {
-            width: 100%;
-            display: block;
+        .bg-img { width: 100%; display: block; }
+        
+        /* FLIP CARD CONTAINER */
+        .flip-card {
+            position: absolute;
+            cursor: pointer;
+            perspective: 1000px;
         }
         
-        /* SECTIONS OVERLAY */
-        .section {
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+        
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+        
+        /* FRONT - Semi-transparent */
+        .flip-card-front {
             position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            background: rgba(255,255,255,0.87);
+            border: 2px solid var(--red);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--red);
+        }
+        
+        /* BACK - Content */
+        .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
             background: white;
             border: 2px solid var(--red);
             border-radius: 8px;
             padding: 15px;
             overflow: auto;
+            transform: rotateY(180deg);
         }
         
-        .section h3 {
+        .flip-card-back h3 {
             font-size: 14px;
             font-weight: 800;
             text-transform: uppercase;
@@ -52,472 +87,258 @@
             padding-bottom: 8px;
         }
         
-        /* SECTION 1: TLN RADIO */
-        .sec1 {
-            left: 1%;
-            top: 2%;
-            width: 20%;
-            height: 45%;
-            min-height: 300px;
-        }
+        /* SECTION POSITIONS */
+        .sec1 { left: 1%; top: 2%; width: 20%; height: 45%; min-height: 300px; }
+        .sec2 { left: 22%; top: 2%; width: 30%; height: 45%; min-height: 300px; }
+        .sec3 { left: 53%; top: 2%; width: 46%; height: 20%; min-height: 120px; }
+        .sec4 { left: 53%; top: 23%; width: 46%; height: 24%; min-height: 150px; }
+        .sec5 { left: 1%; top: 48%; width: 35%; height: 50%; min-height: 250px; }
+        .sec6 { left: 37%; top: 48%; width: 26%; height: 50%; min-height: 250px; background: transparent; border: none; }
+        .sec6 .flip-card-front, .sec6 .flip-card-back { border: none; background: transparent; }
+        .sec7 { left: 64%; top: 48%; width: 35%; height: 30%; min-height: 150px; }
+        .sec8 { left: 64%; top: 79%; width: 35%; height: 19%; min-height: 100px; background: #333; border: none; }
+        .sec8 .flip-card-front { background: rgba(255,255,255,0.87); border: 2px solid var(--red); }
+        .sec8 .flip-card-back { background: #333; border: 2px solid var(--red); }
         
-        .radio-player {
-            text-align: center;
-        }
+        /* RADIO */
+        .radio-player { text-align: center; }
+        .radio-player .now-playing { font-size: 11px; font-weight: 600; margin-bottom: 8px; }
+        .radio-player .controls { display: flex; justify-content: center; gap: 8px; margin-bottom: 10px; }
+        .radio-player .controls button { width: 36px; height: 36px; border-radius: 50%; border: 2px solid var(--black); background: white; cursor: pointer; font-size: 14px; }
+        .radio-player .controls button.play { background: var(--red); color: white; border-color: var(--red); }
+        .radio-player input[type="range"] { width: 100%; margin-top: 8px; }
+        .radio-player .track-list { margin-top: 12px; text-align: left; }
+        .radio-player .track-list .track { font-size: 10px; padding: 4px 0; border-bottom: 1px solid #eee; cursor: pointer; }
+        .radio-player .track-list .track:hover { color: var(--red); }
         
-        .radio-player .now-playing {
-            font-size: 11px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
+        /* BIZ CONTENT */
+        .biz-content { font-size: 11px; line-height: 1.5; }
+        .biz-content ul { margin: 10px 0; padding-left: 18px; }
+        .biz-content li { margin-bottom: 6px; }
         
-        .radio-player .controls {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 10px;
-        }
+        /* PILLARS */
+        .pillars-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+        .pill { background: var(--cream); border: 1px solid #ddd; border-radius: 20px; padding: 5px 12px; font-size: 10px; font-weight: 600; }
+        .pill.highlight { background: var(--red); color: white; border-color: var(--red); }
         
-        .radio-player .controls button {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border: 2px solid var(--black);
-            background: white;
-            cursor: pointer;
-            font-size: 14px;
-        }
-        
-        .radio-player .controls button.play {
-            background: var(--red);
-            color: white;
-            border-color: var(--red);
-        }
-        
-        .radio-player input[type="range"] {
-            width: 100%;
-            margin-top: 8px;
-        }
-        
-        .radio-player .track-list {
-            margin-top: 12px;
-            text-align: left;
-        }
-        
-        .radio-player .track-list .track {
-            font-size: 10px;
-            padding: 4px 0;
-            border-bottom: 1px solid #eee;
-            cursor: pointer;
-        }
-        
-        .radio-player .track-list .track:hover {
-            color: var(--red);
-        }
-        
-        /* SECTION 2: FOR BUSINESSES */
-        .sec2 {
-            left: 22%;
-            top: 2%;
-            width: 30%;
-            height: 45%;
-            min-height: 300px;
-        }
-        
-        .biz-content {
-            font-size: 11px;
-            line-height: 1.5;
-        }
-        
-        .biz-content ul {
-            margin: 10px 0;
-            padding-left: 18px;
-        }
-        
-        .biz-content li {
-            margin-bottom: 6px;
-        }
-        
-        /* SECTION 3: CONTENT PILLARS */
-        .sec3 {
-            left: 53%;
-            top: 2%;
-            width: 46%;
-            height: 20%;
-            min-height: 120px;
-        }
-        
-        .pillars-pills {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-        
-        .pill {
-            background: var(--cream);
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            padding: 5px 12px;
-            font-size: 10px;
-            font-weight: 600;
-        }
-        
-        .pill.highlight {
-            background: var(--red);
-            color: white;
-            border-color: var(--red);
-        }
-        
-        /* SECTION 4: INSTAGRAM POSTS */
-        .sec4 {
-            left: 53%;
-            top: 23%;
-            width: 46%;
-            height: 24%;
-            min-height: 150px;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .insta-carousel {
-            position: relative;
-            flex: 1;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-        }
-        
-        .insta-track {
-            display: flex;
-            gap: 8px;
-            transition: transform 0.3s ease;
-            width: 100%;
-        }
-        
-        .insta-post {
-            min-width: 100%;
-            background: white;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 0;
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-        
-        .insta-post .post-img {
-            width: 100%;
-            height: 80px;
-            background: #eee;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-        }
-        
-        .insta-post .post-info {
-            padding: 8px;
-        }
-        
-        .insta-post .handle {
-            font-size: 10px;
-            font-weight: 700;
-            color: var(--black);
-        }
-        
-        .insta-post .biz-name {
-            font-size: 9px;
-            color: #666;
-            margin-top: 2px;
-        }
-        
-        .insta-post .tagline {
-            font-size: 8px;
-            color: var(--red);
-            margin-top: 3px;
-            font-weight: 600;
-        }
-        
-        .insta-arrow {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 24px;
-            height: 24px;
-            background: var(--red);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            cursor: pointer;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-        }
-        
+        /* INSTAGRAM */
+        .insta-carousel { position: relative; flex: 1; display: flex; align-items: center; overflow: hidden; }
+        .insta-track { display: flex; gap: 8px; transition: transform 0.3s ease; width: 100%; }
+        .insta-post { min-width: 100%; background: white; border: 1px solid #ddd; border-radius: 8px; padding: 0; text-align: center; display: flex; flex-direction: column; overflow: hidden; }
+        .insta-post .post-img { width: 100%; height: 60px; background: #eee; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+        .insta-post .post-info { padding: 6px; }
+        .insta-post .handle { font-size: 10px; font-weight: 700; }
+        .insta-post .biz-name { font-size: 9px; color: #666; margin-top: 2px; }
+        .insta-post .tagline { font-size: 8px; color: var(--red); margin-top: 3px; font-weight: 600; }
+        .insta-arrow { position: absolute; top: 50%; transform: translateY(-50%); width: 24px; height: 24px; background: var(--red); color: white; border: none; border-radius: 50%; cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center; z-index: 10; }
         .insta-arrow.left { left: 5px; }
         .insta-arrow.right { right: 5px; }
         
-        /* SECTION 5: RECOMMEND FORM */
-        .sec5 {
-            left: 1%;
-            top: 48%;
-            width: 35%;
-            height: 50%;
-            min-height: 250px;
-        }
+        /* FORM */
+        .recommend-form { display: flex; flex-direction: column; gap: 8px; }
+        .recommend-form input, .recommend-form select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 11px; font-family: inherit; }
+        .recommend-form button { background: var(--red); color: white; border: none; padding: 10px; border-radius: 4px; font-weight: 700; cursor: pointer; font-size: 11px; }
         
-        .recommend-form {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
+        /* MISSION */
+        .mission-content { font-size: 11px; }
+        .mission-content .goal { background: var(--red); color: white; padding: 10px; border-radius: 6px; text-align: center; margin-top: 10px; }
+        .mission-content .goal .number { font-size: 20px; font-weight: 900; }
+        .mission-content .goal .label { font-size: 9px; }
         
-        .recommend-form input,
-        .recommend-form select,
-        .recommend-form textarea {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 11px;
-            font-family: inherit;
-        }
+        /* NEWSLETTER */
+        .newsletter-form { display: flex; flex-direction: row; gap: 8px; align-items: center; }
+        .newsletter-form input { flex: 1; padding: 10px 12px; border: none; border-radius: 4px; font-size: 11px; background: white; }
+        .newsletter-form button { background: var(--red); color: white; border: none; padding: 10px 16px; border-radius: 4px; font-weight: 700; cursor: pointer; font-size: 11px; white-space: nowrap; }
         
-        .recommend-form button {
-            background: var(--red);
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 4px;
-            font-weight: 700;
-            cursor: pointer;
-            font-size: 11px;
-        }
-        
-        /* SECTION 6: LOGO */
-        .sec6 {
-            left: 37%;
-            top: 48%;
-            width: 26%;
-            height: 50%;
-            min-height: 250px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px;
-            background: rgba(255,255,255,0.87);
-            border: 2px solid #d32f2f;
-        }
-        
-        .sec6 img {
-            max-width: 100%;
-            max-height: 100%;
-        }
-        
-        /* SECTION 7: OUR MISSION */
-        .sec7 {
-            left: 64%;
-            top: 48%;
-            width: 35%;
-            height: 30%;
-            min-height: 150px;
-        }
-        
-        .mission-content {
-            font-size: 11px;
-        }
-        
-        .mission-content .goal {
-            background: var(--red);
-            color: white;
-            padding: 10px;
-            border-radius: 6px;
-            text-align: center;
-            margin-top: 10px;
-        }
-        
-        .mission-content .goal .number {
-            font-size: 24px;
-            font-weight: 900;
-        }
-        
-        .mission-content .goal .label {
-            font-size: 10px;
-        }
-        
-        /* SECTION 8: NEWSLETTER SIGNUP */
-        .sec8 {
-            left: 64%;
-            top: 79%;
-            width: 35%;
-            height: 19%;
-            min-height: 100px;
-            background: #333333;
-            border: none;
-            border-radius: 10px;
-        }
-        
-        .sec8 h3 {
-            color: white;
-            border-bottom: none;
-        }
-        
-        .newsletter-form {
-            display: flex;
-            flex-direction: row;
-            gap: 8px;
-            align-items: center;
-        }
-        
-        .newsletter-form input {
-            flex: 1;
-            padding: 10px 12px;
-            border: none;
-            border-radius: 4px;
-            font-size: 11px;
-            background: white;
-        }
-        
-        .newsletter-form button {
-            background: var(--red);
-            color: white;
-            border: none;
-            padding: 10px 16px;
-            border-radius: 4px;
-            font-weight: 700;
-            cursor: pointer;
-            font-size: 11px;
-            white-space: nowrap;
-        }
+        .flip-card-back h3 { color: white; border-bottom: 1px solid rgba(255,255,255,0.2); }
+        .sec8 .newsletter-form input { background: white; }
         
         /* MOBILE */
         @media (max-width: 768px) {
-            .section {
-                position: relative;
-                top: auto !important;
-                left: auto !important;
-                width: 100% !important;
-                height: auto !important;
-                min-height: auto;
-                margin-bottom: 10px;
-                border-width: 1px;
-            }
-            
-            .page {
-                padding: 10px;
-            }
-            
-            .pillars-pills {
-                justify-content: center;
-            }
-            
-            .insta-slider {
-                justify-content: center;
-            }
+            .flip-card { position: relative; top: auto !important; left: auto !important; width: 100% !important; height: auto !important; min-height: 200px; margin-bottom: 10px; }
+            .page { padding: 10px; }
+            .pillars-pills { justify-content: center; }
         }
     </style>
 </head>
 <body>
     <div class="page">
-        <!-- BACKGROUND IMAGE -->
-        <img src="https://chs.vendorprint.site/wp-content/uploads/2026/04/web-site-coming-soon-bkg-scaled.webp" class="bg-img" alt="The Local NearBuy">
+        <img src="https://chs.vendorprint.site/wp-content/uploads/2026/04/web-site-coming-soon-bkg-scaled.webp" class="bg-img" alt="">
         
         <!-- SECTION 1: TLN RADIO -->
-        <div class="section sec1">
-            <h3>📻 TLN Radio</h3>
-            <div class="radio-player">
-                <div class="now-playing">Now Playing: Jingle #1</div>
-                <div class="controls">
-                    <button>⏮</button>
-                    <button class="play">▶</button>
-                    <button>⏭</button>
-                </div>
-                <input type="range" value="30" max="100">
-                <div class="track-list">
-                    <div class="track">🎵 Local Jingle #1</div>
-                    <div class="track">🎵 Local Jingle #2</div>
-                    <div class="track">🎵 Local Jingle #3</div>
+        <div class="flip-card sec1" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">📻 TLN Radio</div>
+                <div class="flip-card-back">
+                    <h3>📻 TLN Radio</h3>
+                    <div class="radio-player">
+                        <div class="now-playing">Now Playing: Jingle #1</div>
+                        <div class="controls">
+                            <button>⏮</button>
+                            <button class="play">▶</button>
+                            <button>⏭</button>
+                        </div>
+                        <input type="range" value="30" max="100">
+                        <div class="track-list">
+                            <div class="track">🎵 Local Jingle #1</div>
+                            <div class="track">🎵 Local Jingle #2</div>
+                            <div class="track">🎵 Local Jingle #3</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
         
         <!-- SECTION 2: FOR BUSINESSES -->
-        <div class="section sec2">
-            <h3>📣 For Businesses</h3>
-            <div class="biz-content">
-                <p>Help local businesses in Greater Waxhaw reach more customers.</p>
-                <ul>
-                    <li>Social media promotion</li>
-                    <li>Directory listings</li>
-                    <li>Newsletter features</li>
-                    <li>EDDM postcard ads</li>
-                </ul>
-                <p><strong>Every ad feeds local kids.</strong></p>
+        <div class="flip-card sec2" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">📣 For Businesses</div>
+                <div class="flip-card-back">
+                    <h3>📣 For Businesses</h3>
+                    <div class="biz-content">
+                        <p>Help local businesses in Greater Waxhaw reach more customers.</p>
+                        <ul>
+                            <li>Social media promotion</li>
+                            <li>Directory listings</li>
+                            <li>Newsletter features</li>
+                            <li>EDDM postcard ads</li>
+                        </ul>
+                        <p><strong>Every ad feeds local kids.</strong></p>
+                    </div>
+                </div>
             </div>
         </div>
         
         <!-- SECTION 3: CONTENT PILLARS -->
-        <div class="section sec3">
-            <h3>☕ Content Pillars</h3>
-            <div class="pillars-pills">
-                <span class="pill highlight">Coffee Corner</span>
-                <span class="pill">Pizza Files</span>
-                <span class="pill">Date Night</span>
-                <span class="pill">Sweet Spot</span>
-                <span class="pill">Home Heroes</span>
-                <span class="pill">Smile Squad</span>
-                <span class="pill">Hidden Gems</span>
-                <span class="pill">Kid-Friendly</span>
+        <div class="flip-card sec3" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">☕ Content Pillars</div>
+                <div class="flip-card-back">
+                    <h3>☕ Content Pillars</h3>
+                    <div class="pillars-pills">
+                        <span class="pill highlight">Coffee Corner</span>
+                        <span class="pill">Pizza Files</span>
+                        <span class="pill">Date Night</span>
+                        <span class="pill">Sweet Spot</span>
+                        <span class="pill">Home Heroes</span>
+                        <span class="pill">Smile Squad</span>
+                        <span class="pill">Hidden Gems</span>
+                        <span class="pill">Kid-Friendly</span>
+                    </div>
+                </div>
             </div>
         </div>
         
         <!-- SECTION 4: INSTAGRAM -->
-        <div class="section sec4">
-            <h3>📸 Latest Posts</h3>
-            <div class="insta-carousel">
-                <button class="insta-arrow left" onclick="slideInsta(-1)">❮</button>
-                <div class="insta-track" id="instaTrack">
-                    <div class="insta-post">
-                        <div class="post-img">☕</div>
-                        <div class="post-info">
-                            <div class="handle">@thelocalnearbuy</div>
-                            <div class="biz-name">Daily Grind Coffee Bar</div>
-                            <div class="tagline">A-MA-ZING Vanilla Cold Brew</div>
+        <div class="flip-card sec4" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">📸 Latest Posts</div>
+                <div class="flip-card-back">
+                    <h3>📸 Latest Posts</h3>
+                    <div class="insta-carousel">
+                        <button class="insta-arrow left" onclick="event.stopPropagation(); slideInsta(-1)">❮</button>
+                        <div class="insta-track" id="instaTrack">
+                            <div class="insta-post">
+                                <div class="post-img">☕</div>
+                                <div class="post-info">
+                                    <div class="handle">@thelocalnearbuy</div>
+                                    <div class="biz-name">Daily Grind Coffee Bar</div>
+                                    <div class="tagline">A-MA-ZING Vanilla Cold Brew</div>
+                                </div>
+                            </div>
+                            <div class="insta-post">
+                                <div class="post-img">🍕</div>
+                                <div class="post-info">
+                                    <div class="handle">@thelocalnearbuy</div>
+                                    <div class="biz-name">Antonio's Pizza</div>
+                                    <div class="tagline">Best Pizza in Waxhaw</div>
+                                </div>
+                            </div>
+                            <div class="insta-post">
+                                <div class="post-img">🎉</div>
+                                <div class="post-info">
+                                    <div class="handle">@thelocalnearbuy</div>
+                                    <div class="biz-name">Local Event</div>
+                                    <div class="tagline">Coming This Weekend</div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="insta-post">
-                        <div class="post-img">🍕</div>
-                        <div class="post-info">
-                            <div class="handle">@thelocalnearbuy</div>
-                            <div class="biz-name">Antonio's Pizza</div>
-                            <div class="tagline">Best Pizza in Waxhaw</div>
-                        </div>
-                    </div>
-                    <div class="insta-post">
-                        <div class="post-img">🎉</div>
-                        <div class="post-info">
-                            <div class="handle">@thelocalnearbuy</div>
-                            <div class="biz-name">Local Event</div>
-                            <div class="tagline">Coming This Weekend</div>
-                        </div>
-                    </div>
-                    <div class="insta-post">
-                        <div class="post-img">🏠</div>
-                        <div class="post-info">
-                            <div class="handle">@thelocalnearbuy</div>
-                            <div class="biz-name">New Listing</div>
-                            <div class="tagline">Check It Out</div>
-                        </div>
+                        <button class="insta-arrow right" onclick="event.stopPropagation(); slideInsta(1)">❯</button>
                     </div>
                 </div>
-                <button class="insta-arrow right" onclick="slideInsta(1)">❯</button>
             </div>
         </div>
         
-        <script>
+        <!-- SECTION 5: RECOMMEND -->
+        <div class="flip-card sec5" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">💡 Recommend</div>
+                <div class="flip-card-back">
+                    <h3>💡 Recommend A Business</h3>
+                    <form class="recommend-form" onsubmit="alert('Thanks!'); return false;">
+                        <input type="text" placeholder="Business Name" required>
+                        <select required>
+                            <option value="">Select Category</option>
+                            <option>Coffee Corner</option>
+                            <option>Pizza Files</option>
+                            <option>Date Night</option>
+                            <option>Sweet Spot</option>
+                            <option>Home Heroes</option>
+                            <option>Smile Squad</option>
+                            <option>Hidden Gems</option>
+                            <option>Kid-Friendly</option>
+                        </select>
+                        <input type="text" placeholder="Your Name (optional)">
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SECTION 6: LOGO -->
+        <div class="flip-card sec6" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner">
+                <div class="flip-card-front"></div>
+                <div class="flip-card-back">
+                    <img src="https://chs.vendorprint.site/wp-content/uploads/2026/04/TLN-w-phone.png" alt="Logo" style="width:100%;height:100%;object-fit:contain;">
+                </div>
+            </div>
+        </div>
+        
+        <!-- SECTION 7: MISSION -->
+        <div class="flip-card sec7" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner">
+                <div class="flip-card-front">🍽️ Our Mission</div>
+                <div class="flip-card-back">
+                    <h3>🍽️ Our Mission</h3>
+                    <div class="mission-content">
+                        <p>Shop local. Feed families.</p>
+                        <p>Every purchase through NearBuy helps feed local children in need.</p>
+                        <div class="goal">
+                            <div class="number">2,000</div>
+                            <div class="label">MEALS PER CAMPAIGN</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- SECTION 8: NEWSLETTER -->
+        <div class="flip-card sec8" onclick="this.classList.toggle('flipped')">
+            <div class="flip-card-inner">
+                <div class="flip-card-front" style="color:var(--red);font-weight:700;">📧 Sign Up</div>
+                <div class="flip-card-back">
+                    <h3 style="color:white;">📧 WANT LOCAL DEALS?</h3>
+                    <form class="newsletter-form" onsubmit="alert('Thanks!'); return false;">
+                        <input type="email" placeholder="Your email address" required>
+                        <button type="submit">Notify Me</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
         let instaIndex = 0;
         function slideInsta(dir) {
             const track = document.getElementById('instaTrack');
@@ -527,55 +348,6 @@
             if (instaIndex >= posts) instaIndex = 0;
             track.style.transform = 'translateX(-' + (instaIndex * 100) + '%)';
         }
-        </script>
-        
-        <!-- SECTION 5: RECOMMEND -->
-        <div class="section sec5">
-            <h3>💡 Recommend A Business</h3>
-            <form class="recommend-form" onsubmit="alert('Thanks for the recommendation!'); return false;">
-                <input type="text" placeholder="Business Name" required>
-                <select required>
-                    <option value="">Select Category</option>
-                    <option>Coffee Corner</option>
-                    <option>Pizza Files</option>
-                    <option>Date Night</option>
-                    <option>Sweet Spot</option>
-                    <option>Home Heroes</option>
-                    <option>Smile Squad</option>
-                    <option>Hidden Gems</option>
-                    <option>Kid-Friendly</option>
-                </select>
-                <input type="text" placeholder="Your Name (optional)">
-                <button type="submit">Submit</button>
-            </form>
-        </div>
-        
-        <!-- SECTION 6: LOGO -->
-        <div class="section sec6">
-            <img src="https://chs.vendorprint.site/wp-content/uploads/2026/04/TLN-w-phone.png" alt="The Local NearBuy Logo">
-        </div>
-        
-        <!-- SECTION 7: MISSION -->
-        <div class="section sec7">
-            <h3>🍽️ Our Mission</h3>
-            <div class="mission-content">
-                <p>Shop local. Feed families.</p>
-                <p>Every purchase through NearBuy helps feed local children in need.</p>
-                <div class="goal">
-                    <div class="number">2,000</div>
-                    <div class="label">MEALS PER CAMPAIGN</div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- SECTION 8: NEWSLETTER -->
-        <div class="section sec8">
-            <h3>📧 WANT LOCAL DEALS?</h3>
-            <form class="newsletter-form" onsubmit="alert('Thanks!'); return false;">
-                <input type="email" placeholder="Your email address" required>
-                <button type="submit">Notify Me</button>
-            </form>
-        </div>
-    </div>
+    </script>
 </body>
 </html>
