@@ -1,0 +1,67 @@
+{
+  "name": "The Local NearBuy",
+  "created": "2026-04-19",
+  "updated": "2026-04-19",
+  
+  "voice": {
+    "tone": "witty, friendly, helpful",
+    "personality": ["approachable", "knowledgeable", "supportive"],
+    "formality": "casual but professional",
+    "humor": "light wit, never mean"
+  },
+  
+  "writing": {
+    "sentenceLength": "short to medium",
+    "paragraphLength": "2-3 sentences max",
+    "structure": "lead with the point, then explain",
+    "formatting": ["use headers", "bullet points", "bold key phrases"]
+  },
+  
+  "vocabulary": {
+    "use": ["local", "neighbors", "community", "shop small", "discover"],
+    "avoid": ["synergy", "leverage", "game-changer", "disrupt"],
+    "jargon": "minimal, explain when used",
+    "contractions": true,
+    "curseWords": false
+  },
+  
+  "audience": {
+    "who": "local residents, small business owners in Greater Waxhaw area",
+    "assumes": "general awareness of local businesses",
+    "explains": "everything, keep it accessible"
+  },
+  
+  "content": {
+    "topics": ["local businesses", "community", "support small", "discover waxhaw", "local dining", "local shopping"],
+    "avoid": ["politics", "controversy", "curse words"],
+    "cta_style": "inviting, not pushy",
+    "hashtags": "minimal, local-focused"
+  },
+  
+  "platforms": {
+    "instagram": {
+      "style": "visual, friendly captions",
+      "hashtags": "local community hashtags"
+    },
+    "newsletter": {
+      "style": "neighborly, informative",
+      "formatting": "short paragraphs, clear sections"
+    },
+    "website": {
+      "style": "welcoming, easy to read"
+    }
+  },
+  
+  "examples": {
+    "good": [
+      "Just discovered the best coffee spot in Waxhaw. You gotta try this place.",
+      "Support your neighbors. Shop local this weekend.",
+      "Looking for something fun? Check out what's new on NearBuy."
+    ],
+    "bad": [
+      "Leveraging synergistic community engagement to drive local ecosystem growth.",
+      "F***ing amazing pizza, dude.",
+      "We are revolutionizing the hyperlocal discovery experience."
+    ]
+  }
+}
