@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Local NearBuy - Points Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root { 
+            --red: #d32f2f; 
+            --black: #1a1a1a;
+            --cream: #faf8f5;
+        }
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background: var(--cream);
+            padding: 20px;
+        }
+        
+        .container { max-width: 800px; margin: 0 auto; }
+        
+        h1 { 
+            color: var(--red); 
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        h2 { 
+            color: var(--black);
+            font-size: 18px;
+            margin: 20px 0 10px;
+        }
+        
+        .card {
+            background: white;
+            border: 2px solid var(--red);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .points-display {
+            text-align: center;
+            padding: 30px;
+        }
+        
+        .points-display .number {
+            font-size: 64px;
+            font-weight: 900;
+            color: var(--red);
+        }
+        
+        .points-display .label {
+            font-size: 18px;
+            color: #666;
+        }
+        
+        .actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        
+        button {
+            background: var(--red);
+            color: white;
+            border: none;
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        button:hover { transform: scale(1.02); }
+        
+        button.secondary {
+            background: white;
+            color: var(--red);
+            border: 2px solid var(--red);
+        }
+        
+        .earn-list, .redeem-list {
+            list-style: none;
+        }
+        
+        .earn-list li, .redeem-list li {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .earn-list li:last-child, .redeem-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .points-val {
+            font-weight: 700;
+            color: var(--red);
+        }
+        
+        .history {
+            margin-top: 20px;
+        }
+        
+        .history h3 {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .history-item {
+            padding: 8px;
+            font-size: 12px;
+            border-bottom: 1px solid #eee;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>The Local NearBuy 💰</h1>
+        <p>Earn points. Feed kids. Get merch.</p>
+        
+        <!-- POINTS DISPLAY -->
+        <div class="card">
+            <div class="points-display">
+                <div class="number" id="userPoints">0</div>
+                <div class="label">YOUR POINTS</div>
+            </div>
+        </div>
+        
+        <!-- EARN POINTS -->
+        <div class="card">
+            <h2>💪 Earn Points</h2>
+            <ul class="earn-list">
+                <li><span>Share a post</span><span class="points-val">+10 pts</span></li>
+                <li><span>Write a review</span><span class="points-val">+50 pts</span></li>
+                <li><span>Recommend a business</span><span class="points-val">+100 pts</span></li>
+                <li><span>Claim an offer</span><span class="points-val">+25 pts</span></li>
+                <li><span>Refer a friend</span><span class="points-val">+75 pts</span></li>
+            </ul>
+        </div>
+        
+        <!-- REDEEM POINTS -->
+        <div class="card">
+            <h2>🎁 Redeem Points</h2>
+            <ul class="redeem-list">
+                <li><span>1 Meal for a child</span><span class="points-val">30 pts</span></li>
+                <li><span>5 Meals for kids</span><span class="points-val">150 pts</span></li>
+                <li><span>$5 Merch Credit</span><span class="points-val">500 pts</span></li>
+                <li><span>$10 Merch Credit</span><span class="points-val">1,000 pts</span></li>
+            </ul>
+        </div>
+        
+        <!-- ACTIONS -->
+        <div class="card">
+            <div class="actions">
+                <button onclick="earnPoints()">I Earned Points!</button>
+                <button class="secondary" onclick="redeemPoints()">Redeem Points</button>
+            </div>
+        </div>
+        
+        <!-- HISTORY -->
+        <div class="card history">
+            <h3>Recent Activity</h3>
+            <div id="historyList">
+                <div class="history-item">No activity yet</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let points = 0;
+        let history = [];
+        
+        function updateDisplay() {
+            document.getElementById('userPoints').textContent = points;
+            
+            const historyEl = document.getElementById('historyList');
+            if (history.length === 0) {
+                historyEl.innerHTML = '<div class="history-item">No activity yet</div>';
+            } else {
+                historyEl.innerHTML = history.map(h => 
+                    '<div class="history-item">' + h + '</div>'
+                ).join('');
+            }
+        }
+        
+        function earnPoints() {
+            const actions = [
+                'Shared a post (+10)',
+                'Wrote a review (+50)',
+                'Recommended a business (+100)',
+                'Claimed an offer (+25)',
+                'Referred a friend (+75)'
+            ];
+            const action = actions[Math.floor(Math.random() * actions.length)];
+            const match = action.match(/\+(\d+)/);
+            const earned = match ? parseInt(match[1]) : 0;
+            
+            points += earned;
+            history.unshift(action);
+            updateDisplay();
+        }
+        
+        function redeemPoints() {
+            const options = [
+                '1 Meal for a child (30 pts)',
+                '5 Meals for kids (150 pts)',
+                '$5 Merch Credit (500 pts)',
+                '$10 Merch Credit (1,000 pts)'
+            ];
+            
+            const choice = prompt('What would you like to redeem?\n\n' + 
+                '1. 1 Meal for a child - 30 pts\n' +
+                '2. 5 Meals for kids - 150 pts\n' +
+                '3. $5 Merch Credit - 500 pts\n' +
+                '4. $10 Merch Credit - 1,000 pts\n\n' +
+                'Enter 1, 2, 3, or 4:');
+            
+            const costs = {1: 30, 2: 150, 3: 500, 4: 1000};
+            const cost = costs[choice];
+            
+            if (cost && points >= cost) {
+                points -= cost;
+                history.unshift('Redeemed: ' + options[choice-1] + ' (-' + cost + ')');
+                alert('Success! Your redemption has been processed.');
+            } else if (cost) {
+                alert('Not enough points! You need ' + cost + ' points.');
+            }
+            
+            updateDisplay();
+        }
+        
+        updateDisplay();
+    </script>
+</body>
+</html>
