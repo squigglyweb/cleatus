@@ -52,6 +52,18 @@
         <h1>The Local NearBuy - Points Tracker</h1>
         <p class="subtitle">Data exports to CSV for Google Sheets import</p>
         
+        <!-- FRAUD PROTECTION RULES -->
+        <div class="fraud-rules">
+            <h3>🛡️ Fraud Protection Rules (Active)</h3>
+            <ul>
+                <li>1 action per user per ad (no repeat clicks)</li>
+                <li>Max 5 actions per day per user</li>
+                <li>Max 1 meal redemption per month per user</li>
+                <li>Max 1 merch redemption per quarter per user</li>
+                <li>Points expire after 90 days</li>
+            </ul>
+        </div>
+        
         <div class="stats">
             <div class="stat-card">
                 <div class="num" id="totalUsers">0</div>
@@ -200,14 +212,85 @@
             document.getElementById('totalRedeemed').textContent = totalOut;
         }
         
-        // ACTIONS
+        // FRAUD PROTECTION RULES
+        const RULES = {
+            maxClaimsPerAd: 1,           // Once per offer per person
+            pointExpiryDays: 90,          // Points expire after 90 days
+            maxMealRedemptionsPerMonth: 1,
+            maxMerchPerQuarter: 1,
+            actionsPerDayLimit: 5          // Max 5 actions per day
+        };
+        
+        function canEarnPoints(user, adId, actionType) {
+            // Check 1: Already earned from this ad?
+            const alreadyEarned = activity.find(a => 
+                a.user === user && a.adId === adId && a.actionType === actionType
+            );
+            if (alreadyEarned) return { allowed: false, reason: 'Already earned from this ad' };
+            
+            // Check 2: Today's action limit
+            const today = new Date().toISOString().split('T')[0];
+            const todayActions = activity.filter(a => a.user === user && a.date === today).length;
+            if (todayActions >= RULES.actionsPerDayLimit) {
+                return { allowed: false, reason: 'Daily limit reached (5 actions/day)' };
+            }
+            
+            return { allowed: true };
+        }
+        
+        function canRedeem(user, rewardType) {
+            const userRec = users.find(u => u.name === user);
+            if (!userRec) return { allowed: false, reason: 'User not found' };
+            
+            const today = new Date().toISOString().split('T')[0];
+            
+            // Check: Meal redemptions this month
+            if (rewardType.includes('Meal')) {
+                const thisMonth = today.substring(0, 7); // YYYY-MM
+                const monthRedemptions = activity.filter(a => 
+                    a.user === user && a.rewardType === 'meal' && a.date.startsWith(thisMonth)
+                ).length;
+                if (monthRedemptions >= RULES.maxMealRedemptionsPerMonth) {
+                    return { allowed: false, reason: 'Max 1 meal redemption per month' };
+                }
+            }
+            
+            // Check: Merch redemptions this quarter
+            if (rewardType.includes('Merch')) {
+                const quarter = Math.floor((new Date().getMonth() + 3) / 3);
+                const quarterRedemptions = activity.filter(a => 
+                    a.user === user && a.rewardType === 'merch' && a.quarter === quarter
+                ).length;
+                if (quarterRedemptions >= RULES.maxMerchPerQuarter) {
+                    return { allowed: false, reason: 'Max 1 merch item per quarter' };
+                }
+            }
+            
+            // Check: Expired points
+            const thirtyDaysAgo = new Date();
+            thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - RULES.pointExpiryDays);
+            const expiredPoints = activity.filter(a => 
+                a.user === user && a.type === 'earn' && 
+                new Date(a.date) < thirtyDaysAgo
+            ).reduce((sum, a) => sum + a.points, 0);
+            
+            return { allowed: true, expired: expiredPoints };
+        }
+        
         function addUser() {
             const name = document.getElementById('userName').value;
             const email = document.getElementById('userEmail').value;
             const points = parseInt(document.getElementById('userPoints').value) || 0;
             
             if (name && email) {
-                users.push({id: nextUserId++, name, email, points, joined: new Date().toISOString().split('T')[0]});
+                users.push({
+                    id: nextUserId++, 
+                    name, 
+                    email, 
+                    points, 
+                    joined: new Date().toISOString().split('T')[0],
+                    adsEngaged: []
+                });
                 document.getElementById('userName').value = '';
                 document.getElementById('userEmail').value = '';
                 document.getElementById('userPoints').value = '';
@@ -227,9 +310,27 @@
             const note = document.getElementById('activityNote').value;
             
             if (user && points) {
+                // Check fraud rules
+                if (type === 'earn') {
+                    const check = canEarnPoints(user, 'ad-001', 'click');
+                    if (!check.allowed) {
+                        alert('BLOCKED: ' + check.reason);
+                        return;
+                    }
+                } else {
+                    const check = canRedeem(user, note);
+                    if (!check.allowed) {
+                        alert('BLOCKED: ' + check.reason);
+                        return;
+                    }
+                }
+                
                 activity.unshift({
                     date: new Date().toISOString().split('T')[0],
-                    user, type, points, note
+                    user, type, points, note,
+                    adId: 'ad-001',
+                    actionType: 'click',
+                    rewardType: type === 'redeem' ? (note.includes('Meal') ? 'meal' : 'merch') : null
                 });
                 
                 // Update user balance
@@ -238,6 +339,7 @@
                     u.points += (type === 'earn' ? points : -points);
                 }
                 
+                alert('Success! Activity logged.');
                 render();
             }
         }
