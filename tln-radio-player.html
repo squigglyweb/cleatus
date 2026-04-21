@@ -128,10 +128,11 @@
     
     .progress-fill {
         height: 100%;
-        width: 35%;
+        width: 0%;
         background: linear-gradient(90deg, #ff0000, #ff4444);
         border-radius: 2px;
         position: relative;
+        transition: width 0.1s;
     }
     
     .progress-fill::after {
@@ -154,11 +155,41 @@
         margin-top: 5px;
     }
     
+    .volume-container {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 15px;
+    }
+    
+    .volume-icon {
+        color: #888;
+        font-size: 12px;
+    }
+    
+    .volume-slider {
+        flex: 1;
+        height: 4px;
+        -webkit-appearance: none;
+        background: #333;
+        border-radius: 2px;
+        outline: none;
+    }
+    
+    .volume-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 10px;
+        height: 10px;
+        background: #fff;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+    
     .track-list {
         background: #111;
         border-radius: 8px;
         padding: 8px;
-        max-height: 120px;
+        max-height: 150px;
         overflow-y: auto;
     }
     
@@ -210,71 +241,156 @@
     <!-- Now Playing -->
     <div class="now-playing">
         <div class="now-playing-label">Now Playing</div>
-        <div class="song-title" id="songTitle">Local Jingle #1</div>
+        <div class="song-title" id="songTitle">Select a track</div>
         <div class="artist">The Local NearBuy</div>
     </div>
     
     <!-- Controls -->
     <div class="controls">
-        <button class="control-btn">⏮</button>
+        <button class="control-btn" id="prevBtn">⏮</button>
         <button class="control-btn play" id="playBtn">▶</button>
-        <button class="control-btn">⏭</button>
+        <button class="control-btn" id="nextBtn">⏭</button>
     </div>
     
     <!-- Progress Bar -->
     <div class="progress-container">
-        <div class="progress-bar">
-            <div class="progress-fill"></div>
+        <div class="progress-bar" id="progressBar">
+            <div class="progress-fill" id="progressFill"></div>
         </div>
         <div class="time-display">
-            <span>1:05</span>
-            <span>3:12</span>
+            <span id="currentTime">0:00</span>
+            <span id="totalTime">0:00</span>
         </div>
+    </div>
+    
+    <!-- Volume -->
+    <div class="volume-container">
+        <span class="volume-icon">🔊</span>
+        <input type="range" class="volume-slider" id="volumeSlider" min="0" max="1" step="0.1" value="0.7">
     </div>
     
     <!-- Track List -->
-    <div class="track-list">
-        <div class="track active" onclick="playTrack(0)">
-            <span class="track-num">1</span>
-            <span class="track-name">Local Jingle #1</span>
-        </div>
-        <div class="track" onclick="playTrack(1)">
-            <span class="track-num">2</span>
-            <span class="track-name">Local Jingle #2</span>
-        </div>
-        <div class="track" onclick="playTrack(2)">
-            <span class="track-num">3</span>
-            <span class="track-name">Local Jingle #3</span>
-        </div>
-        <div class="track" onclick="playTrack(3)">
-            <span class="track-num">4</span>
-            <span class="track-name">Shop Local jingle</span>
-        </div>
+    <div class="track-list" id="trackList">
+        <!-- Tracks will be populated by JS -->
     </div>
 </div>
 
+<audio id="audioPlayer"></audio>
+
 <script>
-    const songs = [
-        "Local Jingle #1",
-        "Local Jingle #2",
-        "Local Jingle #3",
-        "Shop Local Jingle"
+    const tracks = [
+        { name: "Where To Buy Nearby", file: "Where%20To%20Buy%20Nearby-Bkgd.mp3" },
+        { name: "TLN Jingle 2", file: "TLN%20(2).mp3" },
+        { name: "TLN Jingle 3", file: "TLN%20(3).mp3" },
+        { name: "TLNB 1", file: "TLNB%20(1).mp3" },
+        { name: "TLNB 3", file: "TLNB%20(3).mp3" },
+        { name: "TLNB v3 1", file: "TLNB%20v3%20(1).mp3" },
+        { name: "TLNB v3 2", file: "TLNB%20v3%20(2).mp3" },
+        { name: "TLNB v3 3", file: "TLNB%20v3%20(3).mp3" },
+        { name: "TLNB v3 4", file: "TLNB%20v3%20(4).mp3" },
+        { name: "TLNB v3 5", file: "TLNB%20v3%20(5).mp3" },
+        { name: "TLNB v3", file: "TLNB%20v3.mp3" }
     ];
     
+    const baseUrl = "https://squigglyweb.github.io/cleatus/";
+    
+    let currentTrack = 0;
     let isPlaying = false;
+    
+    const audio = document.getElementById('audioPlayer');
     const playBtn = document.getElementById('playBtn');
     const songTitle = document.getElementById('songTitle');
+    const progressFill = document.getElementById('progressFill');
+    const currentTimeEl = document.getElementById('currentTime');
+    const totalTimeEl = document.getElementById('totalTime');
+    const trackList = document.getElementById('trackList');
+    const volumeSlider = document.getElementById('volumeSlider');
     
-    playBtn.addEventListener('click', () => {
-        isPlaying = !isPlaying;
-        playBtn.textContent = isPlaying ? '⏸' : '▶';
+    // Build track list
+    tracks.forEach((track, index) => {
+        const div = document.createElement('div');
+        div.className = 'track';
+        div.innerHTML = `<span class="track-num">${index + 1}</span><span class="track-name">${track.name}</span>`;
+        div.onclick = () => loadTrack(index);
+        trackList.appendChild(div);
     });
     
-    function playTrack(num) {
-        document.querySelectorAll('.track').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.track')[num].classList.add('active');
-        songTitle.textContent = songs[num];
+    function loadTrack(index) {
+        currentTrack = index;
+        audio.src = baseUrl + tracks[index].file;
+        songTitle.textContent = tracks[index].name;
+        
+        document.querySelectorAll('.track').forEach((t, i) => {
+            t.classList.toggle('active', i === index);
+        });
+        
+        if (isPlaying) {
+            audio.play();
+        }
     }
+    
+    playBtn.addEventListener('click', () => {
+        if (!audio.src) {
+            loadTrack(0);
+        }
+        
+        if (isPlaying) {
+            audio.pause();
+            playBtn.textContent = '▶';
+        } else {
+            audio.play();
+            playBtn.textContent = '⏸';
+        }
+        isPlaying = !isPlaying;
+    });
+    
+    document.getElementById('prevBtn').addEventListener('click', () => {
+        currentTrack = (currentTrack - 1 + tracks.length) % tracks.length;
+        loadTrack(currentTrack);
+        if (isPlaying) audio.play();
+    });
+    
+    document.getElementById('nextBtn').addEventListener('click', () => {
+        currentTrack = (currentTrack + 1) % tracks.length;
+        loadTrack(currentTrack);
+        if (isPlaying) audio.play();
+    });
+    
+    audio.addEventListener('timeupdate', () => {
+        const percent = (audio.currentTime / audio.duration) * 100;
+        progressFill.style.width = percent + '%';
+        currentTimeEl.textContent = formatTime(audio.currentTime);
+    });
+    
+    audio.addEventListener('loadedmetadata', () => {
+        totalTimeEl.textContent = formatTime(audio.duration);
+    });
+    
+    audio.addEventListener('ended', () => {
+        // Auto-play next track
+        currentTrack = (currentTrack + 1) % tracks.length;
+        loadTrack(currentTrack);
+        audio.play();
+    });
+    
+    document.getElementById('progressBar').addEventListener('click', (e) => {
+        const rect = e.target.getBoundingClientRect();
+        const percent = (e.clientX - rect.left) / rect.width;
+        audio.currentTime = percent * audio.duration;
+    });
+    
+    volumeSlider.addEventListener('input', (e) => {
+        audio.volume = e.target.value;
+    });
+    
+    function formatTime(seconds) {
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return mins + ':' + (secs < 10 ? '0' : '') + secs;
+    }
+    
+    // Set initial volume
+    audio.volume = 0.7;
 </script>
 
 </body>
