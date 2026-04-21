@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TLN Radio Player</title>
+<style>
+    .radio-player {
+        background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+        border-radius: 12px;
+        padding: 20px;
+        width: 280px;
+        font-family: 'Segoe UI', sans-serif;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+    }
+    
+    .radio-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+    
+    /* Blinking LIVE light */
+    .live-light {
+        width: 10px;
+        height: 10px;
+        background: #ff0000;
+        border-radius: 50%;
+        box-shadow: 0 0 8px #ff0000, 0 0 16px #ff0000;
+        animation: blink 1.5s ease-in-out infinite;
+    }
+    
+    @keyframes blink {
+        0%, 100% { opacity: 1; box-shadow: 0 0 8px #ff0000, 0 0 16px #ff0000; }
+        50% { opacity: 0.5; box-shadow: 0 0 4px #ff0000; }
+    }
+    
+    .live-label {
+        color: #ff0000;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+    
+    .station-name {
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
+        margin-left: auto;
+    }
+    
+    .now-playing {
+        background: #111;
+        border-radius: 8px;
+        padding: 12px;
+        margin-bottom: 15px;
+        border: 1px solid #333;
+    }
+    
+    .now-playing-label {
+        color: #888;
+        font-size: 9px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 4px;
+    }
+    
+    .song-title {
+        color: #fff;
+        font-size: 13px;
+        font-weight: 500;
+    }
+    
+    .artist {
+        color: #aaa;
+        font-size: 11px;
+    }
+    
+    .controls {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-bottom: 15px;
+    }
+    
+    .control-btn {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: none;
+        background: #333;
+        color: #fff;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+    }
+    
+    .control-btn:hover {
+        background: #444;
+        transform: scale(1.05);
+    }
+    
+    .control-btn.play {
+        background: #ff0000;
+        width: 50px;
+        height: 50px;
+    }
+    
+    .control-btn.play:hover {
+        background: #ff3333;
+    }
+    
+    .progress-container {
+        margin-bottom: 15px;
+    }
+    
+    .progress-bar {
+        width: 100%;
+        height: 4px;
+        background: #333;
+        border-radius: 2px;
+        overflow: hidden;
+        cursor: pointer;
+    }
+    
+    .progress-fill {
+        height: 100%;
+        width: 35%;
+        background: linear-gradient(90deg, #ff0000, #ff4444);
+        border-radius: 2px;
+        position: relative;
+    }
+    
+    .progress-fill::after {
+        content: '';
+        position: absolute;
+        right: -6px;
+        top: -3px;
+        width: 10px;
+        height: 10px;
+        background: #fff;
+        border-radius: 50%;
+        box-shadow: 0 0 4px rgba(0,0,0,0.5);
+    }
+    
+    .time-display {
+        display: flex;
+        justify-content: space-between;
+        color: #888;
+        font-size: 10px;
+        margin-top: 5px;
+    }
+    
+    .track-list {
+        background: #111;
+        border-radius: 8px;
+        padding: 8px;
+        max-height: 120px;
+        overflow-y: auto;
+    }
+    
+    .track {
+        padding: 8px;
+        border-radius: 4px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: background 0.2s;
+    }
+    
+    .track:hover {
+        background: #222;
+    }
+    
+    .track.active {
+        background: #330000;
+    }
+    
+    .track-num {
+        color: #666;
+        font-size: 10px;
+        width: 16px;
+    }
+    
+    .track-name {
+        color: #fff;
+        font-size: 11px;
+        flex: 1;
+    }
+    
+    .track.active .track-name {
+        color: #ff0000;
+    }
+</style>
+</head>
+<body>
+
+<div class="radio-player">
+    <!-- Header with LIVE blinking light -->
+    <div class="radio-header">
+        <div class="live-light"></div>
+        <span class="live-label">LIVE</span>
+        <span class="station-name">TLN RADIO</span>
+    </div>
+    
+    <!-- Now Playing -->
+    <div class="now-playing">
+        <div class="now-playing-label">Now Playing</div>
+        <div class="song-title" id="songTitle">Local Jingle #1</div>
+        <div class="artist">The Local NearBuy</div>
+    </div>
+    
+    <!-- Controls -->
+    <div class="controls">
+        <button class="control-btn">⏮</button>
+        <button class="control-btn play" id="playBtn">▶</button>
+        <button class="control-btn">⏭</button>
+    </div>
+    
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+        <div class="time-display">
+            <span>1:05</span>
+            <span>3:12</span>
+        </div>
+    </div>
+    
+    <!-- Track List -->
+    <div class="track-list">
+        <div class="track active" onclick="playTrack(0)">
+            <span class="track-num">1</span>
+            <span class="track-name">Local Jingle #1</span>
+        </div>
+        <div class="track" onclick="playTrack(1)">
+            <span class="track-num">2</span>
+            <span class="track-name">Local Jingle #2</span>
+        </div>
+        <div class="track" onclick="playTrack(2)">
+            <span class="track-num">3</span>
+            <span class="track-name">Local Jingle #3</span>
+        </div>
+        <div class="track" onclick="playTrack(3)">
+            <span class="track-num">4</span>
+            <span class="track-name">Shop Local jingle</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    const songs = [
+        "Local Jingle #1",
+        "Local Jingle #2",
+        "Local Jingle #3",
+        "Shop Local Jingle"
+    ];
+    
+    let isPlaying = false;
+    const playBtn = document.getElementById('playBtn');
+    const songTitle = document.getElementById('songTitle');
+    
+    playBtn.addEventListener('click', () => {
+        isPlaying = !isPlaying;
+        playBtn.textContent = isPlaying ? '⏸' : '▶';
+    });
+    
+    function playTrack(num) {
+        document.querySelectorAll('.track').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.track')[num].classList.add('active');
+        songTitle.textContent = songs[num];
+    }
+</script>
+
+</body>
+</html>
