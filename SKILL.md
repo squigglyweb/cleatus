@@ -1,80 +1,76 @@
 ---
-name: marketing-skills
-description: TL;DR: 23 marketing playbooks (CRO, SEO, copy, analytics, experiments, pricing, launches, ads, social). Use to get checklists + copy/paste deliverables fast.
+name: Graphic Design
+description: Support design understanding from basic visuals to professional production and theory.
+metadata: {"clawdbot":{"emoji":"🎨","os":["linux","darwin","win32"]}}
 ---
 
-# Marketing Skills
+## Detect Level, Adapt Everything
+- Context reveals level: vocabulary, tool familiarity, project complexity
+- When unclear, ask about their role before giving specific guidance
+- Ask about output format (print, digital, video) before discussing specifications
 
-## Summary
+## For Non-Designers: Accessible Principles
+- Recommend Canva as default tool — point to relevant templates; only mention Figma if they need more control
+- Enforce the "3 max" rule — warn against more than 2-3 fonts or 3-4 colors; suggest pre-made palettes from Coolors.co
+- Teach alignment in plain terms — "don't center everything, left-align text blocks" and "leave breathing room around elements"
+- Flag common mistakes immediately — low-contrast text over images, stretched/pixelated images, too much text, random fonts
+- Provide size specs without asking — Instagram (1080x1080), Story (1080x1920), LinkedIn banner (1584x396), A4 (210x297mm)
+- Know when to say "hire a professional" — logos, brand identity, print with bleeds/CMYK, large-scale materials
+- Suggest templates over blank canvas — modifying a good template is faster and safer than building from scratch
+- Explain contrast as accessibility — frame as "will people be able to read this?" not aesthetic preference
 
-One installed skill containing 23 marketing modules. Pick the relevant module under `references/` to get practical checklists, frameworks, and copy/paste deliverables.
+## For Students: Theory and Rigor
+- Use formal principles vocabulary — reference hierarchy, figure-ground, proximity, repetition, alignment, contrast by name
+- Teach Gestalt through application — identify which laws are at play; show intentional breaking vs confusion
+- Enforce typographic rigor — 2-3 typefaces max, x-height matching, leading at 120-145%, avoid orphans/widows
+- Apply color as system — HSB values, 60-30-10 distribution, simultaneous contrast, WCAG verification
+- Critique with academic language — "The hierarchy is unclear because..." as professors would in studio critiques
+- Demand concept before execution — ask about brief, audience, rationale before discussing aesthetics
+- Guide portfolio curation — case study structure (problem → process → solution), show iteration, 8-12 curated projects
+- Reference canonical designers — connect to Swiss Style, Bauhaus, Pentagram, Collins to build cultural literacy
 
-This skill vendors the full content from `coreyhaines31/marketingskills` under `references/` and provides a simple router to load the right module.
+## For Professionals: Production and Workflow
+- Ask for output specs before starting — print (CMYK, 3-5mm bleed, 300dpi, PDF/X-4), digital (RGB, 72-150dpi), video (aspect ratio, safe zones)
+- Generate export checklists — outline fonts, embed images, flatten transparencies; compress for web; provide 1x/2x/3x for mobile
+- Demand brand guidelines upfront — logo files, color palette (Pantone, CMYK, RGB, HEX), typography, spacing rules
+- Enforce brand consistency — verify every deliverable against guidelines; call out deviations explicitly
+- Structure feedback rounds — present with rationale, request specific feedback, define revision limits, document approvals
+- Manage scope creep — flag out-of-scope requests immediately with time/cost implications
+- Work in native formats — deliver .ai/.psd/.indd or .fig with organized layers, named artboards, component libraries
+- Generate developer-ready specs — CSS values, spacing tokens, exportable assets
 
-## How to use
+## For Researchers: History and Criticism
+- Situate work within movements — reference Bauhaus, Swiss Style, Postmodernism, Memphis; explain how work relates to traditions
+- Apply scholarly critique methods — semiotics, visual rhetoric, discourse analysis; reference Lupton, Heller, Poynor, Drucker
+- Distinguish research approaches — practice-based vs practice-led research require different methods and yield different knowledge
+- Address politics of visual communication — how design perpetuates or challenges power structures; colonial legacies; accessibility as ethics
+- Engage current discourse — AI in creative labor, sustainability vs consumerism, "design thinking" critique, art vs service tension
+- Cite primary sources — Müller-Brockmann's grids, Keedy's Zombie Modernism, Dunne & Raby; not unattributed generalizations
+- Apply rigorous visual analysis — precise terminology connecting formal analysis to meaning-making and cultural context
+- Question the canon — acknowledge marginalized designers; incorporate overlooked figures beyond Euro-American male narrative
 
-1) Identify the module that matches the request.
-2) Read the corresponding `references/<module>/SKILL.md` file.
-3) Apply the framework and deliver practical outputs (drafts + checklists).
+## For Educators: Process and Critique
+- Guide structured methodology — brief → research → ideation → iteration → refinement; ask "What problem are you solving?"
+- Encourage multiple concepts — push for 3-5 rough directions before refining one; resist jumping to execution
+- Teach "why" before "how" — connect techniques to underlying principles; explain when to intentionally break rules
+- Use Socratic questioning — "What was your intention?" and "How does this serve the goal?" rather than prescriptive fixes
+- Balance recognition with growth — acknowledge what's working before addressing problems; frame weaknesses as opportunities
+- Separate ideation from execution — suspend technical concerns during brainstorming; enforce proper file setup during production
+- Connect tools to decisions — "Here's how the pen tool helps create the precise curve your concept needs"
+- Simulate real constraints — briefs with budgets, timelines, difficult feedback; teach defending decisions professionally
 
-## Included modules (what each one does)
+## For Print Production: Technical Precision
+- Specify bleed requirements — 3mm minimum (5mm for large format); mark safe zones for critical content
+- Enforce color mode correctness — CMYK for print, convert RGB images; specify Pantone for spot colors
+- Verify resolution — 300dpi at final size for print; link high-res images, don't embed low-res
+- Manage color profiles — embed ICC profiles; specify coated vs uncoated; proof with correct profile
+- Outline fonts or embed — prevent font substitution issues; verify special characters render correctly
+- Check transparency and overprints — flatten complex effects; verify knockout vs overprint behavior
+- Specify paper and finish — stock weight, coating (matte, gloss, satin), binding method, finishing (die-cut, foil, emboss)
+- Flag preflight errors — missing links, RGB images in CMYK documents, insufficient bleed, low-resolution images
 
-Each module lives at `references/<module>/SKILL.md`.
-
-- `ab-test-setup`: plan and implement A/B tests
-- `analytics-tracking`: set up tracking and measurement (GA4/GTM/events)
-- `competitor-alternatives`: competitor comparison + alternatives / “vs” pages
-- `copy-editing`: edit and polish existing copy
-- `copywriting`: write or improve marketing copy (headlines, CTAs, page copy)
-- `email-sequence`: build email sequences and drip campaigns
-- `form-cro`: optimize lead capture and contact forms
-- `free-tool-strategy`: plan engineering-as-marketing free tools (calculators, generators)
-- `launch-strategy`: product launches and announcements
-- `marketing-ideas`: idea bank for growth + marketing tactics
-- `marketing-psychology`: mental models / cognitive biases for better persuasion
-- `onboarding-cro`: improve activation and onboarding
-- `page-cro`: conversion optimization for any marketing page
-- `paid-ads`: create and optimize paid ad campaigns
-- `paywall-upgrade-cro`: optimize in-app paywalls and upgrade screens
-- `popup-cro`: create/optimize popups and modals
-- `pricing-strategy`: pricing, packaging, and monetization
-- `programmatic-seo`: build SEO pages at scale (templates + data)
-- `referral-program`: design referral and affiliate programs
-- `schema-markup`: add structured data and rich snippets
-- `seo-audit`: audit technical and on-page SEO
-- `signup-flow-cro`: optimize signup and registration flows
-- `social-content`: create and schedule social media content
-
-## Module router
-
-Pick one of these modules and read the matching file:
-
-- `references/page-cro/SKILL.md`
-- `references/signup-flow-cro/SKILL.md`
-- `references/onboarding-cro/SKILL.md`
-- `references/form-cro/SKILL.md`
-- `references/popup-cro/SKILL.md`
-- `references/paywall-upgrade-cro/SKILL.md`
-- `references/copywriting/SKILL.md`
-- `references/copy-editing/SKILL.md`
-- `references/email-sequence/SKILL.md`
-- `references/social-content/SKILL.md`
-- `references/analytics-tracking/SKILL.md`
-- `references/ab-test-setup/SKILL.md`
-- `references/seo-audit/SKILL.md`
-- `references/programmatic-seo/SKILL.md`
-- `references/schema-markup/SKILL.md`
-- `references/competitor-alternatives/SKILL.md`
-- `references/pricing-strategy/SKILL.md`
-- `references/launch-strategy/SKILL.md`
-- `references/paid-ads/SKILL.md`
-- `references/referral-program/SKILL.md`
-- `references/free-tool-strategy/SKILL.md`
-- `references/marketing-ideas/SKILL.md`
-- `references/marketing-psychology/SKILL.md`
-
-## Output rules
-
-- Prefer 80/20: biggest levers first.
-- Never invent metrics or keyword volumes. If missing, label assumptions.
-- When possible: include copy/paste drafts and an implementation checklist.
+## Always
+- Connect aesthetics to problem-solving; design serves communication
+- Verify accessibility (contrast, readability) as non-negotiable
+- Ask about output context before giving specifications
+- Balance creativity with technical requirements; both matter
