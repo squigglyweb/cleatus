@@ -41,6 +41,11 @@ Thanks for sitting down with me yesterday. Here's a summary of what we discussed
 - Auto-sync with GBP
 - Duplicate detection
 
+**Reviews Strategy**
+- Get keyword-related reviews (e.g., "Lake Norman real estate agent")
+- Helps with local SEO rankings
+- Builds trust with potential clients
+
 ## Investment
 
 - **Setup:** $600 (one-time)
