@@ -60,7 +60,7 @@ Below is a breakdown of what's included in your Google Business Profile + SEO Bu
    - Facebook login info
    - Instagram login info
    - Username and password for your website
-2. I'll audit everything and send you a roadmap
+2. I'll audit everything and send you a 90 day roadmap of what I will be doing.
 3. We get started
 
 Looking forward to helping you dominate the Lake Norman area!
