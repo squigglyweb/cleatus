@@ -6,7 +6,7 @@
 
 ---
 
-Hi John,
+Hello John,
 
 Thanks for sitting down with me yesterday. This document outlines our **Scope of Work (SOW)** — the specific services, deliverables, and expectations for our working relationship.
 
