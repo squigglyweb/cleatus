@@ -36,7 +36,7 @@ Thanks for sitting down with me yesterday. Here's a summary of what we discussed
 - Track up to 10 keywords
 - AI ranking audits
 
-**Citation Management**
+**Citation Management** *(Normally an add-on — included here)*
 - 62 directory integrations (Google references these)
 - Auto-sync with GBP
 - Duplicate detection
