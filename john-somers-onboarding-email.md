@@ -1,8 +1,8 @@
-# Email Draft — John Somers (Updated)
+# Email Draft - John Somers (Updated)
 
 ---
 
-**Subject:** Next Steps — John Somers Real Estate SEO Setup
+**Subject:** Next Steps - John Somers Real Estate SEO Setup
 
 ---
 
@@ -49,7 +49,7 @@ Thanks for sitting down with me yesterday. Here's a summary of what we discussed
 ## Investment
 
 - **Setup:** $600 (one-time)
-- **Monthly:** $400/month — cancel anytime with 30 days notice
+- **Monthly:** $400/month - cancel anytime with 30 days notice
 
 ## Next Steps
 
@@ -57,12 +57,12 @@ Thanks for sitting down with me yesterday. Here's a summary of what we discussed
 2. I'll audit everything and send you a roadmap
 3. We get started
 
-Looking forward to getting your visibility up in Lake Norman!
+Looking forward to helping you dominate the Lake Norman area!
 
 —
 
-Bryan Somers  
-bryan@lakenormanrealty.com  
+Bryan Somers
+bryan@lakenormanrealty.com
 704-641-1395
 
 ---
