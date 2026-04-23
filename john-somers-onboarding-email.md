@@ -59,11 +59,11 @@ Thanks for sitting down with me yesterday. Here's a summary of what we discussed
 
 Looking forward to helping you dominate the Lake Norman area!
 
-—
+-
 
-Bryan Somers
-bryan@lakenormanrealty.com
-704-641-1395
+Bryan Somers  
+bryan@squigglymarketing.com  
+704-360-0787
 
 ---
 
