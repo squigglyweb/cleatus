@@ -36,12 +36,12 @@ Thanks for sitting down with me yesterday. Here's a summary of what we discussed
 - Track up to 10 keywords
 - AI ranking audits
 
-**Citation Management** *(Normally an add-on — included here)*
+**Citation Management** *(Normally an add-on — included for you)*
 - 62 directory integrations (Google references these)
 - Auto-sync with GBP
 - Duplicate detection
 
-**Reviews Strategy**
+**Reviews Strategy** *(Normally an add-on — included for you)*
 - Get keyword-related reviews (e.g., "Lake Norman real estate agent")
 - Helps with local SEO rankings
 - Builds trust with potential clients
