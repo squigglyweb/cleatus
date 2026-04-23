@@ -55,7 +55,11 @@ Below is a breakdown of what's included in your Google Business Profile + SEO Bu
 
 ## Next Steps
 
-1. Send me your website login and GBP access
+1. Send me your login credentials (the easiest and fastest way):
+   - Your @gmail.com email address and password
+   - Facebook login info
+   - Instagram login info
+   - Username and password for your website
 2. I'll audit everything and send you a roadmap
 3. We get started
 
