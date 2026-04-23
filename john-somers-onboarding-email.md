@@ -2,13 +2,15 @@
 
 ---
 
-**Subject:** Next Steps - John Somers Real Estate SEO Setup
+**Subject:** Next Steps — John Somers Real Estate SEO Setup
 
 ---
 
 Hi John,
 
-Thanks for sitting down with me yesterday. Here's a summary of what we discussed and what we'll be working on:
+Thanks for sitting down with me yesterday. This document outlines our **Scope of Work (SOW)** — the specific services, deliverables, and expectations for our working relationship.
+
+Below is a breakdown of what's included in your Google Business Profile + SEO Bundle:
 
 ## What's Included
 
@@ -36,12 +38,12 @@ Thanks for sitting down with me yesterday. Here's a summary of what we discussed
 - Track up to 10 keywords
 - AI ranking audits
 
-**Citation Management** *(Normally an add-on — included for you)*
+**Citation Management** *(Normally an add-on - included for you)*
 - 62 directory integrations (Google references these)
 - Auto-sync with GBP
 - Duplicate detection
 
-**Reviews Strategy** *(Normally an add-on — included for you)*
+**Reviews Strategy** *(Normally an add-on - included for you)*
 - Get keyword-related reviews (e.g., "Lake Norman real estate agent")
 - Helps with local SEO rankings
 - Builds trust with potential clients
@@ -61,8 +63,8 @@ Looking forward to helping you dominate the Lake Norman area!
 
 -
 
-Bryan Somers  
-bryan@squigglymarketing.com  
+Bryan Somers
+bryan@squigglymarketing.com
 704-360-0787
 
 ---
