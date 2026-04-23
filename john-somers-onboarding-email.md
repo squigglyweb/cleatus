@@ -1,4 +1,4 @@
-# Email Draft — John Somers
+# Email Draft — John Somers (Updated)
 
 ---
 
@@ -12,23 +12,34 @@ Thanks for sitting down with me yesterday. Here's a summary of what we discussed
 
 ## What's Included
 
-**Google Business Profile**
-- Full optimization (photos, description, services, posts)
+**Google Business Profile (GBP)**
+- Optimize business description
+- Optimize services list and service descriptions
+- Optimize attributes
+- Optimize social links
 - Ongoing management and posts
 
-**Social Media (Facebook & Instagram)**
-- Update with the same info from your Google profile
-- Consistent branding across platforms
-
 **Website Updates**
-- Audit and fix any SEO issues
-- Add/update key pages (services, neighborhood pages)
+- Full SEO audit of your current site
+- Fix any SEO issues found
+- Add/update key pages if needed (services, neighborhood pages)
 - LocalBusiness schema markup
 
-**Ongoing**
-- Monthly reporting
-- GBP posts and updates
-- Continuous optimization
+**Social Media**
+- Facebook posts
+- Instagram posts
+- Consistent branding with GBP
+
+**Reporting**
+- Automated monthly reporting
+- Before/after heatmaps
+- Track up to 10 keywords
+- AI ranking audits
+
+**Citation Management**
+- 62 directory integrations (Google references these)
+- Auto-sync with GBP
+- Duplicate detection
 
 ## Investment
 
@@ -51,4 +62,4 @@ bryan@lakenormanrealty.com
 
 ---
 
-*To get paid:* Add a payment link (Stripe, PayPal, Venmo) or say "I'll send an invoice for the $600 setup fee once you confirm."
+*To get paid:* Add a payment link or say "I'll send an invoice for the $600 setup fee once you confirm."
