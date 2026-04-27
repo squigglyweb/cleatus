@@ -6,7 +6,7 @@
     <title>Mama's Pizzeria | The Local NearBuy</title>
     <style>
         :root {
-            --primary: #ff4444;
+            --primary: #e63946;
             --dark: #1a1a1a;
             --gray: #666;
             --light: #f8f8f8;
@@ -34,6 +34,28 @@
         
         .breadcrumb { color: var(--gray); font-size: 0.9rem; }
         
+        /* Image Gallery */
+        .gallery {
+            display: flex;
+            gap: 0.5rem;
+            overflow-x: auto;
+            padding: 1rem 2rem;
+            background: var(--dark);
+        }
+        
+        .gallery-img {
+            width: 250px;
+            height: 160px;
+            background: linear-gradient(135deg, #4a4a4a, #6a6a6a);
+            border-radius: 8px;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+        
         .business-header {
             background: white;
             padding: 2rem;
@@ -42,7 +64,7 @@
         
         .biz-name { font-size: 2rem; font-weight: 800; margin-bottom: 0.5rem; }
         
-        .biz-meta { display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; }
+        .biz-meta { display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; }
         
         .verified { 
             background: #dcfce7; color: #166534; padding: 0.3rem 0.6rem; 
@@ -52,88 +74,153 @@
         .rating { color: #f59e0b; font-weight: 700; }
         .reviews { color: var(--gray); font-size: 0.9rem; }
         
-        .biz-info { display: grid; grid-template-columns: 1fr 300px; gap: 2rem; max-width: 1200px; margin: 2rem auto; padding: 0 2rem; }
+        .biz-info { display: grid; grid-template-columns: 1fr 320px; gap: 2rem; max-width: 1100px; margin: 2rem auto; padding: 0 2rem; }
         
-        .main-col h3 { margin: 1.5rem 0 0.5rem; }
+        .main-col h3 { margin: 1.5rem 0 0.5rem; font-size: 1.2rem; }
         .main-col p { color: var(--gray); line-height: 1.7; }
         
-        .sidebar { background: white; border-radius: 12px; padding: 1.5rem; height: fit-content; }
-        
-        .offer-card {
-            background: linear-gradient(135deg, #fff5f5, #fff);
-            border: 2px solid var(--primary);
-            border-radius: 12px;
-            padding: 1.5rem;
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-        
-        .offer-title { font-size: 1.3rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; }
-        .offer-desc { font-size: 0.9rem; color: var(--gray); margin-bottom: 1rem; }
-        
-        .qr-section {
-            background: white;
-            padding: 1rem;
-            border-radius: 8px;
-            margin-top: 1rem;
-        }
-        
-        .qr-box {
-            width: 120px;
-            height: 120px;
+        .main-col .video-box {
+            aspect-ratio: 16/9;
             background: var(--dark);
-            margin: 0 auto 0.5rem;
-            border-radius: 8px;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
+            margin-top: 1rem;
             color: white;
-            font-size: 2rem;
+            cursor: pointer;
         }
         
-        .qr-text { font-size: 0.8rem; color: var(--gray); }
+        .video-box-inner { text-align: center; }
+        .video-box-inner span { font-size: 3rem; display: block; margin-bottom: 0.5rem; }
         
-        .contact-item {
+        .sidebar { background: white; border-radius: 12px; padding: 1.5rem; height: fit-content; }
+        
+        /* Offers */
+        .offers-section { margin-bottom: 1.5rem; }
+        
+        .offer-card {
+            background: #fff5f5;
+            border: 2px solid var(--primary);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .offer-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 0.8rem;
-            padding: 0.8rem 0;
+            margin-bottom: 0.5rem;
+        }
+        
+        .offer-title { font-size: 1rem; font-weight: 700; color: var(--primary); }
+        .offer-limit { font-size: 0.7rem; background: var(--dark); color: white; padding: 0.2rem 0.5rem; border-radius: 4px; }
+        
+        .offer-desc { font-size: 0.85rem; color: var(--gray); margin-bottom: 0.8rem; }
+        
+        .offer-valid { font-size: 0.75rem; color: var(--gray); margin-bottom: 0.8rem; }
+        
+        .claim-btn {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.7rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .claimed-count { font-size: 0.75rem; color: var(--gray); margin-top: 0.5rem; text-align: center; }
+        
+        /* Contact */
+        .contact-item {
+            padding: 0.6rem 0;
             border-bottom: 1px solid #eee;
         }
         
         .contact-item:last-child { border: none; }
         
-        .reviews-section { max-width: 800px; margin: 2rem auto; padding: 0 2rem; }
-        
-        .review { background: white; padding: 1.5rem; border-radius: 12px; margin-bottom: 1rem; }
-        .review-header { display: flex; justify-content: space-between; margin-bottom: 0.5rem; }
-        .reviewer { font-weight: 600; }
-        .review-date { color: var(--gray); font-size: 0.85rem; }
-        .review-stars { color: #f59e0b; }
-        .review-text { color: var(--gray); margin-top: 0.5rem; }
-        
-        .ai-badge {
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            color: white;
-            padding: 0.3rem 0.6rem;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            display: inline-block;
-            margin-left: 0.5rem;
-        }
-        
-        .stats-bar {
-            background: var(--dark);
-            color: white;
-            padding: 1rem 2rem;
+        /* Social */
+        .social-links {
             display: flex;
-            justify-content: space-around;
-            text-align: center;
+            gap: 0.8rem;
+            margin-top: 1rem;
         }
         
-        .stat-num { font-size: 1.5rem; font-weight: 700; }
-        .stat-label { font-size: 0.8rem; opacity: 0.8; }
+        .social-link {
+            width: 36px;
+            height: 36px;
+            background: var(--dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            font-size: 1rem;
+        }
+        
+        .map-box {
+            height: 120px;
+            background: #e5e5e5;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray);
+            margin-top: 1rem;
+        }
+        
+        /* Claim Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            max-width: 400px;
+            width: 90%;
+        }
+        
+        .modal h3 { margin-bottom: 1rem; }
+        .modal input {
+            width: 100%;
+            padding: 0.7rem;
+            margin-bottom: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+        .modal button {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 10px; right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        @media (max-width: 768px) {
+            .biz-info { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
@@ -142,6 +229,14 @@
         <span class="breadcrumb">← Back to Pizza in Waxhaw</span>
     </header>
     
+    <!-- Image Gallery -->
+    <div class="gallery">
+        <div class="gallery-img">🍕</div>
+        <div class="gallery-img">🏠</div>
+        <div class="gallery-img">👨‍🍳</div>
+        <div class="gallery-img">🍝</div>
+    </div>
+    
     <div class="business-header">
         <div class="biz-name">Mama's Pizzeria 🍕</div>
         <div class="biz-meta">
@@ -149,46 +244,24 @@
             <span class="rating">⭐ 4.8</span>
             <span class="reviews">127 Google reviews</span>
         </div>
-        <p style="color: var(--gray);">123 Main Street, Waxhaw, NC 28173 • (704) 555-0123 • Open Today: 11am-9pm</p>
-            
-            <h3>📺 Our Review</h3>
-            <div style="aspect-ratio: 16/9; background: #1a1a1a; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-top: 1rem;">
-                <div style="text-align: center; color: white;">
-                    <div style="font-size: 3rem; margin-bottom: 0.5rem;">▶️</div>
-                    <div style="font-size: 0.9rem; opacity: 0.8;">TLN Video Review</div>
-                </div>
-            </div>
-    </div>
-    
-    <div class="stats-bar">
-        <div><div class="stat-num">2,341</div><div class="stat-label">Monthly Views</div></div>
-        <div><div class="stat-num">89</div><div class="stat-label">Offers Claimed</div></div>
-        <div><div class="stat-num">47</div><div class="stat-label">Meals Funded 🎉</div></div>
+        <p style="color: var(--gray);">123 Main Street, Waxhaw, NC 28173 • Open Today: 11am-9pm</p>
     </div>
     
     <div class="biz-info">
         <div class="main-col">
-            <h3>About <span class="ai-badge">🤖 AI Written</span></h3>
-            <p>Mama's Pizzeria has been a Waxhaw staple since 1998, serving authentic New York-style pizza made with recipes passed down through three generations. Our dough is hand-tossed daily, our sauce is made from scratch using San Marzano tomatoes, and we source our mozzarella from a local dairy. Whether you're craving a classic pepperoni, a loaded meat lovers, or something creative, our pizzas are crafted with love and the finest ingredients. Bring the family, grab a seat by our fireplace, and taste the difference that 25+ years of dedication makes.</p>
+            <h3>About</h3>
+            <p>Mama's Pizzeria has been a Waxhaw staple since 1998, serving authentic New York-style pizza made with recipes passed down through three generations. Our dough is hand-tossed daily, our sauce is made from scratch using San Marzano tomatoes, and we source our mozzarella from a local dairy.</p>
             
-            <h3>📺 Our Review</h3>
-            <div style="aspect-ratio: 16/9; background: #1a1a1a; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-top: 1rem;">
-                <div style="text-align: center; color: white;">
-                    <div style="font-size: 3rem; margin-bottom: 0.5rem;">▶️</div>
-                    <div style="font-size: 0.9rem; opacity: 0.8;">TLN Video Review</div>
+            <h3>Our Review</h3>
+            <div class="video-box">
+                <div class="video-box-inner">
+                    <span>▶️</span>
+                    Watch Our Review
                 </div>
             </div>
             
             <h3>What We Offer</h3>
-            <p>🍕 Hand-tossed NY style pizza<br>🍝 Fresh pasta & sauces<br>🥗 Salads & appetizers<br>🍦 House-made gelato<br>🎉 Private event space</p>
-            
-            <h3>📺 Our Review</h3>
-            <div style="aspect-ratio: 16/9; background: #1a1a1a; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-top: 1rem;">
-                <div style="text-align: center; color: white;">
-                    <div style="font-size: 3rem; margin-bottom: 0.5rem;">▶️</div>
-                    <div style="font-size: 0.9rem; opacity: 0.8;">TLN Video Review</div>
-                </div>
-            </div>
+            <p>🍕 Hand-tossed NY style pizza 🍝 Fresh pasta 🥗 Salads 🍦 House-made gelato 🎉 Private events</p>
             
             <h3>Categories</h3>
             <p style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
@@ -198,95 +271,87 @@
                 <span style="background: #f3f4f6; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem;">Date Night</span>
                 <span style="background: #f3f4f6; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem;">Kid Friendly</span>
             </p>
-            
-            <h3>📺 Our Review</h3>
-            <div style="aspect-ratio: 16/9; background: #1a1a1a; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-top: 1rem;">
-                <div style="text-align: center; color: white;">
-                    <div style="font-size: 3rem; margin-bottom: 0.5rem;">▶️</div>
-                    <div style="font-size: 0.9rem; opacity: 0.8;">TLN Video Review</div>
-                </div>
-            </div>
         </div>
         
         <div class="sidebar">
-            <div class="offer-card">
-                <div class="offer-title">🎉 20% Off</div>
-                <div class="offer-desc">Any Large Pizza<br>Valid for 7 days</div>
-                <div class="qr-section">
-                    <div class="qr-box">📱</div>
-                    <div class="qr-text">Scan to claim<br><strong>Feeds 2 meals</strong></div>
+            <!-- Offers -->
+            <div class="offers-section">
+                <h4 style="margin-bottom: 1rem;">🎉 Available Offers</h4>
+                
+                <div class="offer-card">
+                    <div class="offer-header">
+                        <span class="offer-title">20% Off Large Pizza</span>
+                        <span class="offer-limit">No limit</span>
+                    </div>
+                    <div class="offer-desc">Valid on any large pizza. Dine-in or takeout.</div>
+                    <div class="offer-valid">⏰ Expires: May 31, 2026</div>
+                    <button class="claim-btn" onclick="showClaimModal()">Claim This Offer</button>
+                    <div class="claimed-count">❤️ Feeds 2 meals per redemption</div>
+                </div>
+                
+                <div class="offer-card">
+                    <div class="offer-header">
+                        <span class="offer-title">Free Dessert</span>
+                        <span class="offer-limit">50 max</span>
+                    </div>
+                    <div class="offer-desc">With any family meal (4+ people)</div>
+                    <div class="offer-valid">⏰ Expires: Never</div>
+                    <button class="claim-btn" onclick="showClaimModal()">Claim This Offer</button>
+                    <div class="claimed-count">❤️ Feeds 1 meal per redemption • 23 claimed</div>
                 </div>
             </div>
             
+            <!-- Location -->
             <h4 style="margin-bottom: 0.8rem;">📍 Location</h4>
-            <div style="height: 150px; background: #e5e5e5; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--gray);">Map</div>
+            <div class="map-box">Map</div>
             
-            <h4 style="margin: 1.5rem 0 0.8rem;">📞 Contact</h4>
-            <div class="contact-item">
-                <span>📞</span> (704) 555-0123
-            </div>
-            <div class="contact-item">
-                <span>🌐</span> mamaspizzeria.com
-            </div>
-            <div class="contact-item">
-                <span>📧</span> order@mamaspizzeria.com
+            <!-- Contact -->
+            <h4 style="margin: 1.5rem 0 0.8rem;">Contact</h4>
+            <div class="contact-item">(704) 555-0123</div>
+            <div class="contact-item">mamaspizzeria.com</div>
+            <div class="contact-item">order@mamaspizzeria.com</div>
+            
+            <!-- Social -->
+            <h4 style="margin: 1.5rem 0 0.8rem;">Follow Us</h4>
+            <div class="social-links">
+                <a href="#" class="social-link">f</a>
+                <a href="#" class="social-link">📷</a>
+                <a href="#" class="social-link">🐦</a>
             </div>
         </div>
     </div>
     
-    <div class="reviews-section">
-        <h3 style="margin-bottom: 1rem;">⭐ Google Reviews <span style="font-weight: normal; color: var(--gray); font-size: 0.9rem;">(127 reviews)</span></h3>
-        
-        <div class="review">
-            <div class="review-header">
-                <span class="reviewer">Sarah M.</span>
-                <span class="review-date">2 weeks ago</span>
-            </div>
-            <div class="review-stars">⭐⭐⭐⭐⭐</div>
-            <p class="review-text">Best pizza in Waxhaw, hands down. The crust is perfectly crispy on the outside but chewy inside. We order from here every Friday night. The staff is always friendly and the delivery is fast!</p>
-            
-            <h3>📺 Our Review</h3>
-            <div style="aspect-ratio: 16/9; background: #1a1a1a; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-top: 1rem;">
-                <div style="text-align: center; color: white;">
-                    <div style="font-size: 3rem; margin-bottom: 0.5rem;">▶️</div>
-                    <div style="font-size: 0.9rem; opacity: 0.8;">TLN Video Review</div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="review">
-            <div class="review-header">
-                <span class="reviewer">Mike T.</span>
-                <span class="review-date">1 month ago</span>
-            </div>
-            <div class="review-stars">⭐⭐⭐⭐⭐</div>
-            <p class="review-text">Great pizza, great service. Tried their meat lovers and it was loaded. Kids loved the cheese sticks. Will definitely be back!</p>
-            
-            <h3>📺 Our Review</h3>
-            <div style="aspect-ratio: 16/9; background: #1a1a1a; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-top: 1rem;">
-                <div style="text-align: center; color: white;">
-                    <div style="font-size: 3rem; margin-bottom: 0.5rem;">▶️</div>
-                    <div style="font-size: 0.9rem; opacity: 0.8;">TLN Video Review</div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="review">
-            <div class="review-header">
-                <span class="reviewer">Jennifer L.</span>
-                <span class="review-date">2 months ago</span>
-            </div>
-            <div class="review-stars">⭐⭐⭐⭐</div>
-            <p class="review-text">Good pizza, nice atmosphere. Waited a bit long for a table on a Saturday night but the food made up for it.</p>
-            
-            <h3>📺 Our Review</h3>
-            <div style="aspect-ratio: 16/9; background: #1a1a1a; border-radius: 12px; display: flex; align-items: center; justify-content: center; margin-top: 1rem;">
-                <div style="text-align: center; color: white;">
-                    <div style="font-size: 3rem; margin-bottom: 0.5rem;">▶️</div>
-                    <div style="font-size: 0.9rem; opacity: 0.8;">TLN Video Review</div>
-                </div>
-            </div>
+    <!-- Claim Modal -->
+    <div class="modal" id="claimModal">
+        <div class="modal-content">
+            <h3>Claim Your Offer 🎉</h3>
+            <p style="color: #666; font-size: 0.9rem; margin-bottom: 1rem;">Enter your details to unlock this offer.</p>
+            <form onsubmit="handleClaim(event)">
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="Your Email" required>
+                <button type="submit">Unlock Offer</button>
+            </form>
+            <p style="font-size: 0.75rem; color: #888; margin-top: 1rem; text-align: center;">
+                We'll email you when it's redeemed. A portion funds meals! 🍽️
+            </p>
         </div>
     </div>
+    
+    <script>
+        function showClaimModal() {
+            document.getElementById('claimModal').style.display = 'flex';
+        }
+        
+        function handleClaim(e) {
+            e.preventDefault();
+            alert('🎉 Offer Claimed! Check your email for your unique code. Show it to the staff to redeem. Thanks for supporting local — you just helped feed a family!');
+            document.getElementById('claimModal').style.display = 'none';
+        }
+        
+        // Close modal on outside click
+        document.getElementById('claimModal').addEventListener('click', function(e) {
+            if (e.target === this) this.style.display = 'none';
+        });
+    </script>
 </body>
 </html>
