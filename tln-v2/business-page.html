@@ -34,7 +34,6 @@
         
         .breadcrumb { color: var(--gray); font-size: 0.9rem; }
         
-        /* Image Gallery */
         .gallery {
             display: flex;
             gap: 0.5rem;
@@ -66,11 +65,7 @@
         
         .biz-meta { display: flex; gap: 1rem; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; }
         
-        .verified { 
-            background: #dcfce7; color: #166534; padding: 0.3rem 0.6rem; 
-            border-radius: 4px; font-size: 0.8rem; font-weight: 600; 
-        }
-        
+        .verified { background: #dcfce7; color: #166534; padding: 0.3rem 0.6rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600; }
         .rating { color: #f59e0b; font-weight: 700; }
         .reviews { color: var(--gray); font-size: 0.9rem; }
         
@@ -79,7 +74,7 @@
         .main-col h3 { margin: 1.5rem 0 0.5rem; font-size: 1.2rem; }
         .main-col p { color: var(--gray); line-height: 1.7; }
         
-        .main-col .video-box {
+        .video-box {
             aspect-ratio: 16/9;
             background: var(--dark);
             border-radius: 12px;
@@ -96,7 +91,6 @@
         
         .sidebar { background: white; border-radius: 12px; padding: 1.5rem; height: fit-content; }
         
-        /* Offers */
         .offers-section { margin-bottom: 1.5rem; }
         
         .offer-card {
@@ -116,113 +110,33 @@
         
         .offer-title { font-size: 1rem; font-weight: 700; color: var(--primary); }
         .offer-limit { font-size: 0.7rem; background: #22c55e; color: white; padding: 0.2rem 0.5rem; border-radius: 4px; }
-        .offer-limit.limited { background: #f59e0b; }
-        .offer-limit.expired { background: #dc2626; }
-        
         .offer-desc { font-size: 0.85rem; color: var(--gray); margin-bottom: 0.8rem; }
-        
-        .offer-valid { font-size: 0.75rem; color: var(--gray); margin-bottom: 0.8rem; }
-        
-        .claim-btn {
-            width: 100%;
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.7rem;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-        }
-        
+        .claim-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 0.7rem; border-radius: 6px; font-weight: 600; cursor: pointer; }
         .claimed-count { font-size: 0.75rem; color: var(--gray); margin-top: 0.5rem; text-align: center; }
         
-        /* Contact */
-        .contact-item {
-            padding: 0.6rem 0;
-            border-bottom: 1px solid #eee;
-        }
+        .contact-item { padding: 0.6rem 0; border-bottom: 1px solid #eee; }
         
-        .contact-item:last-child { border: none; }
+        .social-links { display: flex; gap: 0.8rem; margin-top: 1rem; }
+        .social-link { width: 36px; height: 36px; background: var(--dark); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; text-decoration: none; font-size: 1rem; }
         
-        /* Social */
-        .social-links {
-            display: flex;
-            gap: 0.8rem;
-            margin-top: 1rem;
-        }
+        .map-box { height: 120px; background: #e5e5e5; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--gray); margin-top: 1rem; }
         
-        .social-link {
-            width: 36px;
-            height: 36px;
-            background: var(--dark);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-decoration: none;
-            font-size: 1rem;
-        }
-        
-        .map-box {
-            height: 120px;
-            background: #e5e5e5;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--gray);
-            margin-top: 1rem;
-        }
-        
-        /* Claim Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.8);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .modal-content {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            max-width: 400px;
-            width: 90%;
-        }
-        
+        .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; }
+        .modal-content { background: white; padding: 2rem; border-radius: 12px; max-width: 400px; width: 90%; }
         .modal h3 { margin-bottom: 1rem; }
-        .modal input {
-            width: 100%;
-            padding: 0.7rem;
-            margin-bottom: 0.8rem;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-        }
-        .modal button {
-            width: 100%;
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.8rem;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-        }
+        .modal input { width: 100%; padding: 0.7rem; margin-bottom: 0.8rem; border: 1px solid #ddd; border-radius: 6px; }
+        .modal button { width: 100%; background: var(--primary); color: white; border: none; padding: 0.8rem; border-radius: 6px; font-weight: 600; cursor: pointer; }
         
-        .close-modal {
-            position: absolute;
-            top: 10px; right: 15px;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
+        /* Reviews Section */
+        .reviews-section { max-width: 800px; margin: 2rem auto; padding: 0 2rem; }
+        .review-card { background: white; padding: 1rem; border-radius: 10px; margin-bottom: 0.8rem; }
+        .review-header { display: flex; justify-content: space-between; margin-bottom: 0.3rem; }
+        .reviewer { font-weight: 600; }
+        .review-date { color: var(--gray); font-size: 0.85rem; }
+        .review-stars { color: #f59e0b; font-size: 0.9rem; }
+        .review-text { color: var(--gray); margin-top: 0.3rem; font-size: 0.9rem; }
         
-        @media (max-width: 768px) {
-            .biz-info { grid-template-columns: 1fr; }
-        }
+        @media (max-width: 768px) { .biz-info { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -231,7 +145,6 @@
         <span class="breadcrumb">← Back to Pizza in Waxhaw</span>
     </header>
     
-    <!-- Image Gallery -->
     <div class="gallery">
         <div class="gallery-img">🍕</div>
         <div class="gallery-img">🏠</div>
@@ -251,7 +164,7 @@
     <div class="biz-info">
         <div class="main-col">
             <h3>About</h3>
-            <p>Mama's Pizzeria has been a Waxhaw staple since 1998, serving authentic New York-style pizza made with recipes passed down through three generations. Our dough is hand-tossed daily, our sauce is made from scratch using San Marzano tomatoes.</p>
+            <p>Mama's Pizzeria has been a Waxhaw staple since 1998, serving authentic New York-style pizza made with recipes passed down through three generations.</p>
             
             <h3>Our Review</h3>
             <div class="video-box">
@@ -274,10 +187,8 @@
         </div>
         
         <div class="sidebar">
-            <!-- Offers -->
             <div class="offers-section">
                 <h4 style="margin-bottom: 1rem;">🎉 Available Offers</h4>
-                
                 <div class="offer-card">
                     <div class="offer-header">
                         <span class="offer-title">10% Off Entire Order</span>
@@ -289,22 +200,42 @@
                 </div>
             </div>
             
-            <!-- Location -->
             <h4 style="margin-bottom: 0.8rem;">📍 Location</h4>
             <div class="map-box">Map</div>
             
-            <!-- Contact -->
             <h4 style="margin: 1.5rem 0 0.8rem;">Contact</h4>
             <div class="contact-item">(704) 555-0123</div>
             <div class="contact-item">mamaspizzeria.com</div>
             <div class="contact-item">order@mamaspizzeria.com</div>
             
-            <!-- Social -->
             <h4 style="margin: 1.5rem 0 0.8rem;">Follow Us</h4>
             <div class="social-links">
                 <a href="#" class="social-link">f</a>
                 <a href="#" class="social-link">📷</a>
             </div>
+        </div>
+    </div>
+    
+    <!-- Google Reviews -->
+    <div class="reviews-section">
+        <h3 style="margin-bottom: 1rem;">⭐ Google Reviews <span style="font-weight: normal; color: var(--gray); font-size: 0.9rem;">(127 reviews)</span></h3>
+        
+        <div class="review-card">
+            <div class="review-header">
+                <span class="reviewer">Sarah M.</span>
+                <span class="review-date">2 weeks ago</span>
+            </div>
+            <div class="review-stars">⭐⭐⭐⭐⭐</div>
+            <p class="review-text">Best pizza in Waxhaw! The crust is perfectly crispy on the outside but chewy inside.</p>
+        </div>
+        
+        <div class="review-card">
+            <div class="review-header">
+                <span class="reviewer">Mike T.</span>
+                <span class="review-date">1 month ago</span>
+            </div>
+            <div class="review-stars">⭐⭐⭐⭐⭐</div>
+            <p class="review-text">Great pizza, great service. Kids loved the cheese sticks!</p>
         </div>
     </div>
     
@@ -318,49 +249,18 @@
                 <input type="email" placeholder="Your Email" required>
                 <button type="submit">Unlock Offer</button>
             </form>
-            <p style="font-size: 0.75rem; color: #888; margin-top: 1rem; text-align: center;">
-                We'll email you when it's redeemed. A portion funds meals! 🍽️
-            </p>
+            <p style="font-size: 0.75rem; color: #888; margin-top: 1rem; text-align: center;">We'll email you when it's redeemed. A portion funds meals!</p>
         </div>
     </div>
     
     <script>
-        function showClaimModal() {
-            document.getElementById('claimModal').style.display = 'flex';
-        }
-        
+        function showClaimModal() { document.getElementById('claimModal').style.display = 'flex'; }
         function handleClaim(e) {
             e.preventDefault();
-            alert('🎉 Offer Claimed! Check your email for your unique code. Show it to the staff to redeem. Thanks for supporting local — you just helped feed a family!');
+            alert('🎉 Offer Claimed! Check your email for your unique code.');
             document.getElementById('claimModal').style.display = 'none';
         }
-        
-        document.getElementById('claimModal').addEventListener('click', function(e) {
-            if (e.target === this) this.style.display = 'none';
-        });
+        document.getElementById('claimModal').addEventListener('click', function(e) { if (e.target === this) this.style.display = 'none'; });
     </script>
 </body>
 </html>
-
-    <!-- Google Reviews -->
-    <div style="max-width: 800px; margin: 2rem auto; padding: 0 2rem;">
-        <h3 style="margin-bottom: 1rem;">⭐ Google Reviews <span style="font-weight: normal; color: var(--gray); font-size: 0.9rem;">(127 reviews)</span></h3>
-        
-        <div style="background: white; padding: 1rem; border-radius: 10px; margin-bottom: 0.8rem;">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">
-                <span style="font-weight: 600;">Sarah M.</span>
-                <span style="color: var(--gray); font-size: 0.85rem;">2 weeks ago</span>
-            </div>
-            <div style="color: #f59e0b; font-size: 0.9rem;">⭐⭐⭐⭐⭐</div>
-            <p style="color: var(--gray); margin-top: 0.3rem; font-size: 0.9rem;">Best pizza in Waxhaw! The crust is perfectly crispy.</p>
-        </div>
-        
-        <div style="background: white; padding: 1rem; border-radius: 10px;">
-            <div style="display: flex; justify-content: space-between; margin-bottom: 0.3rem;">
-                <span style="font-weight: 600;">Mike T.</span>
-                <span style="color: var(--gray); font-size: 0.85rem;">1 month ago</span>
-            </div>
-            <div style="color: #f59e0b; font-size: 0.9rem;">⭐⭐⭐⭐⭐</div>
-            <p style="color: var(--gray); margin-top: 0.3rem; font-size: 0.9rem;">Great pizza, great service. Kids loved the cheese sticks!</p>
-        </div>
-    </div>
