@@ -360,7 +360,7 @@
         .footer-logo span {
             color: var(--primary);
         }
-    </style>
+    /* Email Modal */ #emailModal { display: flex; } </style>
 </head>
 <body>
     <header>
@@ -535,3 +535,26 @@
     </footer>
 </body>
 </html>
+
+<!-- Email Capture Modal -->
+<div id="emailModal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.8); z-index:1000; align-items:center; justify-content:center;">
+    <div style="background:white; padding:2rem; border-radius:12px; max-width:400px; text-align:center; position:relative;">
+        <button onclick="document.getElementById('emailModal').style.display='none'" style="position:absolute; top:10px; right:10px; background:none; border:none; font-size:1.5rem; cursor:pointer;">✕</button>
+        <div style="font-size:3rem; margin-bottom:1rem;">📬</div>
+        <h2 style="margin-bottom:0.5rem;">Get Local Deals!</h2>
+        <p style="color:#666; margin-bottom:1.5rem;">Be the first to know about hot offers in Waxhaw & surrounding areas. No spam, just deals.</p>
+        <input type="email" placeholder="your@email.com" style="width:100%; padding:0.8rem; border:2px solid #ddd; border-radius:8px; margin-bottom:1rem;">
+        <button style="width:100%; background:#ff4444; color:white; border:none; padding:0.8rem; border-radius:8px; font-weight:600; cursor:pointer;">Subscribe</button>
+        <p style="font-size:0.8rem; color:#999; margin-top:1rem;">Join 1,200+ neighbors getting local deals 🎉</p>
+    </div>
+</div>
+
+<script>
+// Show modal after 5 seconds
+setTimeout(() => {
+    if (!localStorage.getItem('emailShown')) {
+        document.getElementById('emailModal').style.display = 'flex';
+        localStorage.setItem('emailShown', 'true');
+    }
+}, 5000);
+</script>
