@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Local NearBuy | Your AI-Powered Local Directory</title>
+    <title>The Local NearBuy | Discover Waxhaw's Best</title>
     <style>
         :root {
-            --primary: #ff4444;
-            --primary-dark: #cc0000;
+            --primary: #e63946;
+            --primary-dark: #c1121f;
             --dark: #1a1a1a;
-            --light: #f8f8f8;
+            --light: #fafafa;
             --gray: #666;
-            --success: #22c55e;
+            --accent: #457b9d;
         }
         
         * {
@@ -27,7 +27,6 @@
             line-height: 1.6;
         }
         
-        /* Header */
         header {
             background: white;
             padding: 1rem 2rem;
@@ -41,9 +40,8 @@
         }
         
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 800;
-            color: var(--dark);
         }
         
         .logo span {
@@ -55,11 +53,6 @@
             color: var(--gray);
             margin-left: 1.5rem;
             font-weight: 500;
-            transition: color 0.2s;
-        }
-        
-        nav a:hover {
-            color: var(--primary);
         }
         
         .cta-btn {
@@ -69,14 +62,8 @@
             border-radius: 6px;
             text-decoration: none;
             font-weight: 600;
-            transition: background 0.2s;
         }
         
-        .cta-btn:hover {
-            background: var(--primary-dark);
-        }
-        
-        /* Hero */
         .hero {
             background: linear-gradient(135deg, var(--dark) 0%, #2d2d2d 100%);
             color: white;
@@ -85,55 +72,51 @@
         }
         
         .hero h1 {
-            font-size: 3rem;
+            font-size: 2.5rem;
             margin-bottom: 1rem;
         }
         
         .hero p {
-            font-size: 1.2rem;
-            color: #aaa;
-            max-width: 600px;
+            font-size: 1.1rem;
+            color: #ccc;
+            max-width: 550px;
             margin: 0 auto 2rem;
         }
         
-        /* AI Search Box */
-        .ai-search {
-            max-width: 700px;
-            margin: 0 auto;
-            position: relative;
+        .hero-tagline {
+            background: rgba(255,255,255,0.1);
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-top: 1rem;
         }
         
-        .ai-search input {
+        .hero-tagline span {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        /* Search */
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .search-box input {
             width: 100%;
-            padding: 1.2rem 1.5rem;
-            font-size: 1.1rem;
+            padding: 1rem 1.5rem;
+            font-size: 1rem;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.3);
         }
         
-        .ai-search .ai-badge {
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            background: linear-gradient(135deg, #6366f1, #8b5cf6);
-            color: white;
-            padding: 0.4rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-        
-        /* Quick Categories */
         .quick-cats {
             display: flex;
             justify-content: center;
-            gap: 1rem;
-            margin-top: 2rem;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
             flex-wrap: wrap;
         }
         
@@ -141,48 +124,30 @@
             background: rgba(255,255,255,0.1);
             padding: 0.5rem 1rem;
             border-radius: 20px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             cursor: pointer;
-            transition: all 0.2s;
         }
         
         .cat-pill:hover {
             background: var(--primary);
         }
         
-        /* Impact Bar */
-        .impact-bar {
-            background: var(--primary);
-            color: white;
-            padding: 1rem 2rem;
-            text-align: center;
-            font-weight: 600;
-        }
-        
-        .impact-bar span {
-            background: white;
-            color: var(--primary);
-            padding: 0.3rem 0.8rem;
-            border-radius: 4px;
-            margin-left: 0.5rem;
-        }
-        
         /* How It Works */
         .section {
             padding: 4rem 2rem;
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
         }
         
         .section-title {
             text-align: center;
-            font-size: 2rem;
-            margin-bottom: 3rem;
+            font-size: 1.8rem;
+            margin-bottom: 2rem;
         }
         
         .grid-3 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 2rem;
         }
         
@@ -191,17 +156,11 @@
             padding: 2rem;
             border-radius: 12px;
             box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            text-align: center;
         }
         
         .card-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #fee2e2, #ffecd2);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
+            font-size: 2.5rem;
             margin-bottom: 1rem;
         }
         
@@ -214,129 +173,81 @@
             font-size: 0.95rem;
         }
         
-        /* Offers Section */
-        .offers-preview {
+        /* For Businesses */
+        .biz-section {
             background: var(--dark);
             color: white;
             padding: 4rem 2rem;
         }
         
-        .offers-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            max-width: 1200px;
-            margin: 2rem auto 0;
-        }
-        
-        .offer-card {
-            background: #2a2a2a;
-            border-radius: 12px;
-            overflow: hidden;
-            position: relative;
-        }
-        
-        .offer-card::before {
-            content: 'OFFER';
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--primary);
+        .biz-section .section-title {
             color: white;
-            font-size: 0.7rem;
-            font-weight: 700;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
         }
         
-        .offer-img {
-            height: 120px;
-            background: linear-gradient(135deg, #4a4a4a, #6a6a6a);
-            display: flex;
+        .biz-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            max-width: 900px;
+            margin: 0 auto;
             align-items: center;
-            justify-content: center;
-            font-size: 3rem;
         }
         
-        .offer-content {
-            padding: 1rem;
+        .biz-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
         }
         
-        .offer-business {
-            font-size: 0.8rem;
-            color: var(--gray);
+        .biz-content p {
+            color: #aaa;
+            margin-bottom: 1.5rem;
         }
         
-        .offer-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin: 0.3rem 0;
+        .benefit-list {
+            list-style: none;
         }
         
-        .offer-meta {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.8rem;
-            color: var(--gray);
-        }
-        
-        .offer-qr {
+        .benefit-list li {
+            padding: 0.5rem 0;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            margin-top: 0.5rem;
-            padding-top: 0.5rem;
-            border-top: 1px solid #333;
         }
         
-        .qr-box {
-            width: 40px;
-            height: 40px;
+        .benefit-list li::before {
+            content: "✓";
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .signup-form {
             background: white;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-        }
-        
-        .qr-text {
-            font-size: 0.75rem;
-            color: var(--gray);
-        }
-        
-        /* AI Features */
-        .ai-features {
-            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
-            padding: 4rem 2rem;
-        }
-        
-        .feature-list {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
-        .feature-item {
-            display: flex;
-            gap: 1rem;
-            padding: 1.5rem;
-            background: white;
+            padding: 2rem;
             border-radius: 12px;
-            margin-bottom: 1rem;
-            align-items: flex-start;
+            color: var(--dark);
         }
         
-        .feature-num {
-            background: var(--success);
+        .signup-form h4 {
+            margin-bottom: 1rem;
+        }
+        
+        .signup-form input {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+        }
+        
+        .signup-form button {
+            width: 100%;
+            background: var(--primary);
             color: white;
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            flex-shrink: 0;
+            border: none;
+            padding: 1rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
         }
         
         /* Footer */
@@ -347,40 +258,45 @@
             text-align: center;
         }
         
-        footer p {
-            color: var(--gray);
-            margin-top: 1rem;
-        }
-        
         .footer-logo {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 800;
         }
         
         .footer-logo span {
             color: var(--primary);
         }
-    /* Email Modal */ #emailModal { display: flex; } </style>
+        
+        footer p {
+            color: var(--gray);
+            margin-top: 0.5rem;
+        }
+        
+        .mission {
+            margin-top: 1.5rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid #333;
+            font-size: 0.9rem;
+            color: #888;
+        }
+    </style>
 </head>
 <body>
     <header>
         <div class="logo">The Local <span>NearBuy</span></div>
         <nav>
-            <a href="#search">Search</a>
-            <a href="#offers">Offers</a>
-            <a href="#business">For Business</a>
-            <a href="#about">About</a>
+            <a href="#how-it-works">How It Works</a>
+            <a href="#for-businesses">For Businesses</a>
         </nav>
         <a href="#claim" class="cta-btn">List Your Business</a>
     </header>
     
     <section class="hero">
-        <h1>Your AI-Powered Local Directory</h1>
-        <p>Discover the best of Waxhaw & surrounding areas. Ask naturally, find fast, support local — and help feed families with every purchase.</p>
+        <h1>Discover Waxhaw's Best</h1>
+        <p>Your guide to local restaurants, shops, services, and hidden gems. Find the best of your community — all in one place.</p>
         
-        <div class="ai-search">
-            <input type="text" placeholder="What are you looking for? Try 'best pizza in Waxhaw' or 'plumber near me'">
-            <div class="ai-badge">🤖 AI Powered</div>
+        <div class="search-box">
+            <input type="text" placeholder="What are you looking for? Try 'pizza', 'plumber', 'coffee'...">
         </div>
         
         <div class="quick-cats">
@@ -391,225 +307,97 @@
             <span class="cat-pill">💅 Beauty</span>
             <span class="cat-pill">🛒 Shopping</span>
         </div>
+        
+        <div class="hero-tagline">
+            ❤️ A portion of every purchase funds meals for local kids & families
+        </div>
     </section>
     
-    <div class="impact-bar">
-        🎉 $12,450 meals funded so far! <span>24,900 meals</span> to local families
-    </div>
-    
-    <section class="section" id="search">
+    <section class="section" id="how-it-works">
         <h2 class="section-title">How It Works</h2>
         <div class="grid-3">
             <div class="card">
-                <div class="card-icon">🤖</div>
-                <h3>Ask Naturally</h3>
-                <p>No more filtering through categories. Just ask what you need: "best pizza for kids" or "open now." Our AI understands.</p>
+                <div class="card-icon">🔍</div>
+                <h3>Find Local</h3>
+                <p>Search for restaurants, shops, and services in Waxhaw & surrounding areas. Read real reviews from your neighbors.</p>
             </div>
             <div class="card">
                 <div class="card-icon">🏷️</div>
-                <h3>Unlock Exclusive Offers</h3>
-                <p>Find businesses with special offers. Scan QR codes from our postcards to unlock deals — a portion funds meals.</p>
+                <h3>Support Local</h3>
+                <p>When you support NearBuy businesses, a portion of your purchase helps feed local kids and families who need it.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">📱</div>
+                <h3>Connect Direct</h3>
+                <p>Get directions, call, or visit their website — all in one place. No middleman, just direct connections.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="biz-section" id="for-businesses">
+        <h2 class="section-title">For Businesses</h2>
+        <div class="biz-grid">
+            <div class="biz-content">
+                <h3>Get Found. Build Your Business.</h3>
+                <p>Join the fastest-growing local directory in the Waxhaw area. Connect with neighbors actively looking for businesses like yours.</p>
+                
+                <ul class="benefit-list">
+                    <li>Free listing in our directory</li>
+                    <li>Custom business page</li>
+                    <li>Collect and display customer reviews</li>
+                    <li>Create special offers for neighbors</li>
+                    <li>Analytics to see what's working</li>
+                    <li>Support local families with every sale</li>
+                </ul>
+            </div>
+            
+            <div class="signup-form" id="claim">
+                <h4>List Your Business — Free</h4>
+                <form>
+                    <input type="text" placeholder="Business Name" required>
+                    <input type="text" placeholder="Owner Name" required>
+                    <input type="email" placeholder="Email Address" required>
+                    <input type="tel" placeholder="Phone Number">
+                    <input type="text" placeholder="Address">
+                    <input type="text" placeholder="Category (e.g., Pizza, Spa, Plumber)">
+                    <button type="submit">Claim Free Listing</button>
+                </form>
+                <p style="font-size: 0.8rem; color: #888; margin-top: 1rem; text-align: center;">
+                    Already 50+ local businesses listed
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="how-it-works">
+        <h2 class="section-title">Why Join The Local NearBuy?</h2>
+        <div class="grid-3">
+            <div class="card">
+                <div class="card-icon">👥</div>
+                <h3>Reach Active Searchers</h3>
+                <p>People searching on NearBuy are ready to buy. Connect with neighbors who need what you offer.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">📈</div>
+                <h3>Grow With Us</h3>
+                <p>From free listing to paid features — upgrade when you're ready. We help you grow at your own pace.</p>
             </div>
             <div class="card">
                 <div class="card-icon">❤️</div>
-                <h3>Shop Local, Feed Families</h3>
-                <p>Every purchase through NearBuy helps feed local kids and families. You're supporting your community twice.</p>
+                <h3>Make a Difference</h3>
+                <p>Every NearBuy purchase helps feed local families. Be part of something bigger than your business.</p>
             </div>
-        </div>
-    </section>
-    
-    <section class="offers-preview" id="offers">
-        <h2 style="text-align: center; margin-bottom: 1rem;">🔥 Hot Offers Near You</h2>
-        <p style="text-align: center; color: #888; max-width: 600px; margin: 0 auto;">Scan any QR code to redeem — a portion of each offer funds meals for local families.</p>
-        
-        <div class="offers-grid">
-            <div class="offer-card">
-                <div class="offer-img">🍕</div>
-                <div class="offer-content">
-                    <div class="offer-business">Mama's Pizzeria</div>
-                    <div class="offer-title">20% Off Any Large Pizza</div>
-                    <div class="offer-meta">
-                        <span>📍 Waxhaw</span>
-                        <span>🕐 Valid 7 days</span>
-                    </div>
-                    <div class="offer-qr">
-                        <div class="qr-box">📱</div>
-                        <div class="qr-text">Scan to redeem<br>🎉 Feeds 2 meals</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="offer-card">
-                <div class="offer-img">☕</div>
-                <div class="offer-content">
-                    <div class="offer-business">Waxhaw Coffee Co.</div>
-                    <div class="offer-title">Free Pastry with Any Drink</div>
-                    <div class="offer-meta">
-                        <span>📍 Waxhaw</span>
-                        <span>🕐 Valid 30 days</span>
-                    </div>
-                    <div class="offer-qr">
-                        <div class="qr-box">📱</div>
-                        <div class="qr-text">Scan to redeem<br>🎉 Feeds 1 meal</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="offer-card">
-                <div class="offer-img">🍝</div>
-                <div class="offer-content">
-                    <div class="offer-business">The Italian Place</div>
-                    <div class="offer-title">Free Appetizer on $50 Order</div>
-                    <div class="offer-meta">
-                        <span>📍 Weddington</span>
-                        <span>🕐 Valid 14 days</span>
-                    </div>
-                    <div class="offer-qr">
-                        <div class="qr-box">📱</div>
-                        <div class="qr-text">Scan to redeem<br>🎉 Feeds 4 meals</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <section class="ai-features" id="business">
-        <h2 class="section-title">🤖 AI Features for Businesses</h2>
-        <div class="feature-list">
-            <div class="feature-item">
-                <div class="feature-num">1</div>
-                <div>
-                    <h3>AI-Generated Business Profile</h3>
-                    <p>We write your description, generate tags, and optimize for local search — automatically.</p>
-                </div>
-            </div>
-            <div class="feature-item">
-                <div class="feature-num">2</div>
-                <div>
-                    <h3>10 AI Social Posts/Month</h3>
-                    <p>Engaging posts written for you. Just approve and schedule. We post to your accounts.</p>
-                </div>
-            </div>
-            <div class="feature-item">
-                <div class="feature-num">3</div>
-                <div>
-                    <h3>AI Review Responses</h3>
-                    <p>Get intelligent, personalized responses to every review — in your brand voice.</p>
-                </div>
-            </div>
-            <div class="feature-item">
-                <div class="feature-num">4</div>
-                <div>
-                    <h3>AI Offer Generator</h3>
-                    <p>Need a special? Tell us what you want — we create the offer, QR code, and landing page.</p>
-                </div>
-            </div>
-            <div class="feature-item">
-                <div class="feature-num">5</div>
-                <div>
-                    <h3>Smart Insights Dashboard</h3>
-                    <p>See what customers are searching for, trending categories, and competitive insights.</p>
-                </div>
-            </div>
-        </div>
-        
-        <div style="text-align: center; margin-top: 3rem;">
-            <a href="#claim" class="cta-btn" style="font-size: 1.1rem; padding: 1rem 2rem;">Get Your Free AI Business Profile →</a>
-        </div>
-    </section>
-    
-    <section class="section" id="about">
-        <h2 class="section-title">About The Local NearBuy</h2>
-        <div class="card" style="max-width: 700px; margin: 0 auto; text-align: center;">
-            <p style="font-size: 1.1rem; margin-bottom: 1rem;">Your guide to Waxhaw & surrounding areas' best — restaurants, shops, services, and hidden gems.</p>
-            <p style="color: var(--gray);">Every purchase through The Local NearBuy funds meals for local kids and families, both here and around the world.</p>
-            <p style="margin-top: 1rem; font-weight: 600; color: var(--primary);">Discover your community. Support local. Make a difference.</p>
         </div>
     </section>
     
     <footer>
         <div class="footer-logo">The Local <span>NearBuy</span></div>
         <p>Waxhaw • Weddington • Wesley Chapel • Marvin • Indian Land • Ballantyne</p>
-        <p>© 2026 The Local NearBuy. All rights reserved.</p>
-        <p style="margin-top: 2rem; font-size: 0.9rem;">🤖 AI-Powered • 📱 QR Offers • ❤️ Feeding Families</p>
+        
+        <div class="mission">
+            <p><strong>Our Mission:</strong> Connecting neighbors with great local businesses — and helping feed families in our community. A portion of every purchase through NearBuy funds meals for those who need it.</p>
+            <p style="margin-top: 0.5rem;">© 2026 The Local NearBuy. All rights reserved.</p>
+        </div>
     </footer>
 </body>
 </html>
-
-<!-- Email Capture Modal -->
-<div id="emailModal" style="display:none; position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.8); z-index:1000; align-items:center; justify-content:center;">
-    <div style="background:white; padding:2rem; border-radius:12px; max-width:400px; text-align:center; position:relative;">
-        <button onclick="document.getElementById('emailModal').style.display='none'" style="position:absolute; top:10px; right:10px; background:none; border:none; font-size:1.5rem; cursor:pointer;">✕</button>
-        <div style="font-size:3rem; margin-bottom:1rem;">📬</div>
-        <h2 style="margin-bottom:0.5rem;">Get Local Deals!</h2>
-        <p style="color:#666; margin-bottom:1.5rem;">Be the first to know about hot offers in Waxhaw & surrounding areas. No spam, just deals.</p>
-        <input type="email" placeholder="your@email.com" style="width:100%; padding:0.8rem; border:2px solid #ddd; border-radius:8px; margin-bottom:1rem;">
-        <button style="width:100%; background:#ff4444; color:white; border:none; padding:0.8rem; border-radius:8px; font-weight:600; cursor:pointer;">Subscribe</button>
-        <p style="font-size:0.8rem; color:#999; margin-top:1rem;">Join 1,200+ neighbors getting local deals 🎉</p>
-    </div>
-</div>
-
-<script>
-// Show modal after 5 seconds
-setTimeout(() => {
-    if (!localStorage.getItem('emailShown')) {
-        document.getElementById('emailModal').style.display = 'flex';
-        localStorage.setItem('emailShown', 'true');
-    }
-}, 5000);
-</script>
-
-<!-- Pricing Section -->
-<section class="section" id="pricing" style="background: var(--dark); color: white;">
-    <h2 class="section-title" style="color: white;">Choose Your Plan</h2>
-    <div class="grid-3" style="max-width: 1000px; margin: 0 auto;">
-        
-        <!-- Free -->
-        <div style="background: #2a2a2a; padding: 2rem; border-radius: 12px; text-align: center;">
-            <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem;">Basic Listing</h3>
-            <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem;">Free</div>
-            <ul style="text-align: left; color: #aaa; line-height: 2; margin-bottom: 1.5rem;">
-                <li>✓ Basic directory listing</li>
-                <li>✓ Shows in search results</li>
-                <li>✓ Business name, address, phone</li>
-                <li>✗ No custom page</li>
-                <li>✗ No AI features</li>
-                <li>✗ No offers</li>
-            </ul>
-            <a href="#claim" style="display: block; background: #333; color: white; padding: 0.8rem; border-radius: 8px; text-decoration: none;">Claim Free Listing</a>
-        </div>
-        
-        <!-- Paid -->
-        <div style="background: var(--primary); padding: 2rem; border-radius: 12px; text-align: center; transform: scale(1.05);">
-            <div style="background: white; color: var(--primary); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.8rem; font-weight: 700; display: inline-block; margin-bottom: 1rem;">MOST POPULAR</div>
-            <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem;">Pro Business</h3>
-            <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem;">$99<span style="font-size: 1rem;">/mo</span></div>
-            <ul style="text-align: left; color: white; line-height: 2; margin-bottom: 1.5rem; opacity: 0.95;">
-                <li>✓ Custom page (yoursite.com/biz)</li>
-                <li>✓ AI-generated description</li>
-                <li>✓ 10 AI social posts/month</li>
-                <li>✓ AI review responses</li>
-                <li>✓ Create unlimited offers</li>
-                <li>✓ QR codes auto-generated</li>
-                <li>✓ Analytics dashboard</li>
-                <li>✓ Featured in search</li>
-            </ul>
-            <a href="#claim" style="display: block; background: white; color: var(--primary); padding: 0.8rem; border-radius: 8px; text-decoration: none; font-weight: 700;">Get Started →</a>
-        </div>
-        
-        <!-- Enterprise -->
-        <div style="background: #2a2a2a; padding: 2rem; border-radius: 12px; text-align: center;">
-            <h3 style="font-size: 1.3rem; margin-bottom: 0.5rem;">Enterprise</h3>
-            <div style="font-size: 2.5rem; font-weight: 700; margin-bottom: 1rem;">$249<span style="font-size: 1rem;">/mo</span></div>
-            <ul style="text-align: left; color: #aaa; line-height: 2; margin-bottom: 1.5rem;">
-                <li>✓ Everything in Pro</li>
-                <li>✓ Priority support</li>
-                <li>✓ Dedicated account manager</li>
-                <li>✓ Custom branding</li>
-                <li>✓ API access</li>
-                <li>✓ White-label options</li>
-            </ul>
-            <a href="#contact" style="display: block; background: #333; color: white; padding: 0.8rem; border-radius: 8px; text-decoration: none;">Contact Sales</a>
-        </div>
-    </div>
-</section>
