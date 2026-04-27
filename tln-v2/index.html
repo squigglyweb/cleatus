@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Local NearBuy | Your AI-Powered Local Directory</title>
+    <style>
+        :root {
+            --primary: #ff4444;
+            --primary-dark: #cc0000;
+            --dark: #1a1a1a;
+            --light: #f8f8f8;
+            --gray: #666;
+            --success: #22c55e;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        header {
+            background: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--dark);
+        }
+        
+        .logo span {
+            color: var(--primary);
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--gray);
+            margin-left: 1.5rem;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        .cta-btn {
+            background: var(--primary);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        
+        .cta-btn:hover {
+            background: var(--primary-dark);
+        }
+        
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--dark) 0%, #2d2d2d 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: #aaa;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        
+        /* AI Search Box */
+        .ai-search {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        .ai-search input {
+            width: 100%;
+            padding: 1.2rem 1.5rem;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        
+        .ai-search .ai-badge {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+        
+        /* Quick Categories */
+        .quick-cats {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .cat-pill {
+            background: rgba(255,255,255,0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .cat-pill:hover {
+            background: var(--primary);
+        }
+        
+        /* Impact Bar */
+        .impact-bar {
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .impact-bar span {
+            background: white;
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 4px;
+            margin-left: 0.5rem;
+        }
+        
+        /* How It Works */
+        .section {
+            padding: 4rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+        
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #fee2e2, #ffecd2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .card h3 {
+            margin-bottom: 0.5rem;
+        }
+        
+        .card p {
+            color: var(--gray);
+            font-size: 0.95rem;
+        }
+        
+        /* Offers Section */
+        .offers-preview {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 2rem;
+        }
+        
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 2rem auto 0;
+        }
+        
+        .offer-card {
+            background: #2a2a2a;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .offer-card::before {
+            content: 'OFFER';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--primary);
+            color: white;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+        }
+        
+        .offer-img {
+            height: 120px;
+            background: linear-gradient(135deg, #4a4a4a, #6a6a6a);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+        
+        .offer-content {
+            padding: 1rem;
+        }
+        
+        .offer-business {
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        .offer-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0.3rem 0;
+        }
+        
+        .offer-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--gray);
+        }
+        
+        .offer-qr {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #333;
+        }
+        
+        .qr-box {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .qr-text {
+            font-size: 0.75rem;
+            color: var(--gray);
+        }
+        
+        /* AI Features */
+        .ai-features {
+            background: linear-gradient(135deg, #f0fdf4, #dcfce7);
+            padding: 4rem 2rem;
+        }
+        
+        .feature-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .feature-item {
+            display: flex;
+            gap: 1rem;
+            padding: 1.5rem;
+            background: white;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            align-items: flex-start;
+        }
+        
+        .feature-num {
+            background: var(--success);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        
+        footer p {
+            color: var(--gray);
+            margin-top: 1rem;
+        }
+        
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+        
+        .footer-logo span {
+            color: var(--primary);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">The Local <span>NearBuy</span></div>
+        <nav>
+            <a href="#search">Search</a>
+            <a href="#offers">Offers</a>
+            <a href="#business">For Business</a>
+            <a href="#about">About</a>
+        </nav>
+        <a href="#claim" class="cta-btn">List Your Business</a>
+    </header>
+    
+    <section class="hero">
+        <h1>Your AI-Powered Local Directory</h1>
+        <p>Discover the best of Waxhaw & surrounding areas. Ask naturally, find fast, support local — and help feed families with every purchase.</p>
+        
+        <div class="ai-search">
+            <input type="text" placeholder="What are you looking for? Try 'best pizza in Waxhaw' or 'plumber near me'">
+            <div class="ai-badge">🤖 AI Powered</div>
+        </div>
+        
+        <div class="quick-cats">
+            <span class="cat-pill">🍕 Pizza</span>
+            <span class="cat-pill">☕ Coffee</span>
+            <span class="cat-pill">🍽️ Restaurants</span>
+            <span class="cat-pill">🏠 Home Services</span>
+            <span class="cat-pill">💅 Beauty</span>
+            <span class="cat-pill">🛒 Shopping</span>
+        </div>
+    </section>
+    
+    <div class="impact-bar">
+        🎉 $12,450 meals funded so far! <span>24,900 meals</span> to local families
+    </div>
+    
+    <section class="section" id="search">
+        <h2 class="section-title">How It Works</h2>
+        <div class="grid-3">
+            <div class="card">
+                <div class="card-icon">🤖</div>
+                <h3>Ask Naturally</h3>
+                <p>No more filtering through categories. Just ask what you need: "best pizza for kids" or "open now." Our AI understands.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🏷️</div>
+                <h3>Unlock Exclusive Offers</h3>
+                <p>Find businesses with special offers. Scan QR codes from our postcards to unlock deals — a portion funds meals.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">❤️</div>
+                <h3>Shop Local, Feed Families</h3>
+                <p>Every purchase through NearBuy helps feed local kids and families. You're supporting your community twice.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="offers-preview" id="offers">
+        <h2 style="text-align: center; margin-bottom: 1rem;">🔥 Hot Offers Near You</h2>
+        <p style="text-align: center; color: #888; max-width: 600px; margin: 0 auto;">Scan any QR code to redeem — a portion of each offer funds meals for local families.</p>
+        
+        <div class="offers-grid">
+            <div class="offer-card">
+                <div class="offer-img">🍕</div>
+                <div class="offer-content">
+                    <div class="offer-business">Mama's Pizzeria</div>
+                    <div class="offer-title">20% Off Any Large Pizza</div>
+                    <div class="offer-meta">
+                        <span>📍 Waxhaw</span>
+                        <span>🕐 Valid 7 days</span>
+                    </div>
+                    <div class="offer-qr">
+                        <div class="qr-box">📱</div>
+                        <div class="qr-text">Scan to redeem<br>🎉 Feeds 2 meals</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="offer-card">
+                <div class="offer-img">☕</div>
+                <div class="offer-content">
+                    <div class="offer-business">Waxhaw Coffee Co.</div>
+                    <div class="offer-title">Free Pastry with Any Drink</div>
+                    <div class="offer-meta">
+                        <span>📍 Waxhaw</span>
+                        <span>🕐 Valid 30 days</span>
+                    </div>
+                    <div class="offer-qr">
+                        <div class="qr-box">📱</div>
+                        <div class="qr-text">Scan to redeem<br>🎉 Feeds 1 meal</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="offer-card">
+                <div class="offer-img">🍝</div>
+                <div class="offer-content">
+                    <div class="offer-business">The Italian Place</div>
+                    <div class="offer-title">Free Appetizer on $50 Order</div>
+                    <div class="offer-meta">
+                        <span>📍 Weddington</span>
+                        <span>🕐 Valid 14 days</span>
+                    </div>
+                    <div class="offer-qr">
+                        <div class="qr-box">📱</div>
+                        <div class="qr-text">Scan to redeem<br>🎉 Feeds 4 meals</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="ai-features" id="business">
+        <h2 class="section-title">🤖 AI Features for Businesses</h2>
+        <div class="feature-list">
+            <div class="feature-item">
+                <div class="feature-num">1</div>
+                <div>
+                    <h3>AI-Generated Business Profile</h3>
+                    <p>We write your description, generate tags, and optimize for local search — automatically.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-num">2</div>
+                <div>
+                    <h3>10 AI Social Posts/Month</h3>
+                    <p>Engaging posts written for you. Just approve and schedule. We post to your accounts.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-num">3</div>
+                <div>
+                    <h3>AI Review Responses</h3>
+                    <p>Get intelligent, personalized responses to every review — in your brand voice.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-num">4</div>
+                <div>
+                    <h3>AI Offer Generator</h3>
+                    <p>Need a special? Tell us what you want — we create the offer, QR code, and landing page.</p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <div class="feature-num">5</div>
+                <div>
+                    <h3>Smart Insights Dashboard</h3>
+                    <p>See what customers are searching for, trending categories, and competitive insights.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="#claim" class="cta-btn" style="font-size: 1.1rem; padding: 1rem 2rem;">Get Your Free AI Business Profile →</a>
+        </div>
+    </section>
+    
+    <section class="section" id="about">
+        <h2 class="section-title">About The Local NearBuy</h2>
+        <div class="card" style="max-width: 700px; margin: 0 auto; text-align: center;">
+            <p style="font-size: 1.1rem; margin-bottom: 1rem;">Your guide to Waxhaw & surrounding areas' best — restaurants, shops, services, and hidden gems.</p>
+            <p style="color: var(--gray);">Every purchase through The Local NearBuy funds meals for local kids and families, both here and around the world.</p>
+            <p style="margin-top: 1rem; font-weight: 600; color: var(--primary);">Discover your community. Support local. Make a difference.</p>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="footer-logo">The Local <span>NearBuy</span></div>
+        <p>Waxhaw • Weddington • Wesley Chapel • Marvin • Indian Land • Ballantyne</p>
+        <p>© 2026 The Local NearBuy. All rights reserved.</p>
+        <p style="margin-top: 2rem; font-size: 0.9rem;">🤖 AI-Powered • 📱 QR Offers • ❤️ Feeding Families</p>
+    </footer>
+</body>
+</html>
