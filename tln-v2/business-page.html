@@ -115,7 +115,9 @@
         }
         
         .offer-title { font-size: 1rem; font-weight: 700; color: var(--primary); }
-        .offer-limit { font-size: 0.7rem; background: var(--dark); color: white; padding: 0.2rem 0.5rem; border-radius: 4px; }
+        .offer-limit { font-size: 0.7rem; background: #22c55e; color: white; padding: 0.2rem 0.5rem; border-radius: 4px; }
+        .offer-limit.limited { background: #f59e0b; }
+        .offer-limit.expired { background: #dc2626; }
         
         .offer-desc { font-size: 0.85rem; color: var(--gray); margin-bottom: 0.8rem; }
         
@@ -234,7 +236,6 @@
         <div class="gallery-img">🍕</div>
         <div class="gallery-img">🏠</div>
         <div class="gallery-img">👨‍🍳</div>
-        <div class="gallery-img">🍝</div>
     </div>
     
     <div class="business-header">
@@ -250,7 +251,7 @@
     <div class="biz-info">
         <div class="main-col">
             <h3>About</h3>
-            <p>Mama's Pizzeria has been a Waxhaw staple since 1998, serving authentic New York-style pizza made with recipes passed down through three generations. Our dough is hand-tossed daily, our sauce is made from scratch using San Marzano tomatoes, and we source our mozzarella from a local dairy.</p>
+            <p>Mama's Pizzeria has been a Waxhaw staple since 1998, serving authentic New York-style pizza made with recipes passed down through three generations. Our dough is hand-tossed daily, our sauce is made from scratch using San Marzano tomatoes.</p>
             
             <h3>Our Review</h3>
             <div class="video-box">
@@ -261,7 +262,7 @@
             </div>
             
             <h3>What We Offer</h3>
-            <p>🍕 Hand-tossed NY style pizza 🍝 Fresh pasta 🥗 Salads 🍦 House-made gelato 🎉 Private events</p>
+            <p>🍕 Hand-tossed NY pizza 🍝 Fresh pasta 🥗 Salads 🍦 Gelato 🎉 Private events</p>
             
             <h3>Categories</h3>
             <p style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
@@ -269,7 +270,6 @@
                 <span style="background: #f3f4f6; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem;">Italian</span>
                 <span style="background: #f3f4f6; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem;">Family Friendly</span>
                 <span style="background: #f3f4f6; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem;">Date Night</span>
-                <span style="background: #f3f4f6; padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.85rem;">Kid Friendly</span>
             </p>
         </div>
         
@@ -280,24 +280,12 @@
                 
                 <div class="offer-card">
                     <div class="offer-header">
-                        <span class="offer-title">20% Off Large Pizza</span>
-                        <span class="offer-limit" style="background: #22c55e;">✅ Evergreen</span>
+                        <span class="offer-title">10% Off Entire Order</span>
+                        <span class="offer-limit">✅ Evergreen</span>
                     </div>
-                    <div class="offer-desc">Valid on any large pizza. Dine-in or takeout.</div>
-                    <div class="offer-valid">⏰ Expires: May 31, 2026</div>
+                    <div class="offer-desc">Always valid. Show this offer to your server.</div>
                     <button class="claim-btn" onclick="showClaimModal()">Claim This Offer</button>
-                    <div class="claimed-count">❤️ Feeds 2 meals per redemption</div>
-                </div>
-                
-                <div class="offer-card">
-                    <div class="offer-header">
-                        <span class="offer-title">Free Dessert</span>
-                        <span class="offer-limit">50 max</span>
-                    </div>
-                    <div class="offer-desc">With any family meal (4+ people)</div>
-                    <div class="offer-valid">⏰ Expires: Never</div>
-                    <button class="claim-btn" onclick="showClaimModal()">Claim This Offer</button>
-                    <div class="claimed-count">❤️ Feeds 1 meal per redemption • 23 claimed</div>
+                    <div class="claimed-count">❤️ Feeds 1 meal per redemption</div>
                 </div>
             </div>
             
@@ -316,7 +304,6 @@
             <div class="social-links">
                 <a href="#" class="social-link">f</a>
                 <a href="#" class="social-link">📷</a>
-                <a href="#" class="social-link">🐦</a>
             </div>
         </div>
     </div>
@@ -348,7 +335,6 @@
             document.getElementById('claimModal').style.display = 'none';
         }
         
-        // Close modal on outside click
         document.getElementById('claimModal').addEventListener('click', function(e) {
             if (e.target === this) this.style.display = 'none';
         });
