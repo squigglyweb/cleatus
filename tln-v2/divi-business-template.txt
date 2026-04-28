@@ -1,0 +1,94 @@
+# Divi Business Page Template
+
+## Structure (Top to Bottom)
+
+### Section 1: Header Bar
+- Full-width, dark background
+- Logo left (linked to home)
+- Navigation: "Search" | "For Businesses" | "List Your Business" (button)
+- Color: #1a1a1a
+
+### Section 2: Image Gallery (Full Width)
+- Divi Blurbs in a row OR image module
+- Display: gallery images (ACF field)
+- Settings: auto-scroll, show dots
+- Height: 160px each image
+
+### Section 3: Business Header
+- White background
+- **Post Title** (Business Name) - H1, 2rem, bold
+- IF is_verified = true: Blurb "✓ NearBuy Verified" - green badge
+- Google Rating stars + review count
+- Address text: "123 Main Street, Waxhaw, NC 28173"
+
+### Section 4: Two Column Layout (1fr + 320px)
+
+#### Left Column:
+- **Text Module** - "About" - use post content
+- **Video Module** - Embed video_review_url
+- **Blurb Module** - "What We Offer" - icons for categories
+- **Blurb Module** - Categories (show category tags)
+
+#### Right Column (Sidebar):
+- **Offer Card** (conditional: if offer_title exists)
+  - Title, description, limit, expiration
+  - Button: "Claim This Offer" → links to offer
+  - Text: "Feeds X meals per redemption"
+  
+- **Map Module** - Google Maps embed
+- **Contact Info** (Text Module):
+  - Phone
+  - Website link
+  - Email
+- **Social Media Icons** (Blurb modules)
+
+### Section 5: Google Reviews
+- Blog Module showing Google reviews
+- Or custom query for reviews
+
+### Section 6: Footer
+- Same as site footer
+
+---
+
+## ACF Field Mapping for Divi
+
+| ACF Field | Divi Module |
+|-----------|-------------|
+| gallery_images | Image Gallery |
+| street_address, city, state, zip | Text Module |
+| google_rating | Star Rating |
+| google_review_count | Text |
+| offer_title | Text Module |
+| offer_description | Text Module |
+| offer_type | Conditional |
+| offer_limit | Text |
+| offer_expiration | Text |
+| meals_per_redemption | Text |
+| google_maps_embed | Map Module |
+| phone_number | Text Link |
+| website | Button/Text Link |
+| video_review_url | Video Module |
+
+---
+
+## Divi Theme Builder Setup
+
+1. Go to **Divi → Theme Customizer → Theme Builder**
+2. Add **New Template** → "Single Business"
+3. Click **Add Custom Body** → Build from scratch
+4. Add sections matching above
+5. Use **Dynamic Content** dropdown to connect ACF fields:
+   - Dynamic Content → Post Meta → [Your Field Name]
+
+---
+
+## Quick Summary
+
+- Use the **Theme Builder** to create a template for "Business" post type
+- Each section connects to ACF fields via "Dynamic Content"
+- The layout I built in tln-v2/business-page.html = the template you build in Divi
+
+---
+
+Need me to export the visual layout as JSON, or describe it more specifically?
