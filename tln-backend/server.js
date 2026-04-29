@@ -155,3 +155,62 @@ app.get('/claim/:offer_id', (req, res) => {
 app.listen(PORT, () => {
   console.log(`TLN Offer System running on port ${PORT}`);
 });
+
+// API: Dashboard stats
+app.get('/api/dashboard', (req, res) => {
+  db.all(`
+    SELECT 
+      o.id, o.business_name, o.offer_title, o.offer_type, o.offer_expiration, o.meals_per_redemption,
+      (SELECT COUNT(*) FROM claims c WHERE c.offer_id = o.id) as claims_count,
+      (SELECT COUNT(*) FROM claims c WHERE c.offer_id = o.id AND c.redeemed = 1) as redeemed_count
+    FROM offers o
+    ORDER BY o.created_at DESC
+  `, [], (err, offers) => {
+    if (err) return res.status(500).json({ error: err.message });
+    
+    const stats = {
+      total_offers: offers.length,
+      total_claims: offers.reduce((sum, o) => sum + o.claims_count, 0),
+      total_redemptions: offers.reduce((sum, o) => sum + o.redeemed_count, 0),
+      total_meals: offers.reduce((sum, o) => sum + o.redeemed_count, 0) // 1 redemption = 1 meal
+    };
+    
+    // Add active status
+    offers = offers.map(o => ({
+      ...o,
+      is_active: !o.offer_expiration || new Date(o.offer_expiration) > new Date()
+    }));
+    
+    res.json({ stats, offers });
+  });
+});
+
+// Serve admin
+app.get('/admin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+});
+
+// API: Generate report
+app.get('/api/report', (req, res) => {
+  const { month, year } = req.query;
+  
+  db.all(`
+    SELECT 
+      o.business_name, o.offer_title, o.meals_per_redemption,
+      (SELECT COUNT(*) FROM claims c WHERE c.offer_id = o.id) as claims_count,
+      (SELECT COUNT(*) FROM claims c WHERE c.offer_id = o.id AND c.redeemed = 1) as redeemed_count
+    FROM offers o
+  `, [], (err, offers) => {
+    const totalMeals = offers.reduce((sum, o) => sum + o.redeemed_count, 0);
+    const totalRedemptions = offers.reduce((sum, o) => sum + o.redeemed_count, 0);
+    const totalClaims = offers.reduce((sum, o) => sum + o.claims_count, 0);
+    
+    res.json({
+      report_month: `${month}/${year}`,
+      total_claims: totalClaims,
+      total_redemptions: totalRedemptions,
+      total_meals_donated: totalMeals,
+      offers: offers
+    });
+  });
+});

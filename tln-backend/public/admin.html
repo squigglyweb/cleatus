@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TLN Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; }
+        .header { background: #1a1a1a; color: white; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .header h1 { font-size: 1.2rem; }
+        .logout { color: #888; text-decoration: none; font-size: 0.9rem; }
+        
+        .stats-bar { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; padding: 2rem; }
+        .stat-card { background: white; padding: 1.5rem; border-radius: 12px; text-align: center; }
+        .stat-card .number { font-size: 2.5rem; font-weight: 700; color: #e63946; }
+        .stat-card .label { color: #666; font-size: 0.9rem; }
+        .stat-card.highlight { background: #e63946; color: white; }
+        .stat-card.highlight .number, .stat-card.highlight .label { color: white; }
+        
+        .section { padding: 0 2rem 2rem; }
+        .section h2 { font-size: 1.2rem; margin-bottom: 1rem; }
+        
+        table { width: 100%; background: white; border-radius: 12px; overflow: hidden; }
+        th, td { padding: 1rem; text-align: left; border-bottom: 1px solid #eee; }
+        th { background: #fafafa; font-weight: 600; font-size: 0.85rem; color: #666; }
+        .status { padding: 0.3rem 0.7rem; border-radius: 20px; font-size: 0.8rem; }
+        .status.active { background: #dcfce7; color: #166534; }
+        .status.expired { background: #fee2e2; color: #991b1b; }
+        
+        .tabs { display: flex; gap: 1rem; padding: 1rem 2rem; background: white; border-bottom: 1px solid #eee; }
+        .tab { padding: 0.5rem 1rem; cursor: pointer; border-radius: 8px; }
+        .tab.active { background: #e63946; color: white; }
+        
+        .report-btn { background: #22c55e; color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 8px; font-weight: 600; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📊 TLN Dashboard</h1>
+        <a href="#" class="logout">Logout</a>
+    </div>
+    
+    <div class="stats-bar">
+        <div class="stat-card">
+            <div class="number" id="totalOffers">0</div>
+            <div class="label">Active Offers</div>
+        </div>
+        <div class="stat-card">
+            <div class="number" id="totalClaims">0</div>
+            <div class="label">Total Claims</div>
+        </div>
+        <div class="stat-card">
+            <div class="number" id="totalRedemptions">0</div>
+            <div class="label">Redemptions</div>
+        </div>
+        <div class="stat-card highlight">
+            <div class="number" id="totalMeals">0</div>
+            <div class="label">Meals Donated 🍽️</div>
+        </div>
+    </div>
+    
+    <div class="tabs">
+        <div class="tab active" onclick="showTab('offers')">All Offers</div>
+        <div class="tab" onclick="showTab('claims')">Recent Claims</div>
+        <div class="tab" onclick="showTab('businesses')">By Business</div>
+    </div>
+    
+    <div class="section">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h2>All Offers</h2>
+            <button class="report-btn" onclick="generateReport()">📄 Generate Monthly Report</button>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Business</th>
+                    <th>Offer</th>
+                    <th>Claims</th>
+                    <th>Redeemed</th>
+                    <th>Meals</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody id="offersTable">
+                <!-- Populated by JS -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        let allData = {};
+        
+        async function loadDashboard() {
+            const response = await fetch('/api/dashboard');
+            allData = await response.json();
+            
+            document.getElementById('totalOffers').textContent = allData.stats.total_offers;
+            document.getElementById('totalClaims').textContent = allData.stats.total_claims;
+            document.getElementById('totalRedemptions').textContent = allData.stats.total_redemptions;
+            document.getElementById('totalMeals').textContent = allData.stats.total_meals;
+            
+            renderTable(allData.offers);
+        }
+        
+        function renderTable(offers) {
+            const tbody = document.getElementById('offersTable');
+            tbody.innerHTML = offers.map(o => `
+                <tr>
+                    <td><strong>${o.business_name}</strong></td>
+                    <td>${o.offer_title}</td>
+                    <td>${o.claims_count}</td>
+                    <td>${o.redeemed_count}</td>
+                    <td>${o.redeemed_count} 🍽️</td>
+                    <td><span class="status ${o.is_active ? 'active' : 'expired'}">${o.is_active ? 'Active' : 'Expired'}</span></td>
+                </tr>
+            `).join('');
+        }
+        
+        function showTab(tab) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            if (tab === 'offers') renderTable(allData.offers);
+            // Other tabs can filter here
+        }
+        
+        function generateReport() {
+            alert('📄 Monthly Report\n\n' + 
+                `Total Meals Donated: ${allData.stats.total_meals}\n` +
+                `Total Redemptions: ${allData.stats.total_redemptions}\n` +
+                `Total Claims: ${allData.stats.total_claims}\n\n` +
+                'Download coming soon!');
+        }
+        
+        loadDashboard();
+    </script>
+</body>
+</html>
