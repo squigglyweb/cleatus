@@ -1,0 +1,16 @@
+{
+  "name": "tln-offer-system",
+  "version": "1.0.0",
+  "description": "The Local NearBuy offer system",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "sqlite3": "^5.1.6",
+    "qrcode": "^1.5.3",
+    "nodemailer": "^6.9.4",
+    "crypto": "^1.0.1"
+  }
+}
