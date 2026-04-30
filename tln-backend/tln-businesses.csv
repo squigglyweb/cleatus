@@ -1,0 +1,384 @@
+Name,Address,Category,Rating,Reviews,PlaceID,Lat,Lng
+"Little Mama’s Italian","9825 Sandy Rock Pl, Charlotte, NC 28277, USA","restaurant",4.6,773,ChIJScJKpy0nVIgRnsNxR64wDRw,35.0528498,-80.7737116
+"Aroma Indian Grill & Bar","9648 Red Stone Dr, Indian Land, SC 29707, USA","restaurant",4.2,721,ChIJba2RB1mDVogRL8ozufEqleQ,34.999169099999996,-80.8532527
+"QuikTrip","10910 Golf Links Dr, Charlotte, NC 28277, USA","restaurant",4,90,ChIJ58sseswnVIgRdaucIxtmULc,35.0545391,-80.76905219999999
+"131 MAIN Restaurant","9886 Rea Rd, Charlotte, NC 28277, USA","restaurant",4.6,2023,ChIJ2ZixZQIoVIgRha85YG8vXqc,35.034089,-80.808956
+"Chick-fil-A","6390 Weddington Rd, Matthews, NC 28104, USA","restaurant",4.5,1532,ChIJSVbZaxcvVIgRwCKCkoPucU4,35.000411,-80.6950541
+"Chick-fil-A","10032 Charlotte Hwy, Indian Land, SC 29707, USA","restaurant",4.4,1838,ChIJ27Bh1-KCVogRixQJZad5FmQ,35.0103516,-80.85215989999999
+"Shake Shack Blakeney","9824 Rea Rd A, Charlotte, NC 28277, USA","restaurant",4.2,872,ChIJEw31lsUpVIgRoCiJdd1vjh8,35.03433,-80.80637
+"Duckworth's Grill & Taphouse","9805-D Sandy Rock Pl, Charlotte, NC 28277, USA","restaurant",4.2,1289,ChIJb5WG_yAnVIgRjwypJHVKyHs,35.0539704,-80.7734576
+"McDonald's","9710 Rea Rd, Charlotte, NC 28277, USA","restaurant",3,976,ChIJtT9KQAEoVIgRAW2QH3W3kaY,35.037213099999995,-80.8057462
+"Burtons Grill & Bar","9816 Rea Rd, Charlotte, NC 28277, USA","restaurant",4.4,811,ChIJUb5muispVIgRYIhsVrS6hDA,35.035491199999996,-80.80610879999999
+"Big View Diner","16637 Lancaster Hwy, Charlotte, NC 28277, USA","restaurant",4.2,3028,ChIJty9JWOeCVogRNHmdFIlhxoI,35.022433,-80.8484598
+"Chuy's","7314 Waverly Walk Ave E-8, Charlotte, NC 28277, USA","restaurant",4.1,1937,ChIJb1U-4swnVIgRJvyqv3qMU3s,35.0519211,-80.76762509999999
+"Whataburger","8576 Charlotte Hwy, Indian Land, SC 29707, USA","restaurant",3.8,361,ChIJEwqBeACDVogRNWSOj7uBR6U,34.9614359,-80.8527539
+"Aahaar25 Indian Vegetarian Restaurant","9824 Rea Rd B, Charlotte, NC 28277, USA","restaurant",4.5,567,ChIJZ62mxsEpVIgR3Ht8gXo0Kv8,35.03433,-80.80637
+"QuikTrip","9565 Charlotte Hwy, Indian Land, SC 29707, USA","restaurant",3.7,77,ChIJr4lEo6yDVogRGdLMxp9ifEI,34.995326899999995,-80.8556998
+"Jeff's Bagel Run","9941 Rea Rd C, Charlotte, NC 28277, USA","restaurant",4.5,284,ChIJbxjth-8pVIgRpgyPoiuAqD0,35.0341161,-80.80483810000001
+"Chick-fil-A","11530 Waverly Center Dr, Charlotte, NC 28277, USA","restaurant",4.4,1183,ChIJ-W-5VcwnVIgRA4A2K2tRbgQ,35.052938499999996,-80.7690033
+"Emmets Social Table","401 E South Main St, Waxhaw, NC 28173, USA","restaurant",4.6,1200,ChIJ14Q3VZQrVIgR2s0dYg__m-E,34.9247525,-80.74041230000002
+"Andy's Frozen Custard","9921 Rea Rd, Waxhaw, NC 28173, USA","restaurant",4.4,788,ChIJ_ao6mi8pVIgRndh8tzn4lPU,35.01901,-80.80612
+"CAVA","6307 Providence Farm Ln, Charlotte, NC 28277, USA","restaurant",4.5,1619,ChIJEVgCmssnVIgRzKYKOKi-KB8,35.0560778,-80.7690818
+"Paris Baguette","9826 Sandy Rock Pl A, Charlotte, NC 28277, USA","cafe",4.2,176,ChIJ-de8mGcnVIgRZhRL6A8EG6U,35.052814399999995,-80.7741518
+"The Union Exchange","2022 New Town Rd, Monroe, NC 28110, USA","cafe",4.9,151,ChIJ7_p1WSMxVIgRNHNe8Z0xbAo,34.973573,-80.608679
+"Daily grind coffee bar","116 E South Main St, Waxhaw, NC 28173, USA","cafe",4.4,103,ChIJEfph2hUrVIgR6x0pe8Ix2LA,34.9245977,-80.74287559999999
+"McDonald's","10108 Charlotte Hwy, Fort Mill, SC 29707, USA","cafe",3.2,1827,ChIJ9a6PA-OCVogRbcayqMqDVxI,35.0126995,-80.8513498
+"Starbucks Coffee Company","11510 Waverly Center Dr, Charlotte, NC 28277, USA","cafe",4.2,594,ChIJT35qZswnVIgRxNRIUf056kg,35.05366,-80.76912
+"Panera Bread","11630 Waverly Center Dr, Charlotte, NC 28277, USA","cafe",3.5,796,ChIJuf9Qo80nVIgRauaVNVwMn8I,35.051455,-80.76915900000002
+"McDonald's","11620 Waverly Center Dr, Charlotte, NC 28277, USA","cafe",3,905,ChIJ126yss0nVIgRrz_d5f1XuRU,35.0524516,-80.76899709999999
+"McDonald's","2532 Cuthbertson Rd, Waxhaw, NC 28173, USA","cafe",3.3,1087,ChIJnzWsQHspVIgRAXeIq-NH77w,34.956811,-80.756979
+"Cast Iron Waffles","9604 Longstone Ln, Charlotte, NC 28277, USA","cafe",4.5,687,ChIJPeM1CsOCVogRQ4bnzqnjGQM,35.0261723,-80.84064980000001
+"Brazilian Eats & Treats","16049 Johnston Rd K, Charlotte, NC 28277, USA","cafe",4.9,321,ChIJebzMlJ6DVogRqo9FQAOEOcQ,35.02933,-80.85016
+"OGGI Ristorante Italiano","16646 Hawfield Way Dr, Charlotte, NC 28277, USA","cafe",4.3,874,ChIJy2QJYueCVogR4OpF_3CB-2o,35.0226568,-80.8468386
+"Breezeway Coffee (Formerly Cafe Moka)","7416 Waverly Walk Ave H3, Charlotte, NC 28277, USA","cafe",4.1,376,ChIJ9_BuwwEnVIgRxVLI2vk1ass,35.0510115,-80.7669662
+"Dunkin'","16131 Lancaster Hwy, Charlotte, NC 28277, USA","cafe",3.4,420,ChIJscEyLdmCVogRuLZpYBHPdqk,35.028469699999995,-80.8511245
+"The Lights Cafe","16631 Lancaster Hwy #107, Charlotte, NC 28277, USA","cafe",4.6,404,ChIJMXMk8d2CVogR-OkX6ra9fqk,35.0233991,-80.8486088
+"Sweetwaters Coffee & Tea","9623 Red Stone Dr Suite 500, Indian Land, SC 29707, USA","cafe",4.6,417,ChIJ2dWn_A6DVogRGGSo95Kem_g,34.998438,-80.8548208
+"Starbucks Coffee Company","7716 Charlotte Hwy, Indian Land, SC 29707, USA","cafe",3.2,330,ChIJEwnZ7FyBVogRi6WoVpIxJqU,34.93814,-80.83653000000001
+"Starbucks Coffee Company","Blakeney, 9820-A Rea Rd, Charlotte, NC 28277, USA","cafe",4.1,300,ChIJt8MC4AAoVIgR7-n8bIt5zGQ,35.0347685,-80.8056249
+"McDonald's","5925 Weddington Rd, Wesley Chapel, NC 28104, USA","cafe",3.2,888,ChIJh9dPUD0vVIgR92hv4xs-iRQ,35.001525,-80.700578
+"Carolina Ale House - Charlotte-Waverly","7404 Waverly Walk Ave I-1, Charlotte, NC 28277, USA","bar",4.4,3283,ChIJZ2f_L80nVIgRGMqF-3HCraY,35.0514882,-80.76762310000001
+"The Club House Bites and Booze","16715 Orchard Stone Run Ste 200, Charlotte, NC 28277, USA","bar",4.5,361,ChIJ6a5WOZiDVogRXHgHmpQIMLg,35.0263546,-80.83886009999999
+"Maxwell's Tavern","112 E South Main St, Waxhaw, NC 28173, USA","bar",4.7,1696,ChIJhbd4gpUrVIgRRfd-6AhrVPo,34.9246167,-80.7430444
+"Ilios Noche","11508 Providence Rd, Charlotte, NC 28277, USA","bar",4.5,1144,ChIJbzHqL8wnVIgReNw_E1pRdgs,35.05312300000001,-80.77071099999999
+"Mary O'Neill's Irish Pub","116 W North Main St, Waxhaw, NC 28173, USA","bar",4.7,1824,ChIJb6a80b8rVIgRlD0PD2CgEps,34.9252129,-80.7441802
+"Chili's Grill & Bar","9730 Rea Rd, Charlotte, NC 28277, USA","bar",3.9,1044,ChIJz5RGWAEoVIgR1dBkoGQJvJY,35.03611,-80.805323
+"DB's Tavern","8155 Ardrey Kell Rd, Charlotte, NC 28277, USA","bar",4.4,565,ChIJNcrZJgooVIgREKp4CrBerPE,35.0387588,-80.7932634
+"Brixx Wood Fired Pizza + Craft Bar","9820 Rea Rd, Charlotte, NC 28277, USA","bar",4.4,835,ChIJI2vT6gMoVIgRDiJaxq9xAqE,35.0345855,-80.80592159999999
+"Hickory Tavern","11504 Providence Rd N, Charlotte, NC 28277, USA","bar",4,1096,ChIJo45_I8wnVIgRUQ2KxEtMMSo,35.0534568,-80.77079189999999
+"Waxhaw Tap House","110 McDonald St, Waxhaw, NC 28173, USA","bar",4.6,388,ChIJLbWe3AArVIgR2QggExCd6QE,34.925968000000005,-80.74434579999999
+"Hickory Tavern","6400 Weddington Rd Suite H, Wesley Chapel, NC 28104, USA","bar",4.1,1125,ChIJk6cBEwwvVIgRFryJcUddeA0,35.000588,-80.6936782
+"Chili's Grill & Bar","7704 Charlotte Hwy, Indian Land, SC 29707, USA","bar",3.8,1029,ChIJu-z_zsCBVogR6aISkWKb6Do,34.936678,-80.83587
+"Miku Asian Kitchen","8129 Ardrey Kell Rd, Charlotte, NC 28277, USA","bar",4.5,255,ChIJ4ZQDJSspVIgR53iThz5hmso,35.038884599999996,-80.7947559
+"Hickory Tavern","8364 Charlotte Hwy, Fort Mill, SC 29707, USA","bar",4.1,1370,ChIJd-l3osqDVogRauP2VpkdO8Y,34.954809,-80.8509152
+"Foxcroft Food & Wine - Waverly","7416 Waverly Walk Ave SUITE H-1A, Charlotte, NC 28277, USA","bar",4.6,186,ChIJTSUPVx4nVIgRhAB7isYSw94,35.0510112,-80.76732559999999
+"Walmart Supercenter","10048 Charlotte Hwy, Indian Land, SC 29707, USA","bakery",3.9,4628,ChIJO7Tw3-KCVogR0lXkrEAch48,35.0112118,-80.84954019999999
+"Whole Foods Market","7221 Waverly Walk Ave, Charlotte, NC 28277, USA","bakery",4.4,1488,ChIJx47_MM0nVIgRiqiMCJ90RLc,35.0531552,-80.7673253
+"Publix Super Market at Cross Creek","8360 Charlotte Hwy, Indian Land, SC 29707, USA","bakery",4.6,1265,ChIJjR6Sn8qDVogRKdKpdu-cykM,34.9562039,-80.8496961
+"Publix Super Market at Marvin Gardens","1615 Providence Rd S, Marvin, NC 28173, USA","bakery",4.6,867,ChIJQ0aD85gpVIgRex4h196oUjk,34.9876791,-80.7710245
+"Walmart Neighborhood Market","2520 Cuthbertson Rd, Waxhaw, NC 28173, USA","bakery",4.1,970,ChIJc16WOHspVIgRuEuQd4nMPFw,34.9583942,-80.756204
+"Harris Teeter","11135 Golf Links Dr, Charlotte, NC 28277, USA","bakery",4.6,1199,ChIJzctfkk4nVIgRMX9WXIlluUs,35.0518613,-80.7727271
+"Harris Teeter","8157 Kensington Dr, Waxhaw, NC 28173, USA","bakery",4.4,710,ChIJRxprGnwpVIgR4hbzkkdriGo,34.9538199,-80.75946909999999
+"Harris Teeter","5920 Weddington Monroe Rd, Wesley Chapel, NC 28104, USA","bakery",4.4,922,ChIJqaNnVKAvVIgRWU7v5ANvQuM,34.9998461,-80.70005680000001
+"Harris Teeter","6271 Carolina Commons Dr, Indian Land, SC 29707, USA","bakery",4.4,993,ChIJ0UXoG8GCVogRAa2xWpzWPys,34.9369197,-80.8384727
+"Harris Teeter","16625 Lancaster Hwy, Charlotte, NC 28277, USA","bakery",4.4,809,ChIJq1w3wt2CVogR4AY6Yk2ZO10,35.0242697,-80.84803939999999
+"Tous les Jours Ballantyne","16709 Orchard Stone Run Ste300, Charlotte, NC 28277, USA","bakery",4.6,120,ChIJB8FZw6uDVogRSB-LsFV03fQ,35.0266893,-80.8387736
+"Harris Teeter","9720 Rea Rd, Charlotte, NC 28277, USA","bakery",4.4,643,ChIJPa-_fAEoVIgRZOEDgrd7Yuc,35.0363543,-80.80682759999999
+"Harris Teeter","13639 Providence Rd, Matthews, NC 28104, USA","bakery",4.4,410,ChIJKUxIMYkoVIgRDm5Pl5dng8s,35.02394410000001,-80.760964
+"Cold Stone Creamery","9820 Rea Rd Suite B, Charlotte, NC 28277, USA","bakery",3.9,216,ChIJI2vT6gMoVIgRyJMbWqP_cAs,35.034747599999996,-80.80565829999999
+"Virtuoso Breadworks","205 Salem St, Waxhaw, NC 28173, USA","bakery",4.8,372,ChIJp_Dh0U4rVIgRs3zaGE31j1Q,34.9238061,-80.7391758
+"Lidl","9990 Charlotte Hwy, Indian Land, SC 29707, USA","grocery_store",4.4,1562,ChIJYRC-pf2CVogR9TW3EZLeve4,35.0090378,-80.85324109999999
+"Lowes Foods of Indian Land","2230 Daisy Ln, Indian Land, SC 29707, USA","grocery_store",4.4,140,ChIJ6-tz7OmDVogRI0MbQdn8cS4,34.9727496,-80.8510226
+"ALDI","9553 Charlotte Hwy, Indian Land, SC 29707, USA","grocery_store",4.5,762,ChIJf9IGxKyDVogR8QftuYlZKUM,34.994371,-80.85553
+"EUROPEAN FOOD MARKET/EXXON","9792 Charlotte Hwy, Indian Land, SC 29707, USA","grocery_store",4.5,350,ChIJq0D_PQCDVogR3HlmnAg5GE8,35.0027573,-80.8549762
+"Food Lion","5939 Weddington Rd, Wesley Chapel, NC 28104, USA","grocery_store",4.7,172,ChIJX1Snm9EvVIgRLjAEVzwXCt8,35.0031786,-80.6998734
+"Radhe Indian SuperMarket","9520 Charlotte Hwy, Fort Mill, SC 29707, USA","grocery_store",4.7,86,ChIJ7VajzF-DVogRullBwlevytQ,34.993170899999996,-80.8534541
+"ALDI","2909 Providence Rd S, Waxhaw, NC 28173, USA","grocery_store",4.5,246,ChIJ54DKErMpVIgRo75Oq7y-Fh0,34.961003999999996,-80.76029199999999
+"Food Lion","1301 N Broome St, Waxhaw, NC 28173, USA","grocery_store",4.4,392,ChIJ7wZmX8ErVIgR61xewL9fgFk,34.93419780000001,-80.7511291
+"Food Lion","8175 Charlotte Hwy, Fort Mill, SC 29707, USA","grocery_store",4.5,618,ChIJBR_kXoSBVogRQyAkJ9fTJ-c,34.9491666,-80.8484799
+"Target","9870 Rea Rd, Charlotte, NC 28277, USA","store",3.8,469,ChIJ3Zq9lQEoVIgRhY0hgofgiBs,35.0374918,-80.80770059999999
+"Marshalls & HomeGoods","9876-B Rea Rd, Charlotte, NC 28277, USA","store",4,1476,ChIJP6plGwIoVIgRke2f0QU3fqM,35.036159,-80.809311
+"Target","6350 Weddington Rd, Wesley Chapel, NC 28104, USA","store",4.2,487,ChIJ4dFrcRcvVIgRkr36upyQT_0,34.999493699999995,-80.6966638
+"Lowe's Home Improvement","181 Fort Mill Hwy, Indian Land, SC 29707, USA","store",4.1,1679,ChIJk-9aD6qDVogRAxJoSeoePvg,35.000057,-80.858481
+"Costco Wholesale","8800 Charlotte Hwy, Indian Land, SC 29707, USA","store",4.5,310,ChIJJdt4RgCDVogRx-y2AoLwX2A,34.9700266,-80.8519389
+"Kohl's","601 Sherman Pl, Waxhaw, NC 28173, USA","store",4.4,1270,ChIJGdV9D5wuVIgR6ONWHGtNqr0,35.016923,-80.8010406
+"Lowe's Home Improvement","2508 Cuthbertson Rd, Waxhaw, NC 28173, USA","store",4.2,1174,ChIJ2fRxt3ApVIgRgXmfc_X1vuM,34.962629,-80.75961099999999
+"Southern Spirits - World's 2nd Best Liquor Store (Beer, Wine, THC, Liquor Store)","9989 Charlotte Hwy, Indian Land, SC 29707, USA","store",4.6,1859,ChIJx-qMdwKDVogRHLAgf1MNUlc,35.008877,-80.8542983
+"Best Buy","9839 Rea Rd, Charlotte, NC 28277, USA","store",4.1,1911,ChIJK9ncPwQoVIgRm99b_WDXtJo,35.0345734,-80.80337949999999
+"Hobby Lobby","7816 Charlotte Hwy, Indian Land, SC 29707, USA","store",4.6,1296,ChIJ8zJTOFuBVogRuRI7RvKkWLA,34.9403864,-80.8352922
+"Stonebridge Golf Club","2721 Swilcan Burns Drive, Monroe, NC 28112, USA","store",4.4,364,ChIJ07ciSwAyVIgRs37Vuzt7yTw,34.9386935,-80.63171210000002
+"T.J. Maxx","7804 Charlotte Hwy, Fort Mill, SC 29707, USA","store",4.3,481,ChIJY2SUDq2BVogR4COoBUjT0uU,34.939599,-80.83510299999999
+"Blakeney Town Center","9870 Rea Rd, Charlotte, NC 28277, USA","shopping_mall",4.5,2734,ChIJ3Zq9lQEoVIgRYe1l2L-AaQs,35.0348188,-80.8064721
+"Waverly","Ardrey Kell Rd, Charlotte, NC 28277, USA","shopping_mall",4.5,1856,ChIJrWbMas0nVIgRSN6QTc76W1o,35.0519044,-80.7680542
+"Rea Farms","9930 Sandy Rock Pl, Charlotte, NC 28277, USA","shopping_mall",4.5,265,ChIJhwWdLQonVIgRExYYZFwOXT8,35.0506613,-80.77412489999999
+"Cureton Town Center","8157 Kensington Dr, Waxhaw, NC 28173, USA","shopping_mall",4.4,685,ChIJVVIJQHwpVIgRzFgPnX1KvKE,34.954413699999996,-80.75870809999999
+"Promenade at Carolina Reserve","US 521 at, Jim Wilson Rd, Indian Land, SC 29707, USA","shopping_mall",4.4,860,ChIJReKqQk2BVogRWyFJQw2-NJQ,34.9397713,-80.8356354
+"The Fountains","8173 Ardrey Kell Rd, Charlotte, NC 28277, USA","shopping_mall",4.4,84,ChIJrUF9hQkoVIgRrznNlL8Hfe0,35.0385146,-80.7940374
+"Carolina Commons","Carolina Commons Dr, Indian Land, SC 29707, USA","shopping_mall",4.5,444,ChIJKXPBhZaBVogRKAhFXUuDvlc,34.9378117,-80.8383716
+"The Shoppes at Ardrey Kell","16615 Lancaster Hwy, Charlotte, NC 28277, USA","shopping_mall",4.4,844,ChIJLVF08d2CVogRYUTDa88-Psc,35.0233139,-80.8478863
+"Village Commons","6300 Weddington Rd, Wesley Chapel, NC 28104, USA","shopping_mall",4.5,509,ChIJEV5QBxgvVIgROgPOZ_YgetY,35.000166,-80.6992296
+"Shoppes at 521","9789 Charlotte Hwy, Indian Land, SC 29707, USA","shopping_mall",4.5,135,ChIJZ2KQSACDVogRmvaHX4yaLp4,35.0036743,-80.8559951
+"The Shoppes at Millview","116 E South Main St, Waxhaw, NC 28173, USA","shopping_mall",4.7,15,ChIJedehInorVIgRj1nHwkpK6Ns,34.9245625,-80.7412971
+"The Commons At Doby's Bridge","Charlotte Hwy #8439, Indian Land, SC 29707, USA","shopping_mall",4.5,32,ChIJkc3C83-BVogRMTKS1zHgDXY,34.9567089,-80.85482499999999
+"Catawba Commons","8165 Charlotte Hwy, Indian Land, SC 29707, USA","shopping_mall",4.5,49,ChIJAStxwdmBVogR_Fmjryn7jQ8,34.9496991,-80.847112
+"Carolina Crossing","9931 Charlotte Hwy, Indian Land, SC 29707, USA","shopping_mall",0,0,ChIJH2IyBwCDVogRvbcZ8VfP4-A,35.0070878,-80.8546226
+"Belle Rea Building","11301 Golf Links Dr N, Charlotte, NC 28277, USA","shopping_mall",4.3,13,ChIJbeKNZ-8nVIgRsszbXn4EcIc,35.055214899999996,-80.7703464
+"Rea Village","11524 Providence Rd, Charlotte, NC 28277, USA","shopping_mall",4.6,173,ChIJ3zMaNMwnVIgRWugA4YyJhPI,35.0527054,-80.77022099999999
+"Beautie by Mary","9855 Sandy Rock Pl, Charlotte, NC 28277, USA","shopping_mall",0,0,ChIJIV9eOg0nVIgRyqecvhhepmI,35.052344999999995,-80.773442
+"Ulta Beauty","7211 Waverly Walk Ave JR-1, Charlotte, NC 28277, USA","beauty_salon",4,273,ChIJRxX3kswnVIgR20vai6k753Y,35.0536549,-80.7674469
+"IDOLIZE Brows and Beauty at Rea Farms","9825 Sandy Rock Pl suite f, Charlotte, NC 28277, USA","beauty_salon",4.9,810,ChIJu69hGQAnVIgRznIObmj45f8,35.052843700000004,-80.7735502
+"Ulta Beauty","7796 Charlotte Hwy Ste 100, Indian Land, SC 29707, USA","beauty_salon",4.4,251,ChIJjTPHQHaBVogRjq2T4zePhj8,34.938732099999996,-80.8348687
+"Anira brows and beauty","16631 Lancaster Hwy, Charlotte, NC 28277, USA","beauty_salon",5,476,ChIJcd6etIqDVogRjXk0-juvRxs,35.0232662,-80.84864639999999
+"Hand & Stone Massage and Facial Spa","16615 Lancaster Hwy Suite 7, Charlotte, NC 28277, USA","beauty_salon",4.4,445,ChIJDw9fCt6CVogR8CBuZVUwsBY,35.024231,-80.8489985
+"Hand & Stone Massage and Facial Spa","7315 Waverly Walk Ave F1-5, Charlotte, NC 28277, USA","beauty_salon",4.2,241,ChIJtXOM6jodVIgRZBnLf_-Tk5s,35.0522578,-80.7671648
+"Pigtails & Crewcuts: Haircuts for Kids - Charlotte - Blakeney, NC","9935 Rea Rd Suite C, Charlotte, NC 28277, USA","beauty_salon",4.5,457,ChIJW0e1dwQoVIgRxfNtgBJeFeM,35.033804599999996,-80.80455549999999
+"Roosters Men's Grooming Center","9905 Sandy Rock Pl suite f, Charlotte, NC 28277, USA","beauty_salon",4.8,889,ChIJlYgIzs0nVIgRK1OgRF9K1ZQ,35.051754599999995,-80.7735285
+"Ultra Nail Boutique","9925 Rea Rd, Waxhaw, NC 28173, USA","beauty_salon",4.8,993,ChIJjzGedQspVIgRBX46cH_x7KU,35.0196647,-80.8066711
+"Element 5 Salon - Ballantyne","The Shoppes at Ardrey Kell, 16615 Lancaster Hwy #105, Charlotte, NC 28277, USA","beauty_salon",4.7,389,ChIJSVpcCt6CVogRfR98zshXuws,35.024059,-80.848952
+"Aloha Nails Rea Farms","9905 Sandy Rock Pl suite e, Charlotte, NC 28277, USA","beauty_salon",4.7,1049,ChIJu4K2ThMnVIgRFbumdN8n_No,35.0516461,-80.7736757
+"Hot Nails RU","11054A Cedar Walk Lane, Charlotte, NC 28277, USA","beauty_salon",4.8,76,ChIJU6OqMAonVIgRJPKAn1UC3fQ,35.0264363,-80.8402747
+"Planet 21 Salon","8031 Ardrey Kell Rd #200, Charlotte, NC 28277, USA","beauty_salon",4.6,104,ChIJt-Wf7QkoVIgRod_UYUqrAGo,35.039439,-80.79428279999999
+"Great Clips","16049 Johnston Rd, Charlotte, NC 28277, USA","beauty_salon",4.1,226,ChIJpWdzR9mCVogRMEPxt3OWdHU,35.0292993,-80.8501685
+"Aloha Nails Blakeney","9935 Rea Rd Suite B, Charlotte, NC 28277, USA","beauty_salon",4.3,369,ChIJF_v2hwMoVIgRHNLJXmPdSpk,35.033786,-80.80448009999999
+"Salon Lofts","9904 Sandy Rock Pl suite 1, Charlotte, NC 28277, USA","beauty_salon",4.6,47,ChIJF7Rt8P4nVIgRIR4uryQcALg,35.0517547,-80.7741753
+"Mimosas Nail Bar- Indian Land","9695 Red Stone Dr Suite 400, Indian Land, SC 29707, USA","beauty_salon",4.6,629,ChIJ_y4D6zSDVogRdaLkS9AFIzs,34.9991465,-80.85486039999999
+"Modern Salon & Spa | Waverly","7315 Waverly Walk Ave Suite F1-6, Charlotte, NC 28277, USA","beauty_salon",4.8,224,ChIJIyxgMM0nVIgRFtEaeoFLrVI,35.0521332,-80.76714989999999
+"Great Clips","6277 Carolina Commons Dr Ste 700, Indian Land, SC 29707, USA","beauty_salon",4.4,184,ChIJ7QGWd5aBVogRvlPR7USltNY,34.9373928,-80.8384833
+"Massage Envy","9905 Sandy Rock Pl Suite B and D, Charlotte, NC 28277, USA","beauty_salon",3.9,49,ChIJFWFyCgQoVIgR9NfOe0ogwYk,35.051701,-80.773772
+"V's Barbershop - Charlotte Waverly","7416 Waverly Walk Ave Suite H-1B, Charlotte, NC 28277, USA","hair_care",4.9,1168,ChIJNdON5i0nVIgRbZ7H4VvnTow,35.051004899999995,-80.7670438
+"Brush'd Salon","9925 Rea Rd Unit 102, Waxhaw, NC 28173, USA","hair_care",4.8,298,ChIJ__9P6qiCVogRDgeZw9TyxbI,35.019791399999995,-80.8067434
+"Nails So Dep!","7710 Charlotte Hwy Ste 106, Indian Land, SC 29707, USA","hair_care",4.4,492,ChIJ61gDSL6BVogR64qVxTSU40o,34.9374788,-80.8360103
+"Sport Clips Haircuts of Blakeney","9831 Rea Rd B, Charlotte, NC 28277, USA","hair_care",4.7,400,ChIJaTn49QMoVIgR63h8wl5CbcE,35.0349,-80.80453
+"Wolf's Haircuts for Men","9716 Red Stone Dr Suite 200, Indian Land, SC 29707, USA","hair_care",4.9,783,ChIJNwCJDGdpQUERpkjhxIiHCQ0,35.000033099999996,-80.8541685
+"Sabina Hair and Spa","2024 Bridgemill Dr unit 108, Indian Land, SC 29707, USA","hair_care",4.9,117,ChIJf1rVyFiDVogRgbbXgLJGiiA,34.9800415,-80.85691829999999
+"The Hilt Salon","4889 Charlotte Hwy, Lancaster, SC 29720, USA","hair_care",4.9,497,ChIJe9Kv5pDVVYgRI6KZdw77gss,34.8538894,-80.80811299999999
+"Harmony Salon & Spa","9812 Rea Rd A, Charlotte, NC 28277, USA","hair_care",4.4,216,ChIJKcsD0AMoVIgRGqEQ9st7lxg,35.0352242,-80.8070094
+"Crunch Fitness - Ballantyne","16045 Johnston Rd A, Charlotte, NC 28277, USA","spa",4.5,1838,ChIJJT-oNdKDVogR9ks_7VipTTs,35.029796,-80.8498805
+"Darst Dermatology","11301 Golf Links Dr N #203, Charlotte, NC 28277, USA","spa",3.6,95,ChIJ-_3s9csnVIgRXYGd4KYkVQ0,35.0552929,-80.7703214
+"521 SPA & MASSAGE","9789 Charlotte Hwy #1400, Indian Land, SC 29707, USA","spa",4.9,379,ChIJdUATVi2DVogRjYJDaLwyfAM,35.0044834,-80.8564476
+"Piedmont Plastic Surgery & Dermatology in Charlotte","5815 Blakeney Park Dr STE 100, Charlotte, NC 28277, USA","spa",4.5,670,ChIJs8EFBwMoVIgRHC6e0YImjbE,35.0332413,-80.8069399
+"True REST Float Spa Fort Mill","9664 Red Stone Dr, Indian Land, SC 29707, USA","spa",4.8,96,ChIJjXdnnvmDVogRqi5uyhLakFg,35.0000727,-80.8535632
+"Hand & Stone Massage and Facial Spa","7756 Charlotte Hwy, Indian Land, SC 29707, USA","spa",4.6,152,ChIJIcN_if2BVogR6vBXS1lU2JM,34.9404623,-80.83721179999999
+"Serene Dental Spa","13700 Providence Rd #110, Weddington, NC 28104, USA","spa",5,659,ChIJ95BfookoVIgRbQuxbCopF_o,35.0231437,-80.76389309999999
+"European Wax Center","9882 Rea Rd, Charlotte, NC 28277, USA","spa",4.8,639,ChIJcZ0VEwIoVIgR_AZxVN-aN0U,35.0350221,-80.8091962
+"Novella Form & Facial","5955 Weddington Rd, Wesley Chapel, NC 28104, USA","spa",4.9,130,ChIJJbXPlXovVIgRIGMteoC9q94,35.002437,-80.6988733
+"European Wax Center","1615 Providence Rd S Suite 250, Waxhaw, NC 28173, USA","spa",4.9,280,ChIJm9_Cc1-BhYARWscE0lUDa_s,34.987057899999996,-80.7717649
+"OVME","7314 Waverly Walk Ave E7, Charlotte, NC 28277, USA","spa",4.8,171,ChIJ9YEChbknVIgRp9cPx2pXepU,35.0521118,-80.76759849999999
+"European Wax Center","9664 Red Stone Dr, Indian Land, SC 29707, USA","spa",4.9,490,ChIJl4FPWa2DVogR-cnX4qlQG2I,35.0000727,-80.8535632
+"Massage Envy","8139 Kensington Dr, Waxhaw, NC 28173, USA","spa",3.8,91,ChIJLRhCGnwpVIgRUGlTsJTtm6g,34.954579599999995,-80.7597667
+"Life Time","11220 Golf Links Dr, Charlotte, NC 28277, USA","gym",3.9,641,ChIJk4Khps4nVIgR_zNRCdbBO6c,35.0547132,-80.7741351
+"Morrison Family YMCA","9405 Bryant Farms Rd, Charlotte, NC 28277, USA","gym",3.5,151,ChIJk8gyoLSCVogR4Nfoj19nOnI,35.041623,-80.827736
+"Indian Land YMCA","2816 Worldreach Dr, Indian Land, SC 29707, USA","gym",4.5,299,ChIJ107C0z2DVogRpVe7-RNVU6E,34.961964,-80.848333
+"Country Club of the Carolinas","1108 Firethorne Club Dr, Marvin, NC 28173, USA","gym",4.6,220,ChIJzfYWh4yCVogREeT1Qb0Tte0,35.004823,-80.826933
+"Southeastern Gymnastics","13601 Providence Rd, Weddington, NC 28104, USA","gym",4,35,ChIJHfSMRNcpVIgRD6u9J7fJtHI,35.0247217,-80.76191279999999
+"C2X Academy","9364 Old Bailes Rd, Fort Mill, SC 29707, USA","gym",5,64,ChIJ8fxMeVqCVogR8s7Bk7VutXA,34.99069180000001,-80.87268490000001
+"IMPACT ONE Allstars","429 Marvin Rd, Fort Mill, SC 29707, USA","gym",4.6,35,ChIJzev7dVCCVogRvy0ic3IHjCA,34.9924173,-80.8435557
+"Dream Yoga & Wellness","9662 Red Stone Dr, Indian Land, SC 29707, USA","gym",4.9,88,ChIJryMNSASDVogRQBUgCRRr3Kg,35.0001903,-80.853134
+"Burn Boot Camp","5924 Weddington Rd, Wesley Chapel, NC 28104, USA","gym",4.9,81,ChIJT-u5k_QvVIgRseuwRMovoa4,34.999922399999996,-80.6983535
+"Tuck37 Gymnastics","9499 Old Bailes Rd Suite 109, Fort Mill, SC 29707, USA","gym",4.8,13,ChIJs54tVtmDVogRYK2cesOZuYs,34.994886099999995,-80.87717479999999
+"Just Be Dance Academy","8919 Kathleen Ct, Indian Land, SC 29707, USA","gym",4.8,40,ChIJ-4oMaICEVogRf8bX6ZtkPKg,34.989682099999996,-80.8729886
+"Anytime Fitness","5941 Weddington Rd, Wesley Chapel, NC 28104, USA","gym",4.3,110,ChIJ_Q0WKiUvVIgRkRe12ImKg54,35.003080499999996,-80.6999804
+"My Gym","9852 Rea Rd Unit A2, Charlotte, NC 28277, USA","gym",4.8,57,ChIJRf2pVgEoVIgRcFHhhdVxDDI,35.0350533,-80.8075641
+"D1 Training Indian Land","8811 Charlotte Hwy Suite 104, Indian Land, SC 29707, USA","gym",5,224,ChIJj5Sc72GDVogRr87EXVym2S4,34.968923700000005,-80.8542117
+"Atha Yoga","9852 Rea Rd D2, Charlotte, NC 28277, USA","gym",5,209,ChIJ9TDDK7wpVIgRPphsomoH47E,35.035055199999995,-80.8073691
+"ISI Elite Training - Ballantyne, NC","16721 Orchard Stone Run Suite 140, Charlotte, NC 28277, USA","gym",4.8,67,ChIJYdr53CWDVogRtoAqCkEFWVk,35.0263229,-80.83914279999999
+"Burn Boot Camp","9030 Northfield Dr Unit G, Indian Land, SC 29707, USA","gym",5,133,ChIJ4Y3AQdODVogRV51y4zjykS8,34.964833299999995,-80.8559192
+"Coffey Courts and Event Center","5128 Lee Massey Rd, Waxhaw, NC 28173, USA","gym",4.5,4,ChIJbxfOeJktVIgRwri9bEAzQys,34.927462,-80.6855503
+"ISI Elite Training Waxhaw, NC","1621 Providence Rd S Suite 330-340, Waxhaw, NC 28173, USA","gym",4.9,36,ChIJI_6isa8pVIgRMyOPPi7rXBk,34.9871561,-80.7724413
+"Anytime Fitness","5090 Ridgeline Ln, Indian Land, SC 29707, USA","fitness_center",4.6,82,ChIJG0ox9YSBVogRb2v_5DTGYuA,34.9484869,-80.84779000000002
+"YogaSix Waxhaw","1601 Providence Rd S #420, Waxhaw, NC 28173, USA","fitness_center",5,90,ChIJn19X7VgpVIgRhvsFXHF4las,34.9884979,-80.77313269999999
+"S3 CrossFit","412 Marvin Rd, Fort Mill, SC 29707, USA","fitness_center",5,117,ChIJE0TyeQCDVogRHfWbVspt1GU,34.9910808,-80.84288719999999
+"Pure Barre","1532 Providence Rd S #230, Waxhaw, NC 28173, USA","fitness_center",5,54,ChIJXc03tgopVIgRLppv8ZwuIcY,34.9890773,-80.77464959999999
+"RockBox Fitness Waverly","7415 Waverly Walk Ave F2-3, Charlotte, NC 28277, USA","fitness_center",5,128,ChIJq_nuxIcpVIgRQF-gPyJ9eM4,35.0515231,-80.7667523
+"CrossFit Doors of Daring","136 Waxhaw Pkwy, Waxhaw, NC 28173, USA","fitness_center",5,81,ChIJc-dJPscrVIgRUbPKAjt90zo,34.9330329,-80.7519331
+"HOTWORX - Indian Land, SC","8106 Charlotte Hwy Suite 113, Indian Land, SC 29707, USA","fitness_center",4.8,24,ChIJaXXJ0FaBVogRXPVFs8zEx1A,34.94763,-80.84439429999999
+"ISI Elite Training - Indian Land","7780 Charlotte Hwy, Indian Land, SC 29707, USA","fitness_center",4.9,85,ChIJ21UXh5CBVogRcc_EEKXJSb0,34.93770620000001,-80.8347498
+"Carter Quality Plumbing LLC","1408 Rock Hill Hwy, Lancaster, SC 29720, USA","plumber",4.9,1610,ChIJA73Xb1aIVogReCQfiySpfVQ,34.8500359,-80.8551832
+"Gene Plumbing inc","7206 Yellowhorn Trail, Waxhaw, NC 28173, USA","plumber",4.8,19,ChIJBaWzBz4pVIgRUFDdLJ66t2U,34.978156,-80.74940409999999
+"Plumbing Paramedics","9499 Old Bailes Rd Suite 214 Building 2, Fort Mill, SC 29707, USA","plumber",4.8,710,ChIJZ81iYO4rVIgRWFpHaBF7zhI,34.994948199999996,-80.8772554
+"McCoy Plumbing Inc","10000 Community House Rd, Charlotte, NC 28277, USA","plumber",4.7,70,ChIJ8RdoRrSCVogRcxN96eXrC30,35.0393669,-80.828679
+"Power Plumbing, LLC","3413 Collaroy Rd, Waxhaw, NC 28173, USA","plumber",5,61,ChIJVVXJv4EpVIgRi-kfP67FBJQ,34.955174899999996,-80.76734139999999
+"FATman Plumbing Pro","3512 Providence Rd S ste b, Waxhaw, NC 28173, USA","plumber",4.9,146,ChIJjcozJWLzWYgR-PBEzANNaZE,34.946014399999996,-80.7550286
+"The Water Heater Dude/The Air Dude","3512 Ringtail Dr, Waxhaw, NC 28173, USA","plumber",5,360,ChIJlZ-w8Yt8tCwRIMVkfQ03CeQ,34.964729,-80.7291075
+"Lowery Brothers Plumbing Company","10104 Timberhitch Rd, Waxhaw, NC 28173, USA","plumber",5,60,ChIJVQiqF5LVVYgRfT2E7Ls11p4,34.834674899999996,-80.73426769999999
+"Fort Mill Plumbing & Pools","427 Laurel Hills Rd, Indian Land, SC 29707, USA","plumber",0,0,ChIJ00Vb062BVogRwSxRIQs-ru4,34.948945699999996,-80.832465
+"General Plumbing LLC","4406 Bent Green Ln, Monroe, NC 28112, USA","plumber",5,13,ChIJk09XVL7zW4gRzFpvZEBbGcs,34.9423172,-80.64061819999999
+"Harvey's Plumbing","4908 Cane Creek Rd, Waxhaw, NC 28173, USA","plumber",5,44,ChIJxZWwgZUrVIgRj7TnUiCsXeo,34.829311,-80.667138
+"TOLINY plumbing and electric","9789 Charlotte Hwy #197, Fort Mill, SC 29707, USA","plumber",4.8,34,ChIJX3WJUQCDVogR5ZOQD-SmYaM,35.0044614,-80.8565267
+"Vita Plumbing Inc Charlotte","5736 Soft Shell Dr, Lancaster, SC 29720, USA","plumber",4.9,118,ChIJT9VAlEmHMi8RQZiGWkK3VDU,34.9315017,-80.7838821
+"ClearDrop Solutions LLC","3070 Weddington Pointe Dr, Monroe, NC 28110, USA","plumber",5,11,ChIJWfFT95HDiy8RuTUm2GI38G0,35.005499,-80.6449821
+"Simpson Electric Company","9048 Northfield Dr, Fort Mill, SC 29707, USA","electrician",3.9,41,ChIJo43mddODVogR2adGN6BDshw,34.964428999999996,-80.85674
+"Eco Electric","2709 Little Tom Starnes Rd, Monroe, NC 28112, USA","electrician",0,0,ChIJK0yii7wzVIgRIp31MQFWKwY,34.8724147,-80.6188815
+"Local Appliance Repair&Service Lancaster","1104 Loggerhead Dr, Lancaster, SC 29720, USA","electrician",5,92,ChIJT57o3uMrVIgR08dptGWFVgc,34.9275328,-80.7851926
+"Thomas & Sons Electrical Contractor","1914 Loggerhead Dr, Lancaster, SC 29720, USA","electrician",5,102,ChIJEeLgJVZF1ksRfkSkqLo4KmU,34.9297671,-80.78649089999999
+"Havana Electric Inc","4720 Kiddle Ln, Monroe, NC 28110, USA","electrician",5,49,ChIJ2yPdmWQxVIgRDjfvS1l0BB4,35.000893999999995,-80.6321742
+"Lindsay Electric Service","8406 Albury Walk Ln, Charlotte, NC 28277, USA","electrician",4.9,52,ChIJVff8B6eCVogRC1PdcGvhwy8,35.0282803,-80.8121389
+"Caspi Construction and Remodeling","2052 Waverly Ct, Lancaster, SC 29720, USA","electrician",4.9,48,ChIJFVGuFTg8YEQRw7cga-frfUI,34.918486699999995,-80.801593
+"Peters Electric Service & Repairs","Jim Wilson Rd, Fort Mill, SC 29707, USA","electrician",5,46,ChIJDSEGZuqBVogRgDCRw-nXjMI,34.9357095,-80.82574369999999
+"PowerTech, LLC","9004 Yellow Pine Ct, Waxhaw, NC 28173, USA","electrician",0,0,ChIJl5Ot_bcpVIgRDMIB5QGs67g,34.985949,-80.7877829
+"Essential Electric","2350 Abundance Ln, Waxhaw, NC 28173, USA","electrician",5,5,ChIJkZh2dSUvVIgR1Xn47oeaCbA,34.97236540000001,-80.6775735
+"Circuit Works","4601 Magnolia Ridge Dr, Waxhaw, NC 28173, USA","electrician",4.6,9,ChIJ2e882pgyVIgRBQrUnk7b9N0,34.9212193,-80.7535183
+"Trust Electrical LLC.","3001 Floyd Moore Rd, Monroe, NC 28112, USA","electrician",0,0,ChIJ9bt2-y8kVIgRBEh83VlPNHs,34.929103,-80.6172761
+"Waxhaw Electric","#1, Waxhaw, NC 28173, USA","electrician",5,6,ChIJ28INPoMsVIgRgV-nXU2xBrQ,34.9245954,-80.7433889
+"Holmes Electrical Services, Inc.","6807 Loblolly Cir, Waxhaw, NC 28173, USA","electrician",0,0,ChIJifV8_RXVrIkRuRBgoNuEeJ4,34.8893941,-80.7098551
+"Rogers Electric","1005 Potters Bluff Rd, Monroe, NC 28110, USA","electrician",0,0,ChIJ5ajQSLAvVIgR4Y9P0T5ryiw,34.995528199999995,-80.66422109999999
+"Dugan Electric Co., Inc.","1514 Chandlers Field Dr, Waxhaw, NC 28173, USA","electrician",5,4,ChIJAQCcyI8uVIgRpFUo4C4izUU,34.9768452,-80.6910676
+"Johnathan Baucom's Electric","2101 Long Hope Rd, Monroe, NC 28112, USA","electrician",5,5,ChIJeyCekS8yVIgR1bo0rnhh-Wk,34.928961699999995,-80.5985869
+"EDK Electric Co","2705 Corinth Church Rd, Monroe, NC 28112, USA","electrician",5,1,ChIJydXyc5gxVIgRISYIXzgffAA,34.9593458,-80.5977999
+"Weatherguard Roofing & Restoration","6325 Ardrey Kell Rd Suite 350, Charlotte, NC 28277, USA","roofing_contractor",4.7,299,ChIJU4RgG1icVogRGrYkNI-MYYc,35.0504295,-80.76746419999999
+"Rike Roofing Services, Inc.","9160 Northfield Dr, Fort Mill, SC 29707, USA","roofing_contractor",4.7,19,ChIJaWzEMBegVogRgcJwODaZB4o,34.9640793,-80.86266169999999
+"Advanced Roofing and Exteriors","9500 Henry Harris Rd, Indian Land, SC 29707, USA","roofing_contractor",4.5,17,ChIJK5dnUbEnVIgR2RIBfMswLE4,34.9892974,-80.8427849
+"Super Roofing Company","8811 Charlotte Hwy Ste 102, Fort Mill, SC 29707, USA","roofing_contractor",5,238,ChIJyRYOUhCGOQ4RX0fwN2ae640,34.9688241,-80.85409539999999
+"Waxhaw Roof and Gutter LLC","7520 Providence Rd S, Waxhaw, NC 28173, USA","roofing_contractor",5,10,ChIJTVrP_yEtVIgRSOBKA0xT8dg,34.869005,-80.707302
+"Carolina Elite Roofing","New Town Rd, Waxhaw, NC 28173, USA","roofing_contractor",5,181,ChIJmykPyE7vlWMRhqoa1DNU7ts,34.9907551,-80.7645929
+"Charlotte Ace Roofing","9805 Sandy Rock Pl Suite #C799, Charlotte, NC 28277, USA","roofing_contractor",5,521,ChIJ_0E8VP24DQcR4dFWAitLCOU,35.0537542,-80.7736591
+"Peak To Peak Roofing Windows And Siding Llc","6211 Providence Country Club Dr, Charlotte, NC 28277, USA","roofing_contractor",3.7,12,ChIJz_XUc3UoVIgRU4AlAH19170,35.0388691,-80.78555870000001
+"High Top Roofing","6412 New Town Rd, Waxhaw, NC 28173, USA","roofing_contractor",4.9,76,ChIJbxAPcsLUVYgRT8jqrqQqcx4,34.982181700000005,-80.7231089
+"National Restoration, LLC","4209 Price Short Cut Rd, Monroe, NC 28110, USA","roofing_contractor",5,34,ChIJz8PoyKA7VIgRox1dBuW58Vg,35.006811299999995,-80.62284919999999
+"Advanced Roofing & Exteriors","625 Zimmer Rd, Fort Mill, SC 29707, USA","roofing_contractor",5,1,ChIJEcmLdFqCVogRaOOk-_oudpk,34.9929521,-80.8422849
+"New Roof","6421 Providence Farm Ln STE 6114, Charlotte, NC 28277, USA","roofing_contractor",4.9,198,ChIJuU_rXM07VIgRvDEXIWhZ3dY,35.055268399999996,-80.7669614
+"Hunter Exteriors","857 Spring Oaks Dr, Weddington, NC 28104, USA","roofing_contractor",5,98,ChIJhcWUwcElVIgR4evukuKMhYc,35.0248799,-80.6967071
+"Here4You Restoration","7115 New Town Rd, Waxhaw, NC 28173, USA","roofing_contractor",5,44,ChIJyZAcSDkpVIgRdP62jmsaO3o,34.985741399999995,-80.7400157
+"Charlotte Premier Roofing","13663 Providence Rd Suite #266, Weddington, NC 28104, USA","roofing_contractor",5,98,ChIJjftFezisEgwR9fiGASw5BKQ,35.0233045,-80.7607585
+"Rumble Bee Roofing & Gutters","2510 Paperbark Dr, Monroe, NC 28110, USA","roofing_contractor",5,210,ChIJG6Nggv8lVIgR05EyxoIzNeQ,35.0278858,-80.6445875
+"Carolinas Custom Patios","8143 Charlotte Hwy, Indian Land, SC 29707, USA","roofing_contractor",5,6,ChIJxbp74cuDVogR8Eo8hboFMBU,34.9485689,-80.8465579
+"EF Builders and Remodelers, LLC.","8427 Arrowpoint Ln, Indian Land, SC 29707, USA","roofing_contractor",5,4,ChIJ7-g1VKOBVogRe2JlskGqha4,34.9555314,-80.8326356
+"Combs Roofing of Waxhaw, LLC","1836 Old Bennington Dr, Waxhaw, NC 28173, USA","roofing_contractor",5,11,ChIJUX-xOhQpVIgR4uiDbepFbFk,34.961298299999996,-80.7470876
+"Choice Building Group","7022 Blakeney Greens Blvd, Charlotte, NC 28277, USA","roofing_contractor",5,9,ChIJdTDNpLUpVIgRchGtnWUpioc,35.0389128,-80.8025464
+"Discount Tire","10146 Charlotte Hwy, Indian Land, SC 29707, USA","car_repair",4.5,740,ChIJFVpJPOOCVogR6TuELH2xfso,35.0139415,-80.8508169
+"AutoZone Auto Parts","9725 Charlotte Hwy, Fort Mill, SC 29707, USA","car_repair",4.3,394,ChIJwxbyv6qDVogRJb_TFeaGySw,35.0000235,-80.85635979999999
+"Firestone Complete Auto Care","10019 Rea Rd, Charlotte, NC 28277, USA","car_repair",3.4,478,ChIJ18hudAMoVIgREQ6ysjjkpgM,35.032377,-80.80468660000001
+"Advance Auto Parts","10003 Charlotte Hwy, Fort Mill, SC 29707, USA","car_repair",4.5,281,ChIJCSDRnf2CVogRAkSU_bRAgH8,35.0095628,-80.8540117
+"Auto Repair Mom","226 Marvin Rd # 400, Fort Mill, SC 29707, USA","car_repair",5,165,ChIJNXhWNKeDVogRgRdICiRX92A,34.9920997,-80.8502201
+"AutoZone Auto Parts","4001 Providence Rd S, Waxhaw, NC 28173, USA","car_repair",4.3,259,ChIJd5XfecQrVIgRnO6nLG8Z018,34.9354886,-80.7492475
+"O'Reilly Auto Parts","5108 Ridgeline Ln, Indian Land, SC 29707, USA","car_repair",4.7,155,ChIJcVNz1ReBVogRELd3WnCb9j8,34.9488242,-80.8468293
+"Valvoline Instant Oil Change","2525 Cuthbertson Rd, Waxhaw, NC 28173, USA","car_repair",4.2,279,ChIJkXRcFsQpVIgRHsNsqm7OCvQ,34.95663,-80.75585
+"Valvoline Instant Oil Change","4126 Dobys Bridge Rd, Indian Land, SC 29707, USA","car_repair",4.7,205,ChIJrcV_6RmBVogRqxsmc10dFlI,34.9559,-80.85365999999999
+"Mavis Tires & Brakes","27299 Waxhaw Pkwy, Waxhaw, NC 28173, USA","car_repair",4.8,2240,ChIJdzr4FcArVIgRyDdpk7pyzaU,34.933164399999995,-80.7472718
+"Caliber Collision","2559 Lengers Way, Indian Land, SC 29707, USA","car_repair",4.7,726,ChIJB3bBc6yDVogRQnZJRO43OqE,34.996269999999996,-80.8566116
+"Mavis Tires & Brakes","2625 Worldreach Dr, Indian Land, SC 29707, USA","car_repair",4.7,972,ChIJMSTcW4eEVogRXjINtyuGDME,34.956454,-80.852762
+"Meineke Car Care Center","8795 Charlotte Hwy, Indian Land, SC 29707, USA","car_repair",4.7,1315,ChIJkwxtmcqDVogR5BMt_LoDpeg,34.968254,-80.854171
+"Henn Automotive Inc.","1152 N Broome St, Waxhaw, NC 28173, USA","car_repair",4.5,221,ChIJ0bTelMMrVIgRxViDte-0zmc,34.9346586,-80.7485985
+"Indian Land Imports","7430 Van Wyck Rd, Lancaster, SC 29720, USA","car_repair",5,284,ChIJRd0UMVKCVogRkQw45ZxNV8o,34.857113399999996,-80.8482183
+"Express Oil Change & Tire Engineers","8455 Charlotte Hwy, Indian Land, SC 29707, USA","car_repair",4.9,586,ChIJ6-xdNgyBVogRRo_fttQJnj4,34.9574387,-80.8544039
+"DLS Retreading, Inc.","9057 Northfield Dr, Fort Mill, SC 29707, USA","car_repair",5,31,ChIJyUt8CdSDVogRU-emk9U6_FI,34.9630978,-80.85696449999999
+"Waxhaw Equipment Rental","5406 Waxhaw-Marvin Rd, Waxhaw, NC 28173, USA","car_repair",4.5,119,ChIJS4PX0LkrVIgRYweoAEFW3q0,34.9250451,-80.75433319999999
+"Mavis Tires & Brakes","161 Jim Wilson Rd, Fort Mill, SC 29707, USA","car_repair",4.8,1039,ChIJl3G0H2WBVogR_tBON0rgp3s,34.9371764,-80.833871
+"NTB-National Tire & Battery","120 Waxhaw Pkwy, Waxhaw, NC 28173, USA","car_repair",4.7,939,ChIJ7f9qrsYrVIgRE0VE6xgI4h0,34.932825699999995,-80.74959489999999
+"Sam's Xpress Car Wash","1025 Aspinal St, Waxhaw, NC 28173, USA","car_wash",4.5,233,ChIJF5uelQYrVIgR9zbQB_mKCsA,34.949535,-80.7557753
+"Sam's Xpress Car Wash","10130 Charlotte Hwy, Indian Land, SC 29707, USA","car_wash",3.9,282,ChIJE66zAeOCVogR0HZ8S6sKK-g,35.0136792,-80.851136
+"bp","2538 Cuthbertson Rd, Waxhaw, NC 28173, USA","car_wash",4,196,ChIJGXlOKio3VIgRfiRAkqHA9n8,34.957654999999995,-80.757357
+"Circle K","9620 Rea Rd, Charlotte, NC 28277, USA","car_wash",2.5,18,ChIJDZ67oKEpVIgR_pCHmSvVLmE,35.038546,-80.8063798
+"Circle K","601 E South Main St, Waxhaw, NC 28173, USA","car_wash",3.2,53,ChIJO1RipwYrVIgRJYD2kfbTm1Y,34.9230163,-80.7380914
+"Sam's Xpress Car Wash","8182 Charlotte Hwy, Indian Land, SC 29707, USA","car_wash",4.6,243,ChIJydwWeBWBVogRtzAqoAGckRc,34.9504176,-80.8470236
+"Autobell Car Wash","8723 Charlotte Hwy, Indian Land, SC 29707, USA","car_wash",4.2,493,ChIJ9c1lmcqDVogRq0GxWBiiE7o,34.9670335,-80.8541674
+"Circle K","11640 Providence Rd, Charlotte, NC 28277, USA","car_wash",2.4,43,ChIJN6ZIw80nVIgR8bFxccv0l-g,35.051350899999996,-80.7704342
+"Autobell Car Wash","1610 Providence Rd S, Waxhaw, NC 28173, USA","car_wash",4.1,404,ChIJfxr_Va4pVIgRv6mVcoro6WI,34.98721,-80.7744912
+"Circle K","3503 Weddington Rd, Monroe, NC 28110, USA","car_wash",3.3,45,ChIJAy_PRjQwVIgRe9MXRCRvNh4,34.986837699999995,-80.61411799999999
+"bp","9775 Charlotte Hwy, Fort Mill, SC 29707, USA","car_wash",2.8,12,ChIJpQc9BTiDVogRVfPDQig7AXU,35.002044,-80.856085
+"Wash One-Waxhaw","101 Waxhaw Pkwy, Waxhaw, NC 28173, USA","car_wash",3.6,61,ChIJn1so4sMrVIgRNOPRIK-t420,34.9334158,-80.7489186
+"Circle K | Car Wash","11640 Providence Rd, Charlotte, NC 28277, USA","car_wash",1.3,4,ChIJh5DysewnVIgRcptaSCaMniQ,35.051370399999996,-80.7702149
+"Circle K | Car Wash","9620 Rea Rd, Charlotte, NC 28277, USA","car_wash",0,0,ChIJ34LWOKEpVIgRYEB5QaLuxqU,35.038592,-80.8063142
+"Circle K | Car Wash","601 E South Main St, Waxhaw, NC 28173, USA","car_wash",0,0,ChIJ4-eLvSgrVIgROQhMAyNPnP0,34.923017,-80.7385334
+"The ShowRoom","6714 Rehobeth Rd, Waxhaw, NC 28173, USA","car_wash",5,62,ChIJ_5NaYDArVIgRsCd1r44oLNo,34.8883387,-80.7769845
+"CAR WASH","Lengers Way, Fort Mill, SC 29707, USA","car_wash",0,0,ChIJpyemj6qDVogRNpjpKTnXA4k,35.0008164,-80.856619
+"My Detail Buddy","1210 Glynwater Ln, Waxhaw, NC 28173, USA","car_wash",5,86,ChIJ9e_HAXBNnW8R2gVs0J2qEhg,35.0122071,-80.78534370000001
+"Tommy's Express® Car Wash","168 Fort Mill Hwy, Indian Land, SC 29707, USA","car_wash",5,2,ChIJAS4MilaDVogR0EwGPCeyFfs,35.0018428,-80.85860149999999
+"QuikTrip","8320 Charlotte Hwy, Indian Land, SC 29707, USA","gas_station",4.3,63,ChIJd-l3osqDVogRSLOxloZyJGc,34.9534528,-80.8495283
+"Exxon","10130 Charlotte Hwy, Indian Land, SC 29707, USA","gas_station",4.1,380,ChIJE66zAeOCVogR0Ryd5Z241JQ,35.01328710000001,-80.85106429999999
+"Circle K | Gas Station","9620 Rea Rd, Charlotte, NC 28277, USA","gas_station",3.6,18,ChIJsTdYHwEoVIgRYxsV3fvKJkw,35.038610999999996,-80.80646000000002
+"Shell","6320 Weddington Rd, Wesley Chapel, NC 28104, USA","gas_station",2.8,43,ChIJrQXyxqklVIgRR6ilqXJ09KU,35.0007449,-80.6964024
+"Harris Teeter Fuel Center","11041 Golf Links Dr N, Charlotte, NC 28277, USA","gas_station",4.5,74,ChIJ54DV3hcnVIgRauY0n7jXXJc,35.053686299999995,-80.7714141
+"Shell","13801 Providence Rd S, Weddington, NC 28104, USA","gas_station",3.7,78,ChIJ6zj_ZIkoVIgRmjg6ZGXsdUI,35.022335,-80.762125
+"Exxon","4824 Waxhaw Indian Trail Rd, Matthews, NC 28104, USA","gas_station",4.3,60,ChIJGwjcXgUvVIgR4RjoGFzauZQ,35.0213125,-80.6938844
+"7-Eleven Fuel","8313 New Town Rd, Waxhaw, NC 28173, USA","gas_station",4.1,40,ChIJwdFRlK4pVIgRSsi6_bv1MW0,34.9886175,-80.77225949999999
+"Exxon","1025 Aspinal St, Waxhaw, NC 28173, USA","gas_station",4,30,ChIJi4DoREUpVIgRXptIHuWCzd0,34.9500581,-80.7560737
+"Shell","315 S Broome St, Waxhaw, NC 28173, USA","gas_station",4.1,33,ChIJMaoz5b8rVIgRvOq_7lg1zmw,34.92683400000001,-80.744216
+"Roughedge Trading Co LLC","5310 Lancaster Hwy, Monroe, NC 28112, USA","gas_station",4.4,236,ChIJB71huHwyVIgRKbhFPjZtYwM,34.9003017,-80.62300979999999
+"Shell","9540 Charlotte Hwy, Indian Land, SC 29707, USA","gas_station",4.2,189,ChIJ-z7kMFOCVogRAeIqFIhT5uU,34.9942089,-80.8539091
+"Harris Teeter Fuel Center","6291 Carolina Commons Dr, Indian Land, SC 29707, USA","gas_station",4.5,82,ChIJjzxqQqOBVogRGWnPiamXAlw,34.9367602,-80.8384473
+"Costco Gas Station","8810 Charlotte Hwy, Indian Land, SC 29707, USA","gas_station",4.9,25,ChIJXUuQYgCDVogRsWCdG7XUbko,34.9713608,-80.8503765
+"Exxon","5595 SC-5, Catawba, SC 29704, USA","gas_station",3.7,122,ChIJyxpoNQ2LVogR0ZqJo4-1nTU,34.8553455,-80.88786429999999
+"Chase Bank","6450 Weddington Rd, Wesley Chapel, NC 28104, USA","bank",2.3,15,ChIJKRKWccUvVIgRIOgyRTMEHd8,35.00065,-80.69452
+"Bank of America (with Drive-thru ATM)","9923 Rea Rd, Charlotte, NC 28277, USA","bank",2.5,56,ChIJt98JZQQoVIgRRmL5bThWESM,35.0337306,-80.8035275
+"Chase Bank","9815 Rea Rd A, Charlotte, NC 28277, USA","bank",3.2,45,ChIJT5rpf2IpVIgRhL9aLfCwK0I,35.035599999999995,-80.8044
+"Skyla Credit Union","11228 Ardrey Kell Rd, Charlotte, NC 28277, USA","bank",4,52,ChIJ76aUpMOCVogRoHkD3aAVIFE,35.0257639,-80.8400624
+"U.S. Bank Branch","9836 Rea Rd, Charlotte, NC 28277, USA","bank",4.1,17,ChIJb5UVw-UpVIgRGu0vd2rQ0BM,35.034129899999996,-80.80754220000001
+"Wells Fargo Bank","9808 Rea Rd, Charlotte, NC 28277, USA","bank",3.5,51,ChIJh3Nd5AMoVIgR92SLKUJzsHU,35.0356232,-80.80539550000002
+"Bank of America (with Drive-thru ATM)","6292 Carolina Commons Dr, Indian Land, SC 29707, USA","bank",2.7,50,ChIJ4WS9GHGBVogRPn0l-5J0r64,34.9382661,-80.8379013
+"Truliant Federal Credit Union Charlotte","7107 Waverly Walk Ave, Charlotte, NC 28277, USA","bank",4.5,50,ChIJTYCfOc0nVIgRK1fp4y4VuAA,35.0543251,-80.7678985
+"State Employees’ Credit Union","10910 Ardrey Kell Rd, Charlotte, NC 28277, USA","bank",3.3,24,ChIJO68DTsGCVogRKwXUG5R0j4M,35.0271971,-80.8378355
+"Wells Fargo Bank","11535 Waverly Center Dr Bldg C-1, Charlotte, NC 28277, USA","bank",3.1,22,ChIJKY8hsBAnVIgRB6Dpl4kUBCI,35.0528548,-80.76843769999999
+"Bank of America (with Drive-thru ATM)","5935 Weddington Rd, Wesley Chapel, NC 28104, USA","bank",2.8,35,ChIJw4DHM6IvVIgROU3mUV-9Z70,35.001753,-80.69987739999999
+"Wells Fargo Bank","8352 Charlotte Hwy STE B, Fort Mill, SC 29707, USA","bank",2.3,9,ChIJ99CfCV6BVogRvJgA8kWgi_w,34.9542808,-80.85088879999999
+"Bank of America (with Drive-thru ATM)","11315 Golf Links Dr N, Charlotte, NC 28277, USA","bank",2.5,27,ChIJq1w3wt2CVogRxINWhFo-V_4,35.0547124,-80.77023969999999
+"Wells Fargo Bank","5926 Weddington Monroe Rd, Wesley Chapel, NC 28104, USA","bank",2.2,35,ChIJiRwH8BcvVIgRClrETaktGMg,35.0007799,-80.6985531
+"State Employees’ Credit Union","11225 Golf Links Dr N, Charlotte, NC 28277, USA","bank",4.1,16,ChIJq6hZhqkmVIgRwzh2KhwOuIU,35.0561544,-80.7705015
+"TD Bank","8179 Charlotte Hwy, Indian Land, SC 29707, USA","bank",3.3,17,ChIJvwy52O-BVogRYx9y5x49kO4,34.9503019,-80.84842979999999
+"Truist","10009 Rea Rd, Charlotte, NC 28277, USA","bank",3.3,15,ChIJCY56TQIoVIgRIZcLKMeUpn0,35.0327057,-80.80527119999999
+"State Employees’ Credit Union","3934 South Providence, Waxhaw, NC 28173, USA","bank",4.4,14,ChIJY4nx98QrVIgRZ_L6WaN0Z3M,34.935772199999995,-80.7511318
+"Fifth Third Bank & ATM","6361 Ardrey Kell Rd, Charlotte, NC 28277, USA","bank",4.1,12,ChIJq1wDqxonVIgR4teezvMfMtg,35.0505256,-80.7680201
+"Truist","7715 Charlotte Hwy, Indian Land, SC 29707, USA","bank",2.4,27,ChIJJc5lmcqDVogRWPWfcTqAveo,34.936299999999996,-80.8371797
+"Bank of America ATM (Drive-thru)","9923 Rea Rd, Charlotte, NC 28277, USA","atm",4.5,2,ChIJCY56TQIoVIgRKKlC4YMyua0,35.0337098,-80.80343119999999
+"Truist","8109 Kensington Dr, Waxhaw, NC 28173, USA","atm",2.6,23,ChIJ2TeQ8nwpVIgRUiPJBxIyoTk,34.9544879,-80.7568162
+"Wells Fargo ATM","16637 Lancaster Hwy, Charlotte, NC 28277, USA","atm",0,0,ChIJty9JWOeCVogR5bFLayj_zE8,35.0224299,-80.8484596
+"Fifth Third Bank & ATM","8100 Kensington Dr, Waxhaw, NC 28173, USA","atm",3,30,ChIJ3c_0hHspVIgRIbylXAtcAlw,34.956330699999995,-80.7577432
+"Banfield Pet Hospital","11115 Golf Links Dr Unit C, Charlotte, NC 28277, USA","pharmacy",4.3,147,ChIJm4s0gRInVIgREGRZOMvNbas,35.0540283,-80.77192649999999
+"Walker's Drug Store & Post Office","8145 Ardrey Kell Rd STE 105, Charlotte, NC 28277, USA","pharmacy",4.8,31,ChIJ58fxigkoVIgR0B0WSlYVOjQ,35.039035,-80.793596
+"Walmart Pharmacy","2520 Cuthbertson Rd, Waxhaw, NC 28173, USA","pharmacy",3.7,27,ChIJgfIwIHspVIgRi1JHVgZoAqo,34.9583942,-80.756204
+"Walmart Pharmacy","10048 Charlotte Hwy, Indian Land, SC 29707, USA","pharmacy",3.5,29,ChIJaZfiUvyCVogRo46SwC4v1d8,35.0108084,-80.8493687
+"Publix Pharmacy at Cross Creek","8360 Charlotte Hwy, Indian Land, SC 29707, USA","pharmacy",4.7,18,ChIJbykCU4CBVogRtY4a7qN2v_U,34.956181099999995,-80.8497551
+"Publix Pharmacy at Marvin Gardens","1615 Providence Rd S, Marvin, NC 28173, USA","pharmacy",4.2,5,ChIJV0Y1z5QpVIgRG6B7vSz7eJ8,34.9876394,-80.7712191
+"CVS Pharmacy","6350 Weddington Rd, Wesley Chapel, NC 28104, USA","pharmacy",4.4,35,ChIJ4dFrcRcvVIgRLM8dCPFpfyk,34.999493699999995,-80.6966638
+"CVS Pharmacy","9870 Rea Rd, Charlotte, NC 28277, USA","pharmacy",3.9,24,ChIJ3Zq9lQEoVIgR9BBPgCYLjVE,35.0374918,-80.80770059999999
+"CVS Pharmacy","7697 Charlotte Hwy, Indian Land, SC 29707, USA","pharmacy",3.5,34,ChIJg5tz75WBVogR-hOzxvmBOow,34.9355031,-80.8370004
+"Providence South Animal Hospital","3520 Providence Rd S, Waxhaw, NC 28173, USA","pharmacy",4.8,49,ChIJQ0PafowrVIgRW89RLQJ5sv4,34.945322,-80.755051
+"CVS Pharmacy","4908 Houston Field Ct, Charlotte, NC 28277, USA","pharmacy",4.1,11,ChIJ57SGm80nVIgRlysCvPC-wpA,35.050511799999995,-80.7689836
+"Harris Teeter Pharmacy","5920 Weddington Rd, Wesley Chapel, NC 28104, USA","pharmacy",4.2,15,ChIJubqTpSIvVIgRx4qR-ccgKOc,34.999838499999996,-80.70004329999999
+"Mineral Springs Pharmacy","5910 Waxhaw Hwy Suite A, Mineral Springs, NC 28108, USA","pharmacy",5,38,ChIJGd0iwe8tVIgRBsSVuTIoayg,34.9384331,-80.6694639
+"CVS Pharmacy","9628 Rea Rd, Charlotte, NC 28277, USA","pharmacy",3.9,34,ChIJSVDhFgEoVIgRcP3cfdoWETs,35.037863699999996,-80.8061577
+"Walgreens Pharmacy","7686 Charlotte Hwy, Fort Mill, SC 29707, USA","pharmacy",3.7,6,ChIJIcD3oZWBVogR2-XFD6EfO74,34.9358789,-80.83529879999999
+"Walgreens Pharmacy","5975 Weddington Rd, Matthews, NC 28104, USA","pharmacy",3.7,6,ChIJV8rY4BcvVIgRAiz_E5AoXW0,35.0017115,-80.6989809
+"CVS Pharmacy","1142 N Broome St, Waxhaw, NC 28173, USA","pharmacy",4.4,21,ChIJ3_0q5sMrVIgRDFH57ua5VmE,34.9338833,-80.74779889999999
+"CVS Pharmacy","10012 Weiss Way, Waxhaw, NC 28173, USA","pharmacy",5,8,ChIJL3uYUiIoVIgR40nh0CYez94,35.0167619,-80.8024367
+"Harris Teeter Pharmacy","11135 Golf Links Dr, Charlotte, NC 28277, USA","pharmacy",4.1,10,ChIJYTghIRsnVIgRImRJsqlreLk,35.0518301,-80.7725032
+"CVS Pharmacy","6300 Weddington Rd, Matthews, NC 28104, USA","pharmacy",3.7,15,ChIJLS6cixcvVIgR2cO5YQ-se_0,35.000676299999995,-80.697617
+"Tryon Medical Partners","16817 Marvin Rd, Charlotte, NC 28277, USA","doctor",4.9,3793,ChIJkSmzeseDVogRDz6863Md_tQ,35.026334,-80.83747799999999
+"OrthoCarolina Indian Land","6237 Carolina Commons Dr Suite 110, Indian Land, SC 29707, USA","doctor",4.8,1432,ChIJ-0KNFmKBVogRfUpC7vXOKA8,34.9356079,-80.8383844
+"Horizon Eye Care - Waverly, Charlotte NC","11835 Southmore Dr, Charlotte, NC 28277, USA","doctor",4.8,1236,ChIJZ_h2_RknVIgRvR1nkBiCZ_Y,35.0475667,-80.7678998
+"Charlotte Eye Ear Nose & Throat Associates, P.A. (CEENTA) - Blakeney","5933 Blakeney Park Dr STE 200, Charlotte, NC 28277, USA","doctor",3.9,405,ChIJ_34LDwMoVIgRqX5EFzkCRE8,35.032776,-80.80654249999999
+"Novant Health Blakeney Family Physicians","5815 Blakeney Park Dr Suite 200B, Charlotte, NC 28277, USA","doctor",4.5,350,ChIJs8EFBwMoVIgRVGKuPYMUk6s,35.033245099999995,-80.8068989
+"Novant Health Waxhaw Family & Sports Medicine","3614 Providence Rd S #200, Waxhaw, NC 28173, USA","doctor",4.3,228,ChIJO4XMCNorVIgRpOOY1E9nxQI,34.944116099999995,-80.7543084
+"Dermatology Specialists of Charlotte","8936 Blakeney Professional Dr, Charlotte, NC 28277, USA","doctor",4.7,617,ChIJxQYrmwIoVIgRkFd9w_rpi_s,35.032868,-80.809588
+"Novant Health Waverly Pediatrics & Primary Care","11840 Southmore Dr # 200, Charlotte, NC 28277, USA","doctor",4.5,224,ChIJF2I1AswnVIgRZDhl4xnpKw8,35.0477272,-80.7685568
+"Waverly Dental","11840 Southmore Dr #150, Charlotte, NC 28277, USA","doctor",4.7,453,ChIJI2QZ8dInVIgRHPzMtsrlMcE,35.047543999999995,-80.76843889999999
+"Tryon Medical Partners - Waverly","11030 Golf Links Dr STE 100, Charlotte, NC 28277, USA","doctor",4.9,2117,ChIJi9oXDkQnVIgRI4jrgL_GckA,35.0546923,-80.7710247
+"Atrium Health Primary Care Barnett Family Medicine","7666 Charlotte Hwy #120, Fort Mill, SC 29707, USA","doctor",4.7,734,ChIJnSZ4osqDVogRSlzp7I4uGhk,34.9345135,-80.8350643
+"Queen City Ear Nose and Throat","8924 Blakeney Professional Dr, Charlotte, NC 28277, USA","doctor",4.6,253,ChIJKwu3vYEpVIgR7j584l-beiE,35.0331268,-80.80873869999999
+"Carolinas Center for Oral & Facial Surgery","8840 Blakeney Professional Dr STE 300, Charlotte, NC 28277, USA","doctor",4.9,1330,ChIJnWnmvwIoVIgRPICVCOfud3s,35.031987099999995,-80.8084009
+"Lume Pediatric Dentistry & Orthodontics - Waverly","11835 Southmore Dr STE 201, Charlotte, NC 28277, USA","doctor",4.8,317,ChIJ7aQ-7tInVIgRAhPD5GlUl_0,35.0476951,-80.7677688
+"Atrium Health Levine Children's Charlotte Pediatrics","6235 Blakeney Park Dr #100, Charlotte, NC 28277, USA","doctor",4.2,80,ChIJhZbDKVqcVogRqoy1p0RUe7k,35.029015799999996,-80.8086532
+"Novant Health Pediatrics Blakeney","9224 Ardrey Kell Rd STE 200, Charlotte, NC 28277, USA","doctor",4.7,85,ChIJHYX6sVCdVogR3tc1iyZz7X8,35.032150699999995,-80.8149351
+"Bird Pediatric Dentistry","16607 Riverstone Way STE 300, Charlotte, NC 28277, USA","doctor",4.4,261,ChIJ__14gcOCVogRBTQ6_Hw-4Rk,35.027440899999995,-80.8395234
+"Carrington Square Dental","2917 Providence Rd S Suite A, Waxhaw, NC 28173, USA","doctor",5,1083,ChIJA-TsK6idVogRneQBe7pAX9s,34.9616928,-80.75949849999999
+"Blakeney Pediatric Dentistry","9224 Ardrey Kell Rd Suite 100, Charlotte, NC 28277, USA","dentist",4.8,401,ChIJgR_YkKSDVogRBvHGTE42RRw,35.0322074,-80.8148422
+"Cedar Walk Family and Cosmetic Dentistry","16615 Riverstone Way #200, Charlotte, NC 28277, USA","dentist",4.9,624,ChIJSeMrjMOCVogRTqYcXoWl30M,35.0272304,-80.83916839999999
+"BridgeMill Dental Care","2012 Bridgemill Dr Suite 108, Indian Land, SC 29707, USA","dentist",4.9,784,ChIJh5h6jeODVogRTOxKhJmb3F0,34.9796524,-80.85654439999999
+"MillBridge Dentistry","3614 Providence Rd S #103, Waxhaw, NC 28173, USA","dentist",4.9,634,ChIJSc6UhUArVIgRReBBoyESKlU,34.944116099999995,-80.7543084
+"Braces By Bird","16614 Riverstone Way, Charlotte, NC 28277, USA","dentist",4.8,157,ChIJiVNHj8OCVogRdBVzyLenq-8,35.0270606,-80.8397792
+"Young and Polite Children's Dentistry @ Waxhaw","2514 Cuthbertson Rd, Waxhaw, NC 28173, USA","dentist",4.5,402,ChIJIXVeNnspVIgRnq9w7S3vniA,34.957700599999995,-80.7555206
+"Providence Dentistry","9804 Sandy Rock Pl suite b, Charlotte, NC 28277, USA","dentist",4.9,820,ChIJ151T0M0nVIgREoyuvBl-0xo,35.053733799999996,-80.774147
+"Dental Wellness of Charlotte","9915 Sandy Rock Pl Ste 200, Charlotte, NC 28277, USA","dentist",5,578,ChIJ2_gIECsnVIgR3gbuedfSPOE,35.050762,-80.7733914
+"Three Leaf Orthodontics","8412 New Town Rd suite a, Waxhaw, NC 28173, USA","dentist",5,276,ChIJW1QBC0srVIgRTEupUie_Q1M,34.9889243,-80.7752194
+"Carolina Smile Dentistry","8390 Charlotte Hwy #300, Indian Land, SC 29707, USA","dentist",4.8,634,ChIJVfyjRYCBVogRzSpGY8mpfsw,34.9566227,-80.8514021
+"Webb & Goldsmith Orthodontics - Blakeney","9848 Rea Rd D, Charlotte, NC 28277, USA","dentist",4.9,322,ChIJCYUqrxEpVIgROCjxPak8XbQ,35.0346091,-80.80823439999999
+"Dental Care at Meadow Ridge","1610 Providence Rd S Ste 102, Waxhaw, NC 28173, USA","dentist",4.9,217,ChIJnxbT3TEpVIgRXecdhLUjrx0,34.987680999999995,-80.77452199999999
+"Reafield Dental","9925 Rea Rd Ste 104, Waxhaw, NC 28173, USA","dentist",4.9,61,ChIJE01vAv0pVIgRsZJaCiRuw8g,35.01961010000001,-80.8065495
+"GoKids Pediatric Dentistry","17214 Lancaster Hwy STE 301, Charlotte, NC 28277, USA","dentist",4.9,224,ChIJjcBas26DVogRJXX6EI2zNZY,35.017029799999996,-80.8510965
+"Ghorshi Family Dentistry","11301 Golf Links Dr N #201, Charlotte, NC 28277, USA","dentist",4.9,545,ChIJ9d-lps4nVIgRN_j7zGR1l9E,35.055121799999995,-80.7703605
+"Sun City Animal Hospital Indian Land Fort Mill Vet","6277 Carolina Commons Dr Suite 400, Fort Mill, SC 29707, USA","veterinary_care",4.6,314,ChIJ6UBpHaKBVogRdKdXfpJ1ALQ,34.9376684,-80.8384682
+"Passionate Paws Animal Hospital","1526 Providence Rd S #110, Waxhaw, NC 28173, USA","veterinary_care",4.8,317,ChIJc9L0gK4pVIgRfMNJIyj_1Sk,34.9895911,-80.7742143
+"Waxhaw Animal Hospital","601 N Church St, Waxhaw, NC 28173, USA","veterinary_care",4.4,256,ChIJk8AVZSoxVIgRmNtyGqDeHpg,34.929642,-80.74591199999999
+"Curtsinger Animal Hospital","9955 Charlotte Hwy, Indian Land, SC 29707, USA","veterinary_care",4.8,520,ChIJLdmkm_2CVogRpTp_8DdGfMc,35.0076584,-80.8547737
+"Carolina Pets Animal Hospital","5828 Waxhaw Indian Trail Rd, Wesley Chapel, NC 28104, USA","veterinary_care",4.8,309,ChIJYTyIqCIvVIgRjQ7WWD_DC0g,35.0046339,-80.698815
+"VCA Indian Land Animal Hospital","124 Fort Mill Hwy, Fort Mill, SC 29707, USA","veterinary_care",4.6,315,ChIJJQW_pf2CVogRnFHg3XTmolM,35.0020054,-80.85682779999999
+"Banfield Pet Hospital","6420 Weddington Rd, Wesley Chapel, NC 28173, USA","veterinary_care",4.4,162,ChIJs1kL7BcvVIgRHq40f0XjZEI,34.9989036,-80.6941563
+"CityVet | Marvin","9923 Rea Rd STE 100, Waxhaw, NC 28173, USA","veterinary_care",5,144,ChIJJ-sHv7UpVIgR8GTn74DdELM,35.0193395,-80.8063226
+"Weddington Animal Hospital","13667 Providence Rd, Matthews, NC 28104, USA","veterinary_care",4.9,181,ChIJFZM0YogoVIgRGtZ3WSKnjtA,35.0232056,-80.7607522
+"Banfield Pet Hospital","9911 Rea Rd, Charlotte, NC 28277, USA","veterinary_care",3.8,140,ChIJ8666bgQoVIgR5bybprtuzfU,35.0342293,-80.8034327
+"Southern Paws Animal Hospital","7415 Charlotte Hwy, Lancaster, SC 29720, USA","veterinary_care",4.8,439,ChIJ7QGWd5aBVogRbMMotJLzcO8,34.9272055,-80.83093989999999
+"Bridgemill Animal Hospital","2024 Bridgemill Dr #100, Indian Land, SC 29707, USA","veterinary_care",4.9,94,ChIJX5I3ktSDVogRczujvQY8xYI,34.9798797,-80.8572497
+"Ballantyne Veterinary Clinic","9725 Red Stone Dr Suite 500, Indian Land, SC 29707, USA","veterinary_care",4.7,265,ChIJtT15z96CVogRNYloxBmX-yc,35.0009569,-80.85457210000001
+"Avery Animal Clinic","11301 Golf Links Dr #106, Charlotte, NC 28277, USA","veterinary_care",5,62,ChIJLUkaEIcnVIgRnUA0wMzh8Vc,35.05523,-80.77033999999999
+"Vetco Total Care","7790 Charlotte Hwy, Indian Land, SC 29707, USA","veterinary_care",4.6,217,ChIJZYrRHsOBVogRMmF-Yzwql3s,34.9382249,-80.8347612
+"Providence South Veterinary Associates","3520 Providence Rd S, Waxhaw, NC 28173, USA","veterinary_care",4.6,83,ChIJvbTPWdcrVIgRWcOhlRPGWYY,34.9453643,-80.7550995
+"The Animal Eye Clinic","7916 New Town Rd, Waxhaw, NC 28173, USA","veterinary_care",5,3,ChIJB0O6YPYpVIgR4IimRnzupMQ,34.992732000000004,-80.7609718
+"Waxhaw Animal Hospital: Walker Robina M DVM","601 N Church St, Waxhaw, NC 28173, USA","veterinary_care",4.7,3,ChIJk8AVZSoxVIgRLVc-srQu_Ko,34.9296383,-80.7459089
+"Hilton Garden Inn Charlotte Waverly","7415 Waverly Walk Ave, Charlotte, NC 28277, USA","hotel",4.5,818,ChIJowbSCSidVogRrBuMngwKOsQ,35.051413100000005,-80.76651640000001
+"Hyatt House Charlotte / Rea Farms","9930 Sandy Rock Pl, Charlotte, NC 28277, USA","hotel",4.3,273,ChIJexCs0s8nVIgRItte9an4Tms,35.0506613,-80.77412489999999
+"Courtyard by Marriott Charlotte Waverly","6319 Providence Farm Ln, Charlotte, NC 28277, USA","hotel",4.3,256,ChIJu5j4i_snVIgRgH9a8Psz3SQ,35.056215,-80.768468
+"TownePlace Suites by Marriott Charlotte Fort Mill","1047 Red Ventures Dr, Fort Mill, SC 29707, USA","hotel",4.2,443,ChIJH47a4v2CVogR0vtUcI4cS2E,35.0064023,-80.8526119
+"Isle Blue Luxury Villas","1209 Churchill Downs Dr, Waxhaw, NC 28173, USA","hotel",4.4,133,ChIJrZU8LUgoVIgRKLyyc3kdoe0,35.00466310000001,-80.7874068
+"St. Martin Blue","1209 Churchill Downs Dr, Waxhaw, NC 28173, USA","hotel",4.5,47,ChIJGzgeLUgoVIgRUziyIG1jtKU,35.00466310000001,-80.7874068
+"JHUNTT","2020 Auburn Leaf Ct, Indian Land, SC 29707, USA","hotel",0,0,ChIJcc1WKnSDVogR0P_wU2jZE-s,34.9782502,-80.8585283
+"Vinta Group","17232 Lancaster Hwy, Charlotte, NC 28277, USA","hotel",0,0,ChIJVVUlOOKCVogRhKzldB1v748,35.016463699999996,-80.85234919999999
