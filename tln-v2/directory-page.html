@@ -1,46 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&display=swap" rel="stylesheet">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Directory | The Local NearBuy</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
     --primary: #e63946;
     --dark: #1a1a1a;
     --gray: #666;
     --light: #f8f8f8;
+    --white: #ffffff;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body { font-family: 'GT Walsheim Pro', 'Archivo Black', sans-serif; background: var(--light); }
+body { font-family: 'Open Sans', sans-serif; background: var(--light); color: var(--dark); line-height: 1.5; }
+h1, h2, h3, h4 { font-family: 'Archivo Black', 'GT Walsheim Pro', sans-serif; font-weight: 400; }
 .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
 
 /* Header */
 .page-header { text-align: center; margin-bottom: 2rem; }
 .page-header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-.page-header p { color: var(--gray); }
+.page-header p { color: var(--gray); font-size: 1.1rem; }
 
-/* Sort/Filter Bar */
+/* Filter Bar */
 .filter-bar { display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
 .filter-group { display: flex; align-items: center; gap: 0.5rem; }
 .filter-group label { font-weight: 600; font-size: 0.9rem; }
-.filter-group select { padding: 0.5rem 1rem; border: 1px solid #ddd; border-radius: 8px; font-size: 0.9rem; min-width: 150px; }
+.filter-group select { padding: 0.7rem 1rem; border: 2px solid #ddd; border-radius: 8px; font-size: 0.9rem; min-width: 150px; background: var(--white); cursor: pointer; }
+.filter-group select:focus { outline: none; border-color: var(--primary); }
 
 /* Grid */
 .business-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
 
 /* Business Card */
-.business-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); transition: transform 0.2s; }
-.business-card:hover { transform: translateY(-4px); }
+.business-card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); transition: transform 0.2s, box-shadow 0.2s; }
+.business-card:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.12); }
 .card-image { width: 100%; height: 160px; object-fit: cover; background: #eee; }
-.card-body { padding: 1rem; }
-.card-category { font-size: 0.75rem; color: var(--primary); text-transform: uppercase; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 0.5rem; }
-.card-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
-.card-meta { font-size: 0.85rem; color: var(--gray); line-height: 1.6; }
-.card-meta div { display: flex; align-items: center; gap: 0.4rem; margin-bottom: 0.3rem; }
-.card-meta svg { width: 14px; height: 14px; }
-.card-btn { display: block; width: 100%; padding: 0.8rem; background: var(--dark); color: white; text-align: center; text-decoration: none; font-weight: 600; border-radius: 8px; margin-top: 1rem; transition: background 0.2s; }
+.card-body { padding: 1.25rem; }
+.card-category { font-size: 0.75rem; color: var(--primary); text-transform: uppercase; font-weight: 700; letter-spacing: 1px; margin-bottom: 0.5rem; }
+.card-title { font-family: 'Archivo Black', sans-serif; font-size: 1.2rem; font-weight: 400; margin-bottom: 0.75rem; color: var(--dark); }
+.card-meta { font-size: 0.9rem; color: var(--gray); line-height: 1.7; }
+.card-meta div { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.3rem; }
+.card-meta svg { width: 14px; height: 14px; flex-shrink: 0; }
+.card-btn { display: block; width: 100%; padding: 0.9rem; background: var(--dark); color: var(--white); text-align: center; text-decoration: none; font-weight: 600; font-size: 0.9rem; border-radius: 8px; margin-top: 1rem; transition: background 0.2s; }
 .card-btn:hover { background: var(--primary); }
 
 /* Responsive */
@@ -51,97 +54,99 @@ body { font-family: 'GT Walsheim Pro', 'Archivo Black', sans-serif; background: 
 <body>
 
 <div class="container">
-    <div class="page-header">
-        <h1>Local Businesses</h1>
-        <p>Discover the best of Waxhaw & surrounding areas</p>
+
+<div class="page-header">
+    <h1>Local Businesses</h1>
+    <p>Discover the best of Waxhaw & surrounding areas</p>
+</div>
+
+<!-- Filter Bar -->
+<div class="filter-bar">
+    <div class="filter-group">
+        <label>Location:</label>
+        <select>
+            <option>All Locations</option>
+            <option>Waxhaw</option>
+            <option>Weddington</option>
+            <option>Wesley Chapel</option>
+            <option>Indian Land</option>
+            <option>Marvin</option>
+            <option>Ballantyne</option>
+        </select>
+    </div>
+    <div class="filter-group">
+        <label>Category:</label>
+        <select>
+            <option>All Categories</option>
+            <option>Dentist</option>
+            <option>Restaurant</option>
+            <option>Plumber</option>
+            <option>Salon</option>
+            <option>Retail</option>
+            <option>Medical</option>
+        </select>
+    </div>
+    <div class="filter-group">
+        <label>Sort:</label>
+        <select>
+            <option>A-Z</option>
+            <option>Z-A</option>
+            <option>Rating (High)</option>
+            <option>Newest</option>
+        </select>
+    </div>
+</div>
+
+<!-- Business Grid -->
+<div class="business-grid">
+    
+    <!-- Card 1 -->
+    <div class="business-card">
+        <img src="https://placehold.co/400x200/1a1a1a/ffffff?text=Dental" alt="Business" class="card-image">
+        <div class="card-body">
+            <div class="card-category">Dentist • Waxhaw</div>
+            <h3 class="card-title">Millbridge Dentistry</h3>
+            <div class="card-meta">
+                <div><span>📍</span> 100 Main St, Waxhaw, NC</div>
+                <div><span>📞</span> (704) 555-0100</div>
+                <div><span>⭐</span> 4.8 (127 reviews)</div>
+            </div>
+            <a href="#" class="card-btn">View Business →</a>
+        </div>
     </div>
 
-    <!-- Filter Bar -->
-    <div class="filter-bar">
-        <div class="filter-group">
-            <label>Location:</label>
-            <select>
-                <option>All Locations</option>
-                <option>Waxhaw</option>
-                <option>Weddington</option>
-                <option>Wesley Chapel</option>
-                <option>Indian Land</option>
-                <option>Marvin</option>
-                <option>Ballantyne</option>
-            </select>
-        </div>
-        <div class="filter-group">
-            <label>Category:</label>
-            <select>
-                <option>All Categories</option>
-                <option>Dentist</option>
-                <option>Restaurant</option>
-                <option>Plumber</option>
-                <option>Salon</option>
-                <option>Retail</option>
-                <option>Medical</option>
-            </select>
-        </div>
-        <div class="filter-group">
-            <label>Sort:</label>
-            <select>
-                <option>A-Z</option>
-                <option>Z-A</option>
-                <option>Rating (High)</option>
-                <option>Newest</option>
-            </select>
+    <!-- Card 2 -->
+    <div class="business-card">
+        <img src="https://placehold.co/400x200/1a1a1a/ffffff?text=Repair" alt="Business" class="card-image">
+        <div class="card-body">
+            <div class="card-category">Home Services • Waxhaw</div>
+            <h3 class="card-title">JGL Repair</h3>
+            <div class="card-meta">
+                <div><span>📍</span> 200 Oak Ave, Waxhaw, NC</div>
+                <div><span>📞</span> (704) 555-0200</div>
+                <div><span>⭐</span> 4.9 (84 reviews)</div>
+            </div>
+            <a href="#" class="card-btn">View Business →</a>
         </div>
     </div>
 
-    <!-- Business Grid -->
-    <div class="business-grid">
-        
-        <!-- Card 1 -->
-        <div class="business-card">
-            <img src="https://placehold.co/400x200/e63946/white?text=Dental" alt="Business" class="card-image">
-            <div class="card-body">
-                <div class="card-category">Dentist • Waxhaw</div>
-                <h3 class="card-title">Millbridge Dentistry</h3>
-                <div class="card-meta">
-                    <div>📍 100 Main St, Waxhaw, NC</div>
-                    <div>📞 (704) 555-0100</div>
-                    <div>⭐ 4.8 (127 reviews)</div>
-                </div>
-                <a href="#" class="card-btn">View Business →</a>
+    <!-- Card 3 -->
+    <div class="business-card">
+        <img src="https://placehold.co/400x200/1a1a1a/ffffff?text=Kids+Dental" alt="Business" class="card-image">
+        <div class="card-body">
+            <div class="card-category">Kids • Waxhaw</div>
+            <h3 class="card-title">Young & Polite Children's Dentistry</h3>
+            <div class="card-meta">
+                <div><span>📍</span> 300 Pine Rd, Waxhaw, NC</div>
+                <div><span>📞</span> (704) 555-0300</div>
+                <div><span>⭐</span> 4.7 (203 reviews)</div>
             </div>
+            <a href="#" class="card-btn">View Business →</a>
         </div>
-
-        <!-- Card 2 -->
-        <div class="business-card">
-            <img src="https://placehold.co/400x200/457b9d/white?text=Repair" alt="Business" class="card-image">
-            <div class="card-body">
-                <div class="card-category">Home Services • Waxhaw</div>
-                <h3 class="card-title">JGL Repair</h3>
-                <div class="card-meta">
-                    <div>📍 200 Oak Ave, Waxhaw, NC</div>
-                    <div>📞 (704) 555-0200</div>
-                    <div>⭐ 4.9 (84 reviews)</div>
-                </div>
-                <a href="#" class="card-btn">View Business →</a>
-            </div>
-        </div>
-
-        <!-- Card 3 -->
-        <div class="business-card">
-            <img src="https://placehold.co/400x200/22c55e/white?text=Kids+Dental" alt="Business" class="card-image">
-            <div class="card-body">
-                <div class="card-category">Kids • Waxhaw</div>
-                <h3 class="card-title">Young & Polite Children's Dentistry</h3>
-                <div class="card-meta">
-                    <div>📍 300 Pine Rd, Waxhaw, NC</div>
-                    <div>📞 (704) 555-0300</div>
-                    <div>⭐ 4.7 (203 reviews)</div>
-                </div>
-                <a href="#" class="card-btn">View Business →</a>
-            </div>
-        </div>
-
     </div>
+
+</div>
+
 </div>
 
 </body>
