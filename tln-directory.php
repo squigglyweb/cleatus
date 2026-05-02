@@ -17,6 +17,12 @@ function tln_directory_styles() {
     $css = '
     :root { --primary: #e63946; --dark: #1a1a1a; --gray: #666; --light: #f8f8f8; --white: #ffffff; }
     body { font-family: "Open Sans", sans-serif; }
+    .tln-directory { max-width: 1200px; margin: 0 auto; }
+    .tln-filter-bar { display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+    .tln-filter-group { display: flex; align-items: center; gap: 0.5rem; }
+    .tln-filter-group label { font-weight: 600; font-size: 0.9rem; }
+    .tln-filter-group select { padding: 0.7rem 1rem; border: 2px solid #ddd; border-radius: 8px; font-size: 0.9rem; min-width: 150px; background: var(--white); cursor: pointer; }
+    .tln-filter-group select:focus { outline: none; border-color: var(--primary); }
     .business-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: 0 auto; max-width: 1200px; }
     .business-card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); border: 1px solid #D3D3D3; transition: all 0.2s; }
     .business-card:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.12); border-color: var(--primary); }
@@ -61,6 +67,21 @@ function tln_directory_shortcode($atts) {
 
     ob_start();
     ?>
+    <div class="tln-directory">
+    <div class="tln-filter-bar">
+        <div class="tln-filter-group">
+            <label>Location:</label>
+            <select><option>All Locations</option><option>Waxhaw</option><option>Weddington</option><option>Wesley Chapel</option><option>Indian Land</option><option>Marvin</option></select>
+        </div>
+        <div class="tln-filter-group">
+            <label>Category:</label>
+            <select><option>All Categories</option><option>Dentist</option><option>Restaurant</option><option>Plumber</option><option>Salon</option><option>Retail</option><option>Medical</option></select>
+        </div>
+        <div class="tln-filter-group">
+            <label>Sort:</label>
+            <select><option>A-Z</option><option>Z-A</option><option>Rating (High)</option><option>Newest</option></select>
+        </div>
+    </div>
     <div class="business-grid">
     <?php while ($query->have_posts()) : $query->the_post(); 
         $post_id = get_the_ID();
@@ -99,6 +120,7 @@ function tln_directory_shortcode($atts) {
             </div>
         </div>
     <?php endwhile; ?>
+    </div>
     </div>
     <?php
     wp_reset_postdata();
