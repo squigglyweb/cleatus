@@ -29,14 +29,14 @@ function tln_directory_styles() {
     .card-image { width: 100%; height: 140px; object-fit: cover; background: #ebebeb; }
     .card-body { padding: 1.25rem; }
     .card-category { font-size: 0.75rem; color: var(--primary); text-transform: capitalize; font-weight: 600; letter-spacing: 1px; margin-bottom: 0.5rem; }
-    .card-title { font-family: "Open Sans", sans-serif; font-weight: 700; font-size: 1.2rem; font-weight: 400; margin-bottom: 0.75rem; color: var(--dark); }
+    .card-title { font-family: "Open Sans", sans-serif; font-weight: 700; font-size: 1.2rem; margin-bottom: 0.75rem; color: var(--dark); }
     .card-meta { font-size: 0.9rem; color: var(--gray); line-height: 1.6; }
     .card-meta-main { display: flex; gap: 1rem; margin-bottom: 0.5rem; }
     .card-meta-main div { display: flex; align-items: center; gap: 0.4rem; flex: 1; }
     .card-meta-main img { width: 16px; height: 16px; flex-shrink: 0; }
     .card-rating { display: flex; align-items: center; gap: 0.4rem; }
     .card-rating img { width: 16px; height: 16px; }
-    .card-btn { display: block; width: 100%; padding: 0.9rem; background: var(--primary); color: var(--white); text-align: center; text-decoration: none; font-weight: 600; font-size: 1rem; border-radius: 8px; margin-top: 1rem; transition: background 0.2s; }
+    .card-btn { display: block; width: 100%; padding: 0.9rem; background: var(--primary); color: #ffffff !important; text-align: center; text-decoration: none; font-weight: 600; font-size: 1rem; border-radius: 8px; margin-top: 1rem; transition: background 0.2s; }
     .card-btn:hover { background: #c1121f; }
     @media (max-width: 900px) { .business-grid { grid-template-columns: repeat(2, 1fr); } }
     @media (max-width: 600px) { .business-grid { grid-template-columns: 1fr; } }
