@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Golf Courses Near Waxhaw</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Open Sans', sans-serif; background: #f8f8f8; }
+.container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+h1 { text-align: center; margin-bottom: 2rem; color: #1a1a1a; }
+
+.golf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem; }
+
+.golf-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); transition: transform 0.2s; }
+.golf-card:hover { transform: translateY(-4px); }
+.golf-image { width: 100%; height: 200px; object-fit: cover; background: #ebebeb; }
+.golf-content { padding: 1.25rem; }
+.golf-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; color: #1a1a1a; }
+.golf-rating { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+.golf-rating .stars { color: #e63946; }
+.golf-rating .count { color: #666; font-size: 0.9rem; }
+.golf-address { color: #666; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+.golf-phone { color: #666; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+.golf-hours { font-size: 0.85rem; color: #666; margin-bottom: 1rem; }
+.golf-hours .open { color: #22c55e; }
+.golf-hours .closed { color: #e63946; }
+.golf-btn { display: block; width: 100%; padding: 0.9rem; background: #e63946; color: white; text-align: center; text-decoration: none; font-weight: 600; border-radius: 8px; }
+.golf-btn:hover { background: #c1121f; }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Golf Courses Near Waxhaw</h1>
+    <div class="golf-grid">
+        
+        <!-- Golf Card 1 -->
+        <div class="golf-card">
+            <img src="https://placehold.co/600x400/1a1a1a/ffffff?text=The+Club+at+Longview" alt="The Club at Longview" class="golf-image">
+            <div class="golf-content">
+                <h3 class="golf-name">The Club at Longview</h3>
+                <div class="golf-rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="count">4.7 (180 reviews)</span>
+                </div>
+                <div class="golf-address">📍 8801 Longview Club Drive, Waxhaw, NC 28173</div>
+                <div class="golf-phone">📞 (704) 443-2500</div>
+                <div class="golf-hours">
+                    <span class="closed">Closed now</span> • Opens Tue 7:30 AM
+                </div>
+                <a href="https://www.google.com/maps/place/ChIJLwMuexIoVIgRtAZI5du3za4" target="_blank" class="golf-btn">View on Google Maps →</a>
+            </div>
+        </div>
+
+        <!-- Golf Card 2 -->
+        <div class="golf-card">
+            <img src="https://placehold.co/600x400/1a1a1a/ffffff?text=Stonebridge+Golf+Club" alt="Stonebridge Golf Club" class="golf-image">
+            <div class="golf-content">
+                <h3 class="golf-name">Stonebridge Golf Club</h3>
+                <div class="golf-rating">
+                    <span class="stars">★★★★☆</span>
+                    <span class="count">4.4 (156 reviews)</span>
+                </div>
+                <div class="golf-address">📍 2721 Swilcan Burns Drive, Monroe, NC 28112</div>
+                <div class="golf-phone">📞 (704) 283-2100</div>
+                <div class="golf-hours">
+                    <span class="open">Open now</span>
+                </div>
+                <a href="https://www.google.com/maps/place/ChIJ07ciSwAyVIgRs37Vuzt7yTw" target="_blank" class="golf-btn">View on Google Maps →</a>
+            </div>
+        </div>
+
+        <!-- Golf Card 3 -->
+        <div class="golf-card">
+            <img src="https://placehold.co/600x400/1a1a1a/ffffff?text=TPC+Piper+Glen" alt="TPC Piper Glen" class="golf-image">
+            <div class="golf-content">
+                <h3 class="golf-name">TPC Piper Glen</h3>
+                <div class="golf-rating">
+                    <span class="stars">★★★★★</span>
+                    <span class="count">4.6 (289 reviews)</span>
+                </div>
+                <div class="golf-address">📍 4300 Piper Glen Dr, Charlotte, NC 28277</div>
+                <div class="golf-phone">📞 (704) 542-9000</div>
+                <div class="golf-hours">
+                    <span class="open">Open now</span>
+                </div>
+                <a href="https://www.google.com/maps/place/ChIJqa0AAYgnVIgRxhhMbrOJVsc" target="_blank" class="golf-btn">View on Google Maps →</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
