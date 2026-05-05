@@ -2,7 +2,7 @@
 /**
  * Plugin Name: TLN Business Dashboard
  * Description: Business claim system with TOS agreement
- * Version: 1.2
+ * Version: 1.3
  */
 
 register_activation_hook(__FILE__, 'tln_business_install');
@@ -35,7 +35,6 @@ function tln_business_menu() {
     add_submenu_page('tln-business', 'Claims', 'Claims', 'manage_options', 'tln-claims', 'tln_claims_page');
 }
 
-// Claim form shortcode with TOS
 add_shortcode('claim_business', 'tln_claim_form');
 
 function tln_claim_form($atts) {
@@ -69,13 +68,13 @@ function tln_claim_form($atts) {
         
         return '<div class="tln-success" style="background:#d4edda;padding:1.5rem;border-radius:8px;color:#155724;">
             <h3>✅ Claim Submitted!</h3>
-            <p>Thanks! We\'ll review your request and get back to you within 48 hours.</p>
+            <p>We\'ll review your request and get back to you within 48 hours.</p>
         </div>';
     }
     
     ob_start();
     ?>
-    <div class="tln-claim-form" style="background:#f8f8f8;padding:2rem;border-radius:12px;max-width:700px;">
+    <div class="tln-claim-form" style="background:#f8f8f8;padding:2rem;border-radius:12px;max-width:800px;">
         <h2 style="margin-top:0;">Claim This Business</h2>
         
         <?php if ($url_business): ?>
@@ -111,33 +110,47 @@ function tln_claim_form($atts) {
             <!-- TOS SECTION -->
             <div style="background:white;border:1px solid #ddd;border-radius:8px;padding:1.5rem;margin:1.5rem 0;">
                 <h3 style="margin-top:0;color:#1a1a1a;">📋 Terms of Service</h3>
-                <div style="max-height:200px;overflow-y:auto;border:1px solid #eee;padding:1rem;margin:1rem 0;font-size:0.9rem;line-height:1.6;">
-                    <h4 style="margin-top:0;">Terms of Service - The Local NearBuy</h4>
-                    <p><em>Last Updated: May 2026</em></p>
+                
+                <div style="max-height:250px;overflow-y:auto;border:1px solid #eee;padding:1rem;margin:1rem 0;font-size:0.85rem;line-height:1.6;">
+                    <p><em>Posted/Revised: May 5, 2026</em></p>
+                    <p><strong>PLEASE READ THESE TERMS OF SERVICE CAREFULLY. BY CLICKING "ACCEPTED AND AGREED TO," YOU AGREE TO THESE TERMS AND CONDITIONS.</strong></p>
+                    
+                    <p>These Terms of Service constitute an agreement between The Local Nearbuy ("Vendor," "We" or "Us") and the individual, corporation, LLC, partnership, sole proprietorship, or other business entity agreeing to these terms ("Customer" or "You").</p>
                     
                     <p><strong>1. Acceptance of Terms</strong><br>
-                    By accessing and using The Local NearBuy directory, you ("Business Owner" or "Participant") agree to be bound by these Terms of Service.</p>
+                    We provide online resources, information, and email services subject to these Terms of Service. By using the Service, you agree to comply with these terms.</p>
                     
-                    <p><strong>2. Business Listings</strong><br>
-                    All businesses listed must be located within the Greater Waxhaw area. Business owners must have authorization to manage their listing. Information provided must be accurate and current.</p>
+                    <p><strong>2. Amendment of Terms</strong><br>
+                    We may amend these Terms from time to time by posting changes on our website.</p>
                     
-                    <p><strong>3. Paid Services</strong><br>
-                    Pro ($99/month) and Sponsor ($349/month) subscriptions are billed monthly. Either party may terminate with 30 days written notice. Refunds are not provided for partial months.</p>
+                    <p><strong>3. Content</strong><br>
+                    You are solely responsible for all content you post. You grant us an irrevocable license to use your content.</p>
                     
-                    <p><strong>4. Content & Conduct</strong><br>
-                    Business owners are responsible for content they submit. No false, misleading, or deceptive information. No content that violates local laws or regulations.</p>
+                    <p><strong>4. Third-Party Content</strong><br>
+                    Content may link to third-party websites. We make no representations about their accuracy.</p>
                     
-                    <p><strong>5. Community Guidelines</strong><br>
-                    All interactions must be respectful. Reviews reflect individual experiences. Businesses may not submit fake reviews.</p>
+                    <p><strong>5. Privacy</strong><br>
+                    Please review our Privacy Policy.</p>
                     
-                    <p><strong>6. Payment Terms</strong><br>
-                    Subscription fees are due on the 1st of each month. Late payments may result in removal from paid features.</p>
+                    <p><strong>6. Conduct</strong><br>
+                    Please review our Acceptable Use Policy.</p>
                     
-                    <p><strong>7. Liability</strong><br>
-                    The Local NearBuy provides a platform for connecting neighbors with businesses. We do not guarantee business quality, services, or outcomes.</p>
+                    <p><strong>7. Paid Postings</strong><br>
+                    We may charge fees for certain postings. All fees paid are non-refundable.</p>
                     
-                    <p><strong>8. Contact</strong><br>
-                    Questions? Contact Bryan at info@thelocalnearbuy.com</p>
+                    <p><strong>8. Term and Termination</strong><br>
+                    You may deactivate your account at any time. We may delete accounts for violation of these Terms.</p>
+                    
+                    <p><strong>9. Disclaimer of Warranties</strong><br>
+                    THE SERVICE IS PROVIDED "AS IS" WITHOUT WARRANTIES OF ANY KIND.</p>
+                    
+                    <p><strong>10. Limitations of Liability</strong><br>
+                    OUR LIABILITY IS LIMITED TO $25.00.</p>
+                    
+                    <p><strong>11. Fees</strong><br>
+                    You agree to pay subscription fees until your account is deactivated.</p>
+                    
+                    <p><em>For complete Terms of Service, visit: <a href="/terms-of-service/" target="_blank">thelocalnearbuy.com/terms-of-service</a></em></p>
                 </div>
                 
                 <div style="background:#fef3c7;padding:1rem;border-radius:6px;margin-bottom:1rem;">
@@ -158,7 +171,6 @@ function tln_claim_form($atts) {
                     <label style="display:block;font-weight:600;margin-bottom:0.5rem;">Date</label>
                     <input type="text" value="<?php echo date('F j, Y'); ?>" disabled
                            style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;font-size:1rem;background:#f5f5f5;">
-                    <input type="hidden" name="tos_date" value="<?php echo date('Y-m-d'); ?>">
                 </p>
             </div>
             
