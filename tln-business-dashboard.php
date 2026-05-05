@@ -88,9 +88,9 @@ function tln_claim_form($atts) {
         wp_mail($to, $subject, $message);
         
         return '<div class="tln-success" style="background:#d4edda;padding:2rem;border-radius:8px;color:#155724;text-align:center;">
-            <h3 style="margin-top:0;">✅ Claim Submitted!</h3>
-            <p>Thanks! We\'ve received your request and will review it within 48 hours.</p>
-            <p>You\'ll hear back soon.</p>
+            <h3 style="margin-top:0;">✅ You\'re All Set!</h3>
+            <p>Your business page is now live. Add your offer, photos, and customize your page.</p>
+            <p style="margin-top:1.5rem;"><a href="/dashboard/" style="display:inline-block;background:#7cda24;color:#fff;padding:0.75rem 1.5rem;border-radius:8px;text-decoration:none;font-weight:600;">Go to Your Dashboard →</a></p>
         </div>';
     }
     
