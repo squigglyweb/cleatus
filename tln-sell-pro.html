@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upgrade to Pro - The Local NearBuy</title>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Open Sans', sans-serif; background: #f8f8f8; color: #1a1a1a; line-height: 1.6; }
+.container { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+.header { text-align: center; padding: 3rem 0; }
+.header h1 { font-size: 2.5rem; font-weight: 800; color: #1a1a1a; margin-bottom: 0.5rem; }
+.header p { font-size: 1.25rem; color: #666; }
+.price-hero { background: linear-gradient(135deg, #e63946 0%, #c1121f 100%); color: white; padding: 3rem; border-radius: 16px; text-align: center; margin-bottom: 2rem; }
+.price-hero .price { font-size: 4rem; font-weight: 800; }
+.price-hero .period { font-size: 1.25rem; opacity: 0.9; }
+.price-hero .note { margin-top: 1rem; opacity: 0.8; }
+.features { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin: 2rem 0; }
+.feature-box { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+.feature-box h3 { color: #e63946; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; }
+.feature-box ul { list-style: none; }
+.feature-box li { padding: 0.4rem 0; border-bottom: 1px solid #f0f0f0; }
+.feature-box li:last-child { border: none; }
+.feature-box li:before { content: "✓"; color: #22c55e; margin-right: 0.5rem; font-weight: bold; }
+.cta-section { text-align: center; padding: 3rem; background: white; border-radius: 16px; margin-top: 2rem; }
+.cta-btn { display: inline-block; background: #e63946; color: white; padding: 1rem 3rem; font-size: 1.25rem; font-weight: 700; border-radius: 8px; text-decoration: none; transition: background 0.2s; }
+.cta-btn:hover { background: #c1121f; }
+.cta-note { margin-top: 1rem; color: #666; font-size: 0.9rem; }
+.comparison { margin-top: 3rem; }
+.comparison table { width: 100%; border-collapse: collapse; background: white; border-radius: 12px; overflow: hidden; }
+.comparison th, .comparison td { padding: 1rem; text-align: center; border-bottom: 1px solid #eee; }
+.comparison th { background: #1a1a1a; color: white; }
+.comparison .check { color: #22c55e; font-size: 1.25rem; }
+.comparison .cross { color: #e63946; font-size: 1.25rem; }
+.comparison .highlight { background: #fef3c7; }
+.faq { margin-top: 3rem; }
+.faq h2 { text-align: center; margin-bottom: 1.5rem; }
+.faq-item { background: white; padding: 1.5rem; margin-bottom: 1rem; border-radius: 8px; }
+.faq-item strong { color: #e63946; }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Upgrade to Pro</h1>
+        <p>Your business, elevated. Seen by thousands of local neighbors.</p>
+    </div>
+    
+    <div class="price-hero">
+        <div class="price">$99<span style="font-size:1.5rem">/mo</span></div>
+        <div class="period">Pro Partner</div>
+        <div class="note">Less than $3.50/day. Cancel anytime.</div>
+    </div>
+    
+    <div class="features">
+        <div class="feature-box">
+            <h3>🏠 Your Own Page</h3>
+            <ul>
+                <li>Full-featured business page</li>
+                <li>Custom description</li>
+                <li>Your photos & video</li>
+                <li>Embedded YouTube/Vimeo</li>
+            </ul>
+        </div>
+        <div class="feature-box">
+            <h3>🎁 Special Offer</h3>
+            <ul>
+                <li>Custom offer for neighbors</li>
+                <li>Auto-generated QR code</li>
+                <li>Print & share anywhere</li>
+                <li>Track redemptions</li>
+            </ul>
+        </div>
+        <div class="feature-box">
+            <h3>📣 Get Found</h3>
+            <ul>
+                <li>"Pro Partner" badge</li>
+                <li>Higher in search results</li>
+                <li>Newsletter feature</li>
+                <li>Lead capture form</li>
+            </ul>
+        </div>
+        <div class="feature-box">
+            <h3>📊 Monthly Report</h3>
+            <ul>
+                <li>Profile views</li>
+                <li>New reviews</li>
+                <li>Offer redemptions</li>
+                <li>Sent only if activity</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="cta-section">
+        <h2>Ready to Grow Your Business?</h2>
+        <p style="margin: 1rem 0 2rem;">Join other local businesses already getting found by neighbors.</p>
+        <a href="/signup/pro" class="cta-btn">Upgrade to Pro</a>
+        <p class="cta-note">Questions? Contact us — we're neighbors too.</p>
+    </div>
+    
+    <div class="comparison">
+        <h2 style="text-align:center;margin-bottom:1.5rem;">Free vs Pro</h2>
+        <table>
+            <tr>
+                <th>Feature</th>
+                <th>Free</th>
+                <th class="highlight">Pro</th>
+            </tr>
+            <tr>
+                <td>Basic listing</td>
+                <td class="check">✓</td>
+                <td class="check highlight">✓</td>
+            </tr>
+            <tr>
+                <td>Google data (auto-updated)</td>
+                <td class="check">✓</td>
+                <td class="check highlight">✓</td>
+            </tr>
+            <tr>
+                <td>Full business page</td>
+                <td class="cross">—</td>
+                <td class="check highlight">✓</td>
+            </tr>
+            <tr>
+                <td>Special offer + QR code</td>
+                <td class="cross">—</td>
+                <td class="check highlight">✓</td>
+            </tr>
+            <tr>
+                <td>Custom photos & video</td>
+                <td class="cross">—</td>
+                <td class="check highlight">✓</td>
+            </tr>
+            <tr>
+                <td>Pro Partner badge</td>
+                <td class="cross">—</td>
+                <td class="check highlight">✓</td>
+            </tr>
+            <tr>
+                <td>Monthly report</td>
+                <td class="cross">—</td>
+                <td class="check highlight">✓</td>
+            </tr>
+            <tr>
+                <td>Lead capture</td>
+                <td class="cross">—</td>
+                <td class="check highlight">✓</td>
+            </tr>
+        </table>
+    </div>
+    
+    <div class="faq">
+        <h2>Frequently Asked Questions</h2>
+        <div class="faq-item">
+            <strong>How does the QR code work?</strong>
+            <p>We generate a unique QR code for your offer. Print it on menus, flyers, or display it in your store. Scan it to redeem — we'll track every use.</p>
+        </div>
+        <div class="faq-item">
+            <strong>What's in the monthly report?</strong>
+            <p>You'll see profile views, new TLN reviews, Google reviews, offer redemptions, and more. We only email you if there's activity — no spam.</p>
+        </div>
+        <div class="faq-item">
+            <strong>Can I cancel anytime?</strong>
+            <p>Yes. No contracts, no commitments. Cancel anytime from your dashboard.</p>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
