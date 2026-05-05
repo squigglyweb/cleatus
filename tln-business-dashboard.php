@@ -66,7 +66,7 @@ function tln_claim_form($atts) {
             'cta_url' => esc_url_raw($_POST['cta_url']),
             'tos_agreed' => sanitize_text_field($_POST['tos_signature']),
             'tos_signed_date' => $today,
-            'status' => 'pending'
+            'status' => 'approved'
         ));
         
         $claim_id = $wpdb->insert_id;
