@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: TLN Business Dashboard
- * Description: Business claim system with TOS agreement
- * Version: 1.3
+ * Description: Business claim system with email notifications
+ * Version: 1.4
  */
 
 register_activation_hook(__FILE__, 'tln_business_install');
@@ -13,13 +13,14 @@ function tln_business_install() {
     
     $wpdb->query("CREATE TABLE IF NOT EXISTS {$wpdb->prefix}tln_claims (
         id mediumint(9) NOT NULL AUTO_INCREMENT,
-        business_id bigint(20) DEFAULT 0,
         business_name varchar(255),
         place_id varchar(255),
         user_id bigint(20) NOT NULL,
         claimant_name varchar(100),
         claimant_phone varchar(50),
         proof text,
+        cta_text varchar(100),
+        cta_url varchar(500),
         tos_agreed varchar(255),
         tos_signed_date date,
         status varchar(20) DEFAULT 'pending',
@@ -61,14 +62,35 @@ function tln_claim_form($atts) {
             'claimant_name' => sanitize_text_field($_POST['claimant_name']),
             'claimant_phone' => sanitize_text_field($_POST['claimant_phone']),
             'proof' => sanitize_textarea_field($_POST['proof']),
+            'cta_text' => sanitize_text_field($_POST['cta_text']),
+            'cta_url' => esc_url_raw($_POST['cta_url']),
             'tos_agreed' => sanitize_text_field($_POST['tos_signature']),
             'tos_signed_date' => $today,
             'status' => 'pending'
         ));
         
-        return '<div class="tln-success" style="background:#d4edda;padding:1.5rem;border-radius:8px;color:#155724;">
-            <h3>✅ Claim Submitted!</h3>
-            <p>We\'ll review your request and get back to you within 48 hours.</p>
+        $claim_id = $wpdb->insert_id;
+        
+        // Send email to Bryan
+        $business_name = sanitize_text_field($_POST['business_name']);
+        $claimant_name = sanitize_text_field($_POST['claimant_name']);
+        $claimant_phone = sanitize_text_field($_POST['claimant_phone']);
+        
+        $to = 'bryan@thelocalnearbuy.com';
+        $subject = '🚨 New Business Claim: ' . $business_name;
+        $message = "A new business has claimed their listing!\n\n";
+        $message .= "Business: " . $business_name . "\n";
+        $message .= "Claimed by: " . $claimant_name . "\n";
+        $message .= "Phone: " . $claimant_phone . "\n";
+        $message .= "Date: " . date('F j, Y') . "\n\n";
+        $message .= "View in admin: https://thelocalnearbuy.com/wp-admin/admin.php?page=tln-claims";
+        
+        wp_mail($to, $subject, $message);
+        
+        return '<div class="tln-success" style="background:#d4edda;padding:2rem;border-radius:8px;color:#155724;text-align:center;">
+            <h3 style="margin-top:0;">✅ Claim Submitted!</h3>
+            <p>Thanks! We\'ve received your request and will review it within 48 hours.</p>
+            <p>You\'ll hear back soon.</p>
         </div>';
     }
     
@@ -78,7 +100,7 @@ function tln_claim_form($atts) {
         <h2 style="margin-top:0;">Claim This Business</h2>
         
         <?php if ($url_business): ?>
-        <div style="background:#e63946;color:white;padding:1rem;border-radius:8px;margin-bottom:1.5rem;">
+        <div style="background:#1a1a1a;color:white;padding:1rem;border-radius:8px;margin-bottom:1.5rem;">
             You're claiming: <strong><?php echo esc_html($url_business); ?></strong>
         </div>
         <?php endif; ?>
@@ -117,40 +139,25 @@ function tln_claim_form($atts) {
                     
                     <p>These Terms of Service constitute an agreement between The Local Nearbuy ("Vendor," "We" or "Us") and the individual, corporation, LLC, partnership, sole proprietorship, or other business entity agreeing to these terms ("Customer" or "You").</p>
                     
-                    <p><strong>1. Acceptance of Terms</strong><br>
-                    We provide online resources, information, and email services subject to these Terms of Service. By using the Service, you agree to comply with these terms.</p>
+                    <p><strong>1. Acceptance of Terms</strong><br>We provide online resources, information, and email services subject to these Terms of Service.</p>
                     
-                    <p><strong>2. Amendment of Terms</strong><br>
-                    We may amend these Terms from time to time by posting changes on our website.</p>
+                    <p><strong>2. Amendment of Terms</strong><br>We may amend these Terms from time to time by posting changes on our website.</p>
                     
-                    <p><strong>3. Content</strong><br>
-                    You are solely responsible for all content you post. You grant us an irrevocable license to use your content.</p>
+                    <p><strong>3. Content</strong><br>You are solely responsible for all content you post.</p>
                     
-                    <p><strong>4. Third-Party Content</strong><br>
-                    Content may link to third-party websites. We make no representations about their accuracy.</p>
+                    <p><strong>4. Third-Party Content</strong><br>Content may link to third-party websites.</p>
                     
-                    <p><strong>5. Privacy</strong><br>
-                    Please review our Privacy Policy.</p>
+                    <p><strong>5. Privacy</strong><br>Please review our Privacy Policy.</p>
                     
-                    <p><strong>6. Conduct</strong><br>
-                    Please review our Acceptable Use Policy.</p>
+                    <p><strong>6. Paid Postings</strong><br>We may charge fees for certain postings.</p>
                     
-                    <p><strong>7. Paid Postings</strong><br>
-                    We may charge fees for certain postings. All fees paid are non-refundable.</p>
+                    <p><strong>7. Term and Termination</strong><br>You may deactivate your account at any time.</p>
                     
-                    <p><strong>8. Term and Termination</strong><br>
-                    You may deactivate your account at any time. We may delete accounts for violation of these Terms.</p>
+                    <p><strong>8. Disclaimer of Warranties</strong><br>THE SERVICE IS PROVIDED "AS IS" WITHOUT WARRANTIES.</p>
                     
-                    <p><strong>9. Disclaimer of Warranties</strong><br>
-                    THE SERVICE IS PROVIDED "AS IS" WITHOUT WARRANTIES OF ANY KIND.</p>
+                    <p><strong>9. Limitations of Liability</strong><br>OUR LIABILITY IS LIMITED TO $25.00.</p>
                     
-                    <p><strong>10. Limitations of Liability</strong><br>
-                    OUR LIABILITY IS LIMITED TO $25.00.</p>
-                    
-                    <p><strong>11. Fees</strong><br>
-                    You agree to pay subscription fees until your account is deactivated.</p>
-                    
-                    <p><em>For complete Terms of Service, visit: <a href="/terms-of-service/" target="_blank">thelocalnearbuy.com/terms-of-service</a></em></p>
+                    <p><em>For complete Terms, visit: <a href="/terms-of-service/" target="_blank">thelocalnearbuy.com/terms-of-service</a></em></p>
                 </div>
                 
                 <div style="background:#fef3c7;padding:1rem;border-radius:6px;margin-bottom:1rem;">
@@ -164,13 +171,6 @@ function tln_claim_form($atts) {
                     <label style="display:block;font-weight:600;margin-bottom:0.5rem;">Type your full name as digital signature *</label>
                     <input type="text" name="tos_signature" required placeholder="Type your full name here"
                            style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;font-size:1rem;">
-                    <small style="color:#666;">By typing your name, you agree that this constitutes your legal signature.</small>
-                </p>
-                
-                <p>
-                    <label style="display:block;font-weight:600;margin-bottom:0.5rem;">Date</label>
-                    <input type="text" value="<?php echo date('F j, Y'); ?>" disabled
-                           style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;font-size:1rem;background:#f5f5f5;">
                 </p>
             </div>
             
