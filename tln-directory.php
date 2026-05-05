@@ -1,129 +1,225 @@
 <?php
 /**
- * Plugin Name: TLN Directory
- * Description: Business directory shortcode for The Local NearBuy
- * Version: 1.0
- * Author: TLN
+ * Plugin Name: TLN Business Directory
+ * Description: Display local businesses from Google API with claim functionality
+ * Version: 1.1
  */
 
-// Enqueue styles
 function tln_directory_styles() {
-    // Google Fonts
-    wp_enqueue_style('tln-fonts', 'https://fonts.googleapis.com/css2?family=Archivo+Black&family=Open+Sans:wght@400;600;700&display=swap', array(), null);
+    wp_enqueue_style('tln-fonts', 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap', array(), null);
     
-    wp_register_style('tln-directory', false);
-    wp_enqueue_style('tln-directory');
+    wp_register_style('tln-dir', false);
+    wp_enqueue_style('tln-dir');
     
     $css = '
-    :root { --primary: #e63946; --dark: #1a1a1a; --gray: #666; --light: #f8f8f8; --white: #ffffff; }
-    body { font-family: "Open Sans", sans-serif; }
-    .tln-directory { max-width: 1200px; margin: 0 auto; }
-    .tln-filter-bar { display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
-    .tln-filter-group { display: flex; align-items: center; gap: 0.5rem; }
-    .tln-filter-group label { font-weight: 600; font-size: 0.9rem; }
-    .tln-filter-group select { padding: 0.7rem 1rem; border: 2px solid #ddd; border-radius: 8px; font-size: 0.9rem; min-width: 150px; background: var(--white); cursor: pointer; }
-    .tln-filter-group select:focus { outline: none; border-color: var(--primary); }
-    .business-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: 0 auto; max-width: 1200px; }
-    .business-card { background: var(--white); border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); border: 1px solid #D3D3D3; transition: all 0.2s; }
-    .business-card:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.12); border-color: var(--primary); }
-    .card-image { width: 100%; height: 140px; object-fit: cover; background: #ebebeb; }
-    .card-body { padding: 1.25rem; }
-    .card-category { font-size: 0.75rem; color: var(--primary); text-transform: capitalize; font-weight: 600; letter-spacing: 1px; margin-bottom: 0.5rem; }
-    .card-title { font-family: "Open Sans", sans-serif; font-size: 1.2rem; font-weight: 700 !important; margin-bottom: 0.75rem; color: var(--dark); }
-    .card-meta { font-size: 0.9rem; color: var(--gray); line-height: 1.6; }
-    .card-meta-main { display: flex; gap: 1rem; margin-bottom: 0.5rem; }
-    .card-meta-main div { display: flex; align-items: center; gap: 0.4rem; flex: 1; }
-    .card-meta-main img { width: 16px; height: 16px; flex-shrink: 0; }
-    .card-rating { display: flex; align-items: center; gap: 0.4rem; }
-    .card-rating img { width: 16px; height: 16px; }
-    .card-btn { display: block; width: 100%; padding: 0.9rem; background: var(--primary); color: #ffffff !important; text-align: center; text-decoration: none; font-weight: 600; font-size: 1rem; border-radius: 8px; margin-top: 1rem; transition: background 0.2s; }
-    .card-btn:hover { background: #c1121f; }
-    @media (max-width: 900px) { .business-grid { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 600px) { .business-grid { grid-template-columns: 1fr; } }
+    .tln-dir-container { max-width: 1200px; margin: 0 auto; }
+    .tln-dir-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
+    .tln-dir-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); border: 1px solid #7cda24; }
+    .tln-dir-card:hover { transform: translateY(-4px); }
+    .tln-dir-img { width: 100%; height: 180px; object-fit: cover; background: #ebebeb; }
+    .tln-dir-content { padding: 1.25rem; }
+    .tln-dir-name { font-size: 1.2rem; font-weight: 700 !important; margin-bottom: 0.25rem; color: #1a1a1a; }
+    .tln-dir-category { font-size: 0.8rem; color: #e63946; font-weight: 600; margin-bottom: 0.5rem; }
+    .tln-dir-rating { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+    .tln-dir-stars { color: #FABC06; }
+    .tln-dir-reviews { color: #666; font-size: 0.9rem; }
+    .tln-dir-address { color: #666; font-size: 0.9rem; margin-bottom: 0.5rem; }
+    .tln-dir-phone { color: #666; font-size: 0.9rem; margin-bottom: 0.75rem; }
+    .tln-dir-phone a { color: #666; text-decoration: none; }
+    .tln-dir-phone a:hover { color: #e63946; }
+    .tln-dir-claim { display: inline-block; background: #7cda24; color: white; padding: 0.5rem 1rem; border-radius: 6px; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+    .tln-dir-claim:hover { background: #6bc91f; }
+    .tln-dir-filters { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .tln-dir-search { flex: 1; min-width: 200px; padding: 0.75rem 1rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; font-family: "Open Sans", sans-serif; }
+    .tln-dir-filter { padding: 0.75rem 1rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; font-family: "Open Sans", sans-serif; background: white; cursor: pointer; }
+    @media (max-width: 600px) { .tln-dir-grid { grid-template-columns: 1fr; } }
     ';
     
-    wp_add_inline_style('tln-directory', $css);
+    wp_add_inline_style('tln-dir', $css);
 }
 add_action('wp_enqueue_scripts', 'tln_directory_styles');
 
+// API Key
+define('TLN_GOOGLE_API_KEY', 'AIzaSyAH6O3RsnDuX5rJ2OyTHCTZhYtd6s6NSWU');
+
+// Search areas
+$search_areas = array(
+    'Waxhaw' => 'Waxhaw, NC',
+    'Weddington' => 'Weddington, NC',
+    'Wesley Chapel' => 'Wesley Chapel, NC',
+    'Marvin' => 'Marvin, NC',
+    'Indian Land' => 'Indian Land, SC',
+    'Ballantyne' => 'Ballantyne, Charlotte, NC'
+);
+
+// Default categories
+$default_categories = array('Restaurant', 'Retail', 'Medical', 'Services', 'Food & Drink');
+
 function tln_directory_shortcode($atts) {
     $atts = shortcode_atts(array(
-        'posts_per_page' => -1,
+        'category' => '',
+        'location' => ''
     ), $atts);
-
-    $args = array(
-        'post_type' => 'post',
-        'posts_per_page' => intval($atts['posts_per_page']),
-        'orderby' => 'title',
-        'order' => 'ASC',
-        'post_status' => 'publish'
+    
+    $api_key = TLN_GOOGLE_API_KEY;
+    $results = array();
+    
+    // Fetch from Google Places API
+    $search_queries = array(
+        'Restaurant' => 'restaurants in Waxhaw NC',
+        'Retail' => 'retail stores in Waxhaw NC',
+        'Medical' => 'medical offices in Waxhaw NC',
+        'Services' => 'services in Waxhaw NC',
+        'Food & Drink' => 'food and drink in Waxhaw NC'
     );
-
-    $query = new WP_Query($args);
-
-    if (!$query->have_posts()) {
+    
+    foreach ($search_queries as $category => $query) {
+        $url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" . urlencode($query) . "&key=$api_key";
+        $response = wp_remote_get($url);
+        
+        if (!is_wp_error($response)) {
+            $data = json_decode(wp_remote_retrieve_body($response), true);
+            $places = $data['results'] ?? array();
+            
+            foreach ($places as $place) {
+                $place_id = $place['place_id'];
+                $transient_key = "tln_dir_{$place_id}";
+                $cached = get_transient($transient_key);
+                
+                if (false === $cached) {
+                    // Get more details
+                    $details_url = "https://maps.googleapis.com/maps/api/place/details/json?place_id=$place_id&fields=name,formatted_address,formatted_phone_number,rating,user_ratings_total,photos,geometry&key=$api_key";
+                    $details_response = wp_remote_get($details_url);
+                    
+                    if (!is_wp_error($details_response)) {
+                        $details_data = json_decode(wp_remote_retrieve_body($details_response), true);
+                        $cached = $details_data['result'] ?? $place;
+                        set_transient($transient_key, $cached, 86400); // 24 hour cache
+                    }
+                }
+                
+                $r = $cached ?? $place;
+                
+                // Get photo
+                $photo_url = '';
+                $photos = $r['photos'] ?? array();
+                if (!empty($photos)) {
+                    $photo_ref = $photos[0]['photo_reference'];
+                    $photo_url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=$photo_ref&key=$api_key";
+                }
+                
+                // Rating
+                $rating = $r['rating'] ?? 0;
+                $stars = str_repeat('★', floor($rating)) . (fmod($rating, 1) >= 0.5 ? '½' : '');
+                
+                $results[] = array(
+                    'place_id' => $place_id,
+                    'name' => $r['name'],
+                    'category' => $category,
+                    'address' => $r['formatted_address'] ?? '',
+                    'phone' => $r['formatted_phone_number'] ?? '',
+                    'rating' => $rating,
+                    'stars' => $stars,
+                    'reviews' => $r['user_ratings_total'] ?? 0,
+                    'photo' => $photo_url,
+                    'lat' => $r['geometry']['location']['lat'] ?? '',
+                    'lng' => $r['geometry']['location']['lng'] ?? ''
+                );
+            }
+        }
+    }
+    
+    // Remove duplicates by name
+    $seen = array();
+    $deduped = array();
+    foreach ($results as $r) {
+        $key = strtolower($r['name']);
+        if (!isset($seen[$key])) {
+            $seen[$key] = true;
+            $deduped[] = $r;
+        }
+    }
+    $results = $deduped;
+    
+    if (empty($results)) {
         return '<p>No businesses found.</p>';
     }
-
+    
     ob_start();
     ?>
-    <div class="tln-directory">
-    <div class="tln-filter-bar">
-        <div class="tln-filter-group">
-            <label>Location:</label>
-            <select><option>All Locations</option><option>Waxhaw</option><option>Weddington</option><option>Wesley Chapel</option><option>Indian Land</option><option>Marvin</option></select>
+    <div class="tln-dir-container">
+        <div class="tln-dir-filters">
+            <input type="text" class="tln-dir-search" id="tln-search" placeholder="Search businesses...">
+            <select class="tln-dir-filter" id="tln-category">
+                <option value="all">All Categories</option>
+                <?php foreach ($default_categories as $cat): ?>
+                <option value="<?php echo $cat; ?>"><?php echo $cat; ?></option>
+                <?php endforeach; ?>
+            </select>
+            <select class="tln-dir-filter" id="tln-location">
+                <option value="all">All Locations</option>
+                <?php foreach (array_keys($search_areas) as $loc): ?>
+                <option value="<?php echo $loc; ?>"><?php echo $loc; ?></option>
+                <?php endforeach; ?>
+            </select>
         </div>
-        <div class="tln-filter-group">
-            <label>Category:</label>
-            <select><option>All Categories</option><option>Dentist</option><option>Restaurant</option><option>Plumber</option><option>Salon</option><option>Retail</option><option>Medical</option></select>
-        </div>
-        <div class="tln-filter-group">
-            <label>Sort:</label>
-            <select><option>A-Z</option><option>Z-A</option><option>Rating (High)</option><option>Newest</option></select>
-        </div>
-    </div>
-    <div class="business-grid">
-    <?php while ($query->have_posts()) : $query->the_post(); 
-        $post_id = get_the_ID();
         
-        // Get ACF fields (gracefully handle if not set)
-        $address = get_field('business_address', $post_id) ?: 'Address not available';
-        $phone = get_field('business_phone', $post_id) ?: 'Call for info';
-        $google_rating = get_field('google_rating', $post_id) ?: 'New';
-        $category = get_field('business_category', $post_id) ?: get_the_category($post_id)[0]->name ?? '';
-        $location = get_field('business_location', $post_id) ?: '';
-        
-        $featured_img = get_the_post_thumbnail_url($post_id, 'medium');
-        if (!$featured_img) {
-            $featured_img = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTA4MCIgaGVpZ2h0PSI1NDAiIHZpZXdCb3g9IjAgMCAxMDgwIDU0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KICAgIDxnIGZpbGw9Im5vbmUiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZmlsbD0iI0VCRUJFQiIgZD0iTTAgMGgxMDgwdjU0MEgweiIvPgogICAgICAgIDxwYXRoIGQ9Ik00NDUuNjQ5IDU0MGgtOTguOTk1TDE0NC42NDkgMzM3Ljk5NSAwIDQ4Mi42NDR2LTk4Ljk5NWwxMTYuMzY1LTExNi4zNjVjMTUuNjItMTUuNjIgNDAuOTQ3LTE1LjYyIDU2LjU2OCAwTDQ0NS42NSA1NDB6IiBmaWxsLW9wYWNpdHk9Ii4xIiBmaWxsPSIjMDAwIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz4KICAgICAgICA8Y2lyY2xlIGZpbGwtb3BhY2l0eT0iLjA1IiBmaWxsPSIjMDAwIiBjeD0iMzMxIiBjeT0iMTQ4IiByPSI3MCIvPgogICAgICAgIDxwYXRoIGQ9Ik0xMDgwIDM3OXYxMTMuMTM3TDcyOC4xNjIgMTQwLjMgMzI4LjQ2MiA1NDBIMjE1LjMyNEw2OTkuODc4IDU1LjQ0NmMxNS42Mi0xNS42MiA0MC45NDgtMTUuNjIgNTYuNTY4IDBMMTA4MCAzNzl6IiBmaWxsLW9wYWNpdHk9Ii4yIiBmaWxsPSIjMDAwIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz4KICAgIDwvZz4KPC9zdmc+Cg==';
-        }
-        
-        $subtitle = '';
-        if ($category) $subtitle .= ucfirst($category);
-        if ($location) $subtitle .= $category ? ' • ' . $location : ucfirst($location);
-        
-        $rating_display = $google_rating !== 'New' ? $google_rating . ' (' . rand(50, 300) . ' reviews)' : 'New';
+        <div class="tln-dir-grid" id="tln-grid">
+        <?php foreach ($results as $biz): ?>
+        <?php 
+        $img = $biz['photo'] ?: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjE4MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZWJlYmViIi8+PC9zdmc+';
         ?>
-        <div class="business-card">
-            <img src="<?php echo esc_url($featured_img); ?>" alt="<?php echo esc_attr(get_the_title()); ?>" class="card-image">
-            <div class="card-body">
-                <div class="card-category"><?php echo esc_html($subtitle); ?></div>
-                <h3 class="card-title"><?php the_title(); ?></h3>
-                <div class="card-meta">
-                    <div class="card-meta-main">
-                        <div><img src="https://cdn-icons-png.flaticon.com/512/535/535239.png" alt="location"> <?php echo esc_html($address); ?></div>
-                        <div><img src="https://cdn-icons-png.flaticon.com/512/455/455955.png" alt="phone"> <?php echo esc_html($phone); ?></div>
-                    </div>
-                    <div class="card-rating"><img src="https://cdn-icons-png.flaticon.com/512/651/651673.png" alt="rating"> <?php echo esc_html($rating_display); ?></div>
+        <div class="tln-dir-card" data-name="<?php echo strtolower(esc_attr($biz['name'])); ?>" data-category="<?php echo esc_attr($biz['category']); ?>" data-location="Waxhaw">
+            <img src="<?php echo esc_url($img); ?>" alt="<?php echo esc_attr($biz['name']); ?>" class="tln-dir-img">
+            <div class="tln-dir-content">
+                <div class="tln-dir-category"><?php echo esc_html($biz['category']); ?> • Waxhaw</div>
+                <h3 class="tln-dir-name"><?php echo esc_html($biz['name']); ?></h3>
+                <div class="tln-dir-rating">
+                    <span class="tln-dir-stars"><?php echo esc_html($biz['stars']); ?></span>
+                    <span class="tln-dir-reviews">(<?php echo $biz['reviews']; ?> reviews)</span>
                 </div>
-                <a href="<?php the_permalink(); ?>" class="card-btn">View Business →</a>
+                <div class="tln-dir-address">📍 <?php echo esc_html($biz['address']); ?></div>
+                <?php if ($biz['phone']): ?>
+                <div class="tln-dir-phone">📞 <a href="tel:<?php echo preg_replace('/[^0-9]/', '', $biz['phone']); ?>"><?php echo esc_html($biz['phone']); ?></a></div>
+                <?php endif; ?>
+                <a href="/claim?business=<?php echo urlencode($biz['name']); ?>&place_id=<?php echo $biz['place_id']; ?>" class="tln-dir-claim">Claim This Business →</a>
             </div>
         </div>
-    <?php endwhile; ?>
+        <?php endforeach; ?>
+        </div>
     </div>
-    </div>
+    
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var search = document.getElementById('tln-search');
+        var catFilter = document.getElementById('tln-category');
+        var locFilter = document.getElementById('tln-location');
+        var cards = document.querySelectorAll('.tln-dir-card');
+        
+        function filter() {
+            var q = search.value.toLowerCase();
+            var cat = catFilter.value;
+            var loc = locFilter.value;
+            
+            cards.forEach(function(c) {
+                var name = c.dataset.name;
+                var category = c.dataset.category;
+                var location = c.dataset.location;
+                
+                var match = (q === '' || name.indexOf(q) > -1) &&
+                           (cat === 'all' || category === cat) &&
+                           (loc === 'all' || location === loc);
+                
+                c.style.display = match ? '' : 'none';
+            });
+        }
+        
+        search.addEventListener('input', filter);
+        catFilter.addEventListener('change', filter);
+        locFilter.addEventListener('change', filter);
+    });
+    </script>
     <?php
-    wp_reset_postdata();
     return ob_get_clean();
 }
 add_shortcode('tln_directory', 'tln_directory_shortcode');
