@@ -176,7 +176,7 @@ function tln_directory_shortcode($atts) {
                 <h3 class="tln-dir-name"><?php echo esc_html($biz['name']); ?></h3>
                 <div class="tln-dir-rating"><span class="tln-dir-stars"><?php echo esc_html($biz['stars']); ?></span> <span class="tln-dir-reviews">(<?php echo $biz['reviews']; ?>)</span></div>
                 <div class="tln-dir-address">📍 <?php echo esc_html($biz['address']); ?></div>
-                <a href="/claim?business=<?php echo urlencode($biz['name']); ?>&place_id=<?php echo $biz['place_id']; ?>" class="tln-dir-claim">Claim This Business →</a>
+                <a href="/claim/?business=<?php echo urlencode($biz['name']); ?>&place_id=<?php echo $biz['place_id']; ?>" class="tln-dir-claim">Claim This Business →</a>
             </div>
         </div>
         <?php endforeach; ?>
