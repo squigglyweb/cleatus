@@ -2,7 +2,7 @@
 /**
  * Plugin Name: TLN Golf Courses
  * Description: Display golf courses near Waxhaw with live Google data and filtering
- * Version: 1.1
+ * Version: 1.2
  */
 
 function tln_golf_styles() {
@@ -20,20 +20,25 @@ function tln_golf_styles() {
     .golf-filter:focus { outline: none; border-color: #e63946; }
     .golf-sort { padding: 0.75rem 1rem; border: 1px solid #ddd; border-radius: 8px; font-size: 1rem; font-family: "Open Sans", sans-serif; background: white; cursor: pointer; }
     .golf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem; }
-    .golf-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); transition: transform 0.2s; }
+    .golf-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 2px 12px rgba(0,0,0,0.08); transition: transform 0.2s; border: 1px solid #7cda24; }
     .golf-card:hover { transform: translateY(-4px); }
     .golf-card.hidden { display: none; }
     .golf-image { width: 100%; height: 200px; object-fit: cover; background: #ebebeb; }
     .golf-content { padding: 1.25rem; }
     .golf-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; color: #1a1a1a; }
     .golf-rating { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
-    .golf-stars { color: #e63946; }
+    .golf-stars { color: #FABC06; }
     .golf-count { color: #666; font-size: 0.9rem; }
     .golf-address { color: #666; margin-bottom: 0.5rem; }
+    .golf-address a { color: #e63946; text-decoration: none; }
+    .golf-address a:hover { text-decoration: underline; }
     .golf-phone { color: #666; margin-bottom: 0.5rem; }
-    .golf-hours { font-size: 0.85rem; color: #666; margin-bottom: 1rem; }
-    .golf-hours .open { color: #22c55e; }
-    .golf-hours .closed { color: #e63946; }
+    .golf-phone a { color: #666; text-decoration: none; }
+    .golf-phone a:hover { color: #e63946; }
+    .golf-status-pill { display: inline-block; padding: 0.35rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; margin-bottom: 0.75rem; }
+    .golf-status-open { background: #7cda24; color: white; }
+    .golf-status-closed { background: #e63946; color: white; }
+    .golf-status-soon { background: #f59e0b; color: white; }
     .golf-btn { display: block; width: 100%; padding: 0.9rem; background: #e63946; color: white; text-align: center; text-decoration: none; font-weight: 600; border-radius: 8px; }
     .golf-btn:hover { background: #c1121f; }
     .golf-location { font-size: 0.8rem; color: #e63946; font-weight: 600; margin-bottom: 0.25rem; }
@@ -107,8 +112,30 @@ function tln_golf_shortcode($atts) {
         
         $rating = $r['rating'] ?? 0;
         $stars = str_repeat('★', floor($rating)) . (fmod($rating, 1) >= 0.5 ? '½' : '');
+        
+        // Status pill logic
         $open_now = $r['opening_hours']['open_now'] ?? null;
-        $hours_text = $open_now === true ? '<span class="open">Open now</span>' : ($open_now === false ? '<span class="closed">Closed</span>' : '');
+        $periods = $r['opening_hours']['periods'] ?? array();
+        
+        $status = '';
+        $status_class = '';
+        if ($open_now === true) {
+            $status = 'Open Now';
+            $status_class = 'golf-status-open';
+        } elseif ($open_now === false) {
+            $status = 'Closed';
+            $status_class = 'golf-status-closed';
+        } else {
+            $status = 'Hours Unavailable';
+            $status_class = 'golf-status-soon';
+        }
+        
+        // Check for opening soon (within 2 hours)
+        if (!empty($periods) && $open_now !== true && $open_now !== false) {
+            // Try to determine if opening soon
+            $status = 'Opening Soon';
+            $status_class = 'golf-status-soon';
+        }
         
         $results[] = array(
             'place_id' => $place_id,
@@ -119,9 +146,10 @@ function tln_golf_shortcode($atts) {
             'rating' => $rating,
             'stars' => $stars,
             'reviews' => $r['user_ratings_total'] ?? 0,
-            'open_now' => $hours_text,
+            'status' => $status,
+            'status_class' => $status_class,
             'photo' => $photo_url,
-            'maps_link' => "https://www.google.com/maps/place/$place_id",
+            'maps_link' => "https://www.google.com/maps/search/?api=1&query=" . urlencode($r['formatted_address']),
         );
     }
     
@@ -163,11 +191,11 @@ function tln_golf_shortcode($atts) {
                     <span class="golf-stars"><?php echo esc_html($course['stars']); ?></span>
                     <span class="golf-count"><?php echo esc_html($course['rating'] . ' (' . $course['reviews'] . ')'); ?></span>
                 </div>
-                <div class="golf-address"><?php echo esc_html($course['address']); ?></div>
+                <span class="golf-status-pill <?php echo $course['status_class']; ?>"><?php echo esc_html($course['status']); ?></span>
+                <div class="golf-address">📍 <a href="<?php echo esc_url($course['maps_link']); ?>" target="_blank"><?php echo esc_html($course['address']); ?></a></div>
                 <?php if ($course['phone']): ?>
-                <div class="golf-phone">📞 <?php echo esc_html($course['phone']); ?></div>
+                <div class="golf-phone">📞 <a href="tel:<?php echo preg_replace('/[^0-9]/', '', $course['phone']); ?>"><?php echo esc_html($course['phone']); ?></a></div>
                 <?php endif; ?>
-                <div class="golf-hours"><?php echo $course['open_now']; ?></div>
                 <a href="<?php echo esc_url($course['maps_link']); ?>" target="_blank" class="golf-btn">View on Google Maps →</a>
             </div>
         </div>
