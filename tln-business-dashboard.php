@@ -231,3 +231,74 @@ function tln_claims_page() {
 function tln_business_admin() {
     echo '<h1>TLN Business Dashboard</h1><p>Use the submenus to manage claims.</p>';
 }
+
+// Business Dashboard Shortcode
+add_shortcode('business_dashboard', 'tln_business_dashboard');
+
+function tln_business_dashboard() {
+    if (!is_user_logged_in()) {
+        return '<p>Please <a href="' . wp_login_url() . '">log in</a> to view your dashboard.</p>';
+    }
+    
+    $user_id = get_current_user_id();
+    
+    // Get their claimed business
+    global $wpdb;
+    $claim = $wpdb->get_row($wpdb->prepare(
+        "SELECT * FROM {$wpdb->prefix}tln_claims WHERE user_id = %d AND status = 'approved' ORDER BY submitted_at DESC LIMIT 1",
+        $user_id
+    ));
+    
+    if (!$claim) {
+        return '<div style="background:#fef3c7;padding:1.5rem;border-radius:8px;">
+            <h3>No Business Claimed</h3>
+            <p>You haven\'t claimed a business yet.</p>
+            <a href="/directory/" style="background:#7cda24;color:white;padding:0.75rem 1.5rem;border-radius:8px;text-decoration:none;">Browse Directory →</a>
+        </div>';
+    }
+    
+    ob_start();
+    ?>
+    <div style="max-width:800px;margin:0 auto;padding:2rem;">
+        <h2 style="margin-top:0;">Welcome, <?php echo esc_html($claim->claimant_name); ?>!</h2>
+        
+        <div style="background:#1a1a1a;color:white;padding:1.5rem;border-radius:12px;margin-bottom:1.5rem;">
+            <h3 style="margin-top:0;color:white;"><?php echo esc_html($claim->business_name); ?></h3>
+            <p style="opacity:0.8;margin-bottom:0;">Status: ✅ Verified | Claimed <?php echo date('M j, Y', strtotime($claim->submitted_at)); ?></p>
+        </div>
+        
+        <!-- PRO UPGRADE SECTION -->
+        <div style="background:linear-gradient(135deg,#e63946,#c1121f);color:white;padding:2rem;border-radius:12px;margin-bottom:1.5rem;">
+            <h3 style="margin-top:0;color:white;font-size:1.5rem;">🚀 Upgrade to Pro</h3>
+            <p style="opacity:0.9;">Get a custom offer, QR code, photos, and more for just $99/month.</p>
+            
+            <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;">
+                <a href="YOUR_STRIPE_LINK_HERE" style="flex:1;background:white;color:#e63946;padding:1rem 1.5rem;border-radius:8px;text-decoration:none;font-weight:700;text-align:center;min-width:200px;">Upgrade Now - $99/mo</a>
+            </div>
+            <p style="font-size:0.85rem;opacity:0.8;margin-top:0.5rem;">Cancel anytime. Secure payment via Stripe.</p>
+        </div>
+        
+        <!-- Quick Actions -->
+        <h3 style="margin-bottom:1rem;">Quick Actions</h3>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;">
+            <div style="background:#f8f8f8;padding:1.5rem;border-radius:8px;text-align:center;">
+                <h4 style="margin-top:0;">📝 Edit Business Info</h4>
+                <p style="font-size:0.9rem;color:#666;">Update your description, hours, and details</p>
+            </div>
+            <div style="background:#f8f8f8;padding:1.5rem;border-radius:8px;text-align:center;">
+                <h4 style="margin-top:0;">🎁 Create Offer</h4>
+                <p style="font-size:0.9rem;color:#666;">Add a special deal for neighbors</p>
+            </div>
+            <div style="background:#f8f8f8;padding:1.5rem;border-radius:8px;text-align:center;">
+                <h4 style="margin-top:0;">📷 Add Photos</h4>
+                <p style="font-size:0.9rem;color:#666;">Upload your own business photos</p>
+            </div>
+            <div style="background:#f8f8f8;padding:1.5rem;border-radius:8px;text-align:center;">
+                <h4 style="margin-top:0;">🍽️ Community Impact</h4>
+                <p style="font-size:0.9rem;color:#666;">Track meals donated</p>
+            </div>
+        </div>
+    </div>
+    <?php
+    return ob_get_clean();
+}
