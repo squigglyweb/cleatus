@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: TLN Business Directory
- * Version: 2.6
+ * Version: 2.7
  */
 
 if (!defined('ABSPATH')) exit;
@@ -62,13 +62,19 @@ function tln_dir_shortcode($atts) {
                 elseif(stripos($addr,'Indian Land')!==false) $loc2='Indian Land';
                 else continue;
                 
+                $photo_ref = '';
+                if(!empty($p['photos'][0]['photo_reference'])) {
+                    $photo_ref = $p['photos'][0]['photo_reference'];
+                }
+                
                 $results[] = array(
                     'name'=>$p['name'],
                     'place_id'=>$p['place_id'],
                     'cat'=>$cat,
                     'loc'=>$loc2,
                     'addr'=>$addr,
-                    'rating'=>$p['rating']??0
+                    'rating'=>$p['rating']??0,
+                    'photo_ref'=>$photo_ref
                 );
             }
         }
@@ -97,11 +103,7 @@ function tln_dir_shortcode($atts) {
     $start = ($page - 1) * $per_page;
     $page_items = array_slice($out, $start, $per_page);
     
-    // Build pagination URL using WordPress function
-    $base_url = get_permalink(get_option('page_on_front'));
-    if(is_singular()) {
-        $base_url = get_permalink();
-    }
+    $base_url = 'https://thelocalnearbuy.com/directory/';
     
     ob_start();
     echo '<div class="tln-container"><div class="tln-filters">';
@@ -114,10 +116,19 @@ function tln_dir_shortcode($atts) {
         $wx = ($b['loc']=='Waxhaw');
         $cl = $wx ? ' waxhaw' : '';
         $icon = tln_get_icon($b['cat']);
+        
+        // Image - use photo if available
+        if(!empty($b['photo_ref'])) {
+            $photo_url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=".$b['photo_ref']."&key=$api";
+            $img_html = '<img src="'.esc_url($photo_url).'" class="tln-img" alt="'.esc_attr($b['name']).'">';
+        } else {
+            $img_html = '<div class="tln-img"><span style="font-size:4rem;">'.$icon.'</span></div>';
+        }
+        
         $claim_url = '/claim/?biz='.urlencode($b['name']).'&pid='.urlencode($b['place_id']);
         
         echo '<div class="tln-card'.$cl.'" data-n="'.strtolower($b['name']).'" data-c="'.$b['cat'].'" data-l="'.$b['loc'].'">';
-        echo '<div class="tln-img-wrap" style="position:relative"><div class="tln-img"><span style="font-size:4rem;">'.$icon.'</span></div>';
+        echo '<div class="tln-img-wrap" style="position:relative">'.$img_html;
         if($wx) echo '<span class="tln-badge">WAXHAW</span>';
         echo '</div><div class="tln-content">';
         echo '<div class="tln-name-wrap"><h3 class="tln-name">'.esc_html($b['name']).'</h3></div>';
@@ -132,16 +143,9 @@ function tln_dir_shortcode($atts) {
     
     if($total_pages > 1) {
         echo '<div class="tln-pagination">';
-        $dir_page = get_page_by_path('directory');
-        if($dir_page) {
-            $base_url = get_permalink($dir_page->ID);
-        } else {
-            $base_url = 'https://thelocalnearbuy.com/directory/';
-        }
-        
         for($i=1; $i<=$total_pages; $i++) {
             $active = ($i == $page) ? ' active' : '';
-            $page_url = add_query_arg('p', $i, $base_url);
+            $page_url = $base_url . '?p=' . $i;
             echo '<a href="'.esc_url($page_url).'" class="tln-page-btn'.$active.'">'.$i.'</a>';
         }
         echo '</div>';
