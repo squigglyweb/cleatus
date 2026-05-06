@@ -13,7 +13,7 @@ $default_categories = array('Restaurant', 'Retail', 'Medical', 'Services', 'Food
 
 // Exclude big box chains and non-local businesses
 $tln_excluded_chains = array(
-    'CVS', 'Walgreens', 'Walmart', 'Target', 'Costco', 'Sam\'s Club',
+    'Crossroad Grill', 'CVS', 'Walgreens', 'Walmart', 'Target', 'Costco', 'Sam\'s Club',
     'Dollar General', 'Dollar Store', 'Family Dollar', 'McDonald\'s',
     'Burger King', 'KFC', 'Pizza Hut', 'Domino\'s', 'Papa John\'s',
     'Subway', 'Starbucks', 'Dunkin', 'Dunkin\'', 'Chipotle',
