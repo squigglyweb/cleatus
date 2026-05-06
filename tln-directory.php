@@ -89,7 +89,7 @@ function tln_dir_shortcode($atts) {
         $wx = ($b['loc']=='Waxhaw');
         $cl = $wx ? ' waxhaw' : '';
         echo "<div class=\"tln-card$cl\" data-n=\"".strtolower($b['name'])."\" data-c=\"{$b['cat']}\" data-l=\"{$b['loc']}\">";
-        echo '<div class="tln-img-wrap" style="position:relative"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZWJlYmViIi8+PC9zdmc+" class="tln-img" alt="'.esc_attr($b['name']).'">';
+        echo '<div class="tln-img-wrap" style="position:relative"><img src="https://img.icons8.com/fluency/96/000000/restaurant.png" class="tln-img" alt="'.esc_attr($b['name']).'">';
         if($wx) echo '<span class="tln-badge">WAXHAW</span>';
         echo '</div><div class="tln-content">';
         echo '<div class="tln-name-wrap"><h3 class="tln-name">'.esc_html($b['name']).'</h3></div>';
