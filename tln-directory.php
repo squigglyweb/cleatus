@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: TLN Business Directory
- * Version: 2.4 - SIMPLE
+ * Version: 2.5
  */
 
 if (!defined('ABSPATH')) exit;
@@ -12,7 +12,7 @@ function tln_dir_styles() {
     wp_enqueue_style('tln-fonts', 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap', array(), null);
     wp_register_style('tln-dir', false);
     wp_enqueue_style('tln-dir');
-    $css = '.tln-container{max-width:1200px;margin:0 auto}.tln-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem}.tln-card{background:#fff;border-radius:12px;overflow:hidden;border:2px solid #1a1a1a;box-shadow:0 2px 8px rgba(0,0,0,0.1)}.tln-card:hover{transform:translateY(-2px)}.tln-card.waxhaw{border-color:#e63946}.tln-img{width:100%;height:180px;object-fit:cover;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);display:flex;align-items:center;justify-content:center}.tln-badge{position:absolute;top:10px;right:10px;background:#e63946;color:#fff;padding:4px 12px;font-size:0.75rem;font-weight:700;border-radius:4px;text-transform:uppercase}.tln-content{padding:1rem}.tln-name-wrap{background:#fff;border:2px solid #1a1a1a;padding:0.75rem;margin-bottom:0.5rem;border-radius:4px}.tln-name{font-size:1.1rem;font-weight:700;color:#1a1a1a;margin:0}.tln-cat{color:#e63946;font-size:0.85rem;font-weight:600;margin-bottom:0.5rem}.tln-rating{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem}.tln-stars{color:#FABC06}.tln-reviews{color:#666;font-size:0.9rem}.tln-address{color:#1a1a1a;font-size:0.9rem;margin-bottom:1rem;text-decoration:underline;cursor:pointer}.tln-btn{display:block;width:100%;padding:0.9rem;background:#7cda24;color:#fff;text-align:center;text-decoration:none;font-weight:700;font-size:0.95rem;border:2px solid #fff;border-radius:8px;text-transform:uppercase;box-sizing:border-box}.tln-btn:hover{background:#6bc91f}.tln-claim-link{font-size:0.85rem;margin-top:0.75rem}.tln-claim-link a{color:#666;text-decoration:underline}.tln-filters{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}.tln-search{flex:1;min-width:200px;padding:0.75rem 1rem;border:1px solid #ddd;border-radius:8px;font-size:1rem}.tln-filter{padding:0.75rem 1rem;border:1px solid #ddd;border-radius:8px;font-size:1rem;background:#fff}.tln-pagination{display:flex;justify-content:center;gap:0.5rem;margin-top:2rem}.tln-page-btn{padding:0.5rem 1rem;background:#fff;border:1px solid #ddd;border-radius:4px;text-decoration:none}.tln-page-btn.active{background:#e63946;color:#fff;border-color:#e63946}.tln-page-btn:hover{background:#f0f0f0}.tln-page-btn.active:hover{background:#c1121f}@media(max-width:600px){.tln-grid{grid-template-columns:1fr}}';
+    $css = '.tln-container{max-width:1200px;margin:0 auto}.tln-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem}.tln-card{background:#fff;border-radius:12px;overflow:hidden;border:2px solid #1a1a1a;box-shadow:0 2px 8px rgba(0,0,0,0.1)}.tln-card:hover{transform:translateY(-2px)}.tln-card.waxhaw{border-color:#e63946}.tln-img{width:100%;height:180px;object-fit:cover;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);display:flex;align-items:center;justify-content:center}.tln-badge{position:absolute;top:10px;right:10px;background:#e63946;color:#fff;padding:4px 12px;font-size:0.75rem;font-weight:700;border-radius:4px;text-transform:uppercase}.tln-content{padding:1rem}.tln-name-wrap{background:#fff;border:2px solid #1a1a1a;padding:0.75rem;margin-bottom:0.5rem;border-radius:4px}.tln-name{font-size:1.1rem;font-weight:700;color:#1a1a1a;margin:0}.tln-cat{color:#e63946;font-size:0.85rem;font-weight:600;margin-bottom:0.5rem}.tln-rating{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem}.tln-stars{color:#FABC06}.tln-reviews{color:#666;font-size:0.9rem}.tln-address{color:#1a1a1a;font-size:0.9rem;margin-bottom:1rem;text-decoration:underline;cursor:pointer}.tln-btn{display:block;width:100%;padding:0.9rem;background:#7cda24;color:#fff;text-align:center;text-decoration:none;font-weight:700;font-size:0.95rem;border:2px solid #fff;border-radius:8px;text-transform:uppercase;box-sizing:border-box}.tln-btn:hover{background:#6bc91f}.tln-claim-link{font-size:0.85rem;margin-top:0.75rem}.tln-claim-link a{color:#666;text-decoration:underline}.tln-filters{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}.tln-search{flex:1;min-width:200px;padding:0.75rem 1rem;border:1px solid #ddd;border-radius:8px;font-size:1rem}.tln-filter{padding:0.75rem 1rem;border:1px solid #ddd;border-radius:8px;font-size:1rem;background:#fff}.tln-pagination{display:flex;justify-content:center;gap:0.5rem;margin-top:2rem}.tln-page-btn{padding:0.5rem 1rem;background:#fff;border:1px solid #ddd;border-radius:4px;text-decoration:none;display:inline-block}.tln-page-btn.active{background:#e63946;color:#fff;border-color:#e63946}.tln-page-btn:hover{background:#f0f0f0}.tln-page-btn.active:hover{background:#c1121f}@media(max-width:600px){.tln-grid{grid-template-columns:1fr}}';
     wp_add_inline_style('tln-dir', $css);
 }
 add_action('wp_enqueue_scripts', 'tln_dir_styles');
@@ -104,6 +104,9 @@ function tln_dir_shortcode($atts) {
     $start = ($page - 1) * $per_page;
     $page_items = array_slice($out, $start, $per_page);
     
+    // Get current page URL for pagination
+    $current_url = get_permalink();
+    
     ob_start();
     echo '<div class="tln-container"><div class="tln-filters">';
     echo '<input type="text" class="tln-search" id="tln-s" placeholder="Search...">';
@@ -122,6 +125,8 @@ function tln_dir_shortcode($atts) {
             $img_html = '<img src="'.esc_url($photo_url).'" class="tln-img" alt="'.esc_attr($b['name']).'">';
         }
         
+        $claim_url = '/claim/?biz='.urlencode($b['name']).'&pid='.urlencode($b['place_id']);
+        
         echo '<div class="tln-card'.$cl.'" data-n="'.strtolower($b['name']).'" data-c="'.$b['cat'].'" data-l="'.$b['loc'].'">';
         echo '<div class="tln-img-wrap" style="position:relative">'.$img_html;
         if($wx) echo '<span class="tln-badge">WAXHAW</span>';
@@ -130,8 +135,8 @@ function tln_dir_shortcode($atts) {
         echo '<div class="tln-cat">'.esc_html($b['cat']).' &bull; '.esc_html($b['loc']).'</div>';
         echo '<div class="tln-rating"><span class="tln-stars">'.str_repeat('★',floor($b['rating'])).'</span> <span class="tln-reviews">('.$b['rating'].')</span></div>';
         echo '<div class="tln-address" onclick="window.open(\'https://www.google.com/maps/search/?api=1&query='.urlencode($b['addr']).'\',\'_blank\')">📍 '.esc_html($b['addr']).'</div>';
-        echo '<a href="/profile/?biz='.urlencode($b['name']).'&pid='.$b['place_id'].'" class="tln-btn">View Profile</a>';
-        echo '<div class="tln-claim-link"><a href="/claim/">Own this business? Claim it</a></div>';
+        echo '<a href="/profile/?biz='.urlencode($b['name']).'&pid='.urlencode($b['place_id']).'" class="tln-btn">View Profile</a>';
+        echo '<div class="tln-claim-link"><a href="'.esc_url($claim_url).'">Own this business? Claim it</a></div>';
         echo '</div></div>';
     }
     echo '</div>';
@@ -140,8 +145,8 @@ function tln_dir_shortcode($atts) {
         echo '<div class="tln-pagination">';
         for($i=1; $i<=$total_pages; $i++) {
             $active = ($i == $page) ? ' active' : '';
-            $url = add_query_arg('p', $i);
-            echo '<a href="'.$url.'" class="tln-page-btn'.$active.'">'.$i.'</a>';
+            $page_url = add_query_arg('p', $i, $current_url);
+            echo '<a href="'.esc_url($page_url).'" class="tln-page-btn'.$active.'">'.$i.'</a>';
         }
         echo '</div>';
     }
