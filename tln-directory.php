@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: TLN Business Directory
- * Version: 2.0
+ * Version: 2.1
  */
 
 if (!defined('ABSPATH')) exit;
@@ -12,7 +12,7 @@ function tln_dir_styles() {
     wp_enqueue_style('tln-fonts', 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap', array(), null);
     wp_register_style('tln-dir', false);
     wp_enqueue_style('tln-dir');
-    $css = '.tln-container{max-width:1200px;margin:0 auto}.tln-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem}.tln-card{background:#fff;border-radius:12px;overflow:hidden;border:2px solid #1a1a1a;box-shadow:0 2px 8px rgba(0,0,0,0.1)}.tln-card:hover{transform:translateY(-2px)}.tln-card.waxhaw{border-color:#e63946}.tln-img{width:100%;height:200px;object-fit:cover;background:#ebebeb}.tln-badge{position:absolute;top:10px;right:10px;background:#e63946;color:#fff;padding:4px 12px;font-size:0.75rem;font-weight:700;border-radius:4px;text-transform:uppercase}.tln-content{padding:1rem}.tln-name-wrap{background:#fff;border:2px solid #1a1a1a;padding:0.75rem;margin-bottom:0.5rem;border-radius:4px}.tln-name{font-size:1.1rem;font-weight:700;color:#1a1a1a;margin:0}.tln-cat{color:#e63946;font-size:0.85rem;font-weight:600;margin-bottom:0.5rem}.tln-rating{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem}.tln-stars{color:#FABC06}.tln-reviews{color:#666;font-size:0.9rem}.tln-address{color:#1a1a1a;font-size:0.9rem;margin-bottom:1rem;text-decoration:underline;cursor:pointer}.tln-btn{display:block;width:100%;padding:0.9rem;background:#7cda24;color:#fff;text-align:center;text-decoration:none;font-weight:700;font-size:0.95rem;border:2px solid #fff;border-radius:8px;text-transform:uppercase;box-sizing:border-box}.tln-btn:hover{background:#6bc91f}.tln-claim-link{font-size:0.85rem;margin-top:0.75rem}.tln-claim-link a{color:#666;text-decoration:underline}.tln-filters{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}.tln-search{flex:1;min-width:200px;padding:0.75rem 1rem;border:1px solid #ddd;border-radius:8px;font-size:1rem}.tln-filter{padding:0.75rem 1rem;border:1px solid #ddd;border-radius:8px;font-size:1rem;background:#fff}@media(max-width:600px){.tln-grid{grid-template-columns:1fr}}';
+    $css = '.tln-container{max-width:1200px;margin:0 auto}.tln-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem}.tln-card{background:#fff;border-radius:12px;overflow:hidden;border:2px solid #1a1a1a;box-shadow:0 2px 8px rgba(0,0,0,0.1)}.tln-card:hover{transform:translateY(-2px)}.tln-card.waxhaw{border-color:#e63946}.tln-img{width:100%;height:180px;object-fit:cover;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);display:flex;align-items:center;justify-content:center}.tln-img img{width:80px;height:80px}.tln-badge{position:absolute;top:10px;right:10px;background:#e63946;color:#fff;padding:4px 12px;font-size:0.75rem;font-weight:700;border-radius:4px;text-transform:uppercase}.tln-content{padding:1rem}.tln-name-wrap{background:#fff;border:2px solid #1a1a1a;padding:0.75rem;margin-bottom:0.5rem;border-radius:4px}.tln-name{font-size:1.1rem;font-weight:700;color:#1a1a1a;margin:0}.tln-cat{color:#e63946;font-size:0.85rem;font-weight:600;margin-bottom:0.5rem}.tln-rating{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem}.tln-stars{color:#FABC06}.tln-reviews{color:#666;font-size:0.9rem}.tln-address{color:#1a1a1a;font-size:0.9rem;margin-bottom:1rem;text-decoration:underline;cursor:pointer}.tln-btn{display:block;width:100%;padding:0.9rem;background:#7cda24;color:#fff;text-align:center;text-decoration:none;font-weight:700;font-size:0.95rem;border:2px solid #fff;border-radius:8px;text-transform:uppercase;box-sizing:border-box}.tln-btn:hover{background:#6bc91f}.tln-claim-link{font-size:0.85rem;margin-top:0.75rem}.tln-claim-link a{color:#666;text-decoration:underline}.tln-filters{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}.tln-search{flex:1;min-width:200px;padding:0.75rem 1rem;border:1px solid #ddd;border-radius:8px;font-size:1rem}.tln-filter{padding:0.75rem 1rem;border:1px solid #ddd;border-radius:8px;font-size:1rem;background:#fff}@media(max-width:600px){.tln-grid{grid-template-columns:1fr}}';
     wp_add_inline_style('tln-dir', $css);
 }
 add_action('wp_enqueue_scripts', 'tln_dir_styles');
@@ -26,6 +26,19 @@ function tln_is_excluded($name) {
         if(stripos($n,strtolower($e)) !== false) return true;
     }
     return false;
+}
+
+function tln_get_icon($cat) {
+    $icons = array(
+        'Restaurant' => '🍽️',
+        'Cafe' => '☕',
+        'Bar' => '🍺',
+        'Retail' => '🛒',
+        'Services' => '🔧',
+        'Health' => '🏥',
+        'Food' => '🍔'
+    );
+    return $icons[$cat] ?? '🏪';
 }
 
 function tln_dir_shortcode($atts) {
@@ -88,8 +101,9 @@ function tln_dir_shortcode($atts) {
     foreach($out as $b) {
         $wx = ($b['loc']=='Waxhaw');
         $cl = $wx ? ' waxhaw' : '';
+        $icon = tln_get_icon($b['cat']);
         echo "<div class=\"tln-card$cl\" data-n=\"".strtolower($b['name'])."\" data-c=\"{$b['cat']}\" data-l=\"{$b['loc']}\">";
-        echo '<div class="tln-img-wrap" style="position:relative"><img src="https://img.icons8.com/fluency/96/000000/restaurant.png" class="tln-img" alt="'.esc_attr($b['name']).'">';
+        echo '<div class="tln-img-wrap" style="position:relative"><div class="tln-img"><span style="font-size:4rem;">'.$icon.'</span></div>';
         if($wx) echo '<span class="tln-badge">WAXHAW</span>';
         echo '</div><div class="tln-content">';
         echo '<div class="tln-name-wrap"><h3 class="tln-name">'.esc_html($b['name']).'</h3></div>';
