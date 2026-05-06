@@ -1,24 +1,23 @@
 <?php
 /**
  * Plugin Name: TLN Business Directory
- * Version: 2.3
+ * Version: 2.4 - SIMPLE
  */
 
 if (!defined('ABSPATH')) exit;
 
 define('TLN_GOOGLE_API_KEY', 'AIzaSyAH6O3RsnDuX5rJ2OyTHCTZhYtd6s6NSWU');
-define('TLN_CACHE_DURATION', WEEK_IN_SECONDS); // 1 week
 
 function tln_dir_styles() {
     wp_enqueue_style('tln-fonts', 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap', array(), null);
     wp_register_style('tln-dir', false);
     wp_enqueue_style('tln-dir');
-    $css = '.tln-container{max-width:1200px;margin:0 auto}.tln-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem}.tln-card{background:#fff;border-radius:12px;overflow:hidden;border:2px solid #1a1a1a;box-shadow:0 2px 8px rgba(0,0,0,0.1)}.tln-card:hover{transform:translateY(-2px)}.tln-card.waxhaw{border-color:#e63946}.tln-img{width:100%;height:180px;object-fit:cover;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);display:flex;align-items:center;justify-content:center}.tln-img img{width:80px;height:80px}.tln-badge{position:absolute;top:10px;right:10px;background:#e63946;color:#fff;padding:4px 12px;font-size:0.75rem;font-weight:700;border-radius:4px;text-transform:uppercase}.tln-content{padding:1rem}.tln-name-wrap{background:#fff;border:2px solid #1a1a1a;padding:0.75rem;margin-bottom:0.5rem;border-radius:4px}.tln-name{font-size:1.1rem;font-weight:700;color:#1a1a1a;margin:0}.tln-cat{color:#e63946;font-size:0.85rem;font-weight:600;margin-bottom:0.5rem}.tln-rating{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem}.tln-stars{color:#FABC06}.tln-reviews{color:#666;font-size:0.9rem}.tln-address{color:#1a1a1a;font-size:0.9rem;margin-bottom:1rem;text-decoration:underline;cursor:pointer}.tln-btn{display:block;width:100%;padding:0.9rem;background:#7cda24;color:#fff;text-align:center;text-decoration:none;font-weight:700;font-size:0.95rem;border:2px solid #fff;border-radius:8px;text-transform:uppercase;box-sizing:border-box}.tln-btn:hover{background:#6bc91f}.tln-claim-link{font-size:0.85rem;margin-top:0.75rem}.tln-claim-link a{color:#666;text-decoration:underline}.tln-filters{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}.tln-search{flex:1;min-width:200px;padding:0.75rem 1rem;border:1px solid #ddd;border-radius:8px;font-size:1rem}.tln-filter{padding:0.75rem 1rem;border:1px solid #ddd;border-radius:8px;font-size:1rem;background:#fff}.tln-pagination{display:flex;justify-content:center;gap:0.5rem;margin-top:2rem}.tln-page-btn{padding:0.5rem 1rem;background:#fff;border:1px solid #ddd;border-radius:4px;cursor:pointer}.tln-page-btn.active{background:#e63946;color:#fff;border-color:#e63946}.tln-page-btn:hover{background:#f0f0f0}.tln-page-btn.active:hover{background:#c1121f}.tln-refresh{font-size:0.8rem;color:#999;text-align:center;margin-bottom:1rem}@media(max-width:600px){.tln-grid{grid-template-columns:1fr}}';
+    $css = '.tln-container{max-width:1200px;margin:0 auto}.tln-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem}.tln-card{background:#fff;border-radius:12px;overflow:hidden;border:2px solid #1a1a1a;box-shadow:0 2px 8px rgba(0,0,0,0.1)}.tln-card:hover{transform:translateY(-2px)}.tln-card.waxhaw{border-color:#e63946}.tln-img{width:100%;height:180px;object-fit:cover;background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);display:flex;align-items:center;justify-content:center}.tln-badge{position:absolute;top:10px;right:10px;background:#e63946;color:#fff;padding:4px 12px;font-size:0.75rem;font-weight:700;border-radius:4px;text-transform:uppercase}.tln-content{padding:1rem}.tln-name-wrap{background:#fff;border:2px solid #1a1a1a;padding:0.75rem;margin-bottom:0.5rem;border-radius:4px}.tln-name{font-size:1.1rem;font-weight:700;color:#1a1a1a;margin:0}.tln-cat{color:#e63946;font-size:0.85rem;font-weight:600;margin-bottom:0.5rem}.tln-rating{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem}.tln-stars{color:#FABC06}.tln-reviews{color:#666;font-size:0.9rem}.tln-address{color:#1a1a1a;font-size:0.9rem;margin-bottom:1rem;text-decoration:underline;cursor:pointer}.tln-btn{display:block;width:100%;padding:0.9rem;background:#7cda24;color:#fff;text-align:center;text-decoration:none;font-weight:700;font-size:0.95rem;border:2px solid #fff;border-radius:8px;text-transform:uppercase;box-sizing:border-box}.tln-btn:hover{background:#6bc91f}.tln-claim-link{font-size:0.85rem;margin-top:0.75rem}.tln-claim-link a{color:#666;text-decoration:underline}.tln-filters{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}.tln-search{flex:1;min-width:200px;padding:0.75rem 1rem;border:1px solid #ddd;border-radius:8px;font-size:1rem}.tln-filter{padding:0.75rem 1rem;border:1px solid #ddd;border-radius:8px;font-size:1rem;background:#fff}.tln-pagination{display:flex;justify-content:center;gap:0.5rem;margin-top:2rem}.tln-page-btn{padding:0.5rem 1rem;background:#fff;border:1px solid #ddd;border-radius:4px;text-decoration:none}.tln-page-btn.active{background:#e63946;color:#fff;border-color:#e63946}.tln-page-btn:hover{background:#f0f0f0}.tln-page-btn.active:hover{background:#c1121f}@media(max-width:600px){.tln-grid{grid-template-columns:1fr}}';
     wp_add_inline_style('tln-dir', $css);
 }
 add_action('wp_enqueue_scripts', 'tln_dir_styles');
 
-$tln_exclude = array('CVS','Walgreens','Walmart','Target','Costco','Dollar General','McDonalds','Burger King','KFC','Pizza Hut','Dominos','Papa Johns','Subway','Starbucks','Dunkin','Chipotle','Chick-fil-A','Wingstop','Taco Bell','Shell','BP','Exxon','Food Lion','Harris Teeter','Aldi','Whole Foods','Trader Joes','Best Buy','Home Depot','Lowes','Bank of America','Wells Fargo','Chase','Crossroad Grill');
+$tln_exclude = array('CVS','Walgreens','Walmart','Target','Costco','Dollar General','McDonalds','Burger King','KFC','Pizza Hut','Dominos','Papa Johns','Subway','Starbucks','Dunkin','Chipotle','Chick-fil-A','Wingstop','Taco Bell','Shell','BP','Exxon','Food Lion','Harris Teeter','Aldi','Whole Foods','Trader Joes','Best Buy','Home Depot','Lowes','Bank of America','Wells Fargo','Chase');
 
 function tln_is_excluded($name) {
     global $tln_exclude;
@@ -30,19 +29,14 @@ function tln_is_excluded($name) {
 }
 
 function tln_get_icon($cat) {
-    $icons = array('Restaurant'=>'🍽️','Cafe'=>'☕','Bar'=>'🍺','Retail'=>'🛒','Services'=>'🔧','Health'=>'🏥','Food'=>'🍔');
+    $icons = array('Restaurant'=>'🍽️','Cafe'=>'☕','Bar'=>'🍺','Retail'=>'🛒','Services'=>'🔧');
     return $icons[$cat] ?? '🏪';
 }
 
-function tln_get_directory_data() {
+function tln_dir_shortcode($atts) {
     $api = TLN_GOOGLE_API_KEY;
-    $cached = get_transient('tln_directory_cache');
-    
-    if($cached !== false) {
-        return $cached;
-    }
-    
     $results = array();
+    
     $queries = array(
         'Waxhaw' => array('Restaurant'=>'restaurants in Waxhaw NC','Retail'=>'retail stores in Waxhaw NC','Services'=>'services in Waxhaw NC'),
         'Marvin' => array('Restaurant'=>'restaurants in Marvin NC','Retail'=>'retail stores in Marvin NC'),
@@ -58,7 +52,6 @@ function tln_get_directory_data() {
             if(is_wp_error($r)) continue;
             $data = json_decode(wp_remote_retrieve_body($r),true);
             if(empty($data['results'])) continue;
-            
             foreach($data['results'] as $p) {
                 if(tln_is_excluded($p['name'])) continue;
                 $addr = $p['formatted_address'] ?? '';
@@ -67,9 +60,8 @@ function tln_get_directory_data() {
                 elseif(stripos($addr,'Wesley Chapel')!==false) $loc2='Wesley Chapel';
                 elseif(stripos($addr,'Weddington')!==false) $loc2='Weddington';
                 elseif(stripos($addr,'Indian Land')!==false) $loc2='Indian Land';
-                else $loc2='Other';
+                else continue;
                 
-                // Get photo URL if available
                 $photo_ref = '';
                 if(!empty($p['photos'][0]['photo_reference'])) {
                     $photo_ref = $p['photos'][0]['photo_reference'];
@@ -89,7 +81,6 @@ function tln_get_directory_data() {
         }
     }
     
-    // Deduplicate
     $seen = array();
     $out = array();
     foreach($results as $r) {
@@ -99,35 +90,22 @@ function tln_get_directory_data() {
             $out[]=$r;
         }
     }
-    
-    // Sort: Waxhaw first, then by rating
     usort($out,function($a,$b){
         if($a['loc']=='Waxhaw' && $b['loc']!='Waxhaw') return -1;
         if($b['loc']=='Waxhaw' && $a['loc']!='Waxhaw') return 1;
         return $b['rating'] - $a['rating'];
     });
     
-    set_transient('tln_directory_cache', $out, TLN_CACHE_DURATION);
-    return $out;
-}
-
-function tln_dir_shortcode($atts) {
-    $results = tln_get_directory_data();
     $per_page = 12;
     $page = isset($_GET['p']) ? intval($_GET['p']) : 1;
     if($page < 1) $page = 1;
-    
-    $total = count($results);
+    $total = count($out);
     $total_pages = ceil($total / $per_page);
     $start = ($page - 1) * $per_page;
-    $page_items = array_slice($results, $start, $per_page);
-    
-    $api = TLN_GOOGLE_API_KEY;
+    $page_items = array_slice($out, $start, $per_page);
     
     ob_start();
-    echo '<div class="tln-container">';
-    echo '<p class="tln-refresh">Directory updated: '.date('M j, Y').' • Data cached for 1 week</p>';
-    echo '<div class="tln-filters">';
+    echo '<div class="tln-container"><div class="tln-filters">';
     echo '<input type="text" class="tln-search" id="tln-s" placeholder="Search...">';
     echo '<select class="tln-filter" id="tln-c"><option value="">All</option><option>Restaurant</option><option>Retail</option><option>Services</option></select>';
     echo '<select class="tln-filter" id="tln-l"><option value="">All</option><option selected>Waxhaw</option><option>Marvin</option><option>Wesley Chapel</option><option>Weddington</option><option>Indian Land</option></select>';
@@ -138,14 +116,13 @@ function tln_dir_shortcode($atts) {
         $cl = $wx ? ' waxhaw' : '';
         $icon = tln_get_icon($b['cat']);
         
-        // Build image - use photo ref if available
         $img_html = '<div class="tln-img"><span style="font-size:4rem;">'.$icon.'</span></div>';
         if(!empty($b['photo_ref'])) {
-            $photo_url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference={$b['photo_ref']}&key=$api";
-            $img_html = '<img src="'.esc_url($photo_url).'" class="tln-img" alt="'.esc_attr($b['name']).'" style="object-fit:cover;">';
+            $photo_url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=".$b['photo_ref']."&key=$api";
+            $img_html = '<img src="'.esc_url($photo_url).'" class="tln-img" alt="'.esc_attr($b['name']).'">';
         }
         
-        echo "<div class=\"tln-card$cl\" data-n=\"".strtolower($b['name'])."\" data-c=\"{$b['cat']}\" data-l=\"{$b['loc']}\">";
+        echo '<div class="tln-card'.$cl.'" data-n="'.strtolower($b['name']).'" data-c="'.$b['cat'].'" data-l="'.$b['loc'].'">';
         echo '<div class="tln-img-wrap" style="position:relative">'.$img_html;
         if($wx) echo '<span class="tln-badge">WAXHAW</span>';
         echo '</div><div class="tln-content">';
@@ -161,7 +138,7 @@ function tln_dir_shortcode($atts) {
     
     if($total_pages > 1) {
         echo '<div class="tln-pagination">';
-        for($i=1;$i<=$total_pages;i++) {
+        for($i=1; $i<=$total_pages; $i++) {
             $active = ($i == $page) ? ' active' : '';
             $url = add_query_arg('p', $i);
             echo '<a href="'.$url.'" class="tln-page-btn'.$active.'">'.$i.'</a>';
@@ -170,7 +147,15 @@ function tln_dir_shortcode($atts) {
     }
     
     echo '</div>';
-    echo "<script>document.addEventListener('DOMContentLoaded',function(){var s=document.getElementById('tln-s'),c=document.getElementById('tln-c'),l=document.getElementById('tln-l'),g=document.getElementById('tln-g'),d=g.querySelectorAll('.tln-card');function f(){var q=s.value.toLowerCase(),cc=c.value,lc=l.value;d.forEach(function(x){var m=(q==''||x.dataset.n.indexOf(q)>-1)&&(cc==''||x.dataset.c==cc)&&(lc==''||x.dataset.l==lc);x.style.display=m?'':'none'})};s.addEventListener('input',f);c.addEventListener('change',f);l.addEventListener('change',f)})</script>";
+    ?>
+    <script>
+    document.addEventListener('DOMContentLoaded',function(){
+        var s=document.getElementById('tln-s'),c=document.getElementById('tln-c'),l=document.getElementById('tln-l'),g=document.getElementById('tln-g'),d=g.querySelectorAll('.tln-card');
+        function f(){var q=s.value.toLowerCase(),cc=c.value,lc=l.value;d.forEach(function(x){var m=(q==''||x.dataset.n.indexOf(q)>-1)&&(cc==''||x.dataset.c==cc)&&(lc==''||x.dataset.l==lc);x.style.display=m?'':'none'})}
+        s.addEventListener('input',f);c.addEventListener('change',f);l.addEventListener('change',f);
+    });
+    </script>
+    <?php
     return ob_get_clean();
 }
 add_shortcode('tln_directory', 'tln_dir_shortcode');
