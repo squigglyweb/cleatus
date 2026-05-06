@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: TLN Business Directory
- * Version: 2.5
+ * Version: 2.6
  */
 
 if (!defined('ABSPATH')) exit;
@@ -62,20 +62,13 @@ function tln_dir_shortcode($atts) {
                 elseif(stripos($addr,'Indian Land')!==false) $loc2='Indian Land';
                 else continue;
                 
-                $photo_ref = '';
-                if(!empty($p['photos'][0]['photo_reference'])) {
-                    $photo_ref = $p['photos'][0]['photo_reference'];
-                }
-                
                 $results[] = array(
                     'name'=>$p['name'],
                     'place_id'=>$p['place_id'],
                     'cat'=>$cat,
                     'loc'=>$loc2,
                     'addr'=>$addr,
-                    'rating'=>$p['rating']??0,
-                    'reviews'=>$p['user_ratings_total']??0,
-                    'photo_ref'=>$photo_ref
+                    'rating'=>$p['rating']??0
                 );
             }
         }
@@ -104,8 +97,11 @@ function tln_dir_shortcode($atts) {
     $start = ($page - 1) * $per_page;
     $page_items = array_slice($out, $start, $per_page);
     
-    // Get current page URL for pagination
-    $current_url = (isset($_SERVER['HTTPS']) $current_url = home_url(remove_query_arg('p')).'/directory/';$current_url = home_url(remove_query_arg('p')).'/directory/'; $_SERVER['HTTPS'] === 'on' ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+    // Build pagination URL using WordPress function
+    $base_url = get_permalink(get_option('page_on_front'));
+    if(is_singular()) {
+        $base_url = get_permalink();
+    }
     
     ob_start();
     echo '<div class="tln-container"><div class="tln-filters">';
@@ -118,17 +114,10 @@ function tln_dir_shortcode($atts) {
         $wx = ($b['loc']=='Waxhaw');
         $cl = $wx ? ' waxhaw' : '';
         $icon = tln_get_icon($b['cat']);
-        
-        $img_html = '<div class="tln-img"><span style="font-size:4rem;">'.$icon.'</span></div>';
-        if(!empty($b['photo_ref'])) {
-            $photo_url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=".$b['photo_ref']."&key=$api";
-            $img_html = '<img src="'.esc_url($photo_url).'" class="tln-img" alt="'.esc_attr($b['name']).'">';
-        }
-        
         $claim_url = '/claim/?biz='.urlencode($b['name']).'&pid='.urlencode($b['place_id']);
         
         echo '<div class="tln-card'.$cl.'" data-n="'.strtolower($b['name']).'" data-c="'.$b['cat'].'" data-l="'.$b['loc'].'">';
-        echo '<div class="tln-img-wrap" style="position:relative">'.$img_html;
+        echo '<div class="tln-img-wrap" style="position:relative"><div class="tln-img"><span style="font-size:4rem;">'.$icon.'</span></div>';
         if($wx) echo '<span class="tln-badge">WAXHAW</span>';
         echo '</div><div class="tln-content">';
         echo '<div class="tln-name-wrap"><h3 class="tln-name">'.esc_html($b['name']).'</h3></div>';
@@ -143,9 +132,16 @@ function tln_dir_shortcode($atts) {
     
     if($total_pages > 1) {
         echo '<div class="tln-pagination">';
+        $dir_page = get_page_by_path('directory');
+        if($dir_page) {
+            $base_url = get_permalink($dir_page->ID);
+        } else {
+            $base_url = '/directory/';
+        }
+        
         for($i=1; $i<=$total_pages; $i++) {
             $active = ($i == $page) ? ' active' : '';
-            $page_url = add_query_arg('p', $i, $current_url);
+            $page_url = add_query_arg('p', $i, $base_url);
             echo '<a href="'.esc_url($page_url).'" class="tln-page-btn'.$active.'">'.$i.'</a>';
         }
         echo '</div>';
