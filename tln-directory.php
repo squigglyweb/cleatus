@@ -96,7 +96,7 @@ function tln_dir_shortcode($atts) {
         echo '<div class="tln-cat">'.esc_html($b['cat']).' &bull; '.esc_html($b['loc']).'</div>';
         echo '<div class="tln-rating"><span class="tln-stars">'.str_repeat('★',floor($b['rating'])).'</span> <span class="tln-reviews">('.$b['rating'].')</span></div>';
         echo '<div class="tln-address" onclick="window.open(\'https://www.google.com/maps/search/?api=1&query='.urlencode($b['addr']).'\',\'_blank\')">📍 '.esc_html($b['addr']).'</div>';
-        echo '<a href="/claim/?biz='.urlencode($b['name']).'&pid='.$b['place_id'].'" class="tln-btn">View Profile</a>';
+        echo '<a href="/profile/?biz='.urlencode($b['name']).'&pid='.$b['place_id'].'" class="tln-btn">View Profile</a>';
         echo '<div class="tln-claim-link"><a href="/claim/">Own this business? Claim it</a></div>';
         echo '</div></div>';
     }
