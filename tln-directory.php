@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: TLN Business Directory
- * Version: 3.1
+ * Version: 3.2 - With Working Pagination
  */
 
 if (!defined('ABSPATH')) exit;
@@ -12,7 +12,7 @@ function tln_dir_styles() {
     wp_enqueue_style('tln-fonts', 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap', array(), null);
     wp_register_style('tln-dir', false);
     wp_enqueue_style('tln-dir');
-    $css = '.tln-container{max-width:1200px;margin:0 auto}.tln-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem}.tln-card{background:#fff;border-radius:12px;overflow:hidden;border:2px solid #1a1a1a;box-shadow:0 2px 8px rgba(0,0,0,0.1)}.tln-card.waxhaw{border-color:#e63946}.tln-img{width:100%;height:180px;background:#667eea;display:flex;align-items:center;justify-content:center}.tln-badge{position:absolute;top:10px;right:10px;background:#e63946;color:#fff;padding:4px 12px;font-size:0.75rem;font-weight:700;border-radius:4px;text-transform:uppercase}.tln-content{padding:1rem}.tln-name-wrap{background:#fff;border:2px solid #1a1a1a;padding:0.75rem;margin-bottom:0.5rem;border-radius:4px}.tln-name{font-size:1.1rem;font-weight:700;color:#1a1a1a;margin:0}.tln-cat{color:#e63946;font-size:0.85rem;font-weight:600;margin-bottom:0.5rem}.tln-rating{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem}.tln-stars{color:#FABC06}.tln-reviews{color:#666;font-size:0.9rem}.tln-address{color:#1a1a1a;font-size:0.9rem;margin-bottom:1rem}.tln-btn{display:block;width:100%;padding:0.9rem;background:#7cda24;color:#fff;text-align:center;text-decoration:none;font-weight:700;font-size:0.95rem;border-radius:8px;text-transform:uppercase}.tln-claim-link{font-size:0.85rem;margin-top:0.75rem}.tln-claim-link a{color:#666;text-decoration:underline}.tln-filters{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}.tln-search{flex:1;min-width:200px;padding:0.75rem 1rem;border:1px solid #ddd;border-radius:8px;font-size:1rem}.tln-filter{padding:0.75rem 1rem;border:1px solid #ddd;border-radius:8px;font-size:1rem;background:#fff}.tln-more{display:block;width:100%;max-width:300px;margin:2rem auto;padding:1rem;background:#e63946;color:#fff;border:none;border-radius:8px;font-size:1rem;cursor:pointer}@media(max-width:600px){.tln-grid{grid-template-columns:1fr}}';
+    $css = '.tln-container{max-width:1200px;margin:0 auto}.tln-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem}.tln-card{background:#fff;border-radius:12px;overflow:hidden;border:2px solid #1a1a1a;box-shadow:0 2px 8px rgba(0,0,0,0.1)}.tln-card.waxhaw{border-color:#e63946}.tln-img{width:100%;height:180px;background:#667eea;display:flex;align-items:center;justify-content:center}.tln-badge{position:absolute;top:10px;right:10px;background:#e63946;color:#fff;padding:4px 12px;font-size:0.75rem;font-weight:700;border-radius:4px;text-transform:uppercase}.tln-content{padding:1rem}.tln-name-wrap{background:#fff;border:2px solid #1a1a1a;padding:0.75rem;margin-bottom:0.5rem;border-radius:4px}.tln-name{font-size:1.1rem;font-weight:700;color:#1a1a1a;margin:0}.tln-cat{color:#e63946;font-size:0.85rem;font-weight:600;margin-bottom:0.5rem}.tln-rating{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem}.tln-stars{color:#FABC06}.tln-reviews{color:#666;font-size:0.9rem}.tln-address{color:#1a1a1a;font-size:0.9rem;margin-bottom:1rem}.tln-btn{display:block;width:100%;padding:0.9rem;background:#7cda24;color:#fff;text-align:center;text-decoration:none;font-weight:700;font-size:0.95rem;border-radius:8px;text-transform:uppercase}.tln-claim-link{font-size:0.85rem;margin-top:0.75rem}.tln-claim-link a{color:#666;text-decoration:underline}.tln-filters{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}.tln-search{flex:1;min-width:200px;padding:0.75rem 1rem;border:1px solid #ddd;border-radius:8px;font-size:1rem}.tln-filter{padding:0.75rem 1rem;border:1px solid #ddd;border-radius:8px;font-size:1rem;background:#fff}.tln-pager{display:flex;justify-content:center;gap:0.5rem;margin-top:2rem}.tln-pager a,.tln-pager span{padding:0.5rem 1rem;border:1px solid #ddd;background:#fff;text-decoration:none;color:#333}.tln-pager a:hover{background:#f0f0f0}.tln-pager span{background:#e63946;color:#fff;border-color:#e63946}@media(max-width:600px){.tln-grid{grid-template-columns:1fr}}';
     wp_add_inline_style('tln-dir', $css);
 }
 add_action('wp_enqueue_scripts', 'tln_dir_styles');
@@ -89,9 +89,21 @@ function tln_dir_shortcode($atts) {
         return $b['rating'] - $a['rating'];
     });
     
-    // Show first 12, add Load More
-    $page_items = array_slice($out, 0, 12);
-    $has_more = count($out) > 12;
+    // Pagination
+    $per_page = 12;
+    $page = isset($_GET['dir-page']) ? intval($_GET['dir-page']) : 1;
+    if($page < 1) $page = 1;
+    $total = count($out);
+    $total_pages = ceil($total / $per_page);
+    $start = ($page - 1) * $per_page;
+    $page_items = array_slice($out, $start, $per_page);
+    
+    // Build current URL without the param
+    $request_uri = $_SERVER['REQUEST_URI'];
+    $request_uri = remove_query_arg('dir-page', $request_uri);
+    $base_url = '//' . $_SERVER['HTTP_HOST'] . $request_uri;
+    if (strpos($base_url, '?') === false) $base_url .= '?';
+    else $base_url .= '&';
     
     ob_start();
     echo '<div class="tln-container"><div class="tln-filters">';
@@ -130,8 +142,17 @@ function tln_dir_shortcode($atts) {
     }
     echo '</div>';
     
-    if($has_more) {
-        echo '<button class="tln-more" id="tln-more-btn" onclick="document.getElementById(\'tln-g\').innerHTML+=\'<p style=text-align:center>More businesses coming soon...</p>\';this.style.display=\'none\';">Load More</button>';
+    // Pagination links
+    if($total_pages > 1) {
+        echo '<div class="tln-pager">';
+        for($i=1; $i<=$total_pages; $i++) {
+            if($i == $page) {
+                echo '<span>'.$i.'</span>';
+            } else {
+                echo '<a href="'.$base_url.'dir-page='.$i.'">'.$i.'</a>';
+            }
+        }
+        echo '</div>';
     }
     
     echo '</div>';
