@@ -9,11 +9,11 @@ if (!defined('ABSPATH')) exit;
 
 define('TLN_GOOGLE_API_KEY', 'AIzaSyAH6O3RsnDuX5rJ2OyTHCTZhYtd6s6NSWU');
 
-$default_categories = array('Restaurant', 'Retail', 'Medical', 'Services', 'Food & Drink');
+$default_categories = array('Restaurant', 'Retail', 'Medical', 'Services', 'Food & Drink', 'Cafe');
 
 // Exclude big box chains and non-local businesses
 $tln_excluded_chains = array(
-    'Crossroad Grill', 'CVS', 'Walgreens', 'Fresh Monkee', 'Cureton Town Center', 'Susie Lou', 'Millview', 'Kohl', 'NTB', 'House Doctors', 'Waxhaw Electric', 'Piper Glen', 'Susie Lou', 'Walmart', 'Target', 'Costco', 'Sam\'s Club',
+    'Crossroad Grill', 'CVS', 'Walgreens', 'Cureton Town Center', 'Susie Lou', 'Millview', 'Kohl', 'NTB', 'House Doctors', 'Waxhaw Electric', 'Piper Glen', 'Susie Lou', 'Walmart', 'Target', 'Costco', 'Sam\'s Club',
     'Dollar General', 'Dollar Store', 'Family Dollar', 'McDonald\'s',
     'Burger King', 'KFC', 'Pizza Hut', 'Domino\'s', 'Papa John\'s',
     'Subway', 'Starbucks', 'Dunkin', 'Dunkin\'', 'Chipotle',
