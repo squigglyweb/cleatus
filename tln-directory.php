@@ -96,7 +96,7 @@ function tln_dir_shortcode($atts) {
     });
     
     $per_page = 12;
-    $page = isset($_GET['p']) ? intval($_GET['p']) : 1;
+    $page = isset($_GET[pg]) ? intval($_GET[pg]) : 1;
     if($page < 1) $page = 1;
     $total = count($out);
     $total_pages = ceil($total / $per_page);
@@ -145,7 +145,7 @@ function tln_dir_shortcode($atts) {
         echo '<div class="tln-pagination">';
         for($i=1; $i<=$total_pages; $i++) {
             $active = ($i == $page) ? ' active' : '';
-            $page_url = $base_url . '?p=' . $i;
+            $page_url = $base_url . '?pg=' . $i;
             echo '<a href="'.esc_url($page_url).'" class="tln-page-btn'.$active.'">'.$i.'</a>';
         }
         echo '</div>';
