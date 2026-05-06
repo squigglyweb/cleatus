@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: TLN Business Dashboard
- * Version: 2.0
+ * Version: 2.1
  */
 
 if (!defined('ABSPATH')) exit;
@@ -14,7 +14,6 @@ function tln_dashboard_shortcode() {
     $user_id = get_current_user_id();
     global $wpdb;
     
-    // Check if user has claimed any business
     $claim = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}tln_claims WHERE user_id=%d AND status='approved'", $user_id));
     
     if (!$claim) {
@@ -25,7 +24,6 @@ function tln_dashboard_shortcode() {
         </div>';
     }
     
-    // Get current tier
     $tier = $claim->tier ?? 'free';
     
     ob_start();
@@ -35,14 +33,28 @@ function tln_dashboard_shortcode() {
         
         <?php if($tier == 'free'): ?>
         <div style="background:#fff3cd;padding:1rem;border-radius:8px;margin-bottom:1rem;">
-            <strong>Upgrade to Pro</strong> to add custom offers, photo gallery, and more.
-            <div style="margin-top:1rem;">
-                <stripe-buy-button buy-button-id="buy_btn_1TU98uBVjZYuZR8RZDcJUHkX" publishable-key="pk_live_51QDniFBVjZYuZR8RJvxA0b06ETZBhaPA6N3MNDztpX8HYSlNNyvbLDvCaTBCxBwULnPrUCmuqSOz4JJ5g83mKz8F00Vq5BABDb"></stripe-buy-button>
+            <strong>Upgrade Your Listing</strong>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;margin-top:1rem;">
+                <div style="background:#fff;padding:1rem;border-radius:8px;border:2px solid #1a1a1a;">
+                    <h3 style="margin-top:0;">Pro - $99/mo</h3>
+                    <p style="font-size:0.9rem;">Photo gallery, custom offers, analytics</p>
+                    <stripe-buy-button buy-button-id="buy_btn_1TU98uBVjZYuZR8RZDcJUHkX" publishable-key="pk_live_51QDniFBVjZYuZR8RJvxA0b06ETZBhaPA6N3MNDztpX8HYSlNNyvbLDvCaTBCxBwULnPrUCmuqSOz4JJ5g83mKz8F00Vq5BABDb"></stripe-buy-button>
+                </div>
+                <div style="background:#fff;padding:1rem;border-radius:8px;border:2px solid #e63946;">
+                    <h3 style="margin-top:0;">Pro+ - $199/mo</h3>
+                    <p style="font-size:0.9rem;">Video, featured placement, AI optimization</p>
+                    <stripe-buy-button buy-button-id="buy_btn_1TU9DWBVjZYuZR8RTDXb1PQX" publishable-key="pk_live_51QDniFBVjZYuZR8RJvxA0b06ETZBhaPA6N3MNDztpX8HYSlNNyvbLDvCaTBCxBwULnPrUCmuqSOz4JJ5g83mKz8F00Vq5BABDb"></stripe-buy-button>
+                </div>
+                <div style="background:#fff;padding:1rem;border-radius:8px;border:2px solid #7cda24;">
+                    <h3 style="margin-top:0;">Sponsor - $349/mo</h3>
+                    <p style="font-size:0.9rem;">Banner ads, newsletter, custom landing page</p>
+                    <stripe-buy-button buy-button-id="buy_btn_1TU9JeBVjZYuZR8R0Ws5e4Im" publishable-key="pk_live_51QDniFBVjZYuZR8RJvxA0b06ETZBhaPA6N3MNDztpX8HYSlNNyvbLDvCaTBCxBwULnPrUCmuqSOz4JJ5g83mKz8F00Vq5BABDb"></stripe-buy-button>
+                </div>
             </div>
         </div>
         <?php elseif($tier == 'pro'): ?>
         <div style="background:#d4edda;padding:1rem;border-radius:8px;margin-bottom:1rem;">
-            <strong>✓ Pro Member</strong> — <a href="#" id="tln-upgrade-plus">Upgrade to Pro+</a> for video upload, featured placement, AI optimization
+            <strong>✓ Pro Member</strong> — <a href="#">Upgrade to Pro+</a> for video upload, featured placement, AI optimization
         </div>
         <?php endif; ?>
         
