@@ -13,7 +13,7 @@ $default_categories = array('Restaurant', 'Retail', 'Medical', 'Services', 'Food
 
 // Exclude big box chains and non-local businesses
 $tln_excluded_chains = array(
-    'Crossroad Grill', 'CVS', 'Walgreens', 'Walmart', 'Target', 'Costco', 'Sam\'s Club',
+    'Crossroad Grill', 'CVS', 'Walgreens', 'Fresh Monkee', 'Cureton Town Center', 'Susie Lou', 'Millview', 'Kohl', 'NTB', 'House Doctors', 'Waxhaw Electric', 'Piper Glen', 'Susie Lou', 'Walmart', 'Target', 'Costco', 'Sam\'s Club',
     'Dollar General', 'Dollar Store', 'Family Dollar', 'McDonald\'s',
     'Burger King', 'KFC', 'Pizza Hut', 'Domino\'s', 'Papa John\'s',
     'Subway', 'Starbucks', 'Dunkin', 'Dunkin\'', 'Chipotle',
@@ -88,7 +88,7 @@ function tln_directory_shortcode($atts) {
         'Waxhaw' => array(
             'Restaurant' => 'restaurants in Waxhaw NC',
             'Retail' => 'retail stores in Waxhaw NC',
-            'Medical' => 'medical in Waxhaw NC',
+            
             'Services' => 'services in Waxhaw NC'
         )
     );
