@@ -28,7 +28,7 @@ function tln_is_excluded($name) {
 }
 
 function tln_get_icon($cat) {
-    $icons = array('Restaurant'=>'R','Cafe'=>'C','Bar'=>'B','Retail'=>'S','Services'=>'S');
+    $icons = array('Restaurant'=>'🍽️','Cafe'=>'☕','Bar'=>'🍺','Retail'=>'🛒','Services'=>'🔧');
     return $icons[$cat] ?? 'B';
 }
 
@@ -61,6 +61,7 @@ function tln_dir_shortcode($atts) {
                 elseif(stripos($addr,'Indian Land')!==false) $loc2='Indian Land';
                 else continue;
                 
+                $photo = !empty($p['photos'][0]['photo_reference']) ? $p['photos'][0]['photo_reference'] : '';
                 $results[] = array(
                     'name'=>$p['name'],
                     'place_id'=>$p['place_id'],
