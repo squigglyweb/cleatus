@@ -2,7 +2,7 @@
 /**
  * Plugin Name: TLN Business Directory
  * Description: Display local businesses from Google API with claim functionality
- * Version: 1.4
+ * Version: 1.5
  */
 
 if (!defined('ABSPATH')) exit;
@@ -20,8 +20,9 @@ function tln_directory_styles() {
     $css = '
     .tln-dir-container { max-width: 1200px; margin: 0 auto; }
     .tln-dir-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; }
-    .tln-dir-card { background: white; border-radius: 12px; overflow: hidden; border: 2px solid #e63946; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .tln-dir-card { background: white; border-radius: 12px; overflow: hidden; border: 2px solid #1a1a1a; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
     .tln-dir-card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    .tln-dir-card.waxhaw { border-color: #e63946; }
     .tln-dir-img-wrap { position: relative; }
     .tln-dir-img { width: 100%; height: 200px; object-fit: cover; background: #ebebeb; }
     .tln-dir-badge { position: absolute; top: 10px; right: 10px; background: #e63946; color: white; padding: 4px 12px; font-size: 0.75rem; font-weight: 700; border-radius: 4px; text-transform: uppercase; }
@@ -55,17 +56,26 @@ function tln_directory_shortcode($atts) {
     
     $results = array();
     
-    // Only Waxhaw for now
+    // Search in all areas
     $search_queries = array(
         'Waxhaw' => array(
             'Restaurant' => 'restaurants in Waxhaw NC',
             'Retail' => 'retail stores in Waxhaw NC',
             'Medical' => 'medical in Waxhaw NC',
             'Services' => 'services in Waxhaw NC'
+        ),
+        'Weddington' => array(
+            'Restaurant' => 'restaurants in Weddington NC'
+        ),
+        'Wesley Chapel' => array(
+            'Restaurant' => 'restaurants in Wesley Chapel NC'
+        ),
+        'Charlotte' => array(
+            'Restaurant' => 'restaurants in Ballantyne Charlotte NC'
         )
     );
     
-    foreach ($search_queries as $location => $categories) {
+    foreach ($search_queries as $search_area => $categories) {
         foreach ($categories as $category => $query) {
             $url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=" . urlencode($query) . "&key=" . $api_key;
             $response = wp_remote_get($url, array('timeout' => 10, 'sslverify' => false));
@@ -91,12 +101,38 @@ function tln_directory_shortcode($atts) {
                 $full_stars = floor($rating);
                 $stars = str_repeat('★', $full_stars) . ($rating - $full_stars >= 0.5 ? '★' : '');
                 
+                // Detect location from address
+                $address = $place['formatted_address'] ?? '';
+                $address_lower = strtolower($address);
+                
+                if (stripos($address, 'Waxhaw') !== false) {
+                    $location = 'Waxhaw';
+                } elseif (stripos($address, 'Weddington') !== false) {
+                    $location = 'Weddington';
+                } elseif (stripos($address, 'Wesley Chapel') !== false) {
+                    $location = 'Wesley Chapel';
+                } elseif (stripos($address, 'Marvin') !== false) {
+                    $location = 'Marvin';
+                } elseif (stripos($address, 'Indian Land') !== false) {
+                    $location = 'Indian Land';
+                } elseif (stripos($address, 'Ballantyne') !== false) {
+                    $location = 'Ballantyne';
+                } elseif (stripos($address, 'Matthews') !== false) {
+                    $location = 'Matthews';
+                } elseif (stripos($address, 'Monroe') !== false) {
+                    $location = 'Monroe';
+                } elseif (stripos($address, 'Charlotte') !== false) {
+                    $location = 'Charlotte';
+                } else {
+                    $location = 'Other';
+                }
+                
                 $results[] = array(
                     'place_id' => $place_id,
                     'name' => $place['name'],
                     'category' => $category,
                     'location' => $location,
-                    'address' => $place['formatted_address'] ?? '',
+                    'address' => $address,
                     'rating' => $rating,
                     'stars' => $stars,
                     'reviews' => $place['user_ratings_total'] ?? 0,
@@ -116,6 +152,14 @@ function tln_directory_shortcode($atts) {
             $filtered[] = $r;
         }
     }
+    
+    // Sort: Waxhaw first, then by rating
+    usort($filtered, function($a, $b) {
+        if ($a['location'] === 'Waxhaw' && $b['location'] !== 'Waxhaw') return -1;
+        if ($b['location'] === 'Waxhaw' && $a['location'] !== 'Waxhaw') return 1;
+        return $b['rating'] - $a['rating'];
+    });
+    
     $results = $filtered;
     
     if (empty($results)) {
@@ -127,29 +171,40 @@ function tln_directory_shortcode($atts) {
         $cat_options .= "<option value=\"$cat\">$cat</option>";
     }
     
+    $loc_options = '<option value="all">All Locations</option><option value="Waxhaw" selected>Waxhaw</option>';
+    $locations = array('Weddington', 'Wesley Chapel', 'Marvin', 'Indian Land', 'Ballantyne', 'Matthews', 'Monroe', 'Charlotte', 'Other');
+    foreach ($locations as $loc) {
+        $loc_options .= "<option value=\"$loc\">$loc</option>";
+    }
+    
     ob_start();
     ?>
     <div class="tln-dir-container">
         <div class="tln-dir-filters">
             <input type="text" class="tln-dir-search" id="tln-search" placeholder="Search businesses...">
             <select class="tln-dir-filter" id="tln-category"><?php echo $cat_options; ?></select>
+            <select class="tln-dir-filter" id="tln-location"><?php echo $loc_options; ?></select>
         </div>
         
         <div class="tln-dir-grid" id="tln-grid">
         <?php foreach ($results as $biz): 
         $img = $biz['photo'] ?: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZWJlYmViIi8+PC9zdmc+';
         $maps_url = "https://www.google.com/maps/search/?api=1&query=" . urlencode($biz['address']);
+        $is_waxhaw = ($biz['location'] === 'Waxhaw');
+        $waxhaw_class = $is_waxhaw ? ' waxhaw' : '';
         ?>
-        <div class="tln-dir-card" data-name="<?php echo strtolower(esc_attr($biz['name'])); ?>" data-category="<?php echo esc_attr($biz['category']); ?>">
+        <div class="tln-dir-card<?php echo $waxhaw_class; ?>" data-name="<?php echo strtolower(esc_attr($biz['name'])); ?>" data-category="<?php echo esc_attr($biz['category']); ?>" data-location="<?php echo esc_attr($biz['location']); ?>">
             <div class="tln-dir-img-wrap">
                 <img src="<?php echo esc_url($img); ?>" alt="<?php echo esc_attr($biz['name']); ?>" class="tln-dir-img">
+                <?php if ($is_waxhaw): ?>
                 <span class="tln-dir-badge">WAXHAW</span>
+                <?php endif; ?>
             </div>
             <div class="tln-dir-content">
                 <div class="tln-dir-name-wrap">
                     <h3 class="tln-dir-name"><?php echo esc_html($biz['name']); ?></h3>
                 </div>
-                <div class="tln-dir-category"><?php echo esc_html($biz['category']); ?></div>
+                <div class="tln-dir-category"><?php echo esc_html($biz['category']); ?> • <?php echo esc_html($biz['location']); ?></div>
                 <div class="tln-dir-rating">
                     <span class="tln-dir-stars"><?php echo esc_html($biz['stars']); ?></span>
                     <span class="tln-dir-reviews">(<?php echo $biz['reviews']; ?>)</span>
@@ -166,22 +221,26 @@ function tln_directory_shortcode($atts) {
     document.addEventListener('DOMContentLoaded', function() {
         var search = document.getElementById('tln-search');
         var catFilter = document.getElementById('tln-category');
+        var locFilter = document.getElementById('tln-location');
         var cards = document.querySelectorAll('.tln-dir-card');
         
         function filter() {
             var q = search.value.toLowerCase();
             var cat = catFilter.value;
+            var loc = locFilter.value;
             
             cards.forEach(function(c) {
                 var name = c.dataset.name;
                 var category = c.dataset.category;
-                var match = (q === '' || name.indexOf(q) > -1) && (cat === 'all' || category === cat);
+                var location = c.dataset.location;
+                var match = (q === '' || name.indexOf(q) > -1) && (cat === 'all' || category === cat) && (loc === 'all' || location === loc);
                 c.style.display = match ? '' : 'none';
             });
         }
         
         search.addEventListener('input', filter);
         catFilter.addEventListener('change', filter);
+        locFilter.addEventListener('change', filter);
     });
     </script>
     <?php
