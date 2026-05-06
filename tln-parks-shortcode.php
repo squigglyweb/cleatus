@@ -136,7 +136,7 @@ function tln_parks_shortcode($atts) {
         <div class="tln-parks-grid">
     <?php
     foreach ($results as $park) {
-        $img = $park['photo'] ?: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZWJlYmViIi8+PC9zdmc+';
+        $img = $park['photo'] ? $park['photo'] : 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZWJlYmViIi8+PC9zdmc+';
         $is_waxhaw = ($park['type'] === 'Waxhaw');
         $waxhaw_class = $is_waxhaw ? ' waxhaw' : '';
         ?>
