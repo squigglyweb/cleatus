@@ -89,7 +89,7 @@ function tln_dir_shortcode($atts) {
         return $b['rating'] - $a['rating'];
     });
     
-    // Show first 12
+    // Show first 12, add Show More
     $page_items = array_slice($out, 0, 12);
     
     ob_start();
@@ -97,7 +97,7 @@ function tln_dir_shortcode($atts) {
     echo '<input type="text" class="tln-search" id="tln-s" placeholder="Search...">';
     echo '<select class="tln-filter" id="tln-c"><option value="">All</option><option>Restaurant</option><option>Retail</option><option>Services</option></select>';
     echo '<select class="tln-filter" id="tln-l"><option value="">All</option><option selected>Waxhaw</option><option>Marvin</option><option>Wesley Chapel</option><option>Weddington</option><option>Indian Land</option></select>';
-    echo '</div><div class="tln-grid" id="tln-g">';
+    echo '</div><div class="tln-grid" id="tln-g"></div><div style="text-align:center;margin:2rem;"><button id="tln-more" style="padding:1rem 2rem;background:#7cda24;color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:1rem;">Load More</button></div>';
     
     $icons = array('Restaurant'=>'🍽️','Cafe'=>'☕','Bar'=>'🍺','Retail'=>'🛒','Services'=>'🔧');
     
