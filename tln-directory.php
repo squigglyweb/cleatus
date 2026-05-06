@@ -105,7 +105,7 @@ function tln_dir_shortcode($atts) {
     $page_items = array_slice($out, $start, $per_page);
     
     // Get current page URL for pagination
-    $current_url = get_permalink();
+    $current_url = (isset($_SERVER['HTTPS']) $current_url = home_url(remove_query_arg('p')).'/directory/';$current_url = home_url(remove_query_arg('p')).'/directory/'; $_SERVER['HTTPS'] === 'on' ? 'https' : 'http').'://'.$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
     
     ob_start();
     echo '<div class="tln-container"><div class="tln-filters">';
