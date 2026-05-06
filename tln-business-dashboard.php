@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: TLN Business Dashboard
- * Description: Business claim system with email notifications
- * Version: 1.4
+ * Description: Business claim system with enforced TOS scrolling
+ * Version: 1.5
  */
 
 register_activation_hook(__FILE__, 'tln_business_install');
@@ -23,7 +23,7 @@ function tln_business_install() {
         cta_url varchar(500),
         tos_agreed varchar(255),
         tos_signed_date date,
-        status varchar(20) DEFAULT 'pending',
+        status varchar(20) DEFAULT 'approved',
         submitted_at datetime DEFAULT CURRENT_TIMESTAMP,
         PRIMARY KEY  (id)
     ) $charset_collate");
@@ -69,9 +69,6 @@ function tln_claim_form($atts) {
             'status' => 'approved'
         ));
         
-        $claim_id = $wpdb->insert_id;
-        
-        // Send email to Bryan
         $business_name = sanitize_text_field($_POST['business_name']);
         $claimant_name = sanitize_text_field($_POST['claimant_name']);
         $claimant_phone = sanitize_text_field($_POST['claimant_phone']);
@@ -96,7 +93,7 @@ function tln_claim_form($atts) {
     
     ob_start();
     ?>
-    <div class="tln-claim-form" style="background:#f8f8f8;padding:2rem;border-radius:12px;max-width:800px;">
+    <div class="tln-claim-form" style="background:#f8f8f8;padding:2rem;border-radius:12px;max-width:900px;">
         <h2 style="margin-top:0;">Claim This Business</h2>
         
         <?php if ($url_business): ?>
@@ -105,7 +102,7 @@ function tln_claim_form($atts) {
         </div>
         <?php endif; ?>
         
-        <form method="post" action="">
+        <form method="post" action="" id="tln-claim-form">
             <input type="hidden" name="place_id" value="<?php echo esc_attr($url_place_id); ?>">
             
             <p style="margin-bottom:1rem;">
@@ -129,48 +126,84 @@ function tln_claim_form($atts) {
                 <textarea name="proof" rows="3" style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;font-size:1rem;margin-top:0.5rem;"></textarea>
             </p>
             
-            <!-- TOS SECTION -->
+            <!-- FULL TOS - SCROLL TO AGREE -->
             <div style="background:white;border:1px solid #ddd;border-radius:8px;padding:1.5rem;margin:1.5rem 0;">
                 <h3 style="margin-top:0;color:#1a1a1a;">📋 Terms of Service</h3>
+                <p style="color:#e63946;font-weight:600;margin-bottom:1rem;">⬇️ You MUST scroll to the bottom to enable the agreement checkbox ⬇️</p>
                 
-                <div style="max-height:250px;overflow-y:auto;border:1px solid #eee;padding:1rem;margin:1rem 0;font-size:0.85rem;line-height:1.6;">
+                <div id="tln-tos-content" style="max-height:400px;overflow-y:scroll;border:1px solid #ccc;padding:1.5rem;margin:1rem 0;font-size:0.9rem;line-height:1.8;">
                     <p><em>Posted/Revised: May 5, 2026</em></p>
                     <p><strong>PLEASE READ THESE TERMS OF SERVICE CAREFULLY. BY CLICKING "ACCEPTED AND AGREED TO," YOU AGREE TO THESE TERMS AND CONDITIONS.</strong></p>
                     
-                    <p>These Terms of Service constitute an agreement between The Local Nearbuy ("Vendor," "We" or "Us") and the individual, corporation, LLC, partnership, sole proprietorship, or other business entity agreeing to these terms ("Customer" or "You").</p>
+                    <p>These Terms of Service constitute an agreement between The Local Nearbuy ("Vendor," "We" or "Us") and the individual, corporation, LLC, partnership, sole proprietorship, or other business entity agreeing to these terms ("Customer" or "You"). This Agreement is effective as of the date you click "Accepted and Agreed To."</p>
                     
-                    <p><strong>1. Acceptance of Terms</strong><br>We provide online resources, information, and email services subject to these Terms of Service.</p>
+                    <p><strong>1. Acceptance of Terms</strong><br>We provide online resources, information, and email services subject to these Terms of Service. By using the Service, you agree to comply with these terms and any guidelines we may change from time to time. If you disagree with any terms, your only recourse is to stop using the Service.</p>
                     
-                    <p><strong>2. Amendment of Terms</strong><br>We may amend these Terms from time to time by posting changes on our website.</p>
+                    <p><strong>2. Amendment of Terms</strong><br>We may amend these Terms from time to time by posting changes on our website or sending written notice. Changes become effective 30 days after notice unless you reject them in writing. Your continued use after the effective date constitutes acceptance.</p>
                     
-                    <p><strong>3. Content</strong><br>You are solely responsible for all content you post.</p>
+                    <p><strong>3. Content</strong><br>You are solely responsible for all content you post, email, or make available through the Service. You authorize us to copy, display, and distribute your content for any purpose related to the Service. By posting content, you grant us an irrevocable, perpetual, non-exclusive, worldwide license to use, copy, and distribute such content.</p>
                     
-                    <p><strong>4. Third-Party Content</strong><br>Content may link to third-party websites.</p>
+                    <p><strong>4. Third-Party Content, Sites, and Services</strong><br>Content available through the Service may link to third-party websites independent of The Local Nearbuy. We make no representations about the accuracy of third-party sites. Your interactions with third parties are solely between you and them.</p>
                     
-                    <p><strong>5. Privacy</strong><br>Please review our Privacy Policy.</p>
+                    <p><strong>5. Notification of Claims of Infringement</strong><br>To report copyright or intellectual property infringement, contact us at bryan@thelocalnearbuy.com with the required information.</p>
                     
-                    <p><strong>6. Paid Postings</strong><br>We may charge fees for certain postings.</p>
+                    <p><strong>6. Privacy and Information Disclosure</strong><br>Please review our Privacy Policy, incorporated by reference herein.</p>
                     
-                    <p><strong>7. Term and Termination</strong><br>You may deactivate your account at any time.</p>
+                    <p><strong>7. Conduct</strong><br>Please review our Acceptable Use Policy, incorporated by reference herein.</p>
                     
-                    <p><strong>8. Disclaimer of Warranties</strong><br>THE SERVICE IS PROVIDED "AS IS" WITHOUT WARRANTIES.</p>
+                    <p><strong>8. Paid Postings</strong><br>We may charge fees to post content in designated areas. All fees paid are non-refundable if content is removed for violating these Terms.</p>
                     
-                    <p><strong>9. Limitations of Liability</strong><br>OUR LIABILITY IS LIMITED TO $25.00.</p>
+                    <p><strong>9. Limitations on Service</strong><br>We may establish limits on use, including maximum storage duration, posting size, and access frequency.</p>
                     
-                    <p><em>For complete Terms, visit: <a href="/terms-of-service/" target="_blank">thelocalnearbuy.com/terms-of-service</a></em></p>
+                    <p><strong>10. Access to the Service</strong><br>We grant you a limited, revocable, non-exclusive license to access the Service for personal use. This license does not include scraping, data mining, or commercial use without written permission.</p>
+                    
+                    <p><strong>11. Term and Termination of Service</strong><br>You may deactivate your account at any time. After termination, you cannot access your account or personal information.</p>
+                    
+                    <p><strong>12. Proprietary Rights</strong><br>The Service is protected by copyright and international treaties.</p>
+                    
+                    <p><strong>13. Disclaimer of Warranties</strong><br>THE SERVICE IS PROVIDED "AS IS" WITHOUT WARRANTIES OF ANY KIND. WE DISCLAIM ALL EXPRESS AND IMPLIED WARRANTIES.</p>
+                    
+                    <p><strong>14. Limitations of Liability</strong><br>WE SHALL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR EXEMPLARY DAMAGES. OUR LIABILITY IS LIMITED TO $25.00.</p>
+                    
+                    <p><strong>15. Indemnity</strong><br>You agree to indemnify and hold us harmless from any claim arising out of your content.</p>
+                    
+                    <p><strong>16. General Information</strong><br>These Terms constitute the entire agreement between you and us. Any claims must be filed within one year.</p>
+                    
+                    <p><strong>17. Violation of Terms and Liquidated Damages</strong><br>Violations may result in liquidated damages ranging from $100 to $5,000 per incident.</p>
+                    
+                    <p><strong>18. Fees</strong><br>You agree to pay subscription fees until your account is deactivated. Subscriptions auto-renew until cancelled.</p>
+                    
+                    <p><strong>19. Transfer</strong><br>You may transfer account ownership by contacting us. A transfer fee may apply.</p>
+                    
+                    <p><strong>20. Notices</strong><br>Notices are deemed received 24 hours after sending via email.</p>
+                    
+                    <p><strong>21. Force Majeure</strong><br>Neither party is liable for delays caused by events beyond reasonable control.</p>
+                    
+                    <p><strong>22. Severability</strong><br>If any provision is invalid, the remaining terms continue in effect.</p>
+                    
+                    <p><strong>23. Choice of Law & Jurisdiction</strong><br>This Agreement is governed by the laws of the state where our principal office is located.</p>
+                    
+                    <p><strong>24. Entire Agreement</strong><br>These Terms set forth the entire agreement between the parties.</p>
+                    
+                    <p style="margin-top:2rem;padding-top:1rem;border-top:2px solid #ccc;"><em>By checking the box below, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.</em></p>
                 </div>
                 
-                <div style="background:#fef3c7;padding:1rem;border-radius:6px;margin-bottom:1rem;">
+                <div style="background:#e63946;color:white;padding:1rem;border-radius:6px;margin-bottom:1rem;text-align:center;font-weight:600;" id="tln-scroll-notice">
+                    ⬆️ PLEASE SCROLL UP TO READ THE TERMS ⬆️
+                </div>
+                
+                <div style="background:#d4edda;padding:1rem;border-radius:6px;margin-bottom:1rem;" id="tln-tos-checkbox-div">
                     <label style="display:block;cursor:pointer;">
-                        <input type="checkbox" name="tos_checkbox" required style="margin-right:0.5rem;">
+                        <input type="checkbox" name="tos_checkbox" id="tos_checkbox" required disabled style="margin-right:0.5rem;">
                         I have read and agree to the Terms of Service *
                     </label>
                 </div>
                 
                 <p style="margin-bottom:0.5rem;">
                     <label style="display:block;font-weight:600;margin-bottom:0.5rem;">Type your full name as digital signature *</label>
-                    <input type="text" name="tos_signature" required placeholder="Type your full name here"
+                    <input type="text" name="tos_signature" id="tos_signature" required placeholder="Type your full name here" disabled
                            style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;font-size:1rem;">
+                    <small style="color:#666;">By typing your name, you agree that this constitutes your legal signature.</small>
                 </p>
             </div>
             
@@ -181,11 +214,41 @@ function tln_claim_form($atts) {
                 </label>
             </p>
             
-            <button type="submit" name="tln_submit_claim" value="1" 
-                    style="background:#e63946;color:white;padding:1rem 2rem;border:none;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;">
+            <button type="submit" name="tln_submit_claim" value="1" id="tln-submit-btn" disabled
+                    style="background:#ccc;color:#666;padding:1rem 2rem;border:none;border-radius:8px;font-size:1rem;font-weight:600;cursor:not-allowed;">
                 Submit Claim Request
             </button>
+            
+            <p style="color:#666;font-size:0.85rem;margin-top:1rem;">
+                <em>* You must scroll through the entire Terms of Service and type your name to submit this form.</em>
+            </p>
         </form>
+        
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var tosContent = document.getElementById('tln-tos-content');
+            var checkbox = document.getElementById('tos_checkbox');
+            var signature = document.getElementById('tos_signature');
+            var submitBtn = document.getElementById('tln-submit-btn');
+            var scrollNotice = document.getElementById('tln-scroll-notice');
+            
+            tosContent.addEventListener('scroll', function() {
+                var scrollTop = this.scrollTop;
+                var scrollHeight = this.scrollHeight - this.clientHeight;
+                
+                // Check if scrolled to bottom (within 10px)
+                if (scrollTop >= scrollHeight - 10) {
+                    scrollNotice.style.display = 'none';
+                    checkbox.disabled = false;
+                    signature.disabled = false;
+                    submitBtn.disabled = false;
+                    submitBtn.style.background = '#e63946';
+                    submitBtn.style.color = 'white';
+                    submitBtn.style.cursor = 'pointer';
+                }
+            });
+        });
+        </script>
     </div>
     <?php
     return ob_get_clean();
@@ -215,15 +278,22 @@ function tln_claims_page() {
         if ($c->status == 'pending') {
             echo '<a href="?page=tln-claims&action=approve=' . $c->id . '">Approve</a> | ';
             echo '<a href="?page=tln-claims&action=reject=' . $c->id . '">Reject</a>';
+        } else {
+            echo '<a href="?page=tln-claims&action=revoke=' . $c->id . '">Revoke</a>';
         }
         echo '</td></tr>';
     }
     echo '</table>';
     
     if (isset($_GET['action'])) {
-        $id = intval(str_replace(['approve=', 'reject='], '', $_GET['action']));
-        $status = strpos($_GET['action'], 'approve=') !== false ? 'approved' : 'rejected';
-        $wpdb->update($wpdb->prefix . 'tln_claims', array('status' => $status), array('id' => $id));
+        $id = intval(str_replace(['approve=', 'reject=', 'revoke='], '', $_GET['action']));
+        if (strpos($_GET['action'], 'approve=') !== false) {
+            $wpdb->update($wpdb->prefix . 'tln_claims', array('status' => 'approved'), array('id' => $id));
+        } elseif (strpos($_GET['action'], 'reject=') !== false) {
+            $wpdb->update($wpdb->prefix . 'tln_claims', array('status' => 'rejected'), array('id' => $id));
+        } elseif (strpos($_GET['action'], 'revoke=') !== false) {
+            $wpdb->update($wpdb->prefix . 'tln_claims', array('status' => 'revoked'), array('id' => $id));
+        }
         echo '<meta http-equiv="refresh" content="0">';
     }
 }
@@ -241,8 +311,6 @@ function tln_business_dashboard() {
     }
     
     $user_id = get_current_user_id();
-    
-    // Get their claimed business
     global $wpdb;
     $claim = $wpdb->get_row($wpdb->prepare(
         "SELECT * FROM {$wpdb->prefix}tln_claims WHERE user_id = %d AND status = 'approved' ORDER BY submitted_at DESC LIMIT 1",
@@ -267,18 +335,15 @@ function tln_business_dashboard() {
             <p style="opacity:0.8;margin-bottom:0;">Status: ✅ Verified | Claimed <?php echo date('M j, Y', strtotime($claim->submitted_at)); ?></p>
         </div>
         
-        <!-- PRO UPGRADE SECTION -->
         <div style="background:linear-gradient(135deg,#e63946,#c1121f);color:white;padding:2rem;border-radius:12px;margin-bottom:1.5rem;">
             <h3 style="margin-top:0;color:white;font-size:1.5rem;">🚀 Upgrade to Pro</h3>
             <p style="opacity:0.9;">Get a custom offer, QR code, photos, and more for just $99/month.</p>
-            
             <div style="display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;">
                 <a href="YOUR_STRIPE_LINK_HERE" style="flex:1;background:white;color:#e63946;padding:1rem 1.5rem;border-radius:8px;text-decoration:none;font-weight:700;text-align:center;min-width:200px;">Upgrade Now - $99/mo</a>
             </div>
             <p style="font-size:0.85rem;opacity:0.8;margin-top:0.5rem;">Cancel anytime. Secure payment via Stripe.</p>
         </div>
         
-        <!-- Quick Actions -->
         <h3 style="margin-bottom:1rem;">Quick Actions</h3>
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;">
             <div style="background:#f8f8f8;padding:1.5rem;border-radius:8px;text-align:center;">
