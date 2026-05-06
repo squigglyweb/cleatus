@@ -2,7 +2,7 @@
 /**
  * Plugin Name: TLN Business Directory
  * Description: Display local businesses from Google API with claim functionality
- * Version: 1.5
+ * Version: 1.6
  */
 
 if (!defined('ABSPATH')) exit;
@@ -10,6 +10,23 @@ if (!defined('ABSPATH')) exit;
 define('TLN_GOOGLE_API_KEY', 'AIzaSyAH6O3RsnDuX5rJ2OyTHCTZhYtd6s6NSWU');
 
 $default_categories = array('Restaurant', 'Retail', 'Medical', 'Services', 'Food & Drink');
+
+// Exclude big box chains and non-local businesses
+$tln_excluded_chains = array(
+    'CVS', 'Walgreens', 'Walmart', 'Target', 'Costco', 'Sam\'s Club',
+    'Dollar General', 'Dollar Store', 'Family Dollar', 'McDonald\'s',
+    'Burger King', 'KFC', 'Pizza Hut', 'Domino\'s', 'Papa John\'s',
+    'Subway', 'Starbucks', 'Dunkin', 'Dunkin\'', 'Chipotle',
+    'Chick-fil-A', 'Chick fil A', 'Wingstop', 'Taco Bell',
+    'Shell', 'BP', 'Exxon', 'Chevron', 'Texaco', 'Raceway',
+    'Food Lion', 'Harris Teeter', 'Aldi', 'Lidl', 'Whole Foods',
+    'Trader Joe\'s', 'Publix', 'Ingles', 'PetSmart', 'Petco',
+    'Best Buy', 'Home Depot', 'Lowe\'s', 'Menards', 'Ace Hardware',
+    'Office Depot', 'Staples', 'FedEx', 'UPS Store',
+    'Bank of America', 'Wells Fargo', 'Chase', 'PNC',
+    'Verizon', 'AT&T', 'T-Mobile', 'Sprint', 'Xfinity',
+    'USPS', 'United States Postal'
+);
 
 function tln_directory_styles() {
     wp_enqueue_style('tln-fonts', 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap', array(), null);
@@ -47,6 +64,17 @@ function tln_directory_styles() {
 }
 add_action('wp_enqueue_scripts', 'tln_directory_styles');
 
+function tln_is_excluded_chain($name) {
+    global $tln_excluded_chains;
+    $name_lower = strtolower($name);
+    foreach ($tln_excluded_chains as $chain) {
+        if (stripos($name_lower, strtolower($chain)) !== false) {
+            return true;
+        }
+    }
+    return false;
+}
+
 function tln_directory_shortcode($atts) {
     $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
     
@@ -56,22 +84,12 @@ function tln_directory_shortcode($atts) {
     
     $results = array();
     
-    // Search in all areas
     $search_queries = array(
         'Waxhaw' => array(
             'Restaurant' => 'restaurants in Waxhaw NC',
             'Retail' => 'retail stores in Waxhaw NC',
             'Medical' => 'medical in Waxhaw NC',
             'Services' => 'services in Waxhaw NC'
-        ),
-        'Weddington' => array(
-            'Restaurant' => 'restaurants in Weddington NC'
-        ),
-        'Wesley Chapel' => array(
-            'Restaurant' => 'restaurants in Wesley Chapel NC'
-        ),
-        'Charlotte' => array(
-            'Restaurant' => 'restaurants in Ballantyne Charlotte NC'
         )
     );
     
@@ -88,6 +106,11 @@ function tln_directory_shortcode($atts) {
             if (empty($data['results'])) continue;
             
             foreach ($data['results'] as $place) {
+                // Skip big box chains
+                if (tln_is_excluded_chain($place['name'])) {
+                    continue;
+                }
+                
                 $place_id = $place['place_id'];
                 
                 $photo_url = '';
@@ -101,9 +124,7 @@ function tln_directory_shortcode($atts) {
                 $full_stars = floor($rating);
                 $stars = str_repeat('★', $full_stars) . ($rating - $full_stars >= 0.5 ? '★' : '');
                 
-                // Detect location from address
                 $address = $place['formatted_address'] ?? '';
-                $address_lower = strtolower($address);
                 
                 if (stripos($address, 'Waxhaw') !== false) {
                     $location = 'Waxhaw';
@@ -117,10 +138,6 @@ function tln_directory_shortcode($atts) {
                     $location = 'Indian Land';
                 } elseif (stripos($address, 'Ballantyne') !== false) {
                     $location = 'Ballantyne';
-                } elseif (stripos($address, 'Matthews') !== false) {
-                    $location = 'Matthews';
-                } elseif (stripos($address, 'Monroe') !== false) {
-                    $location = 'Monroe';
                 } elseif (stripos($address, 'Charlotte') !== false) {
                     $location = 'Charlotte';
                 } else {
@@ -142,7 +159,6 @@ function tln_directory_shortcode($atts) {
         }
     }
     
-    // Remove duplicates
     $seen = array();
     $filtered = array();
     foreach ($results as $r) {
@@ -153,7 +169,6 @@ function tln_directory_shortcode($atts) {
         }
     }
     
-    // Sort: Waxhaw first, then by rating
     usort($filtered, function($a, $b) {
         if ($a['location'] === 'Waxhaw' && $b['location'] !== 'Waxhaw') return -1;
         if ($b['location'] === 'Waxhaw' && $a['location'] !== 'Waxhaw') return 1;
@@ -163,7 +178,7 @@ function tln_directory_shortcode($atts) {
     $results = $filtered;
     
     if (empty($results)) {
-        return '<p>No businesses found. Please try again later.</p>';
+        return '<p>No local businesses found. Please try again later.</p>';
     }
     
     $cat_options = '<option value="all">All Categories</option>';
@@ -172,10 +187,6 @@ function tln_directory_shortcode($atts) {
     }
     
     $loc_options = '<option value="all">All Locations</option><option value="Waxhaw" selected>Waxhaw</option>';
-    $locations = array('Weddington', 'Wesley Chapel', 'Marvin', 'Indian Land', 'Ballantyne', 'Matthews', 'Monroe', 'Charlotte', 'Other');
-    foreach ($locations as $loc) {
-        $loc_options .= "<option value=\"$loc\">$loc</option>";
-    }
     
     ob_start();
     ?>
