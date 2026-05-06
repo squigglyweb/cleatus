@@ -136,7 +136,7 @@ function tln_dir_shortcode($atts) {
         if($dir_page) {
             $base_url = get_permalink($dir_page->ID);
         } else {
-            $base_url = '/directory/';
+            $base_url = 'https://thelocalnearbuy.com/directory/';
         }
         
         for($i=1; $i<=$total_pages; $i++) {
