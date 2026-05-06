@@ -4,13 +4,9 @@
  * Description: Display local businesses from Google API with claim functionality
  * Version: 1.6
  */
-
 if (!defined('ABSPATH')) exit;
-
 define('TLN_GOOGLE_API_KEY', 'AIzaSyAH6O3RsnDuX5rJ2OyTHCTZhYtd6s6NSWU');
-
 $default_categories = array('Restaurant', 'Retail', 'Medical', 'Services', 'Food & Drink', 'Cafe');
-
 // Exclude big box chains and non-local businesses
 $tln_excluded_chains = array(
     'Crossroad Grill', 'CVS', 'Walgreens', 'Cureton Town Center', 'Susie Lou', 'Millview', 'Kohl', 'NTB', 'House Doctors', 'Waxhaw Electric', 'Piper Glen', 'Susie Lou', 'Walmart', 'Target', 'Costco', 'Sam\'s Club',
@@ -27,7 +23,6 @@ $tln_excluded_chains = array(
     'Verizon', 'AT&T', 'T-Mobile', 'Sprint', 'Xfinity',
     'USPS', 'United States Postal'
 );
-
 function tln_directory_styles() {
     wp_enqueue_style('tln-fonts', 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap', array(), null);
     
@@ -63,7 +58,6 @@ function tln_directory_styles() {
     wp_add_inline_style('tln-dir', $css);
 }
 add_action('wp_enqueue_scripts', 'tln_directory_styles');
-
 function tln_is_excluded_chain($name) {
     global $tln_excluded_chains;
     $name_lower = strtolower($name);
@@ -74,7 +68,6 @@ function tln_is_excluded_chain($name) {
     }
     return false;
 }
-
 function tln_directory_shortcode($atts) {
     $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
     
@@ -89,7 +82,8 @@ function tln_directory_shortcode($atts) {
             'Restaurant' => 'restaurants in Waxhaw NC',
             'Retail' => 'retail stores in Waxhaw NC',
             
-            'Services' => 'services in Waxhaw NC'
+            'Services' => 'services in Waxhaw NC',
+            'Cafe' => 'cafes in Waxhaw NC'
         )
     );
     
