@@ -127,7 +127,7 @@ function tln_dir_shortcode($atts) {
     // Pagination
     if($total_pages > 1) {
         echo '<div class="tln-pagination">';
-        $base = '/directory/';
+        $base = add_query_arg('p', 'REPLACEME', get_permalink());
         for($i=1;$i<=$total_pages;$i++) {
             $active = ($i == $page) ? ' active' : '';
             echo '<a href="'.$base.'?p='.$i.'" class="tln-page-btn'.$active.'">'.$i.'</a>';
