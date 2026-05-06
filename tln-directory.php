@@ -257,7 +257,8 @@ function tln_directory_shortcode($atts) {
                     <span class="tln-dir-reviews">(<?php echo $biz['reviews']; ?>)</span>
                 </div>
                 <div class="tln-dir-address" onclick="window.open('<?php echo $maps_url; ?>', '_blank')">📍 <?php echo esc_html($biz['address']); ?></div>
-                <a href="https://thelocalnearbuy.com/claim/<?php echo urlencode($biz['name']); ?>&pid=<?php echo $biz['place_id']; ?>" class="tln-dir-claim">Claim This Business</a>
+                <a href="https://thelocalnearbuy.com/claim/<?php echo urlencode($biz['name']); ?>&pid=<?php echo $biz['place_id']; ?>" class="tln-dir-claim">View Profile</a>
+                <div style="margin-top:0.75rem;font-size:0.85rem;"><a href="/claim/" style="color:#666;text-decoration:underline;">Own this business? Claim it</a></div>
             </div>
         </div>
         <?php endforeach; ?>
