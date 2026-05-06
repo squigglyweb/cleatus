@@ -106,6 +106,9 @@ function tln_dir_shortcode($atts) {
     else $base_url .= '&';
     
     ob_start();
+
+    echo '<div style="text-align:center;margin-bottom:2rem;"><h2 style="text-transform:uppercase;letter-spacing:2px;font-size:1.5rem;">LOCAL BUSINESSES</h2><p style="font-size:1.1rem;color:#666;max-width:600px;margin:0 auto;">Find it near me in Waxhaw, Marvin, Wesley Chapel, Weddington, Indian Land, Ballantyne and surrounding areas</p></div>';
+
     echo '<div class="tln-container"><div class="tln-filters">';
     echo '<input type="text" class="tln-search" id="tln-s" placeholder="Search...">';
     echo '<select class="tln-filter" id="tln-c"><option value="">All</option><option>Restaurant</option><option>Retail</option><option>Services</option></select>';
