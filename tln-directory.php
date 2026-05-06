@@ -81,6 +81,27 @@ function tln_directory_shortcode($atts) {
         'Waxhaw' => array(
             'Restaurant' => 'restaurants in Waxhaw NC',
             'Retail' => 'retail stores in Waxhaw NC',
+            'Services' => 'services in Waxhaw NC',
+            'Cafe' => 'cafes in Waxhaw NC'
+        ),
+        'Marvin' => array(
+            'Restaurant' => 'restaurants in Marvin NC',
+            'Retail' => 'retail stores in Marvin NC'
+        ),
+        'Wesley Chapel' => array(
+            'Restaurant' => 'restaurants in Wesley Chapel NC',
+            'Retail' => 'retail stores in Wesley Chapel NC'
+        ),
+        continue;
+        'Weddington' => array(
+            'Restaurant' => 'restaurants in Weddington NC',
+            'Retail' => 'retail stores in Weddington NC'
+        ),
+        'Indian Land' => array(
+            'Restaurant' => 'restaurants in Indian Land SC',
+            'Retail' => 'retail stores in Indian Land SC'
+            'Restaurant' => 'restaurants in Waxhaw NC',
+            'Retail' => 'retail stores in Waxhaw NC',
             
             'Services' => 'services in Waxhaw NC',
             'Cafe' => 'cafes in Waxhaw NC'
