@@ -7,7 +7,7 @@
 if (!defined('ABSPATH')) exit;
 
 define('TLN_GOOGLE_API_KEY', 'AIzaSyAH6O3RsnDuX5rJ2OyTHCTZhYtd6s6NSWU');
-define('TLN_PLACEHOLDER', 'https://thelocalnearbuy.com/wp-content/uploads/2026/05/image-placeholder.png');
+define('TLN_PLACEHOLDER', 'https://thelocalnearbuy.com/wp-content/uploads/2026/05/tln-image-placeholder.webp');
 
 function tln_dir_styles() {
     wp_enqueue_style('tln-fonts', 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap', array(), null);
