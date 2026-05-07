@@ -1,18 +1,19 @@
 <?php
 /**
  * Plugin Name: TLN Business Directory
- * Version: 3.5 - Clean with Caching
+ * Version: 4.0 - Full Fixes
  */
 
 if (!defined('ABSPATH')) exit;
 
 define('TLN_GOOGLE_API_KEY', 'AIzaSyAH6O3RsnDuX5rJ2OyTHCTZhYtd6s6NSWU');
+define('TLN_PLACEHOLDER', 'https://thelocalnearbuy.com/wp-content/uploads/2026/05/image-placeholder.png');
 
 function tln_dir_styles() {
     wp_enqueue_style('tln-fonts', 'https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap', array(), null);
     wp_register_style('tln-dir', false);
     wp_enqueue_style('tln-dir');
-    $css = '.tln-container{max-width:1200px;margin:0 auto}.tln-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem}.tln-card{background:#fff;border-radius:12px;overflow:hidden;border:2px solid #1a1a1a;box-shadow:0 2px 8px rgba(0,0,0,0.1)}.tln-card.waxhaw{border-color:#e63946}.tln-img{width:100%;height:180px;background:#667eea;display:flex;align-items:center;justify-content:center}.tln-badge{position:absolute;top:10px;right:10px;background:#e63946;color:#fff;padding:4px 12px;font-size:0.75rem;font-weight:700;border-radius:4px;text-transform:uppercase}.tln-content{padding:1rem}.tln-name-wrap{background:#fff;border:2px solid #1a1a1a;padding:0.75rem;margin-bottom:0.5rem;border-radius:4px}.tln-name{font-size:1.1rem;font-weight:700;color:#1a1a1a;margin:0}.tln-cat{color:#e63946;font-size:0.85rem;font-weight:600;margin-bottom:0.5rem}.tln-rating{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem}.tln-stars{color:#FABC06}.tln-reviews{color:#666;font-size:0.9rem}.tln-address{color:#1a1a1a;font-size:0.9rem;margin-bottom:1rem}.tln-btn{display:block;width:100%;padding:0.9rem;background:#7cda24;color:#fff;text-align:center;text-decoration:none;font-weight:700;font-size:0.95rem;border-radius:8px;text-transform:uppercase}.tln-claim-link{font-size:0.85rem;margin-top:0.75rem}.tln-claim-link a{color:#666;text-decoration:underline}.tln-filters{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}.tln-search{flex:1;min-width:200px;padding:0.75rem 1rem;border:1px solid #ddd;border-radius:8px;font-size:1rem}.tln-filter{padding:0.75rem 1rem;border:1px solid #ddd;border-radius:8px;font-size:1rem;background:#fff}.tln-pager{display:flex;justify-content:center;gap:0.5rem;margin-top:2rem}.tln-pager a,.tln-pager span{padding:0.5rem 1rem;border:1px solid #ddd;background:#fff;text-decoration:none;color:#333}.tln-pager a:hover{background:#f0f0f0}.tln-pager span{background:#e63946;color:#fff;border-color:#e63946}@media(max-width:600px){.tln-grid{grid-template-columns:1fr}}';
+    $css = '.tln-container{max-width:1200px;margin:0 auto}.tln-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem}.tln-card{background:#fff;border-radius:12px;overflow:hidden;border:2px solid #1a1a1a;box-shadow:0 2px 8px rgba(0,0,0,0.1)}.tln-card.waxhaw{border-color:#e63946}.tln-img-wrap{position:relative}.tln-img{width:100%;height:180px;object-fit:cover;background:#eee}.tln-badge{position:absolute;top:10px;right:10px;background:#e63946;color:#fff;padding:4px 12px;font-size:0.75rem;font-weight:700;border-radius:4px;text-transform:uppercase}.tln-content{padding:1rem}.tln-name-wrap{background:#fff;border:2px solid #1a1a1a;padding:0.75rem;margin-bottom:0.5rem;border-radius:4px}.tln-name{font-size:1.1rem;font-weight:700;color:#1a1a1a;margin:0}.tln-cat{color:#e63946;font-size:0.85rem;font-weight:600;margin-bottom:0.5rem}.tln-rating{display:flex;align-items:center;gap:0.5rem;margin-bottom:0.75rem}.tln-stars{color:#FABC06}.tln-reviews{color:#666;font-size:0.9rem}.tln-address{color:#1a1a1a;font-size:0.9rem;margin-bottom:1rem}.tln-btn{display:block;width:100%;padding:0.9rem;background:#7cda24;color:#fff;text-align:center;text-decoration:none;font-weight:700;font-size:0.95rem;border-radius:8px;text-transform:uppercase}.tln-claim-link{font-size:0.85rem;margin-top:0.75rem}.tln-claim-link a{color:#666;text-decoration:underline}.tln-filters{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:1rem}.tln-search{flex:1;min-width:200px;padding:0.75rem 1rem;border:1px solid #ddd;border-radius:8px;font-size:1rem}.tln-filter{padding:0.75rem 1rem;border:1px solid #ddd;border-radius:8px;font-size:1rem;background:#fff}.tln-pager{display:flex;justify-content:center;gap:0.5rem;margin-top:2rem;flex-wrap:wrap}.tln-pager a,.tln-pager span{padding:0.5rem 1rem;border:1px solid #ddd;background:#fff;text-decoration:none;color:#333;display:inline-block}.tln-pager a:hover{background:#f0f0f0}.tln-pager span{background:#e63946;color:#fff;border-color:#e63946}.tln-more{display:block;width:100%;max-width:300px;margin:2rem auto;padding:1rem;background:#e63946;color:#fff;border:none;border-radius:8px;font-size:1rem;cursor:pointer;text-align:center}.tln-more:hover{background:#c1121f}.tln-no-results{text-align:center;padding:2rem;color:#666;font-size:1.1rem}.tln-count{text-align:center;margin-bottom:1rem;color:#666;font-size:0.9rem}@media(max-width:600px){.tln-grid{grid-template-columns:1fr}}';
     wp_add_inline_style('tln-dir', $css);
 }
 add_action('wp_enqueue_scripts', 'tln_dir_styles');
@@ -99,15 +100,17 @@ function tln_get_cached_businesses() {
 
 function tln_dir_shortcode($atts) {
     $api = TLN_GOOGLE_API_KEY;
-    $out = tln_get_cached_businesses();
+    $placeholder = defined('TLN_PLACEHOLDER') ? TLN_PLACEHOLDER : '';
+    $all_businesses = tln_get_cached_businesses();
+    $total = count($all_businesses);
     
     $per_page = 12;
     $page = isset($_GET['dir-page']) ? intval($_GET['dir-page']) : 1;
     if($page < 1) $page = 1;
-    $total = count($out);
+    
+    // Get first 12 for initial render
+    $page_items = array_slice($all_businesses, ($page - 1) * $per_page, $per_page);
     $total_pages = ceil($total / $per_page);
-    $start = ($page - 1) * $per_page;
-    $page_items = array_slice($out, $start, $per_page);
     
     $request_uri = $_SERVER['REQUEST_URI'];
     $request_uri = remove_query_arg('dir-page', $request_uri);
@@ -118,28 +121,36 @@ function tln_dir_shortcode($atts) {
     ob_start();
     echo '<div style="text-align:center;margin-bottom:2rem;"><h2 style="text-transform:uppercase;letter-spacing:2px;font-size:1.5rem;">LOCAL BUSINESSES</h2><p style="font-size:1.1rem;color:#666;max-width:600px;margin:0 auto;">From Waxhaw to Weddington to Marvin, we have got it covered. Find it near me in the Greater Waxhaw area</p></div>';
     echo '<div class="tln-container"><div class="tln-filters">';
-    echo '<input type="text" class="tln-search" id="tln-s" placeholder="Search...">';
-    echo '<select class="tln-filter" id="tln-c"><option value="">All</option><option>Restaurant</option><option>Retail</option><option>Services</option><option>Food</option><option>Health</option><option>Auto</option><option>Salon</option><option>Fitness</option></select>';
-    echo '<select class="tln-filter" id="tln-l"><option value="">All</option><option selected>Waxhaw</option><option>Marvin</option><option>Wesley Chapel</option><option>Weddington</option><option>Indian Land</option></select>';
-    echo '</div><div class="tln-grid" id="tln-g">';
+    echo '<input type="text" class="tln-search" id="tln-s" placeholder="Search all businesses...">';
+    echo '<select class="tln-filter" id="tln-c"><option value="">All Categories</option><option>Restaurant</option><option>Retail</option><option>Services</option><option>Food</option><option>Health</option><option>Auto</option><option>Salon</option><option>Fitness</option></select>';
+    echo '<select class="tln-filter" id="tln-l"><option value="">All Locations</option><option>Waxhaw</option><option>Marvin</option><option>Wesley Chapel</option><option>Weddington</option><option>Indian Land</option></select>';
+    echo '</div>';
+    echo '<p class="tln-count" id="tln-count">Showing '.$total.' local businesses</p>';
+    echo '<div class="tln-grid" id="tln-g">';
     
     $icons = array('Restaurant'=>'🍽️','Cafe'=>'☕','Bar'=>'🍺','Retail'=>'🛒','Services'=>'🔧','Food'=>'🍔','Health'=>'🏥','Auto'=>'🔧','Salon'=>'💅','Fitness'=>'💪');
+    
+    // Output initial data for JS
+    echo '<div id="tln-all-data" style="display:none;">';
+    echo json_encode($all_businesses);
+    echo '</div>';
     
     foreach($page_items as $b) {
         $loc = $b['loc'];
         $icon = $icons[$b['cat']] ?? '🏪';
         
+        // Use Google photo or placeholder
         if(!empty($b['photo_ref'])) {
             $photo_url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=".$b['photo_ref']."&key=$api";
-            $img = '<img src="'.esc_url($photo_url).'" style="width:100%;height:180px;object-fit:cover;">';
+            $img = '<img class="tln-img" src="'.esc_url($photo_url).'" alt="'.esc_attr($b['name']).'" loading="lazy">';
         } else {
-            $img = '<div style="width:100%;height:180px;background:linear-gradient(135deg,#667eea,#764ba2);display:flex;align-items:center;justify-content:center;"><span style="font-size:4rem;">'.$icon.'</span></div>';
+            $img = '<img class="tln-img" src="'.esc_url($placeholder).'" alt="'.esc_attr($b['name']).'" loading="lazy">';
         }
         
         $claim_url = '/claim/?biz='.urlencode($b['name']).'&pid='.urlencode($b['place_id']);
         
         echo '<div class="tln-card" data-n="'.strtolower($b['name']).'" data-c="'.$b['cat'].'" data-l="'.$loc.'">';
-        echo '<div class="tln-img-wrap" style="position:relative">'.$img;
+        echo '<div class="tln-img-wrap">'.$img;
         echo '<span class="tln-badge">'.strtoupper($loc).'</span>';
         echo '</div><div class="tln-content">';
         echo '<div class="tln-name-wrap"><h3 class="tln-name">'.esc_html($b['name']).'</h3></div>';
@@ -152,8 +163,9 @@ function tln_dir_shortcode($atts) {
     }
     echo '</div>';
     
+    // Pagination
     if($total_pages > 1) {
-        echo '<div class="tln-pager">';
+        echo '<div class="tln-pager" id="tln-pager">';
         for($i=1; $i<=$total_pages; $i++) {
             if($i == $page) {
                 echo '<span>'.$i.'</span>';
@@ -167,33 +179,106 @@ function tln_dir_shortcode($atts) {
     echo '</div>';
     ?>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script>
-jQuery(document).ready(function($) {
-    var search = $('#tln-s');
-    var cat = $('#tln-c');
-    var loc = $('#tln-l');
-    var cards = $('.tln-card');
-    
-    function filter() {
-        var q = search.val().toLowerCase();
-        var c = cat.val();
-        var l = loc.val();
+    <script>
+    jQuery(document).ready(function($) {
+        var allData = JSON.parse($('#tln-all-data').html());
+        var perPage = 12;
+        var currentPage = 1;
         
-        cards.each(function() {
-            var card = $(this);
-            var match = true;
-            if (q && card.data('n').indexOf(q) === -1) match = false;
-            if (c && card.data('c') !== c) match = false;
-            if (l && card.data('l') !== l) match = false;
-            card.toggle(match);
+        var icons = {'Restaurant':'🍽️','Cafe':'☕','Bar':'🍺','Retail':'🛒','Services':'🔧','Food':'🍔','Health':'🏥','Auto':'🔧','Salon':'💅','Fitness':'💪'};
+        var placeholder = '<?php echo esc_url($placeholder); ?>';
+        var apiKey = '<?php echo $api; ?>';
+        
+        function renderPage(pageNum, data) {
+            var start = (pageNum - 1) * perPage;
+            var items = data.slice(start, start + perPage);
+            var grid = $('#tln-g');
+            var pager = $('#tln-pager');
+            
+            if (items.length === 0) {
+                grid.html('<p class="tln-no-results">No businesses match your search.</p>');
+                pager.hide();
+                $('#tln-count').text('Showing 0 businesses');
+                return;
+            }
+            
+            var html = items.map(function(b) {
+                var icon = icons[b.cat] || '🏪';
+                var imgUrl = b.photo_ref 
+                    ? 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + b.photo_ref + '&key=' + apiKey
+                    : placeholder;
+                
+                return '<div class="tln-card" data-n="'+b.name.toLowerCase()+'" data-c="'+b.cat+'" data-l="'+b.loc+'">' +
+                    '<div class="tln-img-wrap"><img class="tln-img" src="'+imgUrl+'" alt="'+b.name+'" loading="lazy">' +
+                    '<span class="tln-badge">'+b.loc.toUpperCase()+'</span></div>' +
+                    '<div class="tln-content"><div class="tln-name-wrap"><h3 class="tln-name">'+b.name+'</h3></div>' +
+                    '<div class="tln-cat">'+b.cat+' &bull; '+b.loc+'</div>' +
+                    '<div class="tln-rating"><span class="tln-stars">'+'★'.repeat(Math.floor(b.rating))+'</span> <span class="tln-reviews">('+b.rating+')</span></div>' +
+                    '<div class="tln-address">📍 '+b.addr+'</div>' +
+                    '<a href="/profile/?biz='+encodeURIComponent(b.name)+'&pid='+b.place_id+'" class="tln-btn">View Profile</a>' +
+                    '<div class="tln-claim-link"><a href="/claim/?biz='+encodeURIComponent(b.name)+'&pid='+b.place_id+'">Own this business? Claim it</a></div>' +
+                    '</div></div>';
+            }).join('');
+            
+            grid.html(html);
+            $('#tln-count').text('Showing ' + items.length + ' of ' + data.length + ' businesses');
+            
+            // Update pagination
+            var totalPages = Math.ceil(data.length / perPage);
+            if (totalPages > 1) {
+                var pageHtml = '';
+                for(var i=1; i<=totalPages; i++) {
+                    if(i === pageNum) {
+                        pageHtml += '<span>'+i+'</span>';
+                    } else {
+                        pageHtml += '<a href="#" class="tln-page-link" data-page="'+i+'">'+i+'</a>';
+                    }
+                }
+                pager.html(pageHtml);
+                pager.show();
+            } else {
+                pager.hide();
+            }
+        }
+        
+        function filterData() {
+            var q = $('#tln-s').val().toLowerCase();
+            var c = $('#tln-c').val();
+            var l = $('#tln-l').val();
+            
+            var filtered = allData.filter(function(x) {
+                return (q === '' || x.name.toLowerCase().indexOf(q) > -1) && 
+                       (c === '' || x.cat === c) && 
+                       (l === '' || x.loc === l);
+            });
+            
+            currentPage = 1;
+            renderPage(1, filtered);
+        }
+        
+        // Search and filter events
+        $('#tln-s').on('input', filterData);
+        $('#tln-c').on('change', filterData);
+        $('#tln-l').on('change', filterData);
+        
+        // Pagination clicks
+        $(document).on('click', '.tln-page-link', function(e) {
+            e.preventDefault();
+            var newPage = $(this).data('page');
+            var q = $('#tln-s').val().toLowerCase();
+            var c = $('#tln-c').val();
+            var l = $('#tln-l').val();
+            
+            var filtered = allData.filter(function(x) {
+                return (q === '' || x.name.toLowerCase().indexOf(q) > -1) && 
+                       (c === '' || x.cat === c) && 
+                       (l === '' || x.loc === l);
+            });
+            
+            renderPage(newPage, filtered);
         });
-    }
-    
-    search.on('input', filter);
-    cat.on('change', filter);
-    loc.on('change', filter);
-});
-</script>
+    });
+    </script>
     <?php
     return ob_get_clean();
 }
