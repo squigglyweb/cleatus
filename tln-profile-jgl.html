@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JGL Repair LLC - The Local NearBuy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; background: #fff; color: #1a1a1a; }
+        
+        .profile-header { background: #f8f8f8; padding: 2rem; border-bottom: 3px solid #e63946; }
+        .header-content { max-width: 900px; margin: 0 auto; display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap; }
+        .profile-img { width: 300px; height: 200px; object-fit: cover; border-radius: 8px; border: 2px solid #1a1a1a; }
+        .profile-info { flex: 1; min-width: 250px; }
+        .profile-name { font-size: 2.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .profile-badge { display: inline-block; background: #e63946; color: white; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-right: 0.5rem; }
+        .profile-cat { color: #666; font-size: 1rem; margin: 0.75rem 0; }
+        .profile-address { font-size: 1rem; margin-bottom: 0.5rem; }
+        .profile-address a { color: #e63946; text-decoration: none; }
+        .verified { background: #d4edda; color: #155724; padding: 0.5rem 1rem; border-radius: 6px; display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; margin-top: 0.75rem; }
+        
+        .profile-body { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        
+        .offer-box { 
+            background: #fff3cd; border: 2px solid #e63946; 
+            border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;
+        }
+        .offer-tag { 
+            background: #e63946; color: white; 
+            padding: 0.25rem 0.75rem; border-radius: 4px; 
+            font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+            display: inline-block; margin-bottom: 0.75rem;
+        }
+        .offer-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .offer-desc { color: #444; }
+        .offer-code { font-family: monospace; background: #fff; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.9rem; }
+        
+        .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        
+        .section { margin-bottom: 2rem; }
+        .section h3 { font-size: 1.1rem; border-bottom: 2px solid #1a1a1a; padding-bottom: 0.5rem; margin-bottom: 1rem; }
+        
+        .hours-table { width: 100%; }
+        .hours-table td { padding: 0.6rem 0; border-bottom: 1px solid #eee; }
+        .hours-day { font-weight: 600; }
+        .hours-time { text-align: right; color: #666; }
+        
+        .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+        .photo-grid img { width: 100%; height: 150px; object-fit: cover; border-radius: 8px; border: 1px solid #ddd; }
+        
+        .contact-item { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 0.75rem; }
+        .contact-icon { font-size: 1.25rem; }
+        
+        .cta-box { background: #f8f8f8; padding: 2rem; text-align: center; border-radius: 12px; margin-top: 2rem; }
+        .cta-box h3 { margin-bottom: 0.75rem; }
+        .cta-box p { color: #666; margin-bottom: 1rem; }
+        .cta-btn { 
+            display: inline-block; padding: 1rem 2rem; 
+            background: #e63946; color: white; text-decoration: none; 
+            border-radius: 8px; font-weight: 700; 
+        }
+        
+        @media(max-width: 700px) {
+            .header-content { flex-direction: column; }
+            .profile-img { width: 100%; }
+            .details-grid { grid-template-columns: 1fr; }
+            .photo-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-header">
+        <div class="header-content">
+            <img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=600&photoreference=Ab43m-ubTDqZ0-lRc3XMNIP5MumYxLsITjGyckwXD-CUJwSkuPXLovn8wsgfDxFVKCgID8Zqs2aicOWAUdDEcwHTzTYyUEB_r7dqBG4RbE-_Yku5zsycCYK7qXp7HzE5i_hLlzrNxVNzzD6N2IFz9mT2qLMsJ3MXgISjkaRHIIor5-IuhkyqLgOK7wALVncTHAs7eH41wjzLPzkBBxlW9aHlN_i90pDDhexcFRiyXPveBHvDxGYErr1xiZdQlwT3iS3hTZwvXHHMv0q2thzHRli7HkU8RKnh8XCD4Dtj6kg1Hxf4CA&key=AIzaSyAH6O3RsnDuX5rJ2OyTHCTZhYtd6s6NSWU" class="profile-img" alt="JGL Repair LLC">
+            <div class="profile-info">
+                <div class="profile-name">JGL Repair LLC</div>
+                <div class="profile-badge">Pro Verified</div>
+                <div class="profile-cat">Auto Repair • Waxhaw Area, NC</div>
+                <div class="profile-address">📍 2300 E Providence Dr, Charlotte, NC 28270</div>
+                <div class="verified">✓ Verified Business Owner</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="profile-body">
+        <div class="offer-box">
+            <div class="offer-tag">Special Offer</div>
+            <div class="offer-title">15% Off Any Repair Over $200</div>
+            <div class="offer-desc">Show this page to receive your discount. Valid for new customers only. Cannot be combined with other offers.</div>
+            <div style="margin-top:0.75rem;"><strong>Code:</strong> <span class="offer-code">JGL15</span></div>
+        </div>
+        
+        <div class="details-grid">
+            <div class="section">
+                <h3>📞 Contact</h3>
+                <div class="contact-item">
+                    <span class="contact-icon">📞</span>
+                    <span><a href="tel:704-555-0182">(704) 555-0182</a></span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">🌐</span>
+                    <span><a href="#" style="color:#e63946;">jglrepair.com</a></span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">📧</span>
+                    <span>service@jglrepair.com</span>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h3>🕐 Hours</h3>
+                <table class="hours-table">
+                    <tr><td class="hours-day">Monday</td><td class="hours-time">7:00 AM - 6:00 PM</td></tr>
+                    <tr><td class="hours-day">Tuesday</td><td class="hours-time">7:00 AM - 6:00 PM</td></tr>
+                    <tr><td class="hours-day">Wednesday</td><td class="hours-time">7:00 AM - 6:00 PM</td></tr>
+                    <tr><td class="hours-day">Thursday</td><td class="hours-time">7:00 AM - 6:00 PM</td></tr>
+                    <tr><td class="hours-day">Friday</td><td class="hours-time">7:00 AM - 5:00 PM</td></tr>
+                    <tr><td class="hours-day">Saturday</td><td class="hours-time">8:00 AM - 12:00 PM</td></tr>
+                    <tr><td class="hours-day">Sunday</td><td class="hours-time">Closed</td></tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h3>📷 Photo Gallery</h3>
+            <div class="photo-grid">
+                <img src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=400" alt="Shop">
+                <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=400" alt="Mechanic">
+                <img src="https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?w=400" alt="Garage">
+            </div>
+        </div>
+        
+        <div class="section">
+            <h3>🚗 Services</h3>
+            <ul style="padding-left:1.25rem;line-height:1.8;">
+                <li>Engine Diagnostics & Repair</li>
+                <li>Brake Service & Replacement</li>
+                <li>Oil Change & Maintenance</li>
+                <li>Tire Rotation & Alignment</li>
+                <li>Air Conditioning Repair</li>
+                <li>Electrical System Repair</li>
+                <li>Transmission Service</li>
+            </ul>
+        </div>
+        
+        <div class="cta-box">
+            <h3>Is this your business?</h3>
+            <p>Claim this listing to update information, add your own offers, and upgrade to unlock more features.</p>
+            <a href="/claim/?biz=JGL+Repair+LLC&pid=ChIJGXdQFWQmVIgRjw172UGVLHA" class="cta-btn">Claim This Business</a>
+        </div>
+    </div>
+</body>
+</html>
