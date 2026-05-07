@@ -166,13 +166,34 @@ function tln_dir_shortcode($atts) {
     
     echo '</div>';
     ?>
-    <script>
-    document.addEventListener('DOMContentLoaded',function(){
-        var s=document.getElementById('tln-s'),c=document.getElementById('tln-c'),l=document.getElementById('tln-l'),g=document.getElementById('tln-g'),d=g.querySelectorAll('.tln-card');
-        function f(){var q=s.value.toLowerCase(),cc=c.value,lc=l.value;d.forEach(function(x){var m=(q==''||x.dataset.n.indexOf(q)>-1)&&(cc==''||x.dataset.c==cc)&&(lc==''||x.dataset.l==lc);x.style.display=m?'':'none'})}
-        s.addEventListener('input',f);c.addEventListener('change',f);l.addEventListener('change',f);
-    });
-    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+jQuery(document).ready(function($) {
+    var search = $('#tln-s');
+    var cat = $('#tln-c');
+    var loc = $('#tln-l');
+    var cards = $('.tln-card');
+    
+    function filter() {
+        var q = search.val().toLowerCase();
+        var c = cat.val();
+        var l = loc.val();
+        
+        cards.each(function() {
+            var card = $(this);
+            var match = true;
+            if (q && card.data('n').indexOf(q) === -1) match = false;
+            if (c && card.data('c') !== c) match = false;
+            if (l && card.data('l') !== l) match = false;
+            card.toggle(match);
+        });
+    }
+    
+    search.on('input', filter);
+    cat.on('change', filter);
+    loc.on('change', filter);
+});
+</script>
     <?php
     return ob_get_clean();
 }
