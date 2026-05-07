@@ -17,7 +17,7 @@ function tln_dir_styles() {
 }
 add_action('wp_enqueue_scripts', 'tln_dir_styles');
 
-$tln_exclude = array('CVS','Walgreens','Walmart','Target','Costco','Dollar General','McDonalds','Burger King','KFC','Pizza Hut','Dominos','Papa Johns','Subway','Starbucks','Dunkin','Chipotle','Chick-fil-A','Wingstop','Taco Bell','Shell','BP','Exxon','Food Lion','Harris Teeter','Aldi','Whole Foods','Trader Joes','Best Buy','Home Depot','Lowes','Bank of America','Wells Fargo','Chase');
+$tln_exclude = array('CVS','Walgreens','WingHouse','Wesley Chapel FL','Walmart','Target','Costco','Dollar General','McDonalds','Burger King','KFC','Pizza Hut','Dominos','Papa Johns','Subway','Starbucks','Dunkin','Chipotle','Chick-fil-A','Wingstop','Taco Bell','Shell','BP','Exxon','Food Lion','Harris Teeter','Aldi','Whole Foods','Trader Joes','Best Buy','Home Depot','Lowes','Bank of America','Wells Fargo','Chase');
 
 function tln_is_excluded($name) {
     global $tln_exclude;
@@ -54,7 +54,7 @@ function tln_dir_shortcode($atts) {
                 elseif(stripos($addr,'Wesley Chapel')!==false) $loc2='Wesley Chapel';
                 elseif(stripos($addr,'Weddington')!==false) $loc2='Weddington';
                 elseif(stripos($addr,'Indian Land')!==false) $loc2='Indian Land';
-                else continue;
+                elseif(stripos($addr,'NC')===false && stripos($addr,'SC')===false) continue; // Skip non-NC/SC
                 
                 $photo_ref = '';
                 if(!empty($p['photos'][0]['photo_reference'])) {
