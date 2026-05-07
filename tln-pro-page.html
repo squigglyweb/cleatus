@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pro Plan - The Local NearBuy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; background: #fff; color: #1a1a1a; }
+        
+        .hero { background: #1a1a1a; color: white; padding: 4rem 2rem; text-align: center; }
+        .hero h1 { font-size: 3rem; margin-bottom: 0.5rem; }
+        .hero .badge { background: #e63946; padding: 0.25rem 1rem; border-radius: 4px; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 1rem; display: inline-block; }
+        .hero .price { font-size: 4rem; font-weight: 700; color: #e63946; }
+        .hero .price span { font-size: 1.5rem; color: white; font-weight: 400; }
+        .hero .desc { max-width: 600px; margin: 1rem auto 0; opacity: 0.9; line-height: 1.6; }
+        
+        .features { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
+        .features h2 { text-align: center; margin-bottom: 2rem; font-size: 2rem; }
+        
+        .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        
+        .feature { display: flex; gap: 1rem; align-items: flex-start; }
+        .feature-icon { 
+            background: #e63946; color: white; 
+            width: 40px; height: 40px; 
+            border-radius: 50%; 
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem; flex-shrink: 0;
+        }
+        .feature h3 { font-size: 1.1rem; margin-bottom: 0.25rem; }
+        .feature p { color: #666; font-size: 0.9rem; line-height: 1.5; }
+        
+        .preview { background: #f8f8f8; padding: 3rem 2rem; }
+        .preview h2 { text-align: center; margin-bottom: 2rem; }
+        .preview-mock { 
+            max-width: 600px; margin: 0 auto; 
+            background: white; border: 2px solid #1a1a1a; 
+            border-radius: 12px; overflow: hidden; 
+        }
+        .preview-header { background: #1a1a1a; color: white; padding: 1rem; text-align: center; font-weight: 700; }
+        .preview-body { padding: 1.5rem; }
+        .preview-row { display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid #eee; }
+        .preview-label { color: #666; }
+        .preview-value { font-weight: 600; }
+        
+        .cta { background: #e63946; color: white; padding: 4rem 2rem; text-align: center; }
+        .cta h2 { font-size: 2rem; margin-bottom: 1rem; }
+        .cta p { margin-bottom: 2rem; opacity: 0.95; }
+        .cta-btn { display: inline-block; padding: 1rem 3rem; background: white; color: #e63946; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 1.1rem; }
+        
+        @media(max-width: 700px) { .feature-grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="badge">Most Popular</div>
+        <h1>Pro Plan</h1>
+        <div class="price">$99<span>/month</span></div>
+        <p class="desc">Everything you need to grow your local business and connect with more customers in your community.</p>
+    </div>
+    
+    <div class="features">
+        <h2>What's Included</h2>
+        <div class="feature-grid">
+            <div class="feature">
+                <div class="feature-icon">📷</div>
+                <div>
+                    <h3>Photo Gallery</h3>
+                    <p>Upload up to 6 photos showcasing your business, products, and services.</p>
+                </div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🎁</div>
+                <div>
+                    <h3>Custom Offer</h3>
+                    <p>Create one special offer or promotion to attract new customers.</p>
+                </div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🕐</div>
+                <div>
+                    <h3>Update Hours</h3>
+                    <p>Keep your business hours current so customers always know when you're open.</p>
+                </div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📊</div>
+                <div>
+                    <h3>Analytics Dashboard</h3>
+                    <p>See how customers find you, track views, and monitor your online presence.</p>
+                </div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">📩</div>
+                <div>
+                    <h3>Customer Leads</h3>
+                    <p>Receive inquiries directly from interested customers through your profile.</p>
+                </div>
+            </div>
+            <div class="feature">
+                <div class="feature-icon">🔗</div>
+                <div>
+                    <h3>Website & Social Links</h3>
+                    <p>Link to your website and social media profiles for full contact info.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="preview">
+        <h2>Your Pro Dashboard</h2>
+        <div class="preview-mock">
+            <div class="preview-header">Your Business Dashboard</div>
+            <div class="preview-body">
+                <div class="preview-row">
+                    <span class="preview-label">Plan</span>
+                    <span class="preview-value">Pro - $99/mo</span>
+                </div>
+                <div class="preview-row">
+                    <span class="preview-label">Photos</span>
+                    <span class="preview-value">6 uploaded</span>
+                </div>
+                <div class="preview-row">
+                    <span class="preview-label">Custom Offer</span>
+                    <span class="preview-value">15% Off First Visit</span>
+                </div>
+                <div class="preview-row">
+                    <span class="preview-label">Profile Views</span>
+                    <span class="preview-value">247 this month</span>
+                </div>
+                <div class="preview-row">
+                    <span class="preview-label">Customer Inquiries</span>
+                    <span class="preview-value">12 messages</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="cta">
+        <h2>Ready to Stand Out?</h2>
+        <p>Upgrade to Pro today and start growing your business.</p>
+        <a href="#" class="cta-btn">Get Started - $99/mo</a>
+    </div>
+</body>
+</html>
