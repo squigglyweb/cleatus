@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JGL Repair LLC - Pro Profile | The Local NearBuy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; background: #fff; color: #1a1a1a; }
+        
+        :root { --red: #e63946; --black: #1a1a1a; --white: #ffffff; }
+        
+        .tln-banner { background: var(--black); color: white; padding: 0.5rem 1rem; text-align: center; font-size: 0.75rem; }
+        
+        /* Hero */
+        .hero { position: relative; height: 280px; }
+        .hero img { width: 100%; height: 100%; object-fit: cover; }
+        .hero-overlay { 
+            position: absolute; bottom: 0; left: 0; right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.85));
+            padding: 2rem;
+        }
+        .business-name { font-size: 2.5rem; font-weight: 700; color: white; margin-bottom: 0.5rem; }
+        .badge-row { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+        .badge { background: var(--red); color: white; padding: 0.3rem 0.75rem; border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
+        .badge.featured { background: var(--black); border: 1px solid white; }
+        .location { color: white; font-size: 1rem; }
+        
+        .main-content { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        
+        /* OFFERS - Make these HUGE */
+        .offers-hero { 
+            background: var(--red); color: white; 
+            padding: 1.5rem; border-radius: 12px; margin-bottom: 2rem;
+            display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+        }
+        .offers-hero h2 { font-size: 1.5rem; }
+        .offers-hero p { opacity: 0.95; }
+        
+        .offers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2.5rem; }
+        
+        .offer-card { 
+            background: var(--white); border: 3px solid var(--black); 
+            border-radius: 16px; padding: 2rem;
+            position: relative;
+        }
+        .offer-card.evergreen { border-color: var(--red); }
+        
+        .offer-card h3 { font-size: 1.5rem; margin-bottom: 0.75rem; font-weight: 700; }
+        .offer-card p { color: #444; line-height: 1.6; margin-bottom: 1rem; }
+        .offer-code { 
+            display: inline-block; background: var(--black); color: white;
+            padding: 0.5rem 1rem; font-family: monospace; font-size: 1.1rem; font-weight: 700;
+            border-radius: 6px;
+        }
+        .offer-card.evergreen h3 { color: var(--red); }
+        
+        .offer-label { font-size: 0.7rem; text-transform: uppercase; font-weight: 700; margin-bottom: 0.5rem; letter-spacing: 1px; }
+        
+        /* Community Impact - MEALS */
+        .impact-bar { 
+            background: #f8f8f8; border: 2px solid var(--black); 
+            border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;
+            display: flex; align-items: center; gap: 1.5rem;
+        }
+        .impact-icon { font-size: 2.5rem; }
+        .impact-text h4 { font-size: 1.1rem; margin-bottom: 0.25rem; }
+        .impact-text p { color: #666; font-size: 0.9rem; }
+        
+        /* Info Grid */
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2.5rem; }
+        
+        .info-card { background: #f8f8f8; border: 2px solid var(--black); border-radius: 12px; padding: 1.5rem; }
+        .info-card h4 { font-size: 1rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--black); }
+        
+        .hours-row { display: flex; justify-content: space-between; padding: 0.6rem 0; border-bottom: 1px solid #ddd; }
+        
+        .contact-link { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0; }
+        .contact-link a { color: var(--red); text-decoration: none; font-weight: 600; font-size: 1.1rem; }
+        .contact-link a:hover { text-decoration: underline; }
+        
+        /* Google Reviews */
+        .reviews-section { margin-bottom: 2.5rem; }
+        .reviews-section h3 { font-size: 1.25rem; margin-bottom: 1rem; border-bottom: 2px solid var(--black); padding-bottom: 0.5rem; }
+        
+        .google-review { background: #f8f8f8; border: 1px solid #ddd; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; }
+        .reviewer { font-weight: 700; font-size: 0.95rem; }
+        .review-stars { color: var(--black); font-size: 0.85rem; margin: 0.25rem 0; }
+        .review-text { color: #444; font-size: 0.9rem; }
+        
+        /* Neighborhood Score */
+        .score-section { background: var(--black); color: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; }
+        .score-section h3 { margin-bottom: 1rem; }
+        .score-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; text-align: center; }
+        .score-item { background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; }
+        .score-num { font-size: 1.75rem; font-weight: 700; color: var(--red); }
+        .score-label { font-size: 0.75rem; text-transform: uppercase; opacity: 0.9; }
+        
+        /* Services */
+        .services-list { 
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem;
+            list-style: none;
+        }
+        .services-list li { 
+            background: #f8f8f8; border: 1px solid #ddd; 
+            padding: 0.75rem; border-radius: 6px; font-size: 0.85rem; text-align: center;
+        }
+        
+        /* Business Dashboard CTA - LOGIN */
+        .dashboard-cta { 
+            background: #f0f0f0; border: 2px dashed #666; 
+            border-radius: 12px; padding: 2rem; text-align: center; margin-bottom: 2rem;
+        }
+        .dashboard-cta p { color: #666; margin-bottom: 1rem; }
+        .dashboard-btn { 
+            display: inline-block; padding: 0.75rem 1.5rem; 
+            background: var(--black); color: white; 
+            text-decoration: none; border-radius: 6px; font-weight: 600;
+        }
+        
+        /* Update this - the one at bottom */
+        .cta-section { 
+            background: var(--red); color: white; 
+            padding: 2rem; border-radius: 12px; text-align: center;
+        }
+        .cta-section p { opacity: 0.95; margin-bottom: 1rem; }
+        .cta-btn { 
+            display: inline-block; padding: 0.75rem 1.5rem; 
+            background: white; color: var(--red); 
+            text-decoration: none; border-radius: 6px; font-weight: 700;
+        }
+        
+        @media(max-width: 700px) {
+            .offers-grid, .info-grid, .services-list, .score-grid { grid-template-columns: 1fr; }
+            .business-name { font-size: 1.75rem; }
+            .offer-card { padding: 1.25rem; }
+            .offers-hero { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="tln-banner">The Local NearBuy — Greater Waxhaw Region</div>
+    
+    <div class="hero">
+        <img src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=1200" alt="JGL Repair">
+        <div class="hero-overlay">
+            <div class="business-name">JGL Repair LLC</div>
+            <div class="badge-row">
+                <span class="badge">Pro Partner</span>
+                <span class="badge featured">Featured</span>
+            </div>
+            <div class="location">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                2300 E Providence Dr, Charlotte, NC 28270
+            </div>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <!-- MEALS DONATED -->
+        <div class="impact-bar">
+            <div class="impact-icon">🍽️</div>
+            <div class="impact-text">
+                <h4>Community Impact: 847 Meals Provided</h4>
+                <p>A portion of every service helps feed local families.</p>
+            </div>
+        </div>
+        
+        <!-- OFFERS - HUGE -->
+        <div class="offers-hero">
+            <div>
+                <h2>Special Offers for Neighbors</h2>
+                <p>Show this page to your server. Valid with any visit.</p>
+            </div>
+        </div>
+        
+        <div class="offers-grid">
+            <div class="offer-card evergreen">
+                <div class="offer-label">Always Available</div>
+                <h3>Free Appetizer with Entrees</h3>
+                <p>Start your meal with a free appetizer when you order any entree. Dine-in only. Cannot combine with other offers.</p>
+                <span class="offer-code">JGLFREEAPP</span>
+            </div>
+            <div class="offer-card">
+                <div class="offer-label">Limited Time</div>
+                <h3>20% Off Catering Orders</h3>
+                <p>Book your next event with us and save 20% on all catering orders of $100 or more.</p>
+                <span class="offer-code">JGL20CATERING</span>
+            </div>
+        </div>
+        
+        <!-- NEIGHBORHOOD SCORE -->
+        <div class="score-section">
+            <h3>Neighborhood Score</h3>
+            <div class="score-grid">
+                <div class="score-item">
+                    <div class="score-num">4.8</div>
+                    <div class="score-label">Quality</div>
+                </div>
+                <div class="score-item">
+                    <div class="score-num">4.6</div>
+                    <div class="score-label">Value</div>
+                </div>
+                <div class="score-item">
+                    <div class="score-num">4.9</div>
+                    <div class="score-label">Service</div>
+                </div>
+                <div class="score-item">
+                    <div class="score-num">4.7</div>
+                    <div class="score-label">Overall</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- GOOGLE REVIEWS -->
+        <div class="reviews-section">
+            <h3>Google Reviews</h3>
+            <div class="google-review">
+                <div class="reviewer">Mike T.</div>
+                <div class="review-stars">★★★★★</div>
+                <div class="review-text">Best mechanic in the area. Honest, reliable, and fair prices. Been coming here for years.</div>
+            </div>
+            <div class="google-review">
+                <div class="reviewer">Sarah L.</div>
+                <div class="review-stars">★★★★★</div>
+                <div class="review-text">They fixed my car same day when others said it would take a week. Highly recommend!</div>
+            </div>
+            <div style="text-align:center;margin-top:1rem;">
+                <a href="#" style="color:var(--red);font-weight:600;">See all 28 Google Reviews →</a>
+            </div>
+        </div>
+        
+        <div class="info-grid">
+            <div class="info-card">
+                <h4>Hours</h4>
+                <div class="hours-row"><span>Monday - Friday</span><span>7am - 6pm</span></div>
+                <div class="hours-row"><span>Saturday</span><span>8am - 12pm</span></div>
+                <div class="hours-row"><span>Sunday</span><span>Closed</span></div>
+            </div>
+            <div class="info-card">
+                <h4>Contact</h4>
+                <div class="contact-link">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                    <a href="tel:7045550182">(704) 555-0182</a>
+                </div>
+                <div class="contact-link">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                    <a href="https://maps.google.com/?q=2300+E+Providence+Dr+Charlotte+NC+28270" target="_blank">Get Directions →</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="offers-section">
+            <h3 style="font-size:1.25rem;border-bottom:2px solid var(--black);padding-bottom:0.5rem;margin-bottom:1rem;">Services</h3>
+            <ul class="services-list">
+                <li>Engine Diagnostics</li><li>Brake Service</li><li>Oil Changes</li>
+                <li>Tire Services</li><li>A/C Repair</li><li>Transmission</li>
+                <li>Electrical</li><li>Battery Service</li><li>Exhaust</li>
+            </ul>
+        </div>
+        
+        <!-- Business Dashboard Login -->
+        <div class="dashboard-cta">
+            <p>Own this business? Update your profile, offers, hours, and photos.</p>
+            <a href="/dashboard/" class="dashboard-btn">Business Dashboard Login</a>
+        </div>
+    </div>
+</body>
+</html>
