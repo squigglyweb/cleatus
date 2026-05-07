@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JGL Repair LLC - Pro Profile | The Local NearBuy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; background: #fff; color: #1a1a1a; }
+        
+        /* Header Banner */
+        .tln-banner { background: #1a1a1a; color: white; padding: 0.5rem 1rem; text-align: center; font-size: 0.75rem; }
+        
+        /* Hero Section */
+        .hero { position: relative; height: 280px; overflow: hidden; }
+        .hero-img { width: 100%; height: 100%; object-fit: cover; }
+        .hero-overlay { 
+            position: absolute; bottom: 0; left: 0; right: 0;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            padding: 2rem;
+        }
+        .hero-content { max-width: 900px; margin: 0 auto; }
+        .business-name { font-size: 2.5rem; font-weight: 700; color: white; margin-bottom: 0.5rem; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
+        .business-meta { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
+        .badge { background: #e63946; color: white; padding: 0.3rem 0.75rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .location { color: white; font-size: 1rem; }
+        .verified { display: inline-flex; align-items: center; gap: 0.4rem; color: #7cda24; font-size: 0.85rem; font-weight: 600; }
+        
+        /* Main Content */
+        .main-content { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        
+        /* Offers Section */
+        .offers-section { margin-bottom: 2.5rem; }
+        .section-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 1.25rem; padding-bottom: 0.5rem; border-bottom: 2px solid #1a1a1a; }
+        
+        .offers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        
+        .offer-card { 
+            background: linear-gradient(135deg, #fff 0%, #fff3cd 100%);
+            border: 2px solid #1a1a1a; 
+            border-radius: 12px; padding: 1.5rem;
+            position: relative; overflow: hidden;
+        }
+        .offer-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: #e63946;
+        }
+        .offer-card.limited { border-color: #e63946; }
+        .offer-card.limited::before { background: #667eea; }
+        
+        .offer-tag { 
+            display: inline-block; background: #1a1a1a; color: white;
+            padding: 0.25rem 0.75rem; border-radius: 4px; 
+            font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+            margin-bottom: 0.75rem;
+        }
+        .offer-card.limited .offer-tag { background: #667eea; }
+        
+        .offer-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .offer-desc { color: #444; font-size: 0.9rem; line-height: 1.5; margin-bottom: 1rem; }
+        .offer-code { 
+            display: inline-block; background: #fff; border: 1px dashed #1a1a1a;
+            padding: 0.4rem 0.75rem; font-family: monospace; font-weight: 700;
+        }
+        
+        /* Info Grid */
+        .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2.5rem; }
+        
+        .info-card { background: #f8f8f8; border: 2px solid #1a1a1a; border-radius: 12px; padding: 1.5rem; }
+        .info-card h4 { font-size: 1rem; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem; }
+        
+        .hours-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #eee; }
+        .hours-row:last-child { border-bottom: none; }
+        
+        .contact-row { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0; }
+        .contact-row a { color: #e63946; text-decoration: none; font-weight: 600; }
+        .contact-row a:hover { text-decoration: underline; }
+        
+        /* Services */
+        .services-list { 
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem;
+            list-style: none;
+        }
+        .services-list li { 
+            background: #f8f8f8; border: 1px solid #ddd; 
+            padding: 0.75rem; border-radius: 6px; font-size: 0.85rem;
+            text-align: center;
+        }
+        
+        /* CTA */
+        .cta-section { 
+            background: linear-gradient(135deg, #e63946, #c1121f); 
+            color: white; padding: 3rem 2rem; border-radius: 12px; text-align: center; margin-bottom: 2rem;
+        }
+        .cta-section h3 { font-size: 1.75rem; margin-bottom: 0.75rem; }
+        .cta-section p { opacity: 0.95; margin-bottom: 1.5rem; }
+        .cta-btn { 
+            display: inline-block; padding: 1rem 2.5rem; 
+            background: white; color: #e63946; 
+            text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 1.1rem;
+        }
+        
+        @media(max-width: 700px) {
+            .offers-grid, .info-grid, .services-list { grid-template-columns: 1fr; }
+            .business-name { font-size: 1.75rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="tln-banner">🗺️ The Local NearBuy — Waxhaw, Marvin, Wesley Chapel, Weddington & Indian Land</div>
+    
+    <div class="hero">
+        <img src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=1200" class="hero-img" alt="JGL Repair">
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <div class="business-name">JGL Repair LLC</div>
+                <div class="business-meta">
+                    <span class="badge">Pro Verified</span>
+                    <span class="location">📍 Charlotte, NC</span>
+                    <span class="verified">✓ Owner Verified</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="main-content">
+        <div class="offers-section">
+            <h3 class="section-title">🎁 Special Offers</h3>
+            <div class="offers-grid">
+                <div class="offer-card">
+                    <span class="offer-tag">Always Available</span>
+                    <div class="offer-title">15% Off Any Repair</div>
+                    <div class="offer-desc">Show this page to receive 15% off your service. Valid on repairs over $200. New customers only.</div>
+                    <span class="offer-code">JGLPRO15</span>
+                </div>
+                <div class="offer-card limited">
+                    <span class="offer-tag">Limited Time</span>
+                    <div class="offer-title">Free Multi-Point Inspection</div>
+                    <div class="offer-desc">With any paid service. Our expert technicians will check brakes, tires, fluids & more.</div>
+                    <span class="offer-code">JGLFREE</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-grid">
+            <div class="info-card">
+                <h4>🕐 Business Hours</h4>
+                <div class="hours-row"><span>Monday - Friday</span><span>7am - 6pm</span></div>
+                <div class="hours-row"><span>Saturday</span><span>8am - 12pm</span></div>
+                <div class="hours-row"><span>Sunday</span><span>Closed</span></div>
+            </div>
+            <div class="info-card">
+                <h4>📞 Contact</h4>
+                <div class="contact-row"><span>📞</span> <a href="tel:7045550182">(704) 555-0182</a></div>
+                <div class="contact-row"><span>🌐</span> <a href="#">jglrepair.com</a></div>
+                <div class="contact-row"><span>📧</span> service@jglrepair.com</div>
+                <div class="contact-row"><span>📍</span> <a href="#">Get Directions</a></div>
+            </div>
+        </div>
+        
+        <div class="offers-section">
+            <h3 class="section-title">🔧 Services</h3>
+            <ul class="services-list">
+                <li>Engine Diagnostics</li>
+                <li>Brake Service</li>
+                <li>Oil Changes</li>
+                <li>Tire Services</li>
+                <li>A/C Repair</li>
+                <li>Transmission</li>
+                <li>Electrical</li>
+                <li>Battery Service</li>
+                <li>Exhaust Systems</li>
+            </ul>
+        </div>
+        
+        <div class="cta-section">
+            <h3>Own This Business?</h3>
+            <p>Claim your profile to update information and add your own special offers.</p>
+            <a href="/claim/" class="cta-btn">Claim This Business</a>
+        </div>
+    </div>
+</body>
+</html>
