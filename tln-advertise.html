@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Advertise - The Local NearBuy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; background: #f8f8f8; }
+        .hero { background: linear-gradient(135deg,#667eea,#764ba2); color: white; padding: 4rem 2rem; text-align: center; }
+        .hero h1 { font-size: 3rem; margin-bottom: 1rem; }
+        .hero p { font-size: 1.25rem; opacity: 0.9; }
+        
+        .stats { display: flex; justify-content: center; gap: 3rem; padding: 3rem 2rem; background: white; flex-wrap: wrap; }
+        .stat { text-align: center; }
+        .stat-number { font-size: 2.5rem; font-weight: 700; color: #e63946; }
+        .stat-label { font-size: 0.9rem; color: #666; }
+        
+        .tiers { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem; }
+        .tiers h2 { text-align: center; margin-bottom: 2rem; font-size: 2rem; }
+        
+        .tier-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); gap: 2rem; }
+        
+        .tier { background: white; border-radius: 12px; padding: 2rem; border: 2px solid #ddd; }
+        .tier.featured { border-color: #e63946; transform: scale(1.05); }
+        .tier-badge { background: #e63946; color: white; padding: 0.25rem 1rem; font-size: 0.75rem; border-radius: 4px; display: inline-block; margin-bottom: 1rem; }
+        .tier h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .tier-price { font-size: 2.5rem; font-weight: 700; color: #667eea; margin-bottom: 1rem; }
+        .tier-price span { font-size: 1rem; font-weight: 400; color: #666; }
+        
+        .tier-features { list-style: none; margin-bottom: 2rem; }
+        .tier-features li { padding: 0.5rem 0; border-bottom: 1px solid #eee; }
+        .tier-features li:before { content: "✓"; color: #7cda24; margin-right: 0.5rem; }
+        
+        .tier-btn { display: block; width: 100%; padding: 1rem; background: #7cda24; color: white; text-align: center; text-decoration: none; border-radius: 8px; font-weight: 700; }
+        .tier-btn:hover { background: #6bc91f; }
+        
+        .audience { background: white; padding: 3rem 2rem; text-align: center; }
+        .audience h2 { margin-bottom: 1rem; }
+        .audience p { max-width: 700px; margin: 0 auto; color: #666; line-height: 1.6; }
+        
+        .cta { background: linear-gradient(135deg,#e63946,#c1121f); color: white; padding: 4rem 2rem; text-align: center; }
+        .cta h2 { font-size: 2rem; margin-bottom: 1rem; }
+        .cta p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 2rem; }
+        .cta-btn { display: inline-block; padding: 1rem 3rem; background: white; color: #e63946; text-decoration: none; border-radius: 8px; font-weight: 700; }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>Advertise With Us</h1>
+        <p>Reach thousands of local customers in Waxhaw and surrounding areas</p>
+    </div>
+    
+    <div class="stats">
+        <div class="stat">
+            <div class="stat-number">5</div>
+            <div class="stat-label">Towns Covered</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">500+</div>
+            <div class="stat-label">Local Businesses</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">10K+</div>
+            <div class="stat-label">Monthly Visitors</div>
+        </div>
+    </div>
+    
+    <div class="tiers">
+        <h2>Advertising Packages</h2>
+        <div class="tier-grid">
+            <div class="tier">
+                <h3>Pro</h3>
+                <div class="tier-price">$99<span>/month</span></div>
+                <ul class="tier-features">
+                    <li>Claim your business profile</li>
+                    <li>Photo gallery (4+ photos)</li>
+                    <li>Custom offers & promotions</li>
+                    <li>Update business hours</li>
+                    <li>Analytics dashboard</li>
+                </ul>
+                <a href="#" class="tier-btn">Get Started</a>
+            </div>
+            
+            <div class="tier featured">
+                <span class="tier-badge">MOST POPULAR</span>
+                <h3>Pro+</h3>
+                <div class="tier-price">$199<span>/month</span></div>
+                <ul class="tier-features">
+                    <li>Everything in Pro</li>
+                    <li>Video upload</li>
+                    <li>Featured placement</li>
+                    <li>AI optimization</li>
+                    <li>"Featured" badge</li>
+                    <li>Priority support</li>
+                </ul>
+                <a href="#" class="tier-btn">Get Started</a>
+            </div>
+            
+            <div class="tier">
+                <h3>Sponsor</h3>
+                <div class="tier-price">$349<span>/month</span></div>
+                <ul class="tier-features">
+                    <li>Everything in Pro+</li>
+                    <li>Homepage banner ad</li>
+                    <li>Newsletter feature</li>
+                    <li>Custom landing page</li>
+                    <li>First access to features</li>
+                </ul>
+                <a href="#" class="tier-btn">Get Started</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="audience">
+        <h2>Who Sees Your Ad?</h2>
+        <p>Our audience is local residents actively searching for restaurants, services, retail, and more in the Waxhaw area. They're ready to spend locally — and your business can be the first they see.</p>
+    </div>
+    
+    <div class="cta">
+        <h2>Ready to Grow Your Business?</h2>
+        <p>Join hundreds of local businesses advertising to their neighbors.</p>
+        <a href="/contact/" class="cta-btn">Contact Us Today</a>
+    </div>
+</body>
+</html>
