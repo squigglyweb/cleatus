@@ -27,6 +27,76 @@ function tln_is_excluded($name) {
     return false;
 }
 
+function tln_get_cached_businesses() {
+    $cached = get_transient('tln_businesses');
+    if($cached !== false) return $cached;
+    
+    $api = TLN_GOOGLE_API_KEY;
+    $results = array();
+    
+    $queries = array(
+        'Waxhaw' => array('Restaurant'=>'restaurants in Waxhaw NC','Retail'=>'retail stores in Waxhaw NC','Services'=>'services in Waxhaw NC','Food'=>'food and drink in Waxhaw NC','Health'=>'health and wellness in Waxhaw NC','Auto'=>'auto repair in Waxhaw NC','Salon'=>'salon and spa in Waxhaw NC','Fitness'=>'gym and fitness in Waxhaw NC'),
+        'Marvin' => array('Restaurant'=>'restaurants in Marvin NC','Retail'=>'retail stores in Marvin NC','Services'=>'services in Marvin NC'),
+        'Wesley Chapel' => array('Restaurant'=>'restaurants in Wesley Chapel NC'),
+        'Weddington' => array('Restaurant'=>'restaurants in Weddington NC'),
+        'Indian Land' => array('Restaurant'=>'restaurants in Indian Land SC')
+    );
+    
+    foreach($queries as $loc => $cats) {
+        foreach($cats as $cat => $q) {
+            $url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=".urlencode($q)."&key=$api";
+            $r = wp_remote_get($url,array('timeout'=>10,'sslverify'=>false));
+            if(is_wp_error($r)) continue;
+            $data = json_decode(wp_remote_retrieve_body($r),true);
+            if(empty($data['results'])) continue;
+            foreach($data['results'] as $p) {
+                if(tln_is_excluded($p['name'])) continue;
+                $addr = $p['formatted_address'] ?? '';
+                if(stripos($addr,'NC')===false && stripos($addr,'SC')===false) continue;
+                if(stripos($addr,'Waxhaw')!==false) $loc2='Waxhaw';
+                elseif(stripos($addr,'Marvin')!==false) $loc2='Marvin';
+                elseif(stripos($addr,'Wesley Chapel')!==false) $loc2='Wesley Chapel';
+                elseif(stripos($addr,'Weddington')!==false) $loc2='Weddington';
+                elseif(stripos($addr,'Indian Land')!==false) $loc2='Indian Land';
+                else continue;
+                
+                $photo_ref = '';
+                if(!empty($p['photos'][0]['photo_reference'])) {
+                    $photo_ref = $p['photos'][0]['photo_reference'];
+                }
+                
+                $results[] = array(
+                    'name'=>$p['name'],
+                    'place_id'=>$p['place_id'],
+                    'cat'=>$cat,
+                    'loc'=>$loc2,
+                    'addr'=>$addr,
+                    'rating'=>$p['rating']??0,
+                    'photo_ref'=>$photo_ref
+                );
+            }
+        }
+    }
+    
+    $seen = array();
+    $out = array();
+    foreach($results as $r) {
+        $k = strtolower($r['name']);
+        if(!isset($seen[$k])) {
+            $seen[$k]=true;
+            $out[]=$r;
+        }
+    }
+    usort($out,function($a,$b){
+        if($a['loc']=='Waxhaw' && $b['loc']!='Waxhaw') return -1;
+        if($b['loc']=='Waxhaw' && $a['loc']!='Waxhaw') return 1;
+        return $b['rating'] - $a['rating'];
+    });
+    
+    set_transient('tln_businesses', $out, DAY_IN_SECONDS * 7); // Cache for 1 week
+    return $out;
+}
+
 function tln_dir_shortcode($atts) {
     $api = TLN_GOOGLE_API_KEY;
     $results = array();
