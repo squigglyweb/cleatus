@@ -8,51 +8,66 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Open Sans', sans-serif; background: #fff; color: #1a1a1a; }
-        .container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
-        h1 { text-align: center; font-size: 2.5rem; margin-bottom: 1rem; }
+        .container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        h1 { text-align: center; font-size: 2.5rem; margin-bottom: 0.5rem; color: #e63946; }
         .subtitle { text-align: center; color: #666; margin-bottom: 2rem; }
         
-        .map-container { 
-            background: #f8f8f8; 
-            border: 2px solid #1a1a1a; 
+        .map-box { 
+            border: 3px solid #1a1a1a; 
             border-radius: 12px; 
             padding: 2rem;
+            background: #fff;
+            position: relative;
+        }
+        
+        .region {
             text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px dashed #ccc;
+        }
+        .region-name { font-size: 1.5rem; font-weight: 700; }
+        .region-sub { color: #666; font-size: 0.9rem; }
+        
+        .towns-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 1.5rem;
         }
         
-        .map-placeholder {
-            width: 100%;
-            height: 400px;
-            background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+        .town-card {
+            border: 2px solid #1a1a1a;
             border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            color: #666;
-            font-size: 1.2rem;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.2s;
         }
+        .town-card:hover { transform: translateY(-4px); }
+        .town-card.primary { border-color: #e63946; border-width: 3px; }
         
-        .towns { 
-            display: flex; 
-            justify-content: center; 
-            gap: 2rem; 
-            flex-wrap: wrap; 
-            margin-top: 2rem; 
-        }
-        .town { 
-            background: #1a1a1a; 
-            color: white; 
-            padding: 0.75rem 1.5rem; 
-            border-radius: 6px; 
-            font-weight: 600;
+        .town-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+        .town-name { font-weight: 700; font-size: 1.2rem; }
+        .town-state { color: #666; font-size: 0.85rem; }
+        
+        .serving {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid #1a1a1a;
+            font-weight: 700;
+            font-size: 1.1rem;
         }
         
         .note {
             text-align: center;
-            margin-top: 1.5rem;
+            margin-top: 2rem;
+            font-size: 0.85rem;
             color: #999;
-            font-size: 0.9rem;
+        }
+        
+        @media(max-width: 600px) {
+            .towns-grid { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
@@ -61,23 +76,51 @@
         <h1>Areas We Serve</h1>
         <p class="subtitle">The Local NearBuy connects local businesses with neighbors across the Greater Waxhaw Region</p>
         
-        <div class="map-container">
-            <div class="map-placeholder">
-                [Interactive Map Coming Soon]
-                <p style="font-size: 0.9rem; margin-top: 1rem;">Waxhaw • Marvin • Wesley Chapel • Weddington • Indian Land • Ballantyne</p>
+        <div class="map-box">
+            <div class="region">
+                <div class="region-name">Greater Waxhaw Region</div>
+                <div class="region-sub">North Carolina & South Carolina</div>
             </div>
             
-            <div class="towns">
-                <div class="town">Waxhaw</div>
-                <div class="town">Marvin</div>
-                <div class="town">Wesley Chapel</div>
-                <div class="town">Weddington</div>
-                <div class="town">Indian Land</div>
-                <div class="town">Ballantyne</div>
+            <div class="towns-grid">
+                <div class="town-card primary">
+                    <div class="town-icon">📍</div>
+                    <div class="town-name">Waxhaw</div>
+                    <div class="town-state">NC</div>
+                </div>
+                <div class="town-card">
+                    <div class="town-icon">🏠</div>
+                    <div class="town-name">Marvin</div>
+                    <div class="town-state">NC</div>
+                </div>
+                <div class="town-card">
+                    <div class="town-icon">🏛️</div>
+                    <div class="town-name">Wesley Chapel</div>
+                    <div class="town-state">NC</div>
+                </div>
+                <div class="town-card">
+                    <div class="town-icon">💒</div>
+                    <div class="town-name">Weddington</div>
+                    <div class="town-state">NC</div>
+                </div>
+                <div class="town-card">
+                    <div class="town-icon">🌲</div>
+                    <div class="town-name">Indian Land</div>
+                    <div class="town-state">SC</div>
+                </div>
+                <div class="town-card">
+                    <div class="town-icon">🏢</div>
+                    <div class="town-name">Ballantyne</div>
+                    <div class="town-state">NC</div>
+                </div>
             </div>
             
-            <p class="note">Serving the Greater Waxhaw Region in NC & SC</p>
+            <div class="serving">
+                Serving 5 Towns in NC + 1 Town in SC
+            </div>
         </div>
+        
+        <p class="note">* Additional areas coming soon</p>
     </div>
 </body>
 </html>
