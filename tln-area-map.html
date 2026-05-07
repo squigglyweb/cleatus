@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Area We Serve - The Local NearBuy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; background: #fff; color: #1a1a1a; }
+        .container { max-width: 1000px; margin: 0 auto; padding: 2rem; }
+        h1 { text-align: center; font-size: 2.5rem; margin-bottom: 1rem; }
+        .subtitle { text-align: center; color: #666; margin-bottom: 2rem; }
+        
+        .map-container { 
+            background: #f8f8f8; 
+            border: 2px solid #1a1a1a; 
+            border-radius: 12px; 
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .map-placeholder {
+            width: 100%;
+            height: 400px;
+            background: linear-gradient(135deg, #f0f0f0 0%, #e0e0e0 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: #666;
+            font-size: 1.2rem;
+        }
+        
+        .towns { 
+            display: flex; 
+            justify-content: center; 
+            gap: 2rem; 
+            flex-wrap: wrap; 
+            margin-top: 2rem; 
+        }
+        .town { 
+            background: #1a1a1a; 
+            color: white; 
+            padding: 0.75rem 1.5rem; 
+            border-radius: 6px; 
+            font-weight: 600;
+        }
+        
+        .note {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #999;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Areas We Serve</h1>
+        <p class="subtitle">The Local NearBuy connects local businesses with neighbors across the Greater Waxhaw Region</p>
+        
+        <div class="map-container">
+            <div class="map-placeholder">
+                [Interactive Map Coming Soon]
+                <p style="font-size: 0.9rem; margin-top: 1rem;">Waxhaw • Marvin • Wesley Chapel • Weddington • Indian Land • Ballantyne</p>
+            </div>
+            
+            <div class="towns">
+                <div class="town">Waxhaw</div>
+                <div class="town">Marvin</div>
+                <div class="town">Wesley Chapel</div>
+                <div class="town">Weddington</div>
+                <div class="town">Indian Land</div>
+                <div class="town">Ballantyne</div>
+            </div>
+            
+            <p class="note">Serving the Greater Waxhaw Region in NC & SC</p>
+        </div>
+    </div>
+</body>
+</html>
