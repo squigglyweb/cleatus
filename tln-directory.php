@@ -119,7 +119,7 @@ function tln_dir_shortcode($atts) {
     echo '<div style="text-align:center;margin-bottom:2rem;"><h2 style="text-transform:uppercase;letter-spacing:2px;font-size:1.5rem;">LOCAL BUSINESSES</h2><p style="font-size:1.1rem;color:#666;max-width:600px;margin:0 auto;">From Waxhaw to Weddington to Marvin, we have got it covered. Find it near me in the Greater Waxhaw area</p></div>';
     echo '<div class="tln-container"><div class="tln-filters">';
     echo '<input type="text" class="tln-search" id="tln-s" placeholder="Search...">';
-    echo '<select class="tln-filter" id="tln-c"><option value="">All</option><option>Restaurant</option><option>Retail</option><option>Services</option></select>';
+    echo '<select class="tln-filter" id="tln-c"><option value="">All</option><option>Restaurant</option><option>Retail</option><option>Services</option><option>Food</option><option>Health</option><option>Auto</option><option>Salon</option><option>Fitness</option></select>';
     echo '<select class="tln-filter" id="tln-l"><option value="">All</option><option selected>Waxhaw</option><option>Marvin</option><option>Wesley Chapel</option><option>Weddington</option><option>Indian Land</option></select>';
     echo '</div><div class="tln-grid" id="tln-g">';
     
