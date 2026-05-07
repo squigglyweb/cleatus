@@ -32,7 +32,7 @@ function tln_get_cached_businesses() {
     if($cached !== false) return $cached;
     
     $api = TLN_GOOGLE_API_KEY;
-    $results = array();
+    
     
     $queries = array(
         'Waxhaw' => array('Restaurant'=>'restaurants in Waxhaw NC','Retail'=>'retail stores in Waxhaw NC','Services'=>'services in Waxhaw NC','Food'=>'food and drink in Waxhaw NC','Health'=>'health and wellness in Waxhaw NC','Auto'=>'auto repair in Waxhaw NC','Salon'=>'salon and spa in Waxhaw NC','Fitness'=>'gym and fitness in Waxhaw NC'),
@@ -42,7 +42,7 @@ function tln_get_cached_businesses() {
         'Indian Land' => array('Restaurant'=>'restaurants in Indian Land SC')
     );
     
-    foreach($queries as $loc => $cats) {
+    // Using cached data
         foreach($cats as $cat => $q) {
             $url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=".urlencode($q)."&key=$api";
             $r = wp_remote_get($url,array('timeout'=>10,'sslverify'=>false));
@@ -99,7 +99,7 @@ function tln_get_cached_businesses() {
 
 function tln_dir_shortcode($atts) {
     $api = TLN_GOOGLE_API_KEY;
-    $results = array();
+    
     
     $queries = array(
         'Waxhaw' => array('Restaurant'=>'restaurants in Waxhaw NC','Retail'=>'retail stores in Waxhaw NC','Services'=>'services in Waxhaw NC','Food'=>'food and drink in Waxhaw NC','Health'=>'health and wellness in Waxhaw NC','Auto'=>'auto repair in Waxhaw NC','Salon'=>'salon and spa in Waxhaw NC','Fitness'=>'gym and fitness in Waxhaw NC'),
@@ -109,7 +109,7 @@ function tln_dir_shortcode($atts) {
         'Indian Land' => array('Restaurant'=>'restaurants in Indian Land SC')
     );
     
-    foreach($queries as $loc => $cats) {
+    // Using cached data
         foreach($cats as $cat => $q) {
             $url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query=".urlencode($q)."&key=$api";
             $r = wp_remote_get($url,array('timeout'=>10,'sslverify'=>false));
