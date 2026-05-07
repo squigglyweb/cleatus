@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Joe's Pizza - The Local NearBuy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; background: #fff; color: #1a1a1a; }
+        
+        .profile-header { background: #f8f8f8; padding: 2rem; border-bottom: 3px solid #e63946; }
+        .header-content { max-width: 900px; margin: 0 auto; display: flex; gap: 2rem; align-items: flex-start; }
+        .profile-img { width: 200px; height: 150px; object-fit: cover; border-radius: 8px; border: 2px solid #1a1a1a; }
+        .profile-info { flex: 1; }
+        .profile-name { font-size: 2rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .profile-badge { display: inline-block; background: #e63946; color: white; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .profile-cat { color: #666; margin: 0.5rem 0; }
+        .profile-address { color: #1a1a1a; font-size: 0.95rem; }
+        .profile-address a { color: #e63946; text-decoration: none; }
+        
+        .verified { background: #d4edda; color: #155724; padding: 0.5rem 1rem; border-radius: 6px; display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.9rem; margin-top: 0.5rem; }
+        
+        .profile-body { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        
+        .offer-box { 
+            background: #fff3cd; border: 2px solid #e63946; 
+            border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;
+        }
+        .offer-tag { 
+            background: #e63946; color: white; 
+            padding: 0.25rem 0.75rem; border-radius: 4px; 
+            font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+            display: inline-block; margin-bottom: 0.75rem;
+        }
+        .offer-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .offer-desc { color: #666; }
+        
+        .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        
+        .section { margin-bottom: 1.5rem; }
+        .section h3 { font-size: 1.1rem; border-bottom: 2px solid #1a1a1a; padding-bottom: 0.5rem; margin-bottom: 1rem; }
+        
+        .hours-table { width: 100%; }
+        .hours-table td { padding: 0.5rem 0; border-bottom: 1px solid #eee; }
+        .hours-day { font-weight: 600; }
+        .hours-time { text-align: right; }
+        
+        .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+        .photo-grid img { width: 100%; height: 120px; object-fit: cover; border-radius: 6px; }
+        
+        .cta-section { background: #f8f8f8; padding: 2rem; text-align: center; border-radius: 12px; }
+        .cta-section h3 { margin-bottom: 1rem; }
+        .cta-btn { 
+            display: inline-block; padding: 1rem 2rem; 
+            background: #e63946; color: white; text-decoration: none; 
+            border-radius: 8px; font-weight: 700; 
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-header">
+        <div class="header-content">
+            <img src="https://via.placeholder.com/400x300/1a1a1a/ffffff?text=Pizza+Photo" class="profile-img" alt="Joe's Pizza">
+            <div class="profile-info">
+                <div class="profile-name">Joe's Pizza</div>
+                <div class="profile-badge">Pro Verified</div>
+                <div class="profile-cat">Restaurant • Waxhaw, NC</div>
+                <div class="profile-address">📍 <a href="#">123 Main Street, Waxhaw, NC 28173</a></div>
+                <div class="verified">✓ Verified Business Owner</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="profile-body">
+        <div class="offer-box">
+            <div class="offer-tag">Special Offer</div>
+            <div class="offer-title">15% Off Any Large Pizza</div>
+            <div class="offer-desc">Show this page to your server. Dine-in only. Not valid with other offers.</div>
+        </div>
+        
+        <div class="details-grid">
+            <div class="section">
+                <h3>📞 Contact</h3>
+                <p><strong>Phone:</strong> <a href="tel:555-123-4567">(555) 123-4567</a></p>
+                <p><strong>Website:</strong> <a href="#" style="color:#e63946;">joespizzawaxhaw.com</a></p>
+            </div>
+            
+            <div class="section">
+                <h3>🕐 Hours</h3>
+                <table class="hours-table">
+                    <tr><td class="hours-day">Mon - Thu</td><td class="hours-time">11am - 9pm</td></tr>
+                    <tr><td class="hours-day">Fri - Sat</td><td class="hours-time">11am - 10pm</td></tr>
+                    <tr><td class="hours-day">Sunday</td><td class="hours-time">12pm - 8pm</td></tr>
+                </table>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h3>📷 Photo Gallery</h3>
+            <div class="photo-grid">
+                <img src="https://via.placeholder.com/200x150/1a1a1a/ffffff?text=Pizza" alt="Pizza">
+                <img src="https://via.placeholder.com/200x150/1a1a1a/ffffff?text=Interior" alt="Interior">
+                <img src="https://via.placeholder.com/200x150/1a1a1a/ffffff?text=Team" alt="Team">
+            </div>
+        </div>
+        
+        <div class="cta-section">
+            <h3>Is this your business?</h3>
+            <p style="color:#666; margin-bottom:1rem;">Claim this listing to update info and add your own offers.</p>
+            <a href="/claim/" class="cta-btn">Claim This Business</a>
+        </div>
+    </div>
+</body>
+</html>

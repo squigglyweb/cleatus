@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>The Greek Grill - The Local NearBuy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; background: #fff; color: #1a1a1a; }
+        
+        .profile-header { background: linear-gradient(135deg,#1a1a1a,#333); color: white; padding: 2rem; border-bottom: 4px solid #e63946; }
+        .header-content { max-width: 900px; margin: 0 auto; display: flex; gap: 2rem; align-items: flex-start; }
+        .profile-img { width: 200px; height: 150px; object-fit: cover; border-radius: 8px; border: 3px solid #e63946; }
+        .profile-info { flex: 1; }
+        .profile-name { font-size: 2rem; font-weight: 700; margin-bottom: 0.25rem; }
+        .profile-badges { display: flex; gap: 0.5rem; margin-bottom: 0.5rem; }
+        .badge-pro { background: #e63946; color: white; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .badge-featured { background: #FABC06; color: #1a1a1a; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .profile-cat { opacity: 0.9; margin: 0.5rem 0; }
+        .profile-address { opacity: 0.8; font-size: 0.95rem; }
+        .profile-address a { color: #e63946; text-decoration: none; }
+        
+        .profile-body { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        
+        .offers-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem; }
+        
+        .offer-box { 
+            background: #fff3cd; border: 2px solid #e63946; 
+            border-radius: 12px; padding: 1.5rem;
+        }
+        .offer-tag { 
+            background: #e63946; color: white; 
+            padding: 0.25rem 0.75rem; border-radius: 4px; 
+            font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+            display: inline-block; margin-bottom: 0.75rem;
+        }
+        .offer-tag.extra { background: #667eea; }
+        .offer-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .offer-desc { color: #666; font-size: 0.9rem; }
+        
+        .video-section { background: #f8f8f8; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; }
+        .video-section h3 { margin-bottom: 1rem; }
+        .video-placeholder { background: #1a1a1a; border-radius: 8px; height: 250px; display: flex; align-items: center; justify-content: center; color: white; }
+        
+        .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        
+        .section { margin-bottom: 1.5rem; }
+        .section h3 { font-size: 1.1rem; border-bottom: 2px solid #1a1a1a; padding-bottom: 0.5rem; margin-bottom: 1rem; }
+        
+        .cta-section { background: #f8f8f8; padding: 2rem; text-align: center; border-radius: 12px; }
+    </style>
+</head>
+<body>
+    <div class="profile-header">
+        <div class="header-content">
+            <img src="https://via.placeholder.com/400x300/1a1a1a/ffffff?text=Greek+Grill" class="profile-img" alt="The Greek Grill">
+            <div class="profile-info">
+                <div class="profile-name">The Greek Grill</div>
+                <div class="profile-badges">
+                    <span class="badge-pro">Pro+</span>
+                    <span class="badge-featured">⭐ Featured</span>
+                </div>
+                <div class="profile-cat">Restaurant • Indian Land, SC</div>
+                <div class="profile-address">📍 9700 Red Stone Dr, Indian Land, SC 29707</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="profile-body">
+        <div class="offers-grid">
+            <div class="offer-box">
+                <div class="offer-tag">Special Offer</div>
+                <div class="offer-title">Free Appetizer with Entrees</div>
+                <div class="offer-desc">When you spend $25 or more</div>
+            </div>
+            <div class="offer-box">
+                <div class="offer-tag extra">Limited Time</div>
+                <div class="offer-title">20% Off Catering Orders</div>
+                <div class="offer-desc">Book catering for your event</div>
+            </div>
+        </div>
+        
+        <div class="video-section">
+            <h3>🎬 Welcome to The Greek Grill</h3>
+            <div class="video-placeholder">[Video Player]</div>
+        </div>
+        
+        <div class="details-grid">
+            <div class="section">
+                <h3>📞 Contact</h3>
+                <p><strong>Phone:</strong> <a href="tel:555-987-6543">(555) 987-6543</a></p>
+                <p><strong>Website:</strong> <a href="#" style="color:#e63946;">thegreekgrill.com</a></p>
+            </div>
+            
+            <div class="section">
+                <h3>🕐 Hours</h3>
+                <p>Mon - Thu: 11am - 9pm</p>
+                <p>Fri - Sat: 11am - 10pm</p>
+                <p>Sunday: Closed</p>
+            </div>
+        </div>
+        
+        <div class="cta-section">
+            <h3>Is this your business?</h3>
+            <a href="/claim/" class="cta-btn">Claim This Business</a>
+        </div>
+    </div>
+</body>
+</html>
