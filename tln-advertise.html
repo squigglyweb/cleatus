@@ -7,49 +7,85 @@
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Open Sans', sans-serif; background: #f8f8f8; }
-        .hero { background: linear-gradient(135deg,#e63946); color: white; padding: 4rem 2rem; text-align: center; }
-        .hero h1 { font-size: 3rem; margin-bottom: 1rem; }
-        .hero p { font-size: 1.25rem; opacity: 0.9; }
+        body { font-family: 'Open Sans', sans-serif; background: #fff; color: #1a1a1a; }
         
-        .stats { display: flex; justify-content: center; gap: 3rem; padding: 3rem 2rem; background: white; flex-wrap: wrap; }
+        .hero { background: #e63946; color: white; padding: 4rem 2rem; text-align: center; }
+        .hero h1 { font-size: 3rem; margin-bottom: 1rem; }
+        .hero p { font-size: 1.25rem; opacity: 0.95; }
+        
+        .mission { background: #f8f8f8; padding: 2rem; text-align: center; border-bottom: 2px solid #e63946; }
+        .mission p { max-width: 800px; margin: 0 auto; font-size: 1.1rem; line-height: 1.6; }
+        .mission strong { color: #e63946; }
+        
+        .stats { display: flex; justify-content: center; gap: 4rem; padding: 3rem 2rem; background: #fff; flex-wrap: wrap; border-bottom: 1px solid #eee; }
         .stat { text-align: center; }
         .stat-number { font-size: 2.5rem; font-weight: 700; color: #e63946; }
-        .stat-label { font-size: 0.9rem; color: #666; }
+        .stat-label { font-size: 0.9rem; color: #666; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .intro { padding: 3rem 2rem; text-align: center; max-width: 800px; margin: 0 auto; }
+        .intro h2 { font-size: 2rem; margin-bottom: 1rem; color: #e63946; }
+        .intro p { font-size: 1.1rem; line-height: 1.7; color: #444; }
+        
+        .dashboard { background: #f8f8f8; padding: 3rem 2rem; }
+        .dashboard h2 { text-align: center; font-size: 2rem; margin-bottom: 2rem; }
+        .dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; max-width: 1000px; margin: 0 auto; }
+        .dashboard-mock { background: #fff; border-radius: 8px; padding: 1rem; border: 2px solid #1a1a1a; }
+        .dashboard-mock h4 { text-align: center; margin-bottom: 1rem; font-size: 0.8rem; color: #666; text-transform: uppercase; }
+        .dash-screen { background: #f0f0f0; border-radius: 4px; height: 300px; display: flex; align-items: center; justify-content: center; color: #999; font-size: 0.9rem; }
         
         .tiers { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem; }
-        .tiers h2 { text-align: center; margin-bottom: 2rem; font-size: 2rem; }
+        .tiers h2 { text-align: center; margin-bottom: 1rem; font-size: 2rem; }
+        .tiers-sub { text-align: center; margin-bottom: 3rem; color: #666; }
         
-        .tier-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(300px,1fr)); gap: 2rem; }
+        .tier-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
         
-        .tier { background: white; border-radius: 12px; padding: 2rem; border: 2px solid #ddd; }
-        .tier.featured { border-color: #e63946; transform: scale(1.05); }
-        .tier-badge { background: #e63946; color: white; padding: 0.25rem 1rem; font-size: 0.75rem; border-radius: 4px; display: inline-block; margin-bottom: 1rem; }
-        .tier h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
-        .tier-price { font-size: 2.5rem; font-weight: 700; color: #e63946; margin-bottom: 1rem; }
-        .tier-price span { font-size: 1rem; font-weight: 400; color: #666; }
+        .tier { background: #fff; border-radius: 12px; padding: 1.5rem; border: 2px solid #1a1a1a; display: flex; flex-direction: column; }
+        .tier.free { border-style: dashed; opacity: 0.8; }
+        .tier.featured { border-color: #e63946; border-width: 3px; }
         
-        .tier-features { list-style: none; margin-bottom: 2rem; }
-        .tier-features li { padding: 0.5rem 0; border-bottom: 1px solid #eee; }
-        .tier-features li:before { content: "✓"; color: #e63946; margin-right: 0.5rem; }
+        .tier-badge { background: #e63946; color: white; padding: 0.25rem 0.75rem; font-size: 0.7rem; border-radius: 4px; display: inline-block; margin-bottom: 0.75rem; text-transform: uppercase; font-weight: 700; }
+        .tier.free .tier-badge { background: #666; }
         
-        .tier-btn { display: block; width: 100%; padding: 1rem; background: #e63946; color: white; text-align: center; text-decoration: none; border-radius: 8px; font-weight: 700; }
-        .tier-btn:hover { background: #6bc91f; }
+        .tier h3 { font-size: 1.2rem; margin-bottom: 0.25rem; }
+        .tier-price { font-size: 1.75rem; font-weight: 700; color: #e63946; margin-bottom: 1rem; }
+        .tier-price span { font-size: 0.8rem; font-weight: 400; color: #666; }
+        .tier.free .tier-price { color: #666; }
         
-        .audience { background: white; padding: 3rem 2rem; text-align: center; }
-        .audience h2 { margin-bottom: 1rem; }
-        .audience p { max-width: 700px; margin: 0 auto; color: #666; line-height: 1.6; }
+        .tier-features { list-style: none; flex-grow: 1; margin-bottom: 1rem; }
+        .tier-features li { padding: 0.4rem 0; font-size: 0.85rem; border-bottom: 1px solid #f0f0f0; }
+        .tier-features li:before { content: "✓"; color: #7cda24; margin-right: 0.5rem; font-weight: 700; }
+        .tier.free .tier-features li:before { color: #999; }
         
-        .cta { background: linear-gradient(135deg,#e63946,#c1121f); color: white; padding: 4rem 2rem; text-align: center; }
+        .tier-btn { display: block; width: 100%; padding: 0.75rem; background: #1a1a1a; color: white; text-align: center; text-decoration: none; border-radius: 6px; font-weight: 700; font-size: 0.9rem; }
+        .tier.featured .tier-btn { background: #e63946; }
+        
+        .addon { background: #fff3cd; border: 1px solid #e63946; border-radius: 6px; padding: 0.75rem; margin-top: 1rem; display: flex; justify-content: space-between; align-items: center; }
+        .addon-info { font-size: 0.85rem; }
+        .addon-price { font-weight: 700; color: #e63946; }
+        
+        .impact { background: #1a1a1a; color: white; padding: 3rem 2rem; text-align: center; }
+        .impact h2 { font-size: 1.75rem; margin-bottom: 1rem; }
+        .impact p { max-width: 700px; margin: 0 auto; opacity: 0.9; line-height: 1.6; }
+        
+        .cta { background: #e63946; color: white; padding: 4rem 2rem; text-align: center; }
         .cta h2 { font-size: 2rem; margin-bottom: 1rem; }
-        .cta p { font-size: 1.1rem; opacity: 0.9; margin-bottom: 2rem; }
-        .cta-btn { display: inline-block; padding: 1rem 3rem; background: white; color: #e63946; text-decoration: none; border-radius: 8px; font-weight: 700; }
+        .cta p { font-size: 1.1rem; opacity: 0.95; margin-bottom: 2rem; }
+        .cta-btn { display: inline-block; padding: 1rem 3rem; background: white; color: #e63946; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 1.1rem; }
+        
+        @media(max-width: 900px) {
+            .tier-grid { grid-template-columns: 1fr; }
+            .dashboard-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
     <div class="hero">
-        <h1>Advertise With Us</h1>
+        <h1>Advertise With The Local NearBuy</h1>
         <p>Reach thousands of local customers in Waxhaw and surrounding areas</p>
+    </div>
+    
+    <div class="mission">
+        <p><strong>A Portion Of Every Subscription</strong> goes directly to funding organizations that help end hunger <strong>glocally</strong> — both globally and right here in our community.</p>
     </div>
     
     <div class="stats">
@@ -65,63 +101,112 @@
             <div class="stat-number">10K+</div>
             <div class="stat-label">Monthly Visitors</div>
         </div>
+        <div class="stat">
+            <div class="stat-number">75%</div>
+            <div class="stat-label">Local Search Traffic</div>
+        </div>
     </div>
     
-    <div class="tiers">
-        <h2>Advertising Packages</h2>
-        <div class="tier-grid">
-            <div class="tier">
-                <h3>Pro</h3>
-                <div class="tier-price">$99<span>/month</span></div>
-                <ul class="tier-features">
-                    <li>Claim your business profile</li>
-                    <li>Photo gallery (4+ photos)</li>
-                    <li>Custom offers & promotions</li>
-                    <li>Update business hours</li>
-                    <li>Analytics dashboard</li>
-                </ul>
-                <a href="#" class="tier-btn">Get Started</a>
+    <div class="intro">
+        <h2>Your Business, Found Locally</h2>
+        <p>The Local NearBuy connects local businesses with residents actively searching for restaurants, services, retail, and more. When neighbors search "near me" — we make sure they find you first.</p>
+    </div>
+    
+    <div class="dashboard">
+        <h2>Your Analytics Dashboard</h2>
+        <div class="dashboard-grid">
+            <div class="dashboard-mock">
+                <h4>Desktop View</h4>
+                <div class="dash-screen">[Analytics Dashboard Preview]</div>
             </div>
-            
-            <div class="tier featured">
-                <span class="tier-badge">MOST POPULAR</span>
-                <h3>Pro+</h3>
-                <div class="tier-price">$199<span>/month</span></div>
-                <ul class="tier-features">
-                    <li>Everything in Pro</li>
-                    <li>Video upload</li>
-                    <li>Featured placement</li>
-                    <li>AI optimization</li>
-                    <li>"Featured" badge</li>
-                    <li>Priority support</li>
-                </ul>
-                <a href="#" class="tier-btn">Get Started</a>
-            </div>
-            
-            <div class="tier">
-                <h3>Sponsor</h3>
-                <div class="tier-price">$349<span>/month</span></div>
-                <ul class="tier-features">
-                    <li>Everything in Pro+</li>
-                    <li>Homepage banner ad</li>
-                    <li>Newsletter feature</li>
-                    <li>Custom landing page</li>
-                    <li>First access to features</li>
-                </ul>
-                <a href="#" class="tier-btn">Get Started</a>
+            <div class="dashboard-mock">
+                <h4>Mobile View</h4>
+                <div class="dash-screen">[Mobile Dashboard Preview]</div>
             </div>
         </div>
     </div>
     
-    <div class="audience">
-        <h2>Who Sees Your Ad?</h2>
-        <p>Our audience is local residents actively searching for restaurants, services, retail, and more in the Waxhaw area. They're ready to spend locally — and your business can be the first they see.</p>
+    <div class="tiers">
+        <h2>Choose Your Plan</h2>
+        <p class="tiers-sub">All plans include access to your business dashboard, profile management, and 24/7 support.</p>
+        
+        <div class="tier-grid">
+            <div class="tier free">
+                <span class="tier-badge">Free</span>
+                <h3>Basic</h3>
+                <div class="tier-price">$0<span>/month</span></div>
+                <ul class="tier-features">
+                    <li>Basic listing in directory</li>
+                    <li>Business name & address</li>
+                    <li>Phone number</li>
+                    <li>Google rating display</li>
+                </ul>
+                <a href="/directory/" class="tier-btn">Claim Free</a>
+            </div>
+            
+            <div class="tier featured">
+                <span class="tier-badge">Most Popular</span>
+                <h3>Pro Plan</h3>
+                <div class="tier-price">$99<span>/month</span></div>
+                <ul class="tier-features">
+                    <li>Everything in Basic</li>
+                    <li>Photo gallery (up to 6 photos)</li>
+                    <li>Custom offer/promotion</li>
+                    <li>Update business hours</li>
+                    <li>Analytics dashboard</li>
+                    <li>Customer leads & inquiries</li>
+                    <li>Social media links</li>
+                    <li>Website link</li>
+                </ul>
+                <a href="#" class="tier-btn">Upgrade</a>
+            </div>
+            
+            <div class="tier">
+                <span class="tier-badge">Pro</span>
+                <h3>Pro+ Plan</h3>
+                <div class="tier-price">$199<span>/month</span></div>
+                <ul class="tier-features">
+                    <li>Everything in Pro</li>
+                    <li>Video upload capability</li>
+                    <li>Featured placement</li>
+                    <li>"Pro+" badge display</li>
+                    <li>AI listing optimization</li>
+                    <li>Priority support</li>
+                    <li>Extra offer slot</li>
+                </ul>
+                <a href="#" class="tier-btn">Upgrade</a>
+                <div class="addon">
+                    <span class="addon-info">🤖 AI Optimization Add-On</span>
+                    <span class="addon-price">+$49/mo</span>
+                </div>
+            </div>
+            
+            <div class="tier">
+                <span class="tier-badge">Sponsor</span>
+                <h3>MoSpo</h3>
+                <div class="tier-price">$349<span>/month</span></div>
+                <ul class="tier-features">
+                    <li>Everything in Pro+</li>
+                    <li>Homepage banner ad</li>
+                    <li>Monthly newsletter feature</li>
+                    <li>Custom landing page</li>
+                    <li>First access to new features</li>
+                    <li>Dedicated account manager</li>
+                </ul>
+                <a href="#" class="tier-btn">Upgrade</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="impact">
+        <h2>Advertise With Purpose</h2>
+        <p>Every subscription helps us fund local organizations working to end hunger in our community. When you advertise with The Local NearBuy, you're not just growing your business — you're helping feed your neighbors.</p>
     </div>
     
     <div class="cta">
         <h2>Ready to Grow Your Business?</h2>
-        <p>Join hundreds of local businesses advertising to their neighbors.</p>
-        <a href="/contact/" class="cta-btn">Contact Us Today</a>
+        <p>Join hundreds of local businesses connecting with their community.</p>
+        <a href="/contact/" class="cta-btn">Get Started Today</a>
     </div>
 </body>
 </html>
