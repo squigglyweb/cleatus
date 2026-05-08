@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Neighbor Dashboard | The Local NearBuy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; background: #f5f5f5; color: #1a1a1a; }
+        :root { --red: #e63946; --black: #1a1a1a; }
+        
+        .top-bar { background: var(--black); color: white; padding: 0.75rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .top-bar .logo { font-weight: 700; font-size: 1.1rem; }
+        .top-bar .nav a { color: white; text-decoration: none; margin-left: 1.5rem; font-size: 0.9rem; opacity: 0.9; }
+        .top-bar .user { display: flex; align-items: center; gap: 0.75rem; }
+        .top-bar .avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--red); }
+        
+        .container { max-width: 1100px; margin: 2rem auto; padding: 0 1.5rem; }
+        
+        h1 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .subtitle { color: #666; margin-bottom: 1.5rem; }
+        
+        /* Quick Stats */
+        .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 2rem; }
+        .stat-card { background: white; padding: 1.25rem; border-radius: 8px; border: 1px solid #ddd; text-align: center; }
+        .stat-card .num { font-size: 1.75rem; font-weight: 700; color: var(--red); }
+        .stat-card .label { font-size: 0.8rem; color: #666; text-transform: uppercase; }
+        
+        /* Main Grid */
+        .dashboard-grid { display: grid; grid-template-columns: 280px 1fr; gap: 2rem; }
+        
+        /* Sidebar */
+        .sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
+        
+        .card { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 1.25rem; }
+        .card h3 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; color: #666; margin-bottom: 1rem; font-weight: 600; }
+        
+        /* Location Selector */
+        .location-select { margin-bottom: 1rem; }
+        .location-select label { display: block; font-size: 0.85rem; color: #666; margin-bottom: 0.5rem; }
+        .location-select select { width: 100%; padding: 0.6rem; border: 1px solid #ddd; border-radius: 4px; font-size: 0.9rem; }
+        
+        /* Preferences */
+        .pref-list { list-style: none; }
+        .pref-list li { padding: 0.5rem 0; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; }
+        .pref-list li:last-child { border-bottom: none; }
+        .pref-list label { font-size: 0.9rem; }
+        
+        /* Saved Items */
+        .saved-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 0; border-bottom: 1px solid #f0f0f0; }
+        .saved-item:last-child { border-bottom: none; }
+        .saved-item img { width: 50px; height: 50px; border-radius: 4px; object-fit: cover; }
+        .saved-item .name { font-weight: 600; font-size: 0.9rem; }
+        .saved-item .cat { font-size: 0.8rem; color: #666; }
+        
+        /* Right Content */
+        .main-content { display: flex; flex-direction: column; gap: 1.5rem; }
+        
+        /* Morning Briefing */
+        .morning-brief { background: linear-gradient(135deg, var(--red), #c1121f); color: white; padding: 1.5rem; border-radius: 8px; }
+        .morning-brief h2 { font-size: 1.25rem; margin-bottom: 1rem; }
+        .brief-items { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+        .brief-item { background: rgba(255,255,255,0.15); padding: 1rem; border-radius: 6px; }
+        .brief-item .num { font-size: 1.5rem; font-weight: 700; }
+        .brief-item .label { font-size: 0.8rem; opacity: 0.9; }
+        
+        /* My Vouchers */
+        .voucher-item { display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: #f8f8f8; border-radius: 6px; margin-bottom: 0.75rem; }
+        .voucher-item .biz { font-weight: 600; }
+        .voucher-item .offer { font-size: 0.9rem; color: #666; }
+        .voucher-item .status { background: var(--red); color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.75rem; }
+        
+        /* My Reviews */
+        .review-item { padding: 1rem 0; border-bottom: 1px solid #eee; }
+        .review-item:last-child { border-bottom: none; }
+        .review-item .biz { font-weight: 600; margin-bottom: 0.25rem; }
+        .review-item .rating { color: var(--red); font-size: 0.85rem; }
+        .review-item .text { font-size: 0.9rem; color: #555; margin-top: 0.25rem; }
+        
+        /* Recent Activity */
+        .activity-item { display: flex; gap: 0.75rem; padding: 0.75rem 0; border-bottom: 1px solid #f0f0f0; }
+        .activity-item:last-child { border-bottom: none; }
+        .activity-icon { width: 32px; height: 32px; background: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .activity-text { font-size: 0.9rem; }
+        .activity-text strong { font-weight: 600; }
+        
+        @media(max-width: 800px) {
+            .stats-row, .dashboard-grid, .brief-items { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="logo">The Local NearBuy</div>
+        <nav class="nav">
+            <a href="#">Directory</a>
+            <a href="#">Offers</a>
+            <a href="#">Events</a>
+            <a href="#">Jobs</a>
+        </nav>
+        <div class="user">
+            <span>Welcome, Mike</span>
+            <div class="avatar"></div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <h1>Good Morning, Mike! 👋</h1>
+        <p class="subtitle">Here's what's happening in Waxhaw today.</p>
+        
+        <!-- Stats -->
+        <div class="stats-row">
+            <div class="stat-card"><div class="num">12</div><div class="label">Saved Businesses</div></div>
+            <div class="stat-card"><div class="num">3</div><div class="label">My Vouchers</div></div>
+            <div class="stat-card"><div class="num">5</div><div class="label">Reviews Written</div></div>
+            <div class="stat-card"><div class="num">$47</div><div class="label">Saved This Month</div></div>
+        </div>
+        
+        <div class="dashboard-grid">
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <div class="card">
+                    <h3>My Location</h3>
+                    <div class="location-select">
+                        <label>Town</label>
+                        <select>
+                            <option>Waxhaw, NC</option>
+                            <option>Marvin, NC</option>
+                            <option>Weddington, NC</option>
+                            <option>Wesley Chapel, NC</option>
+                            <option>Indian Land, SC</option>
+                        </select>
+                    </div>
+                    <div class="location-select">
+                        <label>Radius</label>
+                        <select>
+                            <option>5 miles</option>
+                            <option>10 miles</option>
+                            <option>25 miles</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>My Preferences</h3>
+                    <ul class="pref-list">
+                        <li><label>Restaurants</label><input type="checkbox" checked></li>
+                        <li><label>Auto Repair</label><input type="checkbox" checked></li>
+                        <li><label>Health & Fitness</label><input type="checkbox"></li>
+                        <li><label>Home Services</label><input type="checkbox"></li>
+                        <li><label>Salons & Spas</label><input type="checkbox" checked></li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>Saved Businesses</h3>
+                    <div class="saved-item">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100" alt="JGL Repair">
+                        <div>
+                            <div class="name">JGL Repair</div>
+                            <div class="cat">Auto Repair</div>
+                        </div>
+                    </div>
+                    <div class="saved-item">
+                        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=100" alt="Taco Town">
+                        <div>
+                            <div class="name">Taco Town</div>
+                            <div class="cat">Restaurants</div>
+                        </div>
+                    </div>
+                    <div class="saved-item">
+                        <img src="https://images.unsplash.com/photo-1581578731548-c64695b59435?w=100" alt="NOMA Salon">
+                        <div>
+                            <div class="name">NOMA Salon</div>
+                            <div class="cat">Salon</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="main-content">
+                <!-- Morning Briefing -->
+                <div class="morning-brief">
+                    <h2>Good Morning, Waxhaw! ☕</h2>
+                    <div class="brief-items">
+                        <div class="brief-item">
+                            <div class="num">8</div>
+                            <div class="label">New Offers Today</div>
+                        </div>
+                        <div class="brief-item">
+                            <div class="num">3</div>
+                            <div class="label">Events This Week</div>
+                        </div>
+                        <div class="brief-item">
+                            <div class="num">2</div>
+                            <div class="label">New Businesses</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>My Vouchers</h3>
+                    <div class="voucher-item">
+                        <div>
+                            <div class="biz">JGL Repair</div>
+                            <div class="offer">15% Off Any Service</div>
+                        </div>
+                        <span class="status">Active</span>
+                    </div>
+                    <div class="voucher-item">
+                        <div>
+                            <div class="biz">Taco Town</div>
+                            <div class="offer">Free Appetizer</div>
+                        </div>
+                        <span class="status">Used</span>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>My Reviews</h3>
+                    <div class="review-item">
+                        <div class="biz">JGL Repair LLC</div>
+                        <div class="rating">📍📍📍📍📍</div>
+                        <div class="text">Best mechanic in the area. Very honest and reliable.</div>
+                    </div>
+                    <div class="review-item">
+                        <div class="biz">Taco Town</div>
+                        <div class="rating">📍📍📍📍📍</div>
+                        <div class="text">Amazing food and great service!</div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Recent Activity</h3>
+                    <div class="activity-item">
+                        <div class="activity-icon">❤️</div>
+                        <div class="activity-text"><strong>You saved</strong> NOMA Salon</div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">🎟️</div>
+                        <div class="activity-text"><strong>You redeemed</strong> Taco Town voucher</div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="activity-icon">⭐</div>
+                        <div class="activity-text"><strong>You reviewed</strong> JGL Repair</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
