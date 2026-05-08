@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JGL Repair LLC - Pro+ Profile | The Local NearBuy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; background: #fff; color: #1a1a1a; }
+        
+        :root { --red: #e63946; --black: #1a1a1a; }
+        
+        .page-header { background: var(--black); color: white; padding: 0.75rem 2rem; font-size: 0.8rem; }
+        
+        /* Hero */
+        .hero { background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=1200'); background-size: cover; background-position: center; height: 280px; position: relative; }
+        .hero-content { position: absolute; bottom: 1.5rem; left: 2rem; right: 2rem; display: flex; align-items: flex-end; gap: 1.5rem; }
+        .profile-img { width: 120px; height: 120px; border-radius: 50%; border: 4px solid white; object-fit: cover; }
+        .profile-info h1 { font-size: 2rem; margin-bottom: 0.25rem; color: white; }
+        .badges { display: flex; gap: 0.5rem; }
+        .badge { background: var(--red); color: white; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; display: flex; align-items: center; gap: 0.25rem; }
+        .badge.verified { background: #22c55e; }
+        
+        /* Tabs */
+        .tabs { background: #f5f5f5; border-bottom: 1px solid #ddd; padding: 0 2rem; }
+        .tab-list { display: flex; list-style: none; gap: 0; }
+        .tab-list li { padding: 1rem 1.5rem; cursor: pointer; font-weight: 600; color: #666; border-bottom: 3px solid transparent; }
+        .tab-list li.active { color: var(--red); border-bottom-color: var(--red); }
+        
+        /* Two Column */
+        .content-wrapper { display: grid; grid-template-columns: 320px 1fr; gap: 2rem; max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        
+        .sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
+        .main-content { display: flex; flex-direction: column; gap: 1.5rem; }
+        
+        .card { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 1.25rem; }
+        .card h3 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; color: #666; margin-bottom: 1rem; border-bottom: 1px solid #eee; padding-bottom: 0.5rem; }
+        
+        /* Contact Form */
+        .contact-form input, .contact-form textarea { width: 100%; padding: 0.6rem; margin-bottom: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 0.9rem; }
+        .contact-form button { width: 100%; background: var(--red); color: white; border: none; padding: 0.75rem; border-radius: 4px; font-weight: 600; cursor: pointer; }
+        
+        .contact-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0; font-size: 0.9rem; }
+        .contact-item a { color: var(--red); text-decoration: none; }
+        
+        .social-links { display: flex; gap: 0.75rem; }
+        .social-link { width: 32px; height: 32px; background: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; font-weight: 600; }
+        
+        /* Ad Space */
+        .ad-space { background: #f5f5f5; border: 2px dashed #ccc; padding: 2rem; text-align: center; color: #999; font-size: 0.85rem; border-radius: 8px; }
+        
+        /* Impact */
+        .impact-box { background: linear-gradient(135deg, var(--red), #c1121f); color: white; padding: 1.5rem; border-radius: 8px; display: flex; align-items: center; gap: 1rem; }
+        .impact-icon { font-size: 2.5rem; }
+        .impact-text h4 { font-size: 1.1rem; margin-bottom: 0.25rem; }
+        .impact-text p { font-size: 0.85rem; opacity: 0.95; }
+        
+        /* Offers */
+        .offers-banner { background: var(--red); color: white; padding: 1.5rem; border-radius: 8px; }
+        .offers-banner h2 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+        .offers-banner p { opacity: 0.9; margin-bottom: 1rem; }
+        
+        .offer-card { background: white; border: 2px solid var(--black); border-radius: 8px; padding: 1.25rem; margin-bottom: 1rem; }
+        .offer-card h4 { font-size: 1rem; margin-bottom: 0.5rem; }
+        .offer-card p { font-size: 0.85rem; color: #555; margin-bottom: 0.75rem; }
+        .offer-code { display: inline-block; background: var(--black); color: white; padding: 0.4rem 0.75rem; border-radius: 4px; font-family: monospace; font-weight: 600; margin-bottom: 0.75rem; }
+        
+        .redeem-btn { display: block; width: 100%; padding: 0.6rem; background: var(--red); color: white; text-align: center; text-decoration: none; border-radius: 4px; font-weight: 600; font-size: 0.9rem; }
+        
+        /* Modal */
+        .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); align-items: center; justify-content: center; z-index: 1000; }
+        .modal.show { display: flex; }
+        .modal-content { background: white; padding: 2rem; border-radius: 12px; max-width: 400px; width: 90%; }
+        .modal-content h3 { margin-bottom: 1rem; }
+        .modal-content input { width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 4px; }
+        .modal-content button { padding: 0.75rem 1.5rem; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; }
+        .modal-content .submit-btn { background: var(--red); color: white; }
+        .modal-content .cancel-btn { background: #ddd; margin-left: 0.5rem; }
+        
+        /* Details */
+        .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .detail-item { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #f5f5f5; font-size: 0.9rem; }
+        
+        /* Services */
+        .services-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+        .services-list li { background: #f5f5f5; padding: 0.5rem 0.75rem; border-radius: 4px; font-size: 0.85rem; }
+        
+        /* Map */
+        .map-container { background: #f5f5f5; height: 200px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #999; }
+        
+        /* Score */
+        .score-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; text-align: center; }
+        .score-item { background: #f5f5f5; padding: 1rem; border-radius: 8px; }
+        .score-num { font-size: 1.5rem; font-weight: 700; color: var(--red); }
+        .score-label { font-size: 0.7rem; text-transform: uppercase; color: #666; }
+        
+        /* Reviews */
+        .review-item { border-bottom: 1px solid #eee; padding: 1rem 0; }
+        .review-item:last-child { border-bottom: none; }
+        .reviewer { font-weight: 600; font-size: 0.9rem; }
+        .review-stars { color: #fbbf24; font-size: 0.8rem; margin: 0.25rem 0; }
+        .review-text { color: #555; font-size: 0.9rem; }
+        
+        @media(max-width: 900px) {
+            .content-wrapper { grid-template-columns: 1fr; }
+            .tab-list { overflow-x: auto; }
+            .details-grid, .services-list, .score-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-header">The Local NearBuy — Greater Waxhaw Region</div>
+    
+    <!-- Hero with Verified Badge -->
+    <div class="hero">
+        <div class="hero-content">
+            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300" class="profile-img" alt="JGL Repair">
+            <div class="profile-info">
+                <h1>JGL Repair LLC</h1>
+                <div class="badges">
+                    <span class="badge verified">✓ Verified</span>
+                    <span class="badge">Pro+ Partner</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tabs -->
+    <div class="tabs">
+        <ul class="tab-list">
+            <li class="active">Overview</li>
+            <li>Offers</li>
+            <li>Gallery</li>
+            <li>Reviews</li>
+            <li>About</li>
+        </ul>
+    </div>
+    
+    <div class="content-wrapper">
+        <!-- Left Sidebar -->
+        <div class="sidebar">
+            <div class="card">
+                <h3>Send a Message</h3>
+                <form class="contact-form">
+                    <input type="text" placeholder="Your Name">
+                    <input type="email" placeholder="Your Email">
+                    <textarea rows="3" placeholder="Your Message"></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+            
+            <div class="card">
+                <h3>Contact</h3>
+                <div class="contact-item">📞 <a href="tel:7045550182">(704) 555-0182</a></div>
+                <div class="contact-item">📧 <a href="#">service@jglrepair.com</a></div>
+                <div class="contact-item">🌐 <a href="#">jglrepair.com</a></div>
+                <div style="margin-top:0.75rem;">
+                    <a href="#" style="color:var(--red);font-size:0.85rem;">Get Directions →</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>Follow</h3>
+                <div class="social-links">
+                    <span class="social-link">f</span>
+                    <span class="social-link">in</span>
+                    <span class="social-link">X</span>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>Share</h3>
+                <span class="social-link" style="background:var(--red);color:white;width:auto;padding:0 1rem;">Share</span>
+            </div>
+        </div>
+        
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Impact FIRST (above ad space) -->
+            <div class="impact-box">
+                <div class="impact-icon">🍽️</div>
+                <div class="impact-text">
+                    <h4>847 Meals Provided</h4>
+                    <p>A portion of every service helps feed local families.</p>
+                </div>
+            </div>
+            
+            <!-- Offers -->
+            <div class="card">
+                <h3>Special Offers</h3>
+                <div class="offers-banner">
+                    <h2>15% Off Any Service</h2>
+                    <p>Show this page to your server</p>
+                </div>
+                <div class="offer-card">
+                    <h4>15% Off Any Service</h4>
+                    <p>Valid on all auto repair services. Cannot combine with other offers.</p>
+                    <span class="offer-code">JGLPRO15</span>
+                    <a href="#" class="redeem-btn" onclick="showRedeemModal()">Redeem Offer</a>
+                </div>
+            </div>
+            
+            <!-- Company Details -->
+            <div class="card">
+                <h3>Company Details</h3>
+                <div class="details-grid">
+                    <div class="detail-item"><span>Category</span><span>Auto Repair</span></div>
+                    <div class="detail-item"><span>Location</span><span>Charlotte, NC</span></div>
+                    <div class="detail-item"><span>Established</span><span>2015</span></div>
+                    <div class="detail-item"><span>Employees</span><span>5</span></div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>Services</h3>
+                <ul class="services-list">
+                    <li>Engine Diagnostics</li>
+                    <li>Brake Service</li>
+                    <li>Oil Changes</li>
+                    <li>Tire Services</li>
+                    <li>A/C Repair</li>
+                    <li>Transmission</li>
+                </ul>
+            </div>
+            
+            <div class="card">
+                <h3>Location</h3>
+                <div class="map-container">[Google Map]</div>
+            </div>
+            
+            <div class="card">
+                <h3>Neighborhood Score</h3>
+                <div class="score-grid">
+                    <div class="score-item"><div class="score-num">4.8</div><div class="score-label">Quality</div></div>
+                    <div class="score-item"><div class="score-num">4.6</div><div class="score-label">Value</div></div>
+                    <div class="score-item"><div class="score-num">4.9</div><div class="score-label">Service</div></div>
+                    <div class="score-item"><div class="score-num">4.7</div><div class="score-label">Overall</div></div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h3>Reviews</h3>
+                <div class="review-item">
+                    <div class="reviewer">Mike T.</div>
+                    <div class="review-stars">★★★★★</div>
+                    <div class="review-text">Best mechanic in the area. Honest and reliable.</div>
+                </div>
+                <div class="review-item">
+                    <div class="reviewer">Sarah L.</div>
+                    <div class="review-stars">★★★★★</div>
+                    <div class="review-text">Fixed my car same day. Highly recommend!</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Ad Space (below impact) -->
+    <div class="content-wrapper" style="padding-top:0;">
+        <div style="grid-column: 1 / -1;">
+            <div class="ad-space">
+                Advertisement<br><small>Your Ad Here</small>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Redeem Modal -->
+    <div class="modal" id="redeemModal">
+        <div class="modal-content">
+            <h3>Redeem Your Offer</h3>
+            <p style="font-size:0.9rem;color:#666;margin-bottom:1rem;">Enter your details to receive your voucher via email.</p>
+            <input type="text" placeholder="Your Name" id="redeemName">
+            <input type="email" placeholder="Your Email" id="redeemEmail">
+            <button class="submit-btn" onclick="submitRedeem()">Get Voucher</button>
+            <button class="cancel-btn" onclick="closeRedeemModal()">Cancel</button>
+        </div>
+    </div>
+    
+    <script>
+        function showRedeemModal() {
+            document.getElementById('redeemModal').classList.add('show');
+        }
+        function closeRedeemModal() {
+            document.getElementById('redeemModal').classList.remove('show');
+        }
+        function submitRedeem() {
+            var name = document.getElementById('redeemName').value;
+            var email = document.getElementById('redeemEmail').value;
+            if(name && email) {
+                alert('Voucher sent to ' + email + '! Show this to the business to redeem.');
+                closeRedeemModal();
+            } else {
+                alert('Please enter your name and email.');
+            }
+        }
+    </script>
+</body>
+</html>
