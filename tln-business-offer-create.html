@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Offer | The Local NearBuy Business Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; background: #f5f5f5; color: #1a1a1a; }
+        :root { --red: #e63946; --black: #1a1a1a; }
+        
+        .top-bar { background: var(--black); color: white; padding: 0.75rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .top-bar .logo { font-weight: 700; font-size: 1rem; }
+        .top-bar .nav a { color: white; text-decoration: none; margin-left: 1.5rem; font-size: 0.85rem; opacity: 0.9; }
+        
+        .container { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem; }
+        
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+        .header h1 { font-size: 1.5rem; }
+        
+        /* Form Card */
+        .form-card { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 2rem; }
+        .form-card h2 { font-size: 1.1rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid #eee; }
+        
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.9rem; }
+        .form-group label span { color: #666; font-weight: 400; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 0.95rem; font-family: inherit; }
+        .form-group textarea { min-height: 100px; }
+        .form-group .hint { font-size: 0.8rem; color: #666; margin-top: 0.25rem; }
+        
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        
+        /* Toggle Switch */
+        .toggle { display: flex; align-items: center; gap: 0.75rem; }
+        .toggle input { display: none; }
+        .toggle .switch { width: 48px; height: 26px; background: #ccc; border-radius: 13px; position: relative; cursor: pointer; }
+        .toggle .switch::after { content: ''; width: 20px; height: 20px; background: white; border-radius: 50%; position: absolute; top: 3px; left: 3px; transition: 0.2s; }
+        .toggle input:checked + .switch { background: var(--red); }
+        .toggle input:checked + .switch::after { left: 25px; }
+        .toggle .label { font-weight: 600; }
+        
+        /* Warning Box */
+        .warning-box { background: #fff3cd; border: 1px solid #ffc107; border-radius: 6px; padding: 1rem; margin-bottom: 1.5rem; }
+        .warning-box h4 { color: #856404; margin-bottom: 0.5rem; font-size: 0.9rem; }
+        .warning-box p { font-size: 0.85rem; color: #856404; }
+        
+        /* Success Box */
+        .success-box { background: #d4edda; border: 1px solid #28a745; border-radius: 6px; padding: 1rem; margin-bottom: 1.5rem; }
+        .success-box h4 { color: #155724; margin-bottom: 0.5rem; font-size: 0.9rem; }
+        .success-box p { font-size: 0.85rem; color: #155724; }
+        
+        /* Offer Templates */
+        .template-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+        .template-btn { padding: 0.75rem; background: #f5f5f5; border: 1px solid #ddd; border-radius: 4px; cursor: pointer; text-align: center; font-size: 0.85rem; }
+        .template-btn:hover { background: #eee; border-color: var(--red); }
+        
+        /* QR Preview */
+        .qr-preview { background: #f5f5f5; padding: 1.5rem; border-radius: 8px; text-align: center; }
+        .qr-preview .qr-box { width: 120px; height: 120px; background: white; border: 1px solid #ddd; margin: 0 auto 1rem; display: flex; align-items: center; justify-content: center; }
+        .qr-preview p { font-size: 0.85rem; color: #666; }
+        
+        /* Buttons */
+        .btn-row { display: flex; gap: 1rem; margin-top: 2rem; }
+        .btn { padding: 0.75rem 1.5rem; border-radius: 4px; font-weight: 600; cursor: pointer; border: none; }
+        .btn-primary { background: var(--red); color: white; }
+        .btn-secondary { background: #eee; color: #333; }
+        
+        @media(max-width: 700px) {
+            .form-row, .template-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <div class="logo">The Local NearBuy</div>
+        <nav class="nav">
+            <a href="#">Dashboard</a>
+            <a href="#">My Profile</a>
+            <a href="#">Offers</a>
+            <a href="#">Logout</a>
+        </nav>
+    </div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>Create New Offer</h1>
+        </div>
+        
+        <div class="form-card">
+            <h2>Offer Details</h2>
+            
+            <!-- Templates -->
+            <div class="form-group">
+                <label>Quick Start (Optional)</label>
+                <div class="template-grid">
+                    <div class="template-btn" onclick="useTemplate('15% Off')">15% Off</div>
+                    <div class="template-btn" onclick="useTemplate('20% Off')">20% Off</div>
+                    <div class="template-btn" onclick="useTemplate('Free Item')">Free Item</div>
+                    <div class="template-btn" onclick="useTemplate('$10 Off')">$10 Off</div>
+                    <div class="template-btn" onclick="useTemplate('Buy One Get One')">BOGO</div>
+                    <div class="template-btn" onclick="useTemplate('Free Consultation')">Free Consult</div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Offer Title <span>*</span></label>
+                <input type="text" id="offerTitle" placeholder="e.g., 15% Off Any Service">
+            </div>
+            
+            <div class="form-group">
+                <label>Description</label>
+                <textarea id="offerDesc" placeholder="Describe the offer, any restrictions, etc."></textarea>
+                <div class="hint">Example: Valid on all auto repair services over $50. Cannot combine with other offers.</div>
+            </div>
+            
+            <!-- Campaign Timing -->
+            <h2 style="margin-top:2rem;">Campaign Timing</h2>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Offer Start Date</label>
+                    <input type="date" id="startDate">
+                </div>
+                <div class="form-group">
+                    <label>Offer End Date</label>
+                    <input type="date" id="endDate">
+                </div>
+            </div>
+            
+            <!-- Category Alert -->
+            <div class="warning-box">
+                <h4>⚠️ Suggestion</h4>
+                <p>There are currently <strong>3 other auto repair</strong> businesses with offers scheduled during this time. Consider a different date to stand out.</p>
+            </div>
+            
+            <!-- Print Campaign Toggle -->
+            <div class="form-group">
+                <label>Print Campaign</label>
+                <div class="toggle">
+                    <input type="checkbox" id="printCampaign">
+                    <label class="switch" for="printCampaign"></label>
+                    <span class="label">Hide offer on website during print campaign</span>
+                </div>
+                <div class="hint">When enabled, this offer will only be accessible via QR code on printed materials.</div>
+            </div>
+            
+            <!-- Voucher Settings -->
+            <h2 style="margin-top:2rem;">Voucher Settings</h2>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Voucher Valid For</label>
+                    <select>
+                        <option>30 days after redemption</option>
+                        <option selected>60 days after redemption</option>
+                        <option>90 days after redemption</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Grace Period</label>
+                    <select>
+                        <option>3 days</option>
+                        <option selected>7 days</option>
+                        <option>14 days</option>
+                    </select>
+                </div>
+            </div>
+            
+            <!-- QR Code Preview (shows if print campaign selected) -->
+            <div class="form-group">
+                <label>QR Code</label>
+                <div class="qr-preview">
+                    <div class="qr-box">[QR CODE]</div>
+                    <p>QR code will be generated when you save the offer.</p>
+                    <p style="margin-top:0.5rem;"><a href="#" style="color:var(--red);">Download QR Code →</a></p>
+                </div>
+            </div>
+            
+            <!-- Buttons -->
+            <div class="btn-row">
+                <button class="btn btn-primary" onclick="saveOffer()">Create Offer</button>
+                <button class="btn btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function useTemplate(type) {
+            document.getElementById('offerTitle').value = type;
+            if(type === 'Free Item') {
+                document.getElementById('offerDesc').placeholder = 'Free item with any purchase. Dine-in only.';
+            } else if(type.includes('%')) {
+                document.getElementById('offerDesc').placeholder = 'Valid on all services. Cannot combine with other offers.';
+            }
+        }
+        
+        function saveOffer() {
+            alert('Offer created! QR code generated. Ready for print campaign.');
+        }
+    </script>
+</body>
+</html>
