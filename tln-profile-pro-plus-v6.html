@@ -37,11 +37,13 @@
         .tab-list li.has-offers::after { content: ''; position: absolute; top: 0.75rem; right: 0.5rem; width: 8px; height: 8px; background: var(--red); border-radius: 50%; }
         
         .tab-content { display: none; }
-        .tab-content.active { display: block; }
+        .tab-content.active { display: grid; gap: 1.5rem; }
         
         .content-wrapper { display: grid; grid-template-columns: 320px 1fr; gap: 2rem; max-width: 1200px; margin: 0 auto; padding: 2rem; }
         .sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
         .main-content { display: flex; flex-direction: column; gap: 1.5rem; }
+        .main-content > .card { margin-bottom: 0; }
+        .main-content .card { margin-bottom: 0; }
         
         .card { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 1.5rem; }
         .card h3 { font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.5px; color: #555; margin-bottom: 1rem; border-bottom: 1px solid #eee; padding-bottom: 0.75rem; font-weight: 600; }
