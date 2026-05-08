@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Automotive Repair & Service - Pro+ Profile | The Local NearBuy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; background: #fff; color: #1a1a1a; font-size: 15px; line-height: 1.5; }
+        :root { --red: #e63946; --black: #1a1a1a; }
+        
+        /* Top Bar */
+        .top-bar { background: var(--black); color: white; padding: 0.6rem 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .top-bar .logo { font-weight: 700; font-size: 1rem; }
+        .top-bar .login-link { color: white; text-decoration: none; font-size: 0.9rem; }
+        .top-bar .login-link:hover { text-decoration: underline; }
+        
+        /* Hero with logo ABOVE name */
+        .hero { background: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=1200'); background-size: cover; background-position: center; height: 300px; position: relative; }
+        .hero-content { position: absolute; bottom: 2rem; left: 2rem; display: flex; flex-direction: column; gap: 0.75rem; }
+        
+        /* Logo - Rectangle above name */
+        .profile-logo { width: 200px; height: 100px; object-fit: contain; background: white; border-radius: 8px; padding: 5px; }
+        
+        .profile-info h1 { font-size: 2.25rem; color: white; font-weight: 700; margin-bottom: 0.5rem; }
+        .badges { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .badge { background: var(--red); color: white; padding: 0.3rem 0.75rem; border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; display: inline-flex; align-items: center; gap: 0.25rem; }
+        .badge.verified { background: #22c55e; }
+        .badge.featured { background: #fbbf24; color: var(--black); }
+        
+        .tabs { background: #f5f5f5; border-bottom: 1px solid #ddd; padding: 0 2rem; }
+        .tab-list { display: flex; list-style: none; gap: 0; overflow-x: auto; }
+        .tab-list li { padding: 1rem 1.5rem; cursor: pointer; font-weight: 600; color: #666; border-bottom: 3px solid transparent; white-space: nowrap; font-size: 0.95rem; }
+        .tab-list li.active { color: var(--red); border-bottom-color: var(--red); }
+        .tab-list li.has-offers { position: relative; }
+        .tab-list li.has-offers::after { content: ''; position: absolute; top: 0.75rem; right: 0.5rem; width: 8px; height: 8px; background: var(--red); border-radius: 50%; }
+        
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        .content-wrapper { display: grid; grid-template-columns: 320px 1fr; gap: 2rem; max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
+        .main-content { display: flex; flex-direction: column; gap: 1.5rem; }
+        
+        .card { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 1.5rem; }
+        .card h3 { font-size: 0.95rem; text-transform: uppercase; letter-spacing: 0.5px; color: #555; margin-bottom: 1rem; border-bottom: 1px solid #eee; padding-bottom: 0.75rem; font-weight: 600; }
+        
+        /* Contact Box - NO emojis, SVG icons */
+        .contact-list { list-style: none; }
+        .contact-list li { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0; font-size: 0.95rem; border-bottom: 1px solid #f0f0f0; }
+        .contact-list li:last-child { border-bottom: none; }
+        .contact-list a { color: var(--red); text-decoration: none; }
+        .contact-list a:hover { text-decoration: underline; }
+        .contact-icon { width: 18px; height: 18px; fill: var(--red); }
+        
+        .social-row { display: flex; gap: 0.75rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #eee; }
+        .social-icon { width: 32px; height: 32px; background: #f0f0f0; border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+        .social-icon svg { width: 18px; height: 18px; fill: #555; }
+        
+        .share-section { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #eee; }
+        .share-section h4 { font-size: 0.85rem; text-transform: uppercase; color: #888; margin-bottom: 0.75rem; font-weight: 600; }
+        .share-icons { display: flex; gap: 0.5rem; }
+        .share-btn { width: 36px; height: 36px; background: var(--red); border-radius: 4px; display: flex; align-items: center; justify-content: center; }
+        .share-btn svg { width: 18px; height: 18px; fill: white; }
+        
+        .contact-form input, .contact-form textarea { width: 100%; padding: 0.7rem; margin-bottom: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 0.9rem; }
+        .contact-form button { width: 100%; background: var(--red); color: white; border: none; padding: 0.75rem; border-radius: 4px; font-weight: 600; cursor: pointer; }
+        
+        .impact-box { background: linear-gradient(135deg, var(--red), #c1121f); color: white; padding: 1.25rem; border-radius: 8px; display: flex; align-items: center; gap: 1rem; }
+        .impact-icon { font-size: 2rem; }
+        .impact-text h4 { font-size: 1rem; margin-bottom: 0.25rem; }
+        .impact-text p { font-size: 0.8rem; opacity: 0.95; }
+        
+        .ad-space { background: #f5f5f5; border: 2px dashed #ccc; padding: 2rem; text-align: center; color: #999; font-size: 0.85rem; border-radius: 8px; }
+        
+        .evergreen-offer { background: #f8f8f8; border: 2px solid var(--red); border-radius: 8px; padding: 1.25rem; }
+        .evergreen-offer h4 { color: var(--red); font-size: 1rem; margin-bottom: 0.5rem; }
+        .evergreen-offer p { font-size: 0.9rem; color: #555; margin-bottom: 0.75rem; }
+        .evergreen-offer .code { display: inline-block; background: var(--black); color: white; padding: 0.3rem 0.6rem; border-radius: 4px; font-family: monospace; font-size: 0.9rem; }
+        .evergreen-offer .more-link { display: inline-block; margin-left: 1rem; color: var(--red); font-weight: 600; font-size: 0.9rem; text-decoration: none; }
+        
+        .offer-card { background: white; border: 2px solid var(--black); border-radius: 8px; padding: 1.25rem; margin-bottom: 1rem; position: relative; }
+        .offer-card h4 { font-size: 1rem; margin-bottom: 0.5rem; }
+        .offer-card p { font-size: 0.9rem; color: #555; margin-bottom: 0.75rem; }
+        .offer-card .code { display: inline-block; background: var(--black); color: white; padding: 0.3rem 0.6rem; border-radius: 4px; font-family: monospace; font-size: 0.9rem; }
+        .offer-card .expiry { position: absolute; top: 0.75rem; right: 0.75rem; background: var(--red); color: white; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; }
+        .offer-card .redeem-btn { display: block; width: 100%; padding: 0.6rem; background: var(--red); color: white; text-align: center; text-decoration: none; border-radius: 4px; font-weight: 600; font-size: 0.9rem; margin-top: 0.75rem; cursor: pointer; border: none; }
+        
+        .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); align-items: center; justify-content: center; z-index: 1000; }
+        .modal.show { display: flex; }
+        .modal-content { background: white; padding: 2rem; border-radius: 12px; max-width: 400px; width: 90%; }
+        .modal-content h3 { margin-bottom: 1rem; }
+        .modal-content input, .modal-content textarea { width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 4px; }
+        .modal-content button { padding: 0.75rem 1.5rem; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; }
+        .modal-content .submit-btn { background: var(--red); color: white; }
+        .modal-content .cancel-btn { background: #ddd; margin-left: 0.5rem; }
+        
+        /* Company Details - More space for categories */
+        .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .detail-item { display: flex; justify-content: space-between; padding: 0.6rem 0; border-bottom: 1px solid #f5f5f5; font-size: 0.9rem; gap: 1rem; }
+        .detail-item span:first-child { font-weight: 600; color: #333; }
+        
+        .services-list { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; list-style: none; }
+        .services-list li { background: #f5f5f5; padding: 0.5rem 0.75rem; border-radius: 4px; font-size: 0.85rem; text-align: center; }
+        
+        .map-container { background: #f5f5f5; height: 200px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #999; }
+        
+        .rating-stars { color: var(--red); font-size: 1.25rem; letter-spacing: 2px; }
+        
+        .review-form { background: #f8f8f8; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; }
+        .review-form label { display: block; font-weight: 600; margin-bottom: 0.5rem; }
+        .review-form input, .review-form textarea { width: 100%; padding: 0.6rem; margin-bottom: 0.75rem; border: 1px solid #ddd; border-radius: 4px; }
+        .review-form button { background: var(--red); color: white; border: none; padding: 0.6rem 1.25rem; border-radius: 4px; font-weight: 600; cursor: pointer; }
+        
+        .review-item { border-bottom: 1px solid #eee; padding: 1rem 0; }
+        .review-item:last-child { border-bottom: none; }
+        .review-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem; }
+        .reviewer { font-weight: 600; font-size: 0.95rem; }
+        .review-date { font-size: 0.8rem; color: #999; }
+        .review-text { color: #555; font-size: 0.9rem; margin-top: 0.5rem; }
+        
+        .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+        .gallery-grid img { width: 100%; height: 150px; object-fit: cover; border-radius: 4px; }
+        
+        .appointment-embed { background: #f8f8f8; padding: 2rem; border-radius: 8px; text-align: center; color: #999; }
+        
+        @media(max-width: 900px) {
+            .content-wrapper { grid-template-columns: 1fr; }
+            .details-grid, .services-list, .gallery-grid { grid-template-columns: 1fr 1fr; }
+            .profile-logo { width: 150px; height: 75px; }
+            .profile-info h1 { font-size: 1.75rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="logo">The Local NearBuy</div>
+        <a href="/dashboard/" class="login-link">Business Login</a>
+    </div>
+    
+    <!-- Hero with logo ABOVE name -->
+    <div class="hero">
+        <div class="hero-content">
+            <img src="https://placehold.co/200x100/white/e63946?text=AUTO+REPAIR" class="profile-logo" alt="Automotive Repair & Service Logo">
+            <div class="profile-info">
+                <h1>Automotive Repair & Service</h1>
+                <div class="badges">
+                    <span class="badge verified">✓ Verified</span>
+                    <span class="badge">Pro+ Partner</span>
+                    <span class="badge featured">★ Featured</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Tabs -->
+    <div class="tabs">
+        <ul class="tab-list">
+            <li class="active" data-tab="overview">Overview</li>
+            <li class="has-offers" data-tab="offers">Offers</li>
+            <li data-tab="gallery">Gallery</li>
+            <li data-tab="reviews">Reviews</li>
+            <li data-tab="about">About</li>
+            <li data-tab="appointment">Make an Appointment</li>
+        </ul>
+    </div>
+    
+    <div class="content-wrapper">
+        <!-- LEFT SIDEBAR -->
+        <div class="sidebar">
+            <!-- Contact Box with SVG icons + Follow + Share -->
+            <div class="card">
+                <h3>Contact</h3>
+                <ul class="contact-list">
+                    <li>
+                        <svg class="contact-icon" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                        <a href="tel:7045550182">(704) 555-0182</a>
+                    </li>
+                    <li>
+                        <svg class="contact-icon" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        <a href="#">service@autorepair.com</a>
+                    </li>
+                    <li>
+                        <svg class="contact-icon" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+                        <a href="#">Get Directions</a>
+                    </li>
+                    <li>
+                        <svg class="contact-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                        <a href="#">Visit Website</a>
+                    </li>
+                </ul>
+                
+                <!-- Follow icons in contact box -->
+                <div class="social-row">
+                    <a href="#" class="social-icon" title="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+                    <a href="#" class="social-icon" title="LinkedIn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+                    <a href="#" class="social-icon" title="X/Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                    <a href="#" class="social-icon" title="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+                </div>
+                
+                <!-- Share section -->
+                <div class="share-section">
+                    <h4>Share This Page</h4>
+                    <div class="share-icons">
+                        <a href="#" class="share-btn" title="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+                        <a href="#" class="share-btn" title="Twitter"><svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                        <a href="#" class="share-btn" title="Email"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
+                        <a href="#" class="share-btn" title="Copy Link"><svg viewBox="0 0 24 24"><path d="M10 9V5l-7 7 7 7v-4.1a5 5 0 0 1 5 5v6.5h-2v-6.5a3 3 0 0 0-3-3V9"/></svg></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Send Message -->
+            <div class="card">
+                <h3>Send a Message</h3>
+                <form class="contact-form">
+                    <input type="text" placeholder="Your Name">
+                    <input type="email" placeholder="Your Email">
+                    <textarea rows="3" placeholder="Your Message"></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+            
+            <!-- Meals above ad -->
+            <div class="impact-box">
+                <div class="impact-icon"><svg width="32" height="32" viewBox="0 0 24 24" fill="white"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg></div>
+                <div class="impact-text">
+                    <h4>847 Meals Provided</h4>
+                    <p>Helping feed local families.</p>
+                </div>
+            </div>
+            
+            <!-- Ad Space -->
+            <div class="ad-space">Advertisement<br><small>Your Ad Here</small></div>
+        </div>
+        
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <!-- Overview Tab -->
+            <div class="tab-content active" id="overview">
+                <div class="card">
+                    <h3>Special Offer</h3>
+                    <div class="evergreen-offer">
+                        <h4>15% Off Any Service</h4>
+                        <p>Free multi-point inspection with any service. Can't be combined with other offers.</p>
+                        <span class="code">AUTO15OFF</span>
+                        <a href="#" class="more-link" onclick="switchTab('offers')">MORE →</a>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Company Details</h3>
+                    <div class="details-grid">
+                        <div class="detail-item"><span>Category</span><span>Auto Repair</span></div>
+                        <div class="detail-item"><span>Location</span><span>Charlotte, NC</span></div>
+                        <div class="detail-item"><span>Established</span><span>2015</span></div>
+                        <div class="detail-item"><span>Employees</span><span>5</span></div>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <h3>Services</h3>
+                    <ul class="services-list">
+                        <li>Engine Diagnostics</li>
+                        <li>Brake Service</li>
+                        <li>Oil Changes</li>
+                        <li>Tire Services</li>
+                        <li>A/C Repair</li>
+                        <li>Transmission</li>
+                    </ul>
+                </div>
+                
+                <div class="card">
+                    <h3>Location</h3>
+                    <div class="map-container">[Google Map]</div>
+                </div>
+            </div>
+            
+            <!-- Offers Tab -->
+            <div class="tab-content" id="offers">
+                <div class="card">
+                    <h3>Available Offers</h3>
+                    <div class="offer-card">
+                        <span class="expiry">Expires 12/31/2026</span>
+                        <h4>15% Off Any Service</h4>
+                        <p>Valid on all auto repair services over $50.</p>
+                        <span class="code">AUTO15OFF</span>
+                        <button class="redeem-btn" onclick="showRedeemModal()">Redeem Offer</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Gallery Tab -->
+            <div class="tab-content" id="gallery">
+                <div class="card">
+                    <h3>Photo Gallery</h3>
+                    <div class="gallery-grid">
+                        <img src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=400" alt="Shop">
+                        <img src="https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?w=400" alt="Team">
+                        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=400" alt="Garage">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Reviews Tab -->
+            <div class="tab-content" id="reviews">
+                <div class="card">
+                    <h3>Write a Review</h3>
+                    <form class="review-form">
+                        <label>Your Rating</label>
+                        <div class="rating-stars">
+                            <span onclick="setRating(1)">📍</span>
+                            <span onclick="setRating(2)">📍</span>
+                            <span onclick="setRating(3)">📍</span>
+                            <span onclick="setRating(4)">📍</span>
+                            <span onclick="setRating(5)">📍</span>
+                        </div>
+                        <input type="text" placeholder="Your Name" id="reviewName">
+                        <input type="email" placeholder="Your Email" id="reviewEmail">
+                        <textarea rows="3" placeholder="Share your experience..." id="reviewText"></textarea>
+                        <button type="button" onclick="submitReview()">Submit Review</button>
+                    </form>
+                </div>
+                
+                <div class="card">
+                    <h3>Neighborhood Reviews</h3>
+                    <div class="review-item">
+                        <div class="review-header">
+                            <span class="reviewer">Mike T.</span>
+                            <span class="rating-stars">📍📍📍📍📍</span>
+                        </div>
+                        <div class="review-date">May 5, 2026</div>
+                        <div class="review-text">Best mechanic in the area. Honest, reliable, and fair prices.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- About Tab -->
+            <div class="tab-content" id="about">
+                <div class="card">
+                    <h3>About Automotive Repair & Service</h3>
+                    <p style="line-height:1.7;color:#555;">Serving the Charlotte area for over 10 years, providing quality auto repair services with honesty and integrity.</p>
+                </div>
+            </div>
+            
+            <!-- Appointment Tab -->
+            <div class="tab-content" id="appointment">
+                <div class="card">
+                    <h3>Make an Appointment</h3>
+                    <div class="appointment-embed">[Paste scheduling widget code here]</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Redeem Modal -->
+    <div class="modal" id="redeemModal">
+        <div class="modal-content">
+            <h3>Redeem Your Offer</h3>
+            <input type="text" placeholder="Your Name" id="redeemName">
+            <input type="email" placeholder="Your Email" id="redeemEmail">
+            <button class="submit-btn" onclick="submitRedeem()">Get Voucher</button>
+            <button class="cancel-btn" onclick="closeRedeemModal()">Cancel</button>
+        </div>
+    </div>
+    
+    <script>
+        document.querySelectorAll('.tab-list li').forEach(tab => {
+            tab.addEventListener('click', function() {
+                var tabId = this.getAttribute('data-tab');
+                switchTab(tabId);
+            });
+        });
+        
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-list li').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelector('[data-tab="' + tabId + '"]').classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+        }
+        
+        var currentRating = 0;
+        function setRating(n) {
+            currentRating = n;
+            var stars = document.querySelectorAll('.rating-stars span');
+            stars.forEach(function(star, i) {
+                star.style.color = i < n ? '#e63946' : '#ddd';
+            });
+        }
+        
+        function submitReview() {
+            var name = document.getElementById('reviewName').value;
+            var text = document.getElementById('reviewText').value;
+            if(name && text && currentRating > 0) {
+                alert('Thank you for your review!');
+            } else {
+                alert('Please provide your name, rating, and review text.');
+            }
+        }
+        
+        function showRedeemModal() { document.getElementById('redeemModal').classList.add('show'); }
+        function closeRedeemModal() { document.getElementById('redeemModal').classList.remove('show'); }
+        function submitRedeem() {
+            var name = document.getElementById('redeemName').value;
+            var email = document.getElementById('redeemEmail').value;
+            if(name && email) {
+                alert('Voucher sent to ' + email + '!');
+                closeRedeemModal();
+            } else { alert('Please enter your name and email.'); }
+        }
+    </script>
+</body>
+</html>
