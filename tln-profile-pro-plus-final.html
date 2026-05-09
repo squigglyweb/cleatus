@@ -23,17 +23,15 @@
         .biz-name { font-size: 2.5rem; font-weight: 700; color: white; margin-bottom: 0.25rem; }
         .biz-address { font-size: 1.1rem; color: white; display: flex; align-items: center; gap: 0.5rem; }
         
-        .verified-badge {
+        /* Badge Pills */
+        .badge-pills { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
+        .badge-pill {
             display: inline-flex; align-items: center; gap: 0.25rem;
-            background: #28a745; color: white; padding: 0.25rem 0.5rem;
-            border-radius: 4px; font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem;
+            padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700;
         }
-        
-        .featured-badge {
-            display: inline-block; background: var(--red); color: white;
-            padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.75rem;
-            font-weight: 700; margin-left: 0.5rem;
-        }
+        .badge-pro { background: var(--red); color: white; }
+        .badge-featured { background: #ffc107; color: #333; }
+        .badge-verified { background: #28a745; color: white; }
         
         .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; display: grid; grid-template-columns: 320px 1fr; gap: 2rem; }
         
@@ -49,19 +47,21 @@
         }
         .impact-box img { height: 28px; }
         
-        /* Neighborhood Score */
-        .neighborhood-score-box {
+        /* Score Boxes */
+        .score-box {
             background: #f8f8f8; border: 2px solid var(--red); border-radius: 8px; padding: 1.25rem; text-align: center;
         }
-        .neighborhood-score-box h3 { font-size: 0.9rem; color: #666; margin-bottom: 0.5rem; }
+        .score-box h3 { font-size: 0.9rem; color: #666; margin-bottom: 0.5rem; }
         .score-display { font-size: 2.5rem; font-weight: 700; color: var(--red); }
         .score-display span { font-size: 1rem; color: #666; font-weight: 400; }
         .score-picker { margin-top: 1rem; }
         .score-picker button {
-            background: white; border: 1px solid #ddd; padding: 0.5rem 1rem;
-            margin: 0.25rem; border-radius: 4px; cursor: pointer; transition: all 0.2s;
+            background: #ddd; border: none; padding: 0.5rem 0.75rem;
+            margin: 0.15rem; border-radius: 4px; cursor: pointer; font-weight: 600; color: #666;
+            transition: all 0.2s;
         }
-        .score-picker button:hover, .score-picker button.selected { background: var(--red); color: white; border-color: var(--red); }
+        .score-picker button:hover { background: var(--red); color: white; }
+        .score-picker button.selected { background: var(--red); color: white; }
         
         .hours-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #f0f0f0; font-size: 0.9rem; }
         .hours-row:last-child { border-bottom: none; }
@@ -78,11 +78,11 @@
         }
         
         /* Tabs */
-        .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 2px solid #eee; }
+        .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 2px solid #eee; overflow-x: auto; }
         .tab-btn {
             background: none; border: none; padding: 0.75rem 1rem;
             font-size: 0.9rem; font-weight: 600; color: #666; cursor: pointer;
-            border-bottom: 3px solid transparent; margin-bottom: -2px;
+            border-bottom: 3px solid transparent; margin-bottom: -2px; white-space: nowrap;
         }
         .tab-btn.active { color: var(--red); border-bottom-color: var(--red); }
         
@@ -112,15 +112,24 @@
         .review-score { color: var(--red); font-size: 0.85rem; margin: 0.25rem 0; }
         .review-text { color: #555; font-size: 0.9rem; }
         
-        .rating-stars { color: var(--red); font-size: 1.25rem; cursor: pointer; }
+        /* Rating Pins */
+        .rating-pins { display: flex; gap: 0.25rem; margin: 1rem 0; }
+        .rating-pin {
+            width: 32px; height: 40px; cursor: pointer;
+            opacity: 0.3; transition: all 0.2s;
+        }
+        .rating-pin:hover, .rating-pin.selected { opacity: 1; }
+        
+        .google-review-btn {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            background: #4285f4; color: white; padding: 0.75rem 1rem;
+            border-radius: 6px; text-decoration: none; font-weight: 600; margin-top: 1rem;
+        }
         
         /* Message Form */
         .message-form { background: #f8f8f8; padding: 1.5rem; border-radius: 8px; }
         .message-form textarea { width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 6px; margin-bottom: 0.75rem; }
         .message-form input { width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 6px; margin-bottom: 0.75rem; }
-        
-        /* Make Appointment */
-        .appointment-box { background: #e8f5e9; border: 1px solid #4caf50; border-radius: 8px; padding: 1.5rem; text-align: center; }
         
         .ad-space { background: #f5f5f5; border: 1px dashed #ccc; border-radius: 8px; padding: 2rem; text-align: center; color: #999; }
         
@@ -133,11 +142,12 @@
 <body>
     <div class="hero">
         <div class="biz-info">
-            <div class="biz-name">
-                XYZ Repair
-                <span class="verified-badge"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/check.png" style="height:14px;"> Verified</span>
-                <span class="featured-badge">Featured Business</span>
+            <div class="badge-pills">
+                <span class="badge-pill badge-pro"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/star.png" style="height:14px;"> Pro Business</span>
+                <span class="badge-pill badge-featured"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/star.png" style="height:14px;"> Featured</span>
+                <span class="badge-pill badge-verified"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/check.png" style="height:14px;"> Verified</span>
             </div>
+            <div class="biz-name">XYZ Repair</div>
             <div class="biz-address">
                 <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:18px;">
                 Waxhaw, NC
@@ -147,21 +157,29 @@
     
     <div class="container">
         <div class="left-col">
-            <!-- Neighborhood Score -->
-            <div class="neighborhood-score-box">
-                <h3>Neighborhood Score</h3>
+            <!-- TLN Neighborhood Score -->
+            <div class="score-box">
+                <h3>TLN Neighborhood Score</h3>
                 <div class="score-display">4.8 <span>/ 5</span></div>
                 <p style="font-size:0.8rem;color:#666;margin-top:0.25rem;">Based on TLN reviews</p>
                 
                 <div class="score-picker">
                     <p style="font-size:0.75rem;color:#666;margin-bottom:0.5rem;">Rate this business:</p>
-                    <button onclick="selectScore(1)">1</button>
-                    <button onclick="selectScore(2)">2</button>
-                    <button onclick="selectScore(3)">3</button>
-                    <button onclick="selectScore(4)">4</button>
-                    <button onclick="selectScore(5)" class="selected">5</button>
+                    <button onclick="selectTlnScore(1)">1</button>
+                    <button onclick="selectTlnScore(2)">2</button>
+                    <button onclick="selectTlnScore(3)">3</button>
+                    <button onclick="selectTlnScore(4)">4</button>
+                    <button onclick="selectTlnScore(5)" class="selected">5</button>
                 </div>
-                <button class="directions-btn" style="margin-top:1rem;" onclick="submitScore()">Submit My Score</button>
+                <button class="directions-btn" style="margin-top:1rem;" onclick="submitTlnScore()">Submit My Score</button>
+            </div>
+            
+            <!-- Google Score -->
+            <div class="score-box" style="border-color:#4285f4;">
+                <h3>Google Rating</h3>
+                <div class="score-display" style="color:#4285f4;">4.5 <span>/ 5</span></div>
+                <p style="font-size:0.8rem;color:#666;margin-top:0.25rem;">Based on 28 Google reviews</p>
+                <a href="#" class="google-review-btn"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/star.png" style="height:18px;"> Write Google Review</a>
             </div>
             
             <!-- Hours -->
@@ -238,12 +256,11 @@
                     <p>Valid on all services over $50. Expires 12/31/2026.</p>
                     <button class="redeem-btn">Redeem Offer</button>
                 </div>
+                
                 <div class="offer-card" style="background:#eee;border-color:#ccc;opacity:0.7;">
                     <h4 style="color:#666;">Free Loaner Car (Postcard Only)</h4>
                     <p style="color:#888;">Currently in use by postcard campaign. Not available online.</p>
                     <button style="background:#999;color:#fff;padding:0.5rem 1rem;border:none;border-radius:4px;font-weight:600;cursor:not-allowed;" disabled>Postcard Only</button>
-                    <p>While your car is being serviced. Appointment required.</p>
-                    <button class="redeem-btn">Redeem Offer</button>
                 </div>
             </div>
             
@@ -260,29 +277,31 @@
             <!-- Reviews Tab -->
             <div class="tab-content" id="reviews">
                 <div class="card">
-                    <div class="card-title">Write a Review</div>
-                    <p style="font-size:0.9rem;color:#666;margin-bottom:1rem;">Rate this business:</p>
-                    <div class="rating-stars" onclick="setRating(1)">
-                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:24px;">
-                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:24px;">
-                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:24px;">
-                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:24px;">
-                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:24px;">
+                    <div class="card-title">Write a TLN Review</div>
+                    <p style="font-size:0.9rem;color:#666;margin-bottom:0.5rem;">Rate this business:</p>
+                    
+                    <div class="rating-pins">
+                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="rating-pin" onclick="setRating(1)" id="pin1">
+                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="rating-pin" onclick="setRating(2)" id="pin2">
+                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="rating-pin" onclick="setRating(3)" id="pin3">
+                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="rating-pin" onclick="setRating(4)" id="pin4">
+                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="rating-pin" onclick="setRating(5)" id="pin5">
                     </div>
+                    
                     <textarea placeholder="Share your experience..." style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;margin:1rem 0;"></textarea>
-                    <button class="redeem-btn">Submit Review</button>
+                    <button class="redeem-btn" onclick="submitReview()">Submit TLN Review</button>
                 </div>
                 
                 <div class="card" style="margin-top:1rem;">
-                    <div class="card-title">Reviews</div>
+                    <div class="card-title">TLN Reviews</div>
                     <div class="review-item">
                         <div class="reviewer">Mike T.</div>
-                        <div class="review-score">Location: 5</div>
+                        <div class="review-score">Score: 5</div>
                         <div class="review-text">Great service and friendly staff!</div>
                     </div>
                     <div class="review-item">
                         <div class="reviewer">Sarah J.</div>
-                        <div class="review-score">Location: 4</div>
+                        <div class="review-score">Score: 4</div>
                         <div class="review-text">Good work, fair pricing.</div>
                     </div>
                 </div>
@@ -296,7 +315,7 @@
                 </div>
             </div>
             
-            <!-- Contact Tab (Message Form) -->
+            <!-- Contact Tab -->
             <div class="tab-content" id="contact">
                 <div class="card">
                     <div class="card-title">Send a Message</div>
@@ -313,6 +332,8 @@
     </div>
     
     <script>
+        let currentRating = 0;
+        
         function showTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
@@ -320,17 +341,29 @@
             event.target.classList.add('active');
         }
         
-        function selectScore(num) {
+        function selectTlnScore(num) {
             document.querySelectorAll('.score-picker button').forEach(b => b.classList.remove('selected'));
             event.target.classList.add('selected');
         }
         
-        function submitScore() {
+        function submitTlnScore() {
             alert('Thank you! Your score has been submitted.');
         }
         
         function setRating(num) {
+            currentRating = num;
+            // Update pin visuals
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById('pin' + i).classList.remove('selected');
+                if (i <= num) {
+                    document.getElementById('pin' + i).classList.add('selected');
+                }
+            }
             alert('Rating of ' + num + ' submitted. Thanks!');
+        }
+        
+        function submitReview() {
+            alert('Thank you! Your TLN review has been submitted.');
         }
         
         function showRedeemModal() {
