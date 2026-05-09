@@ -11,7 +11,7 @@ $place_id = isset($_GET['place_id']) ? sanitize_text_field($_GET['place_id']) : 
 $biz_slug = isset($_GET['biz']) ? sanitize_text_field($_GET['biz']) : '';
 
 // Get all cached businesses
-businesses = tln_get_cached_businesses();
+$businesses = tln_get_cached_businesses();
 $business = null;
 
 // Find the business
