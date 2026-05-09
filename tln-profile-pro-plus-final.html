@@ -377,6 +377,18 @@
             alert('Thank you! Your TLN review has been submitted.');
         }
         
+        function updateHoursStatus() {
+            const now = new Date();
+            const day = now.getDay();
+            const hour = now.getHours();
+            let isOpen = false, closingSoon = false;
+            if (day >= 1 && day <= 5) { if (hour >= 7 && hour < 18) { isOpen = true; if (hour === 16 || hour === 17) closingSoon = true; } }
+            else if (day === 6) { if (hour >= 8 && hour < 14) { isOpen = true; if (hour === 13) closingSoon = true; } }
+            const statusEl = document.getElementById("hoursStatus");
+            if (statusEl) { statusEl.innerHTML = isOpen ? (closingSoon ? "Closing Soon" : "Open") : "Closed"; statusEl.className = "hours-pill " + (isOpen ? (closingSoon ? "closing-soon" : "open") : "closed"); }
+        }
+        updateHoursStatus();
+
         function showRedeemModal() {
             document.getElementById("redeemEmailModal").style.display = "block";
         }
