@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Glocal Membership | The Local NearBuy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; background: #fff; color: #1a1a1a; line-height: 1.6; }
+        :root { --red: #e63946; --black: #1a1a1a; }
+        
+        .tln-header { background: var(--black); color: white; padding: 1rem 2rem; text-align: center; }
+        .tln-header .logo { font-size: 1.5rem; font-weight: 700; }
+        .tln-header .tagline { font-size: 0.9rem; opacity: 0.8; margin-top: 0.25rem; }
+        
+        .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1rem; }
+        
+        h1 { font-size: 2.5rem; text-align: center; margin-bottom: 0.5rem; }
+        .subtitle { text-align: center; color: #666; font-size: 1.1rem; margin-bottom: 2.5rem; }
+        
+        /* Pricing Grid */
+        .pricing-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 3rem; }
+        
+        .pricing-card { background: white; border: 2px solid #ddd; border-radius: 12px; padding: 0; overflow: hidden; transition: transform 0.2s; }
+        .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+        
+        .pricing-card.featured { border-color: var(--red); position: relative; }
+        .pricing-card.featured::before { content: 'BEST VALUE'; position: absolute; top: 0; left: 0; right: 0; background: var(--red); color: white; font-size: 0.7rem; font-weight: 700; padding: 0.4rem; text-align: center; text-transform: uppercase; letter-spacing: 1px; }
+        .featured .card-body { padding-top: 2.5rem; }
+        
+        .card-header { padding: 1.5rem; text-align: center; border-bottom: 1px solid #eee; }
+        .card-header h2 { font-size: 1.5rem; margin-bottom: 0.25rem; }
+        .card-header .price { font-size: 2.5rem; font-weight: 700; color: var(--red); }
+        .card-header .price span { font-size: 1rem; color: #666; font-weight: 400; }
+        .card-header .desc { color: #666; font-size: 0.9rem; }
+        
+        /* Meals Badge */
+        .meals-badge { background: linear-gradient(135deg, var(--red), #c1121f); color: white; padding: 0.75rem; text-align: center; border-radius: 8px; margin: 1rem 1rem 0; }
+        .meals-badge .icon { font-size: 1.5rem; }
+        .meals-badge .count { font-size: 1.25rem; font-weight: 700; }
+        .meals-badge .label { font-size: 0.75rem; opacity: 0.9; }
+        
+        .card-body { padding: 1.5rem; }
+        
+        .feature-list { list-style: none; }
+        .feature-list li { padding: 0.6rem 0; border-bottom: 1px solid #f5f5f5; font-size: 0.9rem; display: flex; align-items: flex-start; gap: 0.5rem; }
+        .feature-list li:last-child { border-bottom: none; }
+        .feature-list li .check { color: var(--red); font-weight: 700; }
+        
+        .card-cta { padding: 1.5rem; text-align: center; background: #f8f8f8; }
+        .btn { display: inline-block; width: 100%; padding: 0.9rem; background: var(--black); color: white; text-decoration: none; border-radius: 8px; font-weight: 700; text-align: center; }
+        .btn:hover { background: #333; }
+        .btn.red { background: var(--red); }
+        .btn.red:hover { background: #c1121f; }
+        
+        /* What is Membership */
+        .what-is-section { background: #f8f8f8; border-radius: 12px; padding: 2.5rem; margin-top: 3rem; }
+        .what-is-section h2 { font-size: 1.75rem; margin-bottom: 1rem; text-align: center; }
+        
+        .glocal-box { background: white; border: 2px solid var(--red); border-radius: 8px; padding: 1.5rem; margin-bottom: 1.5rem; }
+        .glocal-box h3 { color: var(--red); margin-bottom: 0.5rem; font-size: 1.2rem; }
+        
+        .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1.5rem; }
+        .compare-col h4 { font-size: 1rem; margin-bottom: 0.75rem; }
+        .compare-col ul { list-style: none; }
+        .compare-col li { padding: 0.4rem 0; font-size: 0.9rem; }
+        .compare-col .bad { color: #666; }
+        .compare-col .good { color: var(--red); font-weight: 600; }
+        
+        .impact-box { background: linear-gradient(135deg, var(--red), #c1121f); color: white; padding: 1.5rem; border-radius: 8px; margin-top: 1.5rem; text-align: center; }
+        .impact-box h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+        .impact-box p { opacity: 0.95; font-size: 0.95rem; }
+        
+        @media(max-width: 900px) { .pricing-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media(max-width: 600px) {
+            h1 { font-size: 1.75rem; }
+            .pricing-grid { grid-template-columns: 1fr; }
+            .compare-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="tln-header">
+        <div class="logo">The Local NearBuy</div>
+        <div class="tagline">Think Globally. Feed Locally. — That's Glocal.</div>
+    </div>
+    
+    <div class="container">
+        <h1>Glocal Membership</h1>
+        <p class="subtitle">Join the movement. Grow your business. Feed your neighbors.</p>
+        
+        <!-- Pricing Grid -->
+        <div class="pricing-grid">
+            <!-- Free -->
+            <div class="pricing-card">
+                <div class="card-header">
+                    <h2>Free</h2>
+                    <div class="price">$0<span>/mo</span></div>
+                    <div class="desc">Basic listing</div>
+                </div>
+                <div class="meals-badge">
+                    <div class="icon">🍽️</div>
+                    <div class="count">0</div>
+                    <div class="label">meals/month</div>
+                </div>
+                <div class="card-body">
+                    <ul class="feature-list">
+                        <li><span class="check">✓</span> Directory listing</li>
+                        <li><span class="check">✓</span> Google data</li>
+                        <li><span class="check">✓</span> Map location</li>
+                        <li><span class="check">✓</span> Google reviews</li>
+                    </ul>
+                </div>
+                <div class="card-cta">
+                    <a href="/claim/" class="btn">Claim Free Listing</a>
+                </div>
+            </div>
+            
+            <!-- Pro -->
+            <div class="pricing-card">
+                <div class="card-header">
+                    <h2>Pro</h2>
+                    <div class="price">$99<span>/mo</span></div>
+                    <div class="desc">For growing businesses</div>
+                </div>
+                <div class="meals-badge">
+                    <div class="icon">🍽️</div>
+                    <div class="count">10</div>
+                    <div class="label">meals/month</div>
+                </div>
+                <div class="card-body">
+                    <ul class="feature-list">
+                        <li><span class="check">✓</span> Everything in Free</li>
+                        <li><span class="check">✓</span> Custom profile page</li>
+                        <li><span class="check">✓</span> Unlimited offers</li>
+                        <li><span class="check">✓</span> Photo gallery</li>
+                        <li><span class="check">✓</span> Video embed</li>
+                        <li><span class="check">✓</span> "Pro Partner" badge</li>
+                        <li><span class="check">✓</span> Higher placement</li>
+                        <li><span class="check">✓</span> Lead capture</li>
+                    </ul>
+                </div>
+                <div class="card-cta">
+                    <a href="/upgrade/?tier=pro" class="btn">Go Pro</a>
+                </div>
+            </div>
+            
+            <!-- Pro+ -->
+            <div class="pricing-card featured">
+                <div class="card-header">
+                    <h2>Pro+</h2>
+                    <div class="price">$199<span>/mo</span></div>
+                    <div class="desc">Maximum exposure</div>
+                </div>
+                <div class="meals-badge">
+                    <div class="icon">🍽️</div>
+                    <div class="count">25</div>
+                    <div class="label">meals/month</div>
+                </div>
+                <div class="card-body">
+                    <ul class="feature-list">
+                        <li><span class="check">✓</span> Everything in Pro</li>
+                        <li><span class="check">✓</span> Featured badge</li>
+                        <li><span class="check">✓</span> Top placement</li>
+                        <li><span class="check">✓</span> Appointment widget</li>
+                        <li><span class="check">✓</span> Newsletter feature</li>
+                        <li><span class="check">✓</span> Postcard listing</li>
+                        <li><span class="check">✓</span> Write reviews form</li>
+                    </ul>
+                </div>
+                <div class="card-cta">
+                    <a href="/upgrade/?tier=pro_plus" class="btn red">Go Pro+</a>
+                </div>
+            </div>
+            
+            <!-- Sponsor -->
+            <div class="pricing-card">
+                <div class="card-header">
+                    <h2>Sponsor</h2>
+                    <div class="price">$349<span>/mo</span></div>
+                    <div class="desc">Full media package</div>
+                </div>
+                <div class="meals-badge">
+                    <div class="icon">🍽️</div>
+                    <div class="count">50</div>
+                    <div class="label">meals/month</div>
+                </div>
+                <div class="card-body">
+                    <ul class="feature-list">
+                        <li><span class="check">✓</span> Everything in Pro+</li>
+                        <li><span class="check">✓</span> Newsletter ad banner</li>
+                        <li><span class="check">✓</span> Postcard ad spot</li>
+                        <li><span class="check">✓</span> Homepage banner</li>
+                        <li><span class="check">✓</span> Top search priority</li>
+                    </ul>
+                </div>
+                <div class="card-cta">
+                    <a href="/upgrade/?tier=sponsor" class="btn">Become a Sponsor</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- What is Membership -->
+        <div class="what-is-section">
+            <h2>What's This Membership Thing?</h2>
+            
+            <div class="glocal-box">
+                <h3>🎯 The Glocal Pitch</h3>
+                <p>We're not your average business directory. We're a glocal movement — think globally, feed locally. Every TLN membership helps provide meals to families right here in Waxhaw and surrounding areas. So yeah, you get a kickass profile page, but you're also feeding your neighbors. That's pretty cool, right?</p>
+            </div>
+            
+            <div class="compare-grid">
+                <div class="compare-col">
+                    <h4>Other Directories:</h4>
+                    <ul>
+                        <li class="bad">✘ You pay to list your business</li>
+                        <li class="bad">✘ They keep all the money</li>
+                        <li class="bad">✘ Just a glorified phone book</li>
+                        <li class="bad">✘ Zero community impact</li>
+                        <li class="bad">✘ Boring. Just boring.</li>
+                    </ul>
+                </div>
+                <div class="compare-col">
+                    <h4>The Local NearBuy:</h4>
+                    <ul>
+                        <li class="good">✓ You pay — and it FEEDS FAMILIES</li>
+                        <li class="good">✓ You get real leads & offers</li>
+                        <li class="good">✓ A whole community behind you</li>
+                        <li class="good">✓ Every member provides meals</li>
+                        <li class="good">✓ We're fun. We're different.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="impact-box">
+                <h3>🍽️ Here's the Deal</h3>
+                <p>Pro members provide 10 meals/month. Pro+ provides 25. Sponsors provide 50. That's X families fed every single month — because of members like you. That's the glocal difference.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
