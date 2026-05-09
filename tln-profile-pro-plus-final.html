@@ -1,238 +1,285 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JGL Repair LLC - Pro+ Profile | The Local NearBuy</title>
+    <title>Automotive Repair & Service - Pro+ Profile | The Local NearBuy</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Open Sans', sans-serif; background: #fff; color: #1a1a1a; }
-        
         :root { --red: #e63946; --black: #1a1a1a; }
         
-        /* Header */
-        .page-header { background: var(--black); color: white; padding: 0.75rem 2rem; font-size: 0.8rem; }
+        .hero { position: relative; height: 280px; background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=1200'); background-size: cover; background-position: center; }
         
-        /* Hero */
-        .hero { background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=1200'); background-size: cover; background-position: center; height: 280px; position: relative; }
-        .hero-content { position: absolute; bottom: 1.5rem; left: 2rem; right: 2rem; display: flex; align-items: flex-end; gap: 1.5rem; }
-        .profile-img { width: 120px; height: 120px; border-radius: 50%; border: 4px solid white; object-fit: cover; }
-        .profile-info h1 { font-size: 2rem; margin-bottom: 0.25rem; color: white; }
-        .profile-info .badges { display: flex; gap: 0.5rem; }
+        .biz-info { position: absolute; bottom: 1.5rem; left: 2rem; right: 2rem; }
+        .biz-name { font-size: 2.5rem; font-weight: 700; color: white; margin-bottom: 0.25rem; }
+        .biz-address { font-size: 1.1rem; color: white; }
+        .badges { display: flex; gap: 0.5rem; margin-top: 0.5rem; flex-wrap: wrap; }
         .badge { background: var(--red); color: white; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
+        .badge.verified { background: #22c55e; }
+        .badge.featured { background: #fbbf24; color: var(--black); }
         
         /* Tabs */
-        .tabs { background: #f5f5f5; border-bottom: 1px solid #ddd; padding: 0 2rem; }
-        .tab-list { display: flex; list-style: none; gap: 0; }
-        .tab-list li { padding: 1rem 1.5rem; cursor: pointer; font-weight: 600; color: #666; border-bottom: 3px solid transparent; }
+        .tabs { background: #f5f5f5; border-bottom: 1px solid #ddd; padding: 0 2rem; display: flex; }
+        .tab-list { display: flex; list-style: none; gap: 0; overflow-x: auto; }
+        .tab-list li { padding: 1rem 1.5rem; cursor: pointer; font-weight: 600; color: #666; border-bottom: 3px solid transparent; white-space: nowrap; }
         .tab-list li.active { color: var(--red); border-bottom-color: var(--red); }
+        .tab-list li.has-offers { position: relative; }
+        .tab-list li.has-offers::after { content: ''; position: absolute; top: 0.75rem; right: 0.5rem; width: 8px; height: 8px; background: var(--red); border-radius: 50%; }
         
-        /* Two Column Layout */
-        .content-wrapper { display: grid; grid-template-columns: 320px 1fr; gap: 2rem; max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
         
-        /* Left Sidebar */
-        .sidebar { display: flex; flex-direction: column; gap: 1.5rem; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; display: grid; grid-template-columns: 320px 1fr; gap: 2rem; }
+        
+        .left-col, .right-col { display: flex; flex-direction: column; gap: 1.5rem; }
         
         .card { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 1.25rem; }
-        .card h3 { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.5px; color: #666; margin-bottom: 1rem; border-bottom: 1px solid #eee; padding-bottom: 0.5rem; }
+        .card-title { font-size: 1rem; font-weight: 700; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #eee; }
         
-        .contact-form input, .contact-form textarea { width: 100%; padding: 0.6rem; margin-bottom: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 0.9rem; }
-        .contact-form button { width: 100%; background: var(--red); color: white; border: none; padding: 0.75rem; border-radius: 4px; font-weight: 600; cursor: pointer; }
+        .hours-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #f0f0f0; font-size: 0.9rem; }
+        .hours-row:last-child { border-bottom: none; }
         
-        .contact-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0; font-size: 0.9rem; }
-        .contact-item a { color: var(--red); text-decoration: none; }
+        .contact-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0; }
+        .contact-item a { color: var(--red); text-decoration: none; font-weight: 600; }
         
-        .social-links { display: flex; gap: 0.75rem; }
-        .social-link { width: 32px; height: 32px; background: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; }
+        .map-box { background: #f5f5f5; height: 200px; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #666; }
         
-        .ad-space { background: #f5f5f5; border: 2px dashed #ccc; padding: 2rem; text-align: center; color: #999; font-size: 0.85rem; }
+        .offer-card { background: #f8f8f8; border: 2px solid var(--black); border-radius: 8px; padding: 1.25rem; margin-bottom: 1rem; position: relative; }
+        .offer-card h4 { font-size: 1rem; margin-bottom: 0.5rem; }
+        .offer-card p { font-size: 0.85rem; color: #555; margin-bottom: 0.75rem; }
+        .offer-card .expiry { position: absolute; top: 0.75rem; right: 0.75rem; background: var(--red); color: white; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.7rem; font-weight: 600; }
+        .offer-card .redeem-btn { display: block; width: 100%; padding: 0.6rem; background: var(--red); color: white; text-align: center; border-radius: 4px; font-weight: 600; font-size: 0.9rem; border: none; cursor: pointer; }
         
-        /* Main Content */
-        .main-content { display: flex; flex-direction: column; gap: 1.5rem; }
+        .impact-box { background: linear-gradient(135deg, var(--red), #c1121f); color: white; padding: 1rem; border-radius: 8px; display: flex; align-items: center; gap: 0.75rem; }
+        .impact-icon { font-size: 1.5rem; }
         
-        .offers-banner { background: var(--red); color: white; padding: 1.5rem; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; }
-        .offers-banner h2 { font-size: 1.25rem; }
-        .offers-banner p { opacity: 0.9; }
-        .offer-code { background: white; color: var(--red); padding: 0.5rem 1rem; border-radius: 4px; font-weight: 700; font-family: monospace; }
+        .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+        .gallery-grid img { width: 100%; height: 120px; object-fit: cover; border-radius: 4px; }
         
-        .section-card { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 1.5rem; }
-        .section-card h3 { font-size: 1.1rem; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #eee; }
+        .review-form { background: #f8f8f8; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; }
+        .review-form label { display: block; font-weight: 600; margin-bottom: 0.5rem; }
+        .review-form input, .review-form textarea { width: 100%; padding: 0.6rem; margin-bottom: 0.75rem; border: 1px solid #ddd; border-radius: 4px; }
+        .review-form button { background: var(--red); color: white; border: none; padding: 0.6rem 1.25rem; border-radius: 4px; font-weight: 600; cursor: pointer; }
         
-        .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-        .detail-item { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #f5f5f5; font-size: 0.9rem; }
+        .rating-stars { color: var(--red); font-size: 1.25rem; letter-spacing: 2px; cursor: pointer; }
         
-        .services-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
-        .services-list li { background: #f5f5f5; padding: 0.5rem 0.75rem; border-radius: 4px; font-size: 0.85rem; }
-        
-        .map-container { background: #f5f5f5; height: 200px; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #999; }
-        
-        .score-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; text-align: center; }
-        .score-item { background: #f5f5f5; padding: 1rem; border-radius: 8px; }
-        .score-num { font-size: 1.5rem; font-weight: 700; color: var(--red); }
-        .score-label { font-size: 0.7rem; text-transform: uppercase; color: #666; }
-        
-        .review-item { border-bottom: 1px solid #eee; padding: 1rem 0; }
+        .review-item { padding: 0.75rem 0; border-bottom: 1px solid #eee; }
         .review-item:last-child { border-bottom: none; }
-        .reviewer { font-weight: 600; font-size: 0.9rem; }
-        .review-stars { color: var(--red); font-size: 0.8rem; margin: 0.25rem 0; }
-        .review-text { color: #555; font-size: 0.9rem; }
+        .reviewer { font-weight: 700; font-size: 0.95rem; }
+        .review-date { font-size: 0.8rem; color: #999; }
+        .review-text { color: #555; font-size: 0.9rem; margin-top: 0.25rem; }
         
-        .impact-box { background: linear-gradient(135deg, var(--red), #c1121f); color: white; padding: 1.5rem; border-radius: 8px; display: flex; align-items: center; gap: 1rem; }
-        .impact-icon { font-size: 2.5rem; }
-        .impact-text h4 { font-size: 1.1rem; margin-bottom: 0.25rem; }
-        .impact-text p { font-size: 0.85rem; opacity: 0.95; }
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+        .service-btn { background: #f5f5f5; border: 1px solid #ddd; padding: 0.6rem 0.5rem; border-radius: 4px; font-size: 0.8rem; text-align: center; }
         
-        @media(max-width: 900px) {
-            .content-wrapper { grid-template-columns: 1fr; }
-            .tab-list { overflow-x: auto; }
-            .details-grid, .services-list, .score-grid { grid-template-columns: 1fr 1fr; }
+        .appointment-embed { background: #f8f8f8; padding: 2rem; border-radius: 8px; text-align: center; color: #999; }
+        
+        .ad-space { background: #f5f5f5; border: 2px dashed #ccc; padding: 1.5rem; text-align: center; color: #999; font-size: 0.8rem; border-radius: 8px; }
+        
+        /* Modal */
+        .modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); align-items: center; justify-content: center; z-index: 1000; }
+        .modal.show { display: flex; }
+        .modal-content { background: white; padding: 2rem; border-radius: 12px; max-width: 400px; width: 90%; }
+        .modal-content h3 { margin-bottom: 1rem; }
+        .modal-content input { width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 4px; }
+        .modal-content button { padding: 0.75rem 1.5rem; border: none; border-radius: 4px; font-weight: 600; cursor: pointer; }
+        .modal-content .submit-btn { background: var(--red); color: white; }
+        .modal-content .cancel-btn { background: #ddd; margin-left: 0.5rem; }
+        
+        @media(max-width: 800px) {
+            .container { grid-template-columns: 1fr; }
+            .services-grid, .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+            .biz-name { font-size: 1.75rem; }
         }
     </style>
 </head>
 <body>
-    <div class="page-header">The Local NearBuy — Greater Waxhaw Region</div>
-    
     <div class="hero">
-        <div class="hero-content">
-            <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300" class="profile-img" alt="JGL Repair">
-            <div class="profile-info">
-                <h1>JGL Repair LLC</h1>
-                <div class="badges">
-                    <span class="badge">Pro+ Partner</span>
-                    <span class="badge" style="background:#FABC06;color:#1a1a1a;">Featured</span>
-                </div>
+        <div class="biz-info">
+            <div class="biz-name">Automotive Repair & Service</div>
+            <div class="biz-address">2300 E Providence Dr, Charlotte, NC 28270</div>
+            <div class="badges">
+                <span class="badge verified">✓ Verified</span>
+                <span class="badge">Pro+ Partner</span>
+                <span class="badge featured">★ Featured</span>
             </div>
         </div>
     </div>
     
+    <!-- Tabs -->
     <div class="tabs">
         <ul class="tab-list">
-            <li class="active">Overview</li>
-            <li>Offers</li>
-            <li>Gallery</li>
-            <li>Reviews</li>
-            <li>About</li>
+            <li class="active" data-tab="overview">Overview</li>
+            <li class="has-offers" data-tab="offers">Offers</li>
+            <li data-tab="gallery">Gallery</li>
+            <li data-tab="reviews">Reviews</li>
+            <li data-tab="about">About</li>
+            <li data-tab="appointment">Book Now</li>
         </ul>
     </div>
     
-    <div class="content-wrapper">
-        <!-- Left Sidebar -->
-        <div class="sidebar">
+    <div class="container">
+        <div class="left-col">
             <div class="card">
-                <h3>Send a Message</h3>
-                <form class="contact-form">
-                    <input type="text" placeholder="Your Name">
-                    <input type="email" placeholder="Your Email">
-                    <textarea rows="3" placeholder="Your Message"></textarea>
-                    <button type="submit">Send Message</button>
-                </form>
+                <div class="card-title">Hours</div>
+                <div class="hours-row"><span>Monday - Friday</span><span>7am - 6pm</span></div>
+                <div class="hours-row"><span>Saturday</span><span>8am - 12pm</span></div>
+                <div class="hours-row"><span>Sunday</span><span>Closed</span></div>
             </div>
             
             <div class="card">
-                <h3>Contact</h3>
-                <div class="contact-item">📞 <a href="tel:7045550182">(704) 555-0182</a></div>
-                <div class="contact-item">📧 <a href="#">service@jglrepair.com</a></div>
-                <div class="contact-item">🌐 <a href="#">jglrepair.com</a></div>
-                <div style="margin-top:0.75rem;">
-                    <a href="#" style="color:var(--red);font-size:0.85rem;">Get Directions →</a>
-                </div>
+                <div class="card-title">Contact</div>
+                <div class="contact-item"><a href="tel:7045550182">📞 (704) 555-0182</a></div>
+                <div class="contact-item"><a href="#">📧 Email</a></div>
+                <div class="contact-item"><a href="#">📍 Get Directions</a></div>
+                <div class="contact-item"><a href="#">🌐 Website</a></div>
             </div>
             
             <div class="card">
-                <h3>Follow</h3>
-                <div class="social-links">
-                    <span class="social-link">f</span>
-                    <span class="social-link">in</span>
-                    <span class="social-link">X</span>
-                </div>
+                <div class="card-title">Location</div>
+                <div class="map-box">[Google Map]</div>
             </div>
             
-            <div class="card">
-                <h3>Share</h3>
-                <div style="display:flex;gap:0.5rem;">
-                    <span class="social-link" style="background:var(--red);color:white;">Share</span>
-                </div>
+            <div class="impact-box">
+                <span class="impact-icon">🍽️</span>
+                <span><strong>847 Meals</strong> provided to local families</span>
             </div>
             
-            <div class="ad-space">
-                Advertisement<br><small>Your Ad Here</small>
-            </div>
+            <div class="ad-space">Advertisement<br><small>Your Ad Here</small></div>
         </div>
         
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Impact -->
-            <div class="impact-box">
-                <div class="impact-icon">🍽️</div>
-                <div class="impact-text">
-                    <h4>847 Meals Provided</h4>
-                    <p>A portion of every service helps feed local families.</p>
+        <div class="right-col">
+            <!-- Overview Tab -->
+            <div class="tab-content active" id="overview">
+                <div class="card">
+                    <div class="card-title">Special Offer</div>
+                    <div class="offer-card">
+                        <h4>15% Off Any Service</h4>
+                        <p>Free multi-point inspection. Can't combine with other offers.</p>
+                        <button class="redeem-btn" onclick="showRedeemModal()">Redeem Offer</button>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-title">Services</div>
+                    <div class="services-grid">
+                        <div class="service-btn">Engine Diagnostics</div>
+                        <div class="service-btn">Brake Service</div>
+                        <div class="service-btn">Oil Changes</div>
+                        <div class="service-btn">Tire Services</div>
+                        <div class="service-btn">A/C Repair</div>
+                        <div class="service-btn">Transmission</div>
+                    </div>
                 </div>
             </div>
             
-            <!-- Offers -->
-            <div class="offers-banner">
-                <div>
-                    <h2>Special Offer</h2>
-                    <p>Show this page to your server</p>
-                </div>
-                <div class="offer-code">JGLPRO15</div>
-            </div>
-            
-            <div class="section-card">
-                <h3>Company Details</h3>
-                <div class="details-grid">
-                    <div class="detail-item"><span>Category</span><span>Auto Repair</span></div>
-                    <div class="detail-item"><span>Location</span><span>Charlotte, NC</span></div>
-                    <div class="detail-item"><span>Established</span><span>2015</span></div>
-                    <div class="detail-item"><span>Employees</span><span>5</span></div>
-                </div>
-            </div>
-            
-            <div class="section-card">
-                <h3>Services</h3>
-                <ul class="services-list">
-                    <li>Engine Diagnostics</li>
-                    <li>Brake Service</li>
-                    <li>Oil Changes</li>
-                    <li>Tire Services</li>
-                    <li>A/C Repair</li>
-                    <li>Transmission</li>
-                </ul>
-            </div>
-            
-            <div class="section-card">
-                <h3>Location</h3>
-                <div class="map-container">
-                    [Google Map]
+            <!-- Offers Tab -->
+            <div class="tab-content" id="offers">
+                <div class="card">
+                    <div class="card-title">Available Offers</div>
+                    <div class="offer-card">
+                        <span class="expiry">Expires 12/31/2026</span>
+                        <h4>15% Off Any Service</h4>
+                        <p>Valid on all services over $50.</p>
+                        <button class="redeem-btn" onclick="showRedeemModal()">Redeem Offer</button>
+                    </div>
+                    <div class="offer-card">
+                        <span class="expiry">Expires 06/30/2026</span>
+                        <h4>Free Loaner Car</h4>
+                        <p>While your car is being serviced.</p>
+                        <button class="redeem-btn" onclick="showRedeemModal()">Redeem Offer</button>
+                    </div>
                 </div>
             </div>
             
-            <div class="section-card">
-                <h3>Neighborhood Score</h3>
-                <div class="score-grid">
-                    <div class="score-item"><div class="score-num">4.8</div><div class="score-label">Quality</div></div>
-                    <div class="score-item"><div class="score-num">4.6</div><div class="score-label">Value</div></div>
-                    <div class="score-item"><div class="score-num">4.9</div><div class="score-label">Service</div></div>
-                    <div class="score-item"><div class="score-num">4.7</div><div class="score-label">Overall</div></div>
+            <!-- Gallery Tab -->
+            <div class="tab-content" id="gallery">
+                <div class="card">
+                    <div class="card-title">Photo Gallery</div>
+                    <div class="gallery-grid">
+                        <img src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=300" alt="Shop">
+                        <img src="https://images.unsplash.com/photo-1517524008697-84bbe3c3fd98?w=300" alt="Team">
+                        <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=300" alt="Garage">
+                    </div>
                 </div>
             </div>
             
-            <div class="section-card">
-                <h3>Reviews</h3>
-                <div class="review-item">
-                    <div class="reviewer">Mike T.</div>
-                    <div class="review-stars">★★★★★</div>
-                    <div class="review-text">Best mechanic in the area. Honest and reliable.</div>
+            <!-- Reviews Tab -->
+            <div class="tab-content" id="reviews">
+                <div class="card">
+                    <div class="card-title">Write a Review</div>
+                    <form class="review-form">
+                        <label>Your Rating</label>
+                        <div class="rating-stars" onclick="setRating(1)">📍📍📍📍📍</div>
+                        <input type="text" placeholder="Your Name">
+                        <input type="email" placeholder="Your Email">
+                        <textarea rows="3" placeholder="Share your experience..."></textarea>
+                        <button type="button">Submit Review</button>
+                    </form>
                 </div>
-                <div class="review-item">
-                    <div class="reviewer">Sarah L.</div>
-                    <div class="review-stars">★★★★★</div>
-                    <div class="review-text">Fixed my car same day. Highly recommend!</div>
+                
+                <div class="card">
+                    <div class="card-title">Neighborhood Reviews</div>
+                    <div class="review-item">
+                        <div class="reviewer">Mike T. <span class="rating-stars">📍📍📍📍📍</span></div>
+                        <div class="review-date">May 5, 2026</div>
+                        <div class="review-text">Best mechanic in the area.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- About Tab -->
+            <div class="tab-content" id="about">
+                <div class="card">
+                    <div class="card-title">About</div>
+                    <p style="line-height:1.7;color:#555;">Serving the Charlotte area for over 10 years with quality auto repair services. We believe in honest pricing and keeping customers informed every step of the way.</p>
+                </div>
+            </div>
+            
+            <!-- Appointment Tab -->
+            <div class="tab-content" id="appointment">
+                <div class="card">
+                    <div class="card-title">Make an Appointment</div>
+                    <div class="appointment-embed">[Paste your Calendly/Square/Acuity code here]</div>
                 </div>
             </div>
         </div>
     </div>
+    
+    <!-- Redeem Modal -->
+    <div class="modal" id="redeemModal">
+        <div class="modal-content">
+            <h3>Redeem Your Offer</h3>
+            <input type="text" placeholder="Your Name" id="redeemName">
+            <input type="email" placeholder="Your Email" id="redeemEmail">
+            <button class="submit-btn" onclick="submitRedeem()">Get Voucher</button>
+            <button class="cancel-btn" onclick="closeRedeemModal()">Cancel</button>
+        </div>
+    </div>
+    
+    <script>
+        document.querySelectorAll('.tab-list li').forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                document.querySelectorAll('.tab-list li').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+        
+        function showRedeemModal() { document.getElementById('redeemModal').classList.add('show'); }
+        function closeRedeemModal() { document.getElementById('redeemModal').classList.remove('show'); }
+        function submitRedeem() {
+            const name = document.getElementById('redeemName').value;
+            const email = document.getElementById('redeemEmail').value;
+            if(name && email) {
+                alert('Voucher sent to ' + email + '!');
+                closeRedeemModal();
+            } else { alert('Please enter your name and email.'); }
+        }
+    </script>
 </body>
 </html>
