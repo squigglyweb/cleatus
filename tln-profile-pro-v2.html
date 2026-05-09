@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Automotive Repair & Service - Pro Profile | The Local NearBuy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; background: #fff; color: #1a1a1a; }
+        :root { --red: #e63946; --black: #1a1a1a; }
+        
+        .hero { position: relative; height: 280px; background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=1200'); background-size: cover; background-position: center; }
+        
+        .biz-info { position: absolute; bottom: 1.5rem; left: 2rem; right: 2rem; }
+        .biz-name { font-size: 2.5rem; font-weight: 700; color: white; margin-bottom: 0.25rem; }
+        .biz-address { font-size: 1.1rem; color: white; }
+        .badges { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+        .badge { background: var(--red); color: white; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
+        .badge.verified { background: #22c55e; }
+        
+        .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; display: grid; grid-template-columns: 320px 1fr; gap: 2rem; }
+        
+        .left-col, .right-col { display: flex; flex-direction: column; gap: 1.5rem; }
+        
+        .card { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 1.25rem; }
+        .card-title { font-size: 1rem; font-weight: 700; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #eee; }
+        
+        .hours-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #f0f0f0; font-size: 0.9rem; }
+        .hours-row:last-child { border-bottom: none; }
+        
+        .contact-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0; }
+        .contact-item a { color: var(--red); text-decoration: none; font-weight: 600; }
+        
+        .map-box { background: #f5f5f5; height: 200px; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #666; }
+        
+        .offer-banner { background: #f8f8f8; border: 2px solid var(--red); border-radius: 8px; padding: 1.25rem; }
+        .offer-banner h4 { color: var(--red); font-size: 1rem; margin-bottom: 0.5rem; }
+        .offer-banner p { font-size: 0.9rem; color: #555; }
+        
+        .impact-box { background: linear-gradient(135deg, var(--red), #c1121f); color: white; padding: 1rem; border-radius: 8px; display: flex; align-items: center; gap: 0.75rem; }
+        .impact-icon { font-size: 1.5rem; }
+        
+        .review-item { padding: 0.75rem 0; border-bottom: 1px solid #eee; }
+        .review-item:last-child { border-bottom: none; }
+        .reviewer { font-weight: 700; font-size: 0.95rem; }
+        .review-stars { color: #fbbf24; font-size: 0.85rem; margin: 0.25rem 0; }
+        .review-text { color: #555; font-size: 0.9rem; }
+        .see-all { color: var(--red); font-size: 0.85rem; font-weight: 600; margin-top: 0.75rem; display: block; }
+        
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+        .service-btn { background: #f5f5f5; border: 1px solid #ddd; padding: 0.6rem 0.5rem; border-radius: 4px; font-size: 0.8rem; text-align: center; }
+        .service-btn:hover { background: #eee; border-color: var(--red); }
+        
+        .ad-space { background: #f5f5f5; border: 2px dashed #ccc; padding: 1.5rem; text-align: center; color: #999; font-size: 0.8rem; border-radius: 8px; }
+        
+        @media(max-width: 800px) {
+            .container { grid-template-columns: 1fr; }
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            .biz-name { font-size: 1.75rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <div class="biz-info">
+            <div class="biz-name">Automotive Repair & Service</div>
+            <div class="biz-address">2300 E Providence Dr, Charlotte, NC 28270</div>
+            <div class="badges">
+                <span class="badge verified">✓ Verified</span>
+                <span class="badge">Pro Partner</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="left-col">
+            <div class="card">
+                <div class="card-title">Hours</div>
+                <div class="hours-row"><span>Monday - Friday</span><span>7am - 6pm</span></div>
+                <div class="hours-row"><span>Saturday</span><span>8am - 12pm</span></div>
+                <div class="hours-row"><span>Sunday</span><span>Closed</span></div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Contact</div>
+                <div class="contact-item"><a href="tel:7045550182">📞 (704) 555-0182</a></div>
+                <div class="contact-item"><a href="#">📍 Get Directions</a></div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Location</div>
+                <div class="map-box">[Google Map]</div>
+            </div>
+            
+            <div class="impact-box">
+                <span class="impact-icon">🍽️</span>
+                <span><strong>847 Meals</strong> provided to local families</span>
+            </div>
+            
+            <div class="ad-space">Advertisement<br><small>Your Ad Here</small></div>
+        </div>
+        
+        <div class="right-col">
+            <div class="card">
+                <div class="card-title">Special Offer</div>
+                <div class="offer-banner">
+                    <h4>15% Off Any Service</h4>
+                    <p>Free multi-point inspection with any service. Can't combine with other offers.</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Google Reviews</div>
+                <div class="review-item">
+                    <div class="reviewer">Mike T.</div>
+                    <div class="review-stars">★★★★★</div>
+                    <div class="review-text">Best mechanic in the area. Honest, reliable, and fair prices.</div>
+                </div>
+                <div class="review-item">
+                    <div class="reviewer">Sarah L.</div>
+                    <div class="review-stars">★★★★★</div>
+                    <div class="review-text">Fixed my car same day. Highly recommend!</div>
+                </div>
+                <a href="#" class="see-all">See all 28 Google Reviews →</a>
+            </div>
+            
+            <div class="card">
+                <div class="card-title">Services</div>
+                <div class="services-grid">
+                    <div class="service-btn">Engine Diagnostics</div>
+                    <div class="service-btn">Brake Service</div>
+                    <div class="service-btn">Oil Changes</div>
+                    <div class="service-btn">Tire Services</div>
+                    <div class="service-btn">A/C Repair</div>
+                    <div class="service-btn">Transmission</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
