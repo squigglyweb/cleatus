@@ -12,21 +12,23 @@
         
         .header { background: var(--black); color: white; padding: 1rem 2rem; text-align: center; }
         
-        .container { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem; }
+        .container { max-width: 950px; margin: 2rem auto; padding: 0 1.5rem; }
         
         h1 { font-size: 2rem; margin-bottom: 0.5rem; }
         .subtitle { color: #666; margin-bottom: 2rem; }
         
         .service-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
         
-        .service-card { border: 2px solid #ddd; border-radius: 12px; padding: 1.5rem; text-align: center; cursor: pointer; transition: all 0.2s; }
+        .service-card { border: 2px solid #ddd; border-radius: 12px; padding: 1.5rem; text-align: center; cursor: pointer; transition: all 0.2s; position: relative; }
         .service-card:hover { border-color: var(--red); }
         .service-card.selected { border-color: var(--red); background: #fdf5f5; }
         
-        .service-card h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
-        .service-card .price { font-size: 2rem; font-weight: 700; color: var(--red); margin-bottom: 0.5rem; }
-        .service-card .price span { font-size: 1rem; color: #666; }
-        .service-card .desc { font-size: 0.9rem; color: #666; }
+        .service-card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .service-card .price { font-size: 1.75rem; font-weight: 700; color: var(--red); margin-bottom: 0.5rem; }
+        .service-card .price span { font-size: 0.9rem; color: #666; }
+        .service-card .desc { font-size: 0.85rem; color: #666; }
+        
+        .service-card .info-link { color: var(--red); font-size: 0.8rem; font-weight: 600; text-decoration: underline; cursor: pointer; }
         
         .form-section { background: #f8f8f8; padding: 2rem; border-radius: 12px; }
         .form-section h2 { margin-bottom: 1.5rem; }
@@ -39,8 +41,15 @@
         .btn { display: inline-block; width: 100%; padding: 1rem; background: var(--red); color: white; text-align: center; border: none; border-radius: 8px; font-weight: 700; font-size: 1.1rem; cursor: pointer; }
         
         .hidden { display: none; }
-        
         .success-box { background: #d4edda; border: 1px solid #28a745; padding: 2rem; border-radius: 8px; text-align: center; }
+        
+        /* Modal */
+        .modal { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.7); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+        .modal-content { background: white; padding: 2rem; border-radius: 12px; max-width: 500px; width: 90%; max-height: 80vh; overflow-y: auto; }
+        .modal h2 { color: var(--red); margin-bottom: 1rem; }
+        .modal ul { margin: 1rem 0; padding-left: 1.5rem; }
+        .modal li { margin-bottom: 0.5rem; }
+        .modal .close-btn { background: var(--black); color: white; padding: 0.75rem 1.5rem; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; margin-top: 1rem; }
         
         @media(max-width: 700px) { .service-grid, .form-grid { grid-template-columns: 1fr; } }
     </style>
@@ -59,37 +68,43 @@
             <div class="service-card" onclick="selectService('directory', 29)">
                 <h3>Directory Listing</h3>
                 <div class="price">$29<span>/mo</span></div>
-                <div class="desc">Just your business in our searchable directory with map location.</div>
+                <div class="desc">Your business in our searchable directory.</div>
             </div>
             
             <div class="service-card" onclick="selectService('profile', 49)">
                 <h3>Profile Page</h3>
                 <div class="price">$49<span>/mo</span></div>
-                <div class="desc">Your own dedicated page with photo gallery and business details.</div>
+                <div class="desc">Dedicated page with gallery and details.</div>
             </div>
             
             <div class="service-card" onclick="selectService('seo', 150)">
                 <h3>SEO Audit</h3>
                 <div class="price">$150<span> one-time</span></div>
-                <div class="desc">Complete website audit with recommendations to improve your Google rankings.</div>
+                <div class="desc">Complete website audit and recommendations.</div>
             </div>
             
-            <div class="service-card" onclick="selectService('gbp', 200)">
+            <div class="service-card" onclick="selectService('gbp_setup', 200)">
                 <h3>GBP Setup</h3>
                 <div class="price">$200<span> one-time</span></div>
-                <div class="desc">Full setup and optimization of your Google Business Profile.</div>
+                <div class="desc">Full Google Business Profile setup.</div>
             </div>
             
             <div class="service-card" onclick="selectService('logo', 100)">
                 <h3>Logo Design</h3>
                 <div class="price">$100<span> one-time</span></div>
-                <div class="desc">Professional logo designed specifically for your business.</div>
+                <div class="desc">Professional logo for your business.</div>
             </div>
             
             <div class="service-card" onclick="selectService('graphics', 75)">
                 <h3>Social Graphics</h3>
                 <div class="price">$75<span> one-time</span></div>
-                <div class="desc">5 custom social media posts ready to share.</div>
+                <div class="desc">5 custom social media posts.</div>
+            </div>
+            
+            <div class="service-card" onclick="selectService('gbp_enhance', 1000)" style="grid-column:span 3;">
+                <h3>Google Business Profile Enhancement</h3>
+                <div class="price">$1,000<span>/mo</span></div>
+                <div class="desc">Done-for-you GBP management. <span class="info-link" onclick="showGbpDetails(event)">What's included?</span></div>
             </div>
         </div>
         
@@ -133,13 +148,45 @@
         </div>
     </div>
     
+    <!-- GBP Details Modal -->
+    <div class="modal hidden" id="gbpModal">
+        <div class="modal-content">
+            <h2>GB Profile Enhancement — $1,000/mo</h2>
+            <p>We've got your Google Business Profile covered. Here's what you get:</p>
+            
+            <ul>
+                <li><strong>Weekly Posts</strong> — 4 engaging posts per month highlighting your services, offers, and updates</li>
+                <li><strong>Photo Management</strong> — 15-20 fresh photos uploaded monthly to keep your profile active</li>
+                <li><strong>Review Monitoring</strong> — We watch for new reviews and respond within 24 hours</li>
+                <li><strong>Review Acquisition</strong> — We reach out to happy customers to encourage 5-star reviews</li>
+                <li><strong>Q&A Management</strong> — We monitor and answer questions people ask</li>
+                <li><strong>Info Accuracy</strong> — Keep your hours, services, and details up to date</li>
+                <li><strong>Competitor Monitoring</strong> — See how you stack up against similar businesses</li>
+                <li><strong>Monthly Reports</strong> — See views, clicks, and review trends</li>
+            </ul>
+            
+            <p style="font-weight:700;color:var(--red);">This is a "done-for-you" service. You don't lift a finger.</p>
+            
+            <button class="close-btn" onclick="closeModal()">Got It</button>
+        </div>
+    </div>
+    
     <script>
         let selectedService = null;
         
         function selectService(service, price) {
             document.querySelectorAll('.service-card').forEach(c => c.classList.remove('selected'));
-            event.currentTarget.classList.add('selected');
+            event.currentTarget.closest('.service-card').classList.add('selected');
             selectedService = service + ' - $' + price;
+        }
+        
+        function showGbpDetails(e) {
+            e.stopPropagation();
+            document.getElementById('gbpModal').classList.remove('hidden');
+        }
+        
+        function closeModal() {
+            document.getElementById('gbpModal').classList.add('hidden');
         }
         
         function submitService() {
