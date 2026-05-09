@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Claim Your Business | The Local NearBuy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; background: #fff; color: #1a1a1a; }
+        :root { --red: #e63946; --black: #1a1a1a; }
+        
+        .header { background: var(--black); color: white; padding: 1rem 2rem; text-align: center; }
+        .header .logo { font-size: 1.5rem; font-weight: 700; }
+        
+        .container { max-width: 700px; margin: 2rem auto; padding: 0 1rem; }
+        
+        h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .subtitle { color: #666; margin-bottom: 2rem; }
+        
+        .step { background: white; border: 2px solid #ddd; border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; }
+        .step h2 { font-size: 1.25rem; margin-bottom: 1rem; border-bottom: 1px solid #eee; padding-bottom: 0.5rem; }
+        
+        .form-group { margin-bottom: 1.25rem; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 0.5rem; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem; }
+        
+        .tier-select { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+        .tier-option { border: 2px solid #ddd; border-radius: 8px; padding: 1rem; cursor: pointer; text-align: center; transition: all 0.2s; }
+        .tier-option:hover { border-color: var(--red); }
+        .tier-option.selected { border-color: var(--red); background: #fdf5f5; }
+        .tier-option .price { font-size: 1.5rem; font-weight: 700; color: var(--red); }
+        .tier-option .name { font-weight: 700; margin-bottom: 0.25rem; }
+        .tier-option .feats { font-size: 0.85rem; color: #666; }
+        
+        .btn { display: inline-block; width: 100%; padding: 1rem; background: var(--red); color: white; text-align: center; border: none; border-radius: 8px; font-weight: 700; font-size: 1.1rem; cursor: pointer; }
+        
+        .hidden { display: none; }
+        
+        .success-box { background: #d4edda; border: 1px solid #28a745; padding: 1.5rem; border-radius: 8px; text-align: center; }
+        .success-box h3 { color: #28a745; margin-bottom: 0.5rem; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">The Local NearBuy</div>
+    </div>
+    
+    <div class="container">
+        <h1>Claim Your Business</h1>
+        <p class="subtitle">Own this listing? Claim it to manage your profile, add offers, and grow your business.</p>
+        
+        <!-- Step 1: Verify Business -->
+        <div class="step">
+            <h2>Step 1: Verify Your Business</h2>
+            <div class="form-group">
+                <label>Business Name</label>
+                <input type="text" placeholder="Start typing your business name..." id="bizSearch">
+            </div>
+            <div class="form-group">
+                <label>Select from directory</label>
+                <select id="bizSelect">
+                    <option value="">Type to search...</option>
+                    <option value="1">XYZ Repair - 2300 E Providence Dr</option>
+                    <option value="2">Taco Town - 123 Main St</option>
+                    <option value="3">NOMA Salon - 456 Oak Ave</option>
+                </select>
+            </div>
+        </div>
+        
+        <!-- Step 2: Choose Plan -->
+        <div class="step">
+            <h2>Step 2: Choose Your Plan</h2>
+            <p style="margin-bottom:1rem;font-size:0.9rem;color:#666;">Select the membership level that works for you.</p>
+            
+            <div class="tier-select">
+                <div class="tier-option" onclick="selectTier('pro', 99)">
+                    <div class="name">Pro</div>
+                    <div class="price">$99<span>/mo</span></div>
+                    <div class="feats">Profile + Offers + Gallery</div>
+                </div>
+                <div class="tier-option" onclick="selectTier('pro_plus', 199)">
+                    <div class="name">Pro+</div>
+                    <div class="price">$199<span>/mo</span></div>
+                    <div class="feats">Everything + Featured + Booking</div>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label><input type="checkbox" id="gbpAddOn"> Add Google Business Profile Enhancement ($1,000/mo)</label>
+            </div>
+        </div>
+        
+        <!-- Step 3: Contact Info -->
+        <div class="step">
+            <h2>Step 3: Your Contact Info</h2>
+            <div class="form-group">
+                <label>Your Name *</label>
+                <input type="text" placeholder="Full name">
+            </div>
+            <div class="form-group">
+                <label>Email *</label>
+                <input type="email" placeholder="your@email.com">
+            </div>
+            <div class="form-group">
+                <label>Phone</label>
+                <input type="tel" placeholder="(704) 555-0000">
+            </div>
+        </div>
+        
+        <!-- Step 4: Payment -->
+        <div class="step">
+            <h2>Step 4: Payment</h2>
+            <div class="form-group">
+                <label>Card Number</label>
+                <input type="text" placeholder="4242 4242 4242 4242">
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+                <div class="form-group">
+                    <label>Expiry</label>
+                    <input type="text" placeholder="MM/YY">
+                </div>
+                <div class="form-group">
+                    <label>CVC</label>
+                    <input type="text" placeholder="123">
+                </div>
+            </div>
+        </div>
+        
+        <button class="btn" onclick="submitClaim()">Submit Claim</button>
+        
+        <!-- Success (hidden initially) -->
+        <div class="success-box hidden" id="successMsg">
+            <h3>Thank You!</h3>
+            <p>Your claim has been submitted. We'll review and get back to you within 24 hours.</p>
+        </div>
+    </div>
+    
+    <script>
+        let selectedTier = null;
+        
+        function selectTier(tier, price) {
+            document.querySelectorAll('.tier-option').forEach(o => o.classList.remove('selected'));
+            event.currentTarget.classList.add('selected');
+            selectedTier = tier;
+        }
+        
+        function submitClaim() {
+            if(!selectedTier) {
+                alert('Please select a plan');
+                return;
+            }
+            document.getElementById('successMsg').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
