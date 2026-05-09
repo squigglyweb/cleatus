@@ -367,6 +367,24 @@
         }
         
         function showRedeemModal() {
+            document.getElementById("redeemEmailModal").style.display = "block";
+        }
+        
+        function confirmRedeem() {
+            const email = document.getElementById("redeemEmail").value;
+            if (!email || !email.includes("@")) {
+                alert("Please enter a valid email address.");
+                return;
+            }
+            document.getElementById("redeemEmailModal").style.display = "none";
+            alert("Offer redeemed! Show this message at the business.");
+        }
+        
+        function closeRedeemModal() {
+            document.getElementById("redeemEmailModal").style.display = "none";
+        }
+        
+        function showRedeemModalORIG() {
             alert('Offer redeemed! Show this at the business.');
         }
     </script>
