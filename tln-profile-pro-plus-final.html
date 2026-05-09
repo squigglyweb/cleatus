@@ -269,10 +269,10 @@
             <!-- Gallery Tab -->
             <div class="tab-content" id="gallery">
                 <div class="gallery-grid">
-                    <img src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=200">
-                    <img src="https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?w=200">
-                    <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=200">
-                    <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=200">
+                    <img src="https://images.unsplash.com onclick="openLightbox(this.src)" style="cursor:pointer;"/photo-1487754180451-c456f719a1fc?w=200">
+                    <img src="https://images.unsplash.com onclick="openLightbox(this.src)" style="cursor:pointer;"/photo-1530046339160-ce3e530c7d2f?w=200">
+                    <img src="https://images.unsplash.com onclick="openLightbox(this.src)" style="cursor:pointer;"/photo-1619642751034-765dfdf7c58e?w=200">
+                    <img src="https://images.unsplash.com onclick="openLightbox(this.src)" style="cursor:pointer;"/photo-1486262715619-67b85e0b08d3?w=200">
                 </div>
             </div>
             
@@ -399,6 +399,21 @@
             <button onclick="confirmRedeem()" class="redeem-btn" style="width:100%;">Get Code</button>
             <button onclick="closeRedeemModal()" style="background:none;border:none;color:#666;margin-top:0.75rem;cursor:pointer;">Cancel</button>
         </div>
+    </div>
+    
+<script>
+        function openLightbox(imgSrc) {
+            document.getElementById("lightboxImg").src = imgSrc;
+            document.getElementById("lightboxModal").style.display = "flex";
+        }
+        function closeLightbox() {
+            document.getElementById("lightboxModal").style.display = "none";
+        }
+    </script>
+    
+    <div id="lightboxModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.9);z-index:2000;align-items:center;justify-content:center;cursor:pointer;" onclick="closeLightbox()">
+        <img id="lightboxImg" style="max-width:90%;max-height:90%;border-radius:8px;"><br>
+        <span style="position:absolute;top:20px;right:30px;color:white;font-size:2rem;cursor:pointer;">&times;</span>
     </div>
     
 </body>
