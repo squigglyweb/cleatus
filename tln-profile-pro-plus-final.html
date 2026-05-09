@@ -388,5 +388,16 @@
             alert('Offer redeemed! Show this at the business.');
         }
     </script>
+<!-- Email Capture Modal -->
+    <div id="redeemEmailModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:1000;">
+        <div style="background:white;padding:2rem;border-radius:12px;max-width:400px;width:90%;text-align:center;">
+            <h3 style="color:var(--red);margin-bottom:1rem;">Redeem Offer</h3>
+            <p style="color:#666;margin-bottom:1rem;">Enter your email to receive your redemption code.</p>
+            <input type="email" id="redeemEmail" placeholder="your@email.com" style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;margin-bottom:1rem;">
+            <button onclick="confirmRedeem()" class="redeem-btn" style="width:100%;">Get Code</button>
+            <button onclick="closeRedeemModal()" style="background:none;border:none;color:#666;margin-top:0.75rem;cursor:pointer;">Cancel</button>
+        </div>
+    </div>
+    
 </body>
 </html>
