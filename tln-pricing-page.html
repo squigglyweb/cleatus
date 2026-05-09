@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pricing | The Local NearBuy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; background: #fff; color: #1a1a1a; line-height: 1.6; }
+        :root { --red: #e63946; --black: #1a1a1a; }
+        
+        .tln-header { background: var(--black); color: white; padding: 1rem 2rem; text-align: center; }
+        .tln-header .logo { font-size: 1.5rem; font-weight: 700; }
+        
+        .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1rem; }
+        
+        h1 { font-size: 2.5rem; text-align: center; margin-bottom: 0.5rem; }
+        .subtitle { text-align: center; color: #666; font-size: 1.1rem; margin-bottom: 2.5rem; }
+        
+        /* Pricing Table */
+        .pricing-grid { 
+            display: grid; 
+            grid-template-columns: repeat(4, 1fr); 
+            gap: 1.5rem; 
+            margin-bottom: 3rem; 
+        }
+        
+        .pricing-card { 
+            background: white; 
+            border: 2px solid #ddd; 
+            border-radius: 12px; 
+            padding: 0; 
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .pricing-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+        
+        .pricing-card.featured { border-color: var(--red); position: relative; }
+        .pricing-card.featured::before { 
+            content: 'BEST VALUE'; 
+            position: absolute; top: 0; left: 0; right: 0;
+            background: var(--red); color: white;
+            font-size: 0.7rem; font-weight: 700; padding: 0.4rem;
+            text-align: center; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .featured .card-body { padding-top: 2.5rem; }
+        
+        .card-header { padding: 1.5rem; text-align: center; border-bottom: 1px solid #eee; }
+        .card-header h2 { font-size: 1.5rem; margin-bottom: 0.25rem; }
+        .card-header .price { font-size: 2.5rem; font-weight: 700; color: var(--red); }
+        .card-header .price span { font-size: 1rem; color: #666; font-weight: 400; }
+        .card-header .desc { color: #666; font-size: 0.9rem; }
+        
+        .card-body { padding: 1.5rem; }
+        
+        .feature-list { list-style: none; }
+        .feature-list li { 
+            padding: 0.6rem 0; 
+            border-bottom: 1px solid #f5f5f5; 
+            font-size: 0.9rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.5rem;
+        }
+        .feature-list li:last-child { border-bottom: none; }
+        .feature-list li .check { color: var(--red); font-weight: 700; }
+        .feature-list li .cross { color: #ccc; }
+        
+        .card-cta { padding: 1.5rem; text-align: center; background: #f8f8f8; }
+        .btn { 
+            display: inline-block; width: 100%; padding: 0.9rem; 
+            background: var(--black); color: white; 
+            text-decoration: none; border-radius: 8px; 
+            font-weight: 700; text-align: center;
+            transition: background 0.2s;
+        }
+        .btn:hover { background: #333; }
+        .btn.red { background: var(--red); }
+        .btn.red:hover { background: #c1121f; }
+        
+        /* Feature Explanations */
+        .feature-explanations { margin-top: 3rem; }
+        .feature-explanations h2 { font-size: 1.75rem; margin-bottom: 1.5rem; text-align: center; }
+        
+        .exp-section { margin-bottom: 2rem; }
+        .exp-section h3 { font-size: 1.2rem; color: var(--red); margin-bottom: 0.5rem; }
+        .exp-section p { color: #555; font-size: 0.95rem; }
+        
+        /* Mobile Responsive */
+        @media(max-width: 900px) {
+            .pricing-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        
+        @media(max-width: 600px) {
+            h1 { font-size: 1.75rem; }
+            .pricing-grid { grid-template-columns: 1fr; }
+            .pricing-card.featured::before { font-size: 0.65rem; }
+            .card-header .price { font-size: 2rem; }
+            .feature-list li { font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="tln-header">
+        <div class="logo">The Local NearBuy</div>
+    </div>
+    
+    <div class="container">
+        <h1>Membership Plans</h1>
+        <p class="subtitle">Choose the level that's right for your business</p>
+        
+        <!-- Pricing Grid -->
+        <div class="pricing-grid">
+            <!-- Free -->
+            <div class="pricing-card">
+                <div class="card-header">
+                    <h2>Free</h2>
+                    <div class="price">$0<span>/mo</span></div>
+                    <div class="desc">Basic listing</div>
+                </div>
+                <div class="card-body">
+                    <ul class="feature-list">
+                        <li><span class="check">✓</span> Directory listing</li>
+                        <li><span class="check">✓</span> Google data (auto-updated)</li>
+                        <li><span class="check">✓</span> Map location</li>
+                        <li><span class="check">✓</span> Google reviews shown</li>
+                        <li><span class="check">✓</span> Save to favorites</li>
+                        <li><span class="cross">—</span> No custom offers</li>
+                        <li><span class="cross">—</span> No photos/gallery</li>
+                        <li><span class="cross">—</span> No priority placement</li>
+                    </ul>
+                </div>
+                <div class="card-cta">
+                    <a href="/claim/" class="btn">Claim Free Listing</a>
+                </div>
+            </div>
+            
+            <!-- Pro -->
+            <div class="pricing-card">
+                <div class="card-header">
+                    <h2>Pro</h2>
+                    <div class="price">$99<span>/mo</span></div>
+                    <div class="desc">For growing businesses</div>
+                </div>
+                <div class="card-body">
+                    <ul class="feature-list">
+                        <li><span class="check">✓</span> Everything in Free</li>
+                        <li><span class="check">✓</span> Custom profile page</li>
+                        <li><span class="check">✓</span> Unlimited offers</li>
+                        <li><span class="check">✓</span> Photo gallery</li>
+                        <li><span class="check">✓</span> Video embed</li>
+                        <li><span class="check">✓</span> Logo upload</li>
+                        <li><span class="check">✓</span> "Pro Partner" badge</li>
+                        <li><span class="check">✓</span> Higher placement</li>
+                        <li><span class="check">✓</span> Lead capture form</li>
+                        <li><span class="check">✓</span> Meals counter</li>
+                    </ul>
+                </div>
+                <div class="card-cta">
+                    <a href="/upgrade/?tier=pro" class="btn">Upgrade to Pro</a>
+                </div>
+            </div>
+            
+            <!-- Pro+ -->
+            <div class="pricing-card featured">
+                <div class="card-header">
+                    <h2>Pro+</h2>
+                    <div class="price">$199<span>/mo</span></div>
+                    <div class="desc">Maximum exposure</div>
+                </div>
+                <div class="card-body">
+                    <ul class="feature-list">
+                        <li><span class="check">✓</span> Everything in Pro</li>
+                        <li><span class="check">✓</span> Featured badge</li>
+                        <li><span class="check">✓</span> Top placement</li>
+                        <li><span class="check">✓</span> Appointment widget</li>
+                        <li><span class="check">✓</span> Newsletter feature</li>
+                        <li><span class="check">✓</span> Postcard listing</li>
+                        <li><span class="check">✓</span> Write reviews form</li>
+                        <li><span class="check">✓</span> Priority support</li>
+                    </ul>
+                </div>
+                <div class="card-cta">
+                    <a href="/upgrade/?tier=pro_plus" class="btn red">Go Pro+</a>
+                </div>
+            </div>
+            
+            <!-- Sponsor -->
+            <div class="pricing-card">
+                <div class="card-header">
+                    <h2>Sponsor</h2>
+                    <div class="price">$349<span>/mo</span></div>
+                    <div class="desc">Full media package</div>
+                </div>
+                <div class="card-body">
+                    <ul class="feature-list">
+                        <li><span class="check">✓</span> Everything in Pro+</li>
+                        <li><span class="check">✓</span> Newsletter ad banner</li>
+                        <li><span class="check">✓</span> Postcard ad spot</li>
+                        <li><span class="check">✓</span> Homepage banner</li>
+                        <li><span class="check">✓</span> Top search priority</li>
+                        <li><span class="check">✓</span> Custom campaigns</li>
+                    </ul>
+                </div>
+                <div class="card-cta">
+                    <a href="/upgrade/?tier=sponsor" class="btn">Become a Sponsor</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Feature Explanations -->
+        <div class="feature-explanations">
+            <h2>What Each Feature Means</h2>
+            
+            <div class="exp-section">
+                <h3>Directory Listing</h3>
+                <p>Your business appears in our searchable directory when people look for services in Waxhaw and surrounding areas.</p>
+            </div>
+            
+            <div class="exp-section">
+                <h3>Custom Offers</h3>
+                <p>Create special deals for your neighbors — "15% off", "Free appetizer", etc. Pro members get unlimited offers. Free members get none.</p>
+            </div>
+            
+            <div class="exp-section">
+                <h3>Photo Gallery</h3>
+                <p>Upload your own photos to showcase your business, team, and services. Makes your listing stand out.</p>
+            </div>
+            
+            <div class="exp-section">
+                <h3>Video Embed</h3>
+                <p>Add a YouTube or Vimeo video — a virtual tour, welcome message, or service explanation.</p>
+            </div>
+            
+            <div class="exp-section">
+                <h3>Priority Placement</h3>
+                <p>Pro+ and Sponsor businesses appear at the top of search results. Free and Pro show lower down. Being first means more clicks.</p>
+            </div>
+            
+            <div class="exp-section">
+                <h3>Appointment Widget</h3>
+                <p>Paste your Calendly, Square, Acuity, or Vagaro booking link directly on your profile. Customers can book instantly.</p>
+            </div>
+            
+            <div class="exp-section">
+                <h3>Newsletter Feature</h3>
+                <p>Get mentioned in our weekly email to thousands of local neighbors. Pro+ members get a feature; Sponsors get an ad banner.</p>
+            </div>
+            
+            <div class="exp-section">
+                <h3>Postcard Campaign</h3>
+                <p>We include your offer on our monthly postcard mailer. Pro+ gets a listing; Sponsors get a full ad spot.</p>
+            </div>
+            
+            <div class="exp-section">
+                <h3>Lead Capture Form</h3>
+                <p>When someone fills out the "Send a Message" form on your profile, it goes straight to you via email.</p>
+            </div>
+            
+            <div class="exp-section">
+                <h3>Meals Counter</h3>
+                <p>Show how many meals your business has provided to local families through our hunger relief program.</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
