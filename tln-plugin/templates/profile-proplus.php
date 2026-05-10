@@ -46,20 +46,28 @@ $is_pro = in_array($tier, ['pro', 'proplus', 'sponsor']);
     .score-box { background: #f8f8f8; border: 2px solid var(--red); border-radius: 8px; padding: 1.25rem; text-align: center; }
     .score-box h3 { font-size: 0.9rem; color: #666; margin-bottom: 0.5rem; }
     .score-display { font-size: 2.5rem; font-weight: 700; color: var(--red); }
+    .hours-pill { padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; display: inline-block; }
+    .hours-pill.open { background: #28a745; color: white; }
+    .hours-pill.closed { background: #dc3545; color: white; }
+    .hours-pill.closing-soon { background: #ffc107; color: #333; }
     .hours-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #f0f0f0; font-size: 0.9rem; }
     .contact-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0; }
+    .contact-item a { color: var(--red); text-decoration: none; font-weight: 600; }
     .impact-box { background: var(--red); color: white; border-radius: 8px; padding: 1rem; display: flex; align-items: center; gap: 0.75rem; }
     .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 2px solid #eee; }
     .tab-btn { background: none; border: none; padding: 0.75rem 1rem; font-weight: 600; color: #666; cursor: pointer; border-bottom: 3px solid transparent; }
     .tab-btn.active { color: var(--red); border-bottom-color: var(--red); }
     .tab-content { display: none; }
     .tab-content.active { display: block; }
-    .offer-card { background: #fff8e5; border: 1px solid #ffc107; border-radius: 8px; padding: 1rem; }
+    .offer-card { background: #fff8e5; border: 1px solid #ffc107; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
     .offer-card h4 { color: #856404; margin-bottom: 0.5rem; }
     .offer-card p { font-size: 0.85rem; color: #666; margin-bottom: 0.75rem; }
     .redeem-btn { background: var(--red); color: white; border: none; padding: 0.5rem 1rem; border-radius: 4px; font-weight: 600; cursor: pointer; }
     .directions-btn { display: block; width: 100%; background: var(--red); color: white; padding: 0.75rem; border-radius: 6px; text-align: center; font-weight: 600; text-decoration: none; margin-top: 0.5rem; }
-    @media(max-width: 800px) { .container { grid-template-columns: 1fr; } }
+    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+    .service-btn { background: #f5f5f5; border: 1px solid #ddd; padding: 0.6rem 0.5rem; border-radius: 4px; font-size: 0.8rem; text-align: center; }
+    .map-box { background: #f5f5f5; height: 250px; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #666; }
+    @media(max-width: 800px) { .container { grid-template-columns: 1fr; } .services-grid { grid-template-columns: repeat(2, 1fr); } }
 </style>
 
 <div style="position:absolute;top:1rem;right:1rem;z-index:10;">
@@ -74,24 +82,34 @@ $is_pro = in_array($tier, ['pro', 'proplus', 'sponsor']);
             <?php if ($is_verified): ?><span class="badge-pill badge-verified">Verified</span><?php endif; ?>
         </div>
         <div class="biz-name"><?php echo esc_html($business->post_title); ?></div>
-        <div class="biz-address"><?php echo esc_html($city.', '.$state); ?></div>
+        <div class="biz-address"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:18px;"> <?php echo esc_html($city.', '.$state); ?></div>
     </div>
 </div>
 
 <div class="container">
     <div class="left-col">
+        <!-- TLN Neighborhood Score -->
         <div class="score-box">
             <h3>TLN Neighborhood Score</h3>
             <div class="score-display"><?php echo esc_html($tln_score ?: '4.5'); ?> <span style="font-size:1rem;color:#666;font-weight:400;">/ 5</span></div>
             <p style="font-size:0.8rem;color:#666;margin-top:0.25rem;">Based on TLN reviews</p>
+            <button onclick="showTab('reviews'); document.querySelectorAll('.tab-btn')[3].click();" style="background:var(--red);color:white;border:none;padding:0.5rem 1rem;border-radius:4px;font-weight:600;cursor:pointer;margin-top:0.5rem;width:100%;">Write a Review</button>
         </div>
+        
+        <!-- Google Rating -->
         <div class="score-box" style="border-color:#4285f4;">
             <h3>Google Rating</h3>
             <div class="score-display" style="color:#4285f4;"><?php echo esc_html($google_rating ?: '4.0'); ?> <span style="font-size:1rem;color:#666;font-weight:400;">/ 5</span></div>
             <p style="font-size:0.8rem;color:#666;margin-top:0.25rem;">Based on Google reviews</p>
+            <button onclick="window.open('https://search.google.com/local/writereview?placeid=YOUR_PLACE_ID','_blank')" style="background:#4285f4;color:white;border:none;padding:0.5rem 1rem;border-radius:4px;font-weight:600;cursor:pointer;margin-top:0.5rem;width:100%;">Leave Google Review</button>
         </div>
+        
+        <!-- Hours -->
         <div class="card">
-            <div class="card-title">Hours</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+                <span class="card-title" style="margin:0;padding:0;border:none;">Hours</span>
+                <span id="hoursStatus" class="hours-pill">Loading...</span>
+            </div>
             <div class="hours-row"><span>Mon</span><span><?php echo esc_html($hours[0]); ?></span></div>
             <div class="hours-row"><span>Tue</span><span><?php echo esc_html($hours[1]); ?></span></div>
             <div class="hours-row"><span>Wed</span><span><?php echo esc_html($hours[2]); ?></span></div>
@@ -100,15 +118,19 @@ $is_pro = in_array($tier, ['pro', 'proplus', 'sponsor']);
             <div class="hours-row"><span>Sat</span><span><?php echo esc_html($hours[5]); ?></span></div>
             <div class="hours-row"><span>Sun</span><span><?php echo esc_html($hours[6]); ?></span></div>
         </div>
+        
+        <!-- Contact -->
         <div class="card">
             <div class="card-title">Contact</div>
-            <div class="contact-item"><?php echo esc_html($phone); ?></div>
-            <div class="contact-item"><?php echo esc_html($email); ?></div>
-            <a href="#" class="directions-btn">Get Directions</a>
+            <div class="contact-item"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/call.png" style="height:18px;"> <a href="tel:<?php echo esc_attr($phone); ?>"><?php echo esc_html($phone); ?></a></div>
+            <div class="contact-item"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/email.png" style="height:18px;"> <a href="mailto:<?php echo esc_attr($email); ?>"><?php echo esc_html($email); ?></a></div>
+            <a href="https://maps.google.com/?q=<?php echo urlencode($address.' '.$city.' '.$state.' '.$zip); ?>" class="directions-btn" target="_blank"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/location-pin.png" style="height:18px;margin-right:0.5rem;"> Get Directions</a>
         </div>
+        
         <?php if ($meals_count): ?>
         <div class="impact-box">
-            <strong><?php echo esc_html($meals_count); ?></strong> Meals provided to local families
+            <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/white-utensils.png" style="height:28px;">
+            <span><strong><?php echo esc_html($meals_count); ?></strong> Meals provided to local families</span>
         </div>
         <?php endif; ?>
     </div>
@@ -123,62 +145,114 @@ $is_pro = in_array($tier, ['pro', 'proplus', 'sponsor']);
             <button class="tab-btn" onclick="showTab('contact')">Contact</button>
         </div>
         
+        <!-- Overview Tab -->
         <div id="overview" class="tab-content active">
             <div class="card">
                 <div class="card-title">Special Offer</div>
                 <div class="offer-card">
                     <h4>15% Off Any Service</h4>
                     <p>Free multi-point inspection. Can't combine with other offers.</p>
-                    <button class="redeem-btn" onclick="alert('Enter email to redeem')">Redeem Offer</button>
+                    <button class="redeem-btn" onclick="showRedeemModal()">Redeem Offer</button>
                 </div>
             </div>
             <div class="card">
                 <div class="card-title">Services</div>
-                <p>Engine Diagnostics, Brake Service, Oil Change, Tire Rotation, Air Conditioning, Transmission</p>
+                <div class="services-grid">
+                    <div class="service-btn">Engine Diagnostics</div>
+                    <div class="service-btn">Brake Service</div>
+                    <div class="service-btn">Oil Change</div>
+                    <div class="service-btn">Tire Rotation</div>
+                    <div class="service-btn">Air Conditioning</div>
+                    <div class="service-btn">Transmission</div>
+                </div>
             </div>
             <div class="card">
                 <div class="card-title">Location</div>
-                <div style="background:#f5f5f5;height:200px;display:flex;align-items:center;justify-content:center;color:#666;">[Google Map]</div>
+                <div class="map-box">[Google Map]</div>
             </div>
         </div>
         
+        <!-- Offers Tab -->
         <div id="offers" class="tab-content">
             <div class="card">
                 <div class="offer-card">
                     <h4>15% Off Any Service</h4>
-                    <p>Valid on all services over $50.</p>
+                    <p>Valid on all services over $50. Expires 12/31/2026.</p>
                     <button class="redeem-btn">Redeem Offer</button>
                 </div>
             </div>
         </div>
         
+        <!-- Gallery Tab -->
         <div id="gallery" class="tab-content">
             <div class="card">
                 <div class="card-title">Photo Gallery</div>
-                <p>No photos uploaded yet.</p>
+                <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;">
+                    <img src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=200" style="width:100%;height:100px;object-fit:cover;border-radius:4px;">
+                    <img src="https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?w=200" style="width:100%;height:100px;object-fit:cover;border-radius:4px;">
+                    <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=200" style="width:100%;height:100px;object-fit:cover;border-radius:4px;">
+                    <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=200" style="width:100%;height:100px;object-fit:cover;border-radius:4px;">
+                </div>
             </div>
         </div>
         
+        <!-- Reviews Tab -->
         <div id="reviews" class="tab-content">
             <div class="card">
                 <div class="card-title">Write a Review</div>
-                <p>Rate this business using the TLN Neighborhood Score.</p>
+                <p style="font-size:0.9rem;color:#666;margin-bottom:0.5rem;">Rate this business:</p>
+                <div style="display:flex;gap:0.25rem;margin:1rem 0;">
+                    <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:32px;opacity:0.3;cursor:pointer;" onclick="setRating(1)">
+                    <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:32px;opacity:0.3;cursor:pointer;" onclick="setRating(2)">
+                    <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:32px;opacity:0.3;cursor:pointer;" onclick="setRating(3)">
+                    <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:32px;opacity:0.3;cursor:pointer;" onclick="setRating(4)">
+                    <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:32px;opacity:0.3;cursor:pointer;" onclick="setRating(5)">
+                </div>
+                <textarea placeholder="Share your experience..." style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;margin:1rem 0;"></textarea>
+                <button class="redeem-btn" onclick="alert('Thank you! Your review has been submitted.')">Submit Review</button>
+            </div>
+            <div class="card" style="margin-top:1rem;">
+                <div class="card-title">TLN Reviews</div>
+                <div style="padding:0.75rem 0;border-bottom:1px solid #eee;">
+                    <div style="font-weight:700;">Mike T.</div>
+                    <div style="color:var(--red);">Score: 5</div>
+                    <div style="color:#555;">Great service!</div>
+                </div>
             </div>
         </div>
         
+        <!-- About Tab -->
         <div id="about" class="tab-content">
             <div class="card">
-                <div class="card-title">About</div>
+                <div class="card-title">About <?php echo esc_html($business->post_title); ?></div>
                 <p><?php echo $business->post_content ?: 'No description added yet.'; ?></p>
             </div>
         </div>
         
+        <!-- Contact Tab -->
         <div id="contact" class="tab-content">
             <div class="card">
                 <div class="card-title">Send a Message</div>
-                <p>Contact form coming soon.</p>
+                <div style="background:#f8f8f8;padding:1.5rem;border-radius:8px;">
+                    <input type="text" placeholder="Your Name" style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;margin-bottom:0.75rem;">
+                    <input type="email" placeholder="Your Email" style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;margin-bottom:0.75rem;">
+                    <input type="tel" placeholder="Your Phone" style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;margin-bottom:0.75rem;">
+                    <textarea rows="4" placeholder="Your message..." style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;margin-bottom:0.75rem;"></textarea>
+                    <button class="redeem-btn" onclick="alert('Message sent!')">Send Message</button>
+                </div>
             </div>
         </div>
+    </div>
+</div>
+
+<!-- Redeem Modal -->
+<div id="redeemEmailModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);align-items:center;justify-content:center;z-index:1000;">
+    <div style="background:white;padding:2rem;border-radius:12px;max-width:400px;width:90%;text-align:center;">
+        <h3 style="color:var(--red);margin-bottom:1rem;">Redeem Offer</h3>
+        <p style="color:#666;margin-bottom:1rem;">Enter your email to receive your redemption code.</p>
+        <input type="email" id="redeemEmail" placeholder="your@email.com" style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;margin-bottom:1rem;">
+        <button onclick="confirmRedeem()" style="background:var(--red);color:white;border:none;padding:0.75rem;width:100%;border-radius:6px;font-weight:600;cursor:pointer;">Get Code</button>
+        <button onclick="document.getElementById('redeemEmailModal').style.display='none'" style="background:none;border:none;color:#666;margin-top:0.75rem;cursor:pointer;">Cancel</button>
     </div>
 </div>
 
@@ -189,6 +263,56 @@ function showTab(tabId) {
     document.getElementById(tabId).classList.add('active');
     event.target.classList.add('active');
 }
+
+function showRedeemModal() {
+    document.getElementById('redeemEmailModal').style.display = 'flex';
+}
+
+function confirmRedeem() {
+    var email = document.getElementById('redeemEmail').value;
+    if (!email || !email.includes('@')) {
+        alert('Please enter a valid email address.');
+        return;
+    }
+    document.getElementById('redeemEmailModal').style.display = 'none';
+    alert('Offer redeemed! Show this message at the business.');
+}
+
+function setRating(num) {
+    alert('Thank you! You left a score of ' + num + '.');
+}
+
+// Hours status
+(function() {
+    var now = new Date();
+    var day = now.getDay();
+    var hour = now.getHours();
+    var isOpen = false;
+    var closingSoon = false;
+    
+    if (day >= 1 && day <= 5) {
+        if (hour >= 7 && hour < 18) {
+            isOpen = true;
+            if (hour === 16 || hour === 17) closingSoon = true;
+        }
+    } else if (day === 6) {
+        if (hour >= 8 && hour < 14) {
+            isOpen = true;
+            if (hour === 13) closingSoon = true;
+        }
+    }
+    
+    var el = document.getElementById('hoursStatus');
+    if (el) {
+        if (isOpen) {
+            el.innerHTML = closingSoon ? 'Closing Soon' : 'Open';
+            el.className = 'hours-pill ' + (closingSoon ? 'closing-soon' : 'open');
+        } else {
+            el.innerHTML = 'Closed';
+            el.className = 'hours-pill closed';
+        }
+    }
+})();
 </script>
 
 <?php get_footer(); ?>
