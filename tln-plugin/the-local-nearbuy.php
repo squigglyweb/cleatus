@@ -26,7 +26,7 @@ function tln_register_business_post_type() {
         'public' => true,
         'has_archive' => false,
         'show_in_nav_menus' => true,
-        'rewrite' => false,
+        'rewrite' => true,
         'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields'),
         'menu_icon' => 'dashicons-store',
         'menu_position' => 20,
