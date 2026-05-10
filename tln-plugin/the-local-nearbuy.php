@@ -26,7 +26,7 @@ function tln_register_business_post_type() {
         'public' => true,
         'has_archive' => false,
         'show_in_nav_menus' => true,
-        'rewrite' => array('slug' => '%business_category%', 'with_front' => false),
+        'rewrite' => array('slug' => 'business', 'with_front' => false),
         'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields'),
         'menu_icon' => 'dashicons-store',
         'menu_position' => 20,
@@ -140,9 +140,6 @@ function tln_business_template($template) {
 add_filter('template_include', 'tln_business_template', 99);
 
 // Add rewrite rules for pretty URLs
-function tln_business_rewrite_rules() {
-    add_rewrite_rule('^([^/]+)/?$', 'index.php?tln_business=$matches[1]', 'top');
-}
 add_action('init', 'tln_business_rewrite_rules');
 
 // Handle query var
