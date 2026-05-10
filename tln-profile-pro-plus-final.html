@@ -176,11 +176,11 @@
                     <div class="card-title">Write a Review</div>
                     <p style="font-size:0.9rem;color:#666;margin-bottom:0.5rem;">Rate this business:</p>
                     <div style="display:flex;gap:0.25rem;margin:1rem 0;">
-                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:32px;opacity:1;cursor:pointer;">
-                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:32px;opacity:1;cursor:pointer;">
-                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:32px;opacity:1;cursor:pointer;">
-                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:32px;opacity:1;cursor:pointer;">
-                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:32px;opacity:1;cursor:pointer;">
+                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="rating-pin" style="height:32px;opacity:0.3;cursor:pointer;">
+                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="rating-pin" style="height:32px;opacity:0.3;cursor:pointer;">
+                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="rating-pin" style="height:32px;opacity:0.3;cursor:pointer;">
+                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="rating-pin" style="height:32px;opacity:0.3;cursor:pointer;">
+                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="rating-pin" style="height:32px;opacity:0.3;cursor:pointer;">
                     </div>
                     <textarea placeholder="Share your experience..." style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;margin:1rem 0;"></textarea>
                     <button class="redeem-btn" onclick="alert('Thank you! You left a score of 4.'); document.querySelectorAll('.rating-pin').forEach(p => p.style.opacity = 0.3); document.querySelectorAll('.rating-pin')[/* placeholder */].forEach((p, i) => { if (i < 4) p.style.opacity = 1; });>Submit Review</button>
@@ -245,6 +245,18 @@
         var el = document.getElementById('hoursStatus');
         if (el) { el.innerHTML = isOpen ? (closingSoon ? 'Closing Soon' : 'Open') : 'Closed'; el.className = 'hours-pill ' + (isOpen ? (closingSoon ? 'closing-soon' : 'open') : 'closed'); }
         
+        function previewRating(num) {
+            var pins = document.querySelectorAll(".rating-pin");
+            pins.forEach(function(p, i) { p.style.opacity = (i < num) ? 1 : 0.3; });
+        }
+        function resetRating() {
+            var pins = document.querySelectorAll(".rating-pin");
+            pins.forEach(function(p) { p.style.opacity = 0.3; });
+        }
+        function setRating(num) {
+            alert("Thank you! You left a score of " + num + ".");
+            resetRating();
+        }
         function showRedeemModal() { document.getElementById('redeemEmailModal').style.display = 'flex'; }
         function confirmRedeem() {
             var email = document.getElementById('redeemEmail').value;
