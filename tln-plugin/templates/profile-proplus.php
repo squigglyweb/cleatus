@@ -74,7 +74,7 @@ $is_pro = in_array($tier, ['pro', 'proplus', 'sponsor']);
     <a href="/business-login" style="background:rgba(0,0,0,0.7);color:white;padding:0.5rem 1rem;border-radius:6px;text-decoration:none;font-size:0.85rem;font-weight:600;">Business Login</a>
 </div>
 
-<div class="hero">
+<div class="hero" style="background-image:url('https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=1200')">
     <div class="biz-info">
         <div class="badge-pills">
             <?php if ($is_pro): ?><span class="badge-pill badge-pro">Pro Business</span><?php endif; ?>
