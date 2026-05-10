@@ -52,7 +52,6 @@ function tln_business_meta_boxes() {
 add_action('add_meta_boxes', 'tln_business_meta_boxes');
 
 function tln_business_details_cb($post) {
-    $tier = get_post_meta($post->ID, 'tln_tier', true);
     $phone = get_post_meta($post->ID, 'tln_phone', true);
     $email = get_post_meta($post->ID, 'tln_email', true);
     $address = get_post_meta($post->ID, 'tln_address', true);
@@ -60,19 +59,10 @@ function tln_business_details_cb($post) {
     $state = get_post_meta($post->ID, 'tln_state', true);
     $zip = get_post_meta($post->ID, 'tln_zip', true);
     $website = get_post_meta($post->ID, 'tln_website', true);
-    $hours_mon = get_post_meta($post->ID, 'tln_hours_mon', true);
-    $hours_tue = get_post_meta($post->ID, 'tln_hours_tue', true);
-    $hours_wed = get_post_meta($post->ID, 'tln_hours_wed', true);
-    $hours_thu = get_post_meta($post->ID, 'tln_hours_thu', true);
-    $hours_fri = get_post_meta($post->ID, 'tln_hours_fri', true);
-    $hours_sat = get_post_meta($post->ID, 'tln_hours_sat', true);
-    $hours_sun = get_post_meta($post->ID, 'tln_hours_sun', true);
-    $google_place_id = get_post_meta($post->ID, 'tln_google_place_id', true);
     $google_rating = get_post_meta($post->ID, 'tln_google_rating', true);
     $tln_score = get_post_meta($post->ID, 'tln_neighborhood_score', true);
     $meals_count = get_post_meta($post->ID, 'tln_meals_count', true);
     
-    echo '<div class="tln-meta-grid">';
     echo '<p><label>Phone: <input type="text" name="tln_phone" value="'.esc_attr($phone).'" style="width:100%"></label></p>';
     echo '<p><label>Email: <input type="email" name="tln_email" value="'.esc_attr($email).'" style="width:100%"></label></p>';
     echo '<p><label>Address: <input type="text" name="tln_address" value="'.esc_attr($address).'" style="width:100%"></label></p>';
@@ -80,20 +70,17 @@ function tln_business_details_cb($post) {
     echo '<p><label>State: <input type="text" name="tln_state" value="'.esc_attr($state).'" style="width:100%"></label></p>';
     echo '<p><label>ZIP: <input type="text" name="tln_zip" value="'.esc_attr($zip).'" style="width:100%"></label></p>';
     echo '<p><label>Website: <input type="url" name="tln_website" value="'.esc_attr($website).'" style="width:100%"></label></p>';
-    echo '<p><label>Google Place ID: <input type="text" name="tln_google_place_id" value="'.esc_attr($google_place_id).'" style="width:100%"></label></p>';
-    echo '<hr><h4>Hours</h4>';
-    echo '<p><label>Mon: <input type="text" name="tln_hours_mon" value="'.esc_attr($hours_mon).'" placeholder="7:00 AM - 6:00 PM"></label></p>';
-    echo '<p><label>Tue: <input type="text" name="tln_hours_tue" value="'.esc_attr($hours_tue).'" placeholder="7:00 AM - 6:00 PM"></label></p>';
-    echo '<p><label>Wed: <input type="text" name="tln_hours_wed" value="'.esc_attr($hours_wed).'" placeholder="7:00 AM - 6:00 PM"></label></p>';
-    echo '<p><label>Thu: <input type="text" name="tln_hours_thu" value="'.esc_attr($hours_thu).'" placeholder="7:00 AM - 6:00 PM"></label></p>';
-    echo '<p><label>Fri: <input type="text" name="tln_hours_fri" value="'.esc_attr($hours_fri).'" placeholder="7:00 AM - 6:00 PM"></label></p>';
-    echo '<p><label>Sat: <input type="text" name="tln_hours_sat" value="'.esc_attr($hours_sat).'" placeholder="8:00 AM - 2:00 PM"></label></p>';
-    echo '<p><label>Sun: <input type="text" name="tln_hours_sun" value="'.esc_attr($hours_sun).'" placeholder="Closed"></label></p>';
-    echo '<hr><h4>Scores</h4>';
     echo '<p><label>Google Rating: <input type="text" name="tln_google_rating" value="'.esc_attr($google_rating).'" placeholder="4.5"></label></p>';
-    echo '<p><label>TLN Neighborhood Score: <input type="text" name="tln_neighborhood_score" value="'.esc_attr($tln_score).'" placeholder="4.8"></label></p>';
+    echo '<p><label>TLN Score: <input type="text" name="tln_neighborhood_score" value="'.esc_attr($tln_score).'" placeholder="4.8"></label></p>';
     echo '<p><label>Meals Provided: <input type="number" name="tln_meals_count" value="'.esc_attr($meals_count).'" placeholder="0"></label></p>';
-    echo '</div>';
+    echo '<hr><h4>Hours</h4>';
+    echo '<p><label>Mon: <input type="text" name="tln_hours_mon" value="'.esc_attr(get_post_meta($post->ID, 'tln_hours_mon', true)).'" placeholder="7:00 AM - 6:00 PM"></label></p>';
+    echo '<p><label>Tue: <input type="text" name="tln_hours_tue" value="'.esc_attr(get_post_meta($post->ID, 'tln_hours_tue', true)).'" placeholder="7:00 AM - 6:00 PM"></label></p>';
+    echo '<p><label>Wed: <input type="text" name="tln_hours_wed" value="'.esc_attr(get_post_meta($post->ID, 'tln_hours_wed', true)).'" placeholder="7:00 AM - 6:00 PM"></label></p>';
+    echo '<p><label>Thu: <input type="text" name="tln_hours_thu" value="'.esc_attr(get_post_meta($post->ID, 'tln_hours_thu', true)).'" placeholder="7:00 AM - 6:00 PM"></label></p>';
+    echo '<p><label>Fri: <input type="text" name="tln_hours_fri" value="'.esc_attr(get_post_meta($post->ID, 'tln_hours_fri', true)).'" placeholder="7:00 AM - 6:00 PM"></label></p>';
+    echo '<p><label>Sat: <input type="text" name="tln_hours_sat" value="'.esc_attr(get_post_meta($post->ID, 'tln_hours_sat', true)).'" placeholder="8:00 AM - 2:00 PM"></label></p>';
+    echo '<p><label>Sun: <input type="text" name="tln_hours_sun" value="'.esc_attr(get_post_meta($post->ID, 'tln_hours_sun', true)).'" placeholder="Closed"></label></p>';
 }
 
 function tln_business_tier_cb($post) {
@@ -106,12 +93,11 @@ function tln_business_tier_cb($post) {
     echo '</select>';
 }
 
-// Save meta box data
 function tln_save_business_meta($post_id) {
     if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
     if (!current_user_can('edit_post', $post_id)) return;
     
-    $fields = array('tln_tier', 'tln_phone', 'tln_email', 'tln_address', 'tln_city', 'tln_state', 'tln_zip', 'tln_website', 'tln_google_place_id', 'tln_google_rating', 'tln_neighborhood_score', 'tln_meals_count', 'tln_hours_mon', 'tln_hours_tue', 'tln_hours_wed', 'tln_hours_thu', 'tln_hours_fri', 'tln_hours_sat', 'tln_hours_sun');
+    $fields = array('tln_tier', 'tln_phone', 'tln_email', 'tln_address', 'tln_city', 'tln_state', 'tln_zip', 'tln_website', 'tln_google_rating', 'tln_neighborhood_score', 'tln_meals_count', 'tln_hours_mon', 'tln_hours_tue', 'tln_hours_wed', 'tln_hours_thu', 'tln_hours_fri', 'tln_hours_sat', 'tln_hours_sun');
     
     foreach ($fields as $field) {
         if (isset($_POST[$field])) {
@@ -121,30 +107,14 @@ function tln_save_business_meta($post_id) {
 }
 add_action('save_post', 'tln_save_business_meta');
 
-// Create business template based on tier
+// Use template based on tier
 function tln_business_template($template) {
     if (is_singular('tln_business')) {
         $tier = get_post_meta(get_the_ID(), 'tln_tier', true);
-        $custom_template = plugin_dir_path(__FILE__) . 'templates/profile-'.$tier.'.php';
-        if (file_exists($custom_template)) {
-            return $custom_template;
-        }
-        // Fallback to free template
-        $fallback_template = plugin_dir_path(__FILE__) . 'templates/profile-free.php';
-        if (file_exists($fallback_template)) {
-            return $fallback_template;
-        }
+        $custom = plugin_dir_path(__FILE__) . 'templates/profile-'.$tier.'.php';
+        if (file_exists($custom)) return $custom;
+        return plugin_dir_path(__FILE__) . 'templates/profile-proplus.php';
     }
     return $template;
 }
 add_filter('template_include', 'tln_business_template', 99);
-
-// Add rewrite rules for pretty URLs
-add_action('init', 'tln_business_rewrite_rules');
-
-// Handle query var
-function tln_business_query_vars($vars) {
-    $vars[] = 'tln_business';
-    return $vars;
-}
-add_filter('query_vars', 'tln_business_query_vars');
