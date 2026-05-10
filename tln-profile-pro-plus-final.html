@@ -31,7 +31,7 @@
         .score-display { font-size: 2.5rem; font-weight: 700; color: var(--red); }
         .score-display span { font-size: 1rem; color: #666; font-weight: 400; }
         
-        .hours-pill { padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; display: inline-block; }
+        .hours-pill { padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; }
         .hours-pill.open { background: #28a745; color: white; }
         .hours-pill.closed { background: #dc3545; color: white; }
         .hours-pill.closing-soon { background: #ffc107; color: #333; }
@@ -44,7 +44,7 @@
         .impact-box { background: var(--red); color: white; border-radius: 8px; padding: 1rem; display: flex; align-items: center; gap: 0.75rem; }
         .impact-box img { height: 28px; }
         
-        .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 2px solid #eee; overflow-x: visible; }
+        .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; border-bottom: 2px solid #eee; }
         .tab-btn { background: none; border: none; padding: 0.75rem 1rem; font-size: 0.9rem; font-weight: 600; color: #666; cursor: pointer; border-bottom: 3px solid transparent; margin-bottom: -2px; }
         .tab-btn.active { color: var(--red); border-bottom-color: var(--red); }
         
@@ -61,12 +61,11 @@
         
         .map-box { background: #f5f5f5; height: 250px; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #666; }
         
-        @media(max-width: 800px) { .container { grid-template-columns: 1fr; } .services-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media(max-width: 800px) { .container { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
     <div style="position:absolute;top:1rem;right:1rem;z-index:10;"><a href="#" style="background:rgba(0,0,0,0.7);color:white;padding:0.5rem 1rem;border-radius:6px;text-decoration:none;font-size:0.85rem;font-weight:600;">Business Login</a></div>
-    
     <div class="hero">
         <div class="biz-info">
             <div class="badge-pills">
@@ -81,23 +80,18 @@
     
     <div class="container">
         <div class="left-col">
-            <!-- TLN Neighborhood Score -->
             <div class="score-box">
                 <h3>TLN Neighborhood Score</h3>
                 <div class="score-display">4.8 <span>/ 5</span></div>
-                <button onclick="showTab('reviews')" style="background:var(--red);color:white;border:none;padding:0.5rem 1rem;border-radius:4px;font-weight:600;cursor:pointer;margin-top:0.5rem;width:100%;">Write a Review</button>
                 <p style="font-size:0.8rem;color:#666;margin-top:0.25rem;">Based on TLN reviews</p>
+                <button onclick="switchTab('reviews')" style="background:var(--red);color:white;border:none;padding:0.5rem 1rem;border-radius:4px;font-weight:600;cursor:pointer;margin-top:0.5rem;width:100%;">Write a Review</button>
             </div>
-            
-            <!-- Google Rating -->
             <div class="score-box" style="border-color:#4285f4;">
                 <h3>Google Rating</h3>
                 <div class="score-display" style="color:#4285f4;">4.5 <span>/ 5</span></div>
-                <button onclick="window.open('https://search.google.com/local/writereview?placeid=YOUR_PLACE_ID','_blank')" style="background:#4285f4;color:white;border:none;padding:0.5rem 1rem;border-radius:4px;font-weight:600;cursor:pointer;margin-top:0.5rem;width:100%;">Leave Google Review</button>
                 <p style="font-size:0.8rem;color:#666;margin-top:0.25rem;">Based on 28 Google reviews</p>
+                <button onclick="window.open('https://search.google.com/local/writereview?placeid=YOUR_PLACE_ID','_blank')" style="background:#4285f4;color:white;border:none;padding:0.5rem 1rem;border-radius:4px;font-weight:600;cursor:pointer;margin-top:0.5rem;width:100%;">Leave Google Review</button>
             </div>
-            
-            <!-- Hours -->
             <div class="card">
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
                     <span class="card-title" style="margin:0;padding:0;border-bottom:1px solid #eee;">Hours</span>
@@ -107,16 +101,12 @@
                 <div class="hours-row"><span>Saturday</span><span>8:00 AM - 2:00 PM</span></div>
                 <div class="hours-row"><span>Sunday</span><span>Closed</span></div>
             </div>
-            
-            <!-- Contact -->
             <div class="card">
                 <div class="card-title">Contact</div>
                 <div class="contact-item"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/call.png" style="height:18px;"> <a href="tel:7045550182">(704) 555-0182</a></div>
                 <div class="contact-item"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/email.png" style="height:18px;"> <a href="#">Email</a></div>
                 <a href="#" class="directions-btn"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/location-pin.png" style="height:18px;margin-right:0.5rem;"> Get Directions</a>
             </div>
-            
-            <!-- Impact/Meals -->
             <div class="impact-box">
                 <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/white-utensils.png">
                 <span><strong>847 Meals</strong> provided to local families</span>
@@ -124,18 +114,16 @@
         </div>
         
         <div class="right-col">
-            <!-- Tabs -->
             <div class="tabs">
-                <button class="tab-btn active" onclick="showTab('overview')">Overview</button>
-                <button class="tab-btn" onclick="showTab('offers')">Offers</button>
-                <button class="tab-btn" onclick="showTab('gallery')">Gallery</button>
-                <button class="tab-btn" onclick="showTab('reviews')">Reviews</button>
-                <button class="tab-btn" onclick="showTab('about')">About</button>
-                <button class="tab-btn" onclick="showTab('contact')">Contact</button>
+                <button class="tab-btn active" data-tab="overview">Overview</button>
+                <button class="tab-btn" data-tab="offers">Offers</button>
+                <button class="tab-btn" data-tab="gallery">Gallery</button>
+                <button class="tab-btn" data-tab="reviews">Reviews</button>
+                <button class="tab-btn" data-tab="about">About</button>
+                <button class="tab-btn" data-tab="contact">Contact</button>
             </div>
             
-            <!-- Overview Tab -->
-            <div class="tab-content active" id="overview">
+            <div id="overview" class="tab-content active">
                 <div class="card">
                     <div class="card-title">Special Offer</div>
                     <div class="offer-card">
@@ -144,7 +132,6 @@
                         <button class="redeem-btn" onclick="showRedeemModal()">Redeem Offer</button>
                     </div>
                 </div>
-                
                 <div class="card">
                     <div class="card-title">Services</div>
                     <div class="services-grid">
@@ -156,39 +143,78 @@
                         <div class="service-btn">Transmission</div>
                     </div>
                 </div>
-                
                 <div class="card">
                     <div class="card-title">Location</div>
                     <div class="map-box">[Google Map]</div>
                 </div>
             </div>
+            
+            <div id="offers" class="tab-content">
+                <div class="card">
+                    <div class="offer-card">
+                        <h4>15% Off Any Service</h4>
+                        <p>Valid on all services over $50. Expires 12/31/2026.</p>
+                        <button class="redeem-btn">Redeem Offer</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="gallery" class="tab-content">
+                <div class="card">
+                    <div class="card-title">Photo Gallery</div>
+                    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;">
+                        <img src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=200" style="width:100%;height:100px;object-fit:cover;border-radius:4px;cursor:pointer;">
+                        <img src="https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?w=200" style="width:100%;height:100px;object-fit:cover;border-radius:4px;cursor:pointer;">
+                        <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=200" style="width:100%;height:100px;object-fit:cover;border-radius:4px;cursor:pointer;">
+                        <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=200" style="width:100%;height:100px;object-fit:cover;border-radius:4px;cursor:pointer;">
+                    </div>
+                </div>
+            </div>
+            
+            <div id="reviews" class="tab-content">
+                <div class="card">
+                    <div class="card-title">Write a Review</div>
+                    <p style="font-size:0.9rem;color:#666;margin-bottom:0.5rem;">Rate this business:</p>
+                    <div style="display:flex;gap:0.25rem;margin:1rem 0;">
+                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:32px;opacity:0.3;cursor:pointer;">
+                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:32px;opacity:0.3;cursor:pointer;">
+                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:32px;opacity:0.3;cursor:pointer;">
+                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:32px;opacity:0.3;cursor:pointer;">
+                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:32px;opacity:0.3;cursor:pointer;">
+                    </div>
+                    <textarea placeholder="Share your experience..." style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;margin:1rem 0;"></textarea>
+                    <button class="redeem-btn" onclick="alert('Thank you! Your review has been submitted.')">Submit Review</button>
+                </div>
+                <div class="card" style="margin-top:1rem;">
+                    <div class="card-title">TLN Reviews</div>
+                    <div style="padding:0.75rem 0;border-bottom:1px solid #eee;">
+                        <div style="font-weight:700;font-size:0.95rem;">Mike T.</div>
+                        <div style="color:var(--red);font-size:0.85rem;margin:0.25rem 0;">Score: 5</div>
+                        <div style="color:#555;font-size:0.9rem;">Great service and friendly staff!</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="about" class="tab-content">
+                <div class="card">
+                    <div class="card-title">About XYZ Repair</div>
+                    <p>Serving the Waxhaw area for over 10 years with quality auto repair.</p>
+                </div>
+            </div>
+            
+            <div id="contact" class="tab-content">
+                <div class="card">
+                    <div class="card-title">Send a Message</div>
+                    <div style="background:#f8f8f8;padding:1.5rem;border-radius:8px;">
+                        <input type="text" placeholder="Your Name" style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;margin-bottom:0.75rem;">
+                        <input type="email" placeholder="Your Email" style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;margin-bottom:0.75rem;">
+                        <textarea rows="4" placeholder="Your message..." style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;margin-bottom:0.75rem;"></textarea>
+                        <button class="redeem-btn" onclick="alert('Message sent!')">Send Message</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    
-    <script>
-        function showTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            event.target.classList.add('active');
-        }
-        function showRedeemModal() { document.getElementById('redeemEmailModal').style.display = 'flex'; }
-        function confirmRedeem() {
-            const email = document.getElementById('redeemEmail').value;
-            if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
-            document.getElementById('redeemEmailModal').style.display = 'none';
-            alert('Offer redeemed!');
-        }
-        function closeRedeemModal() { document.getElementById('redeemEmailModal').style.display = 'none'; }
-        function updateHoursStatus() {
-            const now = new Date(), day = now.getDay(), hour = now.getHours();
-            let isOpen = false, closingSoon = false;
-            if (day >= 1 && day <= 5) { if (hour >= 7 && hour < 18) { isOpen = true; if (hour === 16 || hour === 17) closingSoon = true; } }
-            else if (day === 6) { if (hour >= 8 && hour < 14) { isOpen = true; if (hour === 13) closingSoon = true; } }
-            const el = document.getElementById('hoursStatus');
-            if (el) { el.innerHTML = isOpen ? (closingSoon ? 'Closing Soon' : 'Open') : 'Closed'; el.className = 'hours-pill ' + (isOpen ? (closingSoon ? 'closing-soon' : 'open') : 'closed'); }
-        }
-        updateHoursStatus();
-    </script>
     
     <div id="redeemEmailModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.7);align-items:center;justify-content:center;z-index:1000;">
         <div style="background:white;padding:2rem;border-radius:12px;max-width:400px;width:90%;text-align:center;">
@@ -196,97 +222,36 @@
             <p style="color:#666;margin-bottom:1rem;">Enter your email to receive your redemption code.</p>
             <input type="email" id="redeemEmail" placeholder="your@email.com" style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;margin-bottom:1rem;">
             <button onclick="confirmRedeem()" style="background:var(--red);color:white;border:none;padding:0.75rem;width:100%;border-radius:6px;font-weight:600;cursor:pointer;">Get Code</button>
-            <button onclick="closeRedeemModal()" style="background:none;border:none;color:#666;margin-top:0.75rem;cursor:pointer;">Cancel</button>
+            <button onclick="document.getElementById('redeemEmailModal').style.display='none'" style="background:none;border:none;color:#666;margin-top:0.75rem;cursor:pointer;">Cancel</button>
         </div>
     </div>
+    
+    <script>
+        // Tab switching
+        document.querySelectorAll('.tab-btn').forEach(function(btn) {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.tab-btn').forEach(function(b) { b.classList.remove('active'); });
+                document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.remove('active'); });
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.tab).classList.add('active');
+            });
+        });
+        
+        // Hours status
+        var now = new Date(), day = now.getDay(), hour = now.getHours();
+        var isOpen = false, closingSoon = false;
+        if (day >= 1 && day <= 5) { if (hour >= 7 && hour < 18) { isOpen = true; if (hour === 16 || hour === 17) closingSoon = true; } }
+        else if (day === 6) { if (hour >= 8 && hour < 14) { isOpen = true; if (hour === 13) closingSoon = true; } }
+        var el = document.getElementById('hoursStatus');
+        if (el) { el.innerHTML = isOpen ? (closingSoon ? 'Closing Soon' : 'Open') : 'Closed'; el.className = 'hours-pill ' + (isOpen ? (closingSoon ? 'closing-soon' : 'open') : 'closed'); }
+        
+        function showRedeemModal() { document.getElementById('redeemEmailModal').style.display = 'flex'; }
+        function confirmRedeem() {
+            var email = document.getElementById('redeemEmail').value;
+            if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
+            document.getElementById('redeemEmailModal').style.display = 'none';
+            alert('Offer redeemed!');
+        }
+    </script>
 </body>
 </html>
-
-<!-- RESTORING ALL TAB CONTENT THAT WAS REMOVED -->
-
-<!-- Offers Tab -->
-<div class="tab-content" id="offers">
-    <div class="card">
-        <div class="offer-card">
-            <h4>15% Off Any Service</h4>
-            <p>Valid on all services over $50. Expires 12/31/2026.</p>
-            <button class="redeem-btn">Redeem Offer</button>
-        </div>
-    </div>
-</div>
-
-<!-- Gallery Tab -->
-<div class="tab-content" id="gallery">
-    <div class="card">
-        <div class="card-title">Photo Gallery</div>
-        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem;">
-            <img src="https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=200" style="width:100%;height:100px;object-fit:cover;border-radius:4px;" onclick="openLightbox(this.src)" style="cursor:pointer;">
-            <img src="https://images.unsplash.com/photo-1530046339160-ce3e530c7d2f?w=200" style="width:100%;height:100px;object-fit:cover;border-radius:4px;" onclick="openLightbox(this.src)" style="cursor:pointer;">
-            <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=200" style="width:100%;height:100px;object-fit:cover;border-radius:4px;" onclick="openLightbox(this.src)" style="cursor:pointer;">
-            <img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=200" style="width:100%;height:100px;object-fit:cover;border-radius:4px;" onclick="openLightbox(this.src)" style="cursor:pointer;">
-        </div>
-    </div>
-</div>
-
-<!-- Reviews Tab -->
-<div class="tab-content" id="reviews">
-    <div class="card">
-        <div class="card-title">Write a Review</div>
-        <p style="font-size:0.9rem;color:#666;margin-bottom:0.5rem;">Rate this business:</p>
-        <div class="rating-pins" style="display:flex;gap:0.25rem;margin:1rem 0;">
-            <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:32px;opacity:0.3;cursor:pointer;" onclick="setRating(1)">
-            <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:32px;opacity:0.3;cursor:pointer;" onclick="setRating(2)">
-            <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:32px;opacity:0.3;cursor:pointer;" onclick="setRating(3)">
-            <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:32px;opacity:0.3;cursor:pointer;" onclick="setRating(4)">
-            <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:32px;opacity:0.3;cursor:pointer;" onclick="setRating(5)">
-        </div>
-        <textarea placeholder="Share your experience..." style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;margin:1rem 0;"></textarea>
-        <button class="redeem-btn" onclick="alert('Thank you! Your review has been submitted.')">Submit Review</button>
-    </div>
-    <div class="card" style="margin-top:1rem;">
-        <div class="card-title">TLN Reviews</div>
-        <div style="padding:0.75rem 0;border-bottom:1px solid #eee;">
-            <div style="font-weight:700;font-size:0.95rem;">Mike T.</div>
-            <div style="color:var(--red);font-size:0.85rem;margin:0.25rem 0;">Score: 5</div>
-            <div style="color:#555;font-size:0.9rem;">Great service and friendly staff!</div>
-        </div>
-        <div style="padding:0.75rem 0;border-bottom:1px solid #eee;">
-            <div style="font-weight:700;font-size:0.95rem;">Sarah J.</div>
-            <div style="color:var(--red);font-size:0.85rem;margin:0.25rem 0;">Score: 4</div>
-            <div style="color:#555;font-size:0.9rem;">Good work, fair pricing.</div>
-        </div>
-    </div>
-</div>
-
-<!-- About Tab -->
-<div class="tab-content" id="about">
-    <div class="card">
-        <div class="card-title">About XYZ Repair</div>
-        <p>Serving the Waxhaw area for over 10 years with quality auto repair. We specialize in domestic and foreign vehicles.</p>
-    </div>
-</div>
-
-<!-- Contact Tab -->
-<div class="tab-content" id="contact">
-    <div class="card">
-        <div class="card-title">Send a Message</div>
-        <div style="background:#f8f8f8;padding:1.5rem;border-radius:8px;">
-            <input type="text" placeholder="Your Name" style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;margin-bottom:0.75rem;">
-            <input type="email" placeholder="Your Email" style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;margin-bottom:0.75rem;">
-            <input type="tel" placeholder="Your Phone" style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;margin-bottom:0.75rem;">
-            <textarea rows="4" placeholder="Your message..." style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;margin-bottom:0.75rem;"></textarea>
-            <button class="redeem-btn" onclick="alert('Message sent!')">Send Message</button>
-        </div>
-    </div>
-</div>
-
-<script>
-function openLightbox(src) { document.getElementById('lightboxImg').src = src; document.getElementById('lightboxModal').style.display = 'flex'; }
-function closeLightbox() { document.getElementById('lightboxModal').style.display = 'none'; }
-function setRating(num) { alert('Rating of ' + num + ' submitted. Thanks!'); }
-</script>
-
-<div id="lightboxModal" style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.9);z-index:2000;align-items:center;justify-content:center;cursor:pointer;" onclick="closeLightbox()">
-    <img id="lightboxImg" style="max-width:90%;max-height:90%;border-radius:8px;">
-    <span style="position:absolute;top:20px;right:30px;color:white;font-size:2rem;cursor:pointer;">&times;</span>
-</div>
