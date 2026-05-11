@@ -9,40 +9,40 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Open Sans', sans-serif; background: #fff; color: #1a1a1a; }
         :root { --red: #e63946; --black: #1a1a1a; }
-        
+
         /* Hero Image */
-        .hero { 
+        .hero {
             position: relative; height: 280px;
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), 
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)),
                         url('https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=1200');
             background-size: cover; background-position: center;
         }
-        
+
         /* Business Name & Address */
-        .biz-info { 
+        .biz-info {
             position: absolute; bottom: 1.5rem; left: 1.5rem;
         }
-        .biz-name { 
-            font-size: 2.5rem; font-weight: 700; color: white; 
-            margin-bottom: 0.25rem; 
+        .biz-name {
+            font-size: 2.5rem; font-weight: 700; color: white;
+            margin-bottom: 0.25rem;
         }
-        .biz-address { 
+        .biz-address {
             font-size: 1.1rem; color: white; display: flex; align-items: center; gap: 0.5rem;
         }
-        
+
         /* Main Content */
         .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; display: grid; grid-template-columns: 320px 1fr; gap: 2rem; }
-        
+
         /* Left Column */
         .left-col { display: flex; flex-direction: column; gap: 1.5rem; }
-        
+
         /* Right Column */
         .right-col { display: flex; flex-direction: column; gap: 1.5rem; }
-        
+
         /* Cards */
         .card { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 1.25rem; }
         .card-title { font-size: 1rem; font-weight: 700; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #eee; }
-        
+
         /* Hours */
         .hours-pill { padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; }
         .hours-pill.open { background: #28a745; color: white; }
@@ -50,14 +50,14 @@
         .hours-pill.closing-soon { background: #ffc107; color: #333; }
         .hours-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #f0f0f0; font-size: 0.9rem; }
         .hours-row:last-child { border-bottom: none; }
-        
+
         /* Contact */
         .contact-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0; }
         .contact-item a { color: var(--red); text-decoration: none; font-weight: 600; }
-        
+
         /* Map Box */
         .map-box { background: #f5f5f5; height: 200px; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #666; }
-        
+
         /* Reviews */
         .review-item { padding: 0.75rem 0; border-bottom: 1px solid #eee; }
         .review-item:last-child { border-bottom: none; }
@@ -65,20 +65,20 @@
         .review-stars { color: #fbbf24; font-size: 0.85rem; margin: 0.25rem 0; }
         .review-text { color: #555; font-size: 0.9rem; }
         .see-all { color: var(--red); font-size: 0.85rem; font-weight: 600; margin-top: 0.75rem; display: block; }
-        
+
         /* Services Grid */
         .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
-        .service-btn { 
-            background: #f5f5f5; border: 1px solid #ddd; 
-            padding: 0.6rem 0.5rem; border-radius: 4px; 
+        .service-btn {
+            background: #f5f5f5; border: 1px solid #ddd;
+            padding: 0.6rem 0.5rem; border-radius: 4px;
             font-size: 0.8rem; text-align: center;
             cursor: pointer; transition: background 0.2s;
         }
         .service-btn:hover { background: #eee; border-color: var(--red); }
-        
+
         /* Claim Box */
-        .claim-box { 
-            background: linear-gradient(135deg, #1a1a1a, #333); 
+        .claim-box {
+            background: linear-gradient(135deg, #1a1a1a, #333);
             border-radius: 12px; padding: 1.5rem; text-align: center;
         }
         .claim-box h3 { color: white; font-size: 1.1rem; margin-bottom: 0.5rem; }
@@ -90,7 +90,8 @@
             transition: transform 0.2s, box-shadow 0.2s;
         }
         .claim-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(230,57,70,0.4); }
-        
+        /* Full‑width AdSense placeholder */
+        .ad-sense-full { grid-column: 1 / -1; margin-top:1rem; background:#f5f5f5; border:2px dashed #ccc; padding:1.5rem; text-align:center; }
         @media(max-width: 800px) {
             .container { grid-template-columns: 1fr; }
             .services-grid { grid-template-columns: repeat(2, 1fr); }
@@ -104,7 +105,7 @@
     <div style="position:absolute;top:1rem;right:1rem;z-index:10;">
                 <a href="#" style="background:rgba(0,0,0,0.7);color:white;padding:0.5rem 1rem;border-radius:6px;text-decoration:none;font-size:0.85rem;font-weight:600;">Business Login</a>
             </div>
-            
+
             <div class="hero">
         <div class="biz-info">
             <div class="biz-name">XYZ Repair</div>
@@ -113,7 +114,7 @@
             </div>
         </div>
     </div>
-    
+
     <!-- Main Content -->
     <div class="container">
         <!-- Left Column -->
@@ -127,7 +128,7 @@
                 <div class="hours-row"><span>Saturday</span><span>8am - 12pm</span></div>
                 <div class="hours-row"><span>Sunday</span><span>Closed</span></div>
             </div>
-            
+
             <div class="card">
                 <div class="card-title">Contact</div>
                 <div class="contact-item">
@@ -139,13 +140,13 @@
                     <a href="#">Get Directions</a>
                 </div>
             </div>
-            
+
             <div class="card">
                 <div class="card-title">Location</div>
                 <div class="map-box">[Google Map]</div>
             </div>
         </div>
-        
+
         <!-- Right Column -->
         <div class="right-col">
             <div class="card">
@@ -162,7 +163,7 @@
                 </div>
                 <a href="#" class="see-all">See all 28 Google Reviews →</a>
             </div>
-            
+
             <div class="card">
                 <div class="card-title">Services</div>
                 <div class="services-grid">
@@ -174,11 +175,20 @@
                     <div class="service-btn">Transmission</div>
                 </div>
             </div>
-            
+
             <div class="claim-box">
                 <h3>Own This Business?</h3>
                 <p>Claim your free profile, add offers, update hours & photos.</p>
                 <a href="/claim/" class="claim-btn">CLAIM BUSINESS +</a>
+            </div>
+            <div class="ad-sense-full">
+                <!-- AdSense placeholder -->
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-XXXXXXXXXXXX"
+                     data-ad-slot="1234567890"
+                     data-ad-format="auto"></ins>
+                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
             </div>
         </div>
     </div>

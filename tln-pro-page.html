@@ -33,7 +33,11 @@
         .service-btn:hover { background:#eee; border-color:var(--red); }
         .offer-card { background:#fff8e5; border:1px solid #ffc107; border-radius:8px; padding:1rem; margin-bottom:1rem; }
         .offer-card h4 { color:#856404; margin-bottom:0.5rem; }
-        .ad-space { background:#f5f5f5; border:2px dashed #ccc; padding:1.5rem; text-align:center; color:#999; font-size:0.8rem; border-radius:8px; }
+        .ad-space, .ad-space-full { background:#f5f5f5; border:2px dashed #ccc; padding:1.5rem; text-align:center; color:#999; font-size:0.8rem; border-radius:8px; }
+        .sponsor-slide { display:none; }
+        .sponsor-slide.active { display:block; }
+        .sponsor-slide img { max-width:100%; height:auto; }
+        .ad-space-full { grid-column: 1 / -1; margin-top:1rem; }
         .video-placeholder { background:#000; color:#fff; height:200px; border-radius:4px; display:flex; align-items:center; justify-content:center; }
         @media(max-width:800px){ .container{grid-template-columns:1fr;} .services-grid{grid-template-columns:repeat(2,1fr);} .biz-name{font-size:1.75rem;} .biz-address{font-size:0.95rem;} }
     </style>
@@ -103,7 +107,11 @@
             </div>
             <div class="card">
                 <div class="card-title">Ad Space</div>
-                <div class="ad-space">[Sponsor Ad Placeholder – Upgraded size at no extra charge]</div>
+                <div class="ad-space-full">
+    <div class="sponsor-slide active">Sponsor A – <img src="https://via.placeholder.com/300x100?text=Ad+1" alt="Ad 1" style="max-width:100%;"></div>
+    <div class="sponsor-slide">Sponsor B – <img src="https://via.placeholder.com/300x100?text=Ad+2" alt="Ad 2" style="max-width:100%;"></div>
+    <div class="sponsor-slide">Sponsor C – <img src="https://via.placeholder.com/300x100?text=Ad+3" alt="Ad 3" style="max-width:100%;"></div>
+</div>
             </div>
         </div>
     </div>
@@ -144,6 +152,14 @@
             setStatus('Open Now', 'open');
         }
     })();
-</script>
+// Sponsor carousel
+        let sponsorIndex = 0;
+        const sponsorSlides = document.querySelectorAll('.sponsor-slide');
+        setInterval(() => {
+            sponsorSlides[sponsorIndex].classList.remove('active');
+            sponsorIndex = (sponsorIndex + 1) % sponsorSlides.length;
+            sponsorSlides[sponsorIndex].classList.add('active');
+        }, 3000);
+    </script>
 </body>
 </html>

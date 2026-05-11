@@ -11,7 +11,7 @@
         :root { --red: #e63946; --black: #1a1a1a; }
         
         .hero { position: relative; height: 280px; background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=1200'); background-size: cover; background-position: center; }
-        .biz-info { position: absolute; bottom: 1.5rem; left: 2rem; right: 2rem; }
+        .biz-info { position: absolute; bottom: 1.5rem; left: 1.5rem; }
         .biz-name { font-size: 2.5rem; font-weight: 700; color: white; margin-bottom: 0.25rem; }
         .biz-address { font-size: 1.1rem; color: white; display: flex; align-items: center; gap: 0.5rem; }
         .badge-pills { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
@@ -175,14 +175,19 @@
                 <div class="card">
                     <div class="card-title">Write a Review</div>
                     <p style="font-size:0.9rem;color:#666;margin-bottom:0.5rem;">Rate this business:</p>
-                    <style>.rating-pin:hover { opacity: 1 !important; }</style>
-                    <div style="display:flex;gap:0.25rem;margin:1rem 0;">
-                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="rating-pin" style="height:32px;opacity:0.3;cursor:pointer;" onclick="alert('You left a score of 1')">
-                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="rating-pin" style="height:32px;opacity:0.3;cursor:pointer;" onclick="alert('You left a score of 2')">
-                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="rating-pin" style="height:32px;opacity:0.3;cursor:pointer;" onclick="alert('You left a score of 3')">
-                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="rating-pin" style="height:32px;opacity:0.3;cursor:pointer;" onclick="alert('You left a score of 4')">
-                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="rating-pin" style="height:32px;opacity:0.3;cursor:pointer;" onclick="alert('You left a score of 5')">
+                    <style>
+                        .rating-pin { height: 32px; opacity: 0.25; cursor: pointer; transition: all 0.2s ease; filter: grayscale(100%); }
+                        .rating-pin:hover { opacity: 1; filter: grayscale(0%); transform: scale(1.15); }
+                        .rating-pin.selected { opacity: 1; filter: grayscale(0%); transform: scale(1.15); }
+                    </style>
+                    <div style="display:flex;gap:0.25rem;margin:1rem 0;" id="ratingPins">
+                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="rating-pin" onclick="setRating(1)">
+                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="rating-pin" onclick="setRating(2)">
+                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="rating-pin" onclick="setRating(3)">
+                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="rating-pin" onclick="setRating(4)">
+                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="rating-pin" onclick="setRating(5)">
                     </div>
+                    <p id="ratingText" style="font-size:0.85rem;color:#666;font-style:italic;">Click a pin to rate</p>
                     <textarea placeholder="Share your experience..." style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;margin:1rem 0;"></textarea>
                     <button class="redeem-btn" onclick="alert('Thank you! Your review has been submitted.')">Submit Review</button>
                 </div>
@@ -245,6 +250,20 @@
         else if (day === 6) { if (hour >= 8 && hour < 14) { isOpen = true; if (hour === 13) closingSoon = true; } }
         var el = document.getElementById('hoursStatus');
         if (el) { el.innerHTML = isOpen ? (closingSoon ? 'Closing Soon' : 'Open') : 'Closed'; el.className = 'hours-pill ' + (isOpen ? (closingSoon ? 'closing-soon' : 'open') : 'closed'); }
+        
+        function setRating(score) {
+            var pins = document.querySelectorAll('#ratingPins .rating-pin');
+            pins.forEach(function(pin, idx) {
+                if (idx < score) {
+                    pin.classList.add('selected');
+                } else {
+                    pin.classList.remove('selected');
+                }
+            });
+            document.getElementById('ratingText').innerText = 'You rated ' + score + ' pin' + (score > 1 ? 's' : '') + '!';
+            document.getElementById('ratingText').style.color = 'var(--red)';
+            document.getElementById('ratingText').style.fontWeight = '600';
+        }
         
         function showRedeemModal() { document.getElementById('redeemEmailModal').style.display = 'flex'; }
         function confirmRedeem() {
