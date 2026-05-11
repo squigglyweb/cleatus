@@ -20,7 +20,7 @@
         
         /* Business Name & Address */
         .biz-info { 
-            position: absolute; bottom: 1.5rem; left: 2rem; right: 2rem;
+            position: absolute; bottom: 1.5rem; left: 1.5rem;
         }
         .biz-name { 
             font-size: 2.5rem; font-weight: 700; color: white; 
@@ -44,6 +44,10 @@
         .card-title { font-size: 1rem; font-weight: 700; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #eee; }
         
         /* Hours */
+        .hours-pill { padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; }
+        .hours-pill.open { background: #28a745; color: white; }
+        .hours-pill.closed { background: #dc3545; color: white; }
+        .hours-pill.closing-soon { background: #ffc107; color: #333; }
         .hours-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #f0f0f0; font-size: 0.9rem; }
         .hours-row:last-child { border-bottom: none; }
         
@@ -74,15 +78,18 @@
         
         /* Claim Box */
         .claim-box { 
-            background: white; border: 2px dashed #999; 
-            border-radius: 8px; padding: 1.5rem; text-align: center;
+            background: linear-gradient(135deg, #1a1a1a, #333); 
+            border-radius: 12px; padding: 1.5rem; text-align: center;
         }
-        .claim-box p { color: #666; margin-bottom: 0.75rem; }
+        .claim-box h3 { color: white; font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .claim-box p { color: #ccc; margin-bottom: 1rem; font-size: 0.9rem; }
         .claim-btn { 
             display: inline-block; padding: 0.75rem 1.5rem; 
-            background: var(--black); color: white; 
+            background: var(--red); color: white; 
             text-decoration: none; border-radius: 6px; font-weight: 700;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
+        .claim-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(230,57,70,0.4); }
         
         @media(max-width: 800px) {
             .container { grid-template-columns: 1fr; }
@@ -112,7 +119,10 @@
         <!-- Left Column -->
         <div class="left-col">
             <div class="card">
-                <div class="card-title">Hours</div>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+                    <span class="card-title" style="margin:0;padding:0;border-bottom:none;">Hours</span>
+                    <span id="hoursStatus" class="hours-pill open">Open Now</span>
+                </div>
                 <div class="hours-row"><span>Monday - Friday</span><span>7am - 6pm</span></div>
                 <div class="hours-row"><span>Saturday</span><span>8am - 12pm</span></div>
                 <div class="hours-row"><span>Sunday</span><span>Closed</span></div>
@@ -166,8 +176,9 @@
             </div>
             
             <div class="claim-box">
-                <p>Own this business? Update your profile, offers, hours, and photos.</p>
-                <a href="/claim/" class="claim-btn">CLAIM BUSINESS NOW +</a>
+                <h3>Own This Business?</h3>
+                <p>Claim your free profile, add offers, update hours & photos.</p>
+                <a href="/claim/" class="claim-btn">CLAIM BUSINESS +</a>
             </div>
         </div>
     </div>

@@ -1,147 +1,149 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Pro Plan - The Local NearBuy</title>
+    <title>XYZ Repair - Pro Profile | The Local NearBuy</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Open Sans', sans-serif; background: #fff; color: #1a1a1a; }
-        
-        .hero { background: #1a1a1a; color: white; padding: 4rem 2rem; text-align: center; }
-        .hero h1 { font-size: 3rem; margin-bottom: 0.5rem; }
-        .hero .badge { background: #e63946; padding: 0.25rem 1rem; border-radius: 4px; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 1rem; display: inline-block; }
-        .hero .price { font-size: 4rem; font-weight: 700; color: #e63946; }
-        .hero .price span { font-size: 1.5rem; color: white; font-weight: 400; }
-        .hero .desc { max-width: 600px; margin: 1rem auto 0; opacity: 0.9; line-height: 1.6; }
-        
-        .features { max-width: 900px; margin: 0 auto; padding: 3rem 2rem; }
-        .features h2 { text-align: center; margin-bottom: 2rem; font-size: 2rem; }
-        
-        .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-        
-        .feature { display: flex; gap: 1rem; align-items: flex-start; }
-        .feature-icon { 
-            background: #e63946; color: white; 
-            width: 40px; height: 40px; 
-            border-radius: 50%; 
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem; flex-shrink: 0;
-        }
-        .feature h3 { font-size: 1.1rem; margin-bottom: 0.25rem; }
-        .feature p { color: #666; font-size: 0.9rem; line-height: 1.5; }
-        
-        .preview { background: #f8f8f8; padding: 3rem 2rem; }
-        .preview h2 { text-align: center; margin-bottom: 2rem; }
-        .preview-mock { 
-            max-width: 600px; margin: 0 auto; 
-            background: white; border: 2px solid #1a1a1a; 
-            border-radius: 12px; overflow: hidden; 
-        }
-        .preview-header { background: #1a1a1a; color: white; padding: 1rem; text-align: center; font-weight: 700; }
-        .preview-body { padding: 1.5rem; }
-        .preview-row { display: flex; justify-content: space-between; padding: 0.75rem 0; border-bottom: 1px solid #eee; }
-        .preview-label { color: #666; }
-        .preview-value { font-weight: 600; }
-        
-        .cta { background: #e63946; color: white; padding: 4rem 2rem; text-align: center; }
-        .cta h2 { font-size: 2rem; margin-bottom: 1rem; }
-        .cta p { margin-bottom: 2rem; opacity: 0.95; }
-        .cta-btn { display: inline-block; padding: 1rem 3rem; background: white; color: #e63946; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 1.1rem; }
-        
-        @media(max-width: 700px) { .feature-grid { grid-template-columns: 1fr; } }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Open Sans',sans-serif; background:#fff; color:#1a1a1a; }
+        :root { --red:#e63946; --black:#1a1a1a; }
+        .hero { position:relative; height:280px; background:linear-gradient(rgba(0,0,0,0.3),rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=1200'); background-size:cover; background-position:center; }
+        .biz-info { position:absolute; bottom:1.5rem; left:1.5rem; }
+        .biz-name { font-size:2.5rem; font-weight:700; color:white; margin-bottom:0.25rem; }
+        .biz-address { font-size:1.1rem; color:white; display:flex; align-items:center; gap:0.5rem; }
+        .badge-pills { display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:0.5rem; }
+        .badge-pill { display:inline-flex; align-items:center; gap:0.25rem; padding:0.25rem 0.75rem; border-radius:20px; font-size:0.75rem; font-weight:700; }
+        .badge-pro { background:var(--red); color:white; }
+        .badge-verified { background:#28a745; color:white; }
+        .container { max-width:1100px; margin:0 auto; padding:2rem 1.5rem; display:grid; grid-template-columns:320px 1fr; gap:2rem; }
+        .left-col, .right-col { display:flex; flex-direction:column; gap:1.5rem; }
+        .card { background:white; border:1px solid #ddd; border-radius:8px; padding:1.25rem; }
+        .card-title { font-size:1rem; font-weight:700; margin-bottom:1rem; padding-bottom:0.5rem; border-bottom:1px solid #eee; }
+        .hours-pill { padding:0.25rem 0.75rem; border-radius:20px; font-size:0.75rem; font-weight:700; }
+        .hours-pill.open { background:#28a745; color:white; }
+        .hours-row { display:flex; justify-content:space-between; padding:0.5rem 0; border-bottom:1px solid #f0f0f0; font-size:0.9rem; }
+        .contact-item { display:flex; align-items:center; gap:0.5rem; padding:0.5rem 0; }
+        .contact-item a { color:var(--red); text-decoration:none; font-weight:600; }
+        .map-box { background:#f5f5f5; height:200px; border-radius:4px; display:flex; align-items:center; justify-content:center; color:#666; }
+        .impact-box { background:var(--red); color:white; border-radius:8px; padding:1rem; display:flex; align-items:center; gap:0.75rem; }
+        .services-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:0.5rem; }
+        .service-btn { background:#f5f5f5; border:1px solid #ddd; padding:0.6rem 0.5rem; border-radius:4px; font-size:0.8rem; text-align:center; cursor:pointer; transition:background 0.2s; }
+        .service-btn:hover { background:#eee; border-color:var(--red); }
+        .offer-card { background:#fff8e5; border:1px solid #ffc107; border-radius:8px; padding:1rem; margin-bottom:1rem; }
+        .offer-card h4 { color:#856404; margin-bottom:0.5rem; }
+        .ad-space { background:#f5f5f5; border:2px dashed #ccc; padding:1.5rem; text-align:center; color:#999; font-size:0.8rem; border-radius:8px; }
+        .video-placeholder { background:#000; color:#fff; height:200px; border-radius:4px; display:flex; align-items:center; justify-content:center; }
+        @media(max-width:800px){ .container{grid-template-columns:1fr;} .services-grid{grid-template-columns:repeat(2,1fr);} .biz-name{font-size:1.75rem;} .biz-address{font-size:0.95rem;} }
     </style>
 </head>
 <body>
+    <div style="position:absolute;top:1rem;right:1rem;z-index:10;">
+        <a href="#" style="background:rgba(0,0,0,0.7);color:white;padding:0.5rem 1rem;border-radius:6px;text-decoration:none;font-size:0.85rem;font-weight:600;">Business Login</a>
+    </div>
     <div class="hero">
-        <div class="badge">Most Popular</div>
-        <h1>Pro Plan</h1>
-        <div class="price">$99<span>/month</span></div>
-        <p class="desc">Everything you need to grow your local business and connect with more customers in your community.</p>
-    </div>
-    
-    <div class="features">
-        <h2>What's Included</h2>
-        <div class="feature-grid">
-            <div class="feature">
-                <div class="feature-icon">📷</div>
-                <div>
-                    <h3>Photo Gallery</h3>
-                    <p>Upload up to 6 photos showcasing your business, products, and services.</p>
-                </div>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">🎁</div>
-                <div>
-                    <h3>Custom Offer</h3>
-                    <p>Create one special offer or promotion to attract new customers.</p>
-                </div>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">🕐</div>
-                <div>
-                    <h3>Update Hours</h3>
-                    <p>Keep your business hours current so customers always know when you're open.</p>
-                </div>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">📊</div>
-                <div>
-                    <h3>Analytics Dashboard</h3>
-                    <p>See how customers find you, track views, and monitor your online presence.</p>
-                </div>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">📩</div>
-                <div>
-                    <h3>Customer Leads</h3>
-                    <p>Receive inquiries directly from interested customers through your profile.</p>
-                </div>
-            </div>
-            <div class="feature">
-                <div class="feature-icon">🔗</div>
-                <div>
-                    <h3>Website & Social Links</h3>
-                    <p>Link to your website and social media profiles for full contact info.</p>
-                </div>
+        <div class="biz-info">
+            <div class="biz-name">XYZ Repair</div>
+            <div class="biz-address">2300 E Providence Dr, Charlotte, NC 28270</div>
+            <div class="badge-pills">
+                <span class="badge-pill badge-pro"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/star.png" style="height:14px;"> Pro Business</span>
+                <span class="badge-pill badge-verified"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/check.png" style="height:14px;"> Verified</span>
             </div>
         </div>
     </div>
-    
-    <div class="preview">
-        <h2>Your Pro Dashboard</h2>
-        <div class="preview-mock">
-            <div class="preview-header">Your Business Dashboard</div>
-            <div class="preview-body">
-                <div class="preview-row">
-                    <span class="preview-label">Plan</span>
-                    <span class="preview-value">Pro - $99/mo</span>
+    <div class="container">
+        <div class="left-col">
+            <div class="card">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+                    <span class="card-title" style="margin:0;padding:0;border-bottom:none;">Hours</span>
+                    <span id="hoursStatus" class="hours-pill open">Open Now</span>
                 </div>
-                <div class="preview-row">
-                    <span class="preview-label">Photos</span>
-                    <span class="preview-value">6 uploaded</span>
+                <div class="hours-row"><span>Mon - Fri</span><span>7am - 6pm</span></div>
+                <div class="hours-row"><span>Sat</span><span>8am - 12pm</span></div>
+                <div class="hours-row"><span>Sun</span><span>Closed</span></div>
+            </div>
+            <div class="card">
+                <div class="card-title">Contact</div>
+                <div class="contact-item"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/call.png" style="height:18px;"> <a href="tel:7045550182">(704) 555-0182</a></div>
+                <div class="contact-item"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:18px;"> <a href="#">Get Directions</a></div>
+            </div>
+            <div class="card">
+                <div class="card-title">Location</div>
+                <div class="map-box">[Google Map]</div>
+            </div>
+            <div class="impact-box">
+                <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/white-utensils.png" style="height:28px;">
+                <span><strong>847 Meals</strong> provided to local families</span>
+            </div>
+        </div>
+        <div class="right-col">
+            <div class="card">
+                <div class="card-title">Special Offer</div>
+                <div class="offer-card">
+                    <h4>15% Off Any Service</h4>
+                    <p>Free multi-point inspection with any service. Can't combine with other offers.</p>
+                    <button class="redeem-btn" style="background:var(--red);color:white;border:none;padding:0.5rem 1rem;border-radius:4px;cursor:pointer;">Redeem Offer</button>
                 </div>
-                <div class="preview-row">
-                    <span class="preview-label">Custom Offer</span>
-                    <span class="preview-value">15% Off First Visit</span>
+            </div>
+            <div class="card">
+                <div class="card-title">Video</div>
+                <div class="video-placeholder">Video Placeholder (1 video allowed)</div>
+            </div>
+            <div class="card">
+                <div class="card-title">Services</div>
+                <div class="services-grid">
+                    <div class="service-btn">Engine Diagnostics</div>
+                    <div class="service-btn">Brake Service</div>
+                    <div class="service-btn">Oil Changes</div>
+                    <div class="service-btn">Tire Services</div>
+                    <div class="service-btn">A/C Repair</div>
+                    <div class="service-btn">Transmission</div>
                 </div>
-                <div class="preview-row">
-                    <span class="preview-label">Profile Views</span>
-                    <span class="preview-value">247 this month</span>
-                </div>
-                <div class="preview-row">
-                    <span class="preview-label">Customer Inquiries</span>
-                    <span class="preview-value">12 messages</span>
-                </div>
+            </div>
+            <div class="card">
+                <div class="card-title">Ad Space</div>
+                <div class="ad-space">[Sponsor Ad Placeholder – Upgraded size at no extra charge]</div>
             </div>
         </div>
     </div>
-    
-    <div class="cta">
-        <h2>Ready to Stand Out?</h2>
-        <p>Upgrade to Pro today and start growing your business.</p>
-        <a href="#" class="cta-btn">Get Started - $99/mo</a>
-    </div>
+<script>
+    (function(){
+        // Define weekly schedule (24h format)
+        const schedule = {
+            1: {open: "07:00", close: "18:00"}, // Monday
+            2: {open: "07:00", close: "18:00"}, // Tuesday
+            3: {open: "07:00", close: "18:00"}, // Wednesday
+            4: {open: "07:00", close: "18:00"}, // Thursday
+            5: {open: "07:00", close: "18:00"}, // Friday
+            6: {open: "08:00", close: "12:00"}, // Saturday
+            0: null // Sunday closed all day
+        };
+        const now = new Date();
+        const day = now.getDay(); // 0=Sun,1=Mon,...
+        const entry = schedule[day];
+        const pill = document.getElementById('hoursStatus');
+        function setStatus(text, cls){
+            pill.textContent = text;
+            pill.className = 'hours-pill ' + cls;
+        }
+        if(!entry){
+            setStatus('Closed', 'closed');
+            return;
+        }
+        const [openH, openM] = entry.open.split(':').map(Number);
+        const [closeH, closeM] = entry.close.split(':').map(Number);
+        const openMinutes = openH*60 + openM;
+        const closeMinutes = closeH*60 + closeM;
+        const nowMinutes = now.getHours()*60 + now.getMinutes();
+        if(nowMinutes < openMinutes || nowMinutes > closeMinutes){
+            setStatus('Closed', 'closed');
+        } else if(closeMinutes - nowMinutes <= 60){
+            setStatus('Closing Soon', 'closing-soon');
+        } else {
+            setStatus('Open Now', 'open');
+        }
+    })();
+</script>
 </body>
 </html>
