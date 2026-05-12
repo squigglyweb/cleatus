@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Advertise with The Local NearBuy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; background: #f5f5f5; color: #1a1a1a; padding: 2rem 1rem; }
+        :root { --red: #e63946; --black: #1a1a1a; }
+        
+        .container { max-width: 600px; margin: 0 auto; }
+        h1 { font-size: 1.75rem; margin-bottom: 0.5rem; }
+        .subtitle { color: #666; margin-bottom: 2rem; }
+        
+        .card { background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        
+        .form-group { margin-bottom: 1.25rem; }
+        label { display: block; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.9rem; }
+        input, select, textarea { 
+            width: 100%; padding: 0.75rem; border: 1px solid #ddd; 
+            border-radius: 6px; font-size: 1rem; font-family: inherit;
+        }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: var(--red); }
+        
+        .ad-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+        .ad-option { 
+            border: 2px solid #ddd; border-radius: 8px; padding: 1rem; text-align: center; 
+            cursor: pointer; transition: border-color 0.2s, background 0.2s;
+        }
+        .ad-option:hover { border-color: #aaa; }
+        .ad-option.selected { border-color: var(--red); background: #fef2f2; }
+        .ad-option h3 { font-size: 1rem; margin-bottom: 0.25rem; }
+        .ad-option .price { color: var(--red); font-weight: 700; font-size: 0.9rem; }
+        .ad-option .size { color: #666; font-size: 0.8rem; }
+        
+        .file-hint { font-size: 0.8rem; color: #666; margin-top: 0.25rem; }
+        
+        .submit-btn { 
+            width: 100%; padding: 1rem; background: var(--red); color: white; 
+            border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 700; 
+            cursor: pointer; transition: background 0.2s;
+        }
+        .submit-btn:hover { background: #d62839; }
+        
+        .note { margin-top: 1.5rem; padding: 1rem; background: #f9f9f9; border-radius: 6px; font-size: 0.85rem; color: #666; }
+        .note strong { color: var(--black); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📣 Advertise with The Local NearBuy</h1>
+        <p class="subtitle">Get your business in front of local neighbors.</p>
+        
+        <div class="card">
+            <form id="adForm">
+                <div class="form-group">
+                    <label>Your Business Name *</label>
+                    <input type="text" name="business_name" required placeholder="e.g., Joe's Pizza">
+                </div>
+                
+                <div class="form-group">
+                    <label>Contact Name *</label>
+                    <input type="text" name="contact_name" required placeholder="Your name">
+                </div>
+                
+                <div class="form-group">
+                    <label>Email *</label>
+                    <input type="email" name="email" required placeholder="you@example.com">
+                </div>
+                
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="tel" name="phone" placeholder="(704) 555-0123">
+                </div>
+                
+                <div class="form-group">
+                    <label>Choose Your Ad *</label>
+                    <div class="ad-options">
+                        <div class="ad-option" data-value="sidebar">
+                            <h3>Sidebar Box</h3>
+                            <div class="price">$50/mo</div>
+                            <div class="size">300×250</div>
+                        </div>
+                        <div class="ad-option" data-value="banner">
+                            <h3>Banner</h3>
+                            <div class="price">$75/mo</div>
+                            <div class="size">728×90</div>
+                        </div>
+                        <div class="ad-option" data-value="mobile">
+                            <h3>Mobile</h3>
+                            <div class="price">$40/mo</div>
+                            <div class="size">320×100</div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="ad_type" id="ad_type" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Ad Image *</label>
+                    <input type="file" name="ad_image" accept="image/*" required>
+                    <div class="file-hint">PNG or JPG. Recommended size: 300×250px for sidebar, 728×90 for banner.</div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Website URL (optional)</label>
+                    <input type="url" name="website" placeholder="https://">
+                </div>
+                
+                <div class="form-group">
+                    <label>Special Offer (optional)</label>
+                    <textarea name="offer" rows="2" placeholder="e.g., 10% off any service"></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Submit Ad Request</button>
+            </form>
+            
+            <div class="note">
+                <strong>What's next?</strong> We'll review your ad and get back to you within 24 hours. Once approved, you'll receive a payment link. Your ad goes live the same day payment is received.
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Ad option selection
+        document.querySelectorAll('.ad-option').forEach(function(opt) {
+            opt.addEventListener('click', function() {
+                document.querySelectorAll('.ad-option').forEach(function(o) { o.classList.remove('selected'); });
+                opt.classList.add('selected');
+                document.getElementById('ad_type').value = opt.dataset.value;
+            });
+        });
+        
+        // Form submit
+        document.getElementById('adForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var formData = new FormData(this);
+            var data = Object.fromEntries(formData);
+            
+            // For now, just show confirmation — backend integration needed
+            alert('Thank you! Your ad request has been submitted. We\'ll be in touch soon.');
+            this.reset();
+            document.querySelectorAll('.ad-option').forEach(function(o) { o.classList.remove('selected'); });
+        });
+    </script>
+</body>
+</html>
