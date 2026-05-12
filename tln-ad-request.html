@@ -33,7 +33,9 @@
         .ad-option.selected { border-color: var(--red); background: #fef2f2; }
         .ad-option h3 { font-size: 1rem; margin-bottom: 0.25rem; }
         .ad-option .price { color: var(--red); font-weight: 700; font-size: 0.9rem; }
+        .ad-option .price .original { text-decoration: line-through; color: #999; font-weight: 400; font-size: 0.8rem; margin-right: 0.25rem; }
         .ad-option .size { color: #666; font-size: 0.8rem; }
+        .ad-option.bundle { border-color: var(--red); background: #fef2f2; }
         
         .file-hint { font-size: 0.8rem; color: #666; margin-top: 0.25rem; }
         
@@ -50,7 +52,7 @@
 </head>
 <body>
     <div class="container">
-        <h1><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/social-media-marketing.png" style="height:1.5rem;vertical-align:middle;margin-right:0.5rem;">Advertise with The Local NearBuy</h1>
+        <h1><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/online-advertising.png" style="height:1.5rem;vertical-align:middle;margin-right:0.5rem;">Advertise with The Local NearBuy</h1>
         <p class="subtitle">Get your business in front of local neighbors.</p>
         
         <div class="card">
@@ -80,18 +82,25 @@
                     <div class="ad-options">
                         <div class="ad-option" data-value="sidebar">
                             <h3>Sidebar Box</h3>
-                            <div class="price">$50/mo</div>
+                            <div class="price"><span class="original">$50</span>$35/mo</div>
                             <div class="size">300×250</div>
                         </div>
                         <div class="ad-option" data-value="banner">
                             <h3>Banner</h3>
-                            <div class="price">$75/mo</div>
+                            <div class="price"><span class="original">$75</span>$50/mo</div>
                             <div class="size">728×90</div>
                         </div>
                         <div class="ad-option" data-value="mobile">
                             <h3>Mobile</h3>
-                            <div class="price">$40/mo</div>
+                            <div class="price"><span class="original">$40</span>$25/mo</div>
                             <div class="size">320×100</div>
+                        </div>
+                    </div>
+                    <div class="ad-options" style="margin-top:0.75rem;">
+                        <div class="ad-option bundle" data-value="bundle" style="grid-column:1/-1;">
+                            <h3>ALL THREE - Bundle Deal</h3>
+                            <div class="price"><span class="original">$165</span>$75/mo</div>
+                            <div class="size">Sidebar + Banner + Mobile</div>
                         </div>
                     </div>
                     <input type="hidden" name="ad_type" id="ad_type" required>
