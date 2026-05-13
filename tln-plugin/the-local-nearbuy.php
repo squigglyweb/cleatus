@@ -130,6 +130,67 @@ function tln_business_template($template) {
 }
 add_filter('template_include', 'tln_business_template', 99);
 
+// Inject profile content directly into the page
+function tln_inject_profile_content($content) {
+    if (!isset($_GET['biz']) || !isset($_GET['pid'])) {
+        return $content;
+    }
+    
+    $place_id = sanitize_text_field($_GET['pid']);
+    $biz_name = sanitize_text_field($_GET['biz']);
+    
+    // Get API key
+    $api_key = '';
+    if (defined('TLN_GOOGLE_API_KEY')) {
+        $api_key = TLN_GOOGLE_API_KEY;
+    }
+    
+    // Default business data
+    $business = array(
+        'name' => $biz_name,
+        'place_id' => $place_id,
+        'address' => '',
+        'phone' => '',
+        'website' => '',
+        'rating' => '',
+        'hours' => array(),
+        'photos' => array(),
+        'reviews' => array(),
+    );
+    
+    // Fetch from Google Places API if we have a key
+    if ($api_key && $place_id) {
+        $url = "https://maps.googleapis.com/maps/api/place/details/json?place_id=$place_id&fields=name,formatted_address,formatted_phone_number,opening_hours,website,rating,reviews,photos,geometry&key=$api_key";
+        $response = @wp_remote_get($url, array('timeout' => 10));
+        if (!is_wp_error($response) && $response) {
+            $body = wp_remote_retrieve_body($response);
+            $data = json_decode($body, true);
+            if (isset($data['result'])) {
+                $details = $data['result'];
+                $business['name'] = isset($details['name']) ? $details['name'] : $biz_name;
+                $business['address'] = isset($details['formatted_address']) ? $details['formatted_address'] : '';
+                $business['phone'] = isset($details['formatted_phone_number']) ? $details['formatted_phone_number'] : '';
+                $business['website'] = isset($details['website']) ? $details['website'] : '';
+                $business['rating'] = isset($details['rating']) ? $details['rating'] : '';
+                $business['hours'] = isset($details['opening_hours']['weekday_text']) ? $details['opening_hours']['weekday_text'] : array();
+                $business['photos'] = isset($details['photos']) ? $details['photos'] : array();
+                $business['reviews'] = isset($details['reviews']) ? $details['reviews'] : array();
+            }
+        }
+    }
+    
+    // Make business data available to template
+    global $tln_profile_business;
+    $tln_profile_business = $business;
+    
+    // Build output by including the template
+    ob_start();
+    include(plugin_dir_path(__FILE__) . 'templates/profile-free.php');
+    return ob_get_clean();
+}
+add_filter('the_content', 'tln_inject_profile_content');
+
+
 // Shortcode for business profile
 function tln_business_profile_shortcode() {
     if (isset($_GET['biz']) && isset($_GET['pid'])) {
