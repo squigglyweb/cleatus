@@ -183,8 +183,12 @@ $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
             <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/support-local-businesses.webp" alt="Support Local Businesses" style="width:100%;border-radius:8px;margin-bottom:0.5rem;">
             <a href="/tln-ad-request.html" style="display:block;text-align:center;padding:3px 0;color:#666;font-size:0.9rem;font-weight:600;"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/online-advertising.png" style="height:16px;vertical-align:middle;margin-right:4px;">Advertise Your Business</a>
             <!-- What Neighbors Say Section - hidden until we have real per-business data -->
-            <?php /* NEIGHBORHOOD SCORE SECTION - Hidden until we have per-business data */ ?>
-            <?php /* Will be added when we store scores in database for each business */ ?>
+            <!-- What Neighbors Say - Call to action for first review -->
+            <div class="card">
+                <div class="card-title">What Neighbors Say</div>
+                <p style="font-size:0.9rem;color:#666;margin-bottom:1rem;">Be the first to leave a Neighborhood Review Score for this business and help others in our community know what they're about.</p>
+                <a href="/tln-neighbor-review/?biz=<?php echo urlencode($biz['name']); ?>&pid=<?php echo urlencode($biz['place_id']); ?>" class="claim-btn" style="display:inline-block;padding:0.75rem 1.5rem;background:var(--red);color:white;text-decoration:none;border-radius:6px;font-weight:700;">Leave a Review</a>
+            </div>
 
             <div class="card">
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
