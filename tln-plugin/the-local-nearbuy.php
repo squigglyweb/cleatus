@@ -203,7 +203,8 @@ function tln_inject_profile_content($content) {
 add_filter('the_content', 'tln_inject_profile_content');
 
 // Bypass WordPress theme for profile pages with params
-add_action('template_redirect', 'tln_check_profile_page');
+// DISABLED - causing critical errors
+// add_action('template_redirect', 'tln_check_profile_page');
 function tln_check_profile_page() {
     global $wp;
     
