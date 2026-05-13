@@ -1,8 +1,6 @@
 <?php
 /**
- * Plugin Name: TLN Business Directory (bundled in TLN Plugin Bundle)
- * Version: 1.0.0
- * License: CORRE
+ * TLN Business Directory - bundled in TLN Plugin Bundle
  */
 
 if (!defined('ABSPATH')) exit;
