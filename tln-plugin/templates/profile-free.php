@@ -224,14 +224,18 @@ $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
             <div class="card">
                 <div class="card-title">Google Reviews</div>
                 <?php if (!empty($biz['reviews'])): ?>
-                    <?php foreach (array_slice($biz['reviews'], 0, 5) as $review): ?>
+                    <div id="reviews-list">
+                    <?php foreach (array_slice($biz['reviews'], 0, 2) as $review): ?>
                     <div class="review-item">
                         <div class="reviewer"><?php echo esc_html($review['author_name'] ?? 'Google User'); ?></div>
                         <div class="review-stars"><?php echo str_repeat('★', $review['rating'] ?? 5); ?></div>
                         <div class="review-text"><?php echo esc_html($review['text'] ?? ''); ?></div>
                     </div>
                     <?php endforeach; ?>
-                    <a href="#" class="see-all">See all <?php echo count($biz['reviews']); ?> Google Reviews →</a>
+                    </div>
+                    <?php if (count($biz['reviews']) > 2): ?>
+                    <a href="#" onclick="document.getElementById('reviews-list').innerHTML = '<?php echo addslashes(htmlspecialchars(implode('', array_map(function($r){return '<div class="review-item"><div class="reviewer">'.($r['author_name'] ?? 'Google User').'</div><div class="review-stars">'.str_repeat('★', $r['rating'] ?? 5).'</div><div class="review-text">'.($r['text'] ?? '').'</div></div>';}, $biz['reviews']))); ?>'; this.style.display='none'; return false;" class="see-all">Show all <?php echo count($biz['reviews']); ?> reviews →</a>
+                    <?php endif; ?>
                 <?php else: ?>
                 <p style="color:#666;font-size:0.9rem;">No reviews yet.</p>
                 <?php endif; ?>
@@ -248,29 +252,20 @@ $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
                 </div>
             </div>
 
-            <?php if (!empty($biz['website']) || !empty($biz['phone'])): ?>
-            <div class="card">
-                <div class="card-title">Services</div>
-                <div class="services-grid">
-                    <?php if (!empty($biz['website'])): ?>
-                    <a href="<?php echo esc_url($biz['website']); ?>" target="_blank" class="service-btn">Visit Website</a>
-                    <?php endif; ?>
-                    <a href="https://www.google.com/search?q=<?php echo urlencode($biz['name'] . ' services'); ?>" target="_blank" class="service-btn">View Services</a>
-                    <?php if (!empty($biz['phone'])): ?>
-                    <a href="tel:<?php echo esc_attr($biz['phone']); ?>" class="service-btn">Call Now</a>
-                    <?php endif; ?>
-                </div>
-            </div>
-            <?php endif; ?>
+            <?php /* Services section - hidden until we have proper services data from business claims */ ?>
 
 
             <div class="card">
                 <div class="card-title">Location</div>
-                <div class="map-box">
-                    <a href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($biz['address']); ?>" target="_blank" style="color:var(--red);font-weight:600;text-decoration:none;">
-                        📍 View on Google Maps
-                    </a>
-                </div>
+                <iframe 
+                    width="100%" 
+                    height="200" 
+                    style="border:0;border-radius:8px;"
+                    loading="lazy" 
+                    allowfullscreen 
+                    referrerpolicy="no-referrer-when-downgrade"
+                    src="https://www.google.com/maps/embed/v1/place?key=<?php echo $api_key; ?>&q=<?php echo urlencode($biz['address']); ?>">
+                </iframe>
             </div>
 
             <div class="claim-box" style="background:#f5f5f5;border:1px solid #ddd;">
