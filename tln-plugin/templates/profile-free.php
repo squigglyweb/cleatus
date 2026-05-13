@@ -248,17 +248,18 @@ $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
         <div class="right-col">
             <div class="card">
                 <div class="card-title">Google Reviews</div>
-                <div class="review-item">
-                    <div class="reviewer">Mike T.</div>
-                    <div class="review-stars">★★★★★</div>
-                    <div class="review-text">Best mechanic in the area. Honest, reliable, and fair prices.</div>
-                </div>
-                <div class="review-item">
-                    <div class="reviewer">Sarah L.</div>
-                    <div class="review-stars">★★★★★</div>
-                    <div class="review-text">Fixed my car same day when others said it would take a week.</div>
-                </div>
-                <a href="#" class="see-all">See all 28 Google Reviews →</a>
+                <?php if (!empty($biz['reviews'])): ?>
+                    <?php foreach (array_slice($biz['reviews'], 0, 5) as $review): ?>
+                    <div class="review-item">
+                        <div class="reviewer"><?php echo esc_html($review['author_name'] ?? 'Google User'); ?></div>
+                        <div class="review-stars"><?php echo str_repeat('★', $review['rating'] ?? 5); ?></div>
+                        <div class="review-text"><?php echo esc_html($review['text'] ?? ''); ?></div>
+                    </div>
+                    <?php endforeach; ?>
+                    <a href="#" class="see-all">See all <?php echo count($biz['reviews']); ?> Google Reviews →</a>
+                <?php else: ?>
+                <p style="color:#666;font-size:0.9rem;">No reviews yet.</p>
+                <?php endif; ?>
             </div>
 
             <!-- Sidebar Ad -->
