@@ -253,13 +253,8 @@ function tln_check_profile_page() {
         global $tln_profile_business;
         $tln_profile_business = $business;
         
-        // Remove Divi theme wrapper if present
-        remove_all_actions('et_html_top_statement');
-        remove_all_actions('et_html_bottom_statement');
-        
         // Output directly
         include(plugin_dir_path(__FILE__) . 'templates/profile-free.php');
-        exit;
     }
 }
 
