@@ -2,25 +2,24 @@
 /*
 Template Name: TLN Free Profile
 */
-// Check if data was passed from shortcode (Google Places API)
+// Get business data from shortcode
 global $tln_profile_business;
 $biz = isset($tln_profile_business) ? $tln_profile_business : array(
-    'name' => the_title('', '', false),
-    'address' => get_post_meta(get_the_ID(), 'tln_address', true),
-    'phone' => get_post_meta(get_the_ID(), 'tln_phone', true),
-    'rating' => get_post_meta(get_the_ID(), 'tln_google_rating', true),
-    'hours' => array(
-        get_post_meta(get_the_ID(), 'tln_hours_mon', true),
-        get_post_meta(get_the_ID(), 'tln_hours_sat', true),
-        get_post_meta(get_the_ID(), 'tln_hours_sun', true),
-    ),
-    'website' => get_post_meta(get_the_ID(), 'tln_website', true),
+    'name' => 'Business Name',
+    'address' => '',
+    'phone' => '',
+    'rating' => '',
+    'hours' => array(),
+    'website' => '',
+    'reviews' => array(),
+    'photos' => array(),
 );
+$api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title><?php the_title(); ?> - The Local NearBuy</title>
+    <title>XYZ Repair - The Local NearBuy</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
@@ -28,31 +27,126 @@ $biz = isset($tln_profile_business) ? $tln_profile_business : array(
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Open Sans', sans-serif; background: url('https://thelocalnearbuy.com/wp-content/uploads/2026/05/town-scene-bkgd-scaled.webp') center top no-repeat; background-size: cover; color: #1a1a1a; }
         :root { --red: #e63946; --black: #1a1a1a; }
-        .hero { position: relative; height: 280px; background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://thelocalnearbuy.com/wp-content/uploads/2026/05/town-scene-bkgd-scaled.webp'); background-size: cover; background-position: center; }
-        .biz-info { position: absolute; bottom: 1.5rem; left: 1.5rem; }
-        .biz-name { font-size: 2.5rem; font-weight: 700; color: white; margin-bottom: 0.25rem; }
-        .biz-address { font-size: 1.1rem; color: white; display: flex; align-items: center; gap: 0.5rem; }
+
+        /* Hero Image */
+        .hero {
+            position: relative; height: 280px;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)),
+                        url('<?php echo (!empty($biz['photos']) && isset($biz['photos'][0]['photo_reference'])) ? "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1200&photoreference=" . $biz['photos'][0]['photo_reference'] . "&key=$api_key" : "https://thelocalnearbuy.com/wp-content/uploads/2026/05/town-scene-bkgd-scaled.webp"; ?>');
+            background-size: cover; background-position: center;
+        }
+
+        /* Business Name & Address */
+        .biz-info {
+            position: absolute; bottom: 1.5rem; left: 1.5rem;
+        }
+        .biz-name {
+            font-size: 2.5rem; font-weight: 700; color: white;
+            margin-bottom: 0.25rem;
+        }
+        .biz-address {
+            font-size: 1.1rem; color: white; display: flex; align-items: center; gap: 0.5rem;
+        }
+
+        /* Main Content */
         .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; display: grid; grid-template-columns: 320px 1fr; gap: 2rem; background: rgba(255,255,255,0.95); border-radius: 12px; margin-top: 1rem; margin-bottom: 1rem; }
+
+        /* Left Column */
         .left-col { display: flex; flex-direction: column; gap: 1.5rem; }
+
+        /* Right Column */
         .right-col { display: flex; flex-direction: column; gap: 1.5rem; }
+
+        /* Cards */
         .card { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 1.25rem; }
         .card-title { font-size: 1rem; font-weight: 700; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #eee; }
+
+        /* Hours */
         .hours-pill { padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; }
         .hours-pill.open { background: #28a745; color: white; }
         .hours-pill.closed { background: #dc3545; color: white; }
         .hours-pill.closing-soon { background: #ffc107; color: #333; }
         .hours-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #f0f0f0; font-size: 0.9rem; }
         .hours-row:last-child { border-bottom: none; }
+
+        /* Contact */
         .contact-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0; }
         .contact-item a { color: var(--red); text-decoration: none; font-weight: 600; }
+
+        /* Map Box */
+        .map-box { background: #f5f5f5; height: 200px; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #666; }
+
+        /* Reviews */
+        .review-item { padding: 0.75rem 0; border-bottom: 1px solid #eee; }
+        .review-item:last-child { border-bottom: none; }
+        .reviewer { font-weight: 700; font-size: 0.95rem; }
+        .review-stars { color: #fbbf24; font-size: 0.85rem; margin: 0.25rem 0; }
+        .review-text { color: #555; font-size: 0.9rem; }
+        .see-all { color: var(--red); font-size: 0.85rem; font-weight: 600; margin-top: 0.75rem; display: block; }
+
+        /* Services Grid */
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+        .service-btn {
+            background: #f5f5f5; border: 1px solid #ddd;
+            padding: 0.6rem 0.5rem; border-radius: 6px;
+            font-size: 0.8rem; color: #333; text-align: center;
+            cursor: pointer; transition: background 0.2s, border-color 0.2s;
+        }
+        .service-btn:hover { background: #eee; border-color: var(--red); }
+
+        /* Claim Box */
+        .claim-box {
+            background: linear-gradient(135deg, #1a1a1a, #333);
+            border-radius: 12px; padding: 1.5rem; text-align: center;
+        }
+        .claim-box h3 { color: white; font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .claim-box p { color: #ccc; margin-bottom: 1rem; font-size: 0.9rem; }
+        .claim-btn { 
+            display: inline-block; padding: 0.75rem 1.5rem; 
+            background: var(--red); color: white; 
+            text-decoration: none; border-radius: 6px; font-weight: 700;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .claim-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(230,57,70,0.4); }
+        /* New rating section styles */
+        #neighbors-section { margin-bottom: 1.5rem; }
+        .rating-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #eee; }
+        .rating-header .card-title { margin: 0; padding: 0; border: none; }
+        .avg-score { background: var(--red); color: white; padding: 0.25rem 0.75rem; border-radius: 20px; font-weight: 700; font-size: 0.9rem; }
+        .rating-category { display: flex; align-items: center; margin: 0.5rem 0; }
+        .rating-label { flex: 1; font-weight: 600; font-size: 0.9rem; }
+        .pin-rating { display: flex; gap: 2px; }
+        .pin-rating .pin { height: 16px; opacity: 0.3; }
+        .pin-rating .pin.active { opacity: 1; }
+        .review-btn { margin-top: 0.8rem; padding: 0.5rem 1rem; background: var(--red); color: white; border: none; border-radius: 4px; cursor: pointer; display: block; width: 100%; }
+        /* Modal styles */
+        .modal-backdrop { position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.5); display:none; align-items:center; justify-content:center; z-index: 1000; }
+        .modal { background:white; max-width:500px; width:90%; padding:1rem; border-radius:8px; position:relative; }
+        .modal h3 { margin-top:0; }
+        .modal .close-btn { position:absolute; top:0.5rem; right:0.5rem; background:none; border:none; font-size:1.2rem; cursor:pointer; }
+        .modal textarea, .modal input[type="text"] { width:100%; padding:0.5rem; margin:0.5rem 0; border:1px solid #ccc; border-radius:4px; }
+        .modal .submit-btn { background: var(--red); color:white; border:none; padding:0.5rem 1rem; border-radius:4px; cursor:pointer; }
+        /* Ad Slot Styles */
+        .ad-slot { background: #f9f9f9; border: 1px solid #eee; border-radius: 8px; padding: 0.5rem; text-align: center; margin-bottom: 1rem; }
+        .ad-slot-label { font-size: 0.7rem; color: #999; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.25rem; }
+        .ad-slot-content { display: flex; align-items: center; justify-content: center; color: #aaa; font-size: 0.85rem; }
+        /* Sidebar Box Ad - 300x250 */
+        .ad-box { background: #f5f5f5; border: 2px dashed #ddd; border-radius: 8px; width: 100%; height: 250px; display: flex; align-items: center; justify-content: center; }
+        /* Mobile Ad - 320x100 */
         .ad-mobile { display: none; }
-        @media(max-width: 800px) { .ad-mobile { display: block; } .container { grid-template-columns: 1fr; } .services-grid { grid-template-columns: repeat(2, 1fr); } .biz-name { font-size: 1.75rem; } .biz-address { font-size: 0.95rem; } }
+        @media(max-width: 800px) { .ad-mobile { display: block; } }
+        @media(max-width: 800px) {
+            .container { grid-template-columns: 1fr; }
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            .biz-name { font-size: 1.75rem; }
+            .biz-address { font-size: 0.95rem; }
+        }
     </style>
     <?php wp_head(); ?>
 </head>
 <body>
     <!-- Mobile Ad Slot -->
-    <div class="ad-mobile" style="background:#f9f9f9;padding:0.5rem;text-align:center;">
+    <div class="ad-mobile" style="display:none;background:#f9f9f9;padding:0.5rem;text-align:center;">
         <div class="ad-slot-label" style="font-size:0.7rem;color:#999;text-transform:uppercase;letter-spacing:1px;margin-bottom:0.25rem;">Advertisement</div>
         <div style="background:#fff;border:2px dashed #ccc;border-radius:8px;height:100px;display:flex;align-items:center;justify-content:center;color:#888;">
             <div><strong>Your Ad Here</strong><br><span style="font-size:0.75rem;">$25/mo – <a href="/tln-ad-request.html" style="color:var(--red);">Advertise your business on this page</a></span></div>
@@ -60,91 +154,208 @@ $biz = isset($tln_profile_business) ? $tln_profile_business : array(
     </div>
 
     <!-- Hero -->
-    <?php 
-    $hero_bg = 'https://thelocalnearbuy.com/wp-content/uploads/2026/05/town-scene-bkgd-scaled.webp';
-    $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
-    if (!empty($biz['photos']) && is_array($biz['photos']) && isset($biz['photos'][0]['photo_reference']) && $api_key) {
-        $hero_bg = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=1200&photoreference=' . $biz['photos'][0]['photo_reference'] . '&key=' . $api_key;
-    }
-    ?>
-    <div class="hero" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('<?php echo $hero_bg; ?>'); background-size: cover; background-position: center;">
+    <div style="position:absolute;top:1rem;right:1rem;z-index:10;">
+                <a href="#" style="background:rgba(0,0,0,0.7);color:white;padding:0.5rem 1rem;border-radius:6px;text-decoration:none;font-size:0.85rem;font-weight:600;">Business Login</a>
+            </div>
+
+            <div class="hero">
         <div class="biz-info">
             <div class="biz-name"><?php echo esc_html($biz['name']); ?></div>
-            <div class="biz-address">
-                <?php echo esc_html($biz['address']); ?>
+            <div class="biz-address"><?php echo esc_html($biz['address']); ?>
+                2300 E Providence Dr, Charlotte, NC 28270
             </div>
         </div>
     </div>
 
+
+
+    <!-- Main Content -->
     <div class="container">
+        <!-- Left Column -->
         <div class="left-col">
             <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/support-local-businesses.webp" alt="Support Local Businesses" style="width:100%;border-radius:8px;margin-bottom:0.5rem;">
-            <a href="/tln-ad-request.html" style="display:block;text-align:center;padding:3px 0;color:#666;font-size:0.9rem;font-weight:600;">Advertise Your Business</a>
-
-            <!-- Hours Card -->
-            <div class="card">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
-                    <span class="card-title">Hours</span>
-                    <span id="hoursStatus" class="hours-pill open">Open Now</span>
+            <a href="/tln-ad-request.html" style="display:block;text-align:center;padding:3px 0;color:#666;font-size:0.9rem;font-weight:600;"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/online-advertising.png" style="height:16px;vertical-align:middle;margin-right:4px;">Advertise Your Business</a>
+            <!-- What Neighbors Say Section -->
+            <div class="card" id="neighbors-section">
+                <div class="rating-header">
+                    <span class="card-title">What Neighbors Say</span>
+                    <span class="avg-score">4.2</span>
                 </div>
-                <?php if (!empty($biz['hours'])): ?>
-                    <?php foreach ($biz['hours'] as $day_hours): ?>
-                    <div class="hours-row"><span><?php echo esc_html($day_hours); ?></span></div>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                <div class="hours-row"><span>Monday – Friday</span><span><?php echo esc_html( get_post_meta( get_the_ID(), 'tln_hours_mon', true ) ); ?></span></div>
-                <div class="hours-row"><span>Saturday</span><span><?php echo esc_html( get_post_meta( get_the_ID(), 'tln_hours_sat', true ) ); ?></span></div>
-                <div class="hours-row"><span>Sunday</span><span><?php echo esc_html( get_post_meta( get_the_ID(), 'tln_hours_sun', true ) ); ?></span></div>
-                <?php endif; ?>
+                <div class="rating-category">
+                    <span class="rating-label">Quality</span>
+                    <div class="pin-rating" data-category="quality">
+                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin">
+                    </div>
+                </div>
+                <div class="rating-category">
+                    <span class="rating-label">Service</span>
+                    <div class="pin-rating" data-category="service">
+                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin">
+                    </div>
+                </div>
+                <div class="rating-category">
+                    <span class="rating-label">Value</span>
+                    <div class="pin-rating" data-category="value">
+                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin">
+                    </div>
+                </div>
+                <div class="rating-category">
+                    <span class="rating-label">Atmosphere</span>
+                    <div class="pin-rating" data-category="atmosphere">
+                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active">
+                    </div>
+                </div>
+                <div class="rating-category">
+                    <span class="rating-label">Overall Experience</span>
+                    <div class="pin-rating" data-category="overall">
+                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin">
+                    </div>
+                </div>
+                <button class="review-btn">Leave A Customer Review</button>
             </div>
 
-            <!-- Contact Card -->
+            <div class="card">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+                    <span class="card-title" style="margin:0;padding:0;border-bottom:none;">Hours</span>
+                    <span id="hoursStatus" class="hours-pill open">Open Now</span>
+                </div>
+                <div class="hours-row"><span>Monday - Friday</span><span>7am - 6pm</span></div>
+                <div class="hours-row"><span>Saturday</span><span>8am - 12pm</span></div>
+                <div class="hours-row"><span>Sunday</span><span>Closed</span></div>
+            </div>
+
             <div class="card">
                 <div class="card-title">Contact</div>
                 <div class="contact-item">
                     <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/call.png" style="height:18px;">
-                    <a href="tel:<?php echo esc_html($biz['phone']); ?>"><?php echo esc_html($biz['phone']); ?></a>
+                    <a href="tel:7045550182">(704) 555-0182</a>
                 </div>
                 <div class="contact-item">
                     <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:18px;">
-                    <a href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($biz['address']); ?>" target="_blank">Get Directions</a>
+                    <a href="#">Get Directions</a>
                 </div>
             </div>
         </div>
 
+        <!-- Right Column -->
         <div class="right-col">
-            <!-- Map -->
-            <div class="card">
-                <div class="card-title">Location</div>
-                <div style="background:#f5f5f5;height:200px;border-radius:8px;display:flex;align-items:center;justify-content:center;">
-                    <a href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($biz['address']); ?>" target="_blank" style="text-align:center;">
-                        <img src="https://www.gstatic.com/images/branding/product/2x/maps_2020i4.png" alt="Open in Google Maps" style="width:48px;height:48px;">
-                        <div style="font-size:0.9rem;color:var(--red);font-weight:600;margin-top:0.5rem;">View on Google Maps</div>
-                    </a>
-                </div>
-            </div>
-            
             <div class="card">
                 <div class="card-title">Google Reviews</div>
-                <?php if (!empty($biz['reviews'])): ?>
-                    <?php foreach (array_slice($biz['reviews'], 0, 3) as $review): ?>
-                    <div style="border-bottom:1px solid #eee;padding:0.5rem 0;">
-                        <div style="font-size:0.85rem;"><?php echo esc_html($review['text'] ?? ''); ?></div>
-                        <div style="font-size:0.75rem;color:#666;margin-top:0.25rem;"><?php echo esc_html($review['author_name'] ?? ''); ?></div>
-                    </div>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                <a href="#" class="see-all">See all Google Reviews →</a>
-                <?php endif; ?>
+                <div class="review-item">
+                    <div class="reviewer">Mike T.</div>
+                    <div class="review-stars">★★★★★</div>
+                    <div class="review-text">Best mechanic in the area. Honest, reliable, and fair prices.</div>
+                </div>
+                <div class="review-item">
+                    <div class="reviewer">Sarah L.</div>
+                    <div class="review-stars">★★★★★</div>
+                    <div class="review-text">Fixed my car same day when others said it would take a week.</div>
+                </div>
+                <a href="#" class="see-all">See all 28 Google Reviews →</a>
             </div>
-            <!-- Sidebar ad (kept as static for now) -->
-            <div class="ad-slot">
+
+            <!-- Sidebar Ad -->
+            <div class="ad-slot" style="background:#fefaf9;border-color:#f0e0e0;">
                 <div class="ad-slot-label">Advertisement</div>
-                <div class="ad-slot-content">Your Sidebar Ad Here – $35/mo – <a href="/tln-ad-request.html" style="color:var(--red);">Advertise your business on this page</a></div>
+                <div class="ad-box" style="border-style:dashed;border-color:#ccc;background:#fff;">
+                    <div class="ad-slot-content" style="color:#888;">
+                        <strong>Your Ad Here</strong><br>
+                        <span style="font-size:0.75rem;">$35/mo – <a href="/tln-ad-request.html" style="color:var(--red);">Advertise your business on this page</a></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-title">Services</div>
+                <div class="services-grid">
+                    <div class="service-btn">Engine Diagnostics</div>
+                    <div class="service-btn">Brake Service</div>
+                    <div class="service-btn">Oil Changes</div>
+                    <div class="service-btn">Tire Services</div>
+                    <div class="service-btn">A/C Repair</div>
+                    <div class="service-btn">Transmission</div>
+                </div>
+            </div>
+
+
+            <div class="card">
+                <div class="card-title">Location</div>
+                <div class="map-box">[Google Map]</div>
+            </div>
+
+            <div class="claim-box" style="background:#f5f5f5;border:1px solid #ddd;">
+                <h3 style="color:#333;">Claim This Page</h3>
+                <p style="color:#666;">Not ready to claim yet? <a href="/tln-ad-request.html" style="color:var(--red);">Advertise your business on this page</a> for just <strong style="color:var(--red);">$35/mo</strong> <span style="text-decoration:line-through;color:#999;font-size:0.85rem;">$50</span></p>
+                <a href="/claim/" class="claim-btn" style="background:var(--red);">Claim Your Page</a>
             </div>
         </div>
     </div>
 
-    <?php wp_footer(); ?>
+
+<!-- Review Modal -->
+<div class="modal-backdrop" id="reviewModal">
+    <div class="modal">
+        <button class="close-btn" id="closeModal">&times;</button>
+        <h3>How was the business?</h3>
+        <div class="rating-category">
+            <span class="rating-label">Overall Experience</span>
+            <div class="pin-rating" data-category="overall-modal">
+                <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin">
+            </div>
+        </div>
+        <div class="rating-category">
+            <span class="rating-label">Quality</span>
+            <div class="pin-rating" data-category="quality-modal">
+                <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin">
+            </div>
+        </div>
+        <div class="rating-category">
+            <span class="rating-label">Service</span>
+            <div class="pin-rating" data-category="service-modal">
+                <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin">
+            </div>
+        </div>
+        <div class="rating-category">
+            <span class="rating-label">Value</span>
+            <div class="pin-rating" data-category="value-modal">
+                <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin">
+            </div>
+        </div>
+        <div class="rating-category">
+            <span class="rating-label">Atmosphere</span>
+            <div class="pin-rating" data-category="atmosphere-modal">
+                <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin">
+            </div>
+        </div>
+        <textarea placeholder="Write a review (What should other customers know?)"></textarea>
+        <input type="text" placeholder="Title your review (required)" />
+        <input type="text" placeholder="Your public name (required)" value="Bryan Somers" />
+        <button class="submit-btn">Submit</button>
+    </div>
+</div>
+<script>
+    // Pin rating interaction
+    document.querySelectorAll('.pin-rating').forEach(function(container){
+        const pins = container.querySelectorAll('.pin');
+        pins.forEach(function(pin, idx){
+            pin.addEventListener('click', function(){
+                pins.forEach((p,i)=>{ p.classList.toggle('active', i<=idx); });
+            });
+        });
+    });
+    // Modal open/close
+    document.querySelector('.review-btn').addEventListener('click', function(){
+        document.getElementById('reviewModal').style.display='flex';
+    });
+    document.getElementById('closeModal').addEventListener('click', function(){
+        document.getElementById('reviewModal').style.display='none';
+    });
+    // Simple submit handler (placeholder)
+    document.querySelector('.submit-btn').addEventListener('click', function(){
+        alert('Review submitted – backend integration pending.');
+        document.getElementById('reviewModal').style.display='none';
+    });
+</script>
+<?php wp_footer(); ?>
 </body>
 </html>
