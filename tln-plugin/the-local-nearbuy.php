@@ -122,10 +122,6 @@ function tln_business_template($template) {
         if (file_exists($custom)) return $custom;
         return plugin_dir_path(__FILE__) . 'templates/profile-proplus.php';
     }
-    // Check for profile page with query params
-    if (is_page('profile') && isset($_GET['biz'])) {
-        return plugin_dir_path(__FILE__) . 'templates/profile-free.php';
-    }
     return $template;
 }
 add_filter('template_include', 'tln_business_template', 99);

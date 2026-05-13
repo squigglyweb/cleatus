@@ -28,7 +28,7 @@ $biz = isset($tln_profile_business) ? $tln_profile_business : array(
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Open Sans', sans-serif; background: url('https://thelocalnearbuy.com/wp-content/uploads/2026/05/town-scene-bkgd-scaled.webp') center top no-repeat; background-size: cover; color: #1a1a1a; }
         :root { --red: #e63946; --black: #1a1a1a; }
-        .hero { position: relative; height: 280px; background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=1200'); background-size: cover; background-position: center; }
+        .hero { position: relative; height: 280px; background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('https://thelocalnearbuy.com/wp-content/uploads/2026/05/town-scene-bkgd-scaled.webp'); background-size: cover; background-position: center; }
         .biz-info { position: absolute; bottom: 1.5rem; left: 1.5rem; }
         .biz-name { font-size: 2.5rem; font-weight: 700; color: white; margin-bottom: 0.25rem; }
         .biz-address { font-size: 1.1rem; color: white; display: flex; align-items: center; gap: 0.5rem; }
