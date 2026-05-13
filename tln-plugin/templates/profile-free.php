@@ -42,7 +42,7 @@ $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
         }
         .biz-name {
             font-size: 2.5rem; font-weight: 700; color: white;
-            margin-bottom: 0.25rem;
+            margin-bottom: 1rem;
         }
         .biz-address {
             font-size: 1.1rem; color: white; display: flex; align-items: center; gap: 0.5rem;
