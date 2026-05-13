@@ -268,12 +268,11 @@ $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
             <div class="card">
                 <div class="card-title">Services</div>
                 <div class="services-grid">
-                    <div class="service-btn">Engine Diagnostics</div>
-                    <div class="service-btn">Brake Service</div>
-                    <div class="service-btn">Oil Changes</div>
-                    <div class="service-btn">Tire Services</div>
-                    <div class="service-btn">A/C Repair</div>
-                    <div class="service-btn">Transmission</div>
+                    <?php if (!empty($biz['website'])): ?>
+                    <a href="<?php echo esc_url($biz['website']); ?>" target="_blank" class="service-btn">Visit Website</a>
+                    <?php endif; ?>
+                    <a href="https://www.google.com/search?q=<?php echo urlencode($biz['name'] . ' services'); ?>" target="_blank" class="service-btn">View Services</a>
+                    <a href="tel:<?php echo esc_attr($biz['phone']); ?>" class="service-btn">Call Now</a>
                 </div>
             </div>
 
