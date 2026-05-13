@@ -81,35 +81,82 @@
                     <label>Choose Your Ad *</label>
                     <div class="ad-options">
                         <div class="ad-option" data-value="sidebar">
-                            <h3>Sidebar Box</h3>
-                            <div class="price"><span class="original">$50</span>$35/mo</div>
-                            <div class="size">300×250</div>
-                        </div>
-                        <div class="ad-option" data-value="banner">
-                            <h3>Banner</h3>
-                            <div class="price"><span class="original">$75</span>$50/mo</div>
-                            <div class="size">728×90</div>
+                            <h3>Sidebar</h3>
+                            <div class="price">$35/mo</div>
+                            <div class="size">300×250px<br><span style="font-size:0.7rem;color:#999;">Desktop</span></div>
                         </div>
                         <div class="ad-option" data-value="mobile">
                             <h3>Mobile</h3>
-                            <div class="price"><span class="original">$40</span>$25/mo</div>
-                            <div class="size">320×100</div>
+                            <div class="price">$25/mo</div>
+                            <div class="size">320×100px<br><span style="font-size:0.7rem;color:#999;">Phone</span></div>
                         </div>
-                    </div>
-                    <div class="ad-options" style="margin-top:0.75rem;">
-                        <div class="ad-option bundle" data-value="bundle" style="grid-column:1/-1;">
-                            <h3>ALL THREE - Bundle Deal</h3>
-                            <div class="price"><span class="original">$165</span>$75/mo</div>
-                            <div class="size">Sidebar + Banner + Mobile</div>
+                        <div class="ad-option" data-value="both">
+                            <h3>Both</h3>
+                            <div class="price"><span class="original">$60</span>$50/mo</div>
+                            <div class="size">Mobile + Desktop</div>
                         </div>
                     </div>
                     <input type="hidden" name="ad_type" id="ad_type" required>
                 </div>
                 
                 <div class="form-group">
-                    <label>Ad Image *</label>
-                    <input type="file" name="ad_image" accept="image/*" required>
-                    <div class="file-hint">PNG or JPG. Recommended size: 300×250px for sidebar, 728×90 for banner.</div>
+                    <label>Ad Design *</label>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;">
+                        <div class="ad-option selected" id="opt-upload" data-design="upload" style="padding:0.75rem;">
+                            <div style="font-size:0.9rem;font-weight:600;">I have my own image</div>
+                            <div style="font-size:0.75rem;color:#666;">Upload PNG/JPG</div>
+                        </div>
+                        <div class="ad-option" id="opt-template" data-design="template" style="padding:0.75rem;">
+                            <div style="font-size:0.9rem;font-weight:600;">Design it for me</div>
+                            <div style="font-size:0.75rem;color:#666;">We create your ad +$50</div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="design_type" id="design_type" value="upload">
+                </div>
+                
+                <div id="upload-section">
+                    <div class="form-group">
+                        <label>Upload Your Ad Image</label>
+                        <input type="file" name="ad_image" accept="image/*">
+                        <div class="file-hint">PNG or JPG. 300×250px for sidebar, 320×100px for mobile.</div>
+                    </div>
+                </div>
+                
+                <div id="template-section" style="display:none;">
+                    <div class="form-group">
+                        <label>Choose a Template Style</label>
+                        <div class="ad-options" style="grid-template-columns:repeat(2,1fr);">
+                            <div class="ad-option template-opt selected" data-template="classic" style="padding:0.5rem;">
+                                <div style="background:#e63946;height:60px;border-radius:4px;margin-bottom:0.5rem;display:flex;align-items:center;justify-content:center;">
+                                    <span style="color:white;font-weight:700;font-size:0.8rem;">Your Business</span>
+                                </div>
+                                <div style="font-size:0.8rem;">Classic Red</div>
+                            </div>
+                            <div class="ad-option template-opt" data-template="modern" style="padding:0.5rem;">
+                                <div style="background:#1a1a1a;height:60px;border-radius:4px;margin-bottom:0.5rem;display:flex;align-items:center;justify-content:center;">
+                                    <span style="color:white;font-weight:700;font-size:0.8rem;">Your Business</span>
+                                </div>
+                                <div style="font-size:0.8rem;">Modern Dark</div>
+                            </div>
+                            <div class="ad-option template-opt" data-template="fresh" style="padding:0.5rem;">
+                                <div style="background:#28a745;height:60px;border-radius:4px;margin-bottom:0.5rem;display:flex;align-items:center;justify-content:center;">
+                                    <span style="color:white;font-weight:700;font-size:0.8rem;">Your Business</span>
+                                </div>
+                                <div style="font-size:0.8rem;">Fresh Green</div>
+                            </div>
+                            <div class="ad-option template-opt" data-template="minimal" style="padding:0.5rem;">
+                                <div style="background:#fff;border:2px solid #1a1a1a;height:60px;border-radius:4px;margin-bottom:0.5rem;display:flex;align-items:center;justify-content:center;">
+                                    <span style="color:#1a1a1a;font-weight:700;font-size:0.8rem;">Your Business</span>
+                                </div>
+                                <div style="font-size:0.8rem;">Minimal White</div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="template_style" id="template_style" value="classic">
+                    </div>
+                    <div class="form-group">
+                        <label>Tagline (optional)</label>
+                        <input type="text" name="tagline" placeholder="e.g., Serving Waxhaw since 1995">
+                    </div>
                 </div>
                 
                 <div class="form-group">
@@ -132,12 +179,39 @@
     </div>
     
     <script>
-        // Ad option selection
-        document.querySelectorAll('.ad-option').forEach(function(opt) {
+        // Ad type selection
+        document.querySelectorAll('.ad-option:not(.template-opt)').forEach(function(opt) {
             opt.addEventListener('click', function() {
-                document.querySelectorAll('.ad-option').forEach(function(o) { o.classList.remove('selected'); });
+                document.querySelectorAll('.ad-option:not(.template-opt)').forEach(function(o) { o.classList.remove('selected'); });
                 opt.classList.add('selected');
                 document.getElementById('ad_type').value = opt.dataset.value;
+            });
+        });
+        
+        // Design type selection (upload vs template)
+        document.getElementById('opt-upload').addEventListener('click', function() {
+            document.getElementById('opt-upload').classList.add('selected');
+            document.getElementById('opt-template').classList.remove('selected');
+            document.getElementById('design_type').value = 'upload';
+            document.getElementById('upload-section').style.display = 'block';
+            document.getElementById('template-section').style.display = 'none';
+            document.querySelector('#upload-section input').required = true;
+        });
+        document.getElementById('opt-template').addEventListener('click', function() {
+            document.getElementById('opt-template').classList.add('selected');
+            document.getElementById('opt-upload').classList.remove('selected');
+            document.getElementById('design_type').value = 'template';
+            document.getElementById('upload-section').style.display = 'none';
+            document.getElementById('template-section').style.display = 'block';
+            document.querySelector('#upload-section input').required = false;
+        });
+        
+        // Template style selection
+        document.querySelectorAll('.template-opt').forEach(function(opt) {
+            opt.addEventListener('click', function() {
+                document.querySelectorAll('.template-opt').forEach(function(o) { o.classList.remove('selected'); });
+                opt.classList.add('selected');
+                document.getElementById('template_style').value = opt.dataset.template;
             });
         });
         

@@ -1,0 +1,582 @@
+{
+  "version": 1,
+  "updatedAt": "2026-05-13T00:24:50.755Z",
+  "entries": {
+    "memory:memory/2026-05-05.md:72:89": {
+      "key": "memory:memory/2026-05-05.md:72:89",
+      "path": "memory/2026-05-05.md",
+      "startLine": 72,
+      "endLine": 89,
+      "source": "memory",
+      "snippet": "- [ ] Meals donated tracker (glocal - global + local) - [ ] Photo gallery with autoscroll (4+ photos) - [ ] Video upload (based on payment tier) - [ ] Priority support badge ## UTM Sources - directory (web) - newsletter (email) - postcard (print) - direct (none) - google (organic) ## Payment Tiers Impact - Free: Basic listing - Pro ($99): Gallery + basic features - Pro+ ($199): More photos + video + priority support - Sponsor ($349): Everything + featured spots",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-12T20:21:50.131Z",
+      "lastRecalledAt": "2026-05-12T23:02:11.759Z",
+      "queryHashes": [
+        "3b057c3172e9",
+        "80f9208f6c41"
+      ],
+      "recallDays": [
+        "2026-05-12"
+      ],
+      "conceptTags": [
+        "meals",
+        "donated",
+        "tracker",
+        "glocal",
+        "global",
+        "local",
+        "photo",
+        "gallery"
+      ]
+    },
+    "memory:memory/2026-05-07.md:1:45": {
+      "key": "memory:memory/2026-05-07.md:1:45",
+      "path": "memory/2026-05-07.md",
+      "startLine": 1,
+      "endLine": 45,
+      "source": "memory",
+      "snippet": "# May 7, 2026 ## TLN - The Local NearBuy Updates ### Branding Shift: \"Member\" Concept - Moved away from \"customer/client\" language - Everyone is a **Member** - builds community, not transactions - Reference: Brilliant Directories \"Be Part of Something Meaningful\" messaging ### Membership Tiers (Final) - **Free Member** - basic directory listing - **Pro Member** ($99/mo) - profile + offers - **Pro+ Member** ($199/mo) - profile + offers + video + featured + newsletter - **Sponsor Member** ($349/mo) - banner + newsletter ads + homepage ### Add-On Model Everything else is an add-on to membership: - Postcard Campaigns ($150/campaign) - Design Services ($50/project) - Social Management ($200/m",
+      "recallCount": 4,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 4,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-12T20:21:50.131Z",
+      "lastRecalledAt": "2026-05-13T00:24:42.413Z",
+      "queryHashes": [
+        "3b057c3172e9",
+        "94cabbf81b68",
+        "80f9208f6c41",
+        "201d5f225c55"
+      ],
+      "recallDays": [
+        "2026-05-12",
+        "2026-05-13"
+      ],
+      "conceptTags": [
+        "customer/client",
+        "99/mo",
+        "199/mo",
+        "349/mo",
+        "add-on",
+        "150/campaign",
+        "50/project",
+        "200/m"
+      ]
+    },
+    "memory:memory/2026-05-07.md:34:79": {
+      "key": "memory:memory/2026-05-07.md:34:79",
+      "path": "memory/2026-05-07.md",
+      "startLine": 34,
+      "endLine": 79,
+      "source": "memory",
+      "snippet": "- ✅ Expandable map placeholder - ✅ Neighborhood Score (Quality, Value, Service, Overall) - ✅ Meals impact (community cause) - ✅ Share buttons - ✅ Ad space on sidebar (monetization) ### Key Files - tln-profile-pro-plus-final.html - Latest Pro+ profile template ### Pending - Integrate profile into WordPress plugin - Build admin dashboard - Connect Stripe webhooks ## Offer Marketing Strategy (May 8, 2026) ### Key Insight Offers can be HIDDEN from the website during print campaigns. This creates value for printed postcards vs website-only listings. ### How It Works - Website offers: Always visible (included in membership) - Print campaigns: Hide offer on website, only accessible via QR code",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-12T20:21:50.131Z",
+      "lastRecalledAt": "2026-05-13T00:24:50.755Z",
+      "queryHashes": [
+        "3b057c3172e9",
+        "280499cabedf"
+      ],
+      "recallDays": [
+        "2026-05-12",
+        "2026-05-13"
+      ],
+      "conceptTags": [
+        "tln-profile-pro-plus-final.html",
+        "website-only",
+        "expandable",
+        "map",
+        "placeholder",
+        "neighborhood",
+        "quality",
+        "value"
+      ]
+    },
+    "memory:memory/2026-05-07.md:70:110": {
+      "key": "memory:memory/2026-05-07.md:70:110",
+      "path": "memory/2026-05-07.md",
+      "startLine": 70,
+      "endLine": 110,
+      "source": "memory",
+      "snippet": "- Add \"Think Globally. Feed Locally. — That's Glocal.\" as tagline - Make \"glocal\" the hook/movement - Every membership tier provides meals: - Free: 0 meals/month - Pro ($99): 10 meals/month - Pro+ ($199): 25 meals/month - Sponsor ($349): 50 meals/month - Membership = profit + purpose (social enterprise model) ## Files Updated - tln-pricing-v2.html - New pricing with meals badges, witty membership section - tln-profile-free-final.html - Exact layout from Bryan screenshot - tln-profile-pro-v2.html - Pro in same Free style (special offer, meals counter) ## Promo Products Idea (May 9, 2026) - Sell t-shirts, stickers, promo items with TLN branding - For every item sold = provide X meal",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-12T20:21:50.131Z",
+      "lastRecalledAt": "2026-05-13T00:24:50.755Z",
+      "queryHashes": [
+        "3b057c3172e9",
+        "280499cabedf"
+      ],
+      "recallDays": [
+        "2026-05-12",
+        "2026-05-13"
+      ],
+      "conceptTags": [
+        "hook/movement",
+        "meals/month",
+        "tln-pricing-v2.html",
+        "tln-profile-free-final.html",
+        "tln-profile-pro-v2.html",
+        "t-shirts",
+        "add",
+        "think"
+      ]
+    },
+    "memory:memory/2026-05-09.md:32:61": {
+      "key": "memory:memory/2026-05-09.md:32:61",
+      "path": "memory/2026-05-09.md",
+      "startLine": 32,
+      "endLine": 61,
+      "source": "memory",
+      "snippet": "- tln-profile-pro-v2.html - tln-profile-pro-plus-final.html - tln-neighbor-dashboard.html ## Offer Redemption Flow (IMPORTANT) - ALWAYS require email capture BEFORE showing redemption code - Click \"Redeem Offer\" → Modal asks for email → Submit → Show confirmation - This applies to all offer buttons everywhere on the site ## Email Capture on ALL Offer Redemptions (MANDATORY) - Every \"Redeem Offer\" button anywhere on the site MUST: 1. Open modal asking for email 2. Validate email has @ symbol 3. Show confirmation after valid email - Applies to: Pro+ profile, Pro profile, all future pages ## STRICT RULES FOR ALL CHANGES (MANDATORY) 1. ONLY make changes Bryan specifically requests - nev",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-12T20:21:50.131Z",
+      "lastRecalledAt": "2026-05-12T20:21:50.131Z",
+      "queryHashes": [
+        "3b057c3172e9"
+      ],
+      "recallDays": [
+        "2026-05-12"
+      ],
+      "conceptTags": [
+        "tln-profile-pro-v2.html",
+        "tln-profile-pro-plus-final.html",
+        "tln-neighbor-dashboard.html",
+        "tln",
+        "profile",
+        "pro",
+        "html",
+        "plus"
+      ]
+    },
+    "memory:memory/2026-05-05.md:1:46": {
+      "key": "memory:memory/2026-05-05.md:1:46",
+      "path": "memory/2026-05-05.md",
+      "startLine": 1,
+      "endLine": 46,
+      "source": "memory",
+      "snippet": "# Bryan Somers - TLN Memory ## About Bryan - Founder, Publisher & Editor of The Local NearBuy (TLN) - Building a local digital media company serving Waxhaw area (Waxhaw, Weddington, Wesley Chapel, Marvin, Indian Land, Ballantyne) - 30+ years graphic design experience - Works at Collegiate Housing Services (CHS) - Helps Bethany Church with social media ## Goals - $60k/month total - Financial freedom - Multiple income streams - Low startup cost, fast to revenue - Recurring, delegatable, not dependent on him forever ## Current Projects - Golf Courses page - set up with tln-golf-shortcode.php plugin (uses [golf_directory] shortcode) - Wants to add filtering to the golf page - Using Poll Maker",
+      "recallCount": 3,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 3,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-12T20:21:50.131Z",
+      "lastRecalledAt": "2026-05-12T23:02:11.759Z",
+      "queryHashes": [
+        "3b057c3172e9",
+        "94cabbf81b68",
+        "80f9208f6c41"
+      ],
+      "recallDays": [
+        "2026-05-12"
+      ],
+      "conceptTags": [
+        "60k/month",
+        "tln-golf-shortcode.php",
+        "golf-directory",
+        "bryan",
+        "somers",
+        "tln",
+        "founder",
+        "publisher"
+      ]
+    },
+    "memory:memory/2026-04-13.md:1:43": {
+      "key": "memory:memory/2026-04-13.md:1:43",
+      "path": "memory/2026-04-13.md",
+      "startLine": 1,
+      "endLine": 43,
+      "source": "memory",
+      "snippet": "# Memory - April 13, 2026 ## Session Notes ### Video Background Identified - The header on the template page uses **YouTube video ID: XzbVs1-48ZY** as a background - It's likely stock drone footage of neighborhoods/aerial shots (common in marketing agency templates) - URL: https://www.youtube.com/watch?v=XzbVs1-48ZY ### For The Local NearBuy Project - The signup page (nearbuy-signup-v2.html) uses CSS animation instead of video for better reliability - This avoids YouTube embed issues and ensures consistent performance ### Full Vision Discussed (from Claude.ai conversation) **Bryan's 4 Assets:** 1. Local Social Accounts — daily attention, brand awareness, community voice 2. Local Director",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-12T22:41:06.839Z",
+      "lastRecalledAt": "2026-05-12T22:41:06.839Z",
+      "queryHashes": [
+        "47ce4d615495"
+      ],
+      "recallDays": [
+        "2026-05-12"
+      ],
+      "conceptTags": [
+        "xzbvs1-48zy",
+        "neighborhoods/aerial",
+        "www.youtube.com/watch",
+        "nearbuy-signup-v2.html",
+        "claude.ai",
+        "april",
+        "video",
+        "background"
+      ]
+    },
+    "memory:memory/2026-04-30.md:1:13": {
+      "key": "memory:memory/2026-04-30.md:1:13",
+      "path": "memory/2026-04-30.md",
+      "startLine": 1,
+      "endLine": 13,
+      "source": "memory",
+      "snippet": "## TLN Business Review Variables - **Quality** - How good is the product/food/service? - **Value** - Is it worth the price? - **Service** - How are you treated? - **Experience** - Overall vibe/ambiance ## TLN Content Structure Change - ACF fields now attached to Posts (not Business post type) - Posts = TLN Reviews (with scoring fields) - Business post type = Directory listings (no ACF) - This aligns with Bryan's content strategy",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-12T23:02:04.581Z",
+      "lastRecalledAt": "2026-05-12T23:02:04.581Z",
+      "queryHashes": [
+        "94cabbf81b68"
+      ],
+      "recallDays": [
+        "2026-05-12"
+      ],
+      "conceptTags": [
+        "product/food/service",
+        "vibe/ambiance",
+        "tln",
+        "business",
+        "review",
+        "variables",
+        "quality",
+        "how"
+      ]
+    },
+    "memory:memory/2026-05-05.md:37:86": {
+      "key": "memory:memory/2026-05-05.md:37:86",
+      "path": "memory/2026-05-05.md",
+      "startLine": 37,
+      "endLine": 86,
+      "source": "memory",
+      "snippet": "- Neighbor writes a review, submits, goes to moderation queue - Display on business page alongside Google reviews ## Golf Plugin v1.2 (Ready) - Green border (#7cda24) - Yellow stars (#FABC06) - Clickable phone (tel: link) - Linked address to Google Maps - Status pill: Open Now (green), Closed (red), Hours Unavailable (amber) - Search, location filter, sort - 1-hour caching ## Business Dashboard (To Build) - Claim form → approval → dashboard - Tabs: Business Info, Photos & Media, Offers, Community Impact, Social Media, Google Sync - Pricing tiers: Free / $99 Pro / $199 Pro+ ## Claimed Card Styling Specs - Border: 3px thick, red (#e63946) - for claimed/verified businesses - Border: 2px thic",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-12T23:02:04.581Z",
+      "lastRecalledAt": "2026-05-12T23:02:11.759Z",
+      "queryHashes": [
+        "94cabbf81b68",
+        "80f9208f6c41"
+      ],
+      "recallDays": [
+        "2026-05-12"
+      ],
+      "conceptTags": [
+        "v1.2",
+        "1-hour",
+        "claimed/verified",
+        "neighbor",
+        "writes",
+        "review",
+        "submits",
+        "goes"
+      ]
+    },
+    "memory:memory/2026-04-13.md:73:105": {
+      "key": "memory:memory/2026-04-13.md:73:105",
+      "path": "memory/2026-04-13.md",
+      "startLine": 73,
+      "endLine": 105,
+      "source": "memory",
+      "snippet": "- **Directory** (nearbuy-directory.html) — Browse page with filters, grid view, business cards - **Business Listing** (nearbuy-business-listing.html) — Individual business page with offer card, QR code, reviews, sidebar ### GitHub Repository https://github.com/squigglyweb/cleatus All files pushed and available. --- ## April 14, 2026 — Session Notes ### New Pages Created Today 1. **nearbuy-coverage.html** — Coverage Area page showing Greater Waxhaw coverage (9 towns, 5K/campaign, 20K+ total households), map placeholder, strategic approach section 2. **nearbuy-events.html** — Events page (meal-packing events) with coming soon email capture, mission cards, past events placeholder 3. **near",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-12T23:02:04.581Z",
+      "lastRecalledAt": "2026-05-13T00:24:42.413Z",
+      "queryHashes": [
+        "94cabbf81b68",
+        "201d5f225c55"
+      ],
+      "recallDays": [
+        "2026-05-12",
+        "2026-05-13"
+      ],
+      "conceptTags": [
+        "nearbuy-directory.html",
+        "nearbuy-business-listing.html",
+        "github.com/squigglyweb/cleatus",
+        "nearbuy-coverage.html",
+        "5k/campaign",
+        "nearbuy-events.html",
+        "meal-packing",
+        "directory"
+      ]
+    },
+    "memory:memory/2026-04-13.md:34:85": {
+      "key": "memory:memory/2026-04-13.md:34:85",
+      "path": "memory/2026-04-13.md",
+      "startLine": 34,
+      "endLine": 85,
+      "source": "memory",
+      "snippet": "| Tier | Size | Price | Meals | |------|------|-------|-------| | Small | 3.8\" x 2.5\" | $250 | 25 | | Small Front | 3.8\" x 5\" | $325 | 40 | | Medium | 7.6\" x 5\" | $625 | 75 | | Large | 7.6\" x 7.5\" | $800 | 110 | **Postcard Layout:** - Total: 12\" x 9\" - No Ad Zone (bottom): 11.75\" x 3.187\" — mailing indicia + NearBuy promo - Available ad space: above the No Ad Zone **Ad Builder Interface:** - Click-to-select grid showing available spots - Tier-based selection (not a la carte) - Custom QR code per ad - Real-time price + meal calculation - Businesses wanting more space can buy multiples or get custom quotes ### Tools (Current Stack) - Moxie CRM — keep using - Google Workspace — keep using -",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-12T23:02:04.581Z",
+      "lastRecalledAt": "2026-05-13T00:24:50.755Z",
+      "queryHashes": [
+        "94cabbf81b68",
+        "280499cabedf"
+      ],
+      "recallDays": [
+        "2026-05-12",
+        "2026-05-13"
+      ],
+      "conceptTags": [
+        "3.8",
+        "2.5",
+        "7.6",
+        "7.5",
+        "11.75",
+        "3.187",
+        "click-to-select",
+        "tier-based"
+      ]
+    },
+    "memory:memory/2026-04-22.md:1:34": {
+      "key": "memory:memory/2026-04-22.md:1:34",
+      "path": "memory/2026-04-22.md",
+      "startLine": 1,
+      "endLine": 34,
+      "source": "memory",
+      "snippet": "## TLN About Copy (Updated) **The Local NearBuy** Your guide to Waxhaw & surrounding areas' best — restaurants, shops, services, and hidden gems. Every purchase through NearBuy helps feed local kids and families, both here and around the world. Discover your community. Support local. Make a difference. **What We Do** We connect Greater Waxhaw neighbors with local businesses — through our directory, social media, newsletter, and postcard ads. Businesses advertise with us. You discover great local spots. We donate meals for every engagement. It's a win-win-win: - Neighbors discover awesome local businesses - Businesses reach more customers - Kids & families get fed ## T-Shirt Project",
+      "recallCount": 2,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 2,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-12T23:02:11.759Z",
+      "lastRecalledAt": "2026-05-13T00:24:42.413Z",
+      "queryHashes": [
+        "80f9208f6c41",
+        "201d5f225c55"
+      ],
+      "recallDays": [
+        "2026-05-12",
+        "2026-05-13"
+      ],
+      "conceptTags": [
+        "win-win-win",
+        "t-shirt",
+        "tln",
+        "copy",
+        "updated",
+        "local",
+        "nearbuy",
+        "guide"
+      ]
+    },
+    "memory:memory/2026-04-08.md:1:33": {
+      "key": "memory:memory/2026-04-08.md:1:33",
+      "path": "memory/2026-04-08.md",
+      "startLine": 1,
+      "endLine": 33,
+      "source": "memory",
+      "snippet": "# April 8, 2026 - NearBuy Postcard Project Notes ## Project Status - NearBuy postcard tracker built: nearbuy-tracker-divi.html - Business portal built: nearbuy-business-portal.html - Google Apps Script backend: nearbuy-apps-script.gs - GitHub repo: https://github.com/squigglyweb/cleatus ## Pricing - Standard ad: $500 - Duplex (combined): $900 ## System Issues - OpenClaw environment completely down since April 7 - All exec commands timeout - Unable to make edits or push changes ## Business Strategy Notes - Ideal businesses: Home services (plumbers, HVAC, landscapers), food/dining, health/wellness, retail, auto services - Avoid: Big box stores, national chains, online-only businesses - Cat",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-12T23:02:11.759Z",
+      "lastRecalledAt": "2026-05-12T23:02:11.759Z",
+      "queryHashes": [
+        "80f9208f6c41"
+      ],
+      "recallDays": [
+        "2026-05-12"
+      ],
+      "conceptTags": [
+        "nearbuy-tracker-divi.html",
+        "nearbuy-business-portal.html",
+        "nearbuy-apps-script.gs",
+        "github.com/squigglyweb/cleatus",
+        "food/dining",
+        "health/wellness",
+        "online-only",
+        "april"
+      ]
+    },
+    "memory:memory/2026-04-21.md:43:79": {
+      "key": "memory:memory/2026-04-21.md:43:79",
+      "path": "memory/2026-04-21.md",
+      "startLine": 43,
+      "endLine": 79,
+      "source": "memory",
+      "snippet": "- 4 styles each: Whimsical, Retro, Modern, Minimal - The Local NearBuy branded merch too - Waxhaw concept: railroad tracks split town middle, storefronts both sides, bridge overhead ### TLN Radio Player - Created HTML/CSS/JS player with blinking red LIVE light - File: tln-radio-player.html - Still needs: actual MP3 file URLs to load jingles ### The Local NearBuy App - Future project - will need to build ## Content Written ### About TLN (saved to about-tln.md): \"Your guide to Greater Waxhaw's best — restaurants, shops, services, and hidden gems. Every purchase through NearBuy helps feed local kids and families, both here and around the world. Discover your community. Support local. Make",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-13T00:24:42.413Z",
+      "lastRecalledAt": "2026-05-13T00:24:42.413Z",
+      "queryHashes": [
+        "201d5f225c55"
+      ],
+      "recallDays": [
+        "2026-05-13"
+      ],
+      "conceptTags": [
+        "html/css/js",
+        "tln-radio-player.html",
+        "about-tln.md",
+        "styles",
+        "each",
+        "whimsical",
+        "retro",
+        "modern"
+      ]
+    },
+    "memory:memory/2026-04-13.md:132:147": {
+      "key": "memory:memory/2026-04-13.md:132:147",
+      "path": "memory/2026-04-13.md",
+      "startLine": 132,
+      "endLine": 147,
+      "source": "memory",
+      "snippet": "### Coming Soon Page Rebuild - Struggled with layout communication - Bryan showed images I couldn't access clearly - **Issue:** URLs like chs.vendorprint.site blocked, couldn't see mockups properly - **Fix for future:** Bryan agreed to describe layouts in text ### Final Layout Decision - Full background image (town-illustration.png) - **Mosaic pattern** for navigation boxes - like postcard ad spaces - Different sized boxes: some span 1 col, some span 2 - Email signup in bottom left corner - Hover reveals description text - 6 content boxes: TLN Radio, Recommend, Pillars, Coverage, Our Mission, Biz Ads ### Files Modified - nearbuy-coming-soon.html - rebuilt multiple times based on Bryan's fe",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-13T00:24:42.413Z",
+      "lastRecalledAt": "2026-05-13T00:24:42.413Z",
+      "queryHashes": [
+        "201d5f225c55"
+      ],
+      "recallDays": [
+        "2026-05-13"
+      ],
+      "conceptTags": [
+        "chs.vendorprint.site",
+        "town-illustration.png",
+        "nearbuy-coming-soon.html",
+        "coming",
+        "soon",
+        "page",
+        "rebuild",
+        "struggled"
+      ]
+    },
+    "memory:memory/2026-05-02.md:1:33": {
+      "key": "memory:memory/2026-05-02.md:1:33",
+      "path": "memory/2026-05-02.md",
+      "startLine": 1,
+      "endLine": 33,
+      "source": "memory",
+      "snippet": "# Memory - May 2, 2026 ## The Local NearBuy (TLN) - Today's Progress ### Directory Page Build - Created custom HTML/CSS template: `tln-v2/directory-page.html` - **Layout:** 3 cards across, responsive (2 on tablet, 1 on mobile) - **Card content:** Image → Category → Title → Address → Phone → Rating → View button - **Filters:** Location (Waxhaw, Weddington, etc.), Category (Dentist, Restaurant, etc.), Sort (A-Z, Rating) ### Styling - **Font:** GT Walsheim Pro for headings, Open Sans for body text (matches TLN website) - **Icons:** Using inline SVGs (location pin, phone, star) - no external dependencies - **Card design:** White background, subtle shadow, hover effect ### Bryan’s Vision - **",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-13T00:24:42.413Z",
+      "lastRecalledAt": "2026-05-13T00:24:42.413Z",
+      "queryHashes": [
+        "201d5f225c55"
+      ],
+      "recallDays": [
+        "2026-05-13"
+      ],
+      "conceptTags": [
+        "html/css",
+        "tln-v2/directory-page.html",
+        "a-z",
+        "may",
+        "local",
+        "nearbuy",
+        "tln",
+        "today's"
+      ]
+    },
+    "memory:memory/2026-04-18.md:1:17": {
+      "key": "memory:memory/2026-04-18.md:1:17",
+      "path": "memory/2026-04-18.md",
+      "startLine": 1,
+      "endLine": 17,
+      "source": "memory",
+      "snippet": "--- ## Offer Redemption Flow (Future) ### Requirements 1. **Redemption trigger**: When customer redeems offer at business 2. **Customer notification**: Text AND/OR email thanking them 3. **Follow-up**: Ask if they want to keep the deal/loyalty going 4. **Gamification** (post-Meas4Good): Encourage more donations with rewards/levels ### Future Build Notes - SMS/email automation on offer redemption - Loyalty program integration - Leaderboards or badges for frequent users - Meals4Good tracking linked to offer usage",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-13T00:24:50.755Z",
+      "lastRecalledAt": "2026-05-13T00:24:50.755Z",
+      "queryHashes": [
+        "280499cabedf"
+      ],
+      "recallDays": [
+        "2026-05-13"
+      ],
+      "conceptTags": [
+        "and/or",
+        "follow-up",
+        "deal/loyalty",
+        "post-meas4good",
+        "rewards/levels",
+        "sms/email",
+        "offer",
+        "redemption"
+      ]
+    },
+    "memory:memory/2026-05-07.md:103:144": {
+      "key": "memory:memory/2026-05-07.md:103:144",
+      "path": "memory/2026-05-07.md",
+      "startLine": 103,
+      "endLine": 144,
+      "source": "memory",
+      "snippet": "## All Three Profiles Now Match - tln-profile-free-final.html - Free - tln-profile-pro-v2.html - Pro - tln-profile-pro-plus-final.html - Pro+ ## Important Notes (May 9, 2026) - NO CUSSING/SWEARING in website content - keep it clean and professional - \"Think Globally. Feed Locally.\" - correct phrasing, not \"glocal\" as replacement - The tagline is \"Think Globally. Feed Locally.\" - this is what glocal MEANS ## Important Notes (May 9, 2026) - Continued - NO EMOJIS - Bryan HATES emojis. Use SVG icons or other icon methods only. - No emoji in any website content, social media, emails, etc. ## Design Updates (May 9, 2026) - Use fork and spoon icon for meals counter (utensils.png from Bryan's u",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-13T00:24:50.755Z",
+      "lastRecalledAt": "2026-05-13T00:24:50.755Z",
+      "queryHashes": [
+        "280499cabedf"
+      ],
+      "recallDays": [
+        "2026-05-13"
+      ],
+      "conceptTags": [
+        "tln-profile-free-final.html",
+        "tln-profile-pro-v2.html",
+        "tln-profile-pro-plus-final.html",
+        "cussing/swearing",
+        "utensils.png",
+        "all",
+        "three",
+        "profiles"
+      ]
+    }
+  }
+}
