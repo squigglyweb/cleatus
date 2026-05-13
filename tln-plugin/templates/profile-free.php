@@ -116,16 +116,11 @@ $biz = isset($tln_profile_business) ? $tln_profile_business : array(
             <!-- Map -->
             <div class="card">
                 <div class="card-title">Location</div>
-                <iframe 
-                    width="100%" 
-                    height="200" 
-                    style="border:0; border-radius:8px;" 
-                    loading="lazy" 
-                    allowfullscreen 
-                    src="https://www.google.com/maps/embed/v1/place?key=<?php echo defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : ''; ?>&q=<?php echo urlencode($biz['address']); ?>">
-                </iframe>
-                <div style="margin-top:0.75rem;">
-                    <a href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($biz['address']); ?>" target="_blank" style="color:var(--red);font-weight:600;">Open in Google Maps →</a>
+                <div style="background:#f5f5f5;height:200px;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+                    <a href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($biz['address']); ?>" target="_blank" style="text-align:center;">
+                        <img src="https://www.gstatic.com/images/branding/product/2x/maps_2020i4.png" alt="Open in Google Maps" style="width:48px;height:48px;">
+                        <div style="font-size:0.9rem;color:var(--red);font-weight:600;margin-top:0.5rem;">View on Google Maps</div>
+                    </a>
                 </div>
             </div>
             
