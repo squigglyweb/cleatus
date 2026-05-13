@@ -60,7 +60,14 @@ $biz = isset($tln_profile_business) ? $tln_profile_business : array(
     </div>
 
     <!-- Hero -->
-    <div class="hero">
+    <?php 
+    $hero_bg = 'https://thelocalnearbuy.com/wp-content/uploads/2026/05/town-scene-bkgd-scaled.webp';
+    $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
+    if (!empty($biz['photos']) && is_array($biz['photos']) && isset($biz['photos'][0]['photo_reference']) && $api_key) {
+        $hero_bg = 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=1200&photoreference=' . $biz['photos'][0]['photo_reference'] . '&key=' . $api_key;
+    }
+    ?>
+    <div class="hero" style="background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('<?php echo $hero_bg; ?>'); background-size: cover; background-position: center;">
         <div class="biz-info">
             <div class="biz-name"><?php echo esc_html($biz['name']); ?></div>
             <div class="biz-address">
