@@ -107,16 +107,40 @@ $biz = isset($tln_profile_business) ? $tln_profile_business : array(
                 </div>
                 <div class="contact-item">
                     <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:18px;">
-                    <a href="#">Get Directions</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($biz['address']); ?>" target="_blank">Get Directions</a>
                 </div>
             </div>
         </div>
 
         <div class="right-col">
+            <!-- Map -->
+            <div class="card">
+                <div class="card-title">Location</div>
+                <iframe 
+                    width="100%" 
+                    height="200" 
+                    style="border:0; border-radius:8px;" 
+                    loading="lazy" 
+                    allowfullscreen 
+                    src="https://www.google.com/maps/embed/v1/place?key=<?php echo defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : ''; ?>&q=<?php echo urlencode($biz['address']); ?>">
+                </iframe>
+                <div style="margin-top:0.75rem;">
+                    <a href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($biz['address']); ?>" target="_blank" style="color:var(--red);font-weight:600;">Open in Google Maps →</a>
+                </div>
+            </div>
+            
             <div class="card">
                 <div class="card-title">Google Reviews</div>
-                <!-- Placeholder for dynamic Google reviews – will be filled by tln_get_google_place() -->
-                <a href="#" class="see-all">See all <?php echo intval( get_post_meta( get_the_ID(), 'tln_google_review_count', true ) ); ?> Google Reviews →</a>
+                <?php if (!empty($biz['reviews'])): ?>
+                    <?php foreach (array_slice($biz['reviews'], 0, 3) as $review): ?>
+                    <div style="border-bottom:1px solid #eee;padding:0.5rem 0;">
+                        <div style="font-size:0.85rem;"><?php echo esc_html($review['text'] ?? ''); ?></div>
+                        <div style="font-size:0.75rem;color:#666;margin-top:0.25rem;"><?php echo esc_html($review['author_name'] ?? ''); ?></div>
+                    </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                <a href="#" class="see-all">See all Google Reviews →</a>
+                <?php endif; ?>
             </div>
             <!-- Sidebar ad (kept as static for now) -->
             <div class="ad-slot">
