@@ -132,6 +132,13 @@ add_filter('template_include', 'tln_business_template', 99);
 
 // Inject profile content directly into the page
 function tln_inject_profile_content($content) {
+    // Debug: write to a file to see what's happening
+    $debug_log = ABSPATH . 'tln-debug.log';
+    $debug = "URL: " . $_SERVER['REQUEST_URI'] . "\n";
+    $debug .= "GET: " . print_r($_GET, true) . "\n";
+    $debug .= "SERVER REQUEST_URI: " . (isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : 'EMPTY') . "\n";
+    @file_put_contents($debug_log, $debug);
+    
     // Get params from URL directly (WordPress may strip query params)
     $biz = isset($_GET['biz']) ? $_GET['biz'] : '';
     $pid = isset($_GET['pid']) ? $_GET['pid'] : '';
