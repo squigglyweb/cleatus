@@ -273,6 +273,7 @@ $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
                 </div>
             </div>
 
+            <?php if (!empty($biz['website']) || !empty($biz['phone'])): ?>
             <div class="card">
                 <div class="card-title">Services</div>
                 <div class="services-grid">
@@ -280,14 +281,21 @@ $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
                     <a href="<?php echo esc_url($biz['website']); ?>" target="_blank" class="service-btn">Visit Website</a>
                     <?php endif; ?>
                     <a href="https://www.google.com/search?q=<?php echo urlencode($biz['name'] . ' services'); ?>" target="_blank" class="service-btn">View Services</a>
+                    <?php if (!empty($biz['phone'])): ?>
                     <a href="tel:<?php echo esc_attr($biz['phone']); ?>" class="service-btn">Call Now</a>
+                    <?php endif; ?>
                 </div>
             </div>
+            <?php endif; ?>
 
 
             <div class="card">
                 <div class="card-title">Location</div>
-                <div class="map-box">[Google Map]</div>
+                <div class="map-box">
+                    <a href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($biz['address']); ?>" target="_blank" style="color:var(--red);font-weight:600;text-decoration:none;">
+                        📍 View on Google Maps
+                    </a>
+                </div>
             </div>
 
             <div class="claim-box" style="background:#f5f5f5;border:1px solid #ddd;">
