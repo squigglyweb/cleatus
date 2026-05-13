@@ -200,7 +200,8 @@ function tln_inject_profile_content($content) {
     include(plugin_dir_path(__FILE__) . 'templates/profile-free.php');
     return ob_get_clean();
 }
-add_filter('the_content', 'tln_inject_profile_content');
+// DISABLED - causing issues
+// add_filter('the_content', 'tln_inject_profile_content');
 
 // Bypass WordPress theme for profile pages with params
 // REMOVED - was causing critical errors
