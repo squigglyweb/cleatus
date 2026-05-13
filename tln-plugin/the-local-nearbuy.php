@@ -205,8 +205,6 @@ add_filter('the_content', 'tln_inject_profile_content');
 // Bypass WordPress theme for profile pages with params
 add_action('template_redirect', 'tln_check_profile_page');
 function tln_check_profile_page() {
-    // TEMPORARILY DISABLED - checking if this breaks directory
-    return;
     global $wp;
     
     // Check if we're on the profile page with params
