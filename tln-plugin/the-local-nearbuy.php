@@ -58,7 +58,7 @@ add_action('add_meta_boxes', 'tln_business_meta_boxes');
 function tln_business_details_cb($post) {
     // Hidden field for Google Place ID (will be filled via claim form or admin)
     $place_id = get_post_meta($post->ID, 'tln_place_id', true);
-    echo '<input type="hidden" name="tln_place_id" value="'.esc_attr($place_id).'" />'
+    echo '<input type="hidden" name="tln_place_id" value="'.esc_attr($place_id).'" />';
     $phone = get_post_meta($post->ID, 'tln_phone', true);
     $email = get_post_meta($post->ID, 'tln_email', true);
     $address = get_post_meta($post->ID, 'tln_address', true);
