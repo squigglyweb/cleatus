@@ -1,9 +1,11 @@
 <?php
 /*
-Plugin Name: The Local NearBuy - Business Profiles
-Description: Custom post type for business profiles with tier-based access
-Version: 1.0
+Plugin Name: TLN Plugin Bundle
+Description: Business profiles, directory, and member features for The Local NearBuy
+Version: 1.0.0
 Author: TLN
+License: CORRE
+Network: true
 */
 
 // Create Business Custom Post Type
@@ -54,6 +56,9 @@ function tln_business_meta_boxes() {
 add_action('add_meta_boxes', 'tln_business_meta_boxes');
 
 function tln_business_details_cb($post) {
+    // Hidden field for Google Place ID (will be filled via claim form or admin)
+    $place_id = get_post_meta($post->ID, 'tln_place_id', true);
+    echo '<input type="hidden" name="tln_place_id" value="'.esc_attr($place_id).'" />'
     $phone = get_post_meta($post->ID, 'tln_phone', true);
     $email = get_post_meta($post->ID, 'tln_email', true);
     $address = get_post_meta($post->ID, 'tln_address', true);
