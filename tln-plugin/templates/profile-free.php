@@ -182,64 +182,35 @@ $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
         <div class="left-col">
             <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/support-local-businesses.webp" alt="Support Local Businesses" style="width:100%;border-radius:8px;margin-bottom:0.5rem;">
             <a href="/tln-ad-request.html" style="display:block;text-align:center;padding:3px 0;color:#666;font-size:0.9rem;font-weight:600;"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/online-advertising.png" style="height:16px;vertical-align:middle;margin-right:4px;">Advertise Your Business</a>
-            <!-- What Neighbors Say Section -->
-            <div class="card" id="neighbors-section">
-                <div class="rating-header">
-                    <span class="card-title">What Neighbors Say</span>
-                    <span class="avg-score">4.2</span>
-                </div>
-                <div class="rating-category">
-                    <span class="rating-label">Quality</span>
-                    <div class="pin-rating" data-category="quality">
-                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin">
-                    </div>
-                </div>
-                <div class="rating-category">
-                    <span class="rating-label">Service</span>
-                    <div class="pin-rating" data-category="service">
-                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin">
-                    </div>
-                </div>
-                <div class="rating-category">
-                    <span class="rating-label">Value</span>
-                    <div class="pin-rating" data-category="value">
-                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin">
-                    </div>
-                </div>
-                <div class="rating-category">
-                    <span class="rating-label">Atmosphere</span>
-                    <div class="pin-rating" data-category="atmosphere">
-                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active">
-                    </div>
-                </div>
-                <div class="rating-category">
-                    <span class="rating-label">Overall Experience</span>
-                    <div class="pin-rating" data-category="overall">
-                        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin">
-                    </div>
-                </div>
-                <button class="review-btn">Leave A Customer Review</button>
-            </div>
+            <!-- What Neighbors Say Section - hidden until we have real per-business data -->
+            <?php /* NEIGHBORHOOD SCORE SECTION - Hidden until we have per-business data */ ?>
+            <?php /* Will be added when we store scores in database for each business */ ?>
 
             <div class="card">
                 <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
                     <span class="card-title" style="margin:0;padding:0;border-bottom:none;">Hours</span>
                     <span id="hoursStatus" class="hours-pill open">Open Now</span>
                 </div>
-                <div class="hours-row"><span>Monday - Friday</span><span>7am - 6pm</span></div>
-                <div class="hours-row"><span>Saturday</span><span>8am - 12pm</span></div>
-                <div class="hours-row"><span>Sunday</span><span>Closed</span></div>
+                <?php if (!empty($biz['hours'])): ?>
+                    <?php foreach ($biz['hours'] as $day_hours): ?>
+                    <div class="hours-row"><span><?php echo esc_html($day_hours); ?></span></div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                <p style="color:#666;font-size:0.9rem;">Hours not available</p>
+                <?php endif; ?>
             </div>
 
             <div class="card">
                 <div class="card-title">Contact</div>
+                <?php if (!empty($biz['phone'])): ?>
                 <div class="contact-item">
                     <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/call.png" style="height:18px;">
-                    <a href="tel:7045550182">(704) 555-0182</a>
+                    <a href="tel:<?php echo esc_attr($biz['phone']); ?>"><?php echo esc_html($biz['phone']); ?></a>
                 </div>
+                <?php endif; ?>
                 <div class="contact-item">
                     <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:18px;">
-                    <a href="#">Get Directions</a>
+                    <a href="https://www.google.com/maps/search/?api=1&query=<?php echo urlencode($biz['address']); ?>" target="_blank">Get Directions</a>
                 </div>
             </div>
         </div>
