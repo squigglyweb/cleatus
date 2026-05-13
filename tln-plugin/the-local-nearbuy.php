@@ -133,6 +133,40 @@ add_filter('template_include', 'tln_business_template', 99);
 // Shortcode for business profile
 function tln_business_profile_shortcode() {
     if (isset($_GET['biz']) && isset($_GET['pid'])) {
+        $place_id = sanitize_text_field($_GET['pid']);
+        $biz_name = sanitize_text_field($_GET['biz']);
+        $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
+        
+        // Fetch from Google Places Details API
+        $details = null;
+        if ($api_key && $place_id) {
+            $url = "https://maps.googleapis.com/maps/api/place/details/json?place_id=$place_id&fields=name,formatted_address,formatted_phone_number,opening_hours,website,rating,reviews,photos,geometry&key=$api_key";
+            $response = wp_remote_get($url);
+            if (!is_wp_error($response)) {
+                $data = json_decode(wp_remote_retrieve_body($response), true);
+                if (isset($data['result'])) {
+                    $details = $data['result'];
+                }
+            }
+        }
+        
+        // Build business array
+        $business = array(
+            'name' => $biz_name,
+            'place_id' => $place_id,
+            'address' => isset($details['formatted_address']) ? $details['formatted_address'] : '',
+            'phone' => isset($details['formatted_phone_number']) ? $details['formatted_phone_number'] : '',
+            'website' => isset($details['website']) ? $details['website'] : '',
+            'rating' => isset($details['rating']) ? $details['rating'] : '',
+            'hours' => isset($details['opening_hours']['weekday_text']) ? $details['opening_hours']['weekday_text'] : array(),
+            'photos' => isset($details['photos']) ? $details['photos'] : array(),
+            'reviews' => isset($details['reviews']) ? $details['reviews'] : array(),
+        );
+        
+        // Make business data available to template
+        global $tln_profile_business;
+        $tln_profile_business = $business;
+        
         ob_start();
         include(plugin_dir_path(__FILE__) . 'templates/profile-free.php');
         return ob_get_clean();

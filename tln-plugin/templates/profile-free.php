@@ -2,6 +2,20 @@
 /*
 Template Name: TLN Free Profile
 */
+// Check if data was passed from shortcode (Google Places API)
+global $tln_profile_business;
+$biz = isset($tln_profile_business) ? $tln_profile_business : array(
+    'name' => the_title('', '', false),
+    'address' => get_post_meta(get_the_ID(), 'tln_address', true),
+    'phone' => get_post_meta(get_the_ID(), 'tln_phone', true),
+    'rating' => get_post_meta(get_the_ID(), 'tln_google_rating', true),
+    'hours' => array(
+        get_post_meta(get_the_ID(), 'tln_hours_mon', true),
+        get_post_meta(get_the_ID(), 'tln_hours_sat', true),
+        get_post_meta(get_the_ID(), 'tln_hours_sun', true),
+    ),
+    'website' => get_post_meta(get_the_ID(), 'tln_website', true),
+);
 ?>
 <!DOCTYPE html>
 <html>
@@ -48,9 +62,9 @@ Template Name: TLN Free Profile
     <!-- Hero -->
     <div class="hero">
         <div class="biz-info">
-            <div class="biz-name"><?php the_title(); ?></div>
+            <div class="biz-name"><?php echo esc_html($biz['name']); ?></div>
             <div class="biz-address">
-                <?php echo esc_html( get_post_meta( get_the_ID(), 'tln_address', true ) ); ?>
+                <?php echo esc_html($biz['address']); ?>
             </div>
         </div>
     </div>
@@ -66,9 +80,15 @@ Template Name: TLN Free Profile
                     <span class="card-title">Hours</span>
                     <span id="hoursStatus" class="hours-pill open">Open Now</span>
                 </div>
+                <?php if (!empty($biz['hours'])): ?>
+                    <?php foreach ($biz['hours'] as $day_hours): ?>
+                    <div class="hours-row"><span><?php echo esc_html($day_hours); ?></span></div>
+                    <?php endforeach; ?>
+                <?php else: ?>
                 <div class="hours-row"><span>Monday – Friday</span><span><?php echo esc_html( get_post_meta( get_the_ID(), 'tln_hours_mon', true ) ); ?></span></div>
                 <div class="hours-row"><span>Saturday</span><span><?php echo esc_html( get_post_meta( get_the_ID(), 'tln_hours_sat', true ) ); ?></span></div>
                 <div class="hours-row"><span>Sunday</span><span><?php echo esc_html( get_post_meta( get_the_ID(), 'tln_hours_sun', true ) ); ?></span></div>
+                <?php endif; ?>
             </div>
 
             <!-- Contact Card -->
@@ -76,7 +96,7 @@ Template Name: TLN Free Profile
                 <div class="card-title">Contact</div>
                 <div class="contact-item">
                     <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/call.png" style="height:18px;">
-                    <a href="tel:<?php echo esc_html( get_post_meta( get_the_ID(), 'tln_phone', true ) ); ?>"><?php echo esc_html( get_post_meta( get_the_ID(), 'tln_phone', true ) ); ?></a>
+                    <a href="tel:<?php echo esc_html($biz['phone']); ?>"><?php echo esc_html($biz['phone']); ?></a>
                 </div>
                 <div class="contact-item">
                     <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:18px;">
