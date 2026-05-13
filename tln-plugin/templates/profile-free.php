@@ -31,7 +31,7 @@ $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
         /* Hero Image */
         .hero {
             position: relative; height: 280px;
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)),
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)),
                         url('<?php echo (!empty($biz['photos']) && isset($biz['photos'][0]['photo_reference'])) ? "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1200&photoreference=" . $biz['photos'][0]['photo_reference'] . "&key=$api_key" : "https://thelocalnearbuy.com/wp-content/uploads/2026/05/town-scene-bkgd-scaled.webp"; ?>');
             background-size: cover; background-position: center;
         }
@@ -161,7 +161,14 @@ $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
             <div class="hero">
         <div class="biz-info">
             <div class="biz-name"><?php echo esc_html($biz['name']); ?></div>
-            <div class="biz-address"><?php echo esc_html($biz['address']); ?>
+            <?php 
+            // Clean up address - remove USA and take first line only
+            $address = $biz['address'];
+            $address = str_replace(', USA', '', $address);
+            $address_lines = explode(',', $address);
+            $address = $address_lines[0]; // Just first part (Waxhaw address)
+            ?>
+            <div class="biz-address"><?php echo esc_html($address); ?>
                 2300 E Providence Dr, Charlotte, NC 28270
             </div>
         </div>
