@@ -50,7 +50,9 @@ function tln_golf_styles() {
 add_action('wp_enqueue_scripts', 'tln_golf_styles');
 
 // API Key
-define('TLN_GOOGLE_API_KEY', 'AIzaSyAH6O3RsnDuX5rJ2OyTHCTZhYtd6s6NSWU');
+if (!defined('TLN_GOOGLE_API_KEY')) {
+    define('TLN_GOOGLE_API_KEY', 'AIzaSyAH6O3RsnDuX5rJ2OyTHCTZhYtd6s6NSWU');
+}
 
 // Golf courses with location tags
 $golf_courses = array(

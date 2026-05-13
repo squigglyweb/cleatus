@@ -42,7 +42,9 @@ function tln_parks_styles() {
 }
 add_action('wp_enqueue_scripts', 'tln_parks_styles');
 
-define('TLN_GOOGLE_API_KEY', 'AIzaSyAH6O3RsnDuX5rJ2OyTHCTZhYtd6s6NSWU');
+if (!defined('TLN_GOOGLE_API_KEY')) {
+    define('TLN_GOOGLE_API_KEY', 'AIzaSyAH6O3RsnDuX5rJ2OyTHCTZhYtd6s6NSWU');
+}
 
 $parks_locations = array(
     'ChIJP5t9RwArVIgR1CkofWvy-OU' => array('name' => 'Waxhaw Downtown Park', 'type' => 'Waxhaw'),
