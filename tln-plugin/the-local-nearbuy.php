@@ -135,33 +135,50 @@ function tln_business_profile_shortcode() {
     if (isset($_GET['biz']) && isset($_GET['pid'])) {
         $place_id = sanitize_text_field($_GET['pid']);
         $biz_name = sanitize_text_field($_GET['biz']);
-        $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
         
-        // Fetch from Google Places Details API
-        $details = null;
-        if ($api_key && $place_id) {
-            $url = "https://maps.googleapis.com/maps/api/place/details/json?place_id=$place_id&fields=name,formatted_address,formatted_phone_number,opening_hours,website,rating,reviews,photos,geometry&key=$api_key";
-            $response = wp_remote_get($url);
-            if (!is_wp_error($response)) {
-                $data = json_decode(wp_remote_retrieve_body($response), true);
-                if (isset($data['result'])) {
-                    $details = $data['result'];
-                }
-            }
+        // Try to get API key from tln-directory if not defined yet
+        $api_key = '';
+        if (defined('TLN_GOOGLE_API_KEY')) {
+            $api_key = TLN_GOOGLE_API_KEY;
+        } else if (function_exists('tln_get_cached_businesses')) {
+            // Try to get from directory functions
+            global $tln_google_api_key;
+            $api_key = isset($tln_google_api_key) ? $tln_google_api_key : '';
         }
         
-        // Build business array
+        // Default business data from URL params
         $business = array(
             'name' => $biz_name,
             'place_id' => $place_id,
-            'address' => isset($details['formatted_address']) ? $details['formatted_address'] : '',
-            'phone' => isset($details['formatted_phone_number']) ? $details['formatted_phone_number'] : '',
-            'website' => isset($details['website']) ? $details['website'] : '',
-            'rating' => isset($details['rating']) ? $details['rating'] : '',
-            'hours' => isset($details['opening_hours']['weekday_text']) ? $details['opening_hours']['weekday_text'] : array(),
-            'photos' => isset($details['photos']) ? $details['photos'] : array(),
-            'reviews' => isset($details['reviews']) ? $details['reviews'] : array(),
+            'address' => '',
+            'phone' => '',
+            'website' => '',
+            'rating' => '',
+            'hours' => array(),
+            'photos' => array(),
+            'reviews' => array(),
         );
+        
+        // Fetch from Google Places Details API if we have an API key
+        if ($api_key && $place_id) {
+            $url = "https://maps.googleapis.com/maps/api/place/details/json?place_id=$place_id&fields=name,formatted_address,formatted_phone_number,opening_hours,website,rating,reviews,photos,geometry&key=$api_key";
+            $response = @wp_remote_get($url, array('timeout' => 10));
+            if (!is_wp_error($response) && $response) {
+                $body = wp_remote_retrieve_body($response);
+                $data = json_decode($body, true);
+                if (isset($data['result'])) {
+                    $details = $data['result'];
+                    $business['name'] = isset($details['name']) ? $details['name'] : $biz_name;
+                    $business['address'] = isset($details['formatted_address']) ? $details['formatted_address'] : '';
+                    $business['phone'] = isset($details['formatted_phone_number']) ? $details['formatted_phone_number'] : '';
+                    $business['website'] = isset($details['website']) ? $details['website'] : '';
+                    $business['rating'] = isset($details['rating']) ? $details['rating'] : '';
+                    $business['hours'] = isset($details['opening_hours']['weekday_text']) ? $details['opening_hours']['weekday_text'] : array();
+                    $business['photos'] = isset($details['photos']) ? $details['photos'] : array();
+                    $business['reviews'] = isset($details['reviews']) ? $details['reviews'] : array();
+                }
+            }
+        }
         
         // Make business data available to template
         global $tln_profile_business;
