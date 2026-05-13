@@ -132,7 +132,19 @@ add_filter('template_include', 'tln_business_template', 99);
 
 // Inject profile content directly into the page
 function tln_inject_profile_content($content) {
-    if (!isset($_GET['biz']) || !isset($_GET['pid'])) {
+    // Get params from URL directly (WordPress may strip query params)
+    $biz = isset($_GET['biz']) ? $_GET['biz'] : '';
+    $pid = isset($_GET['pid']) ? $_GET['pid'] : '';
+    
+    // Fallback: parse from REQUEST_URI
+    if (empty($biz) || empty($pid)) {
+        $request_uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+        parse_str(parse_url($request_uri, PHP_URL_QUERY), $query);
+        if (isset($query['biz'])) $biz = $query['biz'];
+        if (isset($query['pid'])) $pid = $query['pid'];
+    }
+    
+    if (empty($biz) || empty($pid)) {
         return $content;
     }
     
@@ -193,9 +205,20 @@ add_filter('the_content', 'tln_inject_profile_content');
 
 // Shortcode for business profile
 function tln_business_profile_shortcode() {
-    if (isset($_GET['biz']) && isset($_GET['pid'])) {
-        $place_id = sanitize_text_field($_GET['pid']);
-        $biz_name = sanitize_text_field($_GET['biz']);
+    // Get params from URL directly
+    $biz = isset($_GET['biz']) ? $_GET['biz'] : '';
+    $pid = isset($_GET['pid']) ? $_GET['pid'] : '';
+    
+    if (empty($biz) || empty($pid)) {
+        $request_uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+        parse_str(parse_url($request_uri, PHP_URL_QUERY), $query);
+        if (isset($query['biz'])) $biz = $query['biz'];
+        if (isset($query['pid'])) $pid = $query['pid'];
+    }
+    
+    if (!empty($biz) && !empty($pid)) {
+        $place_id = sanitize_text_field($pid);
+        $biz_name = sanitize_text_field($biz);
         
         // Try to get API key from tln-directory if not defined yet
         $api_key = '';
