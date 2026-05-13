@@ -157,7 +157,21 @@ function tln_dir_shortcode($atts) {
         echo '<div class="tln-cat">'.esc_html($b['cat']).' &bull; '.esc_html($loc).'</div>';
         echo '<div class="tln-rating"><span class="tln-stars">'.str_repeat('★',floor($b['rating'])).'</span> <span class="tln-reviews">('.$b['rating'].')</span></div>';
         echo '<div class="tln-address">📍 '.esc_html($b['addr']).'</div>';
-        echo '<a href="/profile/?biz='.urlencode($b['name']).'&pid='.urlencode($b['place_id']).'" class="tln-btn">View Profile</a>';
+        // Try to find an existing Business CPT that matches this Google Place ID
+$matched = get_posts([
+    'post_type'   => 'tln_business',
+    'meta_key'    => 'tln_place_id',
+    'meta_value'  => $b['place_id'],
+    'posts_per_page'=>1,
+    'fields'      => 'ids',
+]);
+if (!empty($matched)) {
+    $url = get_permalink($matched[0]);
+    echo '<a href="'.esc_url($url).'" class="tln-btn">View Profile</a>';
+} else {
+    // Fallback to static profile page for unclaimed businesses
+    echo '<a href="/profile/?biz='.urlencode($b['name']).'&pid='.urlencode($b['place_id']).'" class="tln-btn">View Profile</a>';
+}
         echo '<div class="tln-claim-link"><a href="'.esc_url($claim_url).'">Own this business? Claim it</a></div>';
         echo '</div></div>';
     }
