@@ -203,59 +203,8 @@ function tln_inject_profile_content($content) {
 add_filter('the_content', 'tln_inject_profile_content');
 
 // Bypass WordPress theme for profile pages with params
-// DISABLED - causing critical errors
-// add_action('template_redirect', 'tln_check_profile_page');
-function tln_check_profile_page() {
-    global $wp;
-    
-    // Check if we're on the profile page with params
-    if (!is_page('profile')) return;
-    if (!isset($_GET['biz']) && !isset($_GET['pid'])) return;
-    
-    // Get params
-    $biz = isset($_GET['biz']) ? $_GET['biz'] : '';
-    $pid = isset($_GET['pid']) ? $_GET['pid'] : '';
-    
-    if (!empty($biz) && !empty($pid)) {
-        // Fetch business data from Google
-        $place_id = sanitize_text_field($pid);
-        $biz_name = sanitize_text_field($biz);
-        $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
-        
-        $business = array(
-            'name' => $biz_name, 'place_id' => $place_id,
-            'address' => '', 'phone' => '', 'website' => '', 'rating' => '',
-            'hours' => array(), 'photos' => array(), 'reviews' => array(),
-        );
-        
-        if ($api_key && $place_id) {
-            $url = "https://maps.googleapis.com/maps/api/place/details/json?place_id=$place_id&fields=name,formatted_address,formatted_phone_number,opening_hours,website,rating,reviews,photos&key=$api_key";
-            $response = @wp_remote_get($url, array('timeout' => 15));
-            if (!is_wp_error($response) && $response) {
-                $data = json_decode(wp_remote_retrieve_body($response), true);
-                if (isset($data['result'])) {
-                    $d = $data['result'];
-                    $business['name'] = $d['name'] ?? $biz_name;
-                    $business['address'] = $d['formatted_address'] ?? '';
-                    $business['phone'] = $d['formatted_phone_number'] ?? '';
-                    $business['website'] = $d['website'] ?? '';
-                    $business['rating'] = $d['rating'] ?? '';
-                    $business['hours'] = $d['opening_hours']['weekday_text'] ?? array();
-                    $business['photos'] = $d['photos'] ?? array();
-                    $business['reviews'] = $d['reviews'] ?? array();
-                }
-            }
-        }
-        
-        // Make data available globally
-        global $tln_profile_business;
-        $tln_profile_business = $business;
-        
-        // Include the template directly
-        include(plugin_dir_path(__FILE__) . 'templates/profile-free.php');
-        exit;
-    }
-}
+// REMOVED - was causing critical errors
+// function tln_check_profile_page() { }
 
 
 // Shortcode for business profile
