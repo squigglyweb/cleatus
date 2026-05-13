@@ -133,19 +133,6 @@ add_filter('template_include', 'tln_business_template', 99);
 // Shortcode for business profile
 function tln_business_profile_shortcode() {
     if (isset($_GET['biz']) && isset($_GET['pid'])) {
-        $biz_name = sanitize_text_field($_GET['biz']);
-        $place_id = sanitize_text_field($_GET['pid']);
-        // Return empty - template_include will handle the display
-        return '';
-    }
-    return '<p>No business selected. <a href="/directory/">Browse the directory</a></p>';
-}
-add_shortcode('tln_business_profile', 'tln_business_profile_shortcode');
-add_shortcode('tln_profile', 'tln_business_profile_shortcode');
-
-// Shortcode for business profile - renders directly
-function tln_business_profile_shortcode() {
-    if (isset($_GET['biz']) && isset($_GET['pid'])) {
         ob_start();
         include(plugin_dir_path(__FILE__) . 'templates/profile-free.php');
         return ob_get_clean();
