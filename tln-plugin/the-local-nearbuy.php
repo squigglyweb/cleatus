@@ -279,6 +279,15 @@ function tln_business_profile_shortcode() {
     }
     return '<p>No business selected. <a href="/directory/">Browse the directory</a></p>';
 }
-// DISABLED
-// add_shortcode('tln_business_profile', 'tln_business_profile_shortcode');
-// add_shortcode('tln_profile', 'tln_business_profile_shortcode');
+// Simple profile shortcode
+function tln_business_profile_shortcode() {
+    $biz = isset($_GET['biz']) ? $_GET['biz'] : '';
+    $pid = isset($_GET['pid']) ? $_GET['pid'] : '';
+    
+    if (empty($biz) || empty($pid)) {
+        return '<p>Select a business from the <a href="/directory/">directory</a> to view its profile.</p>';
+    }
+    
+    return '<p>Loading profile for ' . esc_html($biz) . '...</p>';
+}
+add_shortcode('tln_business_profile', 'tln_business_profile_shortcode');
