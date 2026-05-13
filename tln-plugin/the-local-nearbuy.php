@@ -205,6 +205,64 @@ function tln_inject_profile_content($content) {
 }
 add_filter('the_content', 'tln_inject_profile_content');
 
+// Also try wp action for Divi/themes that don't use the_content
+add_action('wp_head', 'tln_check_profile_page');
+function tln_check_profile_page() {
+    if (!is_page('profile')) return;
+    if (!isset($_GET['biz']) && !isset($_GET['pid'])) return;
+    
+    // Get params
+    $biz = isset($_GET['biz']) ? $_GET['biz'] : '';
+    $pid = isset($_GET['pid']) ? $_GET['pid'] : '';
+    if (empty($biz) || empty($pid)) {
+        $request_uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
+        parse_str(parse_url($request_uri, PHP_URL_QUERY), $query);
+        if (isset($query['biz'])) $biz = $query['biz'];
+        if (isset($query['pid'])) $pid = $query['pid'];
+    }
+    
+    if (!empty($biz) && !empty($pid)) {
+        // Directly output the profile template
+        $place_id = sanitize_text_field($pid);
+        $biz_name = sanitize_text_field($biz);
+        $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
+        
+        $business = array(
+            'name' => $biz_name, 'place_id' => $place_id,
+            'address' => '', 'phone' => '', 'website' => '', 'rating' => '',
+            'hours' => array(), 'photos' => array(), 'reviews' => array(),
+        );
+        
+        if ($api_key && $place_id) {
+            $url = "https://maps.googleapis.com/maps/api/place/details/json?place_id=$place_id&fields=name,formatted_address,formatted_phone_number,opening_hours,website,rating&key=$api_key";
+            $response = @wp_remote_get($url, array('timeout' => 10));
+            if (!is_wp_error($response) && $response) {
+                $data = json_decode(wp_remote_retrieve_body($response), true);
+                if (isset($data['result'])) {
+                    $d = $data['result'];
+                    $business['name'] = $d['name'] ?? $biz_name;
+                    $business['address'] = $d['formatted_address'] ?? '';
+                    $business['phone'] = $d['formatted_phone_number'] ?? '';
+                    $business['website'] = $d['website'] ?? '';
+                    $business['rating'] = $d['rating'] ?? '';
+                    $business['hours'] = $d['opening_hours']['weekday_text'] ?? array();
+                }
+            }
+        }
+        
+        global $tln_profile_business;
+        $tln_profile_business = $business;
+        
+        // Remove Divi theme wrapper if present
+        remove_all_actions('et_html_top_statement');
+        remove_all_actions('et_html_bottom_statement');
+        
+        // Output directly
+        include(plugin_dir_path(__FILE__) . 'templates/profile-free.php');
+        exit;
+    }
+}
+
 
 // Shortcode for business profile
 function tln_business_profile_shortcode() {
