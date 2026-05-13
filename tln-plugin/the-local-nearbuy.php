@@ -203,83 +203,8 @@ function tln_inject_profile_content($content) {
 // DISABLED - causing issues
 // add_filter('the_content', 'tln_inject_profile_content');
 
-// Bypass WordPress theme for profile pages with params
-// REMOVED - was causing critical errors
-// function tln_check_profile_page() { }
 
-
-// Shortcode for business profile
-function tln_business_profile_shortcode() {
-    // Get params from URL directly
-    $biz = isset($_GET['biz']) ? $_GET['biz'] : '';
-    $pid = isset($_GET['pid']) ? $_GET['pid'] : '';
-    
-    if (empty($biz) || empty($pid)) {
-        $request_uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
-        parse_str(parse_url($request_uri, PHP_URL_QUERY), $query);
-        if (isset($query['biz'])) $biz = $query['biz'];
-        if (isset($query['pid'])) $pid = $query['pid'];
-    }
-    
-    if (!empty($biz) && !empty($pid)) {
-        $place_id = sanitize_text_field($pid);
-        $biz_name = sanitize_text_field($biz);
-        
-        // Try to get API key from tln-directory if not defined yet
-        $api_key = '';
-        if (defined('TLN_GOOGLE_API_KEY')) {
-            $api_key = TLN_GOOGLE_API_KEY;
-        } else if (function_exists('tln_get_cached_businesses')) {
-            // Try to get from directory functions
-            global $tln_google_api_key;
-            $api_key = isset($tln_google_api_key) ? $tln_google_api_key : '';
-        }
-        
-        // Default business data from URL params
-        $business = array(
-            'name' => $biz_name,
-            'place_id' => $place_id,
-            'address' => '',
-            'phone' => '',
-            'website' => '',
-            'rating' => '',
-            'hours' => array(),
-            'photos' => array(),
-            'reviews' => array(),
-        );
-        
-        // Fetch from Google Places Details API if we have an API key
-        if ($api_key && $place_id) {
-            $url = "https://maps.googleapis.com/maps/api/place/details/json?place_id=$place_id&fields=name,formatted_address,formatted_phone_number,opening_hours,website,rating,reviews,photos,geometry&key=$api_key";
-            $response = @wp_remote_get($url, array('timeout' => 10));
-            if (!is_wp_error($response) && $response) {
-                $body = wp_remote_retrieve_body($response);
-                $data = json_decode($body, true);
-                if (isset($data['result'])) {
-                    $details = $data['result'];
-                    $business['name'] = isset($details['name']) ? $details['name'] : $biz_name;
-                    $business['address'] = isset($details['formatted_address']) ? $details['formatted_address'] : '';
-                    $business['phone'] = isset($details['formatted_phone_number']) ? $details['formatted_phone_number'] : '';
-                    $business['website'] = isset($details['website']) ? $details['website'] : '';
-                    $business['rating'] = isset($details['rating']) ? $details['rating'] : '';
-                    $business['hours'] = isset($details['opening_hours']['weekday_text']) ? $details['opening_hours']['weekday_text'] : array();
-                    $business['photos'] = isset($details['photos']) ? $details['photos'] : array();
-                    $business['reviews'] = isset($details['reviews']) ? $details['reviews'] : array();
-                }
-            }
-        }
-        
-        // Make business data available to template
-        global $tln_profile_business;
-        $tln_profile_business = $business;
-        
-        ob_start();
-        include(plugin_dir_path(__FILE__) . 'templates/profile-free.php');
-        return ob_get_clean();
-    }
-    return '<p>No business selected. <a href="/directory/">Browse the directory</a></p>';
-}
-// Simple profile shortcode
+// Profile shortcode
 function tln_business_profile_shortcode() {
     $biz = isset($_GET['biz']) ? $_GET['biz'] : '';
     $pid = isset($_GET['pid']) ? $_GET['pid'] : '';
