@@ -205,8 +205,8 @@ function tln_inject_profile_content($content) {
 }
 add_filter('the_content', 'tln_inject_profile_content');
 
-// Also try wp action for Divi/themes that don't use the_content
-add_action('wp_head', 'tln_check_profile_page');
+// Use template_redirect for Divi/themes that don't use the_content
+add_action('template_redirect', 'tln_check_profile_page');
 function tln_check_profile_page() {
     if (!is_page('profile')) return;
     if (!isset($_GET['biz']) && !isset($_GET['pid'])) return;
