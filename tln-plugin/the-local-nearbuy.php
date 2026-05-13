@@ -279,5 +279,6 @@ function tln_business_profile_shortcode() {
     }
     return '<p>No business selected. <a href="/directory/">Browse the directory</a></p>';
 }
-add_shortcode('tln_business_profile', 'tln_business_profile_shortcode');
-add_shortcode('tln_profile', 'tln_business_profile_shortcode');
+// DISABLED
+// add_shortcode('tln_business_profile', 'tln_business_profile_shortcode');
+// add_shortcode('tln_profile', 'tln_business_profile_shortcode');
