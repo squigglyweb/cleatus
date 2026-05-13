@@ -36,6 +36,8 @@ function tln_register_business_post_type() {
     register_post_type('tln_business', $args);
 }
 add_action('init', 'tln_register_business_post_type');
+// Load additional TLN plugin files (shortcodes, helpers)
+require_once plugin_dir_path(__FILE__) . 'tln-directory.php';
 
 // Flush rewrite rules on plugin activation
 function tln_flush_rewrite_rules() {
