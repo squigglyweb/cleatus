@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: TLN Claim Form
- * Version: 1.4
+ * Version: 1.5
  */
 
 if (!defined('ABSPATH')) exit;
@@ -37,7 +37,21 @@ function tln_claim_func() {
     $out .= '<input type="hidden" name="pid" value="'.(isset($_GET['pid']) ? esc_attr($_GET['pid']) : '').'">';
     $out .= '<p><label>Your Name *<br><input name="cname" required style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;font-size:1rem;"></label></p>';
     $out .= '<p><label>Phone *<br><input name="cphone" required style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;font-size:1rem;"></label></p>';
-    $out .= '<p><label><input type="checkbox" required> I agree to the <a href="/terms-of-service/" target="_blank">Terms of Service</a></label></p>';
+    $out .= '<div style="max-height:200px;overflow-y:scroll;border:1px solid #ddd;border-radius:6px;padding:1rem;background:#fff;font-size:0.85rem;line-height:1.6;margin-bottom:1rem;" id="tln-tos-box">';
+    $out .= '<h3 style="font-size:1rem;margin-bottom:0.75rem;">Terms of Service</h3>';
+    $out .= '<p><strong>Last Updated: May 2026</strong></p>';
+    $out .= '<p>By claiming this business listing on The Local NearBuy, you agree to the following terms:</p>';
+    $out .= '<p><strong>1. Accuracy of Information</strong><br>You agree to provide accurate and complete information about your business. You warrant that you are the authorized representative of the business being claimed.</p>';
+    $out .= '<p><strong>2. Business Authorization</strong><br>You represent and warrant that you have the authority to bind the business to this Agreement.</p>';
+    $out .= '<p><strong>3. Content Guidelines</strong><br>You agree to keep your business information current and accurate. All content you submit must be lawful, appropriate, and not misleading.</p>';
+    $out .= '<p><strong>4. Privacy</strong><br>You consent to the collection and use of your business information for the operation of The Local NearBuy platform.</p>';
+    $out .= '<p><strong>5. Advertising Terms</strong><br>If you advertise with us, you agree to our advertising policies and payment terms.</p>';
+    $out .= '<p><strong>6. Disclaimer</strong><br>The Local NearBuy provides listings as-is. We do not guarantee any specific results from advertising.</p>';
+    $out .= '<p><strong>7. Termination</strong><br>We reserve the right to remove any listing that violates these terms.</p>';
+    $out .= '<p><strong>8. Contact</strong><br>Questions? Email bryan@thelocalnearbuy.com</p>';
+    $out .= '</div>';
+    $out .= '<p><label><input type="checkbox" id="tln-tos-check" required disabled> I have read and agree to the <a href="/terms-of-service/" target="_blank">Terms of Service</a></label></p>';
+    $out .= '<script>document.getElementById("tln-tos-box").addEventListener("scroll",function(){if(this.scrollHeight-this.scrollTop<=this.clientHeight+50){document.getElementById("tln-tos-check").disabled=false}});</script>';
     $out .= '<p><label>Digital Signature (type your name) *<br><input name="csig" required placeholder="Type your full legal name" style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;font-size:1rem;"></label></p>';
     $out .= '<button type="submit" name="submit_claim" style="background:#e63946;color:white;padding:1rem 2rem;border:none;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;">Submit Claim</button>';
     $out .= '</form></div>';

@@ -8,4 +8,8 @@ You have conversation history in your sessions but no memory file yet. On your n
 2. Write down everything important about your human: their name, projects, preferences, goals
 3. Keep this file updated after every meaningful conversation
 
+## Key Project Info
+- The Local NearBuy: hyperlocal advertising & directory platform for Waxhaw area
+- Common Heart: local giving point for Greater Waxhaw Area (nonprofit partner for cause marketing)
+
 **This file is how you remember. If it is empty, you do not have long-term memory. Fix that now.**
