@@ -101,7 +101,7 @@ $is_pro = in_array($tier, ['pro', 'proplus', 'sponsor']);
             <h3>Google Rating</h3>
             <div class="score-display" style="color:#4285f4;"><?php echo esc_html($google_rating ?: '4.0'); ?> <span style="font-size:1rem;color:#666;font-weight:400;">/ 5</span></div>
             <p style="font-size:0.8rem;color:#666;margin-top:0.25rem;">Based on Google reviews</p>
-            <button onclick="window.open('https://search.google.com/local/writereview?placeid=YOUR_PLACE_ID','_blank')" style="background:#4285f4;color:white;border:none;padding:0.5rem 1rem;border-radius:4px;font-weight:600;cursor:pointer;margin-top:0.5rem;width:100%;">Leave Google Review</button>
+            <button onclick="window.open('https://www.google.com/search?q=<?php echo urlencode($biz_name); ?> <?php echo urlencode($biz_address); ?> reviews','_blank')" style="background:#4285f4;color:white;border:none;padding:0.5rem 1rem;border-radius:4px;font-weight:600;cursor:pointer;margin-top:0.5rem;width:100%;">Leave Google Review</button>
         </div>
         
         <!-- Hours -->

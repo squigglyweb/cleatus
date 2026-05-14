@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 2.8 - Simplified
+Version: 2.9 - With Google data
 */
 
 // Load other TLN components
@@ -22,6 +22,154 @@ function tln_directory_content($content) {
     return tln_dir_shortcode(array());
 }
 
+// Fetch Google Place details with caching
+function tln_get_google_place_data($place_id) {
+    $cache_key = 'tln_place_' . md5($place_id);
+    $data = get_transient($cache_key);
+    
+    if (false === $data) {
+        $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
+        if (empty($api_key)) {
+            return null;
+        }
+        
+        $url = "https://maps.googleapis.com/maps/api/place/details/json?placeid=" . urlencode($place_id) . "&key=" . $api_key;
+        $response = wp_remote_get($url);
+        
+        if (is_wp_error($response)) {
+            return null;
+        }
+        
+        $body = wp_remote_retrieve_body($response);
+        $json = json_decode($body, true);
+        
+        if ($json && isset($json['status']) && $json['status'] === 'OK' && isset($json['result'])) {
+            $result = $json['result'];
+            $data = array(
+                'name' => $result['name'] ?? '',
+                'address' => $result['formatted_address'] ?? '',
+                'phone' => $result['formatted_phone_number'] ?? '',
+                'website' => $result['website'] ?? '',
+                'rating' => $result['rating'] ?? 0,
+                'reviews' => $result['reviews'] ?? array(),
+                'hours' => $result['opening_hours']['weekday_text'] ?? array(),
+                'photos' => $result['photos'] ?? array(),
+                'lat' => $result['geometry']['location']['lat'] ?? 0,
+                'lng' => $result['geometry']['location']['lng'] ?? 0,
+                'url' => $result['url'] ?? ''
+            );
+            set_transient($cache_key, $data, HOUR_IN_SECONDS * 24); // Cache for 24 hours
+        } else {
+            $data = null;
+        }
+    }
+    
+    return $data;
+}
+
+// Get open/closed status
+function tln_get_open_status($hours) {
+    if (empty($hours)) return '';
+    
+    $now = current_time('l g:i A'); // WordPress local time, format like "Monday 2:30 PM"
+    $day = current_time('l'); // e.g., "Monday"
+    
+    // Find today's hours
+    $today_hours = '';
+    foreach ($hours as $h) {
+        if (stripos($h, $day) !== false) {
+            $today_hours = $h;
+            break;
+        }
+    }
+    
+    if (!$today_hours) {
+        return '<span class="tln-hours-pill closed">Closed</span>';
+    }
+    
+    // Check if closed
+    if (stripos($today_hours, 'Closed') !== false) {
+        return '<span class="tln-hours-pill closed">Closed</span>';
+    }
+    
+    // Parse hours like "Monday: 11:00 AM - 9:00 PM"
+    if (preg_match('/(\d{1,2}:\d{2}\s*[AP]M)\s*-\s*(\d{1,2}:\d{2}\s*[AP]M)/i', $today_hours, $matches)) {
+        $open_time = strtotime($matches[1]);
+        $close_time = strtotime($matches[2]);
+        $now_time = current_time('timestamp');
+        
+        if ($now_time < $open_time) {
+            return '<span class="tln-hours-pill closed">Closed</span>';
+        } elseif ($now_time >= $open_time && $now_time < $close_time) {
+            // Check if closing soon (within 30 min)
+            if ($close_time - $now_time < 1800) {
+                return '<span class="tln-hours-pill closing-soon">Closing Soon</span>';
+            }
+            return '<span class="tln-hours-pill open">Open</span>';
+        } else {
+            return '<span class="tln-hours-pill closed">Closed</span>';
+        }
+    }
+    
+    return '';
+}
+
+// Consolidate hours into Mon-Fri format
+function tln_format_hours($hours) {
+    if (empty($hours)) return '';
+    
+    $days = array('Monday'=>0, 'Tuesday'=>1, 'Wednesday'=>2, 'Thursday'=>3, 'Friday'=>4, 'Saturday'=>5, 'Sunday'=>6);
+    $day_hours = array();
+    
+    foreach ($hours as $h) {
+        foreach ($days as $day => $idx) {
+            if (stripos($h, $day) !== false) {
+                // Extract time part
+                if (preg_match('/:\s*(.+)/', $h, $m)) {
+                    $time = trim($m[1]);
+                    $day_hours[$idx] = $time;
+                }
+            }
+        }
+    }
+    
+    if (empty($day_hours)) return implode('<br>', $hours);
+    
+    // Group consecutive days with same hours
+    $ranges = array();
+    $current_start = 0;
+    $current_time = '';
+    
+    for ($i = 0; $i <= 6; $i++) {
+        if (!isset($day_hours[$i])) {
+            // Closed or missing
+            if ($current_time !== '') {
+                $ranges[] = format_range($current_start, $i-1, $current_time);
+                $current_time = '';
+            }
+        } elseif ($day_hours[$i] !== $current_time) {
+            if ($current_time !== '') {
+                $ranges[] = format_range($current_start, $i-1, $current_time);
+            }
+            $current_start = $i;
+            $current_time = $day_hours[$i];
+        }
+    }
+    if ($current_time !== '') {
+        $ranges[] = format_range($current_start, 6, $current_time);
+    }
+    
+    return implode('<br>', $ranges);
+}
+
+function format_range($start, $end, $time) {
+    $day_names = array('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun');
+    if ($start == $end) {
+        return $day_names[$start] . ': ' . $time;
+    }
+    return $day_names[$start] . '-' . $day_names[$end] . ': ' . $time;
+}
+
 function tln_profile_content($content) {
     if (!is_page('profile')) {
         return $content;
@@ -34,13 +182,47 @@ function tln_profile_content($content) {
         return '<div style="padding:2rem;background:#f0f0f0;border-radius:8px;"><h3>TLN Profile</h3><p>Add ?biz=Name&pid=PlaceID to URL.</p></div>';
     }
     
+    // Fetch Google data
+    $gdata = tln_get_google_place_data($pid);
+    
+    // Use Google data or fallback
+    $biz_name = $gdata['name'] ?? $biz;
+    $biz_address = $gdata['address'] ?? '';
+    $biz_phone = $gdata['phone'] ?? '';
+    $biz_rating = $gdata['rating'] ?? 0;
+    $biz_reviews = $gdata['reviews'] ?? array();
+    $biz_hours = $gdata['hours'] ?? array();
+    $biz_lat = $gdata['lat'] ?? 0;
+    $biz_lng = $gdata['lng'] ?? 0;
+    $biz_photos = $gdata['photos'] ?? array();
+    
+    // Get first photo reference
+    $photo_ref = '';
+    if (count($biz_photos) > 0) {
+        $photo_ref = $biz_photos[0]['photo_reference'] ?? '';
+    }
+    $hero_bg = '';
+    if ($photo_ref && defined('TLN_GOOGLE_API_KEY')) {
+        $hero_bg = 'url(https://maps.googleapis.com/maps/api/place/photo?maxwidth=1200&photoreference=' . $photo_ref . '&key=' . TLN_GOOGLE_API_KEY . ')';
+    }
+    if (!$hero_bg) {
+        $hero_bg = 'url(https://thelocalnearbuy.com/wp-content/uploads/2026/05/town-scene-bkgd-scaled.webp)';
+    }
+    
+    // Format address for display
+    $city = '';
+    if ($biz_address) {
+        preg_match('/([A-Za-z\s]+,\s*[A-Z]{2}\s*\d{5})/', $biz_address, $matches);
+        $city = $matches[1] ?? '';
+    }
+    
     // Full profile HTML
     $html = '
     <style>
     .tln-profile { max-width:1100px; margin:0 auto; font-family:\'Open Sans\',sans-serif; }
     .tln-hero { 
         background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)),
-        url(\'https://thelocalnearbuy.com/wp-content/uploads/2026/05/town-scene-bkgd-scaled.webp\');
+        ' . $hero_bg . ';
         background-size:cover;background-position:center;height:280px;position:relative;margin:-20px -40px 0 -40px;width:calc(100% + 80px);max-width:1280px;
     }
     .tln-hero-content { position:absolute;bottom:1.5rem;left:1.5rem; }
@@ -52,6 +234,10 @@ function tln_profile_content($content) {
     .tln-card h3 { font-size:1rem;font-weight:700;margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid #eee; }
     .tln-contact { display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0; }
     .tln-contact a { color:#e63946;text-decoration:none;font-weight:600; }
+    .tln-hours-pill { padding:0.25rem 0.75rem;border-radius:20px;font-size:0.75rem;font-weight:700; }
+    .tln-hours-pill.open { background:#28a745;color:#fff; }
+    .tln-hours-pill.closed { background:#dc3545;color:#fff; }
+    .tln-hours-pill.closing-soon { background:#ffc107;color:#333; }
     .tln-review-item { padding:0.75rem 0;border-bottom:1px solid #eee; }
     .tln-review-item:last-child { border-bottom:none; }
     .tln-reviewer { font-weight:700;font-size:0.95rem; }
@@ -85,8 +271,8 @@ function tln_profile_content($content) {
     <div class="tln-profile">
         <div class="tln-hero">
             <div class="tln-hero-content">
-                <h1>' . esc_html($biz) . '</h1>
-                <p>Waxhaw, NC</p>
+                <h1>' . esc_html($biz_name) . '</h1>
+                <p>' . esc_html($city) . '</p>
             </div>
         </div>
         
@@ -98,31 +284,25 @@ function tln_profile_content($content) {
                 <div class="tln-card">
                     <h3>What Neighbors Say</h3>
                     <p style="font-size:0.9rem;color:#666;margin-bottom:1rem;">Be the first to leave a Neighborhood Review Score for this business and help others in our community know what they\'re about.</p>
-                    <button style="margin-top:0.8rem;padding:0.75rem 1.5rem;background:#e63946;color:white;border:none;border-radius:6px;cursor:pointer;display:block;width:100%;font-weight:700;font-size:1rem;">Leave a Review</button>
+                    <a href="https://www.google.com/search?q=" . urlencode($biz_name) . " " . urlencode($biz_address) . " reviews" target="_blank" style="margin-top:0.8rem;padding:0.75rem 1.5rem;background:#e63946;color:white;border:none;border-radius:6px;cursor:pointer;display:block;width:100%;font-weight:700;font-size:1rem;text-align:center;text-decoration:none;box-sizing:border-box;">Leave a Review</a>
                 </div>
                 
                 <div class="tln-card">
                     <h3>Hours</h3>
-                    <p style="font-size:0.9rem;color:#666;">Coming soon...</p>
+                    ' . (count($biz_hours) > 0 ? '<div style="font-size:0.85rem;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">' . tln_get_open_status($biz_hours) . '</div><div style="font-weight:600;">' . tln_format_hours($biz_hours) . '</div></div>' : '<p style="font-size:0.9rem;color:#666;">Hours coming soon...</p>') . '
                 </div>
                 
                 <div class="tln-card">
                     <h3>Contact</h3>
-                    <div class="tln-contact">
-                        <span>📞</span>
-                        <a href="#">Coming soon...</a>
-                    </div>
-                    <div class="tln-contact">
-                        <span>📍</span>
-                        <a href="#">Get Directions</a>
-                    </div>
+                    ' . ($biz_phone ? '<div class="tln-contact"><span>📞</span><a href="tel:' . esc_attr($biz_phone) . '">' . esc_html($biz_phone) . '</a></div>' : '<div class="tln-contact"><span>📞</span><a href="#">Phone coming soon...</a></div>') . '
+                    ' . ($biz_address ? '<div class="tln-contact"><span>📍</span><a href="https://www.google.com/maps/search/?api=1&query=' . urlencode($biz_address) . '" target="_blank">Get Directions</a></div>' : '<div class="tln-contact"><span>📍</span><a href="#">Get Directions</a></div>') . '
                 </div>
             </div>
             
             <div class="tln-right">
                 <div class="tln-card">
-                    <h3>Google Reviews</h3>
-                    <p style="color:#666;font-size:0.9rem;">Be the first to leave a Google review for this business!</p>
+                    <h3>Google Reviews' . ($biz_rating > 0 ? ' (' . esc_html($biz_rating) . ')' : '') . '</h3>
+                    ' . (count($biz_reviews) > 0 ? '<div style="max-height:250px;overflow-y:auto;">' . implode('', array_map(function($r) { return '<div class="tln-review-item"><div class="tln-reviewer">' . esc_html($r['author_name'] ?? 'Reviewer') . '</div><div class="tln-stars">' . str_repeat('★', $r['rating'] ?? 0) . '</div><div class="tln-review-text">' . esc_html(mb_substr($r['text'] ?? '', 0, 150)) . '</div></div>'; }, array_slice($biz_reviews, 0, 5))) . '</div><a href="https://www.google.com/search?q=" . urlencode($biz_name) . " " . urlencode($biz_address) . " reviews" target="_blank" class="tln-see-all">See all Google Reviews →</a>' : '<p style="color:#666;font-size:0.9rem;">Be the first to leave a Google review for this business!</p>') . '
                 </div>
                 
                 <div class="tln-card" style="background:#fefaf9;border-color:#f0e0e0;">
@@ -138,7 +318,7 @@ function tln_profile_content($content) {
                 
                 <div class="tln-card">
                     <h3>Location</h3>
-                    <div class="tln-map">[Google Map Placeholder]</div>
+                    ' . ($biz_lat && $biz_lng ? '<iframe width="100%" height="200" style="border:0;border-radius:4px;" loading="lazy" src="https://www.google.com/maps/embed/v1/place?key=' . esc_attr(defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '') . '&q=' . esc_attr($biz_lat) . ',' . esc_attr($biz_lng) . '&zoom=15"></iframe>' : ($biz_address ? '<div style="background:#f5f5f5;height:150px;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;"><a href="https://www.google.com/maps/search/?api=1&query=' . urlencode($biz_address) . '" target="_blank" style="background:#e63946;color:#fff;padding:0.75rem 1.5rem;border-radius:6px;text-decoration:none;font-weight:700;">Open in Google Maps</a><span style="font-size:0.85rem;color:#666;">' . esc_html($biz_address) . '</span></div>' : '<div class="tln-map">Map coming soon...</div>')) . '
                 </div>
                 
                 <div class="tln-claim-box">
@@ -159,7 +339,7 @@ function tln_get_modal_html() {
     <div id="tln-ad-modal" class="tln-modal">
         <div class="tln-modal-inner">
             <span class="tln-modal-close" data-close>&times;</span>
-            <iframe src="/tln-ad-request.html?modal=1"></iframe>
+            <iframe src="/tln-ad-request/?modal=1"></iframe>
         </div>
     </div>
     <div id="tln-claim-modal" class="tln-modal">
