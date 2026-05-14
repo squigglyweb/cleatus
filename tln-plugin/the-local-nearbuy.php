@@ -8,6 +8,8 @@ Version: 2.9 - With Google data
 // Load other TLN components
 require_once plugin_dir_path(__FILE__) . 'tln-directory.php';
 require_once plugin_dir_path(__FILE__) . 'tln-claim.php';
+require_once plugin_dir_path(__FILE__) . 'tln-golf-shortcode.php';
+require_once plugin_dir_path(__FILE__) . 'tln-parks-shortcode.php';
 
 // Profile page handler
 if (!is_admin()) {
