@@ -68,6 +68,27 @@ function tln_get_google_place_data($place_id) {
 }
 
 // Get open/closed status
+function tln_get_hours_display() {
+    $today = strtolower(date('l'));
+    $hours = array(
+        'monday' => '11:00 AM – 9:00 PM',
+        'tuesday' => '11:00 AM – 9:00 PM',
+        'wednesday' => '11:00 AM – 9:00 PM',
+        'thursday' => '11:00 AM – 9:00 PM',
+        'friday' => '11:00 AM – 10:00 PM',
+        'saturday' => '9:00 AM – 10:00 PM',
+        'sunday' => '9:00 AM – 8:00 PM'
+    );
+    $days = array('monday','tuesday','wednesday','thursday','friday','saturday','sunday');
+    $labels = array('Mon','Tue','Wed','Thu','Fri','Sat','Sun');
+    $output = '';
+    foreach ($days as $i => $day) {
+        $bold = ($day == $today) ? 'font-weight:700;' : '';
+        $output .= '<span style="' . $bold . '">' . $labels[$i] . '..: <span style="' . $bold . '">' . $hours[$day] . '</span></span><br>';
+    }
+    return $output;
+}
+
 function tln_get_open_status($hours) {
     if (empty($hours)) return '';
     
@@ -317,14 +338,7 @@ function tln_profile_content($content) {
                         <span class="tln-hours-pill" style="padding:0.25rem 0.75rem;border-radius:20px;font-size:0.75rem;font-weight:700;background:#28a745;color:#fff;">Open</span>
                     </div>
                     <div style="font-size:14px;line-height:1.8;">
-                        <?php $today = strtolower(date('l')); ?>
-                        <span style="<?php if($today=='monday') echo 'font-weight:700;'; ?>">Mon..: <span style="<?php if($today=='monday') echo 'font-weight:700;'; ?>">11:00 AM – 9:00 PM</span></span><br>
-                        <span style="<?php if($today=='tuesday') echo 'font-weight:700;'; ?>">Tue...: <span style="<?php if($today=='tuesday') echo 'font-weight:700;'; ?>">11:00 AM – 9:00 PM</span></span><br>
-                        <span style="<?php if($today=='wednesday') echo 'font-weight:700;'; ?>">Wed..: <span style="<?php if($today=='wednesday') echo 'font-weight:700;'; ?>">11:00 AM – 9:00 PM</span></span><br>
-                        <span style="<?php if($today=='thursday') echo 'font-weight:700;'; ?>">Thu..: <span style="<?php if($today=='thursday') echo 'font-weight:700;'; ?>">11:00 AM – 9:00 PM</span></span><br>
-                        <span style="<?php if($today=='friday') echo 'font-weight:700;'; ?>">Fri...: <span style="<?php if($today=='friday') echo 'font-weight:700;'; ?>">11:00 AM – 10:00 PM</span></span><br>
-                        <span style="<?php if($today=='saturday') echo 'font-weight:700;'; ?>">Sat..: <span style="<?php if($today=='saturday') echo 'font-weight:700;'; ?>">9:00 AM – 10:00 PM</span></span><br>
-                        <span style="<?php if($today=='sunday') echo 'font-weight:700;'; ?>">Sun..: <span style="<?php if($today=='sunday') echo 'font-weight:700;'; ?>">9:00 AM – 8:00 PM</span></span>
+                        " . tln_get_hours_display() . "
                     </div>
                 </div>
                 
