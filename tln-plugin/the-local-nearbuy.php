@@ -338,7 +338,7 @@ function tln_profile_content($content) {
                         <span class="tln-hours-pill" style="padding:0.25rem 0.75rem;border-radius:20px;font-size:0.75rem;font-weight:700;background:#28a745;color:#fff;">Open</span>
                     </div>
                     <div style="font-size:14px;line-height:1.8;">
-                        " . tln_get_hours_display() . "
+                        ' . tln_get_hours_display() . '
                     </div>
                 </div>
                 
