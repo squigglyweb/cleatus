@@ -62,6 +62,12 @@ $parks_locations = array(
 );
 
 function tln_parks_shortcode($atts) {
+    // Try to get cached data first
+    $cached = get_transient('tln_parks_data');
+    if ($cached !== false) {
+        return $cached;
+    }
+    
     global $parks_locations;
     $api_key = TLN_GOOGLE_API_KEY;
     $results = array();
@@ -175,7 +181,12 @@ function tln_parks_shortcode($atts) {
     echo '</div>';
     echo '</div>';
     
-    return ob_get_clean();
+    $output = ob_get_clean();
+    
+    // Cache the output for 24 hours
+    set_transient('tln_parks_data', $output, HOUR_IN_SECONDS * 24);
+    
+    return $output;
 }
 
 add_shortcode('parks_directory', 'tln_parks_shortcode');

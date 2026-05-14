@@ -15,6 +15,13 @@ function tln_business_profile_func($atts) {
         return '<p>No business specified. <a href="/directory/">Browse directory</a></p>';
     }
     
+    // Try cache first
+    $cache_key = 'tln_biz_' . md5($place_id);
+    $cached = get_transient($cache_key);
+    if ($cached !== false) {
+        return $cached;
+    }
+    
     $api_key = 'AIzaSyAH6O3RsnDuX5rJ2OyTHCTZhYtd6s6NSWU';
     
     // Get place details for photo
@@ -82,6 +89,11 @@ function tln_business_profile_func($atts) {
         </div>
     </div>
     <?php
-    return ob_get_clean();
+    $output = ob_get_clean();
+    
+    // Cache for 24 hours
+    set_transient($cache_key, $output, HOUR_IN_SECONDS * 24);
+    
+    return $output;
 }
 add_shortcode('tln_profile', 'tln_business_profile_func');

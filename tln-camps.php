@@ -39,6 +39,12 @@ add_action('wp_enqueue_scripts', 'tln_camps_styles');
 define('TLN_GOOGLE_API_KEY', 'AIzaSyAH6O3RsnDuX5rJ2OyTHCTZhYtd6s6NSWU');
 
 function tln_camps_func() {
+    // Try to get cached data first
+    $cached = get_transient('tln_camps_data');
+    if ($cached !== false) {
+        return $cached;
+    }
+    
     $api_key = TLN_GOOGLE_API_KEY;
     $results = array();
     
@@ -129,5 +135,10 @@ function tln_camps_func() {
     }
     
     echo '</div></div>';
-    return ob_get_clean();
+    $output = ob_get_clean();
+    
+    // Cache for 24 hours
+    set_transient('tln_camps_data', $output, HOUR_IN_SECONDS * 24);
+    
+    return $output;
 }

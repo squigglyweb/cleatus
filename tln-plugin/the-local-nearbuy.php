@@ -22,8 +22,27 @@ function tln_directory_content($content) {
     return tln_dir_shortcode(array());
 }
 
-// Fetch Google Place details with caching
-function tln_get_google_place_data($place_id) {
+// Fetch Google Place details with caching in post meta
+function tln_get_cached_place_data($post_id, $place_id) {
+    // Try to get from post meta first
+    $cached = get_post_meta($post_id, 'tln_google_data', true);
+    if (!empty($cached) && is_array($cached)) {
+        return $cached;
+    }
+    
+    // If no cached data, fetch from Google API
+    $data = tln_fetch_google_place_data($place_id);
+    
+    // Save to post meta for future use
+    if (!empty($data)) {
+        update_post_meta($post_id, 'tln_google_data', $data);
+    }
+    
+    return $data;
+}
+
+// Fetch from Google API (called when no cache exists)
+function tln_fetch_google_place_data($place_id) {
     $cache_key = 'tln_place_' . md5($place_id);
     $data = get_transient($cache_key);
     
@@ -223,8 +242,8 @@ function tln_profile_content($content) {
         return '<div style="padding:2rem;background:#f0f0f0;border-radius:8px;"><h3>TLN Profile</h3><p>Add ?biz=Name&pid=PlaceID to URL.</p></div>';
     }
     
-    // Fetch Google data
-    $gdata = tln_get_google_place_data($pid);
+    // Fetch Google data (cached)
+    $gdata = tln_fetch_google_place_data($pid);
     
     // Use Google data or fallback
     $biz_name = $gdata['name'] ?? $biz;

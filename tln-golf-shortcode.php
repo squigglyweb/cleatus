@@ -99,7 +99,7 @@ function tln_golf_shortcode($atts) {
             $data = json_decode(wp_remote_retrieve_body($response), true);
             $cached = $data['result'] ?? null;
             // Cache for 1 hour
-            set_transient($transient_key, $cached, 3600);
+            set_transient($transient_key, $cached, HOUR_IN_SECONDS * 24); // Cache for 24 hours
         }
         
         $r = $cached;
