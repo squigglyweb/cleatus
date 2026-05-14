@@ -312,11 +312,11 @@ function tln_profile_content($content) {
                 </div>
                 
                 <div class="tln-card">
-                    <div class="tln-hours-header">
-                        <h3>Hours</h3>
-                        ' . tln_get_open_status($biz_hours) . '
+                    <div class="tln-hours-header" style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">
+                        <h3 style="margin:0;padding:0;border:none;font-size:1rem;font-weight:700;">Hours</h3>
+                        <span class="tln-hours-pill" style="padding:0.25rem 0.75rem;border-radius:20px;font-size:0.75rem;font-weight:700;background:#28a745;color:#fff;">Open</span>
                     </div>
-                    ' . (count($biz_hours) > 0 ? '<div class="tln-hours-display" style="font-size:0.85rem;">' . tln_format_hours($biz_hours) . '</div>' : '<p style="font-size:0.9rem;color:#666;">Hours coming soon...</p>') . '
+                    ' . (count($biz_hours) > 0 ? '<div style="font-family:monospace;font-size:0.85rem;">' . tln_format_hours($biz_hours) . '</div>' : '<p style="font-size:0.9rem;color:#666;">Hours coming soon...</p>') . '
                 </div>
                 
                 <div class="tln-card">
