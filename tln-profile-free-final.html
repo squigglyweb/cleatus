@@ -44,12 +44,15 @@
         .card-title { font-size: 1rem; font-weight: 700; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #eee; }
 
         /* Hours */
-        .hours-pill { padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; }
+        .hours-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; position: relative; }
+        .hours-pill { position: absolute; right: 0; top: 50%; transform: translateY(-50%); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; }
         .hours-pill.open { background: #28a745; color: white; }
         .hours-pill.closed { background: #dc3545; color: white; }
         .hours-pill.closing-soon { background: #ffc107; color: #333; }
         .hours-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #f0f0f0; font-size: 0.9rem; }
         .hours-row:last-child { border-bottom: none; }
+        .hours-row .day { font-weight: 600; }
+        .hours-row .time { font-weight: 700; }
 
         /* Contact */
         .contact-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0; }
@@ -192,17 +195,17 @@
                         <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin active"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin">
                     </div>
                 </div>
-                <button class="review-btn">Leave A Customer Review</button>
+                <a href="https://www.google.com/search?q=XYZ+Repair+Charlotte+NC+reviews" target="_blank" class="review-btn" style="text-decoration:none;">Leave A Customer Review</a>
             </div>
 
             <div class="card">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
+                <div class="hours-card-header">
                     <span class="card-title" style="margin:0;padding:0;border-bottom:none;">Hours</span>
                     <span id="hoursStatus" class="hours-pill open">Open Now</span>
                 </div>
-                <div class="hours-row"><span>Monday - Friday</span><span>7am - 6pm</span></div>
-                <div class="hours-row"><span>Saturday</span><span>8am - 12pm</span></div>
-                <div class="hours-row"><span>Sunday</span><span>Closed</span></div>
+                <div class="hours-row"><span class="day">Monday - Friday</span><span class="time">7am - 6pm</span></div>
+                <div class="hours-row"><span class="day">Saturday</span><span class="time">8am - 12pm</span></div>
+                <div class="hours-row"><span class="day">Sunday</span><span class="time">Closed</span></div>
             </div>
 
             <div class="card">
@@ -232,7 +235,7 @@
                     <div class="review-stars">★★★★★</div>
                     <div class="review-text">Fixed my car same day when others said it would take a week.</div>
                 </div>
-                <a href="#" class="see-all">See all 28 Google Reviews →</a>
+                <a href="https://www.google.com/search?q=XYZ+Repair+Charlotte+NC+reviews" target="_blank" class="see-all">See all 28 Google Reviews →</a>
             </div>
 
             <!-- Sidebar Ad -->
