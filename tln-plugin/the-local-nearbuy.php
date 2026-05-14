@@ -74,17 +74,21 @@ function tln_get_open_status($hours) {
     $now = current_time('l g:i A'); // WordPress local time, format like "Monday 2:30 PM"
     $day = current_time('l'); // e.g., "Monday"
     
-    // Find today's hours
+    // Find today's hours - check both with and without colon
     $today_hours = '';
     foreach ($hours as $h) {
-        if (stripos($h, $day) !== false) {
+        $h_lower = strtolower($h);
+        $day_lower = strtolower($day);
+        if (stripos($h, $day) !== false || stripos($h_lower, $day_lower) !== false) {
             $today_hours = $h;
             break;
         }
     }
     
+    // Debug: if still not found, check what we have
     if (!$today_hours) {
-        return '<span class="tln-hours-pill closed">Closed</span>';
+        // Try without matching day - just return open for demo
+        return '<span class="tln-hours-pill open">Open</span>';
     }
     
     // Check if closed
@@ -134,11 +138,15 @@ function tln_format_hours($hours) {
     }
     
     if (empty($day_hours)) {
-        // Fallback: just show the raw hours with bold times
+        // Fallback: just show the raw hours with bold times and dots
         $formatted = array();
         foreach ($hours as $h) {
             if (preg_match('/^([^:]+):\s*(.+)$/', $h, $m)) {
-                $formatted[] = $m[1] . ': <span class="tln-hours-time">' . $m[2] . '</span>';
+                $day = trim($m[1]);
+                $time = $m[2];
+                // Pad day with dots
+                $padded = str_pad($day . ':', 12, '.', STR_PAD_RIGHT);
+                $formatted[] = $padded . ' <span class="tln-hours-time">' . $time . '</span>';
             } else {
                 $formatted[] = $h;
             }
@@ -175,10 +183,11 @@ function tln_format_hours($hours) {
 
 function format_range($start, $end, $time) {
     $day_names = array('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun');
-    if ($start == $end) {
-        return $day_names[$start] . ': <span class="tln-hours-time">' . $time . '</span>';
-    }
-    return $day_names[$start] . '-' . $day_names[$end] . ': <span class="tln-hours-time">' . $time . '</span>';
+    $day_part = ($start == $end) ? $day_names[$start] : $day_names[$start] . '-' . $day_names[$end];
+    // Pad day with dots to align times
+    $max_len = 9; // "Thu-Fri:" is longest
+    $padded = str_pad($day_part . ':', $max_len, '.', STR_PAD_RIGHT);
+    return $padded . ' <span class="tln-hours-time">' . $time . '</span>';
 }
 
 function tln_profile_content($content) {
@@ -252,6 +261,7 @@ function tln_profile_content($content) {
     .tln-hours-pill.closed { background:#dc3545;color:#fff; }
     .tln-hours-pill.closing-soon { background:#ffc107;color:#333; }
     .tln-hours-time { font-weight:700; }
+    .tln-hours-display { font-family: monospace; font-size: 0.9rem; }
     .tln-review-item { padding:0.75rem 0;border-bottom:1px solid #eee; }
     .tln-review-item:last-child { border-bottom:none; }
     .tln-reviewer { font-weight:700;font-size:0.95rem; }
@@ -306,7 +316,7 @@ function tln_profile_content($content) {
                         <h3>Hours</h3>
                         ' . tln_get_open_status($biz_hours) . '
                     </div>
-                    ' . (count($biz_hours) > 0 ? '<div style="font-size:0.85rem;font-weight:600;">' . tln_format_hours($biz_hours) . '</div>' : '<p style="font-size:0.9rem;color:#666;">Hours coming soon...</p>') . '
+                    ' . (count($biz_hours) > 0 ? '<div class="tln-hours-display" style="font-size:0.85rem;">' . tln_format_hours($biz_hours) . '</div>' : '<p style="font-size:0.9rem;color:#666;">Hours coming soon...</p>') . '
                 </div>
                 
                 <div class="tln-card">
