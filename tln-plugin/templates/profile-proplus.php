@@ -46,11 +46,14 @@ $is_pro = in_array($tier, ['pro', 'proplus', 'sponsor']);
     .score-box { background: #f8f8f8; border: 2px solid var(--red); border-radius: 8px; padding: 1.25rem; text-align: center; }
     .score-box h3 { font-size: 0.9rem; color: #666; margin-bottom: 0.5rem; }
     .score-display { font-size: 2.5rem; font-weight: 700; color: var(--red); }
-    .hours-pill { padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; display: inline-block; }
+    .hours-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; position: relative; }
+    .hours-header h3 { margin: 0; padding: 0; border: none; font-size: 1rem; }
+    .hours-pill { position: absolute; right: 0; top: 50%; transform: translateY(-50%); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; }
     .hours-pill.open { background: #28a745; color: white; }
     .hours-pill.closed { background: #dc3545; color: white; }
     .hours-pill.closing-soon { background: #ffc107; color: #333; }
-    .hours-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #f0f0f0; font-size: 0.9rem; }
+    .hours-time { font-weight: 700; }
+    .hours-display { font-size: 14px; line-height: 1.8; }
     .contact-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0; }
     .contact-item a { color: var(--red); text-decoration: none; font-weight: 600; }
     .impact-box { background: var(--red); color: white; border-radius: 8px; padding: 1rem; display: flex; align-items: center; gap: 0.75rem; }
@@ -101,22 +104,21 @@ $is_pro = in_array($tier, ['pro', 'proplus', 'sponsor']);
             <h3>Google Rating</h3>
             <div class="score-display" style="color:#4285f4;"><?php echo esc_html($google_rating ?: '4.0'); ?> <span style="font-size:1rem;color:#666;font-weight:400;">/ 5</span></div>
             <p style="font-size:0.8rem;color:#666;margin-top:0.25rem;">Based on Google reviews</p>
-            <button onclick="window.open('https://www.google.com/search?q=<?php echo urlencode($biz_name); ?> <?php echo urlencode($biz_address); ?> reviews','_blank')" style="background:#4285f4;color:white;border:none;padding:0.5rem 1rem;border-radius:4px;font-weight:600;cursor:pointer;margin-top:0.5rem;width:100%;">Leave Google Review</button>
+            <button onclick="document.getElementById('reviewModal').style.display='flex';" style="background:#e63946;color:white;border:none;padding:0.5rem 1rem;border-radius:4px;font-weight:600;cursor:pointer;margin-top:0.5rem;width:100%;">Leave a Review</button>
         </div>
         
         <!-- Hours -->
         <div class="card">
-            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
-                <span class="card-title" style="margin:0;padding:0;border:none;">Hours</span>
-                <span id="hoursStatus" class="hours-pill">Loading...</span>
+            <div class="hours-header">
+                <h3>Hours</h3>
+                <span class="hours-pill open">Open</span>
             </div>
-            <div class="hours-row"><span>Mon</span><span><?php echo esc_html($hours[0]); ?></span></div>
-            <div class="hours-row"><span>Tue</span><span><?php echo esc_html($hours[1]); ?></span></div>
-            <div class="hours-row"><span>Wed</span><span><?php echo esc_html($hours[2]); ?></span></div>
-            <div class="hours-row"><span>Thu</span><span><?php echo esc_html($hours[3]); ?></span></div>
-            <div class="hours-row"><span>Fri</span><span><?php echo esc_html($hours[4]); ?></span></div>
-            <div class="hours-row"><span>Sat</span><span><?php echo esc_html($hours[5]); ?></span></div>
-            <div class="hours-row"><span>Sun</span><span><?php echo esc_html($hours[6]); ?></span></div>
+            <div class="hours-display">
+                <?php $today = strtolower(date('l')); $days = array('monday','tuesday','wednesday','thursday','friday','saturday','sunday'); $labels = array('Mon','Tue','Wed','Thu','Fri','Sat','Sun'); $hours_arr = array($hours[0],$hours[1],$hours[2],$hours[3],$hours[4],$hours[5],$hours[6]); ?>
+                <?php foreach($days as $i=>$day): $bold = ($day==$today)?'font-weight:700;':''; ?>
+                <span style="<?php echo $bold; ?>"><?php echo $labels[$i]; ?>..: <span class="hours-time" style="<?php echo $bold; ?>"><?php echo esc_html($hours_arr[$i]); ?></span></span><br>
+                <?php endforeach; ?>
+            </div>
         </div>
         
         <!-- Contact -->
@@ -314,5 +316,24 @@ function setRating(num) {
     }
 })();
 </script>
+
+<!-- Review Modal -->
+<div id="reviewModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:9999;align-items:center;justify-content:center;" onclick="if(event.target===this)this.style.display='none'">
+    <div style="background:#fff;max-width:500px;width:95%;padding:2rem;border-radius:12px;position:relative;max-height:90vh;overflow-y:auto;">
+        <span onclick="document.getElementById('reviewModal').style.display='none';" style="position:absolute;top:10px;right:15px;font-size:2rem;cursor:pointer;line-height:1;">&times;</span>
+        <h2 style="margin-bottom:1rem;">Rate Your Experience</h2>
+        <p style="color:#666;margin-bottom:1.5rem;">Help your neighbors know what this business is really like.</p>
+        
+        <div style="margin:1rem 0;"><div style="font-weight:600;margin-bottom:0.5rem;">Quality</div><div class="pin-rating" data-cat="quality" style="display:flex;gap:2px;"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:16px;opacity:0.3;cursor:pointer;"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:16px;opacity:0.3;cursor:pointer;"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:16px;opacity:0.3;cursor:pointer;"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:16px;opacity:0.3;cursor:pointer;"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:16px;opacity:0.3;cursor:pointer;"></div></div>
+        <div style="margin:1rem 0;"><div style="font-weight:600;margin-bottom:0.5rem;">Service</div><div class="pin-rating" data-cat="service" style="display:flex;gap:2px;"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:16px;opacity:0.3;cursor:pointer;"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:16px;opacity:0.3;cursor:pointer;"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:16px;opacity:0.3;cursor:pointer;"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:16px;opacity:0.3;cursor:pointer;"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:16px;opacity:0.3;cursor:pointer;"></div></div>
+        <div style="margin:1rem 0;"><div style="font-weight:600;margin-bottom:0.5rem;">Value</div><div class="pin-rating" data-cat="value" style="display:flex;gap:2px;"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:16px;opacity:0.3;cursor:pointer;"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:16px;opacity:0.3;cursor:pointer;"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:16px;opacity:0.3;cursor:pointer;"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:16px;opacity:0.3;cursor:pointer;"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:16px;opacity:0.3;cursor:pointer;"></div></div>
+        <div style="margin:1rem 0;"><div style="font-weight:600;margin-bottom:0.5rem;">Atmosphere</div><div class="pin-rating" data-cat="atmosphere" style="display:flex;gap:2px;"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:16px;opacity:0.3;cursor:pointer;"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:16px;opacity:0.3;cursor:pointer;"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:16px;opacity:0.3;cursor:pointer;"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:16px;opacity:0.3;cursor:pointer;"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" style="height:16px;opacity:0.3;cursor:pointer;"></div></div>
+        
+        <textarea placeholder="Write a review (What should other customers know?)" style="width:100%;padding:0.75rem;margin:1rem 0;border:1px solid #ddd;border-radius:6px;min-height:100px;"></textarea>
+        <input type="text" placeholder="Your public name (required)" style="width:100%;padding:0.75rem;margin-bottom:1rem;border:1px solid #ddd;border-radius:6px;" />
+        <button onclick="alert('Review submitted! Thanks for supporting local.');document.getElementById('reviewModal').style.display='none';" style="width:100%;padding:0.75rem;background:#e63946;color:white;border:none;border-radius:6px;font-weight:700;cursor:pointer;">Submit Review</button>
+    </div>
+</div>
+<script>document.querySelectorAll('.pin-rating').forEach(function(c){c.querySelectorAll('img').forEach(function(p,i){p.addEventListener('click',function(){c.querySelectorAll('img').forEach(function(img,j){img.style.opacity=j<=i?'1':'0.3'})})})});</script>
 
 <?php get_footer(); ?>

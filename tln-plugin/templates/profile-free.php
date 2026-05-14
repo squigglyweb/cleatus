@@ -62,12 +62,14 @@ $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
         .card-title { font-size: 1rem; font-weight: 700; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #eee; }
 
         /* Hours */
-        .hours-pill { padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; }
+        .hours-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem; position: relative; }
+        .hours-header h3 { margin: 0; padding: 0; border: none; font-size: 1rem; }
+        .hours-pill { position: absolute; right: 0; top: 50%; transform: translateY(-50%); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; }
         .hours-pill.open { background: #28a745; color: white; }
         .hours-pill.closed { background: #dc3545; color: white; }
         .hours-pill.closing-soon { background: #ffc107; color: #333; }
-        .hours-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #f0f0f0; font-size: 0.9rem; }
-        .hours-row:last-child { border-bottom: none; }
+        .hours-time { font-weight: 700; }
+        .hours-display { font-size: 14px; line-height: 1.8; }
 
         /* Contact */
         .contact-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0; }
@@ -220,18 +222,26 @@ $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
             <div class="card">
                 <div class="card-title">What Neighbors Say</div>
                 <p style="font-size:0.9rem;color:#666;margin-bottom:1rem;">Be the first to leave a Neighborhood Review Score for this business and help others in our community know what they're about.</p>
-                <a href="/tln-neighbor-review/?biz=<?php echo urlencode($biz['name']); ?>&pid=<?php echo urlencode($biz['place_id']); ?>" class="claim-btn" style="display:inline-block;padding:0.75rem 1.5rem;background:var(--red);color:white;text-decoration:none;border-radius:6px;font-weight:700;">Leave a Review</a>
+                <button onclick="document.getElementById('reviewModal').style.display='flex';" class="claim-btn" style="display:inline-block;padding:0.75rem 1.5rem;background:var(--red);color:white;border:none;border-radius:6px;font-weight:700;cursor:pointer;width:100%;">Leave a Review</button>
             </div>
 
             <div class="card">
-                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.5rem;">
-                    <span class="card-title" style="margin:0;padding:0;border-bottom:none;">Hours</span>
-                    <span id="hoursStatus" class="hours-pill open">Open Now</span>
+                <div class="hours-header">
+                    <h3>Hours</h3>
+                    <span class="hours-pill open">Open</span>
                 </div>
                 <?php if (!empty($biz['hours'])): ?>
-                    <?php foreach ($biz['hours'] as $day_hours): ?>
-                    <div class="hours-row"><span><?php echo esc_html($day_hours); ?></span></div>
+                <div class="hours-display">
+                    <?php $today = strtolower(date('l')); ?>
+                    <?php foreach ($biz['hours'] as $i => $day_hours): ?>
+                    <?php $day_name = strtolower(explode(':',$day_hours)[0]); $bold = ($day_name==$today)?'font-weight:700;':''; ?>
+                    <?php if (preg_match('/^([^:]+):\s*(.+)$/', $day_hours, $m)): ?>
+                    <span style="<?php echo $bold; ?>"><?php echo trim($m[1]); ?>..: <span class="hours-time" style="<?php echo $bold; ?>"><?php echo trim($m[2]); ?></span></span><br>
+                    <?php else: ?>
+                    <span><?php echo esc_html($day_hours); ?></span><br>
+                    <?php endif; ?>
                     <?php endforeach; ?>
+                </div>
                 <?php else: ?>
                 <p style="color:#666;font-size:0.9rem;">Hours not available</p>
                 <?php endif; ?>
