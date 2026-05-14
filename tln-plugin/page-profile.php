@@ -13,26 +13,50 @@ if (empty($biz) || empty($pid)) {
     return;
 }
 
-// Include profile template based on tier
-global $tln_profile_business;
-$tln_profile_business = array(
-    'name' => $biz,
-    'place_id' => $pid,
-    'address' => 'Loading...',
-    'phone' => '',
-    'website' => '',
-    'rating' => '',
-    'hours' => array(),
-    'photos' => array(),
-    'reviews' => array(),
-);
+// Create or get the profile post for this business
+$post_slug = sanitize_title($biz) . '-' . sanitize_title($pid);
+$existing = get_page_by_path($post_slug, OBJECT, 'page');
+
+if (!$existing) {
+    // Create new profile post
+    $post_id = wp_insert_post(array(
+        'post_title' => $biz,
+        'post_name' => $post_slug,
+        'post_type' => 'page',
+        'post_status' => 'publish',
+        'post_content' => ''
+    ));
+} else {
+    $post_id = $existing->ID;
+}
+
+// Store tier and basic data as post meta
+update_post_meta($post_id, 'tln_tier', $tier);
+update_post_meta($post_id, 'tln_place_id', $pid);
+update_post_meta($post_id, 'tln_business_name', $biz);
+
+// Fetch Google data and cache in meta
+if (function_exists('tln_fetch_google_place_data')) {
+    $gdata = tln_fetch_google_place_data($pid);
+    if ($gdata) {
+        update_post_meta($post_id, 'tln_phone', $gdata['phone'] ?? '');
+        update_post_meta($post_id, 'tln_address', $gdata['address'] ?? '');
+        update_post_meta($post_id, 'tln_rating', $gdata['rating'] ?? 0);
+        update_post_meta($post_id, 'tln_hours', $gdata['hours'] ?? array());
+        update_post_meta($post_id, 'tln_google_data', $gdata);
+    }
+}
+
+// Set up WordPress post context for the template
+global $post;
+$post = get_post($post_id);
+setup_postdata($post);
 
 // Template selection
 $template_file = 'profile-free.php';
-if ($tier === 'pro') {
-    $template_file = 'profile-proplus.php';
-} elseif ($tier === 'proplus') {
+if ($tier === 'pro' || $tier === 'proplus') {
     $template_file = 'profile-proplus.php';
 }
 
 include dirname(__FILE__) . '/templates/' . $template_file;
+wp_reset_postdata();
