@@ -10,6 +10,8 @@ require_once plugin_dir_path(__FILE__) . 'tln-directory.php';
 require_once plugin_dir_path(__FILE__) . 'tln-claim.php';
 require_once plugin_dir_path(__FILE__) . 'tln-golf-shortcode.php';
 require_once plugin_dir_path(__FILE__) . 'tln-parks-shortcode.php';
+require_once plugin_dir_path(__FILE__) . 'tln-analytics.php';
+require_once plugin_dir_path(__FILE__) . 'tln-business-dashboard.php';
 
 // Profile page handler
 if (!is_admin()) {
