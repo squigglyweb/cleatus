@@ -316,14 +316,15 @@ function tln_profile_content($content) {
                         <h3 style="margin:0;padding:0;border:none;font-size:1rem;font-weight:700;">Hours</h3>
                         <span class="tln-hours-pill" style="padding:0.25rem 0.75rem;border-radius:20px;font-size:0.75rem;font-weight:700;background:#28a745;color:#fff;">Open</span>
                     </div>
-                    <div style="font-family:monospace;font-size:14px;line-height:1.8;">
-                        Mon..: <b>11:00 AM – 9:00 PM</b><br>
-                        Tue...: <b>11:00 AM – 9:00 PM</b><br>
-                        Wed..: <b>11:00 AM – 9:00 PM</b><br>
-                        Thu..: <b>11:00 AM – 9:00 PM</b><br>
-                        Fri...: <b>11:00 AM – 10:00 PM</b><br>
-                        Sat..: <b>9:00 AM – 10:00 PM</b><br>
-                        Sun..: <b>9:00 AM – 8:00 PM</b>
+                    <div style="font-size:14px;line-height:1.8;">
+                        <?php $today = strtolower(date('l')); ?>
+                        <span style="<?php if($today=='monday') echo 'font-weight:700;'; ?>">Mon..: <span style="<?php if($today=='monday') echo 'font-weight:700;'; ?>">11:00 AM – 9:00 PM</span></span><br>
+                        <span style="<?php if($today=='tuesday') echo 'font-weight:700;'; ?>">Tue...: <span style="<?php if($today=='tuesday') echo 'font-weight:700;'; ?>">11:00 AM – 9:00 PM</span></span><br>
+                        <span style="<?php if($today=='wednesday') echo 'font-weight:700;'; ?>">Wed..: <span style="<?php if($today=='wednesday') echo 'font-weight:700;'; ?>">11:00 AM – 9:00 PM</span></span><br>
+                        <span style="<?php if($today=='thursday') echo 'font-weight:700;'; ?>">Thu..: <span style="<?php if($today=='thursday') echo 'font-weight:700;'; ?>">11:00 AM – 9:00 PM</span></span><br>
+                        <span style="<?php if($today=='friday') echo 'font-weight:700;'; ?>">Fri...: <span style="<?php if($today=='friday') echo 'font-weight:700;'; ?>">11:00 AM – 10:00 PM</span></span><br>
+                        <span style="<?php if($today=='saturday') echo 'font-weight:700;'; ?>">Sat..: <span style="<?php if($today=='saturday') echo 'font-weight:700;'; ?>">9:00 AM – 10:00 PM</span></span><br>
+                        <span style="<?php if($today=='sunday') echo 'font-weight:700;'; ?>">Sun..: <span style="<?php if($today=='sunday') echo 'font-weight:700;'; ?>">9:00 AM – 8:00 PM</span></span>
                     </div>
                 </div>
                 
