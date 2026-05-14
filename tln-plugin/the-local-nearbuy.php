@@ -316,7 +316,7 @@ function tln_profile_content($content) {
                         <h3 style="margin:0;padding:0;border:none;font-size:1rem;font-weight:700;">Hours</h3>
                         <span class="tln-hours-pill" style="padding:0.25rem 0.75rem;border-radius:20px;font-size:0.75rem;font-weight:700;background:#28a745;color:#fff;">Open</span>
                     </div>
-                    <div style="font-family:Consolas,Monaco,'Courier New',monospace;font-size:14px;line-height:1.8;">
+                    <div style="font-family:Consolas,Monaco,"Courier New",monospace;font-size:14px;line-height:1.8;">
                         Mon..: <b>11:00 AM – 9:00 PM</b><br>
                         Tue...: <b>11:00 AM – 9:00 PM</b><br>
                         Wed..: <b>11:00 AM – 9:00 PM</b><br>
