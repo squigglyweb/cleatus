@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Business Profile | The Local NearBuy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; background: url('https://thelocalnearbuy.com/wp-content/uploads/2026/05/town-scene-bkgd-scaled.webp') center top no-repeat; background-size: cover; color: #1a1a1a; min-height: 100vh; }
+        :root { --red: #e63946; --black: #1a1a1a; }
+
+        .hero {
+            position: relative; height: 280px;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)),
+                        url('https://images.unsplash.com/photo-1487754180451-c456f719a1fc?w=1200');
+            background-size: cover; background-position: center;
+        }
+
+        .biz-info {
+            position: absolute; bottom: 1.5rem; left: 1.5rem;
+        }
+        .biz-name {
+            font-size: 2.5rem; font-weight: 700; color: white;
+            margin-bottom: 0.25rem;
+        }
+        .biz-address {
+            font-size: 1.1rem; color: white; display: flex; align-items: center; gap: 0.5rem;
+        }
+
+        .container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; display: grid; grid-template-columns: 320px 1fr; gap: 2rem; background: rgba(255,255,255,0.95); border-radius: 12px; margin-top: 1rem; margin-bottom: 1rem; }
+
+        .left-col { display: flex; flex-direction: column; gap: 1.5rem; }
+        .right-col { display: flex; flex-direction: column; gap: 1.5rem; }
+
+        .card { background: white; border: 1px solid #ddd; border-radius: 8px; padding: 1.25rem; }
+        .card-title { font-size: 1rem; font-weight: 700; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid #eee; }
+
+        .hours-pill { padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.75rem; font-weight: 700; }
+        .hours-pill.open { background: #28a745; color: white; }
+        .hours-pill.closed { background: #dc3545; color: white; }
+
+        .hours-row { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid #f0f0f0; font-size: 0.9rem; }
+        .hours-row:last-child { border-bottom: none; }
+
+        .contact-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0; }
+        .contact-item a { color: var(--red); text-decoration: none; font-weight: 600; }
+
+        .map-box { background: #f5f5f5; height: 200px; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #666; }
+
+        .review-item { padding: 0.75rem 0; border-bottom: 1px solid #eee; }
+        .review-item:last-child { border-bottom: none; }
+        .reviewer { font-weight: 700; font-size: 0.95rem; }
+        .review-stars { color: #fbbf24; font-size: 0.85rem; margin: 0.25rem 0; }
+        .review-text { color: #555; font-size: 0.9rem; }
+        .see-all { color: var(--red); font-size: 0.85rem; font-weight: 600; margin-top: 0.75rem; display: block; }
+
+        .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+        .service-btn {
+            background: #f5f5f5; border: 1px solid #ddd;
+            padding: 0.6rem 0.5rem; border-radius: 6px;
+            font-size: 0.8rem; color: #333; text-align: center;
+        }
+
+        .claim-box {
+            background: linear-gradient(135deg, #1a1a1a, #333);
+            border-radius: 12px; padding: 1.5rem; text-align: center;
+        }
+        .claim-box h3 { color: white; font-size: 1.1rem; margin-bottom: 0.5rem; }
+        .claim-box p { color: #ccc; margin-bottom: 1rem; font-size: 0.9rem; }
+        .claim-btn { 
+            display: inline-block; padding: 0.75rem 1.5rem; 
+            background: var(--red); color: white; 
+            text-decoration: none; border-radius: 6px; font-weight: 700;
+        }
+
+        .offer-card {
+            background: linear-gradient(135deg, var(--red), #c1121f);
+            border-radius: 12px; padding: 1.5rem; color: white;
+            margin-bottom: 1rem;
+        }
+        .offer-card h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+        .offer-card p { font-size: 0.95rem; opacity: 0.9; margin-bottom: 1rem; }
+        .offer-card .code-box {
+            background: white; color: var(--red);
+            padding: 0.75rem; border-radius: 6px;
+            font-weight: 700; font-size: 1.25rem; letter-spacing: 2px;
+        }
+        .offer-card .expires { font-size: 0.8rem; margin-top: 0.5rem; opacity: 0.8; }
+
+        .tier-badge {
+            display: inline-block; padding: 0.25rem 0.75rem;
+            border-radius: 4px; font-size: 0.75rem; font-weight: 700;
+            background: #e63946; color: white;
+        }
+        .tier-badge.free { background: #6c757d; }
+
+        .loading { text-align: center; padding: 3rem; color: #666; }
+        .error { text-align: center; padding: 3rem; color: #dc3545; }
+
+        @media (max-width: 768px) {
+            .container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <div class="loading">Loading...</div>
+    </div>
+
+    <script>
+        // Get business slug from URL
+        const slug = window.location.pathname.split('/').pop() || 
+                    new URLSearchParams(window.location.search).get('slug');
+
+        async function loadBusiness() {
+            const app = document.getElementById('app');
+            
+            if (!slug || slug === 'profile.html') {
+                app.innerHTML = '<div class="error">No business specified</div>';
+                return;
+            }
+
+            try {
+                const res = await fetch(`/api/business/${slug}`);
+                if (!res.ok) throw new Error('Business not found');
+                const biz = await res.json();
+
+                // Determine if open/closed
+                const hours = biz.hours || { mon: '9:00 AM - 5:00 PM' };
+                const isOpen = checkIfOpen(hours);
+
+                app.innerHTML = `
+                    <div class="hero">
+                        <div class="biz-info">
+                            <h1 class="biz-name">${biz.name}</h1>
+                            <div class="biz-address">
+                                📍 ${biz.address}, ${biz.city}, ${biz.state} ${biz.zip}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="container">
+                        <div class="left-col">
+                            <!-- Hours -->
+                            <div class="card">
+                                <div class="card-title">Hours</div>
+                                <div style="margin-bottom: 1rem;">
+                                    <span class="hours-pill ${isOpen ? 'open' : 'closed'}">
+                                        ${isOpen ? 'OPEN NOW' : 'CLOSED'}
+                                    </span>
+                                </div>
+                                ${renderHours(hours)}
+                            </div>
+
+                            <!-- Contact -->
+                            <div class="card">
+                                <div class="card-title">Contact</div>
+                                ${biz.phone ? `<div class="contact-item">📞 <a href="tel:${biz.phone}">${biz.phone}</a></div>` : ''}
+                                ${biz.email ? `<div class="contact-item">✉️ <a href="mailto:${biz.email}">${biz.email}</a></div>` : ''}
+                                ${biz.website ? `<div class="contact-item">🌐 <a href="${biz.website}" target="_blank">Website</a></div>` : ''}
+                            </div>
+
+                            <!-- Map -->
+                            <div class="card">
+                                <div class="card-title">Location</div>
+                                <div class="map-box">
+                                    📍 Map placeholder for ${biz.city}
+                                </div>
+                            </div>
+
+                            <!-- Claim Box (if not claimed) -->
+                            ${!biz.claimed ? `
+                            <div class="claim-box">
+                                <h3>Own this business?</h3>
+                                <p>Claim this listing to manage your profile, add offers, and connect with local customers.</p>
+                                <a href="/claim-business.html?business=${biz.id}" class="claim-btn">Claim Listing</a>
+                            </div>
+                            ` : ''}
+                        </div>
+
+                        <div class="right-col">
+                            <!-- About -->
+                            <div class="card">
+                                <div class="card-title">About</div>
+                                <p>${biz.description || 'No description available.'}</p>
+                                <div style="margin-top: 1rem;">
+                                    <span class="tier-badge ${biz.tier}">${biz.tier.toUpperCase()} MEMBER</span>
+                                </div>
+                            </div>
+
+                            <!-- Current Offer -->
+                            <div class="offer-card">
+                                <h3>🎉 Special Offer</h3>
+                                <p>Show this code to support local and earn meals for families in need!</p>
+                                <div class="code-box">NEARBUY${biz.id}2026</div>
+                                <div class="expires">Valid through Dec 31, 2026</div>
+                            </div>
+
+                            <!-- Services -->
+                            <div class="card">
+                                <div class="card-title">Services</div>
+                                <div class="services-grid">
+                                    <div class="service-btn">Services</div>
+                                    <div class="service-btn">Products</div>
+                                    <div class="service-btn">Specials</div>
+                                </div>
+                            </div>
+
+                            <!-- Reviews -->
+                            <div class="card">
+                                <div class="card-title">Reviews</div>
+                                <div class="review-item">
+                                    <div class="reviewer">Local Neighbor</div>
+                                    <div class="review-stars">★★★★★</div>
+                                    <div class="review-text">Great local business! Always helpful and fair prices.</div>
+                                </div>
+                                <span class="see-all">See all ${biz.review_count || 0} reviews →</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } catch (err) {
+                app.innerHTML = `<div class="error">Error: ${err.message}</div>`;
+            }
+        }
+
+        function renderHours(hours) {
+            if (!hours) return '<p style="color:#666;font-size:0.9rem;">Hours not available</p>';
+            
+            const days = ['mon','tue','wed','thu','fri','sat','sun'];
+            const dayNames = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'];
+            
+            return days.map((day, i) => `
+                <div class="hours-row">
+                    <span>${dayNames[i]}</span>
+                    <span>${hours[day] || 'Closed'}</span>
+                </div>
+            `).join('');
+        }
+
+        function checkIfOpen(hours) {
+            // Simple check - returns true during typical business hours
+            const now = new Date();
+            const hour = now.getHours();
+            // Assume open 9am-6pm for simplicity
+            return hour >= 9 && hour < 18;
+        }
+
+        loadBusiness();
+    </script>
+</body>
+</html>

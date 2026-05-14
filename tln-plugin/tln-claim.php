@@ -4,6 +4,8 @@
  * Version: 1.4
  */
 
+if (!defined('ABSPATH')) exit;
+
 add_shortcode('claim_business', 'tln_claim_func');
 
 function tln_claim_func() {
@@ -38,7 +40,7 @@ function tln_claim_func() {
     $out .= '<p><label>Business Name *<br><input name="biz_name" value="'.esc_attr($biz).'" required style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;font-size:1rem;"></label></p>';
     $out .= '<input type="hidden" name="pid" value="'.(isset($_GET['pid']) ? esc_attr($_GET['pid']) : '').'">';
     $out .= '<p><label>Your Name *<br><input name="cname" required style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;font-size:1rem;"></label></p>';
-    $out .= '<p><label>Phone *<br><input name="cphone" required style="width:100%;pagination;padding:0.75rem;border:1px solid #ddd;border-radius:6px;font-size:1rem;"></label></p>';
+    $out .= '<p><label>Phone *<br><input name="cphone" required style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;font-size:1rem;"></label></p>';
     $out .= '<p><label><input type="checkbox" required> I agree to the <a href="/terms-of-service/" target="_blank">Terms of Service</a></label></p>';
     $out .= '<p><label>Digital Signature (type your name) *<br><input name="csig" required placeholder="Type your full legal name" style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;font-size:1rem;"></label></p>';
     $out .= '<button type="submit" name="submit_claim" style="background:#e63946;color:white;padding:1rem 2rem;border:none;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;">Submit Claim</button>';

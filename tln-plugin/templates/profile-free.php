@@ -32,7 +32,7 @@ $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
         .hero {
             position: relative; height: 280px;
             background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)),
-                        url('<?php echo (!empty($biz['photos']) && isset($biz['photos'][0]['photo_reference'])) ? "https://maps.googleapis.com/maps/api/place/photo?maxwidth=1200&photoreference=" . $biz['photos'][0]['photo_reference'] . "&key=$api_key" : "https://thelocalnearbuy.com/wp-content/uploads/2026/05/town-scene-bkgd-scaled.webp"; ?>');
+                        url('https://thelocalnearbuy.com/wp-content/uploads/2026/05/town-scene-bkgd-scaled.webp');
             background-size: cover; background-position: center;
         }
 
@@ -145,6 +145,39 @@ $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
     <?php wp_head(); ?>
 </head>
 <body>
+    <!-- Ad Request Modal for Unclaimed Businesses -->
+    <div id="adModal" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:2000;">
+        <div style="background:white;max-width:500px;width:90%;padding:2rem;border-radius:12px;position:relative;box-shadow:0 10px 40px rgba(0,0,0,0.3);">
+            <button onclick="dismissAdModal()" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.5rem;cursor:pointer;color:#666;">×</button>
+            <h2 style="margin-top:0;color:var(--red);">Get Noticed by Neighbors!</h2>
+            <p style="color:#666;margin-bottom:1rem;">This business page isn't claimed yet. Want to promote your business here?</p>
+            <div style="background:#fef2f2;border-radius:8px;padding:1rem;margin-bottom:1.5rem;">
+                <strong style="color:var(--red);">$25/month</strong> — Your ad appears on this page with a special offer for visitors.<br>
+                <span style="font-size:0.85rem;color:#666;">No commitment, cancel anytime.</span>
+            </div>
+            <a href="/tln-ad-request.html?biz=<?php echo urlencode($biz['name']); ?>&pid=<?php echo urlencode($biz['place_id']); ?>" style="display:block;width:100%;padding:1rem;background:var(--red);color:white;text-align:center;border-radius:8px;font-weight:700;text-decoration:none;font-size:1.1rem;">Advertise Here</a>
+            <button onclick="dismissAdModal()" style="display:block;width:100%;margin-top:0.75rem;padding:0.75rem;background:#f5f5f5;color:#666;border:none;border-radius:6px;cursor:pointer;">Maybe Later</button>
+        </div>
+    </div>
+    <script>
+    function dismissAdModal() {
+        document.getElementById('adModal').style.display='none';
+        localStorage.setItem('tln_ad_modal_dismissed', '<?php echo $biz['place_id']; ?>|' + new Date().getTime());
+    }
+    // Check if already dismissed for this business
+    var dismissed = localStorage.getItem('tln_ad_modal_dismissed');
+    if (dismissed) {
+        var parts = dismissed.split('|');
+        if (parts[0] === '<?php echo $biz['place_id']; ?>') {
+            // Dismissed for this place - check if within 7 days
+            var dismissedTime = parseInt(parts[1]);
+            var now = new Date().getTime();
+            if (now - dismissedTime < 7 * 24 * 60 * 60 * 1000) {
+                document.getElementById('adModal').style.display='none';
+            }
+        }
+    }
+    </script>
     <!-- Mobile Ad Slot -->
     <div class="ad-mobile" style="display:none;background:#f9f9f9;padding:0.5rem;text-align:center;">
         <div class="ad-slot-label" style="font-size:0.7rem;color:#999;text-transform:uppercase;letter-spacing:1px;margin-bottom:0.25rem;">Advertisement</div>
@@ -264,7 +297,7 @@ $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
                     loading="lazy" 
                     allowfullscreen 
                     referrerpolicy="no-referrer-when-downgrade"
-                    src="https://www.google.com/maps/embed/v1/place?key=<?php echo $api_key; ?>&q=<?php echo urlencode($biz['address']); ?>">
+                    src="https://www.google.com/maps/embed/v1/place?key=&q=<?php echo urlencode($biz['address']); ?>">
                 </iframe>
             </div>
 

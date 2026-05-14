@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Claim Your Business | The Local NearBuy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; background: #f5f5f5; color: #1a1a1a; }
+        :root { --red: #e63946; --black: #1a1a1a; }
+        
+        .header { background: var(--black); color: white; padding: 1.5rem 2rem; text-align: center; }
+        .header .logo { font-size: 1.5rem; font-weight: 700; }
+        
+        .container { max-width: 700px; margin: 2rem auto; padding: 0 1rem; }
+        
+        h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .subtitle { color: #666; margin-bottom: 2rem; }
+        
+        .card { background: white; border: 1px solid #ddd; border-radius: 12px; padding: 2rem; margin-bottom: 1.5rem; }
+        .card h2 { font-size: 1.25rem; margin-bottom: 1rem; border-bottom: 1px solid #eee; padding-bottom: 0.75rem; }
+        
+        .form-group { margin-bottom: 1.25rem; }
+        .form-group label { display: block; font-weight: 600; margin-bottom: 0.5rem; }
+        .form-group input, .form-group select, .form-group textarea { 
+            width: 100%; padding: 0.75rem; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem; 
+        }
+        .form-group textarea { min-height: 100px; }
+        
+        .tier-select { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem; }
+        .tier-option { border: 2px solid #ddd; border-radius: 8px; padding: 1rem; cursor: pointer; text-align: center; transition: all 0.2s; }
+        .tier-option:hover { border-color: var(--red); }
+        .tier-option.selected { border-color: var(--red); background: #fdf5f5; }
+        .tier-option .price { font-size: 1.5rem; font-weight: 700; color: var(--red); }
+        .tier-option .name { font-weight: 700; margin-bottom: 0.25rem; }
+        .tier-option .feats { font-size: 0.85rem; color: #666; }
+        
+        .btn { display: inline-block; width: 100%; padding: 1rem; background: var(--red); color: white; text-align: center; border: none; border-radius: 8px; font-weight: 700; font-size: 1.1rem; cursor: pointer; }
+        .btn:hover { background: #c1121f; }
+        
+        .hidden { display: none; }
+        
+        .success-box { background: #d4edda; border: 1px solid #28a745; padding: 1.5rem; border-radius: 8px; text-align: center; }
+        .success-box h3 { color: #28a745; margin-bottom: 0.5rem; }
+        
+        .error-box { background: #f8d7da; border: 1px solid #dc3545; padding: 1rem; border-radius: 8px; color: #721c24; margin-bottom: 1rem; }
+        
+        .loading { text-align: center; padding: 2rem; color: #666; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">The Local NearBuy</div>
+    </div>
+    
+    <div class="container" id="mainContainer">
+        <h1>Claim Your Business</h1>
+        <p class="subtitle">Own this listing? Claim it to manage your profile, add offers, and grow your business.</p>
+        
+        <div id="businessInfo" class="card">
+            <h2>Business</h2>
+            <div class="loading">Loading business info...</div>
+        </div>
+        
+        <form id="claimForm" class="card">
+            <h2>Your Information</h2>
+            <div class="form-group">
+                <label>Your Name *</label>
+                <input type="text" id="userName" placeholder="Full name" required>
+            </div>
+            <div class="form-group">
+                <label>Email *</label>
+                <input type="email" id="userEmail" placeholder="your@email.com" required>
+            </div>
+            <div class="form-group">
+                <label>Phone</label>
+                <input type="tel" id="userPhone" placeholder="(704) 555-0000">
+            </div>
+            <div class="form-group">
+                <label>Notes (optional)</label>
+                <textarea id="notes" placeholder="Tell us about your business or any special requests..."></textarea>
+            </div>
+        </form>
+        
+        <div class="card">
+            <h2>Choose Your Plan</h2>
+            <p style="margin-bottom:1rem;font-size:0.9rem;color:#666;">Select the membership level that works for you.</p>
+            
+            <div class="tier-select">
+                <div class="tier-option" data-tier="pro" data-price="99" onclick="selectTier(this)">
+                    <div class="name">Pro</div>
+                    <div class="price">$99<span>/mo</span></div>
+                    <div class="feats">Profile + Offers + Gallery</div>
+                </div>
+                <div class="tier-option" data-tier="pro_plus" data-price="199" onclick="selectTier(this)">
+                    <div class="name">Pro+</div>
+                    <div class="price">$199<span>/mo</span></div>
+                    <div class="feats">Everything + Featured + Booking</div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="errorMsg" class="error-box hidden"></div>
+        
+        <button class="btn" onclick="submitClaim()" id="submitBtn">Submit Claim</button>
+        
+        <div class="success-box hidden" id="successMsg">
+            <h3>✅ Thank You!</h3>
+            <p>Your claim has been submitted. We'll review and get back to you within 24 hours.</p>
+        </div>
+    </div>
+    
+    <script>
+        let selectedTier = null;
+        let businessId = null;
+
+        // Get business ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        businessId = urlParams.get('business');
+
+        // Load business info
+        if (businessId) {
+            fetch(`/api/business/${businessId}`)
+                .then(res => res.json())
+                .then(biz => {
+                    document.getElementById('businessInfo').innerHTML = `
+                        <h2>Claiming: ${biz.name}</h2>
+                        <p style="color:#666;">📍 ${biz.address}, ${biz.city}, ${biz.state} ${biz.zip}</p>
+                    `;
+                })
+                .catch(err => {
+                    document.getElementById('businessInfo').innerHTML = `
+                        <h2>Business</h2>
+                        <p style="color:#dc3545;">Error loading business info</p>
+                    `;
+                });
+        } else {
+            document.getElementById('businessInfo').innerHTML = `
+                <h2>Business</h2>
+                <p style="color:#dc3545;">No business specified</p>
+            `;
+        }
+
+        function selectTier(el) {
+            document.querySelectorAll('.tier-option').forEach(o => o.classList.remove('selected'));
+            el.classList.add('selected');
+            selectedTier = el.dataset.tier;
+        }
+
+        async function submitClaim() {
+            const errorBox = document.getElementById('errorMsg');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            errorBox.classList.add('hidden');
+            
+            if (!selectedTier) {
+                errorBox.textContent = 'Please select a plan';
+                errorBox.classList.remove('hidden');
+                return;
+            }
+
+            const data = {
+                business_id: businessId,
+                user_name: document.getElementById('userName').value,
+                user_email: document.getElementById('userEmail').value,
+                user_phone: document.getElementById('userPhone').value,
+                tier: selectedTier,
+                notes: document.getElementById('notes').value
+            };
+
+            if (!data.user_name || !data.user_email) {
+                errorBox.textContent = 'Please fill in all required fields';
+                errorBox.classList.remove('hidden');
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+
+            try {
+                const res = await fetch('/api/business/claim', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                const result = await res.json();
+                
+                if (result.success) {
+                    document.getElementById('claimForm').style.display = 'none';
+                    document.getElementById('successMsg').classList.remove('hidden');
+                    document.querySelector('.subtitle').style.display = 'none';
+                } else {
+                    throw new Error(result.error || 'Something went wrong');
+                }
+            } catch (err) {
+                errorBox.textContent = err.message;
+                errorBox.classList.remove('hidden');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Claim';
+            }
+        }
+    </script>
+</body>
+</html>

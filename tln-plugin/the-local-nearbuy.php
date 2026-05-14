@@ -2,217 +2,192 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 1.0.0
-Author: TLN
-License: CORRE
-Network: true
+Version: 2.8 - Simplified
 */
 
-// Create Business Custom Post Type
-function tln_register_business_post_type() {
-    $labels = array(
-        'name' => 'Businesses',
-        'singular_name' => 'Business',
-        'add_new' => 'Add New',
-        'add_new_item' => 'Add New Business',
-        'edit_item' => 'Edit Business',
-        'new_item' => 'New Business',
-        'view_item' => 'View Business',
-        'search_items' => 'Search Businesses',
-        'not_found' => 'No businesses found',
-        'not_found_in_trash' => 'No businesses found in trash',
-    );
-    
-    $args = array(
-        'labels' => $labels,
-        'public' => true,
-        'has_archive' => false,
-        'show_in_nav_menus' => true,
-        'rewrite' => true,
-        'supports' => array('title', 'editor', 'thumbnail', 'excerpt', 'custom-fields'),
-        'menu_icon' => 'dashicons-store',
-        'menu_position' => 20,
-        'show_in_rest' => true,
-    );
-    
-    register_post_type('tln_business', $args);
-}
-add_action('init', 'tln_register_business_post_type');
-// Load additional TLN plugin files (shortcodes, helpers)
+// Load other TLN components
 require_once plugin_dir_path(__FILE__) . 'tln-directory.php';
 require_once plugin_dir_path(__FILE__) . 'tln-claim.php';
 
-// Flush rewrite rules on plugin activation
-function tln_flush_rewrite_rules() {
-    tln_register_business_post_type();
-    flush_rewrite_rules();
-}
-register_activation_hook(__FILE__, 'tln_flush_rewrite_rules');
-
-// Add meta boxes for business data
-function tln_business_meta_boxes() {
-    add_meta_box('tln_business_details', 'Business Details', 'tln_business_details_cb', 'tln_business', 'normal', 'high');
-    add_meta_box('tln_business_tier', 'Membership Tier', 'tln_business_tier_cb', 'tln_business', 'side', 'default');
-}
-add_action('add_meta_boxes', 'tln_business_meta_boxes');
-
-function tln_business_details_cb($post) {
-    // Hidden field for Google Place ID (will be filled via claim form or admin)
-    $place_id = get_post_meta($post->ID, 'tln_place_id', true);
-    echo '<input type="hidden" name="tln_place_id" value="'.esc_attr($place_id).'" />';
-    $phone = get_post_meta($post->ID, 'tln_phone', true);
-    $email = get_post_meta($post->ID, 'tln_email', true);
-    $address = get_post_meta($post->ID, 'tln_address', true);
-    $city = get_post_meta($post->ID, 'tln_city', true);
-    $state = get_post_meta($post->ID, 'tln_state', true);
-    $zip = get_post_meta($post->ID, 'tln_zip', true);
-    $website = get_post_meta($post->ID, 'tln_website', true);
-    $google_rating = get_post_meta($post->ID, 'tln_google_rating', true);
-    $tln_score = get_post_meta($post->ID, 'tln_neighborhood_score', true);
-    $meals_count = get_post_meta($post->ID, 'tln_meals_count', true);
-    
-    echo '<p><label>Phone: <input type="text" name="tln_phone" value="'.esc_attr($phone).'" style="width:100%"></label></p>';
-    echo '<p><label>Email: <input type="email" name="tln_email" value="'.esc_attr($email).'" style="width:100%"></label></p>';
-    echo '<p><label>Address: <input type="text" name="tln_address" value="'.esc_attr($address).'" style="width:100%"></label></p>';
-    echo '<p><label>City: <input type="text" name="tln_city" value="'.esc_attr($city).'" style="width:100%"></label></p>';
-    echo '<p><label>State: <input type="text" name="tln_state" value="'.esc_attr($state).'" style="width:100%"></label></p>';
-    echo '<p><label>ZIP: <input type="text" name="tln_zip" value="'.esc_attr($zip).'" style="width:100%"></label></p>';
-    echo '<p><label>Website: <input type="url" name="tln_website" value="'.esc_attr($website).'" style="width:100%"></label></p>';
-    echo '<p><label>Google Rating: <input type="text" name="tln_google_rating" value="'.esc_attr($google_rating).'" placeholder="4.5"></label></p>';
-    echo '<p><label>TLN Score: <input type="text" name="tln_neighborhood_score" value="'.esc_attr($tln_score).'" placeholder="4.8"></label></p>';
-    echo '<p><label>Meals Provided: <input type="number" name="tln_meals_count" value="'.esc_attr($meals_count).'" placeholder="0"></label></p>';
-    echo '<hr><h4>Hours</h4>';
-    echo '<p><label>Mon: <input type="text" name="tln_hours_mon" value="'.esc_attr(get_post_meta($post->ID, 'tln_hours_mon', true)).'" placeholder="7:00 AM - 6:00 PM"></label></p>';
-    echo '<p><label>Tue: <input type="text" name="tln_hours_tue" value="'.esc_attr(get_post_meta($post->ID, 'tln_hours_tue', true)).'" placeholder="7:00 AM - 6:00 PM"></label></p>';
-    echo '<p><label>Wed: <input type="text" name="tln_hours_wed" value="'.esc_attr(get_post_meta($post->ID, 'tln_hours_wed', true)).'" placeholder="7:00 AM - 6:00 PM"></label></p>';
-    echo '<p><label>Thu: <input type="text" name="tln_hours_thu" value="'.esc_attr(get_post_meta($post->ID, 'tln_hours_thu', true)).'" placeholder="7:00 AM - 6:00 PM"></label></p>';
-    echo '<p><label>Fri: <input type="text" name="tln_hours_fri" value="'.esc_attr(get_post_meta($post->ID, 'tln_hours_fri', true)).'" placeholder="7:00 AM - 6:00 PM"></label></p>';
-    echo '<p><label>Sat: <input type="text" name="tln_hours_sat" value="'.esc_attr(get_post_meta($post->ID, 'tln_hours_sat', true)).'" placeholder="8:00 AM - 2:00 PM"></label></p>';
-    echo '<p><label>Sun: <input type="text" name="tln_hours_sun" value="'.esc_attr(get_post_meta($post->ID, 'tln_hours_sun', true)).'" placeholder="Closed"></label></p>';
+// Profile page handler
+if (!is_admin()) {
+    add_filter('the_content', 'tln_profile_content');
+    add_filter('the_content', 'tln_directory_content');
 }
 
-function tln_business_tier_cb($post) {
-    $tier = get_post_meta($post->ID, 'tln_tier', true);
-    echo '<select name="tln_tier" style="width:100%">';
-    echo '<option value="free" '.selected($tier, 'free', false).'>Free</option>';
-    echo '<option value="pro" '.selected($tier, 'pro', false).'>Pro ($99/mo)</option>';
-    echo '<option value="proplus" '.selected($tier, 'proplus', false).'>Pro+ ($199/mo)</option>';
-    echo '<option value="sponsor" '.selected($tier, 'sponsor', false).'>Sponsor ($349/mo)</option>';
-    echo '</select>';
-}
-
-function tln_save_business_meta($post_id) {
-    if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
-    if (!current_user_can('edit_post', $post_id)) return;
-    
-    $fields = array('tln_tier', 'tln_phone', 'tln_email', 'tln_address', 'tln_city', 'tln_state', 'tln_zip', 'tln_website', 'tln_google_rating', 'tln_neighborhood_score', 'tln_meals_count', 'tln_hours_mon', 'tln_hours_tue', 'tln_hours_wed', 'tln_hours_thu', 'tln_hours_fri', 'tln_hours_sat', 'tln_hours_sun');
-    
-    foreach ($fields as $field) {
-        if (isset($_POST[$field])) {
-            update_post_meta($post_id, $field, sanitize_text_field($_POST[$field]));
-        }
+function tln_directory_content($content) {
+    if (!is_page('directory')) {
+        return $content;
     }
+    return tln_dir_shortcode(array());
 }
-add_action('save_post', 'tln_save_business_meta');
 
-// Use template based on tier
-function tln_business_template($template) {
-    if (is_singular('tln_business')) {
-        $tier = get_post_meta(get_the_ID(), 'tln_tier', true);
-        $custom = plugin_dir_path(__FILE__) . 'templates/profile-'.$tier.'.php';
-        if (file_exists($custom)) return $custom;
-        return plugin_dir_path(__FILE__) . 'templates/profile-proplus.php';
-    }
-    return $template;
-}
-add_filter('template_include', 'tln_business_template', 99);
-
-// Inject profile content directly into the page
-function tln_inject_profile_content($content) {
-    // Debug: show on page
-    $debug = "<!-- DEBUG: URL=" . $_SERVER['REQUEST_URI'] . " GET=" . print_r($_GET, true) . " -->";
-    
-    // Get params from URL directly (WordPress may strip query params)
-    $biz = isset($_GET['biz']) ? $_GET['biz'] : '';
-    $pid = isset($_GET['pid']) ? $_GET['pid'] : '';
-    
-    // Fallback: parse from REQUEST_URI
-    if (empty($biz) || empty($pid)) {
-        $request_uri = isset($_SERVER['REQUEST_URI']) ? $_SERVER['REQUEST_URI'] : '';
-        parse_str(parse_url($request_uri, PHP_URL_QUERY), $query);
-        if (isset($query['biz'])) $biz = $query['biz'];
-        if (isset($query['pid'])) $pid = $query['pid'];
+function tln_profile_content($content) {
+    if (!is_page('profile')) {
+        return $content;
     }
     
-    if (empty($biz) || empty($pid)) {
-        return $debug . $content;
-    }
-    
-    $place_id = sanitize_text_field($_GET['pid']);
-    $biz_name = sanitize_text_field($_GET['biz']);
-    
-    // Get API key
-    $api_key = '';
-    if (defined('TLN_GOOGLE_API_KEY')) {
-        $api_key = TLN_GOOGLE_API_KEY;
-    }
-    
-    // Default business data
-    $business = array(
-        'name' => $biz_name,
-        'place_id' => $place_id,
-        'address' => '',
-        'phone' => '',
-        'website' => '',
-        'rating' => '',
-        'hours' => array(),
-        'photos' => array(),
-        'reviews' => array(),
-    );
-    
-    // Fetch from Google Places API if we have a key
-    if ($api_key && $place_id) {
-        $url = "https://maps.googleapis.com/maps/api/place/details/json?place_id=$place_id&fields=name,formatted_address,formatted_phone_number,opening_hours,website,rating,reviews,photos,geometry&key=$api_key";
-        $response = @wp_remote_get($url, array('timeout' => 10));
-        if (!is_wp_error($response) && $response) {
-            $body = wp_remote_retrieve_body($response);
-            $data = json_decode($body, true);
-            if (isset($data['result'])) {
-                $details = $data['result'];
-                $business['name'] = isset($details['name']) ? $details['name'] : $biz_name;
-                $business['address'] = isset($details['formatted_address']) ? $details['formatted_address'] : '';
-                $business['phone'] = isset($details['formatted_phone_number']) ? $details['formatted_phone_number'] : '';
-                $business['website'] = isset($details['website']) ? $details['website'] : '';
-                $business['rating'] = isset($details['rating']) ? $details['rating'] : '';
-                $business['hours'] = isset($details['opening_hours']['weekday_text']) ? $details['opening_hours']['weekday_text'] : array();
-                $business['photos'] = isset($details['photos']) ? $details['photos'] : array();
-                $business['reviews'] = isset($details['reviews']) ? $details['reviews'] : array();
-            }
-        }
-    }
-    
-    // Make business data available to template
-    global $tln_profile_business;
-    $tln_profile_business = $business;
-    
-    // Build output by including the template
-    ob_start();
-    include(plugin_dir_path(__FILE__) . 'templates/profile-free.php');
-    return ob_get_clean();
-}
-// DISABLED - causing issues
-// add_filter('the_content', 'tln_inject_profile_content');
-
-
-// Profile shortcode
-function tln_business_profile_shortcode() {
     $biz = isset($_GET['biz']) ? $_GET['biz'] : '';
     $pid = isset($_GET['pid']) ? $_GET['pid'] : '';
     
     if (empty($biz) || empty($pid)) {
-        return '<p>Select a business from the <a href="/directory/">directory</a> to view its profile.</p>';
+        return '<div style="padding:2rem;background:#f0f0f0;border-radius:8px;"><h3>TLN Profile</h3><p>Add ?biz=Name&pid=PlaceID to URL.</p></div>';
     }
     
-    return '<p>Loading profile for ' . esc_html($biz) . '...</p>';
+    // Full profile HTML
+    $html = '
+    <style>
+    .tln-profile { max-width:1100px; margin:0 auto; font-family:\'Open Sans\',sans-serif; }
+    .tln-hero { 
+        background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)),
+        url(\'https://thelocalnearbuy.com/wp-content/uploads/2026/05/town-scene-bkgd-scaled.webp\');
+        background-size:cover;background-position:center;height:280px;position:relative;margin:-20px -40px 0 -40px;width:calc(100% + 80px);max-width:1280px;
+    }
+    .tln-hero-content { position:absolute;bottom:1.5rem;left:1.5rem; }
+    .tln-hero h1 { color:#fff;font-size:2.5rem;margin:0;font-weight:700; }
+    .tln-hero p { color:rgba(255,255,255,0.9);font-size:1.1rem;margin:0; }
+    .tln-container { display:grid;grid-template-columns:320px 1fr;gap:2rem;padding:2rem;background:rgba(255,255,255,0.95);border-radius:12px;margin-top:1rem; }
+    .tln-left, .tln-right { display:flex;flex-direction:column;gap:1.5rem; }
+    .tln-card { background:#fff;border:1px solid #ddd;border-radius:8px;padding:1.25rem; }
+    .tln-card h3 { font-size:1rem;font-weight:700;margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid #eee; }
+    .tln-contact { display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0; }
+    .tln-contact a { color:#e63946;text-decoration:none;font-weight:600; }
+    .tln-review-item { padding:0.75rem 0;border-bottom:1px solid #eee; }
+    .tln-review-item:last-child { border-bottom:none; }
+    .tln-reviewer { font-weight:700;font-size:0.95rem; }
+    .tln-stars { color:#fbbf24;font-size:0.85rem;margin:0.25rem 0; }
+    .tln-review-text { color:#555;font-size:0.9rem; }
+    .tln-see-all { color:#e63946;font-size:0.85rem;font-weight:600;margin-top:0.75rem;display:block; }
+    .tln-claim-box { background:linear-gradient(135deg,#1a1a1a,#333);border-radius:12px;padding:1.5rem;text-align:center; }
+    .tln-claim-box h3 { color:#fff;font-size:1.1rem;margin-bottom:0.5rem; }
+    .tln-claim-box p { color:#ccc;margin-bottom:1rem;font-size:0.9rem; }
+    .tln-btn { display:inline-block;padding:0.75rem 1.5rem;background:#e63946;color:#fff;text-decoration:none;border-radius:6px;font-weight:700; }
+    .tln-btn:hover { background:#d62839; }
+    .tln-rating-header { display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid #eee; }
+    .tln-rating-header h3 { margin:0;padding:0;border:none; }
+    .tln-avg-score { background:#e63946;color:#fff;padding:0.25rem 0.75rem;border-radius:20px;font-weight:700;font-size:0.9rem; }
+    .tln-rating-category { display:flex;align-items:center;margin:0.5rem 0; }
+    .tln-rating-label { flex:1;font-weight:600;font-size:0.9rem; }
+    .tln-pin-rating { display:flex;gap:2px; }
+    .tln-pin-rating img { height:16px;opacity:0.3; }
+    .tln-pin-rating img.active { opacity:1; }
+    .tln-map { background:#f5f5f5;height:200px;border-radius:4px;display:flex;align-items:center;justify-content:center;color:#666; }
+    .tln-ad-box { background:#f5f5f5;border:2px dashed #ddd;border-radius:8px;height:250px;display:flex;align-items:center;justify-content:center; }
+    .tln-ad-content { color:#888;text-align:center; }
+    .tln-modal { display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:9999; }
+    .tln-modal.show { display:flex;align-items:center;justify-content:center; }
+    .tln-modal-inner { background:#fff;max-width:700px;width:95%;max-height:85vh;border-radius:12px;overflow:hidden;position:relative; }
+    .tln-modal-close { position:absolute;top:10px;right:15px;font-size:2rem;cursor:pointer;z-index:10;line-height:1; }
+    .tln-modal iframe { width:100%;height:80vh;border:none; }
+    @media(max-width:800px) { .tln-container { grid-template-columns:1fr; } }
+    </style>
+    
+    <div class="tln-profile">
+        <div class="tln-hero">
+            <div class="tln-hero-content">
+                <h1>' . esc_html($biz) . '</h1>
+                <p>Waxhaw, NC</p>
+            </div>
+        </div>
+        
+        <div class="tln-container">
+            <div class="tln-left">
+                <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/support-local-businesses.webp" style="width:100%;border-radius:8px;">
+                
+                <!-- What Neighbors Say -->
+                <div class="tln-card">
+                    <h3>What Neighbors Say</h3>
+                    <p style="font-size:0.9rem;color:#666;margin-bottom:1rem;">Be the first to leave a Neighborhood Review Score for this business and help others in our community know what they\'re about.</p>
+                    <button style="margin-top:0.8rem;padding:0.75rem 1.5rem;background:#e63946;color:white;border:none;border-radius:6px;cursor:pointer;display:block;width:100%;font-weight:700;font-size:1rem;">Leave a Review</button>
+                </div>
+                
+                <div class="tln-card">
+                    <h3>Hours</h3>
+                    <p style="font-size:0.9rem;color:#666;">Coming soon...</p>
+                </div>
+                
+                <div class="tln-card">
+                    <h3>Contact</h3>
+                    <div class="tln-contact">
+                        <span>📞</span>
+                        <a href="#">Coming soon...</a>
+                    </div>
+                    <div class="tln-contact">
+                        <span>📍</span>
+                        <a href="#">Get Directions</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tln-right">
+                <div class="tln-card">
+                    <h3>Google Reviews</h3>
+                    <p style="color:#666;font-size:0.9rem;">Be the first to leave a Google review for this business!</p>
+                </div>
+                
+                <div class="tln-card" style="background:#fefaf9;border-color:#f0e0e0;">
+                    <div style="font-size:0.7rem;color:#999;text-transform:uppercase;letter-spacing:1px;margin-bottom:0.25rem;">Advertisement</div>
+                    <div class="tln-ad-box">
+                        <div class="tln-ad-content">
+                            <p style="margin-bottom:0.5rem;color:#666;"><strong>Not ready to claim yet?</strong></p>
+                            <p style="margin-bottom:0.75rem;font-size:0.85rem;color:#888;">Advertise your business here for just <strong style="color:#e63946;">$35/mo</strong></p>
+                            <a href="#" class="tln-modal-link" data-modal="ad" style="color:#e63946;font-weight:600;font-size:0.9rem;">Learn More →</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="tln-card">
+                    <h3>Location</h3>
+                    <div class="tln-map">[Google Map Placeholder]</div>
+                </div>
+                
+                <div class="tln-claim-box">
+                    <h3>Claim This Page</h3>
+                    <p>Own this business? Claim your free page to update info, add photos, and more.</p>
+                    <a href="#" class="tln-btn tln-modal-link" data-modal="claim">Claim Your Page</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    ';
+    
+    return $html . tln_get_modal_html();
 }
-add_shortcode('tln_business_profile', 'tln_business_profile_shortcode');
+
+function tln_get_modal_html() {
+    return '
+    <div id="tln-ad-modal" class="tln-modal">
+        <div class="tln-modal-inner">
+            <span class="tln-modal-close" data-close>&times;</span>
+            <iframe src="/tln-ad-request.html?modal=1"></iframe>
+        </div>
+    </div>
+    <div id="tln-claim-modal" class="tln-modal">
+        <div class="tln-modal-inner">
+            <span class="tln-modal-close" data-close>&times;</span>
+            <iframe src="/claim/?modal=1"></iframe>
+        </div>
+    </div>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelectorAll(".tln-modal-link").forEach(function(link) {
+            link.addEventListener("click", function(e) {
+                e.preventDefault();
+                var modalId = this.getAttribute("data-modal");
+                document.getElementById("tln-" + modalId + "-modal").classList.add("show");
+            });
+        });
+        document.querySelectorAll(".tln-modal").forEach(function(modal) {
+            modal.addEventListener("click", function(e) {
+                if (e.target === modal) modal.classList.remove("show");
+            });
+        });
+        document.querySelectorAll("[data-close]").forEach(function(btn) {
+            btn.addEventListener("click", function() {
+                this.closest(".tln-modal").classList.remove("show");
+            });
+        });
+    });
+    </script>
+    ';
+}

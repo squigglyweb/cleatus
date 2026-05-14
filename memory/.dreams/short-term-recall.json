@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-05-13T01:26:59.966Z",
+  "updatedAt": "2026-05-14T10:06:10.168Z",
   "entries": {
     "memory:memory/2026-05-05.md:72:89": {
       "key": "memory:memory/2026-05-05.md:72:89",
@@ -211,18 +211,20 @@
       "endLine": 43,
       "source": "memory",
       "snippet": "# Memory - April 13, 2026 ## Session Notes ### Video Background Identified - The header on the template page uses **YouTube video ID: XzbVs1-48ZY** as a background - It's likely stock drone footage of neighborhoods/aerial shots (common in marketing agency templates) - URL: https://www.youtube.com/watch?v=XzbVs1-48ZY ### For The Local NearBuy Project - The signup page (nearbuy-signup-v2.html) uses CSS animation instead of video for better reliability - This avoids YouTube embed issues and ensures consistent performance ### Full Vision Discussed (from Claude.ai conversation) **Bryan's 4 Assets:** 1. Local Social Accounts — daily attention, brand awareness, community voice 2. Local Director",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1,
+      "totalScore": 2,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T22:41:06.839Z",
-      "lastRecalledAt": "2026-05-12T22:41:06.839Z",
+      "lastRecalledAt": "2026-05-14T10:06:10.168Z",
       "queryHashes": [
-        "47ce4d615495"
+        "47ce4d615495",
+        "1532b7c86815"
       ],
       "recallDays": [
-        "2026-05-12"
+        "2026-05-12",
+        "2026-05-14"
       ],
       "conceptTags": [
         "xzbvs1-48zy",
@@ -305,22 +307,24 @@
       "endLine": 105,
       "source": "memory",
       "snippet": "- **Directory** (nearbuy-directory.html) — Browse page with filters, grid view, business cards - **Business Listing** (nearbuy-business-listing.html) — Individual business page with offer card, QR code, reviews, sidebar ### GitHub Repository https://github.com/squigglyweb/cleatus All files pushed and available. --- ## April 14, 2026 — Session Notes ### New Pages Created Today 1. **nearbuy-coverage.html** — Coverage Area page showing Greater Waxhaw coverage (9 towns, 5K/campaign, 20K+ total households), map placeholder, strategic approach section 2. **nearbuy-events.html** — Events page (meal-packing events) with coming soon email capture, mission cards, past events placeholder 3. **near",
-      "recallCount": 4,
+      "recallCount": 5,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 3.9836518887161176,
+      "totalScore": 4.983651888716118,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T23:02:04.581Z",
-      "lastRecalledAt": "2026-05-13T01:26:59.966Z",
+      "lastRecalledAt": "2026-05-14T00:45:26.756Z",
       "queryHashes": [
         "94cabbf81b68",
         "201d5f225c55",
         "071f4c17045c",
-        "702ea8f65795"
+        "702ea8f65795",
+        "b6f375f7100e"
       ],
       "recallDays": [
         "2026-05-12",
-        "2026-05-13"
+        "2026-05-13",
+        "2026-05-14"
       ],
       "conceptTags": [
         "nearbuy-directory.html",
@@ -340,21 +344,23 @@
       "endLine": 85,
       "source": "memory",
       "snippet": "| Tier | Size | Price | Meals | |------|------|-------|-------| | Small | 3.8\" x 2.5\" | $250 | 25 | | Small Front | 3.8\" x 5\" | $325 | 40 | | Medium | 7.6\" x 5\" | $625 | 75 | | Large | 7.6\" x 7.5\" | $800 | 110 | **Postcard Layout:** - Total: 12\" x 9\" - No Ad Zone (bottom): 11.75\" x 3.187\" — mailing indicia + NearBuy promo - Available ad space: above the No Ad Zone **Ad Builder Interface:** - Click-to-select grid showing available spots - Tier-based selection (not a la carte) - Custom QR code per ad - Real-time price + meal calculation - Businesses wanting more space can buy multiples or get custom quotes ### Tools (Current Stack) - Moxie CRM — keep using - Google Workspace — keep using -",
-      "recallCount": 3,
+      "recallCount": 4,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 3,
+      "totalScore": 4,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T23:02:04.581Z",
-      "lastRecalledAt": "2026-05-13T01:26:59.966Z",
+      "lastRecalledAt": "2026-05-14T00:45:26.756Z",
       "queryHashes": [
         "94cabbf81b68",
         "280499cabedf",
-        "702ea8f65795"
+        "702ea8f65795",
+        "b6f375f7100e"
       ],
       "recallDays": [
         "2026-05-12",
-        "2026-05-13"
+        "2026-05-13",
+        "2026-05-14"
       ],
       "conceptTags": [
         "3.8",
@@ -374,20 +380,23 @@
       "endLine": 34,
       "source": "memory",
       "snippet": "## TLN About Copy (Updated) **The Local NearBuy** Your guide to Waxhaw & surrounding areas' best — restaurants, shops, services, and hidden gems. Every purchase through NearBuy helps feed local kids and families, both here and around the world. Discover your community. Support local. Make a difference. **What We Do** We connect Greater Waxhaw neighbors with local businesses — through our directory, social media, newsletter, and postcard ads. Businesses advertise with us. You discover great local spots. We donate meals for every engagement. It's a win-win-win: - Neighbors discover awesome local businesses - Businesses reach more customers - Kids & families get fed ## T-Shirt Project",
-      "recallCount": 2,
+      "recallCount": 4,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 2,
+      "totalScore": 4,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T23:02:11.759Z",
-      "lastRecalledAt": "2026-05-13T00:24:42.413Z",
+      "lastRecalledAt": "2026-05-14T00:45:26.756Z",
       "queryHashes": [
         "80f9208f6c41",
-        "201d5f225c55"
+        "201d5f225c55",
+        "69c4bee04e24",
+        "b6f375f7100e"
       ],
       "recallDays": [
         "2026-05-12",
-        "2026-05-13"
+        "2026-05-13",
+        "2026-05-14"
       ],
       "conceptTags": [
         "win-win-win",
@@ -440,18 +449,20 @@
       "endLine": 79,
       "source": "memory",
       "snippet": "- 4 styles each: Whimsical, Retro, Modern, Minimal - The Local NearBuy branded merch too - Waxhaw concept: railroad tracks split town middle, storefronts both sides, bridge overhead ### TLN Radio Player - Created HTML/CSS/JS player with blinking red LIVE light - File: tln-radio-player.html - Still needs: actual MP3 file URLs to load jingles ### The Local NearBuy App - Future project - will need to build ## Content Written ### About TLN (saved to about-tln.md): \"Your guide to Greater Waxhaw's best — restaurants, shops, services, and hidden gems. Every purchase through NearBuy helps feed local kids and families, both here and around the world. Discover your community. Support local. Make",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1,
+      "totalScore": 2,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-13T00:24:42.413Z",
-      "lastRecalledAt": "2026-05-13T00:24:42.413Z",
+      "lastRecalledAt": "2026-05-14T00:45:26.756Z",
       "queryHashes": [
-        "201d5f225c55"
+        "201d5f225c55",
+        "b6f375f7100e"
       ],
       "recallDays": [
-        "2026-05-13"
+        "2026-05-13",
+        "2026-05-14"
       ],
       "conceptTags": [
         "html/css/js",
@@ -502,17 +513,18 @@
       "endLine": 33,
       "source": "memory",
       "snippet": "# Memory - May 2, 2026 ## The Local NearBuy (TLN) - Today's Progress ### Directory Page Build - Created custom HTML/CSS template: `tln-v2/directory-page.html` - **Layout:** 3 cards across, responsive (2 on tablet, 1 on mobile) - **Card content:** Image → Category → Title → Address → Phone → Rating → View button - **Filters:** Location (Waxhaw, Weddington, etc.), Category (Dentist, Restaurant, etc.), Sort (A-Z, Rating) ### Styling - **Font:** GT Walsheim Pro for headings, Open Sans for body text (matches TLN website) - **Icons:** Using inline SVGs (location pin, phone, star) - no external dependencies - **Card design:** White background, subtle shadow, hover effect ### Bryan’s Vision - **",
-      "recallCount": 3,
+      "recallCount": 4,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 2.9801115571974544,
+      "totalScore": 3.9801115571974544,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-13T00:24:42.413Z",
-      "lastRecalledAt": "2026-05-13T01:26:59.966Z",
+      "lastRecalledAt": "2026-05-13T13:44:20.307Z",
       "queryHashes": [
         "201d5f225c55",
         "071f4c17045c",
-        "702ea8f65795"
+        "702ea8f65795",
+        "69c4bee04e24"
       ],
       "recallDays": [
         "2026-05-13"
@@ -630,15 +642,16 @@
       "endLine": 37,
       "source": "memory",
       "snippet": "- Will need page listing all icons used (Flaticon, SVGs) - Map pin: https://www.flaticon.com/free-icons/location - IconMarketPK - Star icon: https://www.flaticon.com/free-icons/star - Pixel perfect - Phone icon: https://www.flaticon.com/free-icons/phone-number - Those Icons ### Next Steps 1. Connect directory to WordPress posts for dynamic data 2. Build individual business page template 3. Create offer/claim system for businesses ---",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.9923333766974275,
-      "maxScore": 0.9923333766974275,
+      "totalScore": 1.9923333766974274,
+      "maxScore": 1,
       "firstRecalledAt": "2026-05-13T01:26:56.496Z",
-      "lastRecalledAt": "2026-05-13T01:26:56.496Z",
+      "lastRecalledAt": "2026-05-13T13:44:20.307Z",
       "queryHashes": [
-        "071f4c17045c"
+        "071f4c17045c",
+        "69c4bee04e24"
       ],
       "recallDays": [
         "2026-05-13"
@@ -661,15 +674,16 @@
       "endLine": 37,
       "source": "memory",
       "snippet": "# May 6, 2026 - The Local NearBuy (TLN) ## Claim Page Issue - FIXED - WordPress was treating `?business=` query param as something special (404 error) - Changed param to `?biz=` — works now - URL: `/claim/?biz=businessname&pid=placeid` ## Directory UX Change - Changed \"Claim This Business\" button to **\"View Profile\"** - Added subtle link: \"Own this business? Claim it\" - Makes TLN feel like a resource, not a marketplace - Bryan approved this approach ## New Locations Added to Directory - Waxhaw (full categories: Restaurant, Retail, Services, Cafe) - Marvin, Wesley Chapel, Weddington, Indian Land (basic: Restaurant, Retail) ## Summer Camps Page - Created `tln-camps.php` plugin - Shortcode:",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 0.9495956685881466,
-      "maxScore": 0.9495956685881466,
+      "totalScore": 1.9495956685881466,
+      "maxScore": 1,
       "firstRecalledAt": "2026-05-13T01:26:56.496Z",
-      "lastRecalledAt": "2026-05-13T01:26:56.496Z",
+      "lastRecalledAt": "2026-05-13T13:44:20.307Z",
       "queryHashes": [
-        "071f4c17045c"
+        "071f4c17045c",
+        "69c4bee04e24"
       ],
       "recallDays": [
         "2026-05-13"
@@ -683,6 +697,99 @@
         "claim",
         "page",
         "issue"
+      ]
+    },
+    "memory:memory/2026-05-07.md:133:171": {
+      "key": "memory:memory/2026-05-07.md:133:171",
+      "path": "memory/2026-05-07.md",
+      "startLine": 133,
+      "endLine": 171,
+      "source": "memory",
+      "snippet": "- Postcard printing workflow - Offer redemption tracking system - GBP enhancement management ## Claim Flow (tln-claim-form.html) - Step 1: Search/select business from directory - Step 2: Choose plan (Pro $99 or Pro+ $199) - Step 3: Contact info - Step 4: Payment (Stripe would connect here) - Submit → pending review ## What's Built - Complete - tln-pricing-final.html - Full pricing page with all tiers + a la carte + ad add-ons - tln-claim-form.html - Business signup/claim flow (4 steps) - tln-business-dashboard.html - Full business dashboard for members: - Overview with stats (views, redemptions, messages, value) - Meals counter - Recent activity feed - Edit Profile (name, descripti",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-13T13:44:20.307Z",
+      "lastRecalledAt": "2026-05-13T13:44:20.307Z",
+      "queryHashes": [
+        "69c4bee04e24"
+      ],
+      "recallDays": [
+        "2026-05-13"
+      ],
+      "conceptTags": [
+        "tln-claim-form.html",
+        "search/select",
+        "tln-pricing-final.html",
+        "add-ons",
+        "signup/claim",
+        "tln-business-dashboard.html",
+        "postcard",
+        "printing"
+      ]
+    },
+    "memory:memory/2026-05-13.md:1:24": {
+      "key": "memory:memory/2026-05-13.md:1:24",
+      "path": "memory/2026-05-13.md",
+      "startLine": 1,
+      "endLine": 24,
+      "source": "memory",
+      "snippet": "# May 13, 2026 - The Local NearBuy (TLN) ## Plugin Issues Fixed Today - Fixed duplicate TLN_GOOGLE_API_KEY warnings (golf + parks shortcodes) - Added profile shortcode to fix profile page design - Fixed \"pg\" PostgreSQL error that crashed the site ## Current State - All TLN plugins deleted from WordPress to clean up duplicates - Need to upload fresh tln-plugin folder ## Files Ready to Upload - tln-plugin/the-local-nearbuy.php (main plugin with shortcodes) - tln-plugin/tln-directory.php (directory functionality) - tln-plugin/templates/profile-free.php (new profile design) - tln-plugin/templates/profile-proplus.php ## Directory Page - Working: /directory/ shows businesses with filters - Sho",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-14T00:45:26.756Z",
+      "lastRecalledAt": "2026-05-14T00:45:26.756Z",
+      "queryHashes": [
+        "b6f375f7100e"
+      ],
+      "recallDays": [
+        "2026-05-14"
+      ],
+      "conceptTags": [
+        "tln-google-api-key",
+        "tln-plugin",
+        "tln-plugin/the-local-nearbuy.php",
+        "tln-plugin/tln-directory.php",
+        "may",
+        "local",
+        "nearbuy",
+        "tln"
+      ]
+    },
+    "memory:memory/2026-04-21.md:1:51": {
+      "key": "memory:memory/2026-04-21.md:1:51",
+      "path": "memory/2026-04-21.md",
+      "startLine": 1,
+      "endLine": 51,
+      "source": "memory",
+      "snippet": "## Future Projects ### The Local NearBuy App - Need to build an app in the future - Will handle: directory, offers, points system, booking ### T-Shirt Designs - Small town artwork series - Towns: Waxhaw, Weddington, Wesley Chapel, Indian Land - Use town illustrations on merchandise ### T-Shirt Design Styles - Whimsical town illustration (your existing style) - Retro - Modern - Minimal ### The Local NearBuy Merch - Branded TLN merchandise - Include with local town designs ### Waxhaw T-Shirt Designs - **Whimsical Waxhaw (Concept)**: Railroad tracks split town down middle, storefronts on both sides, iconic bridge overhead. Ink sketch style, black and white. ## Skills Learned Today ### S",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-14T00:45:26.756Z",
+      "lastRecalledAt": "2026-05-14T00:45:26.756Z",
+      "queryHashes": [
+        "b6f375f7100e"
+      ],
+      "recallDays": [
+        "2026-05-14"
+      ],
+      "conceptTags": [
+        "t-shirt",
+        "future",
+        "projects",
+        "local",
+        "nearbuy",
+        "app",
+        "need",
+        "will"
       ]
     }
   }
