@@ -133,7 +133,18 @@ function tln_format_hours($hours) {
         }
     }
     
-    if (empty($day_hours)) return implode('<br>', $hours);
+    if (empty($day_hours)) {
+        // Fallback: just show the raw hours with bold times
+        $formatted = array();
+        foreach ($hours as $h) {
+            if (preg_match('/^([^:]+):\s*(.+)$/', $h, $m)) {
+                $formatted[] = $m[1] . ': <span class="tln-hours-time">' . $m[2] . '</span>';
+            } else {
+                $formatted[] = $h;
+            }
+        }
+        return implode('<br>', $formatted);
+    }
     
     // Group consecutive days with same hours
     $ranges = array();
@@ -165,9 +176,9 @@ function tln_format_hours($hours) {
 function format_range($start, $end, $time) {
     $day_names = array('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun');
     if ($start == $end) {
-        return $day_names[$start] . ': ' . $time;
+        return $day_names[$start] . ': <span class="tln-hours-time">' . $time . '</span>';
     }
-    return $day_names[$start] . '-' . $day_names[$end] . ': ' . $time;
+    return $day_names[$start] . '-' . $day_names[$end] . ': <span class="tln-hours-time">' . $time . '</span>';
 }
 
 function tln_profile_content($content) {
@@ -234,10 +245,13 @@ function tln_profile_content($content) {
     .tln-card h3 { font-size:1rem;font-weight:700;margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid #eee; }
     .tln-contact { display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0; }
     .tln-contact a { color:#e63946;text-decoration:none;font-weight:600; }
-    .tln-hours-pill { padding:0.25rem 0.75rem;border-radius:20px;font-size:0.75rem;font-weight:700; }
+    .tln-hours-header { display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;position:relative; }
+    .tln-hours-header h3 { margin:0;padding:0;border:none;font-size:1rem; }
+    .tln-hours-pill { position:absolute;right:0;top:50%;transform:translateY(-50%);padding:0.25rem 0.75rem;border-radius:20px;font-size:0.75rem;font-weight:700; }
     .tln-hours-pill.open { background:#28a745;color:#fff; }
     .tln-hours-pill.closed { background:#dc3545;color:#fff; }
     .tln-hours-pill.closing-soon { background:#ffc107;color:#333; }
+    .tln-hours-time { font-weight:700; }
     .tln-review-item { padding:0.75rem 0;border-bottom:1px solid #eee; }
     .tln-review-item:last-child { border-bottom:none; }
     .tln-reviewer { font-weight:700;font-size:0.95rem; }
@@ -288,8 +302,11 @@ function tln_profile_content($content) {
                 </div>
                 
                 <div class="tln-card">
-                    <h3>Hours</h3>
-                    ' . (count($biz_hours) > 0 ? '<div style="font-size:0.85rem;"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.75rem;">' . tln_get_open_status($biz_hours) . '</div><div style="font-weight:600;">' . tln_format_hours($biz_hours) . '</div></div>' : '<p style="font-size:0.9rem;color:#666;">Hours coming soon...</p>') . '
+                    <div class="tln-hours-header">
+                        <h3>Hours</h3>
+                        ' . tln_get_open_status($biz_hours) . '
+                    </div>
+                    ' . (count($biz_hours) > 0 ? '<div style="font-size:0.85rem;font-weight:600;">' . tln_format_hours($biz_hours) . '</div>' : '<p style="font-size:0.9rem;color:#666;">Hours coming soon...</p>') . '
                 </div>
                 
                 <div class="tln-card">
@@ -300,6 +317,12 @@ function tln_profile_content($content) {
             </div>
             
             <div class="tln-right">
+                <div class="tln-claim-box">
+                    <h3>Claim This Page</h3>
+                    <p>Own this business? Claim your free page to update info, add photos, and more.</p>
+                    <a href="#" class="tln-btn tln-modal-link" data-modal="claim">Claim Your Page</a>
+                </div>
+                
                 <div class="tln-card">
                     <h3>Google Reviews' . ($biz_rating > 0 ? ' (' . esc_html($biz_rating) . ')' : '') . '</h3>
                     ' . (count($biz_reviews) > 0 ? '<div style="max-height:250px;overflow-y:auto;">' . implode('', array_map(function($r) { return '<div class="tln-review-item"><div class="tln-reviewer">' . esc_html($r['author_name'] ?? 'Reviewer') . '</div><div class="tln-stars">' . str_repeat('★', $r['rating'] ?? 0) . '</div><div class="tln-review-text">' . esc_html(mb_substr($r['text'] ?? '', 0, 150)) . '</div></div>'; }, array_slice($biz_reviews, 0, 5))) . '</div><a href="https://www.google.com/search?q=" . urlencode($biz_name) . " " . urlencode($biz_address) . " reviews" target="_blank" class="tln-see-all">See all Google Reviews →</a>' : '<p style="color:#666;font-size:0.9rem;">Be the first to leave a Google review for this business!</p>') . '
@@ -321,11 +344,6 @@ function tln_profile_content($content) {
                     ' . ($biz_lat && $biz_lng ? '<iframe width="100%" height="200" style="border:0;border-radius:4px;" loading="lazy" src="https://www.google.com/maps/embed/v1/place?key=' . esc_attr(defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '') . '&q=' . esc_attr($biz_lat) . ',' . esc_attr($biz_lng) . '&zoom=15"></iframe>' : ($biz_address ? '<div style="background:#f5f5f5;height:150px;border-radius:4px;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0.5rem;"><a href="https://www.google.com/maps/search/?api=1&query=' . urlencode($biz_address) . '" target="_blank" style="background:#e63946;color:#fff;padding:0.75rem 1.5rem;border-radius:6px;text-decoration:none;font-weight:700;">Open in Google Maps</a><span style="font-size:0.85rem;color:#666;">' . esc_html($biz_address) . '</span></div>' : '<div class="tln-map">Map coming soon...</div>')) . '
                 </div>
                 
-                <div class="tln-claim-box">
-                    <h3>Claim This Page</h3>
-                    <p>Own this business? Claim your free page to update info, add photos, and more.</p>
-                    <a href="#" class="tln-btn tln-modal-link" data-modal="claim">Claim Your Page</a>
-                </div>
             </div>
         </div>
     </div>

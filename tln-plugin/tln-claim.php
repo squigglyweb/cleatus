@@ -11,17 +11,13 @@ add_shortcode('claim_business', 'tln_claim_func');
 function tln_claim_func() {
     $biz = isset($_GET['biz']) ? sanitize_text_field($_GET['biz']) : '';
     
-    if (!is_user_logged_in()) {
-        return '<div style="padding:2rem;background:#f8f8f8;border-radius:12px;text-align:center;"><h3>Log In Required</h3><p>Please <a href="/wp-login.php">log in</a> to claim your business.</p></div>';
-    }
-    
     if (isset($_POST['submit_claim'])) {
         global $wpdb;
         
         $wpdb->insert($wpdb->prefix.'tln_claims', array(
             'business_name' => sanitize_text_field($_POST['biz_name']),
             'place_id' => sanitize_text_field($_POST['pid']),
-            'user_id' => get_current_user_id(),
+            'user_id' => is_user_logged_in() ? get_current_user_id() : 0,
             'claimant_name' => sanitize_text_field($_POST['cname']),
             'claimant_phone' => sanitize_text_field($_POST['cphone']),
             'tos_agreed' => sanitize_text_field($_POST['csig']),
