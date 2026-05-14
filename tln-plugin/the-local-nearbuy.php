@@ -284,7 +284,7 @@ function tln_profile_content($content) {
                 <div class="tln-card">
                     <h3>What Neighbors Say</h3>
                     <p style="font-size:0.9rem;color:#666;margin-bottom:1rem;">Be the first to leave a Neighborhood Review Score for this business and help others in our community know what they\'re about.</p>
-                    <a href="https://www.google.com/search?q=" . urlencode($biz_name) . " " . urlencode($biz_address) . " reviews" target="_blank" style="margin-top:0.8rem;padding:0.75rem 1.5rem;background:#e63946;color:white;border:none;border-radius:6px;cursor:pointer;display:block;width:100%;font-weight:700;font-size:1rem;text-align:center;text-decoration:none;box-sizing:border-box;">Leave a Review</a>
+                    <a href="#" class="tln-modal-link" data-modal="review" style="margin-top:0.8rem;padding:0.75rem 1.5rem;background:#e63946;color:white;border:none;border-radius:6px;cursor:pointer;display:block;width:100%;font-weight:700;font-size:1rem;text-align:center;text-decoration:none;box-sizing:border-box;">Leave a Review</a>
                 </div>
                 
                 <div class="tln-card">
@@ -348,6 +348,40 @@ function tln_get_modal_html() {
             <iframe src="/claim/?modal=1"></iframe>
         </div>
     </div>
+    <div id="tln-review-modal" class="tln-modal">
+        <div class="tln-modal-inner" style="max-width:500px;padding:2rem;max-height:90vh;overflow-y:auto;">
+            <span class="tln-modal-close" data-close>&times;</span>
+            <h2 style="margin-bottom:1rem;">Rate Your Experience</h2>
+            <p style="color:#666;margin-bottom:1.5rem;">Help your neighbors know what this business is really like.</p>
+            <div class="tln-rating-category" style="margin:1rem 0;">
+                <div style="font-weight:600;margin-bottom:0.5rem;">Quality</div>
+                <div class="tln-pin-rating" data-category="quality">
+                    <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png">
+                </div>
+            </div>
+            <div class="tln-rating-category" style="margin:1rem 0;">
+                <div style="font-weight:600;margin-bottom:0.5rem;">Service</div>
+                <div class="tln-pin-rating" data-category="service">
+                    <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png">
+                </div>
+            </div>
+            <div class="tln-rating-category" style="margin:1rem 0;">
+                <div style="font-weight:600;margin-bottom:0.5rem;">Value</div>
+                <div class="tln-pin-rating" data-category="value">
+                    <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png">
+                </div>
+            </div>
+            <div class="tln-rating-category" style="margin:1rem 0;">
+                <div style="font-weight:600;margin-bottom:0.5rem;">Atmosphere</div>
+                <div class="tln-pin-rating" data-category="atmosphere">
+                    <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png">
+                </div>
+            </div>
+            <textarea placeholder="Write a review (What should other customers know?)" style="width:100%;padding:0.75rem;margin:1rem 0;border:1px solid #ddd;border-radius:6px;min-height:100px;"></textarea>
+            <input type="text" placeholder="Your public name (required)" style="width:100%;padding:0.75rem;margin-bottom:1rem;border:1px solid #ddd;border-radius:6px;" />
+            <button onclick="alert(\"Review submitted! Thanks for supporting local.\");document.getElementById(\"tln-review-modal\").classList.remove(\"show\");" style="width:100%;padding:0.75rem;background:#e63946;color:white;border:none;border-radius:6px;font-weight:700;font-size:1rem;cursor:pointer;">Submit Review</button>
+        </div>
+    </div>
     <script>
     document.addEventListener("DOMContentLoaded", function() {
         document.querySelectorAll(".tln-modal-link").forEach(function(link) {
@@ -365,6 +399,17 @@ function tln_get_modal_html() {
         document.querySelectorAll("[data-close]").forEach(function(btn) {
             btn.addEventListener("click", function() {
                 this.closest(".tln-modal").classList.remove("show");
+            });
+        });
+        // Pin rating interaction
+        document.querySelectorAll(".tln-pin-rating").forEach(function(container) {
+            var pins = container.querySelectorAll("img");
+            pins.forEach(function(pin, idx) {
+                pin.addEventListener("click", function() {
+                    pins.forEach(function(p, i) {
+                        p.classList.toggle("active", i <= idx);
+                    });
+                });
             });
         });
     });
