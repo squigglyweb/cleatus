@@ -22,6 +22,16 @@ add_action('admin_menu', 'tln_add_admin_menu');
 // Admin dashboard page
 function tln_admin_dashboard() {
     global $wpdb;
+    
+    // Handle delete action
+    if (isset($_GET['delete_campaign']) && current_user_can('manage_options')) {
+        $del_id = intval($_GET['delete_campaign']);
+        $wpdb->delete($wpdb->prefix . 'tln_campaigns', array('id' => $del_id));
+        $wpdb->delete($wpdb->prefix . 'tln_qr_scans', array('campaign_id' => $del_id));
+        $wpdb->delete($wpdb->prefix . 'tln_vouchers', array('campaign_id' => $del_id));
+        echo '<div class="notice notice-success"><p>Campaign deleted.</p></div>';
+    }
+    
     $campaigns = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}tln_campaigns ORDER BY created_at DESC");
     
     echo '<div class="wrap"><h1>TLN Dashboard</h1>';
@@ -31,16 +41,18 @@ function tln_admin_dashboard() {
     if ($campaigns) {
         echo '<h2>Existing Campaigns</h2>';
         echo '<table class="widefat fixed" cellspacing="0">';
-        echo '<thead><tr><th>ID</th><th>Title</th><th>Business ID</th><th>Created</th><th>QR Link</th></tr></thead>';
+        echo '<thead><tr><th>ID</th><th>Title</th><th>Business ID</th><th>Created</th><th>QR Link</th><th>Actions</th></tr></thead>';
         echo '<tbody>';
         foreach ($campaigns as $c) {
             $qr_url = home_url('/r/' . $c->id);
+            $qr_api = 'https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=' . urlencode($qr_url);
             echo '<tr>';
             echo '<td>' . esc_html($c->id) . '</td>';
             echo '<td>' . esc_html($c->title) . '</td>';
             echo '<td>' . esc_html($c->business_id) . '</td>';
             echo '<td>' . esc_html(date('M j, Y', strtotime($c->created_at))) . '</td>';
-            echo '<td><code>' . esc_html($qr_url) . '</code></td>';
+            echo '<td><img src="' . esc_url($qr_api) . '" style="vertical-align:middle;" /></td>';
+            echo '<td><a href="?page=tln-dashboard&delete_campaign=' . esc_html($c->id) . '" onclick="return confirm(\'Are you sure?\');">Delete</a></td>';
             echo '</tr>';
         }
         echo '</tbody></table>';
