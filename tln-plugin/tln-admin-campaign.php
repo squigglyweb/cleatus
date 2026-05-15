@@ -3,6 +3,30 @@
 if ( ! defined( 'ABSPATH' ) ) exit;
 
 /**
+ * Auto-create campaigns table if it doesn't exist.
+ */
+function tln_ensure_campaigns_table() {
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'tln_campaigns';
+    if ( $wpdb->get_var( "SHOW TABLES LIKE '$table_name'" ) != $table_name ) {
+        $charset_collate = $wpdb->get_charset_collate();
+        $sql = "CREATE TABLE $table_name (
+            id bigint(20) NOT NULL AUTO_INCREMENT,
+            business_id bigint(20) NOT NULL,
+            title text NOT NULL,
+            description text NOT NULL,
+            offer_text text,
+            offer_valid_days int(11) DEFAULT 30,
+            created_at datetime DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY  (id)
+        ) $charset_collate;";
+        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+        dbDelta( $sql );
+    }
+}
+add_action( 'init', 'tln_ensure_campaigns_table' );
+
+/**
  * Register a submenu under the TLN top‑level menu.
  */
 function tln_admin_menu() {
@@ -21,6 +45,26 @@ add_action( 'admin_menu', 'tln_admin_menu' );
  * Render the form and handle submission.
  */
 function tln_add_campaign_page() {
+    global $wpdb;
+    
+    // Ensure table exists before anything
+    $table_name = $wpdb->prefix . 'tln_campaigns';
+    if ( $wpdb->get_var( "SHOW TABLES LIKE '$table_name'" ) != $table_name ) {
+        $charset_collate = $wpdb->get_charset_collate();
+        $sql = "CREATE TABLE $table_name (
+            id bigint(20) NOT NULL AUTO_INCREMENT,
+            business_id bigint(20) NOT NULL,
+            title text NOT NULL,
+            description text NOT NULL,
+            offer_text text,
+            offer_valid_days int(11) DEFAULT 30,
+            created_at datetime DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY  (id)
+        ) $charset_collate;";
+        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+        dbDelta( $sql );
+    }
+    
     // Only admins can use it
     if ( ! current_user_can( 'manage_options' ) ) {
         wp_die( 'You do not have permission to access this page.' );
