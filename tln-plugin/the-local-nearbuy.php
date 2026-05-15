@@ -29,7 +29,8 @@ function tln_admin_dashboard() {
     echo '<!-- DEBUG: Table = ' . $table_name . ' -->';
     
     // Auto-create campaigns table if it doesn't exist
-    if ( $table_exists != $table_name ) {
+    $table_check = $wpdb->get_var( "SHOW TABLES LIKE '$table_name'" );
+    if ( $table_check != $table_name ) {
         $charset_collate = $wpdb->get_charset_collate();
         $sql = "CREATE TABLE $table_name (
             id bigint(20) NOT NULL AUTO_INCREMENT,
