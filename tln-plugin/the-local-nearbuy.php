@@ -21,9 +21,32 @@ add_action('admin_menu', 'tln_add_admin_menu');
 
 // Admin dashboard page
 function tln_admin_dashboard() {
+    global $wpdb;
+    $campaigns = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}tln_campaigns ORDER BY created_at DESC");
+    
     echo '<div class="wrap"><h1>TLN Dashboard</h1>';
     echo '<p>Welcome to The Local NearBuy admin area.</p>';
     echo '<p><a href="?page=tln-add-campaign" class="button button-primary">Add New Campaign</a></p>';
+    
+    if ($campaigns) {
+        echo '<h2>Existing Campaigns</h2>';
+        echo '<table class="widefat fixed" cellspacing="0">';
+        echo '<thead><tr><th>ID</th><th>Title</th><th>Business ID</th><th>Created</th><th>QR Link</th></tr></thead>';
+        echo '<tbody>';
+        foreach ($campaigns as $c) {
+            $qr_url = home_url('/r/' . $c->id);
+            echo '<tr>';
+            echo '<td>' . esc_html($c->id) . '</td>';
+            echo '<td>' . esc_html($c->title) . '</td>';
+            echo '<td>' . esc_html($c->business_id) . '</td>';
+            echo '<td>' . esc_html(date('M j, Y', strtotime($c->created_at))) . '</td>';
+            echo '<td><code>' . esc_html($qr_url) . '</code></td>';
+            echo '</tr>';
+        }
+        echo '</tbody></table>';
+    } else {
+        echo '<p>No campaigns yet. Create your first one!</p>';
+    }
     echo '</div>';
 }
 
