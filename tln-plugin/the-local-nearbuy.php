@@ -23,6 +23,14 @@ add_action('admin_menu', 'tln_add_admin_menu');
 function tln_admin_dashboard() {
     global $wpdb;
     
+    // Check if table exists
+    $table_exists = $wpdb->get_var("SHOW TABLES LIKE '{$wpdb->prefix}tln_campaigns'");
+    if (!$table_exists) {
+        echo '<div class="wrap"><h1>TLN Dashboard</h1>';
+        echo '<div class="notice notice-error"><p>Database table not found. Please re-activate the plugin.</p></div>';
+        return;
+    }
+    
     // Handle delete action
     if (isset($_GET['delete_campaign']) && current_user_can('manage_options')) {
         $del_id = intval($_GET['delete_campaign']);
