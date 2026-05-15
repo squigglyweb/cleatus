@@ -28,9 +28,15 @@ function tln_admin_dashboard() {
     // DEBUG: Show table name
     echo '<!-- DEBUG: Table = ' . $table_name . ' -->';
     
-    // Auto-create campaigns table if it doesn't exist
+    // Debug: show table status
     $table_check = $wpdb->get_var( "SHOW TABLES LIKE '$table_name'" );
+    
+    $debug_html = '<div style="background:#eee;padding:10px;margin:10px 0;border:1px solid #999;">DEBUG INFO:<br>';
+    $debug_html .= 'Table name: ' . $table_name . '<br>';
+    $debug_html .= 'Table check result: ' . ($table_check ? $table_check : 'NOT FOUND') . '<br>';
+    
     if ( $table_check != $table_name ) {
+        $debug_html .= 'Creating table...<br>';
         $charset_collate = $wpdb->get_charset_collate();
         $sql = "CREATE TABLE $table_name (
             id bigint(20) NOT NULL AUTO_INCREMENT,
@@ -44,7 +50,13 @@ function tln_admin_dashboard() {
         ) $charset_collate;";
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
         dbDelta( $sql );
+        $debug_html .= 'Table created!</br>';
     }
+    
+    $campaigns = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}tln_campaigns ORDER BY created_at DESC");
+    $debug_html .= 'Query: SELECT * FROM ' . $wpdb->prefix . 'tln_campaigns<br>';
+    $debug_html .= 'Rows found: ' . count($campaigns) . '<br></div>';
+    echo $debug_html;
     
     // Handle delete action
     if (isset($_GET['delete_campaign']) && current_user_can('manage_options')) {
