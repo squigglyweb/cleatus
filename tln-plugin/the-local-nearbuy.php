@@ -63,7 +63,7 @@ function tln_admin_dashboard() {
         echo '<tbody>';
         foreach ($campaigns as $c) {
             $qr_url = home_url('/r/' . $c->id);
-            $qr_api = 'https://chart.googleapis.com/chart?chs=100x100&cht=qr&chl=' . urlencode($qr_url);
+            $qr_api = 'https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=' . urlencode($qr_url);
             echo '<tr>';
             echo '<td>' . esc_html($c->id) . '</td>';
             echo '<td>' . esc_html($c->title) . '</td>';
