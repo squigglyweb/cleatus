@@ -2,8 +2,46 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 2.9 - With Google data
+Version: 3.0 - With Admin Menu
 */
+
+// Add TLN Admin Menu
+function tln_add_admin_menu() {
+    add_menu_page(
+        'TLN',                          // Page title
+        'TLN',                          // Menu title
+        'manage_options',               // Capability
+        'tln-dashboard',                // Menu slug
+        'tln_admin_dashboard',           // Callback function
+        'dashicons-store',              // Icon
+        30                              // Position
+    );
+    
+    add_submenu_page(
+        'tln-dashboard',
+        'Add Campaign',
+        'Add Campaign',
+        'manage_options',
+        'tln-add-campaign',
+        'tln_add_campaign_page'
+    );
+}
+add_action('admin_menu', 'tln_add_admin_menu');
+
+// Admin dashboard page
+function tln_admin_dashboard() {
+    echo '<div class="wrap"><h1>TLN Dashboard</h1>';
+    echo '<p>Welcome to The Local NearBuy admin area.</p>';
+    echo '<p><a href="?page=tln-add-campaign" class="button button-primary">Add New Campaign</a></p>';
+    echo '</div>';
+}
+
+// Add campaign page
+function tln_add_campaign_page() {
+    echo '<div class="wrap"><h1>Add New Campaign</h1>';
+    echo '<p>Campaign creation form coming soon.</p>';
+    echo '</div>';
+}
 
 // Load other TLN components
 require_once plugin_dir_path(__FILE__) . 'tln-directory.php';
