@@ -23,6 +23,14 @@ add_action('admin_menu', 'tln_add_admin_menu');
 function tln_admin_dashboard() {
     global $wpdb;
     
+    // DEBUG: Force visible output first
+    ?><div style="background:#ff6;padding:20px;border:3px solid red;">
+    <h2>TLN Dashboard Loading... (if you see this, PHP is working)</h2>
+    </div><?php
+    
+    // Check if table exists
+    $table_exists = $wpdb->get_var("SHOW TABLES LIKE '{$wpdb->prefix}tln_campaigns'");
+    
     // Check if table exists
     $table_exists = $wpdb->get_var("SHOW TABLES LIKE '{$wpdb->prefix}tln_campaigns'");
     if (!$table_exists) {
