@@ -42,6 +42,15 @@ function tln_voucher_activate() {
         PRIMARY KEY (id)
     ) $charset_collate;";
 
+    // Table to track QR scans
+    $tables[] = "CREATE TABLE IF NOT EXISTS {$wpdb->prefix}tln_qr_scans (
+        id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+        campaign_id BIGINT(20) UNSIGNED NOT NULL,
+        scanned_at DATETIME NOT NULL,
+        source VARCHAR(50) DEFAULT 'postcard',
+        PRIMARY KEY (id)
+    ) $charset_collate;";
+
     require_once ABSPATH . 'wp-admin/includes/upgrade.php';
     foreach ($tables as $sql) {
         dbDelta($sql);
@@ -81,6 +90,16 @@ function tln_voucher_handle_redirect() {
             $code
         ));
         if ($campaign) {
+            // Log the scan
+            $wpdb->insert(
+                $wpdb->prefix . 'tln_qr_scans',
+                array(
+                    'campaign_id' => $campaign->id,
+                    'scanned_at'  => current_time('mysql'),
+                    'source'      => 'postcard'
+                ),
+                array('%d', '%s', '%s')
+            );
             wp_redirect(home_url('/tln-claim?cid=' . $campaign->id), 302);
             exit;
         }
@@ -199,12 +218,33 @@ function tln_business_dashboard_shortcode($atts) {
     if (!$campaigns) return '<p>No campaigns found.</p>';
     $output = '<h3>Your Campaign Dashboard</h3>';
     foreach ($campaigns as $c) {
+        $scans = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}tln_qr_scans WHERE campaign_id = %d", $c->id));
         $total = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}tln_vouchers WHERE campaign_id = %d", $c->id));
         $redeemed = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->prefix}tln_vouchers WHERE campaign_id = %d AND redeemed = 1", $c->id));
         $output .= '<div style="border:1px solid #ddd;padding:10px;margin-bottom:10px;">';
         $output .= '<h4>' . esc_html($c->title) . '</h4>';
-        $output .= '<p>Leads captured: ' . intval($total) . '</p>';
-        $output .= '<p>Offers redeemed: ' . intval($redeemed) . '</p>';
+        $output .= '<p><strong>QR Scans:</strong> ' . intval($scans) . '</p>';
+        $output .= '<p><strong>Leads captured:</strong> ' . intval($total) . '</p>';
+        $output .= '<p><strong>Offers redeemed:</strong> ' . intval($redeemed) . '</p>';
+        
+        // Show redeemed vouchers with dates
+        $redeemed_vouchers = $wpdb->get_results($wpdb->prepare(
+            "SELECT * FROM {$wpdb->prefix}tln_vouchers WHERE campaign_id = %d AND redeemed = 1 ORDER BY redeemed_at DESC",
+            $c->id
+        ));
+        if ($redeemed_vouchers) {
+            $output .= '<p><strong>Redemption History:</strong></p>';
+            $output .= '<table style="width:100%;border-collapse:collapse;font-size:14px;">';
+            $output .= '<tr style="background:#f5f5f5;"><th style="padding:5px;border:1px solid #ddd;">Customer</th><th style="padding:5px;border:1px solid #ddd;">Code</th><th style="padding:5px;border:1px solid #ddd;">Redeemed</th></tr>';
+            foreach ($redeemed_vouchers as $v) {
+                $output .= '<tr>';
+                $output .= '<td style="padding:5px;border:1px solid #ddd;">' . esc_html($v->lead_name) . '</td>';
+                $output .= '<td style="padding:5px;border:1px solid #ddd;">' . esc_html($v->code) . '</td>';
+                $output .= '<td style="padding:5px;border:1px solid #ddd;">' . esc_html(date('M j, Y g:iA', strtotime($v->redeemed_at))) . '</td>';
+                $output .= '</tr>';
+            }
+            $output .= '</table>';
+        }
         $output .= '</div>';
     }
     return $output;

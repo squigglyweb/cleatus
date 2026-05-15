@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 3.0 - With Admin Menu
+Version: 3.2 - Offer landing page
 */
 
 // Add TLN Admin Menu
@@ -12,18 +12,9 @@ function tln_add_admin_menu() {
         'TLN',                          // Menu title
         'manage_options',               // Capability
         'tln-dashboard',                // Menu slug
-        'tln_admin_dashboard',           // Callback function
+        'tln_admin_dashboard',          // Callback function
         'dashicons-store',              // Icon
         30                              // Position
-    );
-    
-    add_submenu_page(
-        'tln-dashboard',
-        'Add Campaign',
-        'Add Campaign',
-        'manage_options',
-        'tln-add-campaign',
-        'tln_add_campaign_page'
     );
 }
 add_action('admin_menu', 'tln_add_admin_menu');
@@ -36,21 +27,16 @@ function tln_admin_dashboard() {
     echo '</div>';
 }
 
-// Add campaign page
-function tln_add_campaign_page() {
-    echo '<div class="wrap"><h1>Add New Campaign</h1>';
-    echo '<p>Campaign creation form coming soon.</p>';
-    echo '</div>';
-}
-
 // Load other TLN components
 require_once plugin_dir_path(__FILE__) . 'tln-directory.php';
 require_once plugin_dir_path(__FILE__) . 'tln-claim.php';
+require_once plugin_dir_path(__FILE__) . 'tln-voucher-system.php';
 require_once plugin_dir_path(__FILE__) . 'tln-golf-shortcode.php';
 require_once plugin_dir_path(__FILE__) . 'tln-parks-shortcode.php';
 require_once plugin_dir_path(__FILE__) . 'tln-analytics.php';
 require_once plugin_dir_path(__FILE__) . 'tln-business-dashboard.php';
 require_once plugin_dir_path(__FILE__) . 'tln-admin-campaign.php';
+require_once plugin_dir_path(__FILE__) . 'tln-offer-landing.php';
 
 // Profile page handler
 if (!is_admin()) {

@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
  */
 function tln_admin_menu() {
     add_submenu_page(
-        'tln-plugin',               // parent slug (the TLN plugin menu)
+        'tln-dashboard',            // parent slug (the TLN plugin menu)
         'Add Campaign',             // page title
         'Add Campaign',             // menu title
         'manage_options',           // capability
@@ -57,10 +57,15 @@ function tln_add_campaign_page() {
         $new_id = $wpdb->insert_id;
 
         // Show a success message with the QR‑link you need
-        echo '<div class="notice notice-success is-dismissible"><p>';
-        echo '✅ Campaign created! Your campaign ID is <strong>' . esc_html( $new_id ) . '</strong>.<br>';
-        echo 'Use this URL for the postcard QR: <code>' . esc_url( home_url( '/r/' . $new_id ) ) . '</code>';
-        echo '</p></div>';
+        $campaign_url = home_url( '/r/' . $new_id );
+        $qr_url = 'https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=' . urlencode( $campaign_url );
+        
+        echo '<div class="notice notice-success is-dismissible">';
+        echo '<p><strong>✅ Campaign created!</strong> Campaign ID: <strong>' . esc_html( $new_id ) . '</strong></p>';
+        echo '<p><strong>QR Code for postcard:</strong></p>';
+        echo '<p><img src="' . esc_url( $qr_url ) . '" alt="QR Code" style="border:1px solid #ccc;padding:10px;" /></p>';
+        echo '<p>Right‑click the image above to save, or use this URL: <code>' . esc_url( $campaign_url ) . '</code></p>';
+        echo '</div>';
     }
 
     // ----- Form HTML -----
