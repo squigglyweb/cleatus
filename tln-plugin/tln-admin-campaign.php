@@ -105,18 +105,39 @@ function tln_add_campaign_page() {
 
         // Show a success message with the QR‑link you need
         $campaign_url = home_url( '/r/' . $new_id );
-        $qr_url = 'https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=' . urlencode( $campaign_url );
         
         echo '<div class="notice notice-success is-dismissible">';
         echo '<p><strong>✅ Campaign created!</strong> Campaign ID: <strong>' . esc_html( $new_id ) . '</strong></p>';
-        echo '<p><strong>QR Code for postcard:</strong></p>';
-        echo '<p><img src="' . esc_url( $qr_url ) . '" alt="QR Code" style="border:1px solid #ccc;padding:10px;" /></p>';
-        echo '<p>Right‑click the image above to save, or use this URL: <code>' . esc_url( $campaign_url ) . '</code></p>';
+        echo '<p><strong>Postcard QR URL:</strong> <code>' . esc_url( $campaign_url ) . '</code></p>';
+        echo '<p>Use this URL to generate a QR code at any QR generator (like qrserver.com or bitly.com)</p>';
         echo '</div>';
     }
 
+    // Show table of existing campaigns
+    $campaigns = $wpdb->get_results( "SELECT * FROM {$table_name} ORDER BY created_at DESC" );
+    
+    if ( ! empty( $campaigns ) ) {
+        echo '<h2>Existing Campaigns</h2>';
+        echo '<table class="widefat fixed striped">';
+        echo '<thead><tr><th>ID</th><th>Title</th><th>Description</th><th>Offer Text</th><th>Valid Days</th><th>Created</th><th>QR Link</th></tr></thead>';
+        echo '<tbody>';
+        foreach ( $campaigns as $camp ) {
+            $qr_link = home_url( '/r/' . $camp->id );
+            echo '<tr>';
+            echo '<td>' . esc_html( $camp->id ) . '</td>';
+            echo '<td>' . esc_html( $camp->title ) . '</td>';
+            echo '<td>' . esc_html( substr( $camp->description, 0, 50 ) ) . ( strlen( $camp->description ) > 50 ? '...' : '' ) . '</td>';
+            echo '<td>' . esc_html( $camp->offer_text ) . '</td>';
+            echo '<td>' . esc_html( $camp->offer_valid_days ) . '</td>';
+            echo '<td>' . esc_html( $camp->created_at ) . '</td>';
+            echo '<td><a href="' . esc_url( $qr_link ) . '" target="_blank">' . esc_html( $qr_link ) . '</a></td>';
+            echo '</tr>';
+        }
+        echo '</tbody></table>';
+        echo '<p><em>Use the QR Link column to generate QR codes at any QR generator site.</em></p>';
+    }
+
     // ----- Form HTML -----
-    ?>
       <div class="wrap">
         <h1>Add New TLN Campaign</h1>
         <form method="post" action="">
