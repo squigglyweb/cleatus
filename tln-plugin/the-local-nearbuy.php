@@ -50,7 +50,7 @@ function tln_admin_dashboard() {
         ) $charset_collate;";
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
         dbDelta( $sql );
-        $debug_html .= 'Table created!</br>';
+        $debug_html .= 'Table created!</div>';
     }
     
     $campaigns = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}tln_campaigns ORDER BY created_at DESC");
