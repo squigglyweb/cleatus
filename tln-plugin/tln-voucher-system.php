@@ -76,13 +76,23 @@ function tln_voucher_query_vars($vars) {
 add_filter('query_vars', 'tln_voucher_query_vars');
 
 /**
- * Handle the redirect on template_redirect.
+ * Handle redirect earlier - using parse_request to catch before main query
  */
-function tln_voucher_handle_redirect() {
-    $code = get_query_var('tln_voucher_redirect');
-    if (!$code) return;
-    // Look up the voucher or campaign based on the code.
+function tln_voucher_parse_request($wp) {
+    if (!empty($wp->query_vars['tln_voucher_redirect'])) {
+        $code = $wp->query_vars['tln_voucher_redirect'];
+        tln_process_voucher_redirect($code);
+    }
+    return $wp;
+}
+add_filter('parse_request', 'tln_voucher_parse_request');
+
+/**
+ * Process the redirect logic.
+ */
+function tln_process_voucher_redirect($code) {
     global $wpdb;
+    
     // First try to find a campaign with this ID (numeric).
     if (is_numeric($code)) {
         $campaign = $wpdb->get_row($wpdb->prepare(
@@ -113,8 +123,17 @@ function tln_voucher_handle_redirect() {
         wp_redirect(home_url('/tln-redeem?code=' . $code), 302);
         exit;
     }
-    // Fallback – show a generic not‑found page.
+    // Fallback – show a generic not-found page.
     wp_redirect(home_url('/')); exit;
+}
+
+/**
+ * Handle the redirect on template_redirect (fallback).
+ */
+function tln_voucher_handle_redirect() {
+    $code = get_query_var('tln_voucher_redirect');
+    if (!$code) return;
+    tln_process_voucher_redirect($code);
 }
 add_action('template_redirect', 'tln_voucher_handle_redirect');
 
