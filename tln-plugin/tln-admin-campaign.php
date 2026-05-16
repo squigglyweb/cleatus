@@ -148,8 +148,6 @@ function tln_add_campaign_page() {
 
     // Show table of existing campaigns
     if ( ! empty( $campaigns ) ) {
-    
-    if ( ! empty( $campaigns ) ) {
         echo '<h2>Existing Campaigns</h2>';
         echo '<table class="widefat fixed striped">';
         echo '<thead><tr><th>ID</th><th>Title</th><th>Description</th><th>Offer Text</th><th>Valid Days</th><th>Created</th><th>QR Link</th></tr></thead>';
