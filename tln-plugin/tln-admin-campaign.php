@@ -138,6 +138,7 @@ function tln_add_campaign_page() {
     }
 
     // ----- Form HTML -----
+    ?>
       <div class="wrap">
         <h1>Add New TLN Campaign</h1>
         <form method="post" action="">
