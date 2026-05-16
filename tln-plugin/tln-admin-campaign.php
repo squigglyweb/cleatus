@@ -156,10 +156,11 @@ function tln_add_campaign_page() {
     if ( ! empty( $campaigns ) ) {
         echo '<h2>Existing Campaigns</h2>';
         echo '<table class="widefat fixed striped">';
-        echo '<thead><tr><th>ID</th><th>Title</th><th>Description</th><th>Offer Text</th><th>Valid Days</th><th>Created</th><th>QR Link</th></tr></thead>';
+        echo '<thead><tr><th>ID</th><th>Title</th><th>Description</th><th>Offer Text</th><th>Valid Days</th><th>Created</th><th>QR Code</th></tr></thead>';
         echo '<tbody>';
         foreach ( $campaigns as $camp ) {
             $qr_link = home_url( '/r/' . $camp->id );
+            $qr_api = 'https://chart.googleapis.com/chart?chs=120x120&cht=qr&chl=' . urlencode($qr_link);
             echo '<tr>';
             echo '<td>' . esc_html( $camp->id ) . '</td>';
             echo '<td>' . esc_html( $camp->title ) . '</td>';
@@ -167,11 +168,10 @@ function tln_add_campaign_page() {
             echo '<td>' . esc_html( $camp->offer_text ) . '</td>';
             echo '<td>' . esc_html( $camp->offer_valid_days ) . '</td>';
             echo '<td>' . esc_html( $camp->created_at ) . '</td>';
-            echo '<td><a href="' . esc_url( $qr_link ) . '" target="_blank">' . esc_html( $qr_link ) . '</a></td>';
+            echo '<td style="text-align:center;"><img src="' . esc_url( $qr_api ) . '" alt="QR" style="width:60px;height:60px;" /><br><small><a href="' . esc_url( $qr_link ) . '" target="_blank">View</a></small></td>';
             echo '</tr>';
         }
         echo '</tbody></table>';
-        echo '<p><em>Use the QR Link column to generate QR codes at any QR generator site.</em></p>';
     }
 
     // ----- Form HTML -----
