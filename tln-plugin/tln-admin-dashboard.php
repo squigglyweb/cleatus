@@ -43,42 +43,42 @@ function tln_render_dashboard() {
         <!-- Stats Cards -->
         <div class="tln-stats-row">
             <div class="tln-stat-card">
-                <span class="tln-stat-icon">📋</span>
+                <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/postcard.png" class="tln-stat-icon" alt="Campaigns" />
                 <div class="tln-stat-content">
                     <span class="tln-stat-number"><?php echo intval($stats['campaigns']); ?></span>
                     <span class="tln-stat-label">Campaigns</span>
                 </div>
             </div>
             <div class="tln-stat-card">
-                <span class="tln-stat-icon">🎟️</span>
+                <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/voucher.png" class="tln-stat-icon" alt="Vouchers" />
                 <div class="tln-stat-content">
                     <span class="tln-stat-number"><?php echo intval($stats['vouchers']); ?></span>
                     <span class="tln-stat-label">Vouchers Issued</span>
                 </div>
             </div>
             <div class="tln-stat-card">
-                <span class="tln-stat-icon">✓</span>
+                <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/discount.png" class="tln-stat-icon" alt="Redeemed" />
                 <div class="tln-stat-content">
                     <span class="tln-stat-number"><?php echo intval($stats['redeemed']); ?></span>
                     <span class="tln-stat-label">Redeemed</span>
                 </div>
             </div>
             <div class="tln-stat-card">
-                <span class="tln-stat-icon">👁️</span>
+                <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/qr-code.png" class="tln-stat-icon" alt="Scans" />
                 <div class="tln-stat-content">
                     <span class="tln-stat-number"><?php echo intval($stats['scans']); ?></span>
                     <span class="tln-stat-label">QR Scans</span>
                 </div>
             </div>
             <div class="tln-stat-card">
-                <span class="tln-stat-icon">📧</span>
+                <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/user-engagement.png" class="tln-stat-icon" alt="Leads" />
                 <div class="tln-stat-content">
                     <span class="tln-stat-number"><?php echo intval($stats['leads']); ?></span>
                     <span class="tln-stat-label">Leads Captured</span>
                 </div>
             </div>
             <div class="tln-stat-card">
-                <span class="tln-stat-icon">🏪</span>
+                <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/directory-listing.png" class="tln-stat-icon" alt="Listings" />
                 <div class="tln-stat-content">
                     <span class="tln-stat-number"><?php echo intval($stats['businesses']); ?></span>
                     <span class="tln-stat-label">Directory Listings</span>
@@ -257,7 +257,9 @@ function tln_render_dashboard() {
         gap: 15px;
     }
     .tln-stat-icon {
-        font-size: 32px;
+        width: 48px;
+        height: 48px;
+        object-fit: contain;
     }
     .tln-stat-content {
         display: flex;
