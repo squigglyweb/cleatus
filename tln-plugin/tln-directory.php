@@ -5,7 +5,9 @@
 
 if (!defined('ABSPATH')) exit;
 
-define('TLN_GOOGLE_API_KEY', 'AIzaSyAH6O3RsnDuX5rJ2OyTHCTZhYtd6s6NSWU');
+if (!defined('TLN_GOOGLE_API_KEY')) {
+    define('TLN_GOOGLE_API_KEY', 'AIzaSyAH6O3RsnDuX5rJ2OyTHCTZhYtd6s6NSWU');
+}
 define('TLN_PLACEHOLDER', 'https://thelocalnearbuy.com/wp-content/uploads/2026/05/support-local-businesses.webp');
 
 function tln_dir_styles() {

@@ -158,28 +158,25 @@ function tln_render_campaign_offer($campaign) {
     $offer_code = $_SESSION[$session_key];
     
     $out = '<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>' . esc_html($campaign->title) . ' - The Local NearBuy</title></head><body>';
-    $out .= '<div style="max-width:480px;margin:0 auto;padding:1.5rem;font-family:system-ui,sans-serif;background:#f5f5f5;min-height:100vh;">
-    <div style="text-align:center;margin-bottom:2rem;">
-        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/01/TLN-logo-V1.png" alt="TLN" style="max-width:180px;margin-bottom:1rem;">
-        <p style="color:#666;font-size:0.9rem;">The Local NearBuy Exclusive Offer</p>
-    </div>
-    <div style="background:#fff;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,0.08);overflow:hidden;">
-        <div style="background:#1a73e8;padding:1.5rem;text-align:center;">
-            <h2 style="margin:0;color:#fff;font-size:1.5rem;">' . esc_html($campaign->offer_text ?: $campaign->title) . '</h2>
-        </div>
-        <div style="padding:1.5rem;text-align:center;">
-            <p style="font-size:1.1rem;line-height:1.6;color:#333;margin-bottom:1.5rem;">' . wp_kses_post($campaign->description) . '</p>';
-    
-            <div style="background:#f8f8f8;border:2px dashed #ccc;border-radius:8px;padding:1rem;margin:1.5rem 0;">
-                <p style="margin:0 0 0.5rem;font-size:0.85rem;color:#666;text-transform:uppercase;">Your Code</p>
-                <p style="margin:0;font-size:1.8rem;font-weight:bold;letter-spacing:2px;color:#1a73e8;">' . esc_html($offer_code) . '</p>
-            </div>
-    
-            <p style="font-size:0.9rem;color:#666;">⏰ Valid for <strong>' . $days_left . ' days</strong></p>
-        </div>
-    </div>
-    <p style="text-align:center;margin-top:1.5rem;font-size:0.8rem;color:#999;">Powered by <a href="https://thelocalnearbuy.com" style="color:#1a73e8;">The Local NearBuy</a></p>
-    </div></body></html>';
+    $out .= '<div style="max-width:480px;margin:0 auto;padding:1.5rem;font-family:system-ui,sans-serif;background:#f5f5f5;min-height:100vh;">';
+    $out .= '<div style="text-align:center;margin-bottom:2rem;">';
+    $out .= '<img src="https://thelocalnearbuy.com/wp-content/uploads/2026/01/TLN-logo-V1.png" alt="TLN" style="max-width:180px;margin-bottom:1rem;">';
+    $out .= '<p style="color:#666;font-size:0.9rem;">The Local NearBuy Exclusive Offer</p>';
+    $out .= '</div>';
+    $out .= '<div style="background:#fff;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,0.08);overflow:hidden;">';
+    $out .= '<div style="background:#1a73e8;padding:1.5rem;text-align:center;">';
+    $out .= '<h2 style="margin:0;color:#fff;font-size:1.5rem;">' . esc_html($campaign->offer_text ?: $campaign->title) . '</h2>';
+    $out .= '</div>';
+    $out .= '<div style="padding:1.5rem;text-align:center;">';
+    $out .= '<p style="font-size:1.1rem;line-height:1.6;color:#333;margin-bottom:1.5rem;">' . wp_kses_post($campaign->description) . '</p>';
+    $out .= '<div style="background:#f8f8f8;border:2px dashed #ccc;border-radius:8px;padding:1rem;margin:1.5rem 0;">';
+    $out .= '<p style="margin:0 0 0.5rem;font-size:0.85rem;color:#666;text-transform:uppercase;">Your Code</p>';
+    $out .= '<p style="margin:0;font-size:1.8rem;font-weight:bold;letter-spacing:2px;color:#1a73e8;">' . esc_html($offer_code) . '</p>';
+    $out .= '</div>';
+    $out .= '<p style="font-size:0.9rem;color:#666;">Valid for <strong>' . $days_left . ' days</strong></p>';
+    $out .= '</div></div>';
+    $out .= '<p style="text-align:center;margin-top:1.5rem;font-size:0.8rem;color:#999;">Powered by <a href="https://thelocalnearbuy.com" style="color:#1a73e8;">The Local NearBuy</a></p>';
+    $out .= '</div></body></html>';
     return $out;
 }
 
@@ -192,23 +189,23 @@ function tln_render_redeem_page($voucher) {
     $seconds = $expire_ts - $now;
     
     if ($voucher->redeemed) {
-        $out = '<div style="padding:2rem;text-align:center;"><h2>Already Redeemed</h2><p>This code has been used.</p></div>';
+        return '<div style="padding:2rem;text-align:center;"><h2>Already Redeemed</h2><p>This code has been used.</p></div>';
     } elseif ($seconds < 0) {
-        $out = '<div style="padding:2rem;text-align:center;"><h2>Expired</h2><p>This code has expired.</p></div>';
-    } else {
-        $qr_src = 'https://quickchart.io/qr?size=200x200&text=' . urlencode($voucher->code);
-        $out = '<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>Redeem - The Local NearBuy</title></head><body>';
-        $out .= '<div style="max-width:480px;margin:0 auto;padding:1.5rem;font-family:system-ui,sans-serif;background:#f5f5f5;min-height:100vh;">
-            <div style="text-align:center;">
-                <h2>Redeem Your Offer</h2>
-                <p>Show this QR code to the staff.</p>
-                <img src="' . esc_url($qr_src) . '" alt="QR" style="max-width:200px;border:1px solid #ddd;border-radius:8px;padding:10px;background:#fff;" />
-                <p style="font-size:1.2rem;margin:1rem 0;"><strong>' . esc_html($voucher->code) . '</strong></p>
-                <p id="countdown" style="color:#666;"></p>
-            </div>
-        </div>
-        <script>var sec=' . $seconds . ';function c(){var el=document.getElementById("countdown");if(sec<=0){el.innerHTML="Expired";return;}var d=Math.floor(sec/86400);var h=Math.floor((sec%86400)/3600);var m=Math.floor((sec%3600)/60);var s=sec%60;el.innerHTML=d+"d "+h+"h "+m+"m "+s+"s";sec--;setTimeout(c,1000);}c();</script></body></html>';
+        return '<div style="padding:2rem;text-align:center;"><h2>Expired</h2><p>This code has expired.</p></div>';
     }
+    
+    $qr_src = 'https://quickchart.io/qr?size=200x200&text=' . urlencode($voucher->code);
+    $out = '<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>Redeem - The Local NearBuy</title></head><body>';
+    $out .= '<div style="max-width:480px;margin:0 auto;padding:1.5rem;font-family:system-ui,sans-serif;background:#f5f5f5;min-height:100vh;">';
+    $out .= '<div style="text-align:center;">';
+    $out .= '<h2>Redeem Your Offer</h2>';
+    $out .= '<p>Show this QR code to the staff.</p>';
+    $out .= '<img src="' . esc_url($qr_src) . '" alt="QR" style="max-width:200px;border:1px solid #ddd;border-radius:8px;padding:10px;background:#fff;" />';
+    $out .= '<p style="font-size:1.2rem;margin:1rem 0;"><strong>' . esc_html($voucher->code) . '</strong></p>';
+    $out .= '<p id="countdown" style="color:#666;"></p>';
+    $out .= '</div></div>';
+    $out .= '<script>var sec=' . $seconds . ';function c(){var el=document.getElementById("countdown");if(sec<=0){el.innerHTML="Expired";return;}var d=Math.floor(sec/86400);var h=Math.floor((sec%86400)/3600);var m=Math.floor((sec%3600)/60);var s=sec%60;el.innerHTML=d+"d "+h+"h "+m+"m "+s+"s";sec--;setTimeout(c,1000);}c();</script>';
+    $out .= '</body></html>';
     return $out;
 }
 
