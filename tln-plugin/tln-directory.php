@@ -81,7 +81,8 @@ function tln_get_cached_businesses() {
     $seen = array();
     $out = array();
     foreach($results as $r) {
-        $k = strtolower($r['name']);
+        $name = $r['name'] ?? '';
+        $k = strtolower($name);
         if(!isset($seen[$k])) {
             $seen[$k]=true;
             $out[]=$r;

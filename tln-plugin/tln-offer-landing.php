@@ -46,7 +46,8 @@ function tln_offer_shortcode() {
     }
     $session_key = 'tln_offer_code_' . $campaign_id;
     if (!isset($_SESSION[$session_key])) {
-        $_SESSION[$session_key] = strtoupper(substr($campaign->title, 0, 3)) . '-' . $campaign_id . '-' . substr(md5(uniqid()), 0, 4);
+        $title = $campaign->title ?? 'OFFER';
+        $_SESSION[$session_key] = strtoupper(substr($title, 0, 3)) . '-' . $campaign_id . '-' . substr(md5(uniqid()), 0, 4);
     }
     $offer_code = $_SESSION[$session_key];
     
