@@ -57,7 +57,10 @@ function tln_admin_dashboard() {
     
     $campaigns = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}tln_campaigns ORDER BY created_at DESC");
     $debug_html .= 'Query: SELECT * FROM ' . $wpdb->prefix . 'tln_campaigns<br>';
-    $debug_html .= 'Rows found: ' . count($campaigns) . '<br></div>';
+    $debug_html .= 'Rows found: ' . count($campaigns) . '<br>';
+    $debug_html .= 'Is array: ' . is_array($campaigns) . '<br>';
+    $debug_html .= 'Is empty: ' . empty($campaigns) . '<br>';
+    $debug_html .= 'Last error: ' . $wpdb->last_error . '<br></div>';
     echo $debug_html;
     
     // Handle delete action
@@ -74,6 +77,9 @@ function tln_admin_dashboard() {
     echo '<div class="wrap"><h1>TLN Dashboard</h1>';
     echo '<p>Welcome to The Local NearBuy admin area.</p>';
     echo '<p><a href="?page=tln-add-campaign" class="button button-primary">Add New Campaign</a></p>';
+    
+    // DEBUG: What is $campaigns?
+    echo '<!-- DEBUG: count=' . count($campaigns) . ' -->';
     
     if ($campaigns) {
         echo '<h2>Existing Campaigns</h2>';
