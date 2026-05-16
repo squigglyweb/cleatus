@@ -23,6 +23,8 @@ add_action('admin_menu', 'tln_add_admin_menu');
 function tln_admin_dashboard() {
     global $wpdb;
     
+    echo "<!-- DASHBOARD START -->";
+    
     $table_name = $wpdb->prefix . 'tln_campaigns';
     
     // DEBUG: Show table name
