@@ -88,7 +88,7 @@ function tln_voucher_parse_request($wp) {
 add_filter('parse_request', 'tln_voucher_parse_request');
 
 /**
- * Process the redirect logic.
+ * Process the redirect logic - show offer inline instead of redirecting
  */
 function tln_process_voucher_redirect($code) {
     global $wpdb;
@@ -110,7 +110,8 @@ function tln_process_voucher_redirect($code) {
                 ),
                 array('%d', '%s', '%s')
             );
-            wp_redirect(home_url('/tln-claim?cid=' . $campaign->id), 302);
+            // Instead of redirecting, show the offer directly
+            echo tln_render_campaign_offer($campaign);
             exit;
         }
     }
@@ -120,11 +121,95 @@ function tln_process_voucher_redirect($code) {
         $code
     ));
     if ($voucher) {
-        wp_redirect(home_url('/tln-redeem?code=' . $code), 302);
+        echo tln_render_redeem_page($voucher);
         exit;
     }
-    // Fallback – show a generic not-found page.
-    wp_redirect(home_url('/')); exit;
+    // Fallback – show error
+    echo '<div style="padding:2rem;text-align:center;"><h2>Offer Not Found</h2><p>This offer may have expired or been removed.</p><p><a href="/">Go Home</a></p></div>';
+    exit;
+}
+
+/**
+ * Render campaign offer inline
+ */
+function tln_render_campaign_offer($campaign) {
+    // Check if offer has expired (valid days + 7 day grace)
+    $valid_days = intval($campaign->offer_valid_days);
+    $grace_days = 7;
+    $total_days = $valid_days + $grace_days;
+    $created = strtotime($campaign->created_at);
+    $expires = $created + ($total_days * 24 * 60 * 60);
+    $now = current_time('timestamp');
+    $days_left = ceil(($expires - $now) / (24 * 60 * 60));
+    
+    if ($days_left <= 0) {
+        return '<div style="padding:2rem;text-align:center;"><h2>Offer Expired</h2><p>This offer is no longer valid.</p></div>';
+    }
+    
+    // Generate session-based code for claiming
+    if (!session_id()) {
+        session_start();
+    }
+    $session_key = 'tln_offer_code_' . $campaign->id;
+    if (!isset($_SESSION[$session_key])) {
+        $title = $campaign->title ?? 'OFFER';
+        $_SESSION[$session_key] = strtoupper(substr($title, 0, 3)) . '-' . $campaign->id . '-' . substr(md5(uniqid()), 0, 4);
+    }
+    $offer_code = $_SESSION[$session_key];
+    
+    $out = '<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>' . esc_html($campaign->title) . ' - The Local NearBuy</title></head><body>';
+    $out .= '<div style="max-width:480px;margin:0 auto;padding:1.5rem;font-family:system-ui,sans-serif;background:#f5f5f5;min-height:100vh;">
+    <div style="text-align:center;margin-bottom:2rem;">
+        <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/01/TLN-logo-V1.png" alt="TLN" style="max-width:180px;margin-bottom:1rem;">
+        <p style="color:#666;font-size:0.9rem;">The Local NearBuy Exclusive Offer</p>
+    </div>
+    <div style="background:#fff;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,0.08);overflow:hidden;">
+        <div style="background:#1a73e8;padding:1.5rem;text-align:center;">
+            <h2 style="margin:0;color:#fff;font-size:1.5rem;">' . esc_html($campaign->offer_text ?: $campaign->title) . '</h2>
+        </div>
+        <div style="padding:1.5rem;text-align:center;">
+            <p style="font-size:1.1rem;line-height:1.6;color:#333;margin-bottom:1.5rem;">' . wp_kses_post($campaign->description) . '</p>';
+    
+            <div style="background:#f8f8f8;border:2px dashed #ccc;border-radius:8px;padding:1rem;margin:1.5rem 0;">
+                <p style="margin:0 0 0.5rem;font-size:0.85rem;color:#666;text-transform:uppercase;">Your Code</p>
+                <p style="margin:0;font-size:1.8rem;font-weight:bold;letter-spacing:2px;color:#1a73e8;">' . esc_html($offer_code) . '</p>
+            </div>
+    
+            <p style="font-size:0.9rem;color:#666;">⏰ Valid for <strong>' . $days_left . ' days</strong></p>
+        </div>
+    </div>
+    <p style="text-align:center;margin-top:1.5rem;font-size:0.8rem;color:#999;">Powered by <a href="https://thelocalnearbuy.com" style="color:#1a73e8;">The Local NearBuy</a></p>
+    </div></body></html>';
+    return $out;
+}
+
+/**
+ * Render redemption page inline
+ */
+function tln_render_redeem_page($voucher) {
+    $now = current_time('timestamp');
+    $expire_ts = strtotime($voucher->expires);
+    $seconds = $expire_ts - $now;
+    
+    if ($voucher->redeemed) {
+        $out = '<div style="padding:2rem;text-align:center;"><h2>Already Redeemed</h2><p>This code has been used.</p></div>';
+    } elseif ($seconds < 0) {
+        $out = '<div style="padding:2rem;text-align:center;"><h2>Expired</h2><p>This code has expired.</p></div>';
+    } else {
+        $qr_src = 'https://quickchart.io/qr?size=200x200&text=' . urlencode($voucher->code);
+        $out = '<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>Redeem - The Local NearBuy</title></head><body>';
+        $out .= '<div style="max-width:480px;margin:0 auto;padding:1.5rem;font-family:system-ui,sans-serif;background:#f5f5f5;min-height:100vh;">
+            <div style="text-align:center;">
+                <h2>Redeem Your Offer</h2>
+                <p>Show this QR code to the staff.</p>
+                <img src="' . esc_url($qr_src) . '" alt="QR" style="max-width:200px;border:1px solid #ddd;border-radius:8px;padding:10px;background:#fff;" />
+                <p style="font-size:1.2rem;margin:1rem 0;"><strong>' . esc_html($voucher->code) . '</strong></p>
+                <p id="countdown" style="color:#666;"></p>
+            </div>
+        </div>
+        <script>var sec=' . $seconds . ';function c(){var el=document.getElementById("countdown");if(sec<=0){el.innerHTML="Expired";return;}var d=Math.floor(sec/86400);var h=Math.floor((sec%86400)/3600);var m=Math.floor((sec%3600)/60);var s=sec%60;el.innerHTML=d+"d "+h+"h "+m+"m "+s+"s";sec--;setTimeout(c,1000);}c();</script></body></html>';
+    }
+    return $out;
 }
 
 /**

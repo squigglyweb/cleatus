@@ -96,18 +96,8 @@ function tln_offer_shortcode() {
     return $output;
 }
 
-// Add rewrite rule for /r/{id} URLs
-function tln_offer_rewrite() {
-    add_rewrite_rule('^r/([0-9]+)/?$', 'index.php?tln_offer=1&id=$matches[1]', 'top');
-}
-add_action('init', 'tln_offer_rewrite');
-
-// Flush rewrite rules on activation
-function tln_offer_activate() {
-    tln_offer_rewrite();
-    flush_rewrite_rules();
-}
-register_activation_hook(__FILE__, 'tln_offer_activate');
+// NOTE: The /r/ rewrite is handled by tln-voucher-system.php to avoid conflicts
+// This file only provides the [tln_offer] shortcode display
 
 function tln_offer_query_vars($vars) {
     $vars[] = 'tln_offer';
@@ -142,5 +132,5 @@ function get_shortcode_template($shortcode, $slug) {
     if (get_query_var('tln_offer')) {
         return do_shortcode($shortcode);
     }
-    return $template;
+    return '';
 }

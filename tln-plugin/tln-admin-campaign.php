@@ -2,9 +2,6 @@
 // tln-plugin/tln-admin-campaign.php
 if ( ! defined( 'ABSPATH' ) ) exit;
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-
 /**
  * Auto-create campaigns table if it doesn't exist.
  */
