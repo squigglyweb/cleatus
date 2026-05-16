@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 3.2 - Offer landing page
+Version: 3.3 - Full Admin Dashboard
 */
 
 // Add TLN Admin Menu
@@ -12,98 +12,14 @@ function tln_add_admin_menu() {
         'TLN',                          // Menu title
         'manage_options',               // Capability
         'tln-dashboard',                // Menu slug
-        'tln_admin_dashboard',          // Callback function
+        'tln_render_dashboard',         // Callback function (from tln-admin-dashboard.php)
         'dashicons-store',              // Icon
         30                              // Position
     );
 }
 add_action('admin_menu', 'tln_add_admin_menu');
 
-// Admin dashboard page
-function tln_admin_dashboard() {
-    global $wpdb;
-    
-    echo "<!-- DASHBOARD START -->";
-    
-    $table_name = $wpdb->prefix . 'tln_campaigns';
-    
-    // DEBUG: Show table name
-    echo '<!-- DEBUG: Table = ' . $table_name . ' -->';
-    
-    // Debug: show table status
-    $table_check = $wpdb->get_var( "SHOW TABLES LIKE '$table_name'" );
-    
-    $debug_html = '<div style="background:#eee;padding:10px;margin:10px 0;border:1px solid #999;">DEBUG INFO:<br>';
-    $debug_html .= 'Table name: ' . $table_name . '<br>';
-    $debug_html .= 'Table check result: ' . ($table_check ? $table_check : 'NOT FOUND') . '<br>';
-    
-    if ( $table_check != $table_name ) {
-        $debug_html .= 'Creating table...<br>';
-        $charset_collate = $wpdb->get_charset_collate();
-        $sql = "CREATE TABLE $table_name (
-            id bigint(20) NOT NULL AUTO_INCREMENT,
-            business_id bigint(20) NOT NULL,
-            title text NOT NULL,
-            description text NOT NULL,
-            offer_text text,
-            offer_valid_days int(11) DEFAULT 30,
-            created_at datetime DEFAULT CURRENT_TIMESTAMP,
-            PRIMARY KEY  (id)
-        ) $charset_collate;";
-        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
-        dbDelta( $sql );
-        $debug_html .= 'Table created!</div>';
-    }
-    
-    $campaigns = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}tln_campaigns ORDER BY created_at DESC");
-    $debug_html .= 'Query: SELECT * FROM ' . $wpdb->prefix . 'tln_campaigns<br>';
-    $debug_html .= 'Rows found: ' . count($campaigns) . '<br>';
-    $debug_html .= 'Is array: ' . is_array($campaigns) . '<br>';
-    $debug_html .= 'Is empty: ' . empty($campaigns) . '<br>';
-    $debug_html .= 'Last error: ' . $wpdb->last_error . '<br></div>';
-    echo $debug_html;
-    
-    // Handle delete action
-    if (isset($_GET['delete_campaign']) && current_user_can('manage_options')) {
-        $del_id = intval($_GET['delete_campaign']);
-        $wpdb->delete($wpdb->prefix . 'tln_campaigns', array('id' => $del_id));
-        $wpdb->delete($wpdb->prefix . 'tln_qr_scans', array('campaign_id' => $del_id));
-        $wpdb->delete($wpdb->prefix . 'tln_vouchers', array('campaign_id' => $del_id));
-        echo '<div class="notice notice-success"><p>Campaign deleted.</p></div>';
-    }
-    
-    $campaigns = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}tln_campaigns ORDER BY created_at DESC");
-    
-    echo '<div class="wrap"><h1>TLN Dashboard</h1>';
-    echo '<p>Welcome to The Local NearBuy admin area.</p>';
-    echo '<p><a href="?page=tln-add-campaign" class="button button-primary">Add New Campaign</a></p>';
-    
-    // DEBUG: What is $campaigns?
-    echo '<!-- DEBUG: count=' . count($campaigns) . ' -->';
-    
-    if ($campaigns) {
-        echo '<h2>Existing Campaigns</h2>';
-        echo '<table class="widefat fixed" cellspacing="0">';
-        echo '<thead><tr><th>ID</th><th>Title</th><th>Business ID</th><th>Created</th><th>QR Link</th><th>Actions</th></tr></thead>';
-        echo '<tbody>';
-        foreach ($campaigns as $c) {
-            $qr_url = home_url('/r/' . $c->id);
-            $qr_api = 'https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=' . urlencode($qr_url);
-            echo '<tr>';
-            echo '<td>' . esc_html($c->id) . '</td>';
-            echo '<td>' . esc_html($c->title) . '</td>';
-            echo '<td>' . esc_html($c->business_id) . '</td>';
-            echo '<td>' . esc_html(date('M j, Y', strtotime($c->created_at))) . '</td>';
-            echo '<td><img src="' . esc_url($qr_api) . '" style="vertical-align:middle;" /></td>';
-            echo '<td><a href="?page=tln-dashboard&delete_campaign=' . esc_html($c->id) . '" onclick="return confirm(\'Are you sure?\');">Delete</a></td>';
-            echo '</tr>';
-        }
-        echo '</tbody></table>';
-    } else {
-        echo '<p>No campaigns yet. Create your first one!</p>';
-    }
-    echo '</div>';
-}
+// Dashboard now in tln-admin-dashboard.php (included below)
 
 // Load other TLN components
 require_once plugin_dir_path(__FILE__) . 'tln-directory.php';
@@ -115,6 +31,7 @@ require_once plugin_dir_path(__FILE__) . 'tln-analytics.php';
 require_once plugin_dir_path(__FILE__) . 'tln-business-dashboard.php';
 require_once plugin_dir_path(__FILE__) . 'tln-admin-campaign.php';
 require_once plugin_dir_path(__FILE__) . 'tln-offer-landing.php';
+require_once plugin_dir_path(__FILE__) . 'tln-admin-dashboard.php';
 
 // Profile page handler
 if (!is_admin()) {

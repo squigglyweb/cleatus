@@ -119,13 +119,19 @@ function tln_add_campaign_page() {
         // Grab the new auto‑increment ID
         $new_id = $wpdb->insert_id;
 
-        // Show a success message with the QR‑link you need
+        // Show a success message with the QR code
         $campaign_url = home_url( '/r/' . $new_id );
+        $qr_api = 'https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=' . urlencode($campaign_url);
         
         echo '<div class="notice notice-success is-dismissible">';
         echo '<p><strong>✅ Campaign created!</strong> Campaign ID: <strong>' . esc_html( $new_id ) . '</strong></p>';
-        echo '<p><strong>Postcard QR URL:</strong> <code>' . esc_url( $campaign_url ) . '</code></p>';
-        echo '<p>Use this URL to generate a QR code at any QR generator (like qrserver.com or bitly.com)</p>';
+        echo '<div style="display:flex;align-items:center;gap:20px;margin:15px 0;">';
+        echo '<img src="' . esc_url($qr_api) . '" alt="QR Code" style="border:1px solid #ccc;padding:10px;background:#fff;" />';
+        echo '<div>';
+        echo '<p><strong>Postcard QR URL:</strong><br><code>' . esc_url( $campaign_url ) . '</code></p>';
+        echo '<p style="font-size:12px;color:#666;">Right-click image to save, or use this URL in your QR generator</p>';
+        echo '</div></div>';
+        echo '<p style="background:#e8f5e9;padding:10px;border-radius:4px;margin-top:10px;"><strong>💡 Dynamic QR:</strong> This QR code is dynamic! Edit the offer text in the campaign anytime — customers scanning this same QR will see the updated offer. No reprint needed.</p>';
         echo '</div>';
     }
 
