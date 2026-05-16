@@ -2,8 +2,22 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 3.3 - Full Admin Dashboard
+Version: 3.4 - Fixed Rewrite Rules
 */
+
+// Flush rewrite rules on activation
+register_activation_hook(__FILE__, function() {
+    // Ensure rewrite rules are registered
+    add_action('init', function() {
+        if (function_exists('tln_voucher_add_rewrite_rules')) {
+            tln_voucher_add_rewrite_rules();
+        }
+        if (function_exists('tln_offer_rewrite')) {
+            tln_offer_rewrite();
+        }
+        flush_rewrite_rules();
+    }, 99);
+});
 
 // Add TLN Admin Menu
 function tln_add_admin_menu() {
