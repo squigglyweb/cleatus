@@ -310,6 +310,23 @@ function tln_render_dashboard() {
 function tln_ensure_tables() {
     global $wpdb;
     $charset_collate = $wpdb->get_charset_collate();
+    $table_name = $wpdb->prefix . 'tln_stripe_events';
+    $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+        id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+        event_id VARCHAR(255) NOT NULL,
+        type VARCHAR(255) NOT NULL,
+        amount BIGINT DEFAULT 0,
+        currency VARCHAR(10) DEFAULT '' ,
+        customer_id VARCHAR(255) DEFAULT '' ,
+        subscription_id VARCHAR(255) DEFAULT '' ,
+        created_at DATETIME NOT NULL,
+        PRIMARY KEY  (id),
+        UNIQUE KEY event_id (event_id)
+    ) $charset_collate;";
+    require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+    dbDelta( $sql );
+    global $wpdb;
+    $charset_collate = $wpdb->get_charset_collate();
     
     // Campaigns table
     $wpdb->query("CREATE TABLE IF NOT EXISTS {$wpdb->prefix}tln_campaigns (

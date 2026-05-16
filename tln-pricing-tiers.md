@@ -51,6 +51,30 @@
 - ✅ "Sponsored by [Business]" banner on directory
 - ✅ Homepage Banner — always visible
 - ✅ First in All Searches — top placement
+- ✅ Priority support (24‑hour SLA)
+
+---
+
+## Dominator — $1599/month
+
+### Everything in Sponsor, PLUS:
+- ✅ Dedicated account manager (monthly strategy call)
+- ✅ Unlimited newsletter ads (no per‑email fee)
+- ✅ Full‑page front‑and‑back postcard ad in every campaign
+- ✅ Permanent homepage banner (full‑width, auto‑rotate)
+- ✅ Top‑of‑search placement + custom ranking boost
+- ✅ Custom domain/sub‑brand for the business page
+- ✅ Unlimited video slots (no extra‑video fee)
+- ✅ Quarterly performance audit + ROI report
+- ✅ Priority support (24‑hour response SLA)
+
+
+### Everything in Pro+, PLUS:
+- ✅ Newsletter Ad — banner in EVERY weekly newsletter
+- ✅ Postcard Ad — full spot to cover your printing costs
+- ✅ "Sponsored by [Business]" banner on directory
+- ✅ Homepage Banner — always visible
+- ✅ First in All Searches — top placement
 
 ---
 
