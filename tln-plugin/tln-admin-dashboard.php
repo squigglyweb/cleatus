@@ -136,7 +136,7 @@ function tln_render_dashboard() {
                                 </td>
                                 <td>
                                     <a href="?page=tln-campaign&id=<?php echo intval($c->id); ?>" class="button button-small">Edit</a>
-                                    <a href="?page=tln-dashboard&delete_campaign=<?php echo intval($c->id); ?>" 
+                                    <a href="<?php echo wp_nonce_url('?page=tln-dashboard&delete_campaign=' . intval($c->id), 'tln_delete_' . $c->id); ?>" 
                                        class="button button-small" 
                                        onclick="return confirm('Delete this campaign and all its vouchers?');">Delete</a>
                                 </td>
@@ -424,9 +424,8 @@ function tln_handle_dashboard_actions() {
     global $wpdb;
     
     if (isset($_GET['delete_campaign']) && current_user_can('manage_options')) {
-        check_admin_referer('tln_delete_campaign_' . $_GET['delete_campaign']);
-        
         $campaign_id = intval($_GET['delete_campaign']);
+        check_admin_referer('tln_delete_' . $campaign_id);
         
         // Delete related vouchers and scans
         $wpdb->delete($wpdb->prefix . 'tln_vouchers', ['campaign_id' => $campaign_id]);
