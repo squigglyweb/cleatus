@@ -116,7 +116,7 @@ function tln_render_dashboard() {
                         <tbody>
                             <?php foreach ($campaigns as $c) : 
                                 $qr_url = home_url('/r/' . $c->id);
-                                $qr_api = 'https://chart.googleapis.com/chart?chs=150x150&cht=qr&chl=' . urlencode($qr_url);
+                                $qr_api = 'https://quickchart.io/qr?size=150x150&text=' . urlencode($qr_url);
                                 $voucher_count = $wpdb->get_var($wpdb->prepare(
                                     "SELECT COUNT(*) FROM {$wpdb->prefix}tln_vouchers WHERE campaign_id = %d",
                                     $c->id

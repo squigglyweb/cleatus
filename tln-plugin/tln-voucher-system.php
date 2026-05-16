@@ -157,7 +157,7 @@ function tln_claim_offer_shortcode($atts) {
         );
         // Show the redemption QR code.
         $redeem_url = home_url('/tln-redeem?code=' . $code);
-        $qr_src = 'https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=' . urlencode($redeem_url);
+        $qr_src = 'https://quickchart.io/qr?size=200x200&text=' . urlencode($redeem_url);
         $output = '<h3>Offer Claimed!</h3>';
         $output .= '<p>Show this QR code at the business to redeem your offer. It expires on ' . date('M j, Y', strtotime($expires)) . '.</p>';
         $output .= '<img src="' . esc_url($qr_src) . '" alt="Redemption QR" style="max-width:200px;" />';
@@ -198,7 +198,7 @@ function tln_redeem_shortcode($atts) {
     if ($seconds < 0) {
         return '<p>This code has expired.</p>';
     }
-    $qr_src = 'https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=' . urlencode($code);
+    $qr_src = 'https://quickchart.io/qr?size=200x200&text=' . urlencode($code);
     $output = '<h3>Redeem Your Offer</h3>';
     $output .= '<p>Show this QR code to the staff. Expires in <span id="tln-countdown"></span>.</p>';
     $output .= '<img src="' . esc_url($qr_src) . '" alt="Redemption QR" style="max-width:200px;" />';

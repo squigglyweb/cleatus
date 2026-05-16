@@ -121,7 +121,7 @@ function tln_add_campaign_page() {
 
         // Show a success message with the QR code
         $campaign_url = home_url( '/r/' . $new_id );
-        $qr_api = 'https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=' . urlencode($campaign_url);
+        $qr_api = 'https://quickchart.io/qr?size=200x200&text=' . urlencode($campaign_url);
         
         echo '<div class="notice notice-success is-dismissible">';
         echo '<p><strong>✅ Campaign created!</strong> Campaign ID: <strong>' . esc_html( $new_id ) . '</strong></p>';
@@ -160,7 +160,7 @@ function tln_add_campaign_page() {
         echo '<tbody>';
         foreach ( $campaigns as $camp ) {
             $qr_link = home_url( '/r/' . $camp->id );
-            $qr_api = 'https://chart.googleapis.com/chart?chs=120x120&cht=qr&chl=' . urlencode($qr_link);
+            $qr_api = 'https://quickchart.io/qr?size=120x120&text=' . urlencode($qr_link);
             echo '<tr>';
             echo '<td>' . esc_html( $camp->id ) . '</td>';
             echo '<td>' . esc_html( $camp->title ) . '</td>';
