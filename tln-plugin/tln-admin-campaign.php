@@ -86,8 +86,17 @@ function tln_add_campaign_page() {
         $offer_text  = sanitize_text_field( $_POST['offer_text'] );
         $valid_days  = intval( $_POST['valid_days'] );
 
+        // DEBUG output
+        echo '<div style="background:#ffffcc;padding:10px;margin:10px 0;"><strong>DEBUG - Inserting:</strong><br>';
+        echo 'business_id: ' . $business_id . '<br>';
+        echo 'title: ' . $title . '<br>';
+        echo 'description: ' . substr( $description, 0, 30 ) . '...<br>';
+        echo 'offer_text: ' . $offer_text . '<br>';
+        echo 'valid_days: ' . $valid_days . '<br>';
+        echo '</div>';
+        
         // Insert the row
-        $wpdb->insert(
+        $result = $wpdb->insert(
             $table,
             array(
                 'business_id'      => $business_id,
@@ -100,6 +109,13 @@ function tln_add_campaign_page() {
                       array( '%d', '%s', '%s', '%s', '%d', '%s' )
         );
 
+        // Check if insert worked
+        if ( $result === false ) {
+            echo '<div style="background:#ffcccc;padding:10px;margin:10px 0;">
+            <strong>INSERT FAILED:</strong> ' . $wpdb->last_error . '<br>
+            </div>';
+        }
+        
         // Grab the new auto‑increment ID
         $new_id = $wpdb->insert_id;
 
@@ -113,8 +129,25 @@ function tln_add_campaign_page() {
         echo '</div>';
     }
 
+    // DEBUG: Check table existence and data
+    $table_exists = ( $wpdb->get_var( "SHOW TABLES LIKE '$table_name'" ) == $table_name );
+    echo '<div style="background:#f0f0f0;padding:10px;margin:10px 0;">';
+    echo '<strong>DEBUG:</strong> Table exists: ' . ( $table_exists ? 'YES' : 'NO' ) . '<br>';
+    echo 'Table name: ' . $table_name . '<br>';
+    
+    if ( $table_exists ) {
+        $campaigns = $wpdb->get_results( "SELECT * FROM {$table_name} ORDER BY created_at DESC" );
+        echo 'Campaign count: ' . count( $campaigns ) . '<br>';
+        if ( ! empty( $wpdb->last_error ) ) {
+            echo 'SQL Error: ' . $wpdb->last_error . '<br>';
+        }
+    } else {
+        $campaigns = array();
+    }
+    echo '</div>';
+
     // Show table of existing campaigns
-    $campaigns = $wpdb->get_results( "SELECT * FROM {$table_name} ORDER BY created_at DESC" );
+    if ( ! empty( $campaigns ) ) {
     
     if ( ! empty( $campaigns ) ) {
         echo '<h2>Existing Campaigns</h2>';
