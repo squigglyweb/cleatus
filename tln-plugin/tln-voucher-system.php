@@ -263,13 +263,6 @@ function tln_render_campaign_offer($campaign) {
     $out .= '</div></body></html>';
     return $out;
 }
-    $out .= '</div>';
-    $out .= '<p style="font-size:0.9rem;color:#666;">Valid for <strong>' . $days_left . ' days</strong></p>';
-    $out .= '</div></div>';
-    $out .= '<p style="text-align:center;margin-top:1.5rem;font-size:0.8rem;color:#999;">Powered by <a href="https://thelocalnearbuy.com" style="color:#1a73e8;">The Local NearBuy</a></p>';
-    $out .= '</div></body></html>';
-    return $out;
-}
 
 /**
  * Render redemption page inline
