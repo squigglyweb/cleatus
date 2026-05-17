@@ -7,9 +7,10 @@
 if (!defined('ABSPATH')) exit;
 
 /**
- * Register the admin dashboard page
+ * Register the admin dashboard pages
  */
 function tln_register_dashboard_page() {
+    // Main Dashboard
     add_submenu_page(
         'tln-dashboard',
         'Dashboard',
@@ -17,6 +18,36 @@ function tln_register_dashboard_page() {
         'manage_options',
         'tln-dashboard',
         'tln_render_dashboard'
+    );
+    
+    // Vouchers
+    add_submenu_page(
+        'tln-dashboard',
+        'Vouchers',
+        'View All Vouchers',
+        'manage_options',
+        'tln-vouchers',
+        'tln_render_vouchers'
+    );
+    
+    // Directory Settings
+    add_submenu_page(
+        'tln-dashboard',
+        'Directory',
+        'Directory Settings',
+        'manage_options',
+        'tln-directory',
+        'tln_render_directory_settings'
+    );
+    
+    // Analytics
+    add_submenu_page(
+        'tln-dashboard',
+        'Analytics',
+        'Analytics',
+        'manage_options',
+        'tln-analytics',
+        'tln_render_analytics'
     );
 }
 add_action('admin_menu', 'tln_register_dashboard_page');
@@ -302,6 +333,108 @@ function tln_render_dashboard() {
     }
     </style>
     <?php
+}
+
+/**
+ * Render the vouchers page
+ */
+function tln_render_vouchers() {
+    global $wpdb;
+    $table = $wpdb->prefix . 'tln_vouchers';
+    
+    // Get all vouchers
+    $vouchers = $wpdb->get_results("SELECT * FROM $table ORDER BY created_at DESC LIMIT 100");
+    
+    echo '<div class="wrap">';
+    echo '<h1>All Vouchers</h1>';
+    echo '<table class="widefat fixed striped">';
+    echo '<thead><tr><th>ID</th><th>Code</th><th>Business</th><th>Status</th><th>Created</th><th>Redeemed</th></tr></thead>';
+    echo '<tbody>';
+    
+    if ($vouchers) {
+        foreach ($vouchers as $v) {
+            $status = $v->redeemed ? '<span style="color:green;">Redeemed</span>' : '<span style="color:orange;">Pending</span>';
+            echo '<tr>';
+            echo '<td>' . esc_html($v->id) . '</td>';
+            echo '<td>' . esc_html($v->code) . '</td>';
+            echo '<td>' . esc_html($v->business_name) . '</td>';
+            echo '<td>' . $status . '</td>';
+            echo '<td>' . esc_html($v->created_at) . '</td>';
+            echo '<td>' . ($v->redeemed_at ? esc_html($v->redeemed_at) : '-') . '</td>';
+            echo '</tr>';
+        }
+    } else {
+        echo '<tr><td colspan="6">No vouchers found.</td></tr>';
+    }
+    
+    echo '</tbody></table></div>';
+}
+
+/**
+ * Render directory settings page
+ */
+function tln_render_directory_settings() {
+    echo '<div class="wrap">';
+    echo '<h1>Directory Settings</h1>';
+    echo '<p>Configure your business directory settings below.</p>';
+    echo '<form method="post" action="options.php">';
+    settings_fields('tln-directory-group');
+    do_settings_sections('tln-directory');
+    submit_button('Save Settings');
+    echo '</form></div>';
+}
+
+/**
+ * Render analytics page
+ */
+function tln_render_analytics() {
+    global $wpdb;
+    $table = $wpdb->prefix . 'tln_analytics';
+    
+    echo '<div class="wrap">';
+    echo '<h1>TLN Analytics</h1>';
+    
+    // Check if table exists
+    if ($wpdb->get_var("SHOW TABLES LIKE '$table'") != $table) {
+        echo '<p>Analytics table not found. Please ensure analytics is enabled.</p>';
+        echo '</div>';
+        return;
+    }
+    
+    $total_views = $wpdb->get_var("SELECT COUNT(*) FROM $table WHERE event_type = 'page_view'");
+    $total_clicks = $wpdb->get_var("SELECT COUNT(*) FROM $table WHERE event_type = 'cta_click'");
+    
+    echo '<div style="display:flex;gap:2rem;margin-bottom:2rem;">';
+    echo '<div style="background:#fff;padding:1.5rem;border-radius:8px;border:1px solid #ddd;flex:1;">';
+    echo '<h3 style="margin:0;color:#666;">Total Page Views</h3>';
+    echo '<div style="font-size:2.5rem;font-weight:700;color:#e63946;">' . number_format($total_views) . '</div>';
+    echo '</div>';
+    echo '<div style="background:#fff;padding:1.5rem;border-radius:8px;border:1px solid #ddd;flex:1;">';
+    echo '<h3 style="margin:0;color:#666;">Total CTA Clicks</h3>';
+    echo '<div style="font-size:2.5rem;font-weight:700;color:#e63946;">' . number_format($total_clicks) . '</div>';
+    echo '</div>';
+    echo '</div>';
+    
+    // Recent events
+    $recent = $wpdb->get_results("SELECT * FROM $table ORDER BY created_at DESC LIMIT 20");
+    
+    if ($recent) {
+        echo '<h2>Recent Events</h2>';
+        echo '<table class="widefat fixed striped">';
+        echo '<thead><tr><th>Time</th><th>Event</th><th>Business</th><th>Source</th></tr></thead>';
+        echo '<tbody>';
+        foreach ($recent as $r) {
+            echo '<tr>';
+            echo '<td>' . esc_html($r->created_at) . '</td>';
+            echo '<td>' . esc_html($r->event_type) . '</td>';
+            echo '<td>' . esc_html($r->business_id) . '</td>';
+            echo '<td>' . esc_html($r->source ?: '-') . '</td>';
+            echo '</tr>';
+        }
+        echo '</tbody></table>';
+    }
+    
+    echo '</div>';
 }
 
 /**
