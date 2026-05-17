@@ -52,9 +52,11 @@ global $post;
 $post = get_post($post_id);
 setup_postdata($post);
 
-// Template selection
+// Template selection based on tier
 $template_file = 'profile-free.php';
-if ($tier === 'pro' || $tier === 'proplus') {
+if ($tier === 'pro') {
+    $template_file = 'profile-pro.php';
+} elseif (in_array($tier, ['proplus', 'sponsor'])) {
     $template_file = 'profile-proplus.php';
 }
 
