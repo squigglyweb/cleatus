@@ -7,6 +7,165 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 // =============================================================================
 
 /**
+ * Enqueue admin styles for TLN campaigns.
+ */
+function tln_admin_campaign_styles() {
+    $screen = get_current_screen();
+    if ( ! in_array( $screen->base, array( 'tln_page_tln-campaigns', 'tln_page_tln-add-campaign', 'tln_page_tln-zones' ) ) ) {
+        return;
+    }
+    ?>
+    <style>
+        /* Workflow Tab Styling */
+        .tln-workflow-tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            background: #f6f7f7;
+            padding: 12px;
+            border-radius: 8px;
+        }
+        .tln-workflow-tabs .tab {
+            padding: 10px 16px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+        .tln-workflow-tabs .tab:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .tln-workflow-tabs .tab.active {
+            background: #2271b1 !important;
+            color: #fff !important;
+            border-color: #2271b1;
+        }
+        .tln-workflow-tabs .tab.sell { background: #fce8e6; color: #c0392b; }
+        .tln-workflow-tabs .tab.artwork { background: #f5eef8; color: #8e44ad; }
+        .tln-workflow-tabs .tab.printing { background: #ebf5fb; color: #2980b9; }
+        .tln-workflow-tabs .tab.mailed { background: #e8f8f5; color: #27ae60; }
+        .tln-workflow-tabs .tab.scanning { background: #fef9e7; color: #d35400; }
+
+        /* Progress Bar */
+        .tln-progress-bar {
+            background: #e9ecef;
+            border-radius: 20px;
+            height: 28px;
+            margin-bottom: 24px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .tln-progress-bar .fill {
+            height: 100%;
+            transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 20px;
+        }
+        .tln-progress-bar .label {
+            position: absolute;
+            top: 50%;
+            left: 16px;
+            transform: translateY(-50%);
+            font-weight: 700;
+            font-size: 13px;
+            text-shadow: 0 1px 2px rgba(255,255,255,0.8);
+            z-index: 1;
+        }
+
+        /* Card Styling */
+        .tln-card {
+            background: #fff;
+            border: 1px solid #c3c4c7;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 16px;
+            transition: all 0.2s ease;
+        }
+        .tln-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+            border-color: #2271b1;
+            transform: translateY(-2px);
+        }
+        .tln-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        .tln-card-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        /* Zone Status Badges */
+        .tln-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .tln-badge.suggested { background: #fff3cd; color: #856404; }
+        .tln-badge.approved { background: #d4edda; color: #155724; }
+        .tln-badge.rejected { background: #f8d7da; color: #721c24; }
+
+        /* Status Dropdown Styling */
+        .tln-status-select {
+            font-size: 12px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            border: 1px solid #8c8f94;
+            cursor: pointer;
+        }
+        .tln-status-select:focus {
+            border-color: #2271b1;
+            box-shadow: 0 0 0 2px rgba(34,113,177,0.2);
+        }
+
+        /* QR Code Display */
+        .tln-qr-box {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            padding: 24px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            border: 1px solid #dee2e6;
+            margin: 20px 0;
+        }
+        .tln-qr-box img {
+            border: 3px solid #fff;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            border-radius: 8px;
+        }
+
+        /* Responsive */
+        @media screen and (max-width: 782px) {
+            .tln-workflow-tabs {
+                justify-content: center;
+            }
+            .tln-workflow-tabs .tab {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+            .tln-qr-box {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+    <?php
+}
+add_action( 'admin_head', 'tln_admin_campaign_styles' );
+
+/**
  * Ensure all TLN tables exist.
  */
 function tln_ensure_all_tables() {
@@ -128,7 +287,7 @@ function tln_campaigns_page() {
         <h1>TLN Campaigns</h1>
 
         <!-- Workflow Tab Bar -->
-        <div style="display:flex;gap:5px;margin-bottom:20px;flex-wrap:wrap;">
+        <div class="tln-workflow-tabs">
             <?php
             $tabs = array( 'all' => '📋 All' );
             foreach ( $stages as $key => $stage ) {
@@ -139,9 +298,10 @@ function tln_campaigns_page() {
                 $count = ( $key == 'all' )
                     ? $wpdb->get_var( "SELECT COUNT(*) FROM {$table_name}" )
                     : $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$table_name} WHERE workflow_status = %s", $key ) );
-                $active = ( $current_filter == $key ) ? 'style="background:#0073aa;color:#fff;"' : '';
+                $active = ( $current_filter == $key ) ? 'active' : '';
+                $stage_class = ( in_array( $key, array_keys( $stages ) ) ) ? $key : '';
                 ?>
-                <a href="?page=tln-campaigns&status=<?php echo esc_attr( $key ); ?>" class="button" <?php echo $active; ?>>
+                <a href="?page=tln-campaigns&status=<?php echo esc_attr( $key ); ?>" class="button tab <?php echo $stage_class; ?> <?php echo $active; ?>">
                     <?php echo esc_html( $label ); ?> (<?php echo $count; ?>)
                 </a>
                 <?php
@@ -151,16 +311,14 @@ function tln_campaigns_page() {
 
         <!-- Progress Bar for Selected Filter -->
         <?php if ( $current_filter != 'all' ) : ?>
-            <div style="background:#f0f0f0;border-radius:8px;height:20px;margin-bottom:20px;overflow:hidden;position:relative;">
+            <div class="tln-progress-bar">
                 <?php
                 $stage_keys = array_keys( $stages );
                 $current_idx = array_search( $current_filter, $stage_keys );
                 $progress = ( $current_idx + 1 ) / count( $stage_keys ) * 100;
                 ?>
-                <div style="width:<?php echo $progress; ?>%;background:<?php echo esc_attr( $stages[$current_filter]['color'] ); ?>;height:100%;transition:width 0.3s;"></div>
-                <div style="position:absolute;top:0;left:10px;font-size:12px;line-height:20px;font-weight:bold;color:#333;">
-                    Stage <?php echo $current_idx + 1; ?> of <?php echo count( $stages ); ?>
-                </div>
+                <div class="fill" style="width:<?php echo $progress; ?>%;background:<?php echo esc_attr( $stages[$current_filter]['color'] ); ?>;"></div>
+                <div class="label">Stage <?php echo $current_idx + 1; ?> of <?php echo count( $stages ); ?>: <?php echo esc_html( $stages[$current_filter]['label'] ); ?></div>
             </div>
         <?php endif; ?>
 
@@ -190,7 +348,7 @@ function tln_campaigns_page() {
                                 <form method="post" style="margin:0;">
                                     <?php wp_nonce_field( 'tln_update_status' ); ?>
                                     <input type="hidden" name="campaign_id" value="<?php echo esc_attr( $camp->id ); ?>">
-                                    <select name="new_status" onchange="this.form.submit()" style="font-size:12px;">
+                                    <select name="new_status" onchange="this.form.submit()" class="tln-status-select">
                                         <?php foreach ( $stages as $key => $stage ) : ?>
                                             <option value="<?php echo esc_attr( $key ); ?>" <?php selected( $camp->workflow_status, $key ); ?>>
                                                 <?php echo esc_html( $stage['label'] ); ?>
@@ -343,7 +501,7 @@ function tln_add_campaign_page() {
             $qr_link = home_url( '/r/' . $campaign->id );
             $qr_api = 'https://quickchart.io/qr?size=200x200&text=' . urlencode( $qr_link );
             ?>
-            <div style="display:flex;align-items:center;gap:20px;padding:20px;background:#f9f9f9;border-radius:8px;">
+            <div class="tln-qr-box">
                 <img src="<?php echo esc_url( $qr_api ); ?>" alt="QR Code" style="border:2px solid #ccc;padding:10px;background:#fff;">
                 <div>
                     <p><strong>Dynamic QR URL:</strong><br><code><?php echo esc_url( $qr_link ); ?></code></p>
@@ -431,7 +589,7 @@ function tln_zones_page() {
                                     <td><?php echo number_format( $zone->households ); ?></td>
                                     <td>$<?php echo number_format( $zone->cost_per_mailer, 2 ); ?></td>
                                     <td>
-                                        <span style="padding:2px 8px;border-radius:4px;background:<?php echo $zone->status == 'approved' ? '#c6efce' : ( $zone->status == 'rejected' ? '#ffc7ce' : '#ffeb9c' ); ?>;">
+                                        <span class="tln-badge <?php echo esc_attr( $zone->status ); ?>">
                                             <?php echo esc_html( ucfirst( $zone->status ) ); ?>
                                         </span>
                                     </td>

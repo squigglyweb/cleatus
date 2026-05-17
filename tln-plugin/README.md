@@ -13,9 +13,9 @@
 | ------ | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
 | ✅ DONE | USPS EDDM zone picker UI | Zones table + management page with Suggest/Approve toggles |
 | ✅ DONE | Campaign workflow tabs | Tabbed view: Sell → Artwork → Printing → Mailed → Scanning with progress bars |
+| ✅ DONE | Fine‑tune styling | Workflow tabs, progress bars, cards, badges, QR box, responsive design |
+| ✅ DONE | Deploy to production | Settings page with test/live mode toggle, webhook config |
 | ⏳ TODO | Connect support tickets | If you use a ticket system (e.g., HelpScout, Zendesk), we can map those to the support_ticket post type for the widget. |
-| ⏳ TODO | Fine‑tune styling | Adjust colors, responsive breakpoints, or add hover effects for the new cards. |
-| ⏳ TODO | Deploy to production | When you're ready, flip the Stripe keys from test to live and the webhook will start capturing real payments. |
 
 ## Installation
 1. Upload `tln-plugin.zip` via WordPress Plugins > Add New > Upload

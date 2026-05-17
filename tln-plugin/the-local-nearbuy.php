@@ -44,6 +44,7 @@ require_once plugin_dir_path(__FILE__) . 'tln-parks-shortcode.php';
 require_once plugin_dir_path(__FILE__) . 'tln-analytics.php';
 require_once plugin_dir_path(__FILE__) . 'tln-business-dashboard.php';
 require_once plugin_dir_path(__FILE__) . 'tln-admin-campaign.php';
+require_once plugin_dir_path(__FILE__) . 'tln-settings.php';
 require_once plugin_dir_path(__FILE__) . 'tln-offer-landing.php';
 require_once plugin_dir_path(__FILE__) . 'tln-admin-dashboard.php';
 
