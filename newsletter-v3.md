@@ -75,6 +75,8 @@ Everyone needs a few go-to people. Here are the ones our neighbors won't shut up
 
 **Memorial Day (May 26)**: Cane Creek Park does a community cookout. Not fancy. That's the point. Bring a side, stay for the fireworks.
 
+**Graduation Season**: If you're seeing all those "Class of 2026" signs around Waxhaw — yeah, it's that time. We'll be spotlighting local graduates in upcoming issues. If you know a grad worth celebrating, reply and tell us about them.
+
 **Fourth of July**: The parade on Providence Road is the highlight of the year. Get there by 9am, stake your spot on the curb, bring lawn chairs. The fireworks launch from the high school field — any hill on the north side works if you want to skip the crowd.
 
 **Back to School**: The Teacher Supply Store on Highway 16 does a backpack drive. We'll remind you closer to time. Most people miss it.
