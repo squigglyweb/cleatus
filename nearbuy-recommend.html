@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recommend A Business — The Local NearBuy</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --nearbuy-red: #d32f2f;
+            --nearbuy-cream: #faf8f5;
+            --nearbuy-charcoal: #1a1a1a;
+            --nearbuy-gray: #666;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--nearbuy-cream);
+            color: var(--nearbuy-charcoal);
+            line-height: 1.6;
+        }
+        
+        /* HEADER */
+        .site-header {
+            background: white;
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+        
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--nearbuy-red);
+            text-decoration: none;
+        }
+        
+        .logo span { color: var(--nearbuy-charcoal); }
+        
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--nearbuy-charcoal);
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        /* HERO */
+        .hero {
+            background: var(--nearbuy-charcoal);
+            color: white;
+            padding: 80px 40px;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+        
+        .hero h1 span { color: var(--nearbuy-red); }
+        
+        .hero p {
+            font-size: 20px;
+            opacity: 0.85;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        /* WHY */
+        .why {
+            background: white;
+            padding: 60px 40px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .why h2 {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 40px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .grid-item {
+            text-align: center;
+            padding: 30px 20px;
+        }
+        
+        .grid-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+        
+        .grid-item h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .grid-item p {
+            font-size: 14px;
+            color: var(--nearbuy-gray);
+        }
+        
+        /* FORM SECTION */
+        .form-section {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 60px 40px;
+        }
+        
+        .form-section h2 {
+            text-align: center;
+            font-size: 32px;
+            margin-bottom: 10px;
+        }
+        
+        .form-section .subtitle {
+            text-align: center;
+            color: var(--nearbuy-gray);
+            margin-bottom: 40px;
+        }
+        
+        /* GRAVITY FORM STYLES - Customize for your form ID */
+        .gform_wrapper {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.08);
+        }
+        
+        .gform_wrapper .gform_heading {
+            display: none;
+        }
+        
+        .gform_wrapper .gf_label {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        .gform_wrapper .ginput_container input,
+        .gform_wrapper .ginput_container textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Inter', sans-serif;
+            transition: border-color 0.2s;
+        }
+        
+        .gform_wrapper .ginput_container input:focus,
+        .gform_wrapper .ginput_container textarea:focus {
+            outline: none;
+            border-color: var(--nearbuy-red);
+        }
+        
+        .gform_wrapper .ginput_container textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .gform_wrapper .gfield {
+            margin-bottom: 24px;
+        }
+        
+        .gform_wrapper .gfield_label {
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .gform_wrapper .gf_placeholder {
+            color: #999;
+        }
+        
+        .gform_wrapper .gform_button {
+            width: 100%;
+            padding: 16px;
+            background: var(--nearbuy-red);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .gform_wrapper .gform_button:hover {
+            background: #b52727;
+        }
+        
+        .gform_wrapper .gfield_required {
+            color: var(--nearbuy-red);
+        }
+        
+        .form-note {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 13px;
+            color: var(--nearbuy-gray);
+        }
+        
+        /* FOOTER */
+        footer {
+            background: var(--nearbuy-charcoal);
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+        
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        @media(max-width: 768px) {
+            .grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 32px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <a href="/" class="logo">The Local <span>NearBuy</span></a>
+        <nav class="nav-links">
+            <a href="/directory/">Directory</a>
+            <a href="/newsletter/">Newsletter</a>
+            <a href="/about/">About</a>
+        </nav>
+    </header>
+    
+    <section class="hero">
+        <h1>Recommend A<br><span>Local Business</span></h1>
+        <p>Know a great spot in Waxhaw or surrounding towns? Let us know and we'll help spread the word.</p>
+    </section>
+    
+    <section class="why">
+        <h2>Why Recommend?</h2>
+        <div class="grid">
+            <div class="grid-item">
+                <div class="grid-icon">💝</div>
+                <h3>Support Local</h3>
+                <p>Help your favorite businesses get discovered by neighbors</p>
+            </div>
+            <div class="grid-item">
+                <div class="grid-icon">🎁</div>
+                <h3>Win Together</h3>
+                <p>Featured businesses often offer specials for our readers</p>
+            </div>
+            <div class="grid-item">
+                <div class="grid-icon">🏘️</div>
+                <h3>Build Community</h3>
+                <p>Help us all discover the best our area has to offer</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="form-section">
+        <h2>Who Should We Know About?</h2>
+        <p class="subtitle">Your favorite hidden gem could be someone else's new favorite.</p>
+        
+        <div class="gform_wrapper">
+            <!-- Replace form ID and field IDs with your Gravity Forms setup -->
+            <form id="gform_1" action="/wp-json/gf/v2/forms/1/submissions" method="post">
+                
+                <div class="gfield">
+                    <label class="gf_label" for="input_1_1">Your Name <span class="gfield_required">*</span></label>
+                    <div class="ginput_container">
+                        <input name="input_1" id="input_1_1" type="text" class="medium" placeholder="Your name" required>
+                    </div>
+                </div>
+                
+                <div class="gfield">
+                    <label class="gf_label" for="input_1_2">Your Email <span class="gfield_required">*</span></label>
+                    <div class="ginput_container">
+                        <input name="input_2" id="input_1_2" type="email" class="medium" placeholder="you@email.com" required>
+                    </div>
+                </div>
+                
+                <div class="gfield">
+                    <label class="gf_label" for="input_1_3">Business Name <span class="gfield_required">*</span></label>
+                    <div class="ginput_container">
+                        <input name="input_3" id="input_1_3" type="text" class="medium" placeholder="The business you'd like to recommend" required>
+                    </div>
+                </div>
+                
+                <div class="gfield">
+                    <label class="gf_label" for="input_1_4">What do you love about them?</label>
+                    <div class="ginput_container">
+                        <textarea name="input_4" id="input_1_4" class="medium" placeholder="Why should others check them out? Best menu item, great service, hidden gem...?"></textarea>
+                    </div>
+                </div>
+                
+                <input type="submit" id="gform_submit_button_1" class="gform_button" value="Submit Recommendation">
+                
+            </form>
+            
+            <p class="form-note">We'll check them out and potentially feature them. Thanks for helping build our local community!</p>
+        </div>
+    </section>
+    
+    <footer>
+        <p>The Local NearBuy — Connecting neighbors with local businesses</p>
+    </footer>
+</body>
+</html>

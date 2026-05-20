@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: TLN Claim Form
- * Version: 1.5
+ * Version: 2.0 - Auto-create user account
  */
 
 if (!defined('ABSPATH')) exit;
@@ -14,20 +14,88 @@ function tln_claim_func() {
     if (isset($_POST['submit_claim'])) {
         global $wpdb;
         
+        $business_name = sanitize_text_field($_POST['biz_name']);
+        $claimant_name = sanitize_text_field($_POST['cname']);
+        $claimant_email = sanitize_email($_POST['cemail']);
+        $claimant_phone = sanitize_text_field($_POST['cphone']);
+        $place_id = sanitize_text_field($_POST['pid']);
+        $password = wp_generate_password(12, false);
+        
+        // Check if user already exists
+        $user_id = email_exists($claimant_email);
+        
+        if (!$user_id) {
+            // Create new user
+            $user_id = wp_insert_user(array(
+                'user_login' => $claimant_email,
+                'user_pass' => $password,
+                'user_email' => $claimant_email,
+                'display_name' => $claimant_name,
+                'role' => 'subscriber'
+            ));
+            
+            if (is_wp_error($user_id)) {
+                return '<div style="padding:2rem;background:#f8d7da;border-radius:8px;"><h3>❌ Error</h3><p>'.esc_html($user_id->get_error_message()).'</p></div>';
+            }
+        }
+        
+        // Save claim to database
         $wpdb->insert($wpdb->prefix.'tln_claims', array(
-            'business_name' => sanitize_text_field($_POST['biz_name']),
-            'place_id' => sanitize_text_field($_POST['pid']),
-            'user_id' => is_user_logged_in() ? get_current_user_id() : 0,
-            'claimant_name' => sanitize_text_field($_POST['cname']),
-            'claimant_phone' => sanitize_text_field($_POST['cphone']),
+            'business_name' => $business_name,
+            'place_id' => $place_id,
+            'user_id' => $user_id,
+            'claimant_name' => $claimant_name,
+            'claimant_email' => $claimant_email,
+            'claimant_phone' => $claimant_phone,
+            'tier' => 'free',
             'tos_agreed' => sanitize_text_field($_POST['csig']),
             'tos_signed_date' => date('Y-m-d'),
-            'status' => 'approved'
+            'status' => 'approved',
+            'created_at' => current_time('mysql')
         ));
         
-        wp_mail('bryan@thelocalnearbuy.com', 'New Claim: '.$_POST['biz_name'], $_POST['biz_name'].' claimed by '.$_POST['cname']);
+        $claim_id = $wpdb->insert_id;
         
-        return '<div style="padding:2rem;background:#d4edda;border-radius:8px;text-align:center;"><h3>✅ Success!</h3><p>Your business has been claimed. <a href="/dashboard/">Go to Dashboard</a></p></div>';
+        // Create or update business profile page
+        $post_slug = sanitize_title($business_name) . '-' . sanitize_title($place_id);
+        $existing = get_page_by_path($post_slug, OBJECT, 'page');
+        
+        if (!$existing) {
+            $profile_id = wp_insert_post(array(
+                'post_title' => $business_name,
+                'post_name' => $post_slug,
+                'post_type' => 'page',
+                'post_status' => 'publish',
+                'post_content' => '[tln_business_profile]'
+            ));
+        } else {
+            $profile_id = $existing->ID;
+        }
+        
+        // Link claim to profile
+        update_post_meta($profile_id, 'tln_claim_id', $claim_id);
+        update_post_meta($profile_id, 'tln_tier', 'free');
+        update_post_meta($profile_id, 'tln_user_id', $user_id);
+        
+        // Send welcome email with login details
+        $login_url = wp_login_url('/dashboard/');
+        $message = "Welcome to The Local NearBuy, $claimant_name!\n\n";
+        $message .= "Your business ($business_name) has been claimed.\n\n";
+        $message .= "Login to your dashboard:\n$login_url\n\n";
+        $message .= "Email: $claimant_email\n";
+        $message .= "Password: $password\n\n";
+        $message .= "Change your password after first login.\n\n";
+        $message .= "The Local NearBuy Team";
+        
+        wp_mail($claimant_email, "Welcome to The Local NearBuy - $business_name", $message);
+        
+        // Notify Bryan
+        wp_mail('bryan@thelocalnearbuy.com', 'New Claim: '.$business_name, "$business_name claimed by $claimant_name ($claimant_email)");
+        
+        // Auto-login and redirect
+        wp_set_auth_cookie($user_id, true);
+        wp_redirect('/dashboard/');
+        exit;
     }
     
     $out = '<div style="padding:2rem;background:#f8f8f8;border-radius:12px;max-width:600px;margin:0 auto;">';
@@ -36,6 +104,7 @@ function tln_claim_func() {
     $out .= '<p><label>Business Name *<br><input name="biz_name" value="'.esc_attr($biz).'" required style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;font-size:1rem;"></label></p>';
     $out .= '<input type="hidden" name="pid" value="'.(isset($_GET['pid']) ? esc_attr($_GET['pid']) : '').'">';
     $out .= '<p><label>Your Name *<br><input name="cname" required style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;font-size:1rem;"></label></p>';
+    $out .= '<p><label>Email *<br><input name="cemail" type="email" required style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;font-size:1rem;"></label></p>';
     $out .= '<p><label>Phone *<br><input name="cphone" required style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;font-size:1rem;"></label></p>';
     $out .= '<div style="max-height:200px;overflow-y:scroll;border:1px solid #ddd;border-radius:6px;padding:1rem;background:#fff;font-size:0.85rem;line-height:1.6;margin-bottom:1rem;" id="tln-tos-box">';
     $out .= '<h3 style="font-size:1rem;margin-bottom:0.75rem;">Terms of Service</h3>';

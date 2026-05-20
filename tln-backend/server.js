@@ -32,7 +32,9 @@ db.serialize(() => {
       offer_id INTEGER,
       customer_name TEXT,
       customer_email TEXT,
+      customer_phone TEXT,
       unique_code TEXT UNIQUE,
+      claimed_at DATETIME,
       redeemed BOOLEAN DEFAULT 0,
       redeemed_at DATETIME,
       created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -125,15 +127,16 @@ app.get('/api/offers', (req, res) => {
 
 // API: Claim an offer
 app.post('/api/claim', async (req, res) => {
-  const { offer_id, customer_name, customer_email } = req.body;
+  const { offer_id, customer_name, customer_email, customer_phone } = req.body;
   
   // Generate unique code
   const unique_code = crypto.randomBytes(4).toString('hex').toUpperCase();
+  const claimed_at = new Date().toISOString();
   
   db.run(`
-    INSERT INTO claims (offer_id, customer_name, customer_email, unique_code)
-    VALUES (?, ?, ?, ?)
-  `, [offer_id, customer_name, customer_email, unique_code], async function(err) {
+    INSERT INTO claims (offer_id, customer_name, customer_email, customer_phone, unique_code, claimed_at)
+    VALUES (?, ?, ?, ?, ?, ?)
+  `, [offer_id, customer_name, customer_email, customer_phone, unique_code, claimed_at], async function(err) {
     if (err) return res.status(500).json({ error: err.message });
     
     // Generate QR code as data URL
@@ -145,6 +148,7 @@ app.post('/api/claim', async (req, res) => {
       success: true, 
       unique_code,
       qr_code: qrDataUrl,
+      claimed_at: claimed_at,
       message: 'Offer claimed! Show this QR code at the business.'
     });
   });
@@ -163,26 +167,49 @@ app.get('/api/validate/:code', (req, res) => {
     if (err) return res.status(500).json({ error: err.message });
     if (!row) return res.json({ valid: false, message: 'Code not found' });
     
+    // Calculate time remaining (60 days + 7 grace from claim)
+    let daysRemaining = 60;
+    let hoursRemaining = 0;
+    if (row.claimed_at) {
+      const claimedAt = new Date(row.claimed_at);
+      const expiryDate = new Date(claimedAt.getTime() + (67 * 24 * 60 * 60 * 1000));
+      const now = new Date();
+      const diff = expiryDate - now;
+      daysRemaining = Math.max(0, Math.floor(diff / (24 * 60 * 60 * 1000)));
+      hoursRemaining = Math.max(0, Math.floor((diff % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000)));
+    }
+    
     if (row.redeemed) {
-      return res.json({ valid: false, message: 'Already redeemed', redeemed_at: row.redeemed_at });
+      return res.json({ valid: false, message: 'Already redeemed', redeemed_at: row.redeemed_at, status: 'redeemed' });
     }
     
     // Check expiration
     if (row.offer_expiration) {
       const expDate = new Date(row.offer_expiration);
       if (expDate < new Date()) {
-        return res.json({ valid: false, message: 'Offer expired' });
+        return res.json({ valid: false, message: 'Offer expired', status: 'expired' });
       }
+    }
+    
+    // Check voucher expiration
+    if (daysRemaining <= 0) {
+      return res.json({ valid: false, message: 'Voucher expired', status: 'expired' });
     }
     
     res.json({
       valid: true,
+      status: daysRemaining <= 7 ? 'expiring' : 'active',
       customer_name: row.customer_name,
+      customer_email: row.customer_email,
+      customer_phone: row.customer_phone,
       offer_title: row.offer_title,
       offer_description: row.offer_description,
       offer_type: row.offer_type,
       meals_per_redemption: row.meals_per_redemption,
-      business_name: row.business_name
+      business_name: row.business_name,
+      claimed_at: row.claimed_at,
+      days_remaining: daysRemaining,
+      hours_remaining: hoursRemaining
     });
   });
 });

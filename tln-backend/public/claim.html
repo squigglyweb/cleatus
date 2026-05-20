@@ -17,6 +17,15 @@
         .success img { max-width: 200px; margin: 1rem 0; }
         .code-display { background: #f0f0f0; padding: 1rem; border-radius: 8px; font-size: 1.5rem; font-weight: 700; letter-spacing: 2px; margin: 1rem 0; }
         .success-note { background: #e8f5e9; padding: 1rem; border-radius: 8px; color: #2e7d32; font-size: 0.9rem; }
+        .countdown-box { background: #fff; border: 2px solid #22c55e; border-radius: 12px; padding: 1.25rem; margin-bottom: 1rem; animation: pulse-green 2s infinite; }
+        .countdown-timer { display: flex; justify-content: center; gap: 0.5rem; }
+        .countdown-unit { text-align: center; }
+        .countdown-num { font-size: 2rem; font-weight: 700; color: #22c55e; line-height: 1; }
+        .countdown-unit small { display: block; font-size: 0.65rem; color: #666; text-transform: uppercase; margin-top: 0.25rem; }
+        .countdown-label { font-size: 0.85rem; color: #666; margin-top: 0.75rem; }
+        @keyframes pulse-green { 0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.3); } 50% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); } }
+        @keyframes pulse-yellow { 0%, 100% { box-shadow: 0 0 0 0 rgba(234, 179, 8, 0.3); } 50% { box-shadow: 0 0 0 8px rgba(234, 179, 8, 0); } }
+        @keyframes pulse-red { 0%, 100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.3); } 50% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); } }
     </style>
 </head>
 <body>
@@ -24,19 +33,31 @@
         <h1>🎉 Claim Your Offer</h1>
         <p>Enter your details to unlock this offer.</p>
         <form id="claimForm">
-            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="text" id="name" placeholder="Your Full Name" required>
             <input type="email" id="email" placeholder="Your Email" required>
+            <small style="display:block;text-align:left;margin-top:-0.5rem;margin-bottom:1rem;color:#666;font-size:0.85rem;">We use this to send you your redeem code.</small>
+            <input type="tel" id="phone" placeholder="Your Phone Number (optional)">
+            <small style="display:block;text-align:left;margin-top:-0.5rem;margin-bottom:1rem;color:#666;font-size:0.85rem;">We will text you a link to your redeem code.</small>
             <button type="submit">Claim Offer</button>
         </form>
         <p style="font-size: 0.8rem; margin-top: 1rem;">A portion of this offer helps feed local families! 🍽️</p>
     </div>
     
     <div class="card success" id="successCard">
-        <h1>🎉 You're In!</h1>
-        <p>Here's your unique code:</p>
+        <h1 id="greetingHeader"></h1>
+        <div class="countdown-box" id="countdownBox">
+            <div class="countdown-timer">
+                <div class="countdown-unit"><div class="countdown-num" id="days">60</div><small>Days</small></div>
+                <div class="countdown-unit"><div class="countdown-num" id="hours">00</div><small>Hours</small></div>
+                <div class="countdown-unit"><div class="countdown-num" id="minutes">00</div><small>Mins</small></div>
+                <div class="countdown-unit"><div class="countdown-num" id="seconds">00</div><small>Secs</small></div>
+            </div>
+            <div class="countdown-label">remaining to redeem</div>
+        </div>
+        <p id="expiryText"></p>
         <div class="code-display" id="codeDisplay"></div>
         <img id="qrImage" src="" alt="QR Code">
-        <p>Show this to the staff when you visit.</p>
+        <p style="font-weight:600;margin-top:1rem;">Show this to the business associate <strong>before</strong> you order or they begin a service.</p>
         <div class="success-note">
             ❤️ Thanks for supporting local! This redemption funds meals for local families.
         </div>
@@ -49,11 +70,12 @@
             e.preventDefault();
             const name = document.getElementById('name').value;
             const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
             
             const response = await fetch('/api/claim', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ offer_id: offerId, customer_name: name, customer_email: email })
+                body: JSON.stringify({ offer_id: offerId, customer_name: name, customer_email: email, customer_phone: phone })
             });
             
             const data = await response.json();
@@ -61,6 +83,68 @@
             if (data.success) {
                 document.getElementById('formCard').style.display = 'none';
                 document.getElementById('successCard').style.display = 'block';
+                
+                // Personalize with customer's name
+                const greetingHeader = document.getElementById('greetingHeader');
+                greetingHeader.textContent = 'Hello ' + name + '!';
+                greetingHeader.style.fontSize = '1.5rem';
+                greetingHeader.style.marginBottom = '0.5rem';
+                
+                // Visual countdown based on actual claim time (60 days + 7 grace = 67 days)
+                const claimedAt = new Date(data.claimed_at);
+                const expiryDate = new Date(claimedAt.getTime() + (67 * 24 * 60 * 60 * 1000));
+                
+                const daysEl = document.getElementById('days');
+                const hoursEl = document.getElementById('hours');
+                const minsEl = document.getElementById('minutes');
+                const secsEl = document.getElementById('seconds');
+                const countdownBox = document.getElementById('countdownBox');
+                const countdownNums = document.querySelectorAll('.countdown-num');
+                
+                function updateCountdown() {
+                    const now = new Date();
+                    const diff = expiryDate - now;
+                    
+                    if (diff <= 0) {
+                        daysEl.textContent = '0';
+                        hoursEl.textContent = '00';
+                        minsEl.textContent = '00';
+                        secsEl.textContent = '00';
+                        return;
+                    }
+                    
+                    const days = Math.floor(diff / (24 * 60 * 60 * 1000));
+                    const hours = Math.floor((diff % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
+                    const mins = Math.floor((diff % (60 * 60 * 1000)) / (60 * 1000));
+                    const secs = Math.floor((diff % (60 * 1000)) / 1000);
+                    
+                    daysEl.textContent = days;
+                    hoursEl.textContent = hours.toString().padStart(2, '0');
+                    minsEl.textContent = mins.toString().padStart(2, '0');
+                    secsEl.textContent = secs.toString().padStart(2, '0');
+                    
+                    // Color coding based on days remaining
+                    if (days <= 7) {
+                        countdownBox.style.borderColor = '#ef4444';
+                        countdownNums.forEach(n => n.style.color = '#ef4444');
+                        countdownBox.style.animation = 'pulse-red 2s infinite';
+                    } else if (days <= 10) {
+                        countdownBox.style.borderColor = '#eab308';
+                        countdownNums.forEach(n => n.style.color = '#eab308');
+                        countdownBox.style.animation = 'pulse-yellow 2s infinite';
+                    }
+                    
+                    setTimeout(updateCountdown, 1000);
+                }
+                
+                updateCountdown();
+                
+                // Show expiry text
+                const expiryText = document.getElementById('expiryText');
+                expiryText.textContent = 'This voucher can be redeemed by showing this to the business associate before you order or they begin a service.';
+                expiryText.style.color = '#666';
+                expiryText.style.marginBottom = '1rem';
+                
                 document.getElementById('codeDisplay').textContent = data.unique_code;
                 document.getElementById('qrImage').src = data.qr_code;
             } else {

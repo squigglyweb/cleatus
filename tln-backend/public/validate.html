@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Validate Offer | The Local NearBuy</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #1a1a1a; color: white; min-height: 100vh; padding: 1rem; }
@@ -11,19 +12,39 @@
         h1 { text-align: center; font-size: 1.3rem; margin-bottom: 1rem; }
         .scanner-btn { width: 100%; background: #e63946; color: white; border: none; padding: 1.2rem; border-radius: 12px; font-size: 1.1rem; font-weight: 600; cursor: pointer; margin-bottom: 1rem; }
         .divider { text-align: center; color: #666; margin: 1rem 0; }
-        input { width: 100%; padding: 1rem; border: none; border-radius: 8px; font-size: 1.1rem; text-align: center; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem; }
+        input { width: 100%; padding: 1rem; border: none; border-radius: 8px; font-size: 1.1rem; text-align: center; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 1rem; background: #333; color: white; }
+        input::placeholder { color: #666; }
         
         .result { display: none; padding: 1.5rem; border-radius: 12px; text-align: center; margin-top: 1rem; }
         .result.valid { background: #22c55e; }
+        .result.expiring { background: #eab308; color: #1a1a1a; }
         .result.invalid { background: #dc2626; }
         .result h2 { font-size: 1.5rem; margin-bottom: 0.5rem; }
         .result p { font-size: 1rem; }
         
-        .offer-details { background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; margin: 1rem 0; text-align: left; }
-        .offer-details div { margin: 0.3rem 0; }
+        .status-badge { display: inline-block; padding: 0.4rem 1rem; border-radius: 20px; font-weight: 700; font-size: 0.9rem; margin-bottom: 0.5rem; }
+        .status-active { background: white; color: #22c55e; }
+        .status-expiring { background: #1a1a1a; color: #eab308; }
+        .status-redeemed { background: #1a1a1a; color: #22c55e; }
+        
+        .offer-details { background: rgba(255,255,255,0.15); padding: 1rem; border-radius: 8px; margin: 1rem 0; text-align: left; }
+        .offer-details div { margin: 0.4rem 0; }
+        .offer-details strong { color: rgba(255,255,255,0.7); }
+        
+        .customer-info { background: rgba(255,255,255,0.1); padding: 1rem; border-radius: 8px; margin: 1rem 0; text-align: left; }
+        .customer-info h3 { font-size: 0.9rem; margin-bottom: 0.5rem; color: rgba(255,255,255,0.7); }
+        .customer-info div { margin: 0.3rem 0; font-size: 1rem; }
+        
+        .countdown-box { background: rgba(255,255,255,0.15); padding: 1rem; border-radius: 8px; margin: 1rem 0; }
+        .countdown-box .days { font-size: 2rem; font-weight: 700; }
+        .countdown-box .label { font-size: 0.85rem; opacity: 0.8; }
         
         .redeem-btn { width: 100%; background: white; color: #1a1a1a; border: none; padding: 1rem; border-radius: 8px; font-size: 1rem; font-weight: 700; cursor: pointer; margin-top: 1rem; }
-        .meals-badge { display: inline-block; background: white; color: #22c55e; padding: 0.3rem 0.8rem; border-radius: 20px; font-weight: 600; margin-top: 0.5rem; }
+        .redeem-btn:hover { background: #f0f0f0; }
+        .meals-badge { display: inline-block; background: white; padding: 0.3rem 0.8rem; border-radius: 20px; font-weight: 600; margin-top: 0.5rem; }
+        
+        .valid .meals-badge { color: #22c55e; }
+        .expiring .meals-badge { color: #eab308; }
     </style>
 </head>
 <body>
@@ -49,6 +70,7 @@
 
     <script>
         let currentCode = '';
+        let codeData = null;
         
         document.getElementById('codeInput').addEventListener('input', async (e) => {
             currentCode = e.target.value.toUpperCase();
@@ -62,33 +84,70 @@
             const redeemBtn = document.getElementById('redeemBtn');
             
             const response = await fetch(`/api/validate/${currentCode}`);
-            const data = await response.json();
+            codeData = await response.json();
             
             resultDiv.style.display = 'block';
             
-            if (data.valid) {
-                resultDiv.className = 'result valid';
+            if (codeData.valid) {
+                const statusClass = codeData.status === 'expiring' ? 'expiring' : 'valid';
+                const statusText = codeData.status === 'expiring' ? '⚠️ Expiring Soon' : '✅ Valid';
+                const statusBadge = codeData.status === 'expiring' ? 'status-expiring' : 'status-active';
+                
+                // Customer contact info
+                let customerInfo = '';
+                if (codeData.customer_email || codeData.customer_phone) {
+                    customerInfo = `
+                        <div class="customer-info">
+                            <h3>Customer Info</h3>
+                            ${codeData.customer_email ? `<div>📧 ${codeData.customer_email}</div>` : ''}
+                            ${codeData.customer_phone ? `<div>📱 ${codeData.customer_phone}</div>` : ''}
+                        </div>
+                    `;
+                }
+                
+                resultDiv.className = `result ${statusClass}`;
                 resultDiv.innerHTML = `
-                    <h2>✅ Valid Offer</h2>
-                    <p>${data.offer_title}</p>
-                    <div class="offer-details">
-                        <div><strong>Customer:</strong> ${data.customer_name}</div>
-                        <div><strong>Business:</strong> ${data.business_name}</div>
+                    <span class="status-badge ${statusBadge}">${statusText}</span>
+                    <h2>${codeData.offer_title}</h2>
+                    <p>${codeData.offer_description || ''}</p>
+                    
+                    <div class="countdown-box">
+                        <div class="days">${codeData.days_remaining} days</div>
+                        <div class="label">remaining to redeem</div>
                     </div>
-                    <div class="meals-badge">❤️ Feeds ${data.meals_per_redemption} meals</div>
+                    
+                    <div class="offer-details">
+                        <div><strong>Customer:</strong> ${codeData.customer_name}</div>
+                        <div><strong>Business:</strong> ${codeData.business_name}</div>
+                    </div>
+                    
+                    ${customerInfo}
+                    
+                    <div class="meals-badge">❤️ Feeds ${codeData.meals_per_redemption} meals</div>
                 `;
                 redeemBtn.style.display = 'block';
             } else {
+                let extra = '';
+                if (codeData.status === 'redeemed') {
+                    extra = `<p>This voucher has already been redeemed.</p>`;
+                } else if (codeData.status === 'expired') {
+                    extra = `<p>This voucher has expired and cannot be redeemed.</p>`;
+                }
+                
                 resultDiv.className = 'result invalid';
                 resultDiv.innerHTML = `
-                    <h2>❌ ${data.message}</h2>
-                    <p>This offer cannot be redeemed.</p>
+                    <h2>❌ ${codeData.message}</h2>
+                    ${extra}
                 `;
                 redeemBtn.style.display = 'none';
             }
         }
         
         async function redeemCode() {
+            const redeemBtn = document.getElementById('redeemBtn');
+            redeemBtn.textContent = 'Processing...';
+            redeemBtn.disabled = true;
+            
             const response = await fetch('/api/redeem', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -98,12 +157,26 @@
             const data = await response.json();
             
             if (data.success) {
-                alert('🎉 Offer redeemed! Thank you.');
+                document.getElementById('result').className = 'result valid';
+                document.getElementById('result').innerHTML = `
+                    <h2>🎉 Redeemed!</h2>
+                    <p>This offer has been marked as redeemed.</p>
+                    <p style="margin-top:1rem;font-size:0.9rem;">Thank you for supporting local!</p>
+                `;
+                redeemBtn.style.display = 'none';
                 document.getElementById('codeInput').value = '';
-                document.getElementById('result').style.display = 'none';
-                document.getElementById('redeemBtn').style.display = 'none';
+                
+                // Confetti explosion!
+                confetti({
+                    particleCount: 150,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#22c55e', '#ffffff', '#e63946', '#f59e0b']
+                });
             } else {
                 alert('Error: ' + data.message);
+                redeemBtn.textContent = '✅ Mark as Redeemed';
+                redeemBtn.disabled = false;
             }
         }
     </script>

@@ -249,12 +249,12 @@ function tln_render_campaign_offer($campaign) {
         $out .= '</form>';
     } else {
         // Already claimed - show code and QR
-        $qr_src = 'https://quickchart.io/qr?size=200x200&text=' . urlencode($claimed_code);
+        $qr_src = 'https://quickchart.io/qr?size=200x200&text=' . urlencode(home_url('/tln-redeem?code=' . $claimed_code . '&business=1'));
         $out .= '<div style="background:#f8f8f8;border:2px dashed #ccc;border-radius:8px;padding:1rem;margin:1.5rem 0;">';
         $out .= '<p style="margin:0 0 0.5rem;font-size:0.85rem;color:#666;text-transform:uppercase;">Your Code</p>';
         $out .= '<p style="margin:0;font-size:1.8rem;font-weight:bold;letter-spacing:2px;color:#28a745;">' . esc_html($claimed_code) . '</p>';
         $out .= '<img src="' . esc_url($qr_src) . '" alt="QR Code" style="max-width:180px;margin-top:1rem;border:1px solid #ddd;border-radius:8px;padding:10px;background:#fff;" />';
-        $out .= '<p style="margin-top:0.75rem;font-size:0.8rem;color:#666;">Show this QR code to the staff</p>';
+        $out .= '<p style="margin-top:0.75rem;font-size:0.8rem;color:#666;"><strong>Show this BEFORE ordering or service —</strong> this lets the business know you have a special NearBuy offer.</p>';
         $out .= '</div>';
     }
     
@@ -278,12 +278,12 @@ function tln_render_redeem_page($voucher) {
         return '<div style="padding:2rem;text-align:center;"><h2>Expired</h2><p>This code has expired.</p></div>';
     }
     
-    $qr_src = 'https://quickchart.io/qr?size=200x200&text=' . urlencode($voucher->code);
+    $qr_src = 'https://quickchart.io/qr?size=200x200&text=' . urlencode(home_url('/tln-redeem?code=' . $voucher->code . '&business=1'));
     $out = '<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>Redeem - The Local NearBuy</title></head><body>';
     $out .= '<div style="max-width:480px;margin:0 auto;padding:1.5rem;font-family:system-ui,sans-serif;background:#f5f5f5;min-height:100vh;">';
     $out .= '<div style="text-align:center;">';
     $out .= '<h2>Redeem Your Offer</h2>';
-    $out .= '<p>Show this QR code to the staff.</p>';
+    $out .= '<p><strong>Show this BEFORE ordering or service —</strong> this lets the business know you have a special NearBuy offer.</p>';
     $out .= '<img src="' . esc_url($qr_src) . '" alt="QR" style="max-width:200px;border:1px solid #ddd;border-radius:8px;padding:10px;background:#fff;" />';
     $out .= '<p style="font-size:1.2rem;margin:1rem 0;"><strong>' . esc_html($voucher->code) . '</strong></p>';
     $out .= '<p id="countdown" style="color:#666;"></p>';
@@ -341,10 +341,10 @@ function tln_claim_offer_shortcode($atts) {
             ['%d','%d','%s','%s','%s','%s','%s','%d']
         );
         // Show the redemption QR code.
-        $redeem_url = home_url('/tln-redeem?code=' . $code);
+        $redeem_url = home_url('/tln-redeem?code=' . $code . '&business=1');
         $qr_src = 'https://quickchart.io/qr?size=200x200&text=' . urlencode($redeem_url);
         $output = '<h3>Offer Claimed!</h3>';
-        $output .= '<p>Show this QR code at the business to redeem your offer. It expires on ' . date('M j, Y', strtotime($expires)) . '.</p>';
+        $output .= '<p><strong>Show this BEFORE ordering or service —</strong> this lets the business know you have a special NearBuy offer. It expires on ' . date('M j, Y', strtotime($expires)) . '.</p>';
         $output .= '<img src="' . esc_url($qr_src) . '" alt="Redemption QR" style="max-width:200px;" />';
         return $output;
     }
@@ -368,24 +368,66 @@ add_shortcode('tln_claim_offer', 'tln_claim_offer_shortcode');
  */
 function tln_redeem_shortcode($atts) {
     $code = isset($_GET['code']) ? sanitize_text_field($_GET['code']) : '';
+    $business_mode = isset($_GET['business']);
     if (!$code) return '<p>Missing redemption code.</p>';
     global $wpdb;
     $voucher = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}tln_vouchers WHERE code = %s", $code));
     if (!$voucher) return '<p>Invalid code.</p>';
+    
+    // Handle business validation
+    if ($business_mode && isset($_POST['tln_validate'])) {
+        $wpdb->update(
+            $wpdb->prefix . 'tln_vouchers',
+            ['redeemed' => 1, 'redeemed_at' => current_time('mysql')],
+            ['id' => $voucher->id],
+            ['%d', '%s'],
+            ['%d']
+        );
+        $voucher->redeemed = 1;
+    }
+    
     // If already redeemed
     if ($voucher->redeemed) {
-        return '<p>This code has already been redeemed.</p>';
+        return '<div style="padding:2rem;text-align:center;background:#d4edda;border-radius:12px;"><h2 style="color:#155724;margin-top:0;">✓ Already Redeemed</h2><p>This voucher has been used.</p></div>';
     }
+    
     // Countdown timer (JS)
     $now = current_time('timestamp');
     $expire_ts = strtotime($voucher->expires);
     $seconds = $expire_ts - $now;
     if ($seconds < 0) {
-        return '<p>This code has expired.</p>';
+        return '<div style="padding:2rem;text-align:center;background:#f8d7da;border-radius:12px;"><h2 style="color:#721c24;margin-top:0;">Expired</h2><p>This code has expired.</p></div>';
     }
-    $qr_src = 'https://quickchart.io/qr?size=200x200&text=' . urlencode($code);
+    
+    // BUSINESS MODE - show validation button
+    if ($business_mode) {
+        $campaign = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}tln_campaigns WHERE id = %d", $voucher->campaign_id));
+        $output = '<div style="max-width:400px;margin:0 auto;padding:2rem;background:#fff;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,0.1);">';
+        $output .= '<h2 style="color:#28a745;margin-top:0;">Validate Voucher</h2>';
+        $output .= '<div style="background:#f8f9fa;padding:1rem;border-radius:8px;margin:1rem 0;">';
+        $output .= '<p style="margin:0 0 0.5rem;font-size:0.9rem;color:#666;">Customer:</p>';
+        $output .= '<p style="margin:0;font-size:1.2rem;font-weight:bold;">' . esc_html($voucher->lead_name) . '</p>';
+        $output .= '</div>';
+        $output .= '<div style="background:#f8f9fa;padding:1rem;border-radius:8px;margin:1rem 0;">';
+        $output .= '<p style="margin:0 0 0.5rem;font-size:0.9rem;color:#666;">Offer:</p>';
+        $output .= '<p style="margin:0;font-size:1.2rem;font-weight:bold;">' . esc_html($campaign ? $campaign->title : 'N/A') . '</p>';
+        $output .= '</div>';
+        $output .= '<div style="background:#f8f9fa;padding:1rem;border-radius:8px;margin:1rem 0;">';
+        $output .= '<p style="margin:0 0 0.5rem;font-size:0.9rem;color:#666;">Code:</p>';
+        $output .= '<p style="margin:0;font-size:1.5rem;font-weight:bold;letter-spacing:2px;color:#28a745;">' . esc_html($voucher->code) . '</p>';
+        $output .= '</div>';
+        $output .= '<form method="post">';
+        $output .= '<button type="submit" name="tln_validate" style="width:100%;padding:1rem;background:#28a745;color:#fff;border:none;border-radius:8px;font-size:1.2rem;font-weight:bold;cursor:pointer;">✓ Redeem This Voucher</button>';
+        $output .= '</form>';
+        $output .= '<p style="text-align:center;margin-top:1rem;color:#666;font-size:0.9rem;">NearBuy Validation</p>';
+        $output .= '</div>';
+        return $output;
+    }
+    
+    // CUSTOMER MODE - show their voucher
+    $qr_src = 'https://quickchart.io/qr?size=200x200&text=' . urlencode(home_url('/tln-redeem?code=' . $code . '&business=1'));
     $output = '<h3>Redeem Your Offer</h3>';
-    $output .= '<p>Show this QR code to the staff. Expires in <span id="tln-countdown"></span>.</p>';
+    $output .= '<p><p><strong>Show this BEFORE ordering or service —</strong> this lets the business know you have a special NearBuy offer. Expires in <span id="tln-countdown"></span>.</p>';
     $output .= '<img src="' . esc_url($qr_src) . '" alt="Redemption QR" style="max-width:200px;" />';
     $output .= '<script>function tlnCountdown(){var sec=' . $seconds . ';var el=document.getElementById("tln-countdown");if(sec<=0){el.innerHTML="expired";return;}var d=Math.floor(sec/86400);var h=Math.floor((sec%86400)/3600);var m=Math.floor((sec%3600)/60);var s=sec%60;el.innerHTML=d+"d "+h+"h "+m+"m "+s+"s";sec--;setTimeout(tlnCountdown,1000);}tlnCountdown();</script>';
     return $output;
