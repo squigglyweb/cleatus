@@ -177,6 +177,13 @@ input,textarea,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-ra
 
  /* ===== Submit batch with proof URLs ===== */
  async function submitBatch() {
+ // Simple QR generator placeholder – replace with real me‑qr.com call
+ async function generateQR(vcard){
+   // In production, call me‑qr.com API here. For now return a placeholder image.
+   // Example: const resp = await fetch(`https://me-qr.com/api/qr?data=${encodeURIComponent(vcard)}`);
+   // const data = await resp.json(); return data.url;
+   return 'https://me-qr.com/placeholder.png';
+ }
  if(!canSubmit()) return;
 
  toast('Uploading proofs and submitting...');
@@ -204,6 +211,17 @@ input,textarea,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-ra
  // Second pass: submit to API
  let ok=0,fail=0,lastErr='';
  for(const card of state.pending){
+        // Build vCard data string
+        const vcardLines = [];
+        if(card.name) vcardLines.push(`FN:${card.name}`);
+        if(card.title) vcardLines.push(`TITLE:${card.title}`);
+        if(card.emailFront) vcardLines.push(`EMAIL:${fullEmail(card.emailFront)}`);
+        if(card.office) vcardLines.push(`TEL;TYPE=work,voice:${OFFICE_BASE}${card.office}`);
+        if(card.cell) vcardLines.push(`TEL;TYPE=cell,voice:${fmtPhone(card.cell)}`);
+        const vcardData = vcardLines.join('\n');
+        // Generate QR URL (placeholder for now)
+        const qrUrl = await generateQR(vcardData);
+        card.qrUrl = qrUrl;
  const row={
  requesterName: card.approverName || 'CHS',
  item: 'Business Cards',
@@ -268,10 +286,12 @@ input,textarea,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-ra
  ${it.proofFrontUrl ? `<img src="${it.proofFrontUrl}" alt="Front proof">` : ''}
  ${it.proofBackUrl ? `<img src="${it.proofBackUrl}" alt="Back proof">` : ''}
  </div>` : '';
+ const qrThumb = it.qrUrl ? `<div class="thumb" style="background-image:url('${it.qrUrl}')"><div class="cta">QR</div></div>` : '';
  return `<div class="panel" style="display:flex;gap:14px;align-items:flex-start">
  <div class="thumb" data-lb="${i}" style="background-image:url('${IMG[it.mode].front}')">
  <div class="cta">Click to View</div>
  </div>
+ ${qrThumb}
  <div style="flex:1">
  <div style="font-weight:800">${escapeHTML(it.name||'')}</div>
  <div class="meta">${escapeHTML(it.title||'')}</div>
