@@ -7,6 +7,7 @@
   <style>
     :root {
       --green:#2E8B57; /* trust/ growth */
+      --accent:#1f3f7d; /* secondary brand color */
       --bg:#fff;
       --text:#333;
     }
@@ -24,7 +25,7 @@
     .card h3 {margin-top:0; font-size:1.4rem;}
     .price {font-size:2rem;color:var(--green);margin:0.5rem 0;}
     .badge {background:var(--green);color:#fff;padding:0.2rem 0.6rem;border-radius:4px;font-size:0.9rem;align-self:flex-start;}
-    .testimonial {border-left:4px solid var(--green);padding-left:1rem;margin-bottom:1rem;}
+    .testimonial {border-left:4px solid var(--accent);padding-left:1rem;margin-bottom:1rem;}
     .faq-item {margin-bottom:1rem;}
     .faq-item h4 {margin:0;cursor:pointer;}
     .faq-item p {display:none;margin:0.5rem 0;}
@@ -201,7 +202,7 @@ function closeModal(id){document.getElementById('modal-'+id).style.display='none
   <!-- CTA -->
   <section class="section" id="cta" style="text-align:center;background:#f0f9f0;padding:2rem;">
     <h2>Stop guessing. Start growing.</h2>
-    <button class="btn-primary" onclick="location.href='#diagnostic'">Run my diagnostics</button>
+    <button class="btn-primary" style="background:var(--accent);color:#fff;" onclick="location.href='#diagnostic'">Run my diagnostics</button>
   </section>
 
   <footer class="footer">
