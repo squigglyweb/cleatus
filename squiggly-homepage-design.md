@@ -1,5 +1,11 @@
 # Squiggly Marketing Homepage Design Brief
 
+## Visual Style
+- Clean green + white branding (trust, growth)
+- Similar energy to Review Harvest — direct, no fluff
+- "Set and forget" messaging throughout
+- Testimonials prominent, above the fold if possible
+
 ## Hero Section
 - **Headline:** "What's breaking your business?"
 - **Subheadline:** Marketing that's supposed to bring customers, not just look pretty.
@@ -57,6 +63,34 @@ Not opinions. That's the math.
 "Based in Waxhaw. We work with local businesses across the Greater Charlotte area."
 
 ---
+
+## Testimonials Section
+- 3-4 quick quotes from local business owners
+- Focus on results: "We went from 3 reviews to 30 in 60 days"
+- Place near top of page, above pricing
+
+## Benefits / Why Reviews Section
+- Every 5-star review = ~1 new customer
+- Reviews beat advertising in trust
+- Your competitors see your stars — they know who's winning
+- Make it about the math, not opinions
+
+## "Set It And Forget It" Section
+- We build the system, YOUR team simply asks
+- Email + SMS sequences handled automatically
+- We write the scripts, you execute the relationships
+- You focus on your business, we handle the reviews
+
+## Pricing Section
+- 3 clear tiers (Foundation, Review Machine, Dominate Local)
+- Easy to scan, green highlight on best value
+- FAQ below pricing to handle objections
+
+## FAQ Section
+- "How long does setup take?"
+- "Do I need to do anything?"
+- "What if we don't get reviews?"
+- "Can I cancel anytime?"
 
 ## Design Notes
 - Keep it clean, minimal, direct
