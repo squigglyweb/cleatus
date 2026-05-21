@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-05-20T16:15:52.010Z",
+  "updatedAt": "2026-05-21T16:55:36.050Z",
   "entries": {
     "memory:memory/2026-05-05.md:72:89": {
       "key": "memory:memory/2026-05-05.md:72:89",
@@ -93,27 +93,29 @@
       "endLine": 79,
       "source": "memory",
       "snippet": "- ✅ Expandable map placeholder - ✅ Neighborhood Score (Quality, Value, Service, Overall) - ✅ Meals impact (community cause) - ✅ Share buttons - ✅ Ad space on sidebar (monetization) ### Key Files - tln-profile-pro-plus-final.html - Latest Pro+ profile template ### Pending - Integrate profile into WordPress plugin - Build admin dashboard - Connect Stripe webhooks ## Offer Marketing Strategy (May 8, 2026) ### Key Insight Offers can be HIDDEN from the website during print campaigns. This creates value for printed postcards vs website-only listings. ### How It Works - Website offers: Always visible (included in membership) - Print campaigns: Hide offer on website, only accessible via QR code",
-      "recallCount": 6,
+      "recallCount": 7,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 6,
+      "totalScore": 7,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T20:21:50.131Z",
-      "lastRecalledAt": "2026-05-17T18:47:25.592Z",
+      "lastRecalledAt": "2026-05-21T16:55:36.050Z",
       "queryHashes": [
         "3b057c3172e9",
         "280499cabedf",
         "702ea8f65795",
         "3a4001249de8",
         "456802dae32e",
-        "68e96d92543e"
+        "68e96d92543e",
+        "e92d1b15b377"
       ],
       "recallDays": [
         "2026-05-12",
         "2026-05-13",
         "2026-05-15",
         "2026-05-16",
-        "2026-05-17"
+        "2026-05-17",
+        "2026-05-21"
       ],
       "conceptTags": [
         "tln-profile-pro-plus-final.html",
@@ -243,27 +245,29 @@
       "endLine": 43,
       "source": "memory",
       "snippet": "# Memory - April 13, 2026 ## Session Notes ### Video Background Identified - The header on the template page uses **YouTube video ID: XzbVs1-48ZY** as a background - It's likely stock drone footage of neighborhoods/aerial shots (common in marketing agency templates) - URL: https://www.youtube.com/watch?v=XzbVs1-48ZY ### For The Local NearBuy Project - The signup page (nearbuy-signup-v2.html) uses CSS animation instead of video for better reliability - This avoids YouTube embed issues and ensures consistent performance ### Full Vision Discussed (from Claude.ai conversation) **Bryan's 4 Assets:** 1. Local Social Accounts — daily attention, brand awareness, community voice 2. Local Director",
-      "recallCount": 6,
+      "recallCount": 7,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 6,
+      "totalScore": 7,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T22:41:06.839Z",
-      "lastRecalledAt": "2026-05-20T14:09:15.738Z",
+      "lastRecalledAt": "2026-05-21T16:55:36.050Z",
       "queryHashes": [
         "47ce4d615495",
         "1532b7c86815",
         "6c8ed5afec83",
         "e2bdb1bfb3f4",
         "857d09ad5f85",
-        "18cb00de911b"
+        "18cb00de911b",
+        "e92d1b15b377"
       ],
       "recallDays": [
         "2026-05-12",
         "2026-05-14",
         "2026-05-16",
         "2026-05-17",
-        "2026-05-20"
+        "2026-05-20",
+        "2026-05-21"
       ],
       "conceptTags": [
         "xzbvs1-48zy",
@@ -431,27 +435,29 @@
       "endLine": 34,
       "source": "memory",
       "snippet": "## TLN About Copy (Updated) **The Local NearBuy** Your guide to Waxhaw & surrounding areas' best — restaurants, shops, services, and hidden gems. Every purchase through NearBuy helps feed local kids and families, both here and around the world. Discover your community. Support local. Make a difference. **What We Do** We connect Greater Waxhaw neighbors with local businesses — through our directory, social media, newsletter, and postcard ads. Businesses advertise with us. You discover great local spots. We donate meals for every engagement. It's a win-win-win: - Neighbors discover awesome local businesses - Businesses reach more customers - Kids & families get fed ## T-Shirt Project",
-      "recallCount": 6,
+      "recallCount": 7,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 6,
+      "totalScore": 7,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T23:02:11.759Z",
-      "lastRecalledAt": "2026-05-20T16:15:52.010Z",
+      "lastRecalledAt": "2026-05-21T16:55:36.050Z",
       "queryHashes": [
         "80f9208f6c41",
         "201d5f225c55",
         "69c4bee04e24",
         "b6f375f7100e",
         "857d09ad5f85",
-        "4dff1c997175"
+        "4dff1c997175",
+        "e92d1b15b377"
       ],
       "recallDays": [
         "2026-05-12",
         "2026-05-13",
         "2026-05-14",
         "2026-05-17",
-        "2026-05-20"
+        "2026-05-20",
+        "2026-05-21"
       ],
       "conceptTags": [
         "win-win-win",
@@ -471,26 +477,28 @@
       "endLine": 33,
       "source": "memory",
       "snippet": "# April 8, 2026 - NearBuy Postcard Project Notes ## Project Status - NearBuy postcard tracker built: nearbuy-tracker-divi.html - Business portal built: nearbuy-business-portal.html - Google Apps Script backend: nearbuy-apps-script.gs - GitHub repo: https://github.com/squigglyweb/cleatus ## Pricing - Standard ad: $500 - Duplex (combined): $900 ## System Issues - OpenClaw environment completely down since April 7 - All exec commands timeout - Unable to make edits or push changes ## Business Strategy Notes - Ideal businesses: Home services (plumbers, HVAC, landscapers), food/dining, health/wellness, retail, auto services - Avoid: Big box stores, national chains, online-only businesses - Cat",
-      "recallCount": 5,
+      "recallCount": 6,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 5,
+      "totalScore": 6,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T23:02:11.759Z",
-      "lastRecalledAt": "2026-05-20T16:15:52.010Z",
+      "lastRecalledAt": "2026-05-21T16:55:36.050Z",
       "queryHashes": [
         "80f9208f6c41",
         "702ea8f65795",
         "6c8ed5afec83",
         "e2bdb1bfb3f4",
-        "4dff1c997175"
+        "4dff1c997175",
+        "e92d1b15b377"
       ],
       "recallDays": [
         "2026-05-12",
         "2026-05-13",
         "2026-05-16",
         "2026-05-17",
-        "2026-05-20"
+        "2026-05-20",
+        "2026-05-21"
       ],
       "conceptTags": [
         "nearbuy-tracker-divi.html",
@@ -1139,6 +1147,37 @@
         "changes",
         "made",
         "lead"
+      ]
+    },
+    "memory:memory/2026-04-24.md:1:4": {
+      "key": "memory:memory/2026-04-24.md:1:4",
+      "path": "memory/2026-04-24.md",
+      "startLine": 1,
+      "endLine": 4,
+      "source": "memory",
+      "snippet": "## Marketing Wording - \"a portion of each purchase funds meals\" - the official phrasing for the charity model",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-21T16:55:36.050Z",
+      "lastRecalledAt": "2026-05-21T16:55:36.050Z",
+      "queryHashes": [
+        "e92d1b15b377"
+      ],
+      "recallDays": [
+        "2026-05-21"
+      ],
+      "conceptTags": [
+        "marketing",
+        "wording",
+        "portion",
+        "each",
+        "purchase",
+        "funds",
+        "meals",
+        "official"
       ]
     }
   }

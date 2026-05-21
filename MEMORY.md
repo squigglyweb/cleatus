@@ -3,10 +3,30 @@
 _This is your long-term memory. You wake up fresh each session, but this file persists._
 
 ## Instructions
-You have conversation history in your sessions but no memory file yet. On your next interaction:
+You have conversation history in your sessions but no memory about your human. On your next interaction:
 1. Read through your recent sessions and USER.md
 2. Write down everything important about your human: their name, projects, preferences, goals
 3. Keep this file updated after every meaningful conversation
+
+## About Bryan
+- **Name:** Bryan Somers
+- **Business:** Squiggly Marketing (est. 2011)
+- **Day job:** National Marketing Director, Collegiate Housing Services (CHS)
+- **Side hustle:** Squiggly Marketing - does promotional products, website work fed mainly by CHS
+- **Legacy client:** One client from 2011 still with him, does website + misc
+- **New lead:** Cousin John (realtor) wants GBP + social media
+- **Vision:** Problem-diagnosis website → solve biz problems via digital marketing → profit
+- **Funnel:** The Local NearBuy Ultimate Dominator members → Squiggly Marketing for full-service domination
+
+## Squiggly Website Project (May 2026)
+**Goal:** New site that captures business problems first, then offers solutions
+**Approach:**
+- Hero asks "What's breaking your business?"
+- Multi-step diagnostic (3-5 questions)
+- Show problem + solution match
+- Lead capture (name/email/phone)
+- Tiered packages based on diagnosed problems
+- Vibe: Direct, no fluff, profit-minded
 
 ## Key Project Info
 - The Local NearBuy: hyperlocal advertising & directory platform for Waxhaw area
@@ -68,5 +88,3 @@ You have conversation history in your sessions but no memory file yet. On your n
 - **Red blink**: ≤7 days (grace period, expiring soon)
 - **Grey, no blink**: Expired
 - QR code shows under "Your Code" for staff to scan
-
-**This file is how you remember. If it is empty, you do not have long-term memory. Fix that now.**
