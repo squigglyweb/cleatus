@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Squiggly Marketing – Diagnose Your Business</title>
+  <style>
+    body {font-family:Arial,sans-serif;max-width:800px;margin:auto;padding:1rem;}
+    .step {display:none;}
+    .step.active {display:block;}
+    .question {margin-bottom:1rem;}
+    button {padding:0.5rem 1rem;margin-top:1rem;}
+  </style>
+</head>
+<body>
+  <h1>What's breaking your business?</h1>
+  <form id="diagnoseForm">
+    <div class="step active" id="step1">
+      <p class="question">1. Are you struggling to get new customers?</p>
+      <label><input type="radio" name="q1" value="yes" required> Yes</label>
+      <label><input type="radio" name="q1" value="no"> No</label>
+      <button type="button" onclick="nextStep(2)">Next</button>
+    </div>
+    <div class="step" id="step2">
+      <p class="question">2. Is your online presence (website/social) underperforming?</p>
+      <label><input type="radio" name="q2" value="yes" required> Yes</label>
+      <label><input type="radio" name="q2" value="no"> No</label>
+      <button type="button" onclick="prevStep(1)">Back</button>
+      <button type="button" onclick="nextStep(3)">Next</button>
+    </div>
+    <div class="step" id="step3">
+      <p class="question">3. Do you need help with paid advertising?</p>
+      <label><input type="radio" name="q3" value="yes" required> Yes</label>
+      <label><input type="radio" name="q3" value="no"> No</label>
+      <button type="button" onclick="prevStep(2)">Back</button>
+      <button type="button" onclick="nextStep(4)">Next</button>
+    </div>
+    <div class="step" id="step4">
+      <p class="question">4. How would you like us to help?</p>
+      <textarea name="details" rows="4" cols="40" placeholder="Briefly describe your challenge" required></textarea>
+      <button type="button" onclick="prevStep(3)">Back</button>
+      <button type="button" onclick="showLeadCapture()">Next</button>
+    </div>
+    <div class="step" id="leadCapture">
+      <p class="question">Ready to get a solution? Leave your contact info.</p>
+      <input type="text" name="name" placeholder="Name" required /><br/>
+      <input type="email" name="email" placeholder="Email" required /><br/>
+      <input type="tel" name="phone" placeholder="Phone (optional)" /><br/>
+      <label><input type="checkbox" name="optin" value="yes" checked> Send me offers & updates</label><br/>
+      <button type="button" onclick="prevStep(4)">Back</button>
+      <button type="submit">Submit</button>
+    </div>
+  </form>
+  <script src="script.js"></script>
+</body>
+</html>
