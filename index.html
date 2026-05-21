@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Squiggly Marketing – Reviews that Grow Your Business</title>
+  <style>
+    :root {
+      --green:#2E8B57; /* trust/ growth */
+      --bg:#fff;
+      --text:#333;
+    }
+    body {font-family:Arial,Helvetica,sans-serif;margin:0;padding:0;background:var(--bg);color:var(--text);}    
+    header {background:var(--green);color:#fff;padding:3rem 1rem;text-align:center;}
+    header h1 {margin:0;font-size:2.2rem;}
+    header p {margin:0.5rem 0 1.5rem;font-size:1.1rem;}
+    .btn-primary{background:#fff;color:var(--green);border:none;padding:0.8rem 1.5rem;font-size:1rem;cursor:pointer;transition:background .3s;}
+    .btn-primary:hover{background:#f0f0f0;}
+    .section {padding:2rem 1rem;max-width:1100px;margin:auto;}
+    .section h2 {font-size:1.8rem;margin-bottom:1rem;text-align:center;}
+    .grid {display:grid;gap:1.5rem;}
+    .grid-2 {grid-template-columns:repeat(auto-fit,minmax(300px,1fr));}
+    .card {border:1px solid #ddd;border-radius:6px;padding:1.5rem;display:flex;flex-direction:column;}
+    .card h3 {margin-top:0; font-size:1.4rem;}
+    .price {font-size:2rem;color:var(--green);margin:0.5rem 0;}
+    .badge {background:var(--green);color:#fff;padding:0.2rem 0.6rem;border-radius:4px;font-size:0.9rem;align-self:flex-start;}
+    .testimonial {border-left:4px solid var(--green);padding-left:1rem;margin-bottom:1rem;}
+    .faq-item {margin-bottom:1rem;}
+    .faq-item h4 {margin:0;cursor:pointer;}
+    .faq-item p {display:none;margin:0.5rem 0;}
+    .footer {background:#f9f9f9;padding:1rem;text-align:center;font-size:0.9rem;}
+    @media (max-width:600px){header h1{font-size:1.8rem;}}
+  </style>
+  <script>
+    document.addEventListener('DOMContentLoaded',()=>{
+      document.querySelectorAll('.faq-item h4').forEach(h=>{
+        h.addEventListener('click',()=>{h.nextElementSibling.style.display = h.nextElementSibling.style.display==='none'?'block':'none';});
+      });
+    });
+  </script>
+</head>
+<body>
+  <!-- Hero -->
+  <header>
+    <h1>What's breaking your business?</h1>
+    <p>Marketing that's supposed to bring customers, not just look pretty.</p>
+    <button class="btn-primary" onclick="location.href='#diagnostic'">Tell me what's broken</button>
+  </header>
+
+  <!-- Problem -->
+  <section class="section" id="problem">
+    <h2>The Common Issues</h2>
+    <ul>
+      <li>Google listing is incomplete or buried on page 3.</li>
+      <li>No system to ask for reviews.</li>
+      <li>Existing reviews are buried under bad ones.</li>
+      <li>Competitors show up first.</li>
+    </ul>
+  </section>
+
+  <!-- Testimonials (above pricing) -->
+  <section class="section" id="testimonials">
+    <h2>What Local Businesses Say</h2>
+    <div class="testimonial">
+      <p>"We went from 3 reviews to 30 in 60 days. The flow is truly set‑and‑forget." – <strong>Mike, Home Services</strong></p>
+    </div>
+    <div class="testimonial">
+      <p>"Our Google rank moved from page 3 to page 1 in 4 weeks. New customers keep rolling in." – <strong>Sara, Cafe Owner</strong></p>
+    </div>
+    <div class="testimonial">
+      <p>"I stopped chasing reviews. The system does the work and I focus on my shop." – <strong>John, Auto Repair</strong></p>
+    </div>
+  </section>
+
+  <!-- Benefits / Why Reviews -->
+  <section class="section" id="benefits">
+    <h2>Why Reviews Matter</h2>
+    <ul>
+      <li>Every 5‑star review ≈ 1 new customer walking through your door.</li>
+      <li>Reviews beat paid ads in trust.</li>
+      <li>Competitors see your stars – they know who's winning.</li>
+      <li>It's math, not opinion.</li>
+    </ul>
+  </section>
+
+  <!-- Set & Forget -->
+  <section class="section" id="set-forget">
+    <h2>Set It &amp; Forget It</h2>
+    <ul>
+      <li>We build the system; your team simply asks.</li>
+      <li>Email + SMS sequences handled automatically.</li>
+      <li>We write the scripts, you execute the relationships.</li>
+      <li>You focus on your business; we handle the reviews.</li>
+    </ul>
+  </section>
+
+  <!-- Pricing -->
+  <section class="section" id="pricing">
+    <h2>Our Packages</h2>
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>Foundation</h3>
+        <span class="badge">One‑time</span>
+        <div class="price">$297</div>
+        <ul>
+          <li>Google Business Profile claimed &amp; optimized</li>
+          <li>Photos, hours, services filled out</li>
+          <li>Basic Q&amp;A set up</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>The Review Machine</h3>
+        <span class="badge">Monthly</span>
+        <div class="price">$147</div>
+        <ul>
+          <li>Everything in Foundation</li>
+          <li>Automated review request system (email/SMS)</li>
+          <li>We write the scripts, YOU ask</li>
+          <li>5‑10 new reviews/month guaranteed*</li>
+          <li>Review monitoring dashboard</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Dominate Local</h3>
+        <span class="badge">Monthly</span>
+        <div class="price">$297</div>
+        <ul>
+          <li>Everything in Review Machine</li>
+          <li>Local ad management (FB/IG)</li>
+          <li>Monthly performance report</li>
+          <li>Priority support</li>
+          <li>15+ new reviews/month guaranteed*</li>
+        </ul>
+      </div>
+    </div>
+    <p style="margin-top:1rem;font-size:0.9rem;">*Guarantee terms apply – see disclaimer.</p>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item"><h4>How long does setup take?</h4><p>Usually 2‑3 business days, often faster for existing Google listings.</p></div>
+    <div class="faq-item"><h4>Do I need to do anything?</h4><p>Just approve the review request script to your staff or front‑desk. The rest runs automatically.</p></div>
+    <div class="faq-item"><h4>What if we don't get reviews?</h4><p>Our guarantee covers a minimum number each month. If we fall short, you get a credit.</p></div>
+    <div class="faq-item"><h4>Can I cancel anytime?</h4><p>Yes – monthly plans can be stopped with 7‑day notice.</p></div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" id="cta" style="text-align:center;background:#f0f9f0;padding:2rem;">
+    <h2>Stop guessing. Start growing.</h2>
+    <button class="btn-primary" onclick="location.href='#diagnostic'">Run my diagnostics</button>
+  </section>
+
+  <footer class="footer">
+    <p>Based in Waxhaw. We work with local businesses across the Greater Charlotte area.</p>
+  </footer>
+</body>
+</html>
