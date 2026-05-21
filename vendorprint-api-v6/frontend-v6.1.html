@@ -78,9 +78,10 @@ input,textarea,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-ra
  const WEBHOOK_URL="https://script.google.com/macros/s/AKfycby6j5v-45VEyew0buXsvmbnPQYCnyg8bByjiuRgcdXgdRCjnl7Bln4tS83nBYxTiHnz/exec";
  const TOKEN="d!dxQPNM38zm";
 
+ const OFFICE_BASE="317-920-2600 x ";
  const IMG={
- field:{front:"https://www.squigglymarketing.com/wp-content/uploads/2025/09/CHS-BC-Front-Template-scaled.png",
- back :"https://www.squigglymarketing.com/wp-content/uploads/2025/10/field-back.png"},
+ field:{front:"https://chs.vendorprint.site/wp-content/uploads/2026/05/NEW-CHS-BC-LOOK-01.png",
+ back :"https://chs.vendorprint.site/wp-content/uploads/2026/05/NEW-CHS-BC-LOOK-02.png"},
  corporate:{front:"https://www.squigglymarketing.com/wp-content/uploads/2025/09/CHS-BC-Front-Template-scaled.png",
  back :"https://www.squigglymarketing.com/wp-content/uploads/2025/10/Corporate-BC-Back-1.png"},
  ra:{front:"https://www.squigglymarketing.com/wp-content/uploads/2025/10/RA-front.png",
@@ -116,7 +117,7 @@ input,textarea,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-ra
  side:'front',
  draft:{
  name:'Employee Name',title:'Employee Title',emailFront:'jemployee',
- office:'317-524-1212',cell:'123-555-1212',shipTo:'',qty:250,
+ office:'',cell:'123-555-1212',shipTo:'',qty:250,
  approverName:'',frontApprovedBy:'',frontAt:'',backApprovedBy:'',backAt:'',id:'',
  proofFrontUrl:'',proofBackUrl:'',proofFrontData:'',proofBackData:''
  },
@@ -176,6 +177,13 @@ input,textarea,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-ra
 
  /* ===== Submit batch with proof URLs ===== */
  async function submitBatch() {
+ // Simple QR generator placeholder – replace with real me‑qr.com call
+ async function generateQR(vcard){
+   // In production, call me‑qr.com API here. For now return a placeholder image.
+   // Example: const resp = await fetch(`https://me-qr.com/api/qr?data=${encodeURIComponent(vcard)}`);
+   // const data = await resp.json(); return data.url;
+   return 'https://me-qr.com/placeholder.png';
+ }
  if(!canSubmit()) return;
 
  toast('Uploading proofs and submitting...');
@@ -203,6 +211,17 @@ input,textarea,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-ra
  // Second pass: submit to API
  let ok=0,fail=0,lastErr='';
  for(const card of state.pending){
+        // Build vCard data string
+        const vcardLines = [];
+        if(card.name) vcardLines.push(`FN:${card.name}`);
+        if(card.title) vcardLines.push(`TITLE:${card.title}`);
+        if(card.emailFront) vcardLines.push(`EMAIL:${fullEmail(card.emailFront)}`);
+        if(card.office) vcardLines.push(`TEL;TYPE=work,voice:${OFFICE_BASE}${card.office}`);
+        if(card.cell) vcardLines.push(`TEL;TYPE=cell,voice:${fmtPhone(card.cell)}`);
+        const vcardData = vcardLines.join('\n');
+        // Generate QR URL (placeholder for now)
+        const qrUrl = await generateQR(vcardData);
+        card.qrUrl = qrUrl;
  const row={
  requesterName: card.approverName || 'CHS',
  item: 'Business Cards',
@@ -211,7 +230,7 @@ input,textarea,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-ra
  name: card.name || '',
  title: card.title || '',
  email: fullEmail(card.emailFront) || '',
- office: fmtPhone(card.office) || '',
+ office: OFFICE_BASE+card.office || '',
  cell: fmtPhone(card.cell) || '',
  approverName: card.approverName || 'CHS',
  proofFrontUrl: card.proofFrontUrl || '',
@@ -238,7 +257,7 @@ input,textarea,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-ra
  ctx.font=`400 ${36*s}px Arial`;ctx.fillText(state.draft.title,x,y);y+=64*s;
  ctx.font=`400 ${28*s}px Arial`;
  ctx.fillText(`${state.draft.emailFront}@housingservices.com`,x,y);y+=44*s;
- ctx.fillText(`Office: ${fmtPhone(state.draft.office)}`,x,y);y+=38*s;
+ ctx.fillText(`Office: ${OFFICE_BASE}${state.draft.office}`,x,y);y+=38*s;
  ctx.fillText(`Cell: ${fmtPhone(state.draft.cell)}`,x,y);
  }
 
@@ -255,7 +274,7 @@ input,textarea,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-ra
  ctx.font=`400 ${40*s}px Arial`;ctx.fillText(state.lbItem.title||'',x,y);y+=70*s;
  ctx.font=`400 ${30*s}px Arial`;
  ctx.fillText(`${(state.lbItem.emailFront||'')+'@housingservices.com'}`,x,y);y+=46*s;
- ctx.fillText(`Office: ${fmtPhone(state.lbItem.office||'')}`,x,y);y+=40*s;
+ ctx.fillText(`Office: ${OFFICE_BASE}${state.lbItem.office||''}`,x,y);y+=40*s;
  ctx.fillText(`Cell: ${fmtPhone(state.lbItem.cell||'')}`,x,y);
  }
 
@@ -267,15 +286,17 @@ input,textarea,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-ra
  ${it.proofFrontUrl ? `<img src="${it.proofFrontUrl}" alt="Front proof">` : ''}
  ${it.proofBackUrl ? `<img src="${it.proofBackUrl}" alt="Back proof">` : ''}
  </div>` : '';
+ const qrThumb = it.qrUrl ? `<div class="thumb" style="background-image:url('${it.qrUrl}')"><div class="cta">QR</div></div>` : '';
  return `<div class="panel" style="display:flex;gap:14px;align-items:flex-start">
  <div class="thumb" data-lb="${i}" style="background-image:url('${IMG[it.mode].front}')">
  <div class="cta">Click to View</div>
  </div>
+ ${qrThumb}
  <div style="flex:1">
  <div style="font-weight:800">${escapeHTML(it.name||'')}</div>
  <div class="meta">${escapeHTML(it.title||'')}</div>
  <div class="meta" style="margin-top:6px">${escapeHTML(fullEmail(it.emailFront)||'')}</div>
- <div class="meta">Office: ${escapeHTML(fmtPhone(it.office)||'')}</div>
+ <div class="meta">Office: ${escapeHTML(it.office?OFFICE_BASE+it.office:'')}</div>
  <div class="meta">Cell: ${escapeHTML(fmtPhone(it.cell)||'')}</div>
  <div style="margin-top:8px"><strong>Ship To:</strong><br>${escapeHTML(it.shipTo||'')}</div>
  <div class="meta" style="margin-top:8px">Qty: ${it.qty||250}</div>
@@ -317,7 +338,7 @@ input,textarea,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-ra
  </div>
  <label>Email (front part only)<input id="bcEmailFront" value="${d.emailFront||''}" placeholder="jemployee" ${state.mode==='ra'?'disabled':''}></label>
  <div class="grid" style="grid-template-columns:1fr 1fr">
- <label>Office<input id="bcOffice" value="${d.office||''}" placeholder="317-524-1212" ${state.mode==='ra'?'disabled':''}></label>
+ <label>Office Ext<input id="bcOffice" value="${d.office||''}" placeholder="ext" ${state.mode==='ra'?'disabled':''}></label>
  <label>Cell<input id="bcCell" value="${d.cell||''}" placeholder="123-555-1212" ${state.mode==='ra'?'disabled':''}></label>
  </div>
  <label>Ship To<textarea id="bcShipTo" rows="2" placeholder="Street, City, ST ZIP">${d.shipTo||''}</textarea></label>
