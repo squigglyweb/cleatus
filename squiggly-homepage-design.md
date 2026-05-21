@@ -1,7 +1,7 @@
 # Squiggly Marketing Homepage Design Brief
 
 ## Visual Style
-- Clean green + white branding (trust, growth)
+- #103a6d + 66c089 + white branding (trust, growth)
 - Similar energy to Review Harvest — direct, no fluff
 - "Set and forget" messaging throughout
 - Testimonials prominent, above the fold if possible
