@@ -41,11 +41,41 @@
 </head>
 <body>
   <!-- Hero -->
-  <header>
-    <h1>What's breaking your business?</h1>
-    <p>Marketing that's supposed to bring customers, not just look pretty.</p>
-    <button class="btn-primary" onclick="location.href='#diagnostic'">Tell me what's broken</button>
+  <section class="banner" style="background:url('https://raw.githubusercontent.com/squigglyweb/cleatus/main/media/banner.png') center/cover no-repeat; color:#fff; text-align:center; padding:4rem 1rem;">
+    <h1 style="font-size:2.5rem; margin:0;">Review Automation for Home Service Businesses</h1>
+    <p style="font-size:1.2rem; margin:1rem 0 2rem;">Get reviews, rank higher on Google, and win more customers.</p>
+    <button class="btn-primary" style="background:#fff;color:#2E8B57;margin-right:1rem;" onclick="location.href='#diagnostic'">Start getting reviews</button>
+    <button class="btn-primary" style="background:#fff;color:#2E8B57;" onclick="location.href='#contact'">Book a demo</button>
+    <div style="margin-top:1rem; font-size:0.9rem;">🚀 50,000+ reviews generated</div>
+  </section>
+
+<header style="background:#2E8B57 url('https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&w=1400&q=80') center/cover; color:#fff; position:relative;">
+    <div style="background:rgba(0,0,0,0.5); position:absolute; inset:0;"></div>
+    <div style="position:relative; z-index:1; max-width:800px; margin:auto;">
+      <h1 style="font-size:2.8rem; margin:0;">What’s breaking your business?</h1>
+      <p style="font-size:1.2rem; margin:0.8rem 0 1.5rem;">Marketing that brings customers – not just looks pretty.</p>
+      <button class="btn-primary" onclick="openModal('diagnostic')">Tell me what’s broken</button>
+    </div>
   </header>
+
+<!-- Modal for diagnostic form -->
+<div id="modal-diagnostic" class="modal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); align-items:center; justify-content:center;">
+  <div style="background:#fff; padding:2rem; max-width:500px; width:90%; border-radius:8px; position:relative;">
+    <h2>Quick Diagnostic</h2>
+    <p>Answer 3‑5 quick questions and we’ll show the biggest pain point.</p>
+    <!-- Simple placeholder form -->
+    <input type="text" placeholder="Your business name" style="width:100%;margin-bottom:0.5rem;">
+    <input type="email" placeholder="Email" style="width:100%;margin-bottom:0.5rem;">
+    <textarea placeholder="What’s your biggest marketing challenge?" style="width:100%;margin-bottom:0.5rem;"></textarea>
+    <button class="btn-primary" style="width:100%;" onclick="closeModal('diagnostic')">Submit</button>
+    <span style="position:absolute; top:8px; right:12px; cursor:pointer;" onclick="closeModal('diagnostic')">✕</span>
+  </div>
+</div>
+
+<script>
+function openModal(id){document.getElementById('modal-'+id).style.display='flex';}
+function closeModal(id){document.getElementById('modal-'+id).style.display='none';}
+</script>
 
   <!-- Problem -->
   <section class="section" id="problem">
@@ -82,6 +112,29 @@
       <li>It's math, not opinion.</li>
     </ul>
   </section>
+
+  <!-- Interactive Review Impact -->
+  <section class="section" id="impact" style="text-align:center; background:#e8f5e9; padding:2rem;">
+    <h2>Watch the Impact Grow</h2>
+    <p style="font-size:1.1rem; margin-bottom:1rem;">Each new 5‑star review brings a new customer.</p>
+    <div id="counter" style="font-size:3rem; font-weight:bold; color:var(--green);">0</div>
+    <button class="btn-primary" style="margin-top:1rem;" onclick="startCount()">Simulate 5 new reviews</button>
+  </section>
+
+  <script>
+    function startCount(){
+      const el=document.getElementById('counter');
+      let start=0;
+      const target=5;
+      const duration=1500; // ms
+      const stepTime=Math.floor(duration/target);
+      const interval=setInterval(()=>{
+        start++;
+        el.textContent=start;
+        if(start>=target){clearInterval(interval);}
+      },stepTime);
+    }
+  </script>
 
   <!-- Set & Forget -->
   <section class="section" id="set-forget">
