@@ -10,6 +10,17 @@
             padding: 0;
             box-sizing: border-box;
         }
+        :root {
+            --rnm-blue: #1c75bc;
+            --rnm-blue-dark: #155a96;
+            --rnm-yellow: #E5C100;
+            --rnm-yellow-light: #FFF9D6;
+            --rnm-dark: #0f172a;
+            --rnm-dark-light: #1e293b;
+            --rnm-light: #f8fafc;
+            --rnm-gray: #64748b;
+            --rnm-white: #ffffff;
+        }
         body {
             font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
             line-height: 1.6;
@@ -22,7 +33,7 @@
         }
         /* Header */
         .rnm-header {
-            background: #0f172a;
+            background: var(--rnm-dark);
             padding: 15px 0;
             position: fixed;
             width: 100%;
@@ -42,7 +53,7 @@
             width: auto;
         }
         .rnm-header-cta {
-            background: #E5C100;
+            background: var(--rnm-blue);
             color: #fff;
             padding: 10px 24px;
             border-radius: 6px;
@@ -51,11 +62,11 @@
             transition: background 0.3s;
         }
         .rnm-header-cta:hover {
-            background: #C9A800;
+            background: var(--rnm-blue-dark);
         }
         /* Hero */
         .rnm-hero {
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+            background: linear-gradient(135deg, var(--rnm-dark) 0%, var(--rnm-dark-light) 100%);
             padding: 140px 20px 80px;
             text-align: center;
         }
@@ -79,7 +90,7 @@
             flex-wrap: wrap;
         }
         .rnm-btn-primary {
-            background: #E5C100;
+            background: var(--rnm-blue);
             color: #fff;
             padding: 16px 32px;
             border-radius: 8px;
@@ -89,7 +100,7 @@
             transition: all 0.3s;
         }
         .rnm-btn-primary:hover {
-            background: #C9A800;
+            background: var(--rnm-blue-dark);
             transform: translateY(-2px);
         }
         .rnm-btn-secondary {
@@ -105,28 +116,79 @@
         }
         .rnm-btn-secondary:hover {
             background: #fff;
-            color: #0f172a;
+            color: var(--rnm-dark);
         }
         .rnm-hero-stats {
             margin-top: 60px;
-            color: #E5C100;
+            color: var(--rnm-yellow);
             font-size: 18px;
             font-weight: 600;
+        }
+        /* What You Get Section */
+        .rnm-services {
+            padding: 80px 20px;
+            background: var(--rnm-white);
+        }
+        .rnm-services h2 {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 15px;
+            color: var(--rnm-dark);
+        }
+        .rnm-services-intro {
+            text-align: center;
+            color: var(--rnm-gray);
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto 50px;
+        }
+        .rnm-services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .rnm-service-card {
+            background: var(--rnm-light);
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            border-top: 4px solid var(--rnm-blue);
+        }
+        .rnm-service-card h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            color: var(--rnm-dark);
+        }
+        .rnm-service-card p {
+            color: var(--rnm-gray);
+        }
+        .rnm-service-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--rnm-yellow-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 28px;
         }
         /* Problem Section */
         .rnm-problem {
             padding: 80px 20px;
-            background: #fff;
+            background: var(--rnm-light);
         }
         .rnm-problem h2 {
             text-align: center;
             font-size: 36px;
             margin-bottom: 15px;
-            color: #0f172a;
+            color: var(--rnm-dark);
         }
         .rnm-problem-intro {
             text-align: center;
-            color: #64748b;
+            color: var(--rnm-gray);
             font-size: 18px;
             max-width: 600px;
             margin: 0 auto 50px;
@@ -139,80 +201,30 @@
             margin: 0 auto;
         }
         .rnm-problem-card {
-            background: #f8fafc;
+            background: #fff;
             padding: 30px;
             border-radius: 12px;
             text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
         .rnm-problem-card h3 {
             font-size: 22px;
             margin-bottom: 15px;
-            color: #0f172a;
+            color: var(--rnm-dark);
         }
         .rnm-problem-card p {
-            color: #64748b;
+            color: var(--rnm-gray);
         }
         .rnm-problem-icon {
             width: 60px;
             height: 60px;
-            background: #fef3c7;
+            background: #fee2e2;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             margin: 0 auto 20px;
             font-size: 28px;
-        }
-        /* Benefits */
-        .rnm-benefits {
-            padding: 80px 20px;
-            background: #f8fafc;
-        }
-        .rnm-benefits h2 {
-            text-align: center;
-            font-size: 36px;
-            margin-bottom: 15px;
-            color: #0f172a;
-        }
-        .rnm-benefits-intro {
-            text-align: center;
-            color: #64748b;
-            font-size: 18px;
-            max-width: 600px;
-            margin: 0 auto 50px;
-        }
-        .rnm-benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        .rnm-benefit-card {
-            background: #fff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-        .rnm-benefit-card h3 {
-            font-size: 20px;
-            margin-bottom: 12px;
-            color: #0f172a;
-        }
-        .rnm-benefit-card p {
-            color: #64748b;
-            font-size: 15px;
-        }
-        .rnm-benefit-icon {
-            width: 50px;
-            height: 50px;
-            background: #FFF9D6;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 15px;
-            font-size: 24px;
         }
         /* How It Works */
         .rnm-how {
@@ -223,7 +235,7 @@
             text-align: center;
             font-size: 36px;
             margin-bottom: 50px;
-            color: #0f172a;
+            color: var(--rnm-dark);
         }
         .rnm-steps {
             display: flex;
@@ -241,7 +253,7 @@
         .rnm-step-number {
             width: 60px;
             height: 60px;
-            background: #E5C100;
+            background: var(--rnm-blue);
             color: #fff;
             border-radius: 50%;
             display: flex;
@@ -254,16 +266,16 @@
         .rnm-step h3 {
             font-size: 20px;
             margin-bottom: 10px;
-            color: #0f172a;
+            color: var(--rnm-dark);
         }
         .rnm-step p {
-            color: #64748b;
+            color: var(--rnm-gray);
             font-size: 15px;
         }
         /* Testimonials */
         .rnm-testimonials {
             padding: 80px 20px;
-            background: #0f172a;
+            background: var(--rnm-dark);
         }
         .rnm-testimonials h2 {
             text-align: center;
@@ -285,100 +297,84 @@
             margin: 0 auto;
         }
         .rnm-testimonial-card {
-            background: #1e293b;
+            background: var(--rnm-dark-light);
             padding: 30px;
             border-radius: 12px;
-        }
-        .rnm-testimonial-card .stats {
-            color: #E5C100;
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 15px;
-        }
-        .rnm-testimonial-card h4 {
-            color: #fff;
-            font-size: 20px;
-            margin-bottom: 10px;
+            border-left: 4px solid var(--rnm-yellow);
         }
         .rnm-testimonial-card .quote {
-            color: #94a3b8;
+            color: #fff;
             font-style: italic;
+            font-size: 16px;
             margin-bottom: 20px;
+            line-height: 1.8;
         }
         .rnm-testimonial-card .author {
-            color: #fff;
+            color: var(--rnm-yellow);
             font-weight: 600;
-        }
-        .rnm-testimonial-card .business {
-            color: #94a3b8;
-            font-size: 14px;
         }
         /* Pricing */
         .rnm-pricing {
             padding: 80px 20px;
-            background: #f8fafc;
+            background: var(--rnm-light);
         }
         .rnm-pricing h2 {
             text-align: center;
             font-size: 36px;
             margin-bottom: 15px;
-            color: #0f172a;
+            color: var(--rnm-dark);
         }
         .rnm-pricing-intro {
             text-align: center;
-            color: #64748b;
+            color: var(--rnm-gray);
             font-size: 18px;
             margin-bottom: 50px;
         }
         .rnm-pricing-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            max-width: 900px;
+            max-width: 800px;
             margin: 0 auto;
         }
         .rnm-pricing-card {
             background: #fff;
             padding: 40px 30px;
             border-radius: 16px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
             text-align: center;
             position: relative;
         }
-        .rnm-pricing-card.popular {
-            border: 3px solid #E5C100;
-        }
-        .rnm-pricing-card .popular-badge {
-            position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #E5C100;
-            color: #fff;
-            padding: 5px 20px;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight: 600;
+        .rnm-pricing-card.featured {
+            border: 3px solid var(--rnm-blue);
         }
         .rnm-pricing-card h3 {
-            font-size: 24px;
+            font-size: 28px;
             margin-bottom: 10px;
-            color: #0f172a;
+            color: var(--rnm-dark);
         }
-        .rnm-pricing-card .requests {
-            color: #64748b;
-            margin-bottom: 15px;
+        .rnm-pricing-card .description {
+            color: var(--rnm-gray);
+            margin-bottom: 20px;
+            min-height: 50px;
         }
         .rnm-pricing-card .price {
-            font-size: 42px;
+            font-size: 48px;
             font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 20px;
+            color: var(--rnm-dark);
+            margin-bottom: 5px;
         }
         .rnm-pricing-card .price span {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 400;
-            color: #64748b;
+            color: var(--rnm-gray);
+        }
+        .rnm-pricing-card .one-time {
+            font-size: 14px;
+            color: var(--rnm-gray);
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         .rnm-pricing-features {
             list-style: none;
@@ -386,26 +382,53 @@
             margin-bottom: 30px;
         }
         .rnm-pricing-features li {
-            padding: 10px 0;
+            padding: 12px 0;
             border-bottom: 1px solid #f1f5f9;
             color: #334155;
+            display: flex;
+            align-items: center;
         }
         .rnm-pricing-features li:before {
             content: "✓";
-            color: #E5C100;
-            margin-right: 10px;
+            color: var(--rnm-blue);
+            margin-right: 12px;
             font-weight: 700;
+            font-size: 18px;
         }
         .rnm-pricing-card .rnm-btn-primary {
             display: block;
             width: 100%;
-            padding: 14px;
+            padding: 16px;
             font-size: 16px;
+        }
+        /* Why Reviews Matter */
+        .rnm-why {
+            padding: 80px 20px;
+            background: var(--rnm-blue);
+            text-align: center;
+        }
+        .rnm-why h2 {
+            color: #fff;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        .rnm-why p {
+            color: rgba(255,255,255,0.9);
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .rnm-why .big-number {
+            color: var(--rnm-yellow);
+            font-size: 56px;
+            font-weight: 800;
+            display: block;
+            margin-bottom: 10px;
         }
         /* CTA Banner */
         .rnm-cta {
             padding: 60px 20px;
-            background: linear-gradient(135deg, #E5C100 0%, #C9A800 100%);
+            background: linear-gradient(135deg, var(--rnm-blue) 0%, var(--rnm-blue-dark) 100%);
             text-align: center;
         }
         .rnm-cta h2 {
@@ -414,31 +437,31 @@
             margin-bottom: 15px;
         }
         .rnm-cta p {
-            color: #FFF9D6;
+            color: rgba(255,255,255,0.9);
             font-size: 18px;
             margin-bottom: 30px;
         }
         .rnm-cta .rnm-btn-primary {
-            background: #fff;
-            color: #E5C100;
+            background: var(--rnm-yellow);
+            color: var(--rnm-dark);
         }
         .rnm-cta .rnm-btn-primary:hover {
-            background: #f0fdf4;
+            background: #ccaf00;
         }
         /* Footer */
         .rnm-footer {
-            background: #0f172a;
+            background: var(--rnm-dark);
             padding: 40px 20px;
             text-align: center;
         }
-        .rnm-footer p {
-            color: #64748b;
-            font-size: 14px;
-        }
-        .rnm-footer .logo img {
+        .rnm-footer img {
             height: 40px;
             width: auto;
             margin-bottom: 15px;
+        }
+        .rnm-footer p {
+            color: var(--rnm-gray);
+            font-size: 14px;
         }
         /* Responsive */
         @media (max-width: 768px) {
@@ -451,6 +474,9 @@
             .rnm-steps {
                 flex-direction: column;
             }
+            .rnm-pricing-card .price {
+                font-size: 36px;
+            }
         }
     </style>
 </head>
@@ -458,22 +484,47 @@
     <!-- Header -->
     <header class="rnm-header">
         <div class="rnm-header-inner">
-            <img src="http://rnm.flywheelsites.com/wp-content/uploads/2025/12/ReviewsNearMe-WHITE-scaled.webp" alt="Reviews Near Me" style="height:50px;">
-            <a href="#" class="rnm-header-cta">Get Started</a>
+            <img src="http://rnm.flywheelsites.com/wp-content/uploads/2025/12/ReviewsNearMe-WHITE-scaled.webp" alt="Reviews Near Me" class="rnm-logo">
+            <a href="#pricing" class="rnm-header-cta">Get Started</a>
         </div>
     </header>
 
     <!-- Hero Section -->
     <section class="rnm-hero">
         <div class="rnm-container">
-            <h1>Get More Google Reviews for Your Local Business</h1>
-            <p>Automated review requests that turn happy customers into 5-star reviews. Spend less time asking and more time growing your business.</p>
+            <h1>Your Customers Love You.<br>Let Everyone Know It.</h1>
+            <p>We help local businesses get more 5-star Google reviews that bring real customers through the door. No hassle, no chasing—just a system that works.</p>
             <div class="rnm-hero-buttons">
-                <a href="#" class="rnm-btn-primary">Start Free Trial</a>
-                <a href="#" class="rnm-btn-secondary">Book a Demo</a>
+                <a href="#pricing" class="rnm-btn-primary">See Pricing</a>
+                <a href="#how-it-works" class="rnm-btn-secondary">How It Works</a>
             </div>
             <div class="rnm-hero-stats">
-                📈 50,000+ reviews generated for local businesses
+                📈 Trusted by businesses across the Greater Charlotte area
+            </div>
+        </div>
+    </section>
+
+    <!-- What You Get -->
+    <section class="rnm-services">
+        <div class="rnm-container">
+            <h2>What You Get</h2>
+            <p class="rnm-services-intro">Complete online presence management so you can focus on running your business.</p>
+            <div class="rnm-services-grid">
+                <div class="rnm-service-card">
+                    <div class="rnm-service-icon">🔍</div>
+                    <h3>Google Business Profile Audit</h3>
+                    <p>We dig into your listing and fix everything that's holding you back—photos, hours, services, categories, Q&A—the works.</p>
+                </div>
+                <div class="rnm-service-card">
+                    <div class="rnm-service-icon">⭐</div>
+                    <h3>Review System Setup</h3>
+                    <p>We build a automated system that asks your happy customers for reviews. You provide the customers, we provide the system.</p>
+                </div>
+                <div class="rnm-service-card">
+                    <div class="rnm-service-icon">📱</div>
+                    <h3>Social Media Posts</h3>
+                    <p>Regular posts on Facebook and Instagram showcasing your business, new reviews, and what makes you different.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -481,77 +532,47 @@
     <!-- Problem Section -->
     <section class="rnm-problem">
         <div class="rnm-container">
-            <h2>Your Business Deserves More Reviews</h2>
-            <p class="rnm-problem-intro">Your customers are happy. You do great work. But when it's time to get a review... nothing happens.</p>
+            <h2>Sound Familiar?</h2>
+            <p class="rnm-problem-intro">You've got great customers who love your work. But when it comes to getting reviews online, it just doesn't happen.</p>
             <div class="rnm-problem-grid">
                 <div class="rnm-problem-card">
-                    <div class="rnm-problem-icon">😔</div>
-                    <h3>No Reviews</h3>
-                    <p>You have tons of happy customers but only a few reviews to show for it. New leads can't see how great you are.</p>
-                </div>
-                <div class="rnm-problem-card">
-                    <div class="rnm-problem-icon">⏰</div>
-                    <h3>No Time</h3>
-                    <p>You're already wearing too many hats. Chasing down customers for reviews takes time you don't have.</p>
+                    <div class="rnm-problem-icon">😕</div>
+                    <h3>You're Too Busy to Ask</h3>
+                    <p>Running a business takes everything you've got. Adding "ask for reviews" to your to-do list just doesn't happen.</p>
                 </div>
                 <div class="rnm-problem-card">
                     <div class="rnm-problem-icon">📉</div>
-                    <h3>No Visibility</h3>
-                    <p>Your competition shows up with 50+ reviews while you're stuck at 5. You lose leads every single day.</p>
+                    <h3>Competitors Show Up First</h3>
+                    <p>They've got 50 reviews, you've got 5. New customers choose them before they even call you.</p>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Benefits Section -->
-    <section class="rnm-benefits">
-        <div class="rnm-container">
-            <h2>How We Fix It</h2>
-            <p class="rnm-benefits-intro">We automate the entire review request process so you can focus on running your business.</p>
-            <div class="rnm-benefits-grid">
-                <div class="rnm-benefit-card">
-                    <div class="rnm-benefit-icon">🏆</div>
-                    <h3>Win More Customers</h3>
-                    <p>People trust businesses with strong reviews. Stand out from competitors and get chosen more often.</p>
-                </div>
-                <div class="rnm-benefit-card">
-                    <div class="rnm-benefit-icon">🔝</div>
-                    <h3>Boost Google Rankings</h3>
-                    <p>More reviews = higher local search rankings. Get found by more customers searching for your services.</p>
-                </div>
-                <div class="rnm-benefit-card">
-                    <div class="rnm-benefit-icon">🤝</div>
-                    <h3>Build Trust Instantly</h3>
-                    <p>Social proof from happy customers gives prospects confidence to choose you over anyone else.</p>
-                </div>
-                <div class="rnm-benefit-card">
-                    <div class="rnm-benefit-icon">⭐</div>
-                    <h3>Stand Out On Google</h3>
-                    <p>Your business becomes the obvious choice with a stellar rating that catches attention.</p>
+                <div class="rnm-problem-card">
+                    <div class="rnm-problem-icon">💸</div>
+                    <h3>Money Walks Out the Door</h3>
+                    <p>Every customer who chooses a competitor because of reviews is money you'll never get back.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- How It Works -->
-    <section class="rnm-how">
+    <section class="rnm-how" id="how-it-works">
         <div class="rnm-container">
             <h2>How It Works</h2>
             <div class="rnm-steps">
                 <div class="rnm-step">
                     <div class="rnm-step-number">1</div>
-                    <h3>Connect</h3>
-                    <p>Link your CRM or upload your customer list. We'll integrate with your existing tools.</p>
+                    <h3>We Audit Everything</h3>
+                    <p>We go through your Google Business Profile, website, and social accounts. Find what's broken. Fix it.</p>
                 </div>
                 <div class="rnm-step">
                     <div class="rnm-step-number">2</div>
-                    <h3>Launch</h3>
-                    <p>Automatically send personalized review requests to your customers after service.</p>
+                    <h3>We Build the System</h3>
+                    <p>Set up automated review requests that go to your customers after they use your service. No more forgetting to ask.</p>
                 </div>
                 <div class="rnm-step">
                     <div class="rnm-step-number">3</div>
-                    <h3>Automate</h3>
-                    <p>We send follow-ups, respond to reviews, and share them on social media automatically.</p>
+                    <h3>Reviews Roll In</h3>
+                    <p>Watch your star rating climb while we manage your presence. You focus on customers—we handle the rest.</p>
                 </div>
             </div>
         </div>
@@ -560,70 +581,68 @@
     <!-- Testimonials -->
     <section class="rnm-testimonials">
         <div class="rnm-container">
-            <h2>Real Results from Real Businesses</h2>
-            <p class="rnm-testimonials-intro">We've helped hundreds of local businesses transform their online reputation.</p>
+            <h2>What Business Owners Say</h2>
+            <p class="rnm-testimonials-intro">Real results from real local businesses.</p>
             <div class="rnm-testimonial-grid">
                 <div class="rnm-testimonial-card">
-                    <div class="stats">130+ Reviews in 6 Months</div>
-                    <h4>Ogburn Concrete Leveling</h4>
-                    <p class="quote">"Setup was incredibly simple and we started getting reviews within days. Highly recommend!"</p>
-                    <p class="author">— Stephen Ogburn</p>
-                    <p class="business">Ogburn Concrete Leveling & Resurfacing</p>
+                    <p class="quote">"We went from 12 reviews to over 80 in just a few months. It's made a huge difference in the calls we get."</p>
+                    <p class="author">— Local Service Business Owner</p>
                 </div>
                 <div class="rnm-testimonial-card">
-                    <div class="stats">From 74 to 423 Reviews!</div>
-                    <h4>Poo Squad</h4>
-                    <p class="quote">"We went from just 74 reviews to nearly 400 in 3 months. The growth was immediate and dramatic."</p>
-                    <p class="author">— Matt Fast</p>
-                    <p class="business">Poo Squad</p>
+                    <p class="quote">"Finally, a system that actually gets results without me having to bug my customers for reviews. Worth every penny."</p>
+                    <p class="author">— Restaurant Owner</p>
                 </div>
                 <div class="rnm-testimonial-card">
-                    <div class="stats">30 to 139 Reviews</div>
-                    <h4>Jones Carpet Care</h4>
-                    <p class="quote">"The system works perfectly. We went from 29 to 139 reviews in just 7 months."</p>
-                    <p class="author">— Quanteaus Jones</p>
-                    <p class="business">Jones Carpet Care</p>
+                    <p class="quote">"Our Google ranking improved dramatically. We're now showing up on the first page for our key services."</p>
+                    <p class="author">— Home Services Company</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Why Reviews Matter -->
+    <section class="rnm-why">
+        <div class="rnm-container">
+            <h2>Every Review = Real Customers</h2>
+            <p><span class="big-number">~1</span>new customer walks through your door for every 5-star review you earn. That's not opinion—that's math.</p>
+        </div>
+    </section>
+
     <!-- Pricing -->
-    <section class="rnm-pricing">
+    <section class="rnm-pricing" id="pricing">
         <div class="rnm-container">
             <h2>Simple, Transparent Pricing</h2>
-            <p class="rnm-pricing-intro">Choose the plan that fits your business size. All plans include a free trial.</p>
+            <p class="rnm-pricing-intro">No hidden fees, no surprises. Just results.</p>
             <div class="rnm-pricing-grid">
                 <div class="rnm-pricing-card">
-                    <h3>Starter</h3>
-                    <p class="requests">Up to 50 requests/month</p>
-                    <div class="price">$99<span>/mo</span></div>
+                    <h3>Audit & Setup</h3>
+                    <p class="description">One-time deep dive into your online presence.</p>
+                    <div class="price">$600</div>
+                    <p class="one-time">one-time</p>
                     <ul class="rnm-pricing-features">
-                        <li>Automated text & email requests</li>
-                        <li>Review follow-ups</li>
-                        <li>AI smart messaging</li>
-                        <li>Personalized image requests</li>
-                        <li>Auto review responses</li>
-                        <li>Social media posting</li>
-                        <li>CRM integration</li>
-                        <li>Unlimited users</li>
+                        <li>Complete Google Business Profile audit</li>
+                        <li>Fix all listing errors</li>
+                        <li>Optimize photos, hours & services</li>
+                        <li>Set up review request system</li>
+                        <li>Social media profile optimization</li>
+                        <li>30-day support after setup</li>
                     </ul>
-                    <a href="#" class="rnm-btn-primary">Start Free Trial</a>
+                    <a href="#" class="rnm-btn-primary">Get Started</a>
                 </div>
-                <div class="rnm-pricing-card popular">
-                    <span class="popular-badge">Most Popular</span>
-                    <h3>Growth</h3>
-                    <p class="requests">50-100 requests/month</p>
-                    <div class="price">$179<span>/mo</span></div>
+                <div class="rnm-pricing-card featured">
+                    <h3>Monthly Management</h3>
+                    <p class="description">Ongoing management to keep reviews flowing.</p>
+                    <div class="price">$400<span>/mo</span></div>
+                    <p class="one-time">billed monthly</p>
                     <ul class="rnm-pricing-features">
-                        <li>Everything in Starter</li>
-                        <li>Higher request limits</li>
-                        <li>Priority support</li>
-                        <li>Advanced analytics</li>
-                        <li>Custom branding</li>
-                        <li>A/B testing</li>
+                        <li>Everything in Audit & Setup</li>
+                        <li>Automated review requests</li>
+                        <li>Monthly social media posts</li>
+                        <li>Review monitoring & responses</li>
+                        <li>Monthly performance report</li>
+                        <li>Ongoing optimization tweaks</li>
                     </ul>
-                    <a href="#" class="rnm-btn-primary">Start Free Trial</a>
+                    <a href="#" class="rnm-btn-primary">Get Started</a>
                 </div>
             </div>
         </div>
@@ -632,18 +651,18 @@
     <!-- CTA Banner -->
     <section class="rnm-cta">
         <div class="rnm-container">
-            <h2>Ready to Get More Reviews?</h2>
-            <p>Join 700+ local businesses already growing their reputation on autopilot.</p>
-            <a href="#" class="rnm-btn-primary">Start Your Free Trial</a>
+            <h2>Ready to Stand Out?</h2>
+            <p>Stop losing customers to competitors with more reviews. Let's fix that today.</p>
+            <a href="#" class="rnm-btn-primary">Let's Talk</a>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="rnm-footer">
         <div class="rnm-container">
-            <img src="http://rnm.flywheelsites.com/wp-content/uploads/2025/12/ReviewsNearMe-WHITE-scaled.webp" alt="Reviews Near Me" class="logo">
+            <img src="http://rnm.flywheelsites.com/wp-content/uploads/2025/12/ReviewsNearMe-WHITE-scaled.webp" alt="Reviews Near Me">
             <p>© 2026 Reviews Near Me. All rights reserved.</p>
-            <p>Helping local businesses grow their online reputation.</p>
+            <p>Based in Waxhaw, NC. Serving the Greater Charlotte area.</p>
         </div>
     </footer>
 </body>
