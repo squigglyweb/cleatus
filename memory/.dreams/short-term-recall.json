@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-05-21T16:55:36.050Z",
+  "updatedAt": "2026-05-22T00:26:47.520Z",
   "entries": {
     "memory:memory/2026-05-05.md:72:89": {
       "key": "memory:memory/2026-05-05.md:72:89",
@@ -47,13 +47,13 @@
       "endLine": 45,
       "source": "memory",
       "snippet": "# May 7, 2026 ## TLN - The Local NearBuy Updates ### Branding Shift: \"Member\" Concept - Moved away from \"customer/client\" language - Everyone is a **Member** - builds community, not transactions - Reference: Brilliant Directories \"Be Part of Something Meaningful\" messaging ### Membership Tiers (Final) - **Free Member** - basic directory listing - **Pro Member** ($99/mo) - profile + offers - **Pro+ Member** ($199/mo) - profile + offers + video + featured + newsletter - **Sponsor Member** ($349/mo) - banner + newsletter ads + homepage ### Add-On Model Everything else is an add-on to membership: - Postcard Campaigns ($150/campaign) - Design Services ($50/project) - Social Management ($200/m",
-      "recallCount": 11,
+      "recallCount": 12,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 11,
+      "totalScore": 12,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T20:21:50.131Z",
-      "lastRecalledAt": "2026-05-20T16:15:52.010Z",
+      "lastRecalledAt": "2026-05-22T00:26:47.520Z",
       "queryHashes": [
         "3b057c3172e9",
         "94cabbf81b68",
@@ -65,7 +65,8 @@
         "7ebf46060a8c",
         "aa75aa6404d1",
         "7ab793c2d3a9",
-        "4dff1c997175"
+        "4dff1c997175",
+        "1b32cb054c8b"
       ],
       "recallDays": [
         "2026-05-12",
@@ -73,7 +74,8 @@
         "2026-05-16",
         "2026-05-17",
         "2026-05-18",
-        "2026-05-20"
+        "2026-05-20",
+        "2026-05-22"
       ],
       "conceptTags": [
         "customer/client",
@@ -205,13 +207,13 @@
       "endLine": 46,
       "source": "memory",
       "snippet": "# Bryan Somers - TLN Memory ## About Bryan - Founder, Publisher & Editor of The Local NearBuy (TLN) - Building a local digital media company serving Waxhaw area (Waxhaw, Weddington, Wesley Chapel, Marvin, Indian Land, Ballantyne) - 30+ years graphic design experience - Works at Collegiate Housing Services (CHS) - Helps Bethany Church with social media ## Goals - $60k/month total - Financial freedom - Multiple income streams - Low startup cost, fast to revenue - Recurring, delegatable, not dependent on him forever ## Current Projects - Golf Courses page - set up with tln-golf-shortcode.php plugin (uses [golf_directory] shortcode) - Wants to add filtering to the golf page - Using Poll Maker",
-      "recallCount": 7,
+      "recallCount": 8,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 6.982994616775461,
+      "totalScore": 7.982994616775461,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T20:21:50.131Z",
-      "lastRecalledAt": "2026-05-16T03:42:11.067Z",
+      "lastRecalledAt": "2026-05-22T00:26:47.520Z",
       "queryHashes": [
         "3b057c3172e9",
         "94cabbf81b68",
@@ -219,13 +221,15 @@
         "071f4c17045c",
         "6266ca34b52b",
         "ffa9d05d566b",
-        "af1c32327bb0"
+        "af1c32327bb0",
+        "1b32cb054c8b"
       ],
       "recallDays": [
         "2026-05-12",
         "2026-05-13",
         "2026-05-15",
-        "2026-05-16"
+        "2026-05-16",
+        "2026-05-22"
       ],
       "conceptTags": [
         "60k/month",
@@ -287,18 +291,20 @@
       "endLine": 13,
       "source": "memory",
       "snippet": "## TLN Business Review Variables - **Quality** - How good is the product/food/service? - **Value** - Is it worth the price? - **Service** - How are you treated? - **Experience** - Overall vibe/ambiance ## TLN Content Structure Change - ACF fields now attached to Posts (not Business post type) - Posts = TLN Reviews (with scoring fields) - Business post type = Directory listings (no ACF) - This aligns with Bryan's content strategy",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1,
+      "totalScore": 2,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T23:02:04.581Z",
-      "lastRecalledAt": "2026-05-12T23:02:04.581Z",
+      "lastRecalledAt": "2026-05-22T00:26:47.520Z",
       "queryHashes": [
-        "94cabbf81b68"
+        "94cabbf81b68",
+        "1b32cb054c8b"
       ],
       "recallDays": [
-        "2026-05-12"
+        "2026-05-12",
+        "2026-05-22"
       ],
       "conceptTags": [
         "product/food/service",
@@ -318,23 +324,25 @@
       "endLine": 86,
       "source": "memory",
       "snippet": "- Neighbor writes a review, submits, goes to moderation queue - Display on business page alongside Google reviews ## Golf Plugin v1.2 (Ready) - Green border (#7cda24) - Yellow stars (#FABC06) - Clickable phone (tel: link) - Linked address to Google Maps - Status pill: Open Now (green), Closed (red), Hours Unavailable (amber) - Search, location filter, sort - 1-hour caching ## Business Dashboard (To Build) - Claim form → approval → dashboard - Tabs: Business Info, Photos & Media, Offers, Community Impact, Social Media, Google Sync - Pricing tiers: Free / $99 Pro / $199 Pro+ ## Claimed Card Styling Specs - Border: 3px thick, red (#e63946) - for claimed/verified businesses - Border: 2px thic",
-      "recallCount": 5,
+      "recallCount": 6,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 5,
+      "totalScore": 6,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T23:02:04.581Z",
-      "lastRecalledAt": "2026-05-18T17:51:52.610Z",
+      "lastRecalledAt": "2026-05-22T00:26:47.520Z",
       "queryHashes": [
         "94cabbf81b68",
         "80f9208f6c41",
         "7ebf46060a8c",
         "aa75aa6404d1",
-        "7ab793c2d3a9"
+        "7ab793c2d3a9",
+        "1b32cb054c8b"
       ],
       "recallDays": [
         "2026-05-12",
-        "2026-05-18"
+        "2026-05-18",
+        "2026-05-22"
       ],
       "conceptTags": [
         "v1.2",
@@ -354,24 +362,26 @@
       "endLine": 105,
       "source": "memory",
       "snippet": "- **Directory** (nearbuy-directory.html) — Browse page with filters, grid view, business cards - **Business Listing** (nearbuy-business-listing.html) — Individual business page with offer card, QR code, reviews, sidebar ### GitHub Repository https://github.com/squigglyweb/cleatus All files pushed and available. --- ## April 14, 2026 — Session Notes ### New Pages Created Today 1. **nearbuy-coverage.html** — Coverage Area page showing Greater Waxhaw coverage (9 towns, 5K/campaign, 20K+ total households), map placeholder, strategic approach section 2. **nearbuy-events.html** — Events page (meal-packing events) with coming soon email capture, mission cards, past events placeholder 3. **near",
-      "recallCount": 5,
+      "recallCount": 6,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 4.983651888716118,
+      "totalScore": 5.983651888716118,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T23:02:04.581Z",
-      "lastRecalledAt": "2026-05-14T00:45:26.756Z",
+      "lastRecalledAt": "2026-05-22T00:26:47.520Z",
       "queryHashes": [
         "94cabbf81b68",
         "201d5f225c55",
         "071f4c17045c",
         "702ea8f65795",
-        "b6f375f7100e"
+        "b6f375f7100e",
+        "1b32cb054c8b"
       ],
       "recallDays": [
         "2026-05-12",
         "2026-05-13",
-        "2026-05-14"
+        "2026-05-14",
+        "2026-05-22"
       ],
       "conceptTags": [
         "nearbuy-directory.html",
@@ -391,13 +401,13 @@
       "endLine": 85,
       "source": "memory",
       "snippet": "| Tier | Size | Price | Meals | |------|------|-------|-------| | Small | 3.8\" x 2.5\" | $250 | 25 | | Small Front | 3.8\" x 5\" | $325 | 40 | | Medium | 7.6\" x 5\" | $625 | 75 | | Large | 7.6\" x 7.5\" | $800 | 110 | **Postcard Layout:** - Total: 12\" x 9\" - No Ad Zone (bottom): 11.75\" x 3.187\" — mailing indicia + NearBuy promo - Available ad space: above the No Ad Zone **Ad Builder Interface:** - Click-to-select grid showing available spots - Tier-based selection (not a la carte) - Custom QR code per ad - Real-time price + meal calculation - Businesses wanting more space can buy multiples or get custom quotes ### Tools (Current Stack) - Moxie CRM — keep using - Google Workspace — keep using -",
-      "recallCount": 9,
+      "recallCount": 10,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 9,
+      "totalScore": 10,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T23:02:04.581Z",
-      "lastRecalledAt": "2026-05-20T16:15:52.010Z",
+      "lastRecalledAt": "2026-05-22T00:26:47.520Z",
       "queryHashes": [
         "94cabbf81b68",
         "280499cabedf",
@@ -407,7 +417,8 @@
         "7ebf46060a8c",
         "aa75aa6404d1",
         "7ab793c2d3a9",
-        "4dff1c997175"
+        "4dff1c997175",
+        "1b32cb054c8b"
       ],
       "recallDays": [
         "2026-05-12",
@@ -415,7 +426,8 @@
         "2026-05-14",
         "2026-05-15",
         "2026-05-18",
-        "2026-05-20"
+        "2026-05-20",
+        "2026-05-22"
       ],
       "conceptTags": [
         "3.8",
