@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-05-22T00:26:47.520Z",
+  "updatedAt": "2026-05-22T01:34:49.257Z",
   "entries": {
     "memory:memory/2026-05-05.md:72:89": {
       "key": "memory:memory/2026-05-05.md:72:89",
@@ -249,13 +249,13 @@
       "endLine": 43,
       "source": "memory",
       "snippet": "# Memory - April 13, 2026 ## Session Notes ### Video Background Identified - The header on the template page uses **YouTube video ID: XzbVs1-48ZY** as a background - It's likely stock drone footage of neighborhoods/aerial shots (common in marketing agency templates) - URL: https://www.youtube.com/watch?v=XzbVs1-48ZY ### For The Local NearBuy Project - The signup page (nearbuy-signup-v2.html) uses CSS animation instead of video for better reliability - This avoids YouTube embed issues and ensures consistent performance ### Full Vision Discussed (from Claude.ai conversation) **Bryan's 4 Assets:** 1. Local Social Accounts — daily attention, brand awareness, community voice 2. Local Director",
-      "recallCount": 7,
+      "recallCount": 8,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 7,
+      "totalScore": 8,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T22:41:06.839Z",
-      "lastRecalledAt": "2026-05-21T16:55:36.050Z",
+      "lastRecalledAt": "2026-05-22T01:34:44.602Z",
       "queryHashes": [
         "47ce4d615495",
         "1532b7c86815",
@@ -263,7 +263,8 @@
         "e2bdb1bfb3f4",
         "857d09ad5f85",
         "18cb00de911b",
-        "e92d1b15b377"
+        "e92d1b15b377",
+        "00d7a82e68ea"
       ],
       "recallDays": [
         "2026-05-12",
@@ -271,7 +272,8 @@
         "2026-05-16",
         "2026-05-17",
         "2026-05-20",
-        "2026-05-21"
+        "2026-05-21",
+        "2026-05-22"
       ],
       "conceptTags": [
         "xzbvs1-48zy",
@@ -362,20 +364,21 @@
       "endLine": 105,
       "source": "memory",
       "snippet": "- **Directory** (nearbuy-directory.html) — Browse page with filters, grid view, business cards - **Business Listing** (nearbuy-business-listing.html) — Individual business page with offer card, QR code, reviews, sidebar ### GitHub Repository https://github.com/squigglyweb/cleatus All files pushed and available. --- ## April 14, 2026 — Session Notes ### New Pages Created Today 1. **nearbuy-coverage.html** — Coverage Area page showing Greater Waxhaw coverage (9 towns, 5K/campaign, 20K+ total households), map placeholder, strategic approach section 2. **nearbuy-events.html** — Events page (meal-packing events) with coming soon email capture, mission cards, past events placeholder 3. **near",
-      "recallCount": 6,
+      "recallCount": 7,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 5.983651888716118,
+      "totalScore": 6.983651888716118,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T23:02:04.581Z",
-      "lastRecalledAt": "2026-05-22T00:26:47.520Z",
+      "lastRecalledAt": "2026-05-22T01:34:49.257Z",
       "queryHashes": [
         "94cabbf81b68",
         "201d5f225c55",
         "071f4c17045c",
         "702ea8f65795",
         "b6f375f7100e",
-        "1b32cb054c8b"
+        "1b32cb054c8b",
+        "7221d5b3c41d"
       ],
       "recallDays": [
         "2026-05-12",
@@ -401,13 +404,13 @@
       "endLine": 85,
       "source": "memory",
       "snippet": "| Tier | Size | Price | Meals | |------|------|-------|-------| | Small | 3.8\" x 2.5\" | $250 | 25 | | Small Front | 3.8\" x 5\" | $325 | 40 | | Medium | 7.6\" x 5\" | $625 | 75 | | Large | 7.6\" x 7.5\" | $800 | 110 | **Postcard Layout:** - Total: 12\" x 9\" - No Ad Zone (bottom): 11.75\" x 3.187\" — mailing indicia + NearBuy promo - Available ad space: above the No Ad Zone **Ad Builder Interface:** - Click-to-select grid showing available spots - Tier-based selection (not a la carte) - Custom QR code per ad - Real-time price + meal calculation - Businesses wanting more space can buy multiples or get custom quotes ### Tools (Current Stack) - Moxie CRM — keep using - Google Workspace — keep using -",
-      "recallCount": 10,
+      "recallCount": 11,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 10,
+      "totalScore": 11,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T23:02:04.581Z",
-      "lastRecalledAt": "2026-05-22T00:26:47.520Z",
+      "lastRecalledAt": "2026-05-22T01:34:44.602Z",
       "queryHashes": [
         "94cabbf81b68",
         "280499cabedf",
@@ -418,7 +421,8 @@
         "aa75aa6404d1",
         "7ab793c2d3a9",
         "4dff1c997175",
-        "1b32cb054c8b"
+        "1b32cb054c8b",
+        "00d7a82e68ea"
       ],
       "recallDays": [
         "2026-05-12",
@@ -489,20 +493,21 @@
       "endLine": 33,
       "source": "memory",
       "snippet": "# April 8, 2026 - NearBuy Postcard Project Notes ## Project Status - NearBuy postcard tracker built: nearbuy-tracker-divi.html - Business portal built: nearbuy-business-portal.html - Google Apps Script backend: nearbuy-apps-script.gs - GitHub repo: https://github.com/squigglyweb/cleatus ## Pricing - Standard ad: $500 - Duplex (combined): $900 ## System Issues - OpenClaw environment completely down since April 7 - All exec commands timeout - Unable to make edits or push changes ## Business Strategy Notes - Ideal businesses: Home services (plumbers, HVAC, landscapers), food/dining, health/wellness, retail, auto services - Avoid: Big box stores, national chains, online-only businesses - Cat",
-      "recallCount": 6,
+      "recallCount": 7,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 6,
+      "totalScore": 7,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T23:02:11.759Z",
-      "lastRecalledAt": "2026-05-21T16:55:36.050Z",
+      "lastRecalledAt": "2026-05-22T01:34:49.257Z",
       "queryHashes": [
         "80f9208f6c41",
         "702ea8f65795",
         "6c8ed5afec83",
         "e2bdb1bfb3f4",
         "4dff1c997175",
-        "e92d1b15b377"
+        "e92d1b15b377",
+        "7221d5b3c41d"
       ],
       "recallDays": [
         "2026-05-12",
@@ -510,7 +515,8 @@
         "2026-05-16",
         "2026-05-17",
         "2026-05-20",
-        "2026-05-21"
+        "2026-05-21",
+        "2026-05-22"
       ],
       "conceptTags": [
         "nearbuy-tracker-divi.html",
@@ -703,25 +709,28 @@
       "endLine": 51,
       "source": "memory",
       "snippet": "# Memory: April 9, 2026 ## nearbuy-postcard (The Local NearBuy) ### Project Overview - Direct mail postcard advertising product for local businesses - Front + Back = ad space for local businesses - Includes meal donation component tied to redemptions - Building toward Meals4Good non-profit ### Ad Space Inventory **Front:** - 1 Large: 7.8\" × 3.8\" → $800 - 2 Medium: 3.8\" × 5\" → $625 each - 1 Small: 3.8\" × 3.75\" → $325 **Back:** - 3 Small: 3.8\" × 2.5\" → $250 each - 3 Medium: 3.8\" × 5\" → $625 each **Total potential revenue: $5,000** ### Cost Structure - Print cost: $2,344 - Max meals (capped at 2,000): 2,000 × $0.30 = $600 - M4G building fund: 2,000 × $0.20 = $400 ### Financial Targets -",
-      "recallCount": 5,
+      "recallCount": 7,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 5,
+      "totalScore": 7,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-13T01:26:56.496Z",
-      "lastRecalledAt": "2026-05-20T14:09:15.738Z",
+      "lastRecalledAt": "2026-05-22T01:34:49.257Z",
       "queryHashes": [
         "071f4c17045c",
         "3a4001249de8",
         "e2bdb1bfb3f4",
         "857d09ad5f85",
-        "18cb00de911b"
+        "18cb00de911b",
+        "00d7a82e68ea",
+        "7221d5b3c41d"
       ],
       "recallDays": [
         "2026-05-13",
         "2026-05-15",
         "2026-05-17",
-        "2026-05-20"
+        "2026-05-20",
+        "2026-05-22"
       ],
       "conceptTags": [
         "nearbuy-postcard",
@@ -777,13 +786,13 @@
       "endLine": 37,
       "source": "memory",
       "snippet": "# May 6, 2026 - The Local NearBuy (TLN) ## Claim Page Issue - FIXED - WordPress was treating `?business=` query param as something special (404 error) - Changed param to `?biz=` — works now - URL: `/claim/?biz=businessname&pid=placeid` ## Directory UX Change - Changed \"Claim This Business\" button to **\"View Profile\"** - Added subtle link: \"Own this business? Claim it\" - Makes TLN feel like a resource, not a marketplace - Bryan approved this approach ## New Locations Added to Directory - Waxhaw (full categories: Restaurant, Retail, Services, Cafe) - Marvin, Wesley Chapel, Weddington, Indian Land (basic: Restaurant, Retail) ## Summer Camps Page - Created `tln-camps.php` plugin - Shortcode:",
-      "recallCount": 7,
+      "recallCount": 8,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 6.949595668588147,
+      "totalScore": 7.949595668588147,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-13T01:26:56.496Z",
-      "lastRecalledAt": "2026-05-20T02:26:49.920Z",
+      "lastRecalledAt": "2026-05-22T01:34:49.257Z",
       "queryHashes": [
         "071f4c17045c",
         "69c4bee04e24",
@@ -791,14 +800,16 @@
         "ffa9d05d566b",
         "af1c32327bb0",
         "11ee02a36115",
-        "95b12c515877"
+        "95b12c515877",
+        "7221d5b3c41d"
       ],
       "recallDays": [
         "2026-05-13",
         "2026-05-15",
         "2026-05-16",
         "2026-05-17",
-        "2026-05-20"
+        "2026-05-20",
+        "2026-05-22"
       ],
       "conceptTags": [
         "tln-camps.php",
@@ -957,18 +968,20 @@
       "endLine": 138,
       "source": "memory",
       "snippet": "- Outputs: gross revenue, print costs, meals cost, M4G fund, net profit, total meals donated - Based on real NearBuy pricing/structure (not generic course material) ### Revenue Simulator Constants - Print cost: $586/campaign (5K households) - M4G fund reserve: $0.20/meal - Default redemption rate: 2.5% ### All Website Pages (14 total on GitHub) 1. nearbuy-homepage.html 2. nearbuy-directory.html 3. nearbuy-business-listing.html 4. nearbuy-about.html 5. nearbuy-mission.html 6. nearbuy-for-businesses.html 7. nearbuy-contact.html 8. nearbuy-subscribe.html 9. nearbuy-ad-builder.html 10. nearbuy-business-portal.html 11. nearbuy-coverage.html 12. nearbuy-events.html 13. nearbuy-admin-dashbo",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1,
+      "totalScore": 2,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-15T14:18:33.479Z",
-      "lastRecalledAt": "2026-05-15T14:18:33.479Z",
+      "lastRecalledAt": "2026-05-22T01:34:49.257Z",
       "queryHashes": [
-        "3a4001249de8"
+        "3a4001249de8",
+        "7221d5b3c41d"
       ],
       "recallDays": [
-        "2026-05-15"
+        "2026-05-15",
+        "2026-05-22"
       ],
       "conceptTags": [
         "pricing/structure",
@@ -988,23 +1001,25 @@
       "endLine": 35,
       "source": "memory",
       "snippet": "# May 9, 2026 - The Local NearBuy Build Session ## Business Dashboard Updates - tln-business-dashboard-v2.html created with: - Progress tracker (joined date vs now vs growth) - Time period filter (This Month, Last Month, YTD, All Time) - Offer limit warning when monthly limit reached - \"Postcard Only\" status for hidden offers - Logo upload section - Blinking red dot for new messages - Messages section (unread vs read) - Stripe billing integration shown ## A La Carte - tln-alacarte-form.html created with service selection and contact form - Added GB Profile Enhancement ($1,000/mo) with info modal explaining: - Weekly posts, photo management, review handling - \"Why We Off",
-      "recallCount": 4,
+      "recallCount": 5,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 4,
+      "totalScore": 5,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-15T19:56:59.837Z",
-      "lastRecalledAt": "2026-05-20T16:15:52.010Z",
+      "lastRecalledAt": "2026-05-22T01:34:49.257Z",
       "queryHashes": [
         "6266ca34b52b",
         "ffa9d05d566b",
         "6c8ed5afec83",
-        "4dff1c997175"
+        "4dff1c997175",
+        "7221d5b3c41d"
       ],
       "recallDays": [
         "2026-05-15",
         "2026-05-16",
-        "2026-05-20"
+        "2026-05-20",
+        "2026-05-22"
       ],
       "conceptTags": [
         "tln-business-dashboard-v2.html",
@@ -1062,21 +1077,23 @@
       "endLine": 72,
       "source": "memory",
       "snippet": "> 1. Gets your business on the postcard (print + distribution) > 2. Feeds kids — we donate 5 meals when someone redeems your offer > 3. Builds Meals4Good — 20% of meal funding goes to launching our non-profit\" ### Front Messaging (Finalized) > \"Support local. Save local. Feed kids.\" > \"Scan ad → Get voucher → We donate a meal\" > \"THAT'S THE LOCAL NEARBUY.\" ### Body Copy > \"This mailing was sent to you by 50+ local businesses in our community — with a purpose bigger than just a sale. Each ad funds 5 meals for HELPp Food Kids. When you scan the QR code on any ad to claim your exclusive offer and show your voucher at checkout, you're supporting local. Thanks for your support!\" > \"It's really",
-      "recallCount": 3,
+      "recallCount": 4,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 3,
+      "totalScore": 4,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-17T11:31:35.512Z",
-      "lastRecalledAt": "2026-05-20T14:09:15.738Z",
+      "lastRecalledAt": "2026-05-22T01:34:44.602Z",
       "queryHashes": [
         "e2bdb1bfb3f4",
         "857d09ad5f85",
-        "18cb00de911b"
+        "18cb00de911b",
+        "00d7a82e68ea"
       ],
       "recallDays": [
         "2026-05-17",
-        "2026-05-20"
+        "2026-05-20",
+        "2026-05-22"
       ],
       "conceptTags": [
         "non-profit",

@@ -27,14 +27,14 @@
             color: #333;
         }
         .rnm-container {
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 0 20px;
         }
         /* Header */
         .rnm-header {
             background: var(--rnm-dark);
-            padding: 15px 0;
+            padding: 12px 0;
             position: fixed;
             width: 100%;
             top: 0;
@@ -44,21 +44,22 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
+            max-width: 1100px;
             margin: 0 auto;
             padding: 0 20px;
         }
         .rnm-logo img {
-            height: 50px;
+            height: 40px;
             width: auto;
         }
         .rnm-header-cta {
             background: var(--rnm-blue);
             color: #fff;
-            padding: 10px 24px;
+            padding: 8px 20px;
             border-radius: 6px;
             text-decoration: none;
             font-weight: 600;
+            font-size: 14px;
             transition: background 0.3s;
         }
         .rnm-header-cta:hover {
@@ -67,37 +68,40 @@
         /* Hero */
         .rnm-hero {
             background: linear-gradient(135deg, var(--rnm-dark) 0%, var(--rnm-dark-light) 100%);
-            padding: 140px 20px 80px;
+            padding: 120px 20px 60px;
             text-align: center;
         }
         .rnm-hero h1 {
             color: #fff;
-            font-size: 48px;
+            font-size: 38px;
             font-weight: 800;
-            margin-bottom: 20px;
-            line-height: 1.2;
+            margin-bottom: 16px;
+            line-height: 1.15;
         }
         .rnm-hero p {
             color: #94a3b8;
-            font-size: 20px;
-            max-width: 600px;
-            margin: 0 auto 40px;
+            font-size: 17px;
+            max-width: 540px;
+            margin: 0 auto 30px;
         }
         .rnm-hero-buttons {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             justify-content: center;
             flex-wrap: wrap;
         }
         .rnm-btn-primary {
             background: var(--rnm-blue);
             color: #fff;
-            padding: 16px 32px;
+            padding: 14px 28px;
             border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 18px;
+            font-size: 16px;
             transition: all 0.3s;
+            display: inline-block;
+            border: none;
+            cursor: pointer;
         }
         .rnm-btn-primary:hover {
             background: var(--rnm-blue-dark);
@@ -107,375 +111,447 @@
             background: transparent;
             color: #fff;
             border: 2px solid #fff;
-            padding: 14px 30px;
+            padding: 12px 26px;
             border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
-            font-size: 18px;
+            font-size: 16px;
             transition: all 0.3s;
+            display: inline-block;
         }
         .rnm-btn-secondary:hover {
             background: #fff;
             color: var(--rnm-dark);
         }
-        .rnm-hero-stats {
-            margin-top: 60px;
-            color: var(--rnm-yellow);
-            font-size: 18px;
-            font-weight: 600;
-        }
-        /* What You Get Section */
-        .rnm-services {
-            padding: 80px 20px;
-            background: var(--rnm-white);
-        }
-        .rnm-services h2 {
-            text-align: center;
-            font-size: 36px;
-            margin-bottom: 15px;
-            color: var(--rnm-dark);
-        }
-        .rnm-services-intro {
-            text-align: center;
-            color: var(--rnm-gray);
-            font-size: 18px;
-            max-width: 600px;
-            margin: 0 auto 50px;
-        }
-        .rnm-services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        .rnm-service-card {
-            background: var(--rnm-light);
-            padding: 30px;
-            border-radius: 12px;
-            text-align: center;
-            border-top: 4px solid var(--rnm-blue);
-        }
-        .rnm-service-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
-            color: var(--rnm-dark);
-        }
-        .rnm-service-card p {
-            color: var(--rnm-gray);
-        }
-        .rnm-service-icon {
-            width: 60px;
-            height: 60px;
-            background: var(--rnm-yellow-light);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 28px;
-        }
         /* Problem Section */
         .rnm-problem {
-            padding: 80px 20px;
+            padding: 60px 20px;
             background: var(--rnm-light);
         }
         .rnm-problem h2 {
             text-align: center;
-            font-size: 36px;
-            margin-bottom: 15px;
+            font-size: 30px;
+            margin-bottom: 12px;
             color: var(--rnm-dark);
         }
         .rnm-problem-intro {
             text-align: center;
             color: var(--rnm-gray);
-            font-size: 18px;
-            max-width: 600px;
-            margin: 0 auto 50px;
+            font-size: 16px;
+            max-width: 540px;
+            margin: 0 auto 40px;
         }
         .rnm-problem-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            max-width: 1000px;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+            max-width: 900px;
             margin: 0 auto;
         }
         .rnm-problem-card {
             background: #fff;
-            padding: 30px;
-            border-radius: 12px;
+            padding: 24px;
+            border-radius: 10px;
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
         }
         .rnm-problem-card h3 {
-            font-size: 22px;
-            margin-bottom: 15px;
+            font-size: 18px;
+            margin-bottom: 10px;
             color: var(--rnm-dark);
         }
         .rnm-problem-card p {
             color: var(--rnm-gray);
+            font-size: 14px;
         }
-        .rnm-problem-icon {
-            width: 60px;
-            height: 60px;
-            background: #fee2e2;
-            border-radius: 50%;
+        /* Quiz Section */
+        .rnm-quiz {
+            padding: 60px 20px;
+            background: #fff;
+        }
+        .rnm-quiz h2 {
+            text-align: center;
+            font-size: 30px;
+            margin-bottom: 12px;
+            color: var(--rnm-dark);
+        }
+        .rnm-quiz-intro {
+            text-align: center;
+            color: var(--rnm-gray);
+            font-size: 16px;
+            margin-bottom: 40px;
+        }
+        .rnm-quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--rnm-light);
+            border-radius: 16px;
+            padding: 30px 24px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+        .rnm-quiz-progress {
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 3px;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        .rnm-quiz-progress-bar {
+            height: 100%;
+            background: var(--rnm-blue);
+            border-radius: 3px;
+            transition: width 0.4s ease;
+        }
+        .rnm-quiz-question {
+            display: none;
+        }
+        .rnm-quiz-question.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .rnm-quiz-question h3 {
+            font-size: 20px;
+            margin-bottom: 24px;
+            color: var(--rnm-dark);
+        }
+        .rnm-quiz-option {
+            display: block;
+            width: 100%;
+            padding: 16px 20px;
+            margin-bottom: 12px;
+            background: #fff;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            text-align: left;
+            font-size: 16px;
+            color: var(--rnm-dark);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .rnm-quiz-option:hover {
+            border-color: var(--rnm-blue);
+            background: #f0f7ff;
+        }
+        .rnm-quiz-option.selected {
+            border-color: var(--rnm-blue);
+            background: var(--rnm-blue);
+            color: #fff;
+        }
+        .rnm-quiz-nav {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            font-size: 28px;
+            justify-content: space-between;
+            margin-top: 24px;
+        }
+        .rnm-quiz-back {
+            background: transparent;
+            border: none;
+            color: var(--rnm-gray);
+            font-size: 14px;
+            cursor: pointer;
+            padding: 10px 0;
+        }
+        .rnm-quiz-back:hover {
+            color: var(--rnm-dark);
+        }
+        .rnm-quiz-results {
+            display: none;
+            text-align: center;
+            animation: fadeIn 0.5s ease;
+        }
+        .rnm-quiz-results.active {
+            display: block;
+        }
+        .rnm-quiz-results h3 {
+            font-size: 24px;
+            margin-bottom: 8px;
+            color: var(--rnm-dark);
+        }
+        .rnm-quiz-results .subtitle {
+            color: var(--rnm-gray);
+            margin-bottom: 30px;
+        }
+        .rnm-quiz-recommendation {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            text-align: left;
+        }
+        .rnm-quiz-recommendation h4 {
+            font-size: 18px;
+            color: var(--rnm-blue);
+            margin-bottom: 8px;
+        }
+        .rnm-quiz-recommendation .price {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--rnm-dark);
+            margin-bottom: 16px;
+        }
+        .rnm-quiz-recommendation .price span {
+            font-size: 16px;
+            font-weight: 400;
+            color: var(--rnm-gray);
+        }
+        .rnm-quiz-recommendation ul {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        .rnm-quiz-recommendation ul li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 14px;
+            color: #475569;
+        }
+        .rnm-quiz-recommendation ul li:before {
+            content: "✓";
+            color: var(--rnm-blue);
+            margin-right: 10px;
+            font-weight: 600;
+        }
+        .rnm-quiz-results .rnm-btn-primary {
+            width: 100%;
         }
         /* How It Works */
         .rnm-how {
-            padding: 80px 20px;
-            background: #fff;
+            padding: 60px 20px;
+            background: var(--rnm-light);
         }
         .rnm-how h2 {
             text-align: center;
-            font-size: 36px;
-            margin-bottom: 50px;
+            font-size: 30px;
+            margin-bottom: 40px;
             color: var(--rnm-dark);
         }
         .rnm-steps {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-            max-width: 1000px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 900px;
             margin: 0 auto;
         }
         .rnm-step {
             text-align: center;
-            flex: 1;
-            min-width: 250px;
         }
         .rnm-step-number {
-            width: 60px;
-            height: 60px;
+            width: 48px;
+            height: 48px;
             background: var(--rnm-blue);
             color: #fff;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 24px;
+            font-size: 20px;
             font-weight: 700;
-            margin: 0 auto 20px;
+            margin: 0 auto 16px;
         }
         .rnm-step h3 {
-            font-size: 20px;
-            margin-bottom: 10px;
+            font-size: 17px;
+            margin-bottom: 8px;
             color: var(--rnm-dark);
         }
         .rnm-step p {
             color: var(--rnm-gray);
-            font-size: 15px;
-        }
-        /* Testimonials */
-        .rnm-testimonials {
-            padding: 80px 20px;
-            background: var(--rnm-dark);
-        }
-        .rnm-testimonials h2 {
-            text-align: center;
-            font-size: 36px;
-            margin-bottom: 15px;
-            color: #fff;
-        }
-        .rnm-testimonials-intro {
-            text-align: center;
-            color: #94a3b8;
-            font-size: 18px;
-            margin-bottom: 50px;
-        }
-        .rnm-testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-        .rnm-testimonial-card {
-            background: var(--rnm-dark-light);
-            padding: 30px;
-            border-radius: 12px;
-            border-left: 4px solid var(--rnm-yellow);
-        }
-        .rnm-testimonial-card .quote {
-            color: #fff;
-            font-style: italic;
-            font-size: 16px;
-            margin-bottom: 20px;
-            line-height: 1.8;
-        }
-        .rnm-testimonial-card .author {
-            color: var(--rnm-yellow);
-            font-weight: 600;
+            font-size: 14px;
         }
         /* Pricing */
         .rnm-pricing {
-            padding: 80px 20px;
-            background: var(--rnm-light);
+            padding: 60px 20px;
+            background: var(--rnm-dark);
         }
         .rnm-pricing h2 {
             text-align: center;
-            font-size: 36px;
-            margin-bottom: 15px;
-            color: var(--rnm-dark);
+            font-size: 30px;
+            margin-bottom: 12px;
+            color: #fff;
         }
         .rnm-pricing-intro {
             text-align: center;
-            color: var(--rnm-gray);
-            font-size: 18px;
-            margin-bottom: 50px;
+            color: #94a3b8;
+            font-size: 16px;
+            margin-bottom: 40px;
         }
         .rnm-pricing-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            max-width: 800px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            max-width: 950px;
             margin: 0 auto;
         }
         .rnm-pricing-card {
-            background: #fff;
-            padding: 40px 30px;
+            background: var(--rnm-dark-light);
+            padding: 30px 24px;
             border-radius: 16px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
             text-align: center;
-            position: relative;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+        .rnm-pricing-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--rnm-blue);
         }
         .rnm-pricing-card.featured {
-            border: 3px solid var(--rnm-blue);
+            border-color: var(--rnm-yellow);
         }
         .rnm-pricing-card h3 {
-            font-size: 28px;
-            margin-bottom: 10px;
-            color: var(--rnm-dark);
+            font-size: 22px;
+            margin-bottom: 8px;
+            color: #fff;
         }
         .rnm-pricing-card .description {
-            color: var(--rnm-gray);
-            margin-bottom: 20px;
-            min-height: 50px;
+            color: #94a3b8;
+            font-size: 14px;
+            margin-bottom: 16px;
+            min-height: 40px;
         }
         .rnm-pricing-card .price {
-            font-size: 48px;
+            font-size: 42px;
             font-weight: 800;
-            color: var(--rnm-dark);
-            margin-bottom: 5px;
+            color: #fff;
+            margin-bottom: 4px;
         }
         .rnm-pricing-card .price span {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 400;
-            color: var(--rnm-gray);
+            color: #94a3b8;
         }
         .rnm-pricing-card .one-time {
-            font-size: 14px;
-            color: var(--rnm-gray);
-            margin-bottom: 25px;
+            font-size: 13px;
+            color: var(--rnm-yellow);
+            margin-bottom: 20px;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
         .rnm-pricing-features {
             list-style: none;
             text-align: left;
-            margin-bottom: 30px;
+            margin-bottom: 24px;
         }
         .rnm-pricing-features li {
-            padding: 12px 0;
-            border-bottom: 1px solid #f1f5f9;
-            color: #334155;
-            display: flex;
-            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #334155;
+            color: #cbd5e1;
+            font-size: 14px;
+        }
+        .rnm-pricing-features li:last-child {
+            border-bottom: none;
         }
         .rnm-pricing-features li:before {
             content: "✓";
             color: var(--rnm-blue);
-            margin-right: 12px;
-            font-weight: 700;
-            font-size: 18px;
+            margin-right: 10px;
+            font-weight: 600;
         }
         .rnm-pricing-card .rnm-btn-primary {
             display: block;
             width: 100%;
-            padding: 16px;
-            font-size: 16px;
+            padding: 14px;
+            font-size: 15px;
         }
-        /* Why Reviews Matter */
+        /* Why Reviews */
         .rnm-why {
-            padding: 80px 20px;
+            padding: 50px 20px;
             background: var(--rnm-blue);
             text-align: center;
         }
         .rnm-why h2 {
             color: #fff;
-            font-size: 36px;
-            margin-bottom: 20px;
+            font-size: 28px;
+            margin-bottom: 12px;
         }
         .rnm-why p {
             color: rgba(255,255,255,0.9);
-            font-size: 20px;
-            max-width: 700px;
+            font-size: 16px;
+            max-width: 600px;
             margin: 0 auto;
         }
         .rnm-why .big-number {
             color: var(--rnm-yellow);
-            font-size: 56px;
+            font-size: 48px;
             font-weight: 800;
             display: block;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
-        /* CTA Banner */
+        /* CTA */
         .rnm-cta {
-            padding: 60px 20px;
-            background: linear-gradient(135deg, var(--rnm-blue) 0%, var(--rnm-blue-dark) 100%);
+            padding: 50px 20px;
+            background: var(--rnm-yellow);
             text-align: center;
         }
         .rnm-cta h2 {
-            color: #fff;
-            font-size: 36px;
-            margin-bottom: 15px;
+            color: var(--rnm-dark);
+            font-size: 28px;
+            margin-bottom: 12px;
         }
         .rnm-cta p {
-            color: rgba(255,255,255,0.9);
-            font-size: 18px;
-            margin-bottom: 30px;
-        }
-        .rnm-cta .rnm-btn-primary {
-            background: var(--rnm-yellow);
             color: var(--rnm-dark);
-        }
-        .rnm-cta .rnm-btn-primary:hover {
-            background: #ccaf00;
+            font-size: 16px;
+            margin-bottom: 24px;
+            opacity: 0.8;
         }
         /* Footer */
         .rnm-footer {
             background: var(--rnm-dark);
-            padding: 40px 20px;
+            padding: 30px 20px;
             text-align: center;
         }
-        .rnm-footer img {
-            height: 40px;
+        .rnm-footer-logo {
+            height: 28px;
             width: auto;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
+            opacity: 0.7;
         }
         .rnm-footer p {
             color: var(--rnm-gray);
-            font-size: 14px;
+            font-size: 13px;
         }
-        /* Responsive */
+        /* Mobile Optimizations */
         @media (max-width: 768px) {
+            .rnm-hero {
+                padding: 100px 20px 50px;
+            }
             .rnm-hero h1 {
-                font-size: 32px;
+                font-size: 28px;
             }
             .rnm-hero p {
-                font-size: 16px;
+                font-size: 15px;
             }
             .rnm-steps {
-                flex-direction: column;
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .rnm-problem h2,
+            .rnm-quiz h2,
+            .rnm-how h2,
+            .rnm-pricing h2 {
+                font-size: 26px;
+            }
+            .rnm-quiz-container {
+                padding: 20px 18px;
+            }
+            .rnm-quiz-option {
+                padding: 14px 16px;
+                font-size: 15px;
+            }
+            .rnm-pricing-card {
+                padding: 24px 18px;
             }
             .rnm-pricing-card .price {
                 font-size: 36px;
+            }
+            .rnm-btn-primary {
+                padding: 12px 24px;
+                font-size: 15px;
+            }
+            .rnm-btn-secondary {
+                padding: 10px 22px;
+                font-size: 15px;
             }
         }
     </style>
@@ -485,7 +561,7 @@
     <header class="rnm-header">
         <div class="rnm-header-inner">
             <img src="http://rnm.flywheelsites.com/wp-content/uploads/2025/12/ReviewsNearMe-WHITE-scaled.webp" alt="Reviews Near Me" class="rnm-logo">
-            <a href="#pricing" class="rnm-header-cta">Get Started</a>
+            <a href="#quiz" class="rnm-header-cta">Take Quiz</a>
         </div>
     </header>
 
@@ -493,38 +569,10 @@
     <section class="rnm-hero">
         <div class="rnm-container">
             <h1>Your Customers Love You.<br>Let Everyone Know It.</h1>
-            <p>We help local businesses get more 5-star Google reviews that bring real customers through the door. No hassle, no chasing—just a system that works.</p>
+            <p>We help local businesses get more 5-star Google reviews that bring real customers through the door.</p>
             <div class="rnm-hero-buttons">
-                <a href="#pricing" class="rnm-btn-primary">See Pricing</a>
+                <a href="#quiz" class="rnm-btn-primary">See What's Right For You</a>
                 <a href="#how-it-works" class="rnm-btn-secondary">How It Works</a>
-            </div>
-            <div class="rnm-hero-stats">
-                📈 Trusted by businesses across the Greater Charlotte area
-            </div>
-        </div>
-    </section>
-
-    <!-- What You Get -->
-    <section class="rnm-services">
-        <div class="rnm-container">
-            <h2>What You Get</h2>
-            <p class="rnm-services-intro">Complete online presence management so you can focus on running your business.</p>
-            <div class="rnm-services-grid">
-                <div class="rnm-service-card">
-                    <div class="rnm-service-icon">🔍</div>
-                    <h3>Google Business Profile Audit</h3>
-                    <p>We dig into your listing and fix everything that's holding you back—photos, hours, services, categories, Q&A—the works.</p>
-                </div>
-                <div class="rnm-service-card">
-                    <div class="rnm-service-icon">⭐</div>
-                    <h3>Review System Setup</h3>
-                    <p>We build a automated system that asks your happy customers for reviews. You provide the customers, we provide the system.</p>
-                </div>
-                <div class="rnm-service-card">
-                    <div class="rnm-service-icon">📱</div>
-                    <h3>Social Media Posts</h3>
-                    <p>Regular posts on Facebook and Instagram showcasing your business, new reviews, and what makes you different.</p>
-                </div>
             </div>
         </div>
     </section>
@@ -533,22 +581,83 @@
     <section class="rnm-problem">
         <div class="rnm-container">
             <h2>Sound Familiar?</h2>
-            <p class="rnm-problem-intro">You've got great customers who love your work. But when it comes to getting reviews online, it just doesn't happen.</p>
+            <p class="rnm-problem-intro">You've got great customers. But getting reviews just doesn't happen.</p>
             <div class="rnm-problem-grid">
                 <div class="rnm-problem-card">
-                    <div class="rnm-problem-icon">😕</div>
-                    <h3>You're Too Busy to Ask</h3>
-                    <p>Running a business takes everything you've got. Adding "ask for reviews" to your to-do list just doesn't happen.</p>
+                    <h3>Too Busy to Ask</h3>
+                    <p>Running your business takes everything you've got. Asking for reviews falls by the wayside.</p>
                 </div>
                 <div class="rnm-problem-card">
-                    <div class="rnm-problem-icon">📉</div>
                     <h3>Competitors Show Up First</h3>
-                    <p>They've got 50 reviews, you've got 5. New customers choose them before they even call you.</p>
+                    <p>They've got 50 reviews, you've got 5. New customers choose them before calling you.</p>
                 </div>
                 <div class="rnm-problem-card">
-                    <div class="rnm-problem-icon">💸</div>
                     <h3>Money Walks Out the Door</h3>
-                    <p>Every customer who chooses a competitor because of reviews is money you'll never get back.</p>
+                    <p>Every customer who chooses a competitor because of reviews is money you'll never recover.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiz Section -->
+    <section class="rnm-quiz" id="quiz">
+        <div class="rnm-container">
+            <h2>Find Your Solution</h2>
+            <p class="rnm-quiz-intro">Answer 3 quick questions and we'll recommend the right package for you.</p>
+            
+            <div class="rnm-quiz-container">
+                <div class="rnm-quiz-progress">
+                    <div class="rnm-quiz-progress-bar" style="width: 33%;"></div>
+                </div>
+                
+                <!-- Question 1 -->
+                <div class="rnm-quiz-question active" data-question="1">
+                    <h3>How many locations does your business have?</h3>
+                    <button class="rnm-quiz-option" data-value="1">Just one location</button>
+                    <button class="rnm-quiz-option" data-value="2">2-3 locations</button>
+                    <button class="rnm-quiz-option" data-value="3">More than 3</button>
+                    <div class="rnm-quiz-nav">
+                        <button class="rnm-quiz-back" style="visibility: hidden;">← Back</button>
+                        <span></span>
+                    </div>
+                </div>
+                
+                <!-- Question 2 -->
+                <div class="rnm-quiz-question" data-question="2">
+                    <h3>What's your biggest challenge?</h3>
+                    <button class="rnm-quiz-option" data-value="reviews">Getting customers to leave reviews</button>
+                    <button class="rnm-quiz-option" data-value="gbp">Google Business Profile needs work</button>
+                    <button class="rnm-quiz-option" data-value="social">Social media is dead</button>
+                    <button class="rnm-quiz-option" data-value="all">All of the above</button>
+                    <div class="rnm-quiz-nav">
+                        <button class="rnm-quiz-back">← Back</button>
+                        <span></span>
+                    </div>
+                </div>
+                
+                <!-- Question 3 -->
+                <div class="rnm-quiz-question" data-question="3">
+                    <h3>How would you describe your current review count?</h3>
+                    <button class="rnm-quiz-option" data-value="none">We barely have any</button>
+                    <button class="rnm-quiz-option" data-value="some">We have a few (under 20)</button>
+                    <button class="rnm-quiz-option" data-value="okay">We've got a decent amount (20-50)</button>
+                    <button class="rnm-quiz-option" data-value="good">We're doing okay (50+)</button>
+                    <div class="rnm-quiz-nav">
+                        <button class="rnm-quiz-back">← Back</button>
+                        <span></span>
+                    </div>
+                </div>
+                
+                <!-- Results -->
+                <div class="rnm-quiz-results">
+                    <h3>Here's What We Recommend</h3>
+                    <p class="subtitle">Based on your answers, this package fits your needs best:</p>
+                    
+                    <div class="rnm-quiz-recommendation" id="recommendation">
+                        <!-- Populated by JS -->
+                    </div>
+                    
+                    <button class="rnm-btn-primary" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">See All Pricing Options</button>
                 </div>
             </div>
         </div>
@@ -561,40 +670,66 @@
             <div class="rnm-steps">
                 <div class="rnm-step">
                     <div class="rnm-step-number">1</div>
-                    <h3>We Audit Everything</h3>
-                    <p>We go through your Google Business Profile, website, and social accounts. Find what's broken. Fix it.</p>
+                    <h3>We Audit</h3>
+                    <p>We go through your Google Business Profile, website, and social accounts.</p>
                 </div>
                 <div class="rnm-step">
                     <div class="rnm-step-number">2</div>
-                    <h3>We Build the System</h3>
-                    <p>Set up automated review requests that go to your customers after they use your service. No more forgetting to ask.</p>
+                    <h3>We Build</h3>
+                    <p>Set up automated review requests that go to customers after service.</p>
                 </div>
                 <div class="rnm-step">
                     <div class="rnm-step-number">3</div>
-                    <h3>Reviews Roll In</h3>
-                    <p>Watch your star rating climb while we manage your presence. You focus on customers—we handle the rest.</p>
+                    <h3>You Grow</h3>
+                    <p>Watch your reviews climb while we manage your online presence.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials -->
-    <section class="rnm-testimonials">
+    <!-- Pricing -->
+    <section class="rnm-pricing" id="pricing">
         <div class="rnm-container">
-            <h2>What Business Owners Say</h2>
-            <p class="rnm-testimonials-intro">Real results from real local businesses.</p>
-            <div class="rnm-testimonial-grid">
-                <div class="rnm-testimonial-card">
-                    <p class="quote">"We went from 12 reviews to over 80 in just a few months. It's made a huge difference in the calls we get."</p>
-                    <p class="author">— Local Service Business Owner</p>
+            <h2>Pricing Options</h2>
+            <p class="rnm-pricing-intro">Choose what fits your business. No long-term contracts.</p>
+            <div class="rnm-pricing-grid">
+                <div class="rnm-pricing-card">
+                    <h3>Starter</h3>
+                    <p class="description">Just need a quick tune-up?</p>
+                    <div class="price">$297<span>/one-time</span></div>
+                    <ul class="rnm-pricing-features">
+                        <li>Google Business Profile audit</li>
+                        <li>Fix listing errors</li>
+                        <li>Optimize photos & hours</li>
+                        <li>30-day support</li>
+                    </ul>
+                    <a href="#" class="rnm-btn-primary">Get Started</a>
                 </div>
-                <div class="rnm-testimonial-card">
-                    <p class="quote">"Finally, a system that actually gets results without me having to bug my customers for reviews. Worth every penny."</p>
-                    <p class="author">— Restaurant Owner</p>
+                <div class="rnm-pricing-card featured">
+                    <h3>Growth</h3>
+                    <p class="description">Full review system + ongoing management.</p>
+                    <div class="price">$400<span>/mo</span></div>
+                    <ul class="rnm-pricing-features">
+                        <li>Everything in Starter</li>
+                        <li>Automated review requests</li>
+                        <li>Monthly social posts (4)</li>
+                        <li>Review monitoring</li>
+                        <li>Monthly reports</li>
+                    </ul>
+                    <a href="#" class="rnm-btn-primary">Get Started</a>
                 </div>
-                <div class="rnm-testimonial-card">
-                    <p class="quote">"Our Google ranking improved dramatically. We're now showing up on the first page for our key services."</p>
-                    <p class="author">— Home Services Company</p>
+                <div class="rnm-pricing-card">
+                    <h3>Pro</h3>
+                    <p class="description">Multi-location or high-volume needs.</p>
+                    <div class="price">$697<span>/mo</span></div>
+                    <ul class="rnm-pricing-features">
+                        <li>Everything in Growth</li>
+                        <li>Up to 3 locations</li>
+                        <li>Social posts (8/month)</li>
+                        <li>Priority support</li>
+                        <li>Competitor monitoring</li>
+                    </ul>
+                    <a href="#" class="rnm-btn-primary">Get Started</a>
                 </div>
             </div>
         </div>
@@ -603,67 +738,129 @@
     <!-- Why Reviews Matter -->
     <section class="rnm-why">
         <div class="rnm-container">
-            <h2>Every Review = Real Customers</h2>
-            <p><span class="big-number">~1</span>new customer walks through your door for every 5-star review you earn. That's not opinion—that's math.</p>
+            <h2><span class="big-number">~1</span> new customer per review</h2>
+            <p>That's not opinion—it's math. Every 5-star review brings more people through your door.</p>
         </div>
     </section>
 
-    <!-- Pricing -->
-    <section class="rnm-pricing" id="pricing">
-        <div class="rnm-container">
-            <h2>Simple, Transparent Pricing</h2>
-            <p class="rnm-pricing-intro">No hidden fees, no surprises. Just results.</p>
-            <div class="rnm-pricing-grid">
-                <div class="rnm-pricing-card">
-                    <h3>Audit & Setup</h3>
-                    <p class="description">One-time deep dive into your online presence.</p>
-                    <div class="price">$600</div>
-                    <p class="one-time">one-time</p>
-                    <ul class="rnm-pricing-features">
-                        <li>Complete Google Business Profile audit</li>
-                        <li>Fix all listing errors</li>
-                        <li>Optimize photos, hours & services</li>
-                        <li>Set up review request system</li>
-                        <li>Social media profile optimization</li>
-                        <li>30-day support after setup</li>
-                    </ul>
-                    <a href="#" class="rnm-btn-primary">Get Started</a>
-                </div>
-                <div class="rnm-pricing-card featured">
-                    <h3>Monthly Management</h3>
-                    <p class="description">Ongoing management to keep reviews flowing.</p>
-                    <div class="price">$400<span>/mo</span></div>
-                    <p class="one-time">billed monthly</p>
-                    <ul class="rnm-pricing-features">
-                        <li>Everything in Audit & Setup</li>
-                        <li>Automated review requests</li>
-                        <li>Monthly social media posts</li>
-                        <li>Review monitoring & responses</li>
-                        <li>Monthly performance report</li>
-                        <li>Ongoing optimization tweaks</li>
-                    </ul>
-                    <a href="#" class="rnm-btn-primary">Get Started</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA Banner -->
+    <!-- CTA -->
     <section class="rnm-cta">
         <div class="rnm-container">
             <h2>Ready to Stand Out?</h2>
-            <p>Stop losing customers to competitors with more reviews. Let's fix that today.</p>
-            <a href="#" class="rnm-btn-primary">Let's Talk</a>
+            <p>Stop losing customers to competitors with more reviews.</p>
+            <a href="#quiz" class="rnm-btn-primary">Take the Quiz →</a>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="rnm-footer">
         <div class="rnm-container">
-            <img src="http://rnm.flywheelsites.com/wp-content/uploads/2025/12/ReviewsNearMe-WHITE-scaled.webp" alt="Reviews Near Me">
-            <p>© 2026 Reviews Near Me. All rights reserved.</p>
-            <p>Based in Waxhaw, NC. Serving the Greater Charlotte area.</p>
+            <img src="http://rnm.flywheelsites.com/wp-content/uploads/2025/12/ReviewsNearMe-WHITE-scaled.webp" alt="Reviews Near Me" class="rnm-footer-logo">
+            <p>© 2026 Reviews Near Me. Serving the Greater Charlotte area.</p>
         </div>
     </footer>
+
+    <script>
+        const quizData = {
+            answers: {},
+            currentQuestion: 1,
+            totalQuestions: 3
+        };
+        
+        const recommendations = {
+            // Simple locations, review problems
+            '1-reviews-none': { name: 'Growth', price: '$400/mo', desc: 'Full review system to get reviews flowing.', features: ['Everything in Starter', 'Automated review requests', 'Monthly social posts', 'Review monitoring'] },
+            '1-reviews-some': { name: 'Growth', price: '$400/mo', desc: 'Build on what you have with automation.', features: ['Everything in Starter', 'Automated review requests', 'Monthly social posts'] },
+            '1-reviews-okay': { name: 'Growth', price: '$400/mo', desc: 'Keep the momentum going.', features: ['Monthly social posts', 'Review monitoring', 'Ongoing optimization'] },
+            '1-reviews-good': { name: 'Starter', price: '$297', desc: 'Maintenance mode for an already-healthy profile.', features: ['Profile audit', 'Optimization tweaks', '30-day support'] },
+            
+            // GBP issues
+            '1-gbp-none': { name: 'Growth', price: '$400/mo', desc: 'Fix GBP and get reviews going.', features: ['GBP audit & fix', 'Automated review requests', 'Monthly social'] },
+            '1-gbp-any': { name: 'Growth', price: '$400/mo', desc: 'We\'ll optimize your GBP and keep it running.', features: ['GBP optimization', 'Ongoing updates', 'Review system'] },
+            
+            // Social issues
+            '1-social-any': { name: 'Growth', price: '$400/mo', desc: 'We\'ll handle the social, you handle the business.', features: ['4 monthly posts', 'Review system included', 'Engagement'] },
+            
+            // All of the above
+            '1-all-none': { name: 'Pro', price: '$697/mo', desc: 'Complete solution for businesses that need it all.', features: ['Everything included', 'Priority support', 'Full management'] },
+            '1-all-any': { name: 'Pro', price: '$697/mo', desc: 'Complete solution for businesses that need it all.', features: ['Everything included', 'Priority support', 'Full management'] },
+            
+            // Multi-location defaults
+            '2': { name: 'Pro', price: '$697/mo', desc: 'Multi-location pricing.', features: ['Up to 3 locations', '8 social posts/month', 'Priority support'] },
+            '3': { name: 'Pro', price: '$697/mo', desc: 'Let\'s talk about your needs.', features: ['Custom solution', 'Contact us for quote'] }
+        };
+        
+        // Determine recommendation based on answers
+        function getRecommendation() {
+            const loc = quizData.answers[1] || 1;
+            const challenge = quizData.answers[2] || 'reviews';
+            const count = quizData.answers[3] || 'none';
+            
+            if (loc > 1) return recommendations[loc] || recommendations['2'];
+            
+            const key = `${loc}-${challenge}-${count}`;
+            return recommendations[key] || recommendations['1-reviews-none'];
+        }
+        
+        // Quiz logic
+        document.querySelectorAll('.rnm-quiz-option').forEach(option => {
+            option.addEventListener('click', function() {
+                const question = this.closest('.rnm-quiz-question');
+                const qNum = question.dataset.question;
+                const value = this.dataset.value;
+                
+                // Store answer
+                quizData.answers[qNum] = value;
+                
+                // Visual selection
+                question.querySelectorAll('.rnm-quiz-option').forEach(o => o.classList.remove('selected'));
+                this.classList.add('selected');
+                
+                // Next question
+                setTimeout(() => {
+                    if (quizData.currentQuestion < quizData.totalQuestions) {
+                        question.classList.remove('active');
+                        quizData.currentQuestion++;
+                        document.querySelector(`[data-question="${quizData.currentQuestion}"]`).classList.add('active');
+                        document.querySelector('.rnm-quiz-progress-bar').style.width = 
+                            (quizData.currentQuestion / quizData.totalQuestions * 100) + '%';
+                    } else {
+                        showResults();
+                    }
+                }, 300);
+            });
+        });
+        
+        // Back button
+        document.querySelectorAll('.rnm-quiz-back').forEach(btn => {
+            btn.addEventListener('click', function() {
+                if (quizData.currentQuestion > 1) {
+                    document.querySelector(`[data-question="${quizData.currentQuestion}"]`).classList.remove('active');
+                    quizData.currentQuestion--;
+                    document.querySelector(`[data-question="${quizData.currentQuestion}"]`).classList.add('active');
+                    document.querySelector('.rnm-quiz-progress-bar').style.width = 
+                        (quizData.currentQuestion / quizData.totalQuestions * 100) + '%';
+                }
+            });
+        });
+        
+        function showResults() {
+            document.querySelector('.rnm-quiz-question.active').classList.remove('active');
+            document.querySelector('.rnm-quiz-progress').style.display = 'none';
+            
+            const rec = getRecommendation();
+            const container = document.getElementById('recommendation');
+            container.innerHTML = `
+                <h4>${rec.name} Package</h4>
+                <div class="price">${rec.price}</div>
+                <p style="margin-bottom:16px;color:#64748b;">${rec.desc}</p>
+                <ul>
+                    ${rec.features.map(f => `<li>${f}</li>`).join('')}
+                </ul>
+            `;
+            
+            document.querySelector('.rnm-quiz-results').classList.add('active');
+        }
+    </script>
 </body>
 </html>
