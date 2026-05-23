@@ -37,7 +37,7 @@ function tln_get_cached_businesses() {
     $results = array();
     
     $queries = array(
-        'Waxhaw' => array('Restaurant'=>'restaurants in Waxhaw NC','Retail'=>'retail stores in Waxhaw NC','Services'=>'services in Waxhaw NC','Food'=>'food and drink in Waxhaw NC','Health'=>'health and wellness in Waxhaw NC','Auto'=>'auto repair in Waxhaw NC','Salon'=>'salon and spa in Waxhaw NC','Fitness'=>'gym and fitness in Waxhaw NC'),
+        'Waxhaw' => array('Restaurant'=>'restaurants in Waxhaw NC','Retail'=>'retail stores in Waxhaw NC','Services'=>'services in Waxhaw NC','Food'=>'food and drink in Waxhaw NC','Health'=>'health and wellness in Waxhaw NC','Auto'=>'auto repair in Waxhaw NC','Salon'=>'salon and spa in Waxhaw NC','Fitness'=>'gym and fitness in Waxhaw NC','Hearing'=>'Palmetto Family Hearing Center Waxhaw NC','Nails'=>'Waxhaw Nails Waxhaw NC'),
         'Marvin' => array('Restaurant'=>'restaurants in Marvin NC','Retail'=>'retail stores in Marvin NC','Services'=>'services in Marvin NC'),
         'Wesley Chapel' => array('Restaurant'=>'restaurants in Wesley Chapel NC'),
         'Weddington' => array('Restaurant'=>'restaurants in Weddington NC'),
