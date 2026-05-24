@@ -130,7 +130,7 @@ function tln_dir_shortcode($atts) {
     echo '<p class="tln-count" id="tln-count">Showing '.$total.' local businesses</p>';
     echo '<div class="tln-grid" id="tln-g">';
     
-    $icons = array('Restaurant'=>'🍽️','Cafe'=>'☕','Bar'=>'🍺','Retail'=>'🛒','Services'=>'🔧','Food'=>'🍔','Health'=>'🏥','Auto'=>'🔧','Salon'=>'💅','Fitness'=>'💪');
+    $icons = array('Restaurant'=>'🍽️','Cafe'=>'☕','Bar'=>'🍺','Retail'=>'🛒','Services'=>'🔧','Food'=>'🍔','Health'=>'🏥','Auto'=>'🔧','Salon'=>'💅','Fitness'=>'💪','Hearing'=>'👂','Nails'=>'💅');
     
     // Output initial data for JS
     echo '<div id="tln-all-data" style="display:none;">';
@@ -201,7 +201,7 @@ if (!empty($matched)) {
         var perPage = 12;
         var currentPage = 1;
         
-        var icons = {'Restaurant':'🍽️','Cafe':'☕','Bar':'🍺','Retail':'🛒','Services':'🔧','Food':'🍔','Health':'🏥','Auto':'🔧','Salon':'💅','Fitness':'💪'};
+        var icons = {'Restaurant':'🍽️','Cafe':'☕','Bar':'🍺','Retail':'🛒','Services':'🔧','Food':'🍔','Health':'🏥','Auto':'🔧','Salon'=>'💅','Fitness'=>'💪','Hearing':'👂','Nails'=>'💅'};
         var placeholder = '<?php echo esc_url($placeholder); ?>';
         var apiKey = '<?php echo $api; ?>';
         
