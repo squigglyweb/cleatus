@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 3.5 - Added Activities CPT
+Version: 3.6 - Added Activities & Camps CPT
 */
 
 // Flush rewrite rules on activation
@@ -65,6 +65,35 @@ function tln_register_activities() {
     register_taxonomy('tln_type', 'tln_activity', $tax_args);
 }
 add_action('init', 'tln_register_activities');
+
+/**
+ * Register Camps Custom Post Type and Taxonomy
+ */
+function tln_register_camps() {
+    // CPT for camps
+    $cpt_args = array(
+        'label' => 'Camps',
+        'public' => true,
+        'has_archive' => true,
+        'show_in_menu' => true,
+        'menu_position' => 6,
+        'rewrite' => array('slug' => 'camps'),
+        'supports' => array('title','editor','thumbnail','excerpt','author'),
+        'show_in_rest' => true,
+    );
+    register_post_type('tln_camp', $cpt_args);
+
+    // Taxonomy for camp type (e.g., Family, Adventure, Nature)
+    $tax_args = array(
+        'label' => 'Camp Types',
+        'public' => true,
+        'hierarchical' => true,
+        'rewrite' => array('slug' => 'camp-type'),
+        'show_in_rest' => true,
+    );
+    register_taxonomy('tln_camp_type', 'tln_camp', $tax_args);
+}
+add_action('init', 'tln_register_camps');
 
 /**
  * Shortcode to display activities with filter buttons
