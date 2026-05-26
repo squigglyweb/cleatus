@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 3.4 - Fixed Rewrite Rules
+Version: 3.5 - Added Activities CPT
 */
 
 // Flush rewrite rules on activation
@@ -36,6 +36,117 @@ add_action('admin_menu', 'tln_add_admin_menu');
 // Dashboard now in tln-admin-dashboard.php (included below)
 
 // Load other TLN components
+
+/**
+ * Register Summer Activities Custom Post Type and Taxonomy
+ */
+function tln_register_activities() {
+    // Register CPT
+    $cpt_args = array(
+        'label' => 'Activities',
+        'public' => true,
+        'has_archive' => true,
+        'show_in_menu' => true,
+        'menu_position' => 5,
+        'rewrite' => array('slug' => 'activities'),
+        'supports' => array('title','editor','thumbnail','excerpt','author'),
+        'show_in_rest' => true,
+    );
+    register_post_type('tln_activity', $cpt_args);
+
+    // Register taxonomy for activity type (e.g., Outdoor, Food, Family, Arts)
+    $tax_args = array(
+        'label' => 'Activity Types',
+        'public' => true,
+        'hierarchical' => true,
+        'rewrite' => array('slug' => 'activity-type'),
+        'show_in_rest' => true,
+    );
+    register_taxonomy('tln_type', 'tln_activity', $tax_args);
+}
+add_action('init', 'tln_register_activities');
+
+/**
+ * Shortcode to display activities with filter buttons
+ */
+function tln_activities_shortcode($atts) {
+    $atts = shortcode_atts(array(
+        'posts_per_page' => 12,
+    ), $atts);
+
+    // Get all terms for filter buttons
+    $terms = get_terms(array(
+        'taxonomy' => 'tln_type',
+        'hide_empty' => true,
+    ));
+    if (is_wp_error($terms)) $terms = [];
+
+    // Build filter buttons
+    $filter_html = '<div class="tln-activities-filters" style="margin-bottom:1.5rem;">';
+    $filter_html .= '<button class="tln-filter-btn" data-filter="all" style="margin-right:0.5rem;padding:0.4rem 1rem;background:#e63946;color:#fff;border:none;border-radius:4px;cursor:pointer;">All</button>';
+    foreach ($terms as $term) {
+        $filter_html .= '<button class="tln-filter-btn" data-filter="term-'.esc_attr($term->slug).'" style="margin-right:0.5rem;padding:0.4rem 1rem;background:#e63946;color:#fff;border:none;border-radius:4px;cursor:pointer;">'.esc_html($term->name).'</button>';
+    }
+    $filter_html .= '</div>';
+
+    // Query activities
+    $query = new WP_Query(array(
+        'post_type' => 'tln_activity',
+        'posts_per_page' => $atts['posts_per_page'],
+        'post_status' => 'publish',
+    ));
+
+    $grid_html = '<div class="tln-activities-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.5rem;">';
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            $post_terms = wp_get_post_terms(get_the_ID(), 'tln_type', array('fields' => 'slugs'));
+            $term_classes = '';
+            foreach ($post_terms as $slug) {
+                $term_classes .= ' term-'.esc_attr($slug);
+            }
+            $grid_html .= '<div class="tln-activity-item'.$term_classes.'" style="border:1px solid #ddd;border-radius:8px;padding:1rem;background:#fff;">';
+            if (has_post_thumbnail()) {
+                $grid_html .= get_the_post_thumbnail(null, 'medium', array('style'=>'width:100%;height:auto;border-radius:4px;margin-bottom:0.75rem;'));
+            }
+            $grid_html .= '<h3 style="font-size:1.1rem;margin:0 0 0.5rem;">'.get_the_title().'</h3>';
+            $grid_html .= '<div class="tln-activity-excerpt" style="font-size:0.9rem;color:#555;">'.wp_trim_words(get_the_excerpt(), 20, '...').'</div>';
+            $grid_html .= '<a href="'.get_permalink().'" style="display:inline-block;margin-top:0.75rem;color:#e63946;font-weight:600;">Read More →</a>';
+            $grid_html .= '</div>';
+        }
+        wp_reset_postdata();
+    } else {
+        $grid_html .= '<p>No activities found.</p>';
+    }
+    $grid_html .= '</div>';
+
+    // JS for filtering
+    $js = '<script>
+    document.addEventListener("DOMContentLoaded", function(){
+        const btns = document.querySelectorAll(".tln-filter-btn");
+        const items = document.querySelectorAll(".tln-activity-item");
+        btns.forEach(btn=>{
+            btn.addEventListener("click",()=>{
+                const filter = btn.dataset.filter;
+                btns.forEach(b=>b.style.background="#e63946");
+                btn.style.background="#dc3545"; // active color
+                items.forEach(it=>{
+                    if(filter==="all"||it.classList.contains(filter)) {
+                        it.style.display = "block";
+                    } else {
+                        it.style.display = "none";
+                    }
+                });
+            });
+        });
+    });
+    </script>';
+
+    return $filter_html . $grid_html . $js;
+}
+add_shortcode('tln_activities', 'tln_activities_shortcode');
+
+// End of activities registration
 require_once plugin_dir_path(__FILE__) . 'tln-directory.php';
 require_once plugin_dir_path(__FILE__) . 'tln-claim.php';
 require_once plugin_dir_path(__FILE__) . 'tln-voucher-system.php';
