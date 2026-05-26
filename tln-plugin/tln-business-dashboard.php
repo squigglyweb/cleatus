@@ -83,9 +83,73 @@ function tln_dashboard_shortcode() {
         
         <div style="background:#fff;padding:1.5rem;border-radius:12px;border:2px solid #1a1a1a;">
             <h3 style="margin-top:0;">Photo Gallery</h3>
-            <p style="color:#666;"><?php echo $tier == 'free' ? 'Upgrade to Pro to add photos' : 'Photo gallery coming soon'; ?></p>
+            <?php if($tier == 'free'): ?>
+            <p style="color:#666;">Upgrade to Pro to add photos</p>
+            <?php else: ?>
+            <form id="tln-gallery-form" enctype="multipart/form-data">
+                <input type="file" name="tln_gallery[]" multiple accept="image/*" style="margin-bottom:0.5rem;">
+                <button type="submit" style="background:#e63946;color:#fff;padding:0.5rem 1rem;border:none;border-radius:4px;cursor:pointer;">Upload Photos</button>
+            </form>
+            <div id="tln-gallery-msg"></div>
+            <?php endif; ?>
+        </div>
+        
+        <!-- Business Profile Editor -->
+        <div style="background:#fff;padding:1.5rem;border-radius:12px;border:2px solid #1a1a1a;margin-top:1rem;">
+            <h3 style="margin-top:0;">✏️ Edit Your Profile</h3>
+            <form id="tln-profile-form">
+                <div style="margin-bottom:1rem;">
+                    <label style="display:block;font-weight:700;margin-bottom:0.25rem;">Custom Description</label>
+                    <textarea name="description" rows="4" style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:4px;" placeholder="Tell customers what makes your business special..."><?php echo esc_textarea($claim->notes ?? ''); ?></textarea>
+                </div>
+                
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1rem;">
+                    <div>
+                        <label style="display:block;font-weight:700;margin-bottom:0.25rem;">Phone</label>
+                        <input type="tel" name="phone" value="<?php echo esc_attr($claim->user_phone ?? ''); ?>" style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:4px;">
+                    </div>
+                    <div>
+                        <label style="display:block;font-weight:700;margin-bottom:0.25rem;">Website</label>
+                        <input type="url" name="website" value="<?php echo esc_attr($claim->website ?? ''); ?>" style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:4px;">
+                    </div>
+                </div>
+                
+                <div style="margin-bottom:1rem;">
+                    <label style="display:block;font-weight:700;margin-bottom:0.25rem;">Special Offer (for Pro+)</label>
+                    <input type="text" name="custom_offer" value="<?php echo esc_attr($claim->custom_offer ?? ''); ?>" style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:4px;" placeholder="e.g., 20% OFF your first service">
+                </div>
+                
+                <button type="submit" style="background:#28a745;color:#fff;padding:0.75rem 1.5rem;border:none;border-radius:4px;font-weight:700;cursor:pointer;">Save Profile</button>
+            </form>
+            <div id="tln-profile-msg" style="margin-top:1rem;"></div>
         </div>
     </div>
+    <script async src="https://js.stripe.com/v3/buy-button.js"></script>
+    <script>
+    document.getElementById('tln-profile-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        const btn = this.querySelector('button');
+        btn.disabled = true;
+        btn.textContent = 'Saving...';
+        
+        try {
+            const res = await fetch('/wp-json/tln/v1/save-profile', {
+                method: 'POST',
+                body: JSON.stringify(Object.fromEntries(formData)),
+                headers: { 'Content-Type': 'application/json' }
+            });
+            const data = await res.json();
+            document.getElementById('tln-profile-msg').innerHTML = data.success 
+                ? '<span style="color:green;">✓ Profile saved successfully!</span>'
+                : '<span style="color:red;">Error: ' + (data.message || 'Unknown error') + '</span>';
+        } catch(err) {
+            document.getElementById('tln-profile-msg').innerHTML = '<span style="color:red;">Error saving profile</span>';
+        }
+        btn.disabled = false;
+        btn.textContent = 'Save Profile';
+    });
+    </script>
     <script async src="https://js.stripe.com/v3/buy-button.js"></script>
     <?php
     return ob_get_clean();

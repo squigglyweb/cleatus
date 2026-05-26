@@ -6,7 +6,17 @@ Description: Loads business profile from URL params
 // Get params
 $biz = isset($_GET['biz']) ? $_GET['biz'] : '';
 $pid = isset($_GET['pid']) ? $_GET['pid'] : '';
-$tier = isset($_GET['tier']) ? $_GET['tier'] : 'free'; // For testing: ?tier=proplus
+// Get tier from stored business data (not URL) — fallback to 'free'
+$business = get_posts([
+    'post_type' => 'tln_business',
+    'meta_key' => 'tln_place_id',
+    'meta_value' => $pid,
+    'posts_per_page' => 1
+]);
+$tier = 'free';
+if (!empty($business)) {
+    $tier = get_post_meta($business[0]->ID, 'tln_membership_tier', true) ?: 'free';
+}
 
 if (empty($biz) || empty($pid)) {
     echo '<div style="padding:2rem;background:#f0f0f0;border-radius:8px;"><h3>TLN Profile v1.1.0</h3><p>Add ?biz=Name&pid=PlaceID to URL. Add ?tier=pro or ?tier=proplus to test different tiers.</p></div>';
