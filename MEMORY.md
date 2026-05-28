@@ -72,6 +72,9 @@ Bryan prefers not to see raw code snippets. If any code changes are required, I 
 - Check the Thursday newsletter deadline each week
 - Flag any incomplete tasks from prior conversations
 
+## 🚨 BRYAN'S PERSONAL PREFERENCES (CRITICAL)
+- NO EMOJIS. EVER. Bryan hates emojis. No exceptions.
+
 ## Plugin Update Note
 After pushing to GitHub, the link format is:
 `https://github.com/squigglyweb/cleatus/raw/<commit-hash>/tln-plugin.zip`
