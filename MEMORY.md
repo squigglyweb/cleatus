@@ -76,6 +76,8 @@ Bryan prefers not to see raw code snippets. If any code changes are required, I 
 After pushing to GitHub, the link format is:
 `https://github.com/squigglyweb/cleatus/raw/<commit-hash>/tln-plugin.zip`
 
+**ALWAYS bump version number in the-local-nearbuy.php before pushing** — WordPress won't accept a downgraded version.
+
 ## About Bryan
 - **Name:** Bryan Somers
 - **Business:** Squiggly Marketing (est. 2011)
