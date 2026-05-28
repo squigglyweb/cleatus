@@ -18,9 +18,16 @@ function tln_dir_styles() {
     wp_add_inline_style('tln-dir', $css);
 }
 add_action('wp_enqueue_scripts', 'tln_dir_styles');
-add_action('wp_enqueue_scripts', function() {
+
+function tln_dir_enqueue_scripts() {
     wp_enqueue_script('jquery');
-});
+    wp_enqueue_script('tln-dir-js', plugin_dir_url(__FILE__) . 'js/tln-directory.js', array('jquery'), '3.9', true);
+    wp_localize_script('tln-dir-js', 'tlnDir', array(
+        'placeholder' => $placeholder,
+        'apiKey' => $api
+    ));
+}
+add_action('wp_enqueue_scripts', 'tln_dir_enqueue_scripts');
 
 $tln_exclude = array('CVS','Walgreens','Walmart','Target','Costco','Dollar General','McDonalds','Burger King','KFC','Pizza Hut','Dominos','Papa Johns','Subway','Starbucks','Dunkin','Chipotle','Chick-fil-A','Wingstop','Taco Bell','Shell','BP','Exxon','Food Lion','Harris Teeter','Aldi','Whole Foods','Trader Joes','Best Buy','Home Depot','Lowes','Bank of America','Wells Fargo','Chase');
 
@@ -297,8 +304,6 @@ if (!empty($matched)) {
             
             renderPage(newPage, filtered);
         });
-    });
-    </script>
     <?php
     return ob_get_clean();
 }
