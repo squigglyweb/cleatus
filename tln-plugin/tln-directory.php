@@ -194,7 +194,6 @@ if (!empty($matched)) {
     
     echo '</div>';
     ?>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
     jQuery(document).ready(function($) {
         var allData = JSON.parse($('#tln-all-data').html());
