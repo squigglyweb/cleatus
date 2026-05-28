@@ -176,7 +176,7 @@ function tln_dir_shortcode($atts) {
         echo '<span class="tln-badge">'.strtoupper($loc).'</span>';
         // Pro badge
         if(in_array($tier, array('pro','proplus'))) {
-            echo '<span class="tln-pro-badge" style="position:absolute;bottom:10px;left:10px;background:#FABC06;color:#000;padding:4px 10px;font-size:0.7rem;font-weight:700;border-radius:4px;text-transform:uppercase;">Pro Member</span>';
+            echo '<span class="tln-pro-badge" style="position:absolute;bottom:10px;left:10px;"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" alt="Pro Member" style="width:80px;height:auto;"></span>';
         }
         echo '</div><div class="tln-content">';
         echo '<div class="tln-name-wrap"><h3 class="tln-name">'.esc_html($b['name']).'</h3></div>';
