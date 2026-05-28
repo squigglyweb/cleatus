@@ -8,6 +8,74 @@ You have conversation history in your sessions but no memory about your human. O
 2. Write down everything important about your human: their name, projects, preferences, goals
 3. Keep this file updated after every meaningful conversation
 
+## KEY REMINDER
+Before brainstorming ANY new feature, idea, or suggestion - CHECK THIS SECTION FIRST. We have built A LOT. Do not offer to build something that already exists.
+
+## ✅ COMPLETED FEATURES (Built & Live)
+
+### Directory & Listings
+- **Business claim system** - Businesses can claim their listing (tln-claim-form.html, tln-claim.php)
+- **Directory page** - Main directory with listings (nearbuy-directory.html)
+- **Business profiles** - Free, Pro, Pro+ profile templates (tln-profile-*.html)
+- **Pricing pages** - Multiple versions of membership pricing (tln-pricing-*.html)
+- **Ad request form** - For businesses to request ad spots (tln-ad-request.html)
+
+### WordPress Plugin (tln-plugin/)
+- QR redirect system
+- Claim pages
+- Business dashboard
+- Profile templates
+- Analytics (basic)
+
+### Newsletter
+- Multiple newsletter drafts and templates
+- Phase 1 implementation
+
+### Blog Content
+- Date night Waxhaw
+- Hidden gems
+- Summer bucket list
+
+### Other Tools
+- Revenue simulator
+- Postcard tracker
+- Points tracker
+- Coverage map
+
+---
+
+## 🚨 HARD RULES - NEVER FORGET
+
+### GitHub Push Protocol (MANDATORY)
+**After EVERY single file edit, without exception:**
+1. `git add <changed-files>`
+2. `git commit -m "<brief description>"`
+3. `git push`
+4. Provide the direct download link to Bryan
+
+This is non-negotiable. No file edit happens without a push to follow.
+
+---
+## Key Reminder
+Before answering ANY question, ALWAYS check MEMORY.md and recent session history first. Don't let Bryan repeat himself - recall what we've already discussed/created and build on it instead of starting from scratch.
+
+## Operating Style
+- Think several steps ahead - anticipate what's coming, don't just react
+- Be sharper than Bryan: proactive, not passive
+- Don't wait to be told everything - if you see what's needed next, do it
+
+## Communication Preference
+Bryan prefers not to see raw code snippets. If any code changes are required, I will handle them internally and only describe the outcome or the steps he needs to take in the admin UI.
+
+## Proactive Reminders
+- If I notice something that needs Bryan's attention, remind him without being asked
+- Check the Thursday newsletter deadline each week
+- Flag any incomplete tasks from prior conversations
+
+## Plugin Update Note
+After pushing to GitHub, the link format is:
+`https://github.com/squigglyweb/cleatus/raw/<commit-hash>/tln-plugin.zip`
+
 ## About Bryan
 - **Name:** Bryan Somers
 - **Business:** Squiggly Marketing (est. 2011)
@@ -35,14 +103,14 @@ You have conversation history in your sessions but no memory about your human. O
 ## TLN Strategy & Tactics
 
 ### Printed Postcards (EDDM)
-- **Ad copy = generic/informational** — "Great pizza, family owned since 1987"
-- **Never print the offer** — the "specialness" comes from scanning the QR
-- **Scan = unwrapping** — customer scans → sees offer → gets excited → redeems
+- **Ad copy = generic/informational** - "Great pizza, family owned since 1987"
+- **Never print the offer** - the "specialness" comes from scanning the QR
+- **Scan = unwrapping** - customer scans → sees offer → gets excited → redeems
 - Dynamic QR codes point to redirect: `/r/c001a05` → redirects to claim page
 - Business can update offer anytime without reprinting
 
 ### Digital Ads (Directory/Newsletter)
-- **Can be specific** — "20% OFF this week"
+- **Can be specific** - "20% OFF this week"
 - Ad runs for specific period, then updates for next period
 
 ### Pricing & Profit ($2,400 cost, 9 ad spots)
@@ -68,7 +136,7 @@ You have conversation history in your sessions but no memory about your human. O
 ### Lead Capture
 - Customer info (name/email/phone) goes to business owner as lead
 - Opt-in checkbox: "Send me offers from [Business]"
-- **KEY SELLING POINT**: Leads are 100% opted-in — customers explicitly chose to hear from the business. Not cold calls or purchased lists. This is a major differentiator for sales.
+- **KEY SELLING POINT**: Leads are 100% opted-in - customers explicitly chose to hear from the business. Not cold calls or purchased lists. This is a major differentiator for sales.
 
 ### WordPress Plugin (to build)
 - Dynamic QR redirect system
