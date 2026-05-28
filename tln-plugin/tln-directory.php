@@ -151,14 +151,18 @@ function tln_dir_shortcode($atts) {
         $loc = $b['loc'];
         $icon = $icons[$b['cat']] ?? '🏪';
         
-        // Check tier - only Pro/Pro+ get their Google photo, everyone else gets placeholder
+        // Check tier and custom photo - priority: custom upload → Google photo → placeholder
         $tier = 'free';
+        $custom_image = '';
         $biz_posts = get_posts(array('post_type'=>'tln_business','meta_key'=>'tln_place_id','meta_value'=>$b['place_id'],'posts_per_page'=>1));
         if(!empty($biz_posts)) {
             $tier = get_post_meta($biz_posts[0]->ID,'tln_tier',true) ?: 'free';
+            $custom_image = get_post_meta($biz_posts[0]->ID,'tln_directory_image',true);
         }
-        // Pro and ProPlus get their business photo, Free tier gets placeholder
-        if(in_array($tier, array('pro','proplus')) && !empty($b['photo_ref'])) {
+        // Priority: custom uploaded → Google photo (if Pro/Pro+) → placeholder
+        if(!empty($custom_image)) {
+            $img = '<img class="tln-img" src="'.esc_url($custom_image).'" alt="'.esc_attr($b['name']).'" loading="lazy">';
+        } elseif(in_array($tier, array('pro','proplus')) && !empty($b['photo_ref'])) {
             $photo_url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=".$b['photo_ref']."&key=$api";
             $img = '<img class="tln-img" src="'.esc_url($photo_url).'" alt="'.esc_attr($b['name']).'" loading="lazy">';
         } else {

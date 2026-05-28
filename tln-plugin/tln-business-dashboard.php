@@ -82,7 +82,25 @@ function tln_dashboard_shortcode() {
         </div>
         
         <div style="background:#fff;padding:1.5rem;border-radius:12px;border:2px solid #1a1a1a;">
-            <h3 style="margin-top:0;">Photo Gallery</h3>
+            <h3 style="margin-top:0;">📸 Directory Photo</h3>
+            <p style="color:#666;font-size:0.9rem;">This photo appears in the business directory. Use your business logo or exterior shot.</p>
+            <?php if($tier == 'free'): ?>
+            <p style="color:#666;">💎 Upgrade to Pro to show your photo in the directory</p>
+            <?php else: ?>
+            <?php $dir_photo = get_post_meta($profile_id, 'tln_directory_image', true); ?>
+            <?php if($dir_photo): ?>
+            <div style="margin-bottom:1rem;"><img src="<?php echo esc_url($dir_photo); ?>" style="max-width:200px;height:auto;border-radius:8px;"></div>
+            <?php endif; ?>
+            <form id="tln-dirphoto-form" enctype="multipart/form-data">
+                <input type="file" name="tln_directory_image" accept="image/*" style="margin-bottom:0.5rem;">
+                <button type="submit" style="background:#e63946;color:#fff;padding:0.5rem 1rem;border:none;border-radius:4px;cursor:pointer;">Upload Directory Photo</button>
+            </form>
+            <div id="tln-dirphoto-msg"></div>
+            <?php endif; ?>
+        </div>
+        
+        <div style="background:#fff;padding:1.5rem;border-radius:12px;border:2px solid #1a1a1a;margin-top:1rem;">
+            <h3 style="margin-top:0;">🖼️ Photo Gallery</h3>
             <?php if($tier == 'free'): ?>
             <p style="color:#666;">Upgrade to Pro to add photos</p>
             <?php else: ?>
@@ -148,6 +166,38 @@ function tln_dashboard_shortcode() {
         }
         btn.disabled = false;
         btn.textContent = 'Save Profile';
+    });
+    
+    // Directory Photo Upload
+    document.getElementById('tln-dirphoto-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        const btn = this.querySelector('button');
+        btn.disabled = true;
+        btn.textContent = 'Uploading...';
+        
+        try {
+            const res = await fetch('/wp-json/tln/v1/save-dirphoto', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await res.json();
+            document.getElementById('tln-dirphoto-msg').innerHTML = data.success 
+                ? '<span style="color:green;">✓ Directory photo updated!</span>'
+                : '<span style="color:red;">Error: ' + (data.message || 'Unknown error') + '</span>';
+            if(data.success && data.image_url) {
+                const existingImg = document.querySelector('#tln-dirphoto-form + div img, #tln-dirphoto-form + img');
+                if(existingImg) existingImg.remove();
+                const imgDiv = document.createElement('div');
+                imgDiv.style.marginBottom = '1rem';
+                imgDiv.innerHTML = '<img src="' + data.image_url + '" style="max-width:200px;height:auto;border-radius:8px;">';
+                document.getElementById('tln-dirphoto-form').parentNode.insertBefore(imgDiv, document.getElementById('tln-dirphoto-form'));
+            }
+        } catch(err) {
+            document.getElementById('tln-dirphoto-msg').innerHTML = '<span style="color:red;">Error uploading photo</span>';
+        }
+        btn.disabled = false;
+        btn.textContent = 'Upload Directory Photo';
     });
     </script>
     <script async src="https://js.stripe.com/v3/buy-button.js"></script>

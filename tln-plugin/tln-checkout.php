@@ -127,6 +127,56 @@ function tln_save_profile_handler(WP_RESTRequest $request) {
     return new WP_Error('save_failed', 'Could not save profile', ['status' => 500]);
 }
 
+// Save directory photo REST endpoint
+add_action('rest_api_init', function() {
+    register_rest_route('tln/v1', '/save-dirphoto', array(
+        'methods' => 'POST',
+        'callback' => 'tln_save_dirphoto_handler',
+        'permission_callback' => function() {
+            return is_user_logged_in();
+        }
+    ));
+});
+
+function tln_save_dirphoto_handler(WP_RESTRequest $request) {
+    $user_id = get_current_user_id();
+    
+    global $wpdb;
+    $claim = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}tln_claims WHERE user_id=%d AND status='approved'", $user_id));
+    
+    if (!$claim) {
+        return new WP_Error('no_claim', 'No approved business claim found', ['status' => 400]);
+    }
+    
+    // Get the business CPT post
+    $biz_posts = get_posts(array('post_type'=>'tln_business','meta_key'=>'tln_place_id','meta_value'=>$claim->place_id,'posts_per_page'=>1));
+    if(empty($biz_posts)) {
+        return new WP_Error('no_business', 'Business profile not found', ['status' => 400]);
+    }
+    
+    $profile_id = $biz_posts[0]->ID;
+    
+    // Handle file upload
+    if (!empty($_FILES['tln_directory_image'])) {
+        require_once(ABSPATH . 'wp-admin/includes/image.php');
+        require_once(ABSPATH . 'wp-admin/includes/file.php');
+        require_once(ABSPATH . 'wp-admin/includes/media.php');
+        
+        $attachment_id = media_handle_upload('tln_directory_image', $profile_id);
+        
+        if (is_wp_error($attachment_id)) {
+            return ['success' => false, 'message' => $attachment_id->get_error_message()];
+        }
+        
+        $image_url = wp_get_attachment_url($attachment_id);
+        update_post_meta($profile_id, 'tln_directory_image', $image_url);
+        
+        return ['success' => true, 'image_url' => $image_url, 'message' => 'Directory photo updated'];
+    }
+    
+    return ['success' => false, 'message' => 'No image uploaded'];
+}
+
 function tln_process_successful_checkout($session_id, $plan) {
     require_once __DIR__ . '/vendor/autoload.php';
     require_once __DIR__ . '/tln-settings.php';
