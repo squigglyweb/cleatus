@@ -382,7 +382,8 @@ $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
     });
     // Review submit handler
     document.getElementById('submitReviewBtn').addEventListener('click', function(){
-        const businessId = document.getElementById('businessId').value;
+        let businessId = document.getElementById('businessId').value;
+        if (!businessId && typeof window.businessId !== 'undefined') { businessId = window.businessId; }
         const reviewerName = document.getElementById('reviewerName').value.trim();
         const reviewTitle = document.getElementById('reviewTitle').value.trim();
         const reviewText = document.getElementById('reviewText').value.trim();
