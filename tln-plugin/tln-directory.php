@@ -21,7 +21,7 @@ add_action('wp_enqueue_scripts', 'tln_dir_styles');
 
 function tln_dir_enqueue_scripts() {
     wp_enqueue_script('jquery');
-    wp_enqueue_script('tln-dir-js', plugin_dir_url(__FILE__) . 'js/tln-directory.js', array('jquery'), '3.9', true);
+    wp_enqueue_script('tln-dir-js', plugin_dir_url(__FILE__) . 'js/tln-directory.js', array('jquery'), '3.10', true);
     wp_localize_script('tln-dir-js', 'tlnDir', array(
         'placeholder' => $placeholder,
         'apiKey' => $api
