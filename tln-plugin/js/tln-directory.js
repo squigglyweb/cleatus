@@ -8,13 +8,14 @@ jQuery(document).ready(function($) {
     var perPage = 12;
     var currentPage = 1;
     
-    var icons = {'Restaurant':'🍽️','Cafe':'☕','Bar':'🍺','Retail':'🛒','Services':'🔧','Food':'🍔','Health':'🏥','Auto':'🔧','Salon'=>'💅','Fitness':'💪','Hearing':'👂','Nails':'💅'};
+    var icons = {'Restaurant':'🍽️','Cafe':'☕','Bar':'🍺','Retail':'🛒','Services':'🔧','Food':'🍔','Health':'🏥','Auto':'🔧','Salon':'💅','Fitness':'💪','Hearing':'👂','Nails':'💅'};
     var placeholder = tlnDir.placeholder;
     var apiKey = tlnDir.apiKey;
     
     function renderPage(pageNum, data) {
         var start = (pageNum - 1) * perPage;
-        var items = data.slice(start, start + perPage);
+        var end = start + perPage;
+        var items = data.slice(start, end);
         var grid = $('#tln-g');
         var pager = $('#tln-pager');
         
@@ -25,23 +26,25 @@ jQuery(document).ready(function($) {
             return;
         }
         
-        var html = items.map(function(b) {
+        var html = '';
+        for (var i = 0; i < items.length; i++) {
+            var b = items[i];
             var icon = icons[b.cat] || '🏪';
             var imgUrl = b.photo_ref 
                 ? 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + b.photo_ref + '&key=' + apiKey
                 : placeholder;
             
-            return '<div class="tln-card" data-n="'+b.name.toLowerCase()+'" data-c="'+b.cat+'" data-l="'+b.loc+'">' +
-                '<div class="tln-img-wrap"><img class="tln-img" src="'+imgUrl+'" alt="'+b.name+'" loading="lazy">' +
-                '<span class="tln-badge">'+b.loc.toUpperCase()+'</span></div>' +
-                '<div class="tln-content"><div class="tln-name-wrap"><h3 class="tln-name">'+b.name+'</h3></div>' +
-                '<div class="tln-cat">'+b.cat+' &bull; '+b.loc+'</div>' +
-                '<div class="tln-rating"><span class="tln-stars">'+'★'.repeat(Math.floor(b.rating))+'</span> <span class="tln-reviews">('+b.rating+')</span></div>' +
-                '<div class="tln-address">📍 '+b.addr+'</div>' +
-                '<a href="/profile/?biz='+encodeURIComponent(b.name)+'&pid='+b.place_id+'" class="tln-btn">View Profile</a>' +
-                '<div class="tln-claim-link"><a href="/claim/?biz='+encodeURIComponent(b.name)+'&pid='+b.place_id+'">Own this business? Claim it</a></div>' +
-                '</div></div>';
-        }).join('');
+            html += '<div class="tln-card" data-n="'+b.name.toLowerCase()+'" data-c="'+b.cat+'" data-l="'+b.loc+'">';
+            html += '<div class="tln-img-wrap"><img class="tln-img" src="'+imgUrl+'" alt="'+b.name+'" loading="lazy">';
+            html += '<span class="tln-badge">'+b.loc.toUpperCase()+'</span></div>';
+            html += '<div class="tln-content"><div class="tln-name-wrap"><h3 class="tln-name">'+b.name+'</h3></div>';
+            html += '<div class="tln-cat">'+b.cat+' &bull; '+b.loc+'</div>';
+            html += '<div class="tln-rating"><span class="tln-stars">'+'★'.repeat(Math.floor(b.rating))+'</span> <span class="tln-reviews">('+b.rating+')</span></div>';
+            html += '<div class="tln-address">📍 '+b.addr+'</div>';
+            html += '<a href="/profile/?biz='+encodeURIComponent(b.name)+'&pid='+b.place_id+'" class="tln-btn">View Profile</a>';
+            html += '<div class="tln-claim-link"><a href="/claim/?biz='+encodeURIComponent(b.name)+'&pid='+b.place_id+'">Own this business? Claim it</a></div>';
+            html += '</div></div>';
+        }
         
         grid.html(html);
         $('#tln-count').text('Showing ' + items.length + ' of ' + data.length + ' businesses');
@@ -49,8 +52,8 @@ jQuery(document).ready(function($) {
         var totalPages = Math.ceil(data.length / perPage);
         if (totalPages > 1) {
             var pageHtml = '';
-            for(var i=1; i<=totalPages; i++) {
-                if(i === pageNum) {
+            for (var i = 1; i <= totalPages; i++) {
+                if (i === pageNum) {
                     pageHtml += '<span>'+i+'</span>';
                 } else {
                     pageHtml += '<a href="#" class="tln-page-link" data-page="'+i+'">'+i+'</a>';
@@ -68,11 +71,16 @@ jQuery(document).ready(function($) {
         var c = $('#tln-c').val();
         var l = $('#tln-l').val();
         
-        var filtered = allData.filter(function(x) {
-            return (q === '' || x.name.toLowerCase().indexOf(q) > -1) && 
-                   (c === '' || x.cat === c) && 
-                   (l === '' || x.loc === l);
-        });
+        var filtered = [];
+        for (var i = 0; i < allData.length; i++) {
+            var x = allData[i];
+            var matchQ = q === '' || x.name.toLowerCase().indexOf(q) > -1;
+            var matchC = c === '' || x.cat === c;
+            var matchL = l === '' || x.loc === l;
+            if (matchQ && matchC && matchL) {
+                filtered.push(x);
+            }
+        }
         
         currentPage = 1;
         renderPage(1, filtered);
@@ -89,11 +97,16 @@ jQuery(document).ready(function($) {
         var c = $('#tln-c').val();
         var l = $('#tln-l').val();
         
-        var filtered = allData.filter(function(x) {
-            return (q === '' || x.name.toLowerCase().indexOf(q) > -1) && 
-                   (c === '' || x.cat === c) && 
-                   (l === '' || x.loc === l);
-        });
+        var filtered = [];
+        for (var i = 0; i < allData.length; i++) {
+            var x = allData[i];
+            var matchQ = q === '' || x.name.toLowerCase().indexOf(q) > -1;
+            var matchC = c === '' || x.cat === c;
+            var matchL = l === '' || x.loc === l;
+            if (matchQ && matchC && matchL) {
+                filtered.push(x);
+            }
+        }
         
         renderPage(newPage, filtered);
     });
