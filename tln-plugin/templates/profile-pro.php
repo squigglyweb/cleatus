@@ -227,4 +227,114 @@ function showRedeemModal() {
 }
 </script>
 
+<!-- Review Modal for Pro -->
+<style>
+.review-modal-backdrop { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 9999; align-items: center; justify-content: center; }
+.review-modal-backdrop.active { display: flex; }
+.review-modal { background: white; border-radius: 12px; padding: 1.5rem; max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto; position: relative; }
+.review-modal-close { position: absolute; top: 10px; right: 15px; font-size: 1.5rem; cursor: pointer; border: none; background: none; }
+.review-modal h3 { margin-bottom: 1rem; color: #1a1a1a; }
+.rating-category { margin-bottom: 1rem; }
+.rating-category .rating-label { display: block; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.9rem; }
+.pin-rating { display: flex; gap: 4px; }
+.pin-rating .pin { height: 20px; opacity: 0.3; cursor: pointer; }
+.pin-rating .pin.active { opacity: 1; }
+.review-modal textarea, .review-modal input[type="text"] { width: 100%; padding: 0.75rem; margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 6px; font-family: inherit; }
+.review-modal .submit-btn { width: 100%; padding: 0.75rem; background: #e63946; color: white; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; }
+#reviewStatusPro { margin-top: 0.5rem; font-size: 0.9rem; }
+</style>
+<div class="review-modal-backdrop" id="reviewModalPro">
+    <div class="review-modal">
+        <button class="review-modal-close" onclick="document.getElementById('reviewModalPro').classList.remove('active');">&times;</button>
+        <h3>How was the business?</h3>
+        <input type="hidden" id="businessIdPro" value="<?php echo get_the_ID(); ?>" />
+        <div class="rating-category"><span class="rating-label">Overall Experience</span><div class="pin-rating" data-category="overall-pro"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"></div></div>
+        <div class="rating-category"><span class="rating-label">Quality</span><div class="pin-rating" data-category="quality-pro"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"></div></div>
+        <div class="rating-category"><span class="rating-label">Service</span><div class="pin-rating" data-category="service-pro"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"></div></div>
+        <div class="rating-category"><span class="rating-label">Value</span><div class="pin-rating" data-category="value-pro"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"></div></div>
+        <div class="rating-category"><span class="rating-label">Atmosphere</span><div class="pin-rating" data-category="atmosphere-pro"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"></div></div>
+        <textarea id="reviewTextPro" placeholder="Write a review (What should other customers know?)"></textarea>
+        <input type="text" id="reviewTitlePro" placeholder="Title your review (required)" />
+        <input type="text" id="reviewerNamePro" placeholder="Your public name (required)" value="Bryan Somers" />
+        <button class="submit-btn" id="submitReviewPro">Submit</button>
+        <p id="reviewStatusPro" style="display:none;"></p>
+    </div>
+</div>
+<script>
+document.querySelectorAll('.pin-rating').forEach(function(container){
+    const pins = container.querySelectorAll('.pin');
+    pins.forEach(function(pin, idx){
+        pin.addEventListener('click', function(){
+            pins.forEach((p,i)=>{ p.classList.toggle('active', i<=idx); });
+        });
+    });
+});
+document.querySelectorAll('[onclick*="reviewModal"]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+        document.getElementById('reviewModalPro').classList.add('active');
+    });
+});
+document.getElementById('submitReviewPro').addEventListener('click', function(){
+    const businessId = document.getElementById('businessIdPro').value;
+    const reviewerName = document.getElementById('reviewerNamePro').value.trim();
+    const reviewTitle = document.getElementById('reviewTitlePro').value.trim();
+    const reviewText = document.getElementById('reviewTextPro').value.trim();
+    
+    if (!businessId || !reviewerName || !reviewTitle) {
+        document.getElementById('reviewStatusPro').style.display = 'block';
+        document.getElementById('reviewStatusPro').style.color = '#e63946';
+        document.getElementById('reviewStatusPro').textContent = 'Please fill in your name and review title.';
+        return;
+    }
+    
+    function getRating(category) {
+        const container = document.querySelector('.pin-rating[data-category="' + category + '-pro"]');
+        if (!container) return 0;
+        return container.querySelectorAll('.pin.active').length;
+    }
+    
+    const ratingData = {
+        business_id: parseInt(businessId),
+        reviewer_name: reviewerName,
+        rating_overall: getRating('overall'),
+        rating_quality: getRating('quality'),
+        rating_service: getRating('service'),
+        rating_value: getRating('value'),
+        rating_atmosphere: getRating('atmosphere'),
+        title: reviewTitle,
+        review_text: reviewText
+    };
+    
+    document.getElementById('reviewStatusPro').style.display = 'block';
+    document.getElementById('reviewStatusPro').style.color = '#666';
+    document.getElementById('reviewStatusPro').textContent = 'Submitting...';
+    
+    fetch('/wp-json/tln/v1/reviews', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(ratingData)
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('reviewStatusPro').style.color = '#2a9d8f';
+            document.getElementById('reviewStatusPro').textContent = 'Thanks! Your review has been submitted.';
+            setTimeout(function(){
+                document.getElementById('reviewModalPro').classList.remove('active');
+                document.getElementById('reviewTextPro').value = '';
+                document.getElementById('reviewTitlePro').value = '';
+                document.querySelectorAll('.pin-rating .pin').forEach(p => p.classList.remove('active'));
+                document.getElementById('reviewStatusPro').style.display = 'none';
+            }, 1500);
+        } else {
+            throw new Error(data.error || 'Unknown error');
+        }
+    })
+    .catch(err => {
+        document.getElementById('reviewStatusPro').style.color = '#e63946';
+        document.getElementById('reviewStatusPro').textContent = 'Error: ' + err.message;
+    });
+});
+</script>
+
 <?php get_footer(); ?>

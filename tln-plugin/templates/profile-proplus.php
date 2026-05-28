@@ -331,7 +331,12 @@ function setRating(num) {
         
         <textarea placeholder="Write a review (What should other customers know?)" style="width:100%;padding:0.75rem;margin:1rem 0;border:1px solid #ddd;border-radius:6px;min-height:100px;"></textarea>
         <input type="text" placeholder="Your public name (required)" style="width:100%;padding:0.75rem;margin-bottom:1rem;border:1px solid #ddd;border-radius:6px;" />
-        <button onclick="alert('Review submitted! Thanks for supporting local.');document.getElementById('reviewModal').style.display='none';" style="width:100%;padding:0.75rem;background:#e63946;color:white;border:none;border-radius:6px;font-weight:700;cursor:pointer;">Submit Review</button>
+        <input type="hidden" id="businessIdProplus" value="<?php echo get_the_ID(); ?>" />
+<textarea id="reviewTextProplus" placeholder="Write a review (What should other customers know?)" style="width:100%;padding:0.75rem;margin:1rem 0;border:1px solid #ddd;border-radius:6px;min-height:100px;"></textarea>
+<input type="text" id="reviewTitleProplus" placeholder="Title your review (required)" style="width:100%;padding:0.75rem;margin-bottom:1rem;border:1px solid #ddd;border-radius:6px;" />
+<input type="text" id="reviewerNameProplus" placeholder="Your public name (required)" style="width:100%;padding:0.75rem;margin-bottom:1rem;border:1px solid #ddd;border-radius:6px;" value="Bryan Somers" />
+<button id="submitReviewProplus" style="width:100%;padding:0.75rem;background:#e63946;color:white;border:none;border-radius:6px;font-weight:700;cursor:pointer;">Submit Review</button>
+<p id="reviewStatusProplus" style="display:none;margin-top:0.5rem;font-size:0.9rem;"></p>
     </div>
 </div>
 <script>document.querySelectorAll('.pin-rating').forEach(function(c){c.querySelectorAll('img').forEach(function(p,i){p.addEventListener('click',function(){c.querySelectorAll('img').forEach(function(img,j){img.style.opacity=j<=i?'1':'0.3'})})})});</script>

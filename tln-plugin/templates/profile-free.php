@@ -355,7 +355,7 @@ $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
                 <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin">
             </div>
         </div>
-        <input type="hidden" id="businessId" value="<?php echo isset($biz['post_id']) ? $biz['post_id'] : ''; ?>" />
+        <input type="hidden" id="businessId" value="<?php echo get_the_ID(); ?>" />
         <textarea id="reviewText" placeholder="Write a review (What should other customers know?)"></textarea>
         <input type="text" id="reviewTitle" placeholder="Title your review (required)" />
         <input type="text" id="reviewerName" placeholder="Your public name (required)" value="Bryan Somers" />
