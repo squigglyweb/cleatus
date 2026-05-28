@@ -18,6 +18,9 @@ function tln_dir_styles() {
     wp_add_inline_style('tln-dir', $css);
 }
 add_action('wp_enqueue_scripts', 'tln_dir_styles');
+add_action('wp_enqueue_scripts', function() {
+    wp_enqueue_script('jquery');
+});
 
 $tln_exclude = array('CVS','Walgreens','Walmart','Target','Costco','Dollar General','McDonalds','Burger King','KFC','Pizza Hut','Dominos','Papa Johns','Subway','Starbucks','Dunkin','Chipotle','Chick-fil-A','Wingstop','Taco Bell','Shell','BP','Exxon','Food Lion','Harris Teeter','Aldi','Whole Foods','Trader Joes','Best Buy','Home Depot','Lowes','Bank of America','Wells Fargo','Chase');
 
@@ -195,7 +198,9 @@ if (!empty($matched)) {
     echo '</div>';
     ?>
     <script>
+    console.log('TLN: Script loading...');
     jQuery(document).ready(function($) {
+        console.log('TLN: jQuery ready, data length:', allData.length);
         var allData = JSON.parse($('#tln-all-data').html());
         var perPage = 12;
         var currentPage = 1;
