@@ -8,7 +8,7 @@ jQuery(document).ready(function($) {
     var perPage = 12;
     var currentPage = 1;
     
-    var icons = {'Restaurant':'🍽️','Cafe':'☕','Bar':'🍺','Retail':'🛒','Services':'🔧','Food':'🍔','Health':'🏥','Auto':'🔧','Salon':'💅','Fitness':'💪','Hearing':'👂','Nails':'💅'};
+    var icons = {'Restaurant':'R','Cafe':'C','Bar':'B','Retail':'S','Services':'S','Food':'F','Health':'H','Auto':'A','Salon':'S','Fitness':'F','Hearing':'H','Nails':'N'};
     var placeholder = 'https://thelocalnearbuy.com/wp-content/uploads/2026/05/support-local-businesses.webp';
     var apiKey = tlnDir.apiKey;
     
