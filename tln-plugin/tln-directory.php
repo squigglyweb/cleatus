@@ -174,6 +174,10 @@ function tln_dir_shortcode($atts) {
         echo '<div class="tln-card" data-n="'.strtolower($b['name']).'" data-c="'.$b['cat'].'" data-l="'.$loc.'">';
         echo '<div class="tln-img-wrap">'.$img;
         echo '<span class="tln-badge">'.strtoupper($loc).'</span>';
+        // Pro badge
+        if(in_array($tier, array('pro','proplus'))) {
+            echo '<span class="tln-pro-badge" style="position:absolute;bottom:10px;left:10px;background:#FABC06;color:#000;padding:4px 10px;font-size:0.7rem;font-weight:700;border-radius:4px;text-transform:uppercase;">💎 PRO</span>';
+        }
         echo '</div><div class="tln-content">';
         echo '<div class="tln-name-wrap"><h3 class="tln-name">'.esc_html($b['name']).'</h3></div>';
         echo '<div class="tln-cat">'.esc_html($b['cat']).' &bull; '.esc_html($loc).'</div>';
