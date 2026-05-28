@@ -9,7 +9,7 @@ jQuery(document).ready(function($) {
     var currentPage = 1;
     
     var icons = {'Restaurant':'🍽️','Cafe':'☕','Bar':'🍺','Retail':'🛒','Services':'🔧','Food':'🍔','Health':'🏥','Auto':'🔧','Salon':'💅','Fitness':'💪','Hearing':'👂','Nails':'💅'};
-    var placeholder = tlnDir.placeholder;
+    var placeholder = 'https://thelocalnearbuy.com/wp-content/uploads/2026/05/support-local-businesses.webp';
     var apiKey = tlnDir.apiKey;
     
     function renderPage(pageNum, data) {
