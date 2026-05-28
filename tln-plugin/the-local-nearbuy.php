@@ -19,6 +19,63 @@ register_activation_hook(__FILE__, function() {
     }, 99);
 });
 
+// REST API for reviews
+add_action('rest_api_init', function() {
+    register_rest_route('tln/v1', '/reviews', array(
+        'methods' => 'POST',
+        'callback' => function($request) {
+            $params = $request->get_json_params();
+            $business_id = isset($params['business_id']) ? intval($params['business_id']) : 0;
+            $reviewer_name = isset($params['reviewer_name']) ? sanitize_text_field($params['reviewer_name']) : '';
+            $rating_overall = isset($params['rating_overall']) ? intval($params['rating_overall']) : 0;
+            $rating_quality = isset($params['rating_quality']) ? intval($params['rating_quality']) : 0;
+            $rating_service = isset($params['rating_service']) ? intval($params['rating_service']) : 0;
+            $rating_value = isset($params['rating_value']) ? intval($params['rating_value']) : 0;
+            $rating_atmosphere = isset($params['rating_atmosphere']) ? intval($params['rating_atmosphere']) : 0;
+            $title = isset($params['title']) ? sanitize_text_field($params['title']) : '';
+            $review_text = isset($params['review_text']) ? sanitize_textarea_field($params['review_text']) : '';
+            
+            if (!$business_id || !$reviewer_name || !$rating_overall) {
+                return new WP_Error('missing_data', 'Business ID, name, and overall rating are required', array('status' => 400));
+            }
+            
+            // Get existing reviews
+            $reviews = get_post_meta($business_id, 'tln_neighborhood_reviews', true);
+            if (!is_array($reviews)) $reviews = array();
+            
+            // Add new review
+            $reviews[] = array(
+                'id' => uniqid('rev_'),
+                'reviewer_name' => $reviewer_name,
+                'rating_overall' => $rating_overall,
+                'rating_quality' => $rating_quality,
+                'rating_service' => $rating_service,
+                'rating_value' => $rating_value,
+                'rating_atmosphere' => $rating_atmosphere,
+                'title' => $title,
+                'review_text' => $review_text,
+                'created_at' => current_time('mysql')
+            );
+            
+            update_post_meta($business_id, 'tln_neighborhood_reviews', $reviews);
+            
+            return array('success' => true, 'review_id' => $reviews[count($reviews)-1]['id']);
+        },
+        'permission_callback' => '__return_true'
+    ));
+    
+    register_rest_route('tln/v1', '/reviews/(?P<business_id>\d+)', array(
+        'methods' => 'GET',
+        'callback' => function($request) {
+            $business_id = $request->get_param('business_id');
+            $reviews = get_post_meta($business_id, 'tln_neighborhood_reviews', true);
+            if (!is_array($reviews)) $reviews = array();
+            return $reviews;
+        },
+        'permission_callback' => '__return_true'
+    ));
+});
+
 // Add TLN Admin Menu
 function tln_add_admin_menu() {
     add_menu_page(

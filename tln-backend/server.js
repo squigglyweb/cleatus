@@ -99,6 +99,23 @@ db.serialize(() => {
     )
   `);
 
+  db.run(`
+    CREATE TABLE IF NOT EXISTS reviews (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      business_id INTEGER,
+      reviewer_name TEXT,
+      rating_overall INTEGER,
+      rating_quality INTEGER,
+      rating_service INTEGER,
+      rating_value INTEGER,
+      rating_atmosphere INTEGER,
+      title TEXT,
+      review_text TEXT,
+      created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+      FOREIGN KEY(business_id) REFERENCES businesses(id)
+    )
+  `);
+
 });
 
 app.use(express.json());
@@ -120,6 +137,41 @@ app.post('/api/offers', (req, res) => {
 // API: Get all offers (for directory)
 app.get('/api/offers', (req, res) => {
   db.all('SELECT * FROM offers ORDER BY created_at DESC', [], (err, rows) => {
+    if (err) return res.status(500).json({ error: err.message });
+    res.json(rows);
+  });
+});
+
+// API: Submit a review
+app.post('/api/reviews', (req, res) => {
+  const { business_id, reviewer_name, rating_overall, rating_quality, rating_service, rating_value, rating_atmosphere, title, review_text } = req.body;
+  
+  if (!business_id || !reviewer_name || !rating_overall) {
+    return res.status(400).json({ error: 'Business ID, name, and overall rating are required' });
+  }
+  
+  db.run(`
+    INSERT INTO reviews (business_id, reviewer_name, rating_overall, rating_quality, rating_service, rating_value, rating_atmosphere, title, review_text)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `, [business_id, reviewer_name, rating_overall, rating_quality, rating_service, rating_value, rating_atmosphere, title, review_text], function(err) {
+    if (err) return res.status(500).json({ error: err.message });
+    
+    // Update business rating
+    db.run(`
+      UPDATE businesses SET 
+        rating = (SELECT AVG(rating_overall) FROM reviews WHERE business_id = ?),
+        review_count = (SELECT COUNT(*) FROM reviews WHERE business_id = ?)
+      WHERE id = ?
+    `, [business_id, business_id, business_id]);
+    
+    res.json({ success: true, review_id: this.lastID });
+  });
+});
+
+// API: Get reviews for a business
+app.get('/api/reviews/:businessId', (req, res) => {
+  const { businessId } = req.params;
+  db.all('SELECT * FROM reviews WHERE business_id = ? ORDER BY created_at DESC', [businessId], (err, rows) => {
     if (err) return res.status(500).json({ error: err.message });
     res.json(rows);
   });

@@ -303,10 +303,12 @@
                 <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" class="pin">
             </div>
         </div>
-        <textarea placeholder="Write a review (What should other customers know?)"></textarea>
-        <input type="text" placeholder="Title your review (required)" />
-        <input type="text" placeholder="Your public name (required)" value="Bryan Somers" />
-        <button class="submit-btn">Submit</button>
+        <input type="hidden" id="businessId" value="" />
+        <textarea id="reviewText" placeholder="Write a review (What should other customers know?)"></textarea>
+        <input type="text" id="reviewTitle" placeholder="Title your review (required)" />
+        <input type="text" id="reviewerName" placeholder="Your public name (required)" value="Bryan Somers" />
+        <button class="submit-btn" id="submitReviewBtn">Submit</button>
+        <p id="reviewStatus" style="display:none;margin-top:0.5rem;font-size:0.9rem;"></p>
     </div>
 </div>
 <script>
@@ -326,10 +328,76 @@
     document.getElementById('closeModal').addEventListener('click', function(){
         document.getElementById('reviewModal').style.display='none';
     });
-    // Simple submit handler (placeholder)
-    document.querySelector('.submit-btn').addEventListener('click', function(){
-        alert('Review submitted – backend integration pending.');
-        document.getElementById('reviewModal').style.display='none';
+    // Review submit handler
+    document.getElementById('submitReviewBtn').addEventListener('click', function(){
+        const businessId = document.getElementById('businessId').value || window.businessId;
+        const reviewerName = document.getElementById('reviewerName').value.trim();
+        const reviewTitle = document.getElementById('reviewTitle').value.trim();
+        const reviewText = document.getElementById('reviewText').value.trim();
+        
+        if (!businessId) {
+            document.getElementById('reviewStatus').style.display = 'block';
+            document.getElementById('reviewStatus').style.color = '#e63946';
+            document.getElementById('reviewStatus').textContent = 'Error: Business ID not found.';
+            return;
+        }
+        if (!reviewerName || !reviewTitle) {
+            document.getElementById('reviewStatus').style.display = 'block';
+            document.getElementById('reviewStatus').style.color = '#e63946';
+            document.getElementById('reviewStatus').textContent = 'Please fill in your name and review title.';
+            return;
+        }
+        
+        // Get ratings from pin containers
+        function getRating(category) {
+            const container = document.querySelector('.pin-rating[data-category="' + category + '-modal"]');
+            if (!container) return 0;
+            const activePins = container.querySelectorAll('.pin.active');
+            return activePins.length;
+        }
+        
+        const ratingData = {
+            business_id: parseInt(businessId),
+            reviewer_name: reviewerName,
+            rating_overall: getRating('overall'),
+            rating_quality: getRating('quality'),
+            rating_service: getRating('service'),
+            rating_value: getRating('value'),
+            rating_atmosphere: getRating('atmosphere'),
+            title: reviewTitle,
+            review_text: reviewText
+        };
+        
+        document.getElementById('reviewStatus').style.display = 'block';
+        document.getElementById('reviewStatus').style.color = '#666';
+        document.getElementById('reviewStatus').textContent = 'Submitting...';
+        
+        fetch('/wp-json/tln/v1/reviews', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(ratingData)
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (data.success) {
+                document.getElementById('reviewStatus').style.color = '#2a9d8f';
+                document.getElementById('reviewStatus').textContent = 'Thanks! Your review has been submitted.';
+                setTimeout(function(){
+                    document.getElementById('reviewModal').style.display = 'none';
+                    // Reset form
+                    document.getElementById('reviewText').value = '';
+                    document.getElementById('reviewTitle').value = '';
+                    document.querySelectorAll('.pin-rating .pin').forEach(p => p.classList.remove('active'));
+                    document.getElementById('reviewStatus').style.display = 'none';
+                }, 1500);
+            } else {
+                throw new Error(data.error || 'Unknown error');
+            }
+        })
+        .catch(err => {
+            document.getElementById('reviewStatus').style.color = '#e63946';
+            document.getElementById('reviewStatus').textContent = 'Error: ' + err.message;
+        });
     });
 </script>
 </body>

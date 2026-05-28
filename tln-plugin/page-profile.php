@@ -58,9 +58,13 @@ if (function_exists('tln_fetch_google_place_data')) {
 }
 
 // Set up WordPress post context for the template
-global $post;
+global $post, $tln_profile_business;
 $post = get_post($post_id);
 setup_postdata($post);
+
+// Pass business ID to template
+$tln_profile_business['post_id'] = $post_id;
+$tln_profile_business['place_id'] = $pid;
 
 // Template selection based on tier
 $template_file = 'profile-free.php';

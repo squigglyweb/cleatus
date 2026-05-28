@@ -291,6 +291,9 @@ $meals = get_post_meta($claimed_posts[0]->ID, 'meals_donated', true) ?: 0;
     </div>
     
     <script>
+    // Expose business ID for review submission
+    window.businessId = <?php echo !empty($claimed_posts) ? $claimed_posts[0]->ID : 'null'; ?>;
+    
     // Tab switching for Pro+
     document.querySelectorAll('.tln-tab-list li').forEach(tab => {
         tab.addEventListener('click', function() {
