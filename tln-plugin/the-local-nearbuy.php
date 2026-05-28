@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 3.19 - Fixed jQuery conflict in directory
+Version: 3.20 - Added review submission with REST API
 */
 
 // Flush rewrite rules on activation
