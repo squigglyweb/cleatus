@@ -113,8 +113,8 @@ function tln_camps_func() {
     ob_start();
     echo '<div class="tln-camps-container">';
     echo '<div class="tln-camps-header">';
-    echo '<h2>☀️ Summer Camps</h2>';
-    '<p>Fun summer programs for kids in Waxhaw and surrounding areas</p>';
+    echo '<h2>Summer Camps</h2>';
+    echo '<p>Fun summer programs for kids in Waxhaw and surrounding areas</p>';
     echo '</div>';
     echo '<div class="tln-camps-grid">';
     
@@ -126,9 +126,9 @@ function tln_camps_func() {
         echo '<div class="tln-camp-card' . $waxhaw_class . '">';
         echo '<img src="' . esc_url($img) . '" alt="' . esc_attr($camp['name']) . '" class="tln-camp-img">';
         echo '<div class="tln-camp-content">';
-        echo '<div class="tln-camp-location">' . esc_html($camp['location']) . ($is_waxhaw ? ' 📍' : '') . '</div>';
+        echo '<div class="tln-camp-location">' . esc_html($camp['location']) . ($is_waxhaw ? ' *' : '') . '</div>';
         echo '<h3 class="tln-camp-name">' . esc_html($camp['name']) . '</h3>';
-        echo '<div class="tln-camp-rating"><span class="tln-camp-stars">' . esc_html($camp['stars']) . '</span> <span class="tln-camp-reviews">(' . $camp['rating'] . ')</span></div>';
+        echo '<div class="tln-camp-rating"><span class="tln-camp-stars">' . esc_html($camp['stars']) . '</span> <span class="tln-camp-reviews">(' . $camp['reviews'] . ' reviews)</span></div>';
         echo '<div class="tln-camp-address">📍 <a href="' . esc_url($camp['maps_link']) . '" target="_blank">' . esc_html($camp['address']) . '</a></div>';
         echo '<a href="' . esc_url($camp['maps_link']) . '" target="_blank" class="tln-camp-btn">Get Details</a>';
         echo '</div></div>';
