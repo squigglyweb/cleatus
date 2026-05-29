@@ -29,6 +29,11 @@ function tln_dashboard_shortcode() {
     ob_start();
     ?>
     <div class="tln-dash" style="max-width:900px;margin:0 auto;">
+        <div style="background:#fff3cd;padding:1rem;border-radius:8px;margin-bottom:1rem;border:2px solid #ffc107;">
+            <strong>⚠️ Desktop Recommended</strong><br>
+            <span style="font-size:0.9rem;">This dashboard works best on a desktop or tablet. Some features may be difficult to use on mobile.</span>
+        </div>
+        
         <h2 style="margin-bottom:1rem;">📊 <?php echo esc_html($claim->business_name); ?> Dashboard</h2>
         
         <?php if($tier == 'free'): ?>
@@ -63,6 +68,31 @@ function tln_dashboard_shortcode() {
             <div style="background:#fff;padding:1.5rem;border-radius:12px;border:2px solid #1a1a1a;">
                 <h3 style="margin-top:0;">Analytics</h3>
                 <p style="color:#666;">Coming soon</p>
+            </div>
+        </div>
+        
+        <div style="background:#fff;padding:1.5rem;border-radius:12px;border:2px solid #1a1a1a;margin-bottom:2rem;">
+            <h3 style="margin-top:0;">📮 Postcard Preview</h3>
+            <p style="color:#666;font-size:0.9rem;margin-bottom:1rem;">Here's how your ad will look on the postcard. The front shows your business info and a QR code. The back shows your offer that customers scan to redeem.</p>
+            <div style="display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;">
+                <div style="text-align:center;">
+                    <p style="font-weight:600;margin-bottom:0.5rem;">Front</p>
+                    <div style="width:200px;height:130px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:8px;padding:1rem;color:#fff;display:flex;flex-direction:column;justify-content:center;align-items:center;">
+                        <p style="font-size:0.8rem;margin:0;text-align:center;"><?php echo esc_html($claim->business_name); ?></p>
+                        <div style="background:#fff;padding:0.5rem;border-radius:4px;margin:0.5rem 0;">
+                            <img src="https://api.qrserver.com/v1/create-qr-code/?size=80x80&data=EXAMPLE" alt="QR" style="display:block;">
+                        </div>
+                        <p style="font-size:0.7rem;margin:0;">Scan for offer</p>
+                    </div>
+                </div>
+                <div style="text-align:center;">
+                    <p style="font-weight:600;margin-bottom:0.5rem;">Back</p>
+                    <div style="width:200px;height:130px;background:#fff;border:2px solid #1a1a1a;border-radius:8px;padding:1rem;color:#1a1a1a;display:flex;flex-direction:column;justify-content:center;align-items:center;">
+                        <p style="font-size:0.75rem;font-weight:700;margin:0;text-transform:uppercase;">Special Offer</p>
+                        <p style="font-size:0.7rem;margin:0.5rem 0;text-align:center;">Show this code at checkout to redeem your offer</p>
+                        <div style="border:2px dashed #1a1a1a;padding:0.25rem 0.5rem;font-family:monospace;font-size:0.7rem;">CODE: XXXXXX</div>
+                    </div>
+                </div>
             </div>
         </div>
         
