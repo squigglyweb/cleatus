@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 3.20 - Added review submission with REST API
+Version: 3.21 - Fixed mobile padding on free profile template
 */
 
 // Flush rewrite rules on activation
@@ -238,6 +238,7 @@ require_once plugin_dir_path(__FILE__) . 'tln-claim.php';
 require_once plugin_dir_path(__FILE__) . 'tln-voucher-system.php';
 require_once plugin_dir_path(__FILE__) . 'tln-golf-shortcode.php';
 require_once plugin_dir_path(__FILE__) . 'tln-parks-shortcode.php';
+require_once plugin_dir_path(__FILE__) . 'inc/camp-shortcode.php';
 require_once plugin_dir_path(__FILE__) . 'tln-analytics.php';
 require_once plugin_dir_path(__FILE__) . 'tln-business-dashboard.php';
 require_once plugin_dir_path(__FILE__) . 'tln-admin-campaign.php';
