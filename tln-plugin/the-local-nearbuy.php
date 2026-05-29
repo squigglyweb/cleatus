@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 3.21 - Fixed mobile padding on free profile template
+Version: 3.22 - Added dynamic open/closed hours logic
 */
 
 // Flush rewrite rules on activation
