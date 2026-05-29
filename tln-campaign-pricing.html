@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Campaign Pricing | The Local NearBuy</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Open Sans', sans-serif; background: #fafafa; color: #1a1a1a; line-height: 1.6; }
+        :root { --red: #e63946; --black: #1a1a1a; }
+        
+        .tln-header { background: var(--black); color: white; padding: 1.5rem 2rem; text-align: center; }
+        .tln-header .logo { font-size: 1.75rem; font-weight: 700; }
+        
+        .container { max-width: 1000px; margin: 0 auto; padding: 2rem 1rem; }
+        
+        h1 { font-size: 2.5rem; text-align: center; margin-bottom: 0.5rem; }
+        .subtitle { text-align: center; color: #666; font-size: 1.1rem; margin-bottom: 2rem; max-width: 600px; margin-left: auto; margin-right: auto; }
+        
+        .value-prop { background: white; border-radius: 12px; padding: 2rem; margin-bottom: 2rem; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .value-prop h2 { color: var(--red); margin-bottom: 1rem; }
+        .value-prop p { color: #666; font-size: 1.05rem; }
+        
+        .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
+        
+        .card { background: white; border: 2px solid #ddd; border-radius: 12px; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s; }
+        .card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+        .card.featured { border-color: var(--red); }
+        .card.featured::before { content: 'MOST POPULAR'; position: absolute; top: 0; left: 0; right: 0; background: var(--red); color: white; font-size: 0.65rem; font-weight: 700; padding: 0.4rem; text-align: center; text-transform: uppercase; }
+        
+        .card-header { padding: 1.5rem; text-align: center; border-bottom: 1px solid #eee; position: relative; }
+        .card-header h3 { font-size: 1.25rem; margin-bottom: 0.5rem; }
+        .card-header .price { font-size: 2.5rem; font-weight: 700; color: var(--red); }
+        .card-header .price span { font-size: 1rem; color: #666; font-weight: 400; }
+        .card-header .desc { color: #666; font-size: 0.85rem; margin-top: 0.5rem; }
+        
+        .card-body { padding: 1.5rem; }
+        .card-body ul { list-style: none; }
+        .card-body li { padding: 0.6rem 0; border-bottom: 1px solid #f5f5f5; font-size: 0.9rem; }
+        .card-body li .check { color: var(--red); font-weight: 700; margin-right: 0.5rem; }
+        
+        .meals-included { background: linear-gradient(135deg, var(--red), #c1121f); color: white; padding: 0.75rem; text-align: center; border-radius: 8px; margin: 1rem 1rem 0; font-size: 0.85rem; }
+        .meals-included strong { font-size: 1.1rem; }
+        
+        .cta { display: block; width: 100%; padding: 1rem; background: var(--red); color: white; text-align: center; text-decoration: none; font-weight: 700; border-radius: 8px; margin-top: 1rem; }
+        .cta:hover { background: #c1121f; }
+        
+        .how-it-works { background: white; border-radius: 12px; padding: 2rem; margin-top: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .how-it-works h2 { text-align: center; margin-bottom: 1.5rem; }
+        .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+        .step { text-align: center; }
+        .step-num { background: var(--red); color: white; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; margin: 0 auto 0.75rem; }
+        .step h4 { margin-bottom: 0.5rem; }
+        .step p { font-size: 0.85rem; color: #666; }
+        
+        @media(max-width: 800px) { .grid { grid-template-columns: repeat(2, 1fr); } .steps { grid-template-columns: 1fr; } }
+        @media(max-width: 500px) { .grid { grid-template-columns: 1fr; } }
+    </style>
+</head>
+<body>
+    <div class="tln-header">
+        <div class="logo">THE LOCAL NEARBUY</div>
+    </div>
+    
+    <div class="container">
+        <h1>Postcard Campaign Pricing</h1>
+        <p class="subtitle">Reach thousands of local households with trackable QR code advertising. Every scan delivers a real lead with name, email, and phone.</p>
+        
+        <div class="value-prop">
+            <h2>Why TLN Campaigns?</h2>
+            <p>Unlike traditional advertising, you know exactly who's interested. Each QR scan gives you an opted-in lead you can follow up with. Track your ROI in real-time.</p>
+        </div>
+        
+        <div class="grid">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Tiny Spot</h3>
+                    <div class="price">$250<span>/campaign</span></div>
+                    <div class="desc">3.8" x 2.5"</div>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li><span class="check">+</span> QR code tracking</li>
+                        <li><span class="check">+</span> Lead capture</li>
+                        <li><span class="check">+</span> 5,000 mailers</li>
+                    </ul>
+                    <a href="/tln-ad-request.html" class="cta">Get Started</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3>Small Spot</h3>
+                    <div class="price">$500<span>/campaign</span></div>
+                    <div class="desc">3.8" x 5"</div>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li><span class="check">+</span> QR code tracking</li>
+                        <li><span class="check">+</span> Lead capture</li>
+                        <li><span class="check">+</span> 10,000 mailers</li>
+                    </ul>
+                    <a href="/tln-ad-request.html" class="cta">Get Started</a>
+                </div>
+            </div>
+            
+            <div class="card featured">
+                <div class="card-header">
+                    <h3>Medium Spot</h3>
+                    <div class="price">$800<span>/campaign</span></div>
+                    <div class="desc">7.8" x 3.8"</div>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li><span class="check">+</span> QR code tracking</li>
+                        <li><span class="check">+</span> Lead capture</li>
+                        <li><span class="check">+</span> 15,000 mailers</li>
+                    </ul>
+                    <a href="/tln-ad-request.html" class="cta">Get Started</a>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h3>Large Spot</h3>
+                    <div class="price">$900<span>/campaign</span></div>
+                    <div class="desc">3.8" x 8.8"</div>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li><span class="check">+</span> QR code tracking</li>
+                        <li><span class="check">+</span> Lead capture</li>
+                        <li><span class="check">+</span> 20,000+ mailers</li>
+                    </ul>
+                    <a href="/tln-ad-request.html" class="cta">Get Started</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="meals-included">
+            <strong>Every campaign includes meals donated to local families</strong>
+        </div>
+        
+        <div class="how-it-works">
+            <h2>How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <h4>Choose Your Spot</h4>
+                    <p>Select a size that fits your budget and message</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <h4>Create Your Offer</h4>
+                    <p>Tell us your special offer for visitors</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <h4>We Mail & Track</h4>
+                    <p>Postcards go out with trackable QR codes</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">4</div>
+                    <h4>Get Your Leads</h4>
+                    <p>See who's interested and follow up</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
