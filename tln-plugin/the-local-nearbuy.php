@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 3.27 - Added campaign spots tracking + alerts
+Version: 3.28 - Added email alerts for campaign spots
 */
 
 // Flush rewrite rules on activation
