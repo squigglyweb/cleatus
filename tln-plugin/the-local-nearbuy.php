@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 3.24 - Fixed potential PHP error in checkout webhook
+Version: 3.25 - Removed ad slots from free profile template
 */
 
 // Flush rewrite rules on activation
