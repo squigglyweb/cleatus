@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 3.28 - Added email alerts for campaign spots
+Version: 3.29 - Updated default campaign cost to $2000
 */
 
 // Flush rewrite rules on activation
