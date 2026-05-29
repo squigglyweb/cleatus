@@ -32,29 +32,14 @@ function tln_dashboard_shortcode() {
         <h2 style="margin-bottom:1rem;">📊 <?php echo esc_html($claim->business_name); ?> Dashboard</h2>
         
         <?php if($tier == 'free'): ?>
-        <div style="background:#fff3cd;padding:1rem;border-radius:8px;margin-bottom:1rem;">
-            <strong>Upgrade Your Listing</strong>
-            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1rem;margin-top:1rem;">
-                <div style="background:#fff;padding:1rem;border-radius:8px;border:2px solid #1a1a1a;">
-                    <h3 style="margin-top:0;">Pro - $99/mo</h3>
-                    <p style="font-size:0.9rem;">Photo gallery, custom offers, analytics</p>
-                    <stripe-buy-button buy-button-id="buy_btn_1TU98uBVjZYuZR8RZDcJUHkX" publishable-key="pk_live_51QDniFBVjZYuZR8RJvxA0b06ETZBhaPA6N3MNDztpX8HYSlNNyvbLDvCaTBCxBwULnPrUCmuqSOz4JJ5g83mKz8F00Vq5BABDb"></stripe-buy-button>
-                </div>
-                <div style="background:#fff;padding:1rem;border-radius:8px;border:2px solid #e63946;">
-                    <h3 style="margin-top:0;">Pro+ - $199/mo</h3>
-                    <p style="font-size:0.9rem;">Video, featured placement, AI optimization</p>
-                    <stripe-buy-button buy-button-id="buy_btn_1TU9DWBVjZYuZR8RTDXb1PQX" publishable-key="pk_live_51QDniFBVjZYuZR8RJvxA0b06ETZBhaPA6N3MNDztpX8HYSlNNyvbLDvCaTBCxBwULnPrUCmuqSOz4JJ5g83mKz8F00Vq5BABDb"></stripe-buy-button>
-                </div>
-                <div style="background:#fff;padding:1rem;border-radius:8px;border:2px solid #7cda24;">
-                    <h3 style="margin-top:0;">Sponsor - $349/mo</h3>
-                    <p style="font-size:0.9rem;">Banner ads, newsletter, custom landing page</p>
-                    <stripe-buy-button buy-button-id="buy_btn_1TU9JeBVjZYuZR8R0Ws5e4Im" publishable-key="pk_live_51QDniFBVjZYuZR8RJvxA0b06ETZBhaPA6N3MNDztpX8HYSlNNyvbLDvCaTBCxBwULnPrUCmuqSOz4JJ5g83mKz8F00Vq5BABDb"></stripe-buy-button>
-                </div>
-            </div>
+        <div style="background:#e63946;color:#fff;padding:1.5rem;border-radius:8px;margin-bottom:1rem;text-align:center;">
+            <h3 style="margin:0 0 0.5rem;">Reach Thousands of Local Households</h3>
+            <p style="margin:0 0 1rem;">Run a postcard campaign with trackable QR codes. Every scan gives you a real lead.</p>
+            <a href="/campaign-pricing/" style="display:inline-block;background:#fff;color:#e63946;padding:0.75rem 1.5rem;text-decoration:none;border-radius:6px;font-weight:600;">See Campaign Pricing</a>
         </div>
-        <?php elseif($tier == 'pro'): ?>
+        <?php else: ?>
         <div style="background:#d4edda;padding:1rem;border-radius:8px;margin-bottom:1rem;">
-            <strong>✓ Pro Member</strong> — <a href="#">Upgrade to Pro+</a> for video upload, featured placement, AI optimization
+            <strong>✓ Active Campaign</strong>
         </div>
         <?php endif; ?>
         
@@ -142,7 +127,6 @@ function tln_dashboard_shortcode() {
             <div id="tln-profile-msg" style="margin-top:1rem;"></div>
         </div>
     </div>
-    <script async src="https://js.stripe.com/v3/buy-button.js"></script>
     <script>
     document.getElementById('tln-profile-form').addEventListener('submit', async function(e) {
         e.preventDefault();
@@ -200,7 +184,6 @@ function tln_dashboard_shortcode() {
         btn.textContent = 'Upload Directory Photo';
     });
     </script>
-    <script async src="https://js.stripe.com/v3/buy-button.js"></script>
     <?php
     return ob_get_clean();
 }
