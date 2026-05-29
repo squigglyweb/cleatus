@@ -128,65 +128,25 @@ $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
         .modal .close-btn { position:absolute; top:0.5rem; right:0.5rem; background:none; border:none; font-size:1.2rem; cursor:pointer; }
         .modal textarea, .modal input[type="text"] { width:100%; padding:0.5rem; margin:0.5rem 0; border:1px solid #ccc; border-radius:4px; }
         .modal .submit-btn { background: var(--red); color:white; border:none; padding:0.5rem 1rem; border-radius:4px; cursor:pointer; }
-        /* Ad Slot Styles */
-        .ad-slot { background: #f9f9f9; border: 1px solid #eee; border-radius: 8px; padding: 0.5rem; text-align: center; margin-bottom: 1rem; }
-        .ad-slot-label { font-size: 0.7rem; color: #999; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.25rem; }
-        .ad-slot-content { display: flex; align-items: center; justify-content: center; color: #aaa; font-size: 0.85rem; }
-        /* Sidebar Box Ad - 300x250 */
-        .ad-box { background: #f5f5f5; border: 2px dashed #ddd; border-radius: 8px; width: 100%; height: 250px; display: flex; align-items: center; justify-content: center; }
-        /* Mobile Ad - 320x100 */
-        .ad-mobile { display: none; }
-        @media(max-width: 800px) { .ad-mobile { display: block; } }
+
         @media(max-width: 800px) {
-            .container { grid-template-columns: 1fr; }
+            .container { grid-template-columns: 1fr; padding: 1rem 0.75rem; gap: 1rem; margin-top: 0.5rem; margin-bottom: 0.5rem; }
             .services-grid { grid-template-columns: repeat(2, 1fr); }
             .biz-name { font-size: 1.75rem; }
             .biz-address { font-size: 0.95rem; }
+            .hero { height: 200px; }
+            .biz-info { bottom: 1rem; left: 1rem; }
+            .card { padding: 1rem; }
+        }
+        @media(max-width: 480px) {
+            .container { padding: 0.75rem 0.5rem; }
+            .biz-name { font-size: 1.4rem; }
+            .hero { height: 180px; }
         }
     </style>
     <?php wp_head(); ?>
 </head>
 <body>
-    <!-- Ad Request Modal for Unclaimed Businesses -->
-    <div id="adModal" style="position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.7);display:flex;align-items:center;justify-content:center;z-index:2000;">
-        <div style="background:white;max-width:500px;width:90%;padding:2rem;border-radius:12px;position:relative;box-shadow:0 10px 40px rgba(0,0,0,0.3);">
-            <button onclick="dismissAdModal()" style="position:absolute;top:1rem;right:1rem;background:none;border:none;font-size:1.5rem;cursor:pointer;color:#666;">×</button>
-            <h2 style="margin-top:0;color:var(--red);">Get Noticed by Neighbors!</h2>
-            <p style="color:#666;margin-bottom:1rem;">This business page isn't claimed yet. Want to promote your business here?</p>
-            <div style="background:#fef2f2;border-radius:8px;padding:1rem;margin-bottom:1.5rem;">
-                <strong style="color:var(--red);">$25/month</strong> — Your ad appears on this page with a special offer for visitors.<br>
-                <span style="font-size:0.85rem;color:#666;">No commitment, cancel anytime.</span>
-            </div>
-            <a href="/tln-ad-request.html?biz=<?php echo urlencode($biz['name']); ?>&pid=<?php echo urlencode($biz['place_id']); ?>" style="display:block;width:100%;padding:1rem;background:var(--red);color:white;text-align:center;border-radius:8px;font-weight:700;text-decoration:none;font-size:1.1rem;">Advertise Here</a>
-            <button onclick="dismissAdModal()" style="display:block;width:100%;margin-top:0.75rem;padding:0.75rem;background:#f5f5f5;color:#666;border:none;border-radius:6px;cursor:pointer;">Maybe Later</button>
-        </div>
-    </div>
-    <script>
-    function dismissAdModal() {
-        document.getElementById('adModal').style.display='none';
-        localStorage.setItem('tln_ad_modal_dismissed', '<?php echo $biz['place_id']; ?>|' + new Date().getTime());
-    }
-    // Check if already dismissed for this business
-    var dismissed = localStorage.getItem('tln_ad_modal_dismissed');
-    if (dismissed) {
-        var parts = dismissed.split('|');
-        if (parts[0] === '<?php echo $biz['place_id']; ?>') {
-            // Dismissed for this place - check if within 7 days
-            var dismissedTime = parseInt(parts[1]);
-            var now = new Date().getTime();
-            if (now - dismissedTime < 7 * 24 * 60 * 60 * 1000) {
-                document.getElementById('adModal').style.display='none';
-            }
-        }
-    }
-    </script>
-    <!-- Mobile Ad Slot -->
-    <div class="ad-mobile" style="display:none;background:#f9f9f9;padding:0.5rem;text-align:center;">
-        <div class="ad-slot-label" style="font-size:0.7rem;color:#999;text-transform:uppercase;letter-spacing:1px;margin-bottom:0.25rem;">Advertisement</div>
-        <div style="background:#fff;border:2px dashed #ccc;border-radius:8px;height:100px;display:flex;align-items:center;justify-content:center;color:#888;">
-            <div><strong>Your Ad Here</strong><br><span style="font-size:0.75rem;">$25/mo – <a href="/tln-ad-request.html" style="color:var(--red);">Advertise your business on this page</a></span></div>
-        </div>
-    </div>
 
     <!-- Hero -->
     <div style="position:absolute;top:1rem;right:1rem;z-index:10;">
@@ -228,7 +188,46 @@ $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
             <div class="card">
                 <div class="hours-header">
                     <h3>Hours</h3>
-                    <span class="hours-pill open">Open</span>
+                    <?php
+                    $is_open = false;
+                    $closing_soon = false;
+                    if (!empty($biz['hours'])) {
+                        $today = strtolower(date('l'));
+                        $now = current_time('G:i');
+                        $current_day = strtolower(date('l'));
+                        foreach ($biz['hours'] as $day_hours) {
+                            if (preg_match('/^([^:]+):\s*(.+)$/', $day_hours, $m)) {
+                                $day_name = strtolower(trim($m[1]));
+                                if ($day_name === $current_day && trim($m[2]) !== 'Closed') {
+                                    $hours_str = trim($m[2]);
+                                    if (preg_match('/(\d{1,2}):(\d{2})\s*-\s*(\d{1,2}):(\d{2})/', $hours_str, $hm)) {
+                                        $open_time = sprintf('%02d:%02d', $hm[1], $hm[2]);
+                                        $close_time = sprintf('%02d:%02d', $hm[3], $hm[4]);
+                                        if ($now >= $open_time && $now < $close_time) {
+                                            $is_open = true;
+                                            // Check if closing within 1 hour
+                                            $close_minutes = $hm[3] * 60 + $hm[4];
+                                            $now_minutes = date('G') * 60 + date('i');
+                                            if ($close_minutes - $now_minutes <= 60) {
+                                                $closing_soon = true;
+                                            }
+                                        }
+                                    }
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    ?>
+                    <?php if ($is_open): ?>
+                        <?php if ($closing_soon): ?>
+                        <span class="hours-pill closing-soon">Closing Soon</span>
+                        <?php else: ?>
+                        <span class="hours-pill open">Open</span>
+                        <?php endif; ?>
+                    <?php else: ?>
+                        <span class="hours-pill closed">Closed</span>
+                    <?php endif; ?>
                 </div>
                 <?php if (!empty($biz['hours'])): ?>
                 <div class="hours-display">
@@ -284,17 +283,6 @@ $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
                 <?php endif; ?>
             </div>
 
-            <!-- Sidebar Ad -->
-            <div class="ad-slot" style="background:#fefaf9;border-color:#f0e0e0;">
-                <div class="ad-slot-label">Advertisement</div>
-                <div class="ad-box" style="border-style:dashed;border-color:#ccc;background:#fff;">
-                    <div class="ad-slot-content" style="color:#888;">
-                        <strong>Your Ad Here</strong><br>
-                        <span style="font-size:0.75rem;">$35/mo – <a href="/tln-ad-request.html" style="color:var(--red);">Advertise your business on this page</a></span>
-                    </div>
-                </div>
-            </div>
-
             <?php /* Services section - hidden until we have proper services data from business claims */ ?>
 
 
@@ -313,7 +301,7 @@ $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
 
             <div class="claim-box" style="background:#f5f5f5;border:1px solid #ddd;">
                 <h3 style="color:#333;">Claim This Page</h3>
-                <p style="color:#666;">Not ready to claim yet? <a href="/tln-ad-request.html" style="color:var(--red);">Advertise your business on this page</a> for just <strong style="color:var(--red);">$35/mo</strong> <span style="text-decoration:line-through;color:#999;font-size:0.85rem;">$50</span></p>
+                <p style="color:#666;">Not ready to claim yet? <a href="/campaign-pricing/" style="color:var(--red);">Run a postcard campaign</a> to reach thousands of local households.</p>
                 <a href="/claim/" class="claim-btn" style="background:var(--red);">Claim Your Page</a>
             </div>
         </div>

@@ -125,6 +125,52 @@ function tln_render_dashboard() {
             <a href="?page=tln-analytics" class="button">Analytics</a>
         </div>
         
+        <?php
+        // Get current active campaign status
+        $campaigns_table = $wpdb->prefix . 'tln_campaigns';
+        $current_campaign = $wpdb->get_row("SELECT * FROM $campaigns_table WHERE workflow_status IN ('sell','filling','full') ORDER BY created_at DESC LIMIT 1");
+        if ($current_campaign) {
+            $total = intval($current_campaign->total_spots);
+            $filled = intval($current_campaign->filled_spots);
+            $remaining = $total - $filled;
+            $percent = $total > 0 ? round(($filled / $total) * 100) : 0;
+            $cost = floatval($current_campaign->campaign_cost);
+            ?>
+        <!-- Campaign Spots Status -->
+        <div class="tln-campaign-status" style="background:white;border-radius:8px;padding:1.5rem;margin:1.5rem 0;box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+            <h2 style="margin-top:0;margin-bottom:1rem;">Current Campaign — <?php echo esc_html($current_campaign->title); ?></h2>
+            <div style="display:flex;gap:2rem;flex-wrap:wrap;">
+                <div style="flex:1;min-width:200px;">
+                    <div style="background:#f0f0f0;border-radius:8px;height:24px;overflow:hidden;">
+                        <div style="background:#e63946;height:100%;width:<?php echo $percent; ?>%;border-radius:8px;"></div>
+                    </div>
+                    <p style="margin-top:0.5rem;font-size:0.9rem;color:#666;">
+                        <strong><?php echo $filled; ?></strong> of <strong><?php echo $total; ?></strong> spots filled (<strong><?php echo $remaining; ?></strong> remaining)
+                    </p>
+                </div>
+                <div style="text-align:center;padding:0.5rem 1rem;background:#f8f8f8;border-radius:8px;">
+                    <div style="font-size:1.5rem;font-weight:700;color:#e63946;">$<?php echo number_format($cost); ?></div>
+                    <div style="font-size:0.8rem;color:#666;">Your Cost</div>
+                </div>
+                <div style="text-align:center;padding:0.5rem 1rem;background:#f8f8f8;border-radius:8px;">
+                    <div style="font-size:1.5rem;font-weight:700;color:#28a745;">$<?php echo number_format($filled * floatval($current_campaign->price_per_spot)); ?></div>
+                    <div style="font-size:0.8rem;color:#666;">Revenue</div>
+                </div>
+                <?php if ($remaining <= 3 && $remaining > 0) : ?>
+                <div style="padding:0.5rem 1rem;background:#fff3cd;border-radius:8px;border:1px solid #ffc107;">
+                    <strong style="color:#856404;">Only <?php echo $remaining; ?> spots left!</strong><br>
+                    <span style="font-size:0.85rem;color:#856404;">Consider running when full</span>
+                </div>
+                <?php elseif ($remaining == 0) : ?>
+                <div style="padding:0.5rem 1rem;background:#d4edda;border-radius:8px;border:1px solid #28a745;">
+                    <strong style="color:#155724;">Campaign Full!</strong><br>
+                    <span style="font-size:0.85rem;color:#155724;">Ready to print and mail</span>
+                </div>
+                <?php endif; ?>
+            </div>
+        </div>
+        <?php } ?>
+        
         <!-- Main Content Grid -->
         <div class="tln-dashboard-grid">
             <!-- Recent Campaigns -->

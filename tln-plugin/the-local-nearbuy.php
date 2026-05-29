@@ -622,7 +622,7 @@ function tln_profile_content($content) {
                     <div class="tln-ad-box">
                         <div class="tln-ad-content">
                             <p style="margin-bottom:0.5rem;color:#666;"><strong>Not ready to claim yet?</strong></p>
-                            <p style="margin-bottom:0.75rem;font-size:0.85rem;color:#888;">Advertise your business here for just <strong style="color:#e63946;">$35/mo</strong></p>
+                            <p style="margin-bottom:0.75rem;font-size:0.85rem;color:#888;">Run a postcard campaign to reach thousands of local households.</p>
                             <a href="#" class="tln-modal-link" data-modal="ad" style="color:#e63946;font-weight:600;font-size:0.9rem;">Learn More →</a>
                         </div>
                     </div>

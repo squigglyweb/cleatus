@@ -108,10 +108,48 @@ $is_pro = in_array($tier, ['pro', 'proplus', 'sponsor']);
         </div>
         
         <!-- Hours -->
+        <?php
+        $is_open = false;
+        $closing_soon = false;
+        $days = array('sunday','monday','tuesday','wednesday','thursday','friday','saturday');
+        $current_day_idx = (int)date('w');
+        $current_day = $days[$current_day_idx];
+        $current_time_str = date('H:i');
+        $today_hours = $hours[$current_day_idx];
+        if ($today_hours && $today_hours !== 'Closed' && $today_hours !== 'closed') {
+            // Parse hours like "7:00 AM - 6:00 PM"
+            if (preg_match('/(\d{1,2}):(\d{2})\s*(AM|PM)\s*-\s*(\d{1,2}):(\d{2})\s*(AM|PM)/i', $today_hours, $hm)) {
+                $open_h = (int)$hm[1]; $open_m = (int)$hm[2]; $open_ap = strtoupper($hm[3]);
+                $close_h = (int)$hm[4]; $close_m = (int)$hm[5]; $close_ap = strtoupper($hm[6]);
+                if ($open_ap === 'PM' && $open_h !== 12) $open_h += 12;
+                if ($open_ap === 'AM' && $open_h === 12) $open_h = 0;
+                if ($close_ap === 'PM' && $close_h !== 12) $close_h += 12;
+                if ($close_ap === 'AM' && $close_h === 12) $close_h = 0;
+                $open_time = sprintf('%02d:%02d', $open_h, $open_m);
+                $close_time = sprintf('%02d:%02d', $close_h, $close_m);
+                if ($current_time_str >= $open_time && $current_time_str < $close_time) {
+                    $is_open = true;
+                    $close_minutes = $close_h * 60 + $close_m;
+                    $now_minutes = date('G') * 60 + date('i');
+                    if ($close_minutes - $now_minutes <= 60) {
+                        $closing_soon = true;
+                    }
+                }
+            }
+        }
+        ?>
         <div class="card">
             <div class="hours-header">
                 <h3>Hours</h3>
-                <span class="hours-pill open">Open</span>
+                <?php if ($is_open): ?>
+                    <?php if ($closing_soon): ?>
+                    <span class="hours-pill closing-soon">Closing Soon</span>
+                    <?php else: ?>
+                    <span class="hours-pill open">Open</span>
+                    <?php endif; ?>
+                <?php else: ?>
+                    <span class="hours-pill closed">Closed</span>
+                <?php endif; ?>
             </div>
             <div class="hours-display">
                 <?php $today = strtolower(date('l')); $days = array('monday','tuesday','wednesday','thursday','friday','saturday','sunday'); $labels = array('Mon','Tue','Wed','Thu','Fri','Sat','Sun'); $hours_arr = array($hours[0],$hours[1],$hours[2],$hours[3],$hours[4],$hours[5],$hours[6]); ?>

@@ -94,8 +94,20 @@ function tln_claim_func() {
         
         // Auto-login and redirect
         wp_set_auth_cookie($user_id, true);
-        wp_redirect('/dashboard/');
-        exit;
+        
+        // Show success message with campaign option
+        $out = '<div style="padding:2rem;background:#d4edda;border-radius:8px;text-align:center;max-width:600px;margin:0 auto;">
+            <h3>Your Business Is Claimed!</h3>
+            <p style="margin-bottom:1.5rem;">You can now manage your listing info. But here is the real opportunity:</p>
+            <div style="background:white;border-radius:8px;padding:1.5rem;margin-bottom:1.5rem;">
+                <h4 style="color:#e63946;margin-top:0;">Reach Thousands of Local Households</h4>
+                <p style="font-size:0.95rem;color:#666;">Run a postcard campaign with trackable QR codes. Every scan gives you a real lead with name, email, and phone — people who already want to visit.</p>
+                <p style="font-size:0.9rem;"><strong>Campaigns from $250</strong> — includes 5,000-20,000 mailers + lead capture + QR tracking</p>
+            </div>
+            <a href="/campaign-pricing/" style="display:inline-block;padding:0.75rem 1.5rem;background:#e63946;color:white;text-decoration:none;border-radius:6px;font-weight:600;margin-right:0.5rem;">See Campaign Pricing</a>
+            <a href="/dashboard/" style="display:inline-block;padding:0.75rem 1.5rem;background:#666;color:white;text-decoration:none;border-radius:6px;font-weight:600;">Go to Dashboard</a>
+        </div>';
+        return $out;
     }
     
     $out = '<div style="padding:2rem;background:#f8f8f8;border-radius:12px;max-width:600px;margin:0 auto;">';

@@ -1,6 +1,8 @@
 <?php
 /**
  * Stripe webhook endpoint for The Local NearBuy
+ * DEPRECATED - Not used for current postcard campaign model
+ * Kept for reference in case future payment needs arise
  * Receives events, verifies signature, stores them in DB for reporting.
  * Uses settings from WP Options (test vs live mode).
  */

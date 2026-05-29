@@ -1,7 +1,8 @@
 <?php
 /**
  * TLN Stripe Checkout Endpoint
- * Creates Stripe Checkout sessions for membership upgrades
+ * DEPRECATED - Postcard campaigns use manual payment flow instead
+ * Keeping for reference but not actively used
  */
 
 if (!defined('ABSPATH')) {
@@ -188,7 +189,7 @@ function tln_process_successful_checkout($session_id, $plan) {
     
     try {
         $session = \Stripe\Checkout\Session::retrieve($session_id);
-        $email = $session->customer_email ?? $session->customer_details->email;
+        $email = $session->customer_email ?? ($session->customer_details->email ?? null);
         
         if (!$email) return;
         

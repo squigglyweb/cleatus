@@ -184,6 +184,10 @@ function tln_ensure_all_tables() {
             offer_valid_days int(11) DEFAULT 30,
             workflow_status varchar(50) DEFAULT 'sell',
             zone_id bigint(20) DEFAULT NULL,
+            total_spots int(11) DEFAULT 9,
+            filled_spots int(11) DEFAULT 0,
+            price_per_spot decimal(10,2) DEFAULT 450,
+            campaign_cost decimal(10,2) DEFAULT 0,
             created_at datetime DEFAULT CURRENT_TIMESTAMP,
             updated_at datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             PRIMARY KEY  (id)
@@ -210,6 +214,52 @@ function tln_ensure_all_tables() {
     }
 }
 add_action( 'init', 'tln_ensure_all_tables' );
+
+/**
+ * Send email alerts when campaign spots change
+ */
+function tln_campaign_spot_alerts($campaign_id) {
+    global $wpdb;
+    $campaigns_table = $wpdb->prefix . 'tln_campaigns';
+    $campaign = $wpdb->get_row($wpdb->prepare("SELECT * FROM $campaigns_table WHERE id = %d", $campaign_id));
+    if (!$campaign) return;
+    
+    $total = intval($campaign->total_spots);
+    $filled = intval($campaign->filled_spots);
+    $remaining = $total - $filled;
+    
+    // Get last alert status from option
+    $alert_key = 'tln_campaign_alert_' . $campaign_id;
+    $last_alert = get_option($alert_key, '');
+    
+    // Alert when 3 spots remaining
+    if ($remaining == 3 && $last_alert != '3') {
+        wp_mail(
+            'bryan@thelocalnearbuy.com',
+            '⚠️ Campaign Spots Running Low - ' . $campaign->title,
+            "Only $remaining spots left on the campaign!\n\n" .
+            "Campaign: {$campaign->title}\n" .
+            "Filled: $filled of $total\n" .
+            "Remaining: $remaining\n\n" .
+            "Log in to check: https://thelocalnearbuy.com/wp-admin/admin.php?page=tln-campaigns"
+        );
+        update_option($alert_key, '3');
+    }
+    
+    // Alert when full
+    if ($remaining == 0 && $last_alert != 'full') {
+        wp_mail(
+            'bryan@thelocalnearbuy.com',
+            '🎉 Campaign Full - Ready to Print - ' . $campaign->title,
+            "All $total spots are filled! The campaign is ready to print and mail.\n\n" .
+            "Campaign: {$campaign->title}\n" .
+            "Total Spots: $total\n" .
+            "Revenue: $" . number_format($filled * floatval($campaign->price_per_spot)) . "\n\n" .
+            "Log in to start printing: https://thelocalnearbuy.com/wp-admin/admin.php?page=tln-campaigns"
+        );
+        update_option($alert_key, 'full');
+    }
+}
 
 /**
  * Register submenus.
@@ -417,12 +467,17 @@ function tln_add_campaign_page() {
             'offer_text'       => sanitize_text_field( $_POST['offer_text'] ),
             'offer_valid_days' => intval( $_POST['valid_days'] ),
             'workflow_status'  => sanitize_text_field( $_POST['workflow_status'] ),
-            'zone_id'          => intval( $_POST['zone_id'] ) ?: null
+            'zone_id'          => intval( $_POST['zone_id'] ) ?: null,
+            'total_spots'      => intval( $_POST['total_spots'] ),
+            'filled_spots'     => intval( $_POST['filled_spots'] ),
+            'price_per_spot'    => floatval( $_POST['price_per_spot'] ),
+            'campaign_cost'    => floatval( $_POST['campaign_cost'] )
         );
 
         if ( $edit_id ) {
             $wpdb->update( $campaigns_table, $data, array( 'id' => $edit_id ) );
             echo '<div class="notice notice-success"><p>✅ Campaign updated!</p></div>';
+            tln_campaign_spot_alerts($edit_id);
         } else {
             $data['created_at'] = current_time( 'mysql' );
             $wpdb->insert( $campaigns_table, $data );
@@ -483,6 +538,29 @@ function tln_add_campaign_page() {
                         </select>
                         <p class="description"><a href="?page=tln-zones" target="_blank">Manage Zones →</a></p>
                     </td>
+                </tr>
+                <tr>
+                    <th scope="row" colspan="2" style="background:#f0f0f0;"><h4 style="margin:0.5rem 0;">Campaign Spots & Pricing</h4></th>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="total_spots">Total Spots</label></th>
+                    <td><input name="total_spots" id="total_spots" type="number" value="<?php echo $campaign ? esc_attr( $campaign->total_spots ) : 9; ?>" min="1" style="width:80px;">
+                        <span class="description">Number of ad spots on this postcard</span></td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="filled_spots">Filled Spots</label></th>
+                    <td><input name="filled_spots" id="filled_spots" type="number" value="<?php echo $campaign ? esc_attr( $campaign->filled_spots ) : 0; ?>" min="0" style="width:80px;">
+                        <span class="description">Update this as spots sell to trigger alerts</span></td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="price_per_spot">Price per Spot ($)</label></th>
+                    <td><input name="price_per_spot" id="price_per_spot" type="number" value="<?php echo $campaign ? esc_attr( $campaign->price_per_spot ) : 450; ?>" min="0" step="0.01" style="width:100px;">
+                        <span class="description">What you charge businesses per spot</span></td>
+                </tr>
+                <tr>
+                    <th scope="row"><label for="campaign_cost">Your Cost ($)</label></th>
+                    <td><input name="campaign_cost" id="campaign_cost" type="number" value="<?php echo $campaign ? esc_attr( $campaign->campaign_cost ) : 2000; ?>" min="0" step="0.01" style="width:100px;">
+                        <span class="description">Total cost to print and mail this campaign</span></td>
                 </tr>
             </table>
 
