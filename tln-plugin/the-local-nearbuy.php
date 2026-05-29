@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 3.22 - Added dynamic open/closed hours logic
+Version: 3.23 - Fixed hours logic in Pro and Pro Plus templates too
 */
 
 // Flush rewrite rules on activation
