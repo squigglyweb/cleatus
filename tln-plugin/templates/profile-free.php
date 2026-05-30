@@ -175,9 +175,7 @@ $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
     <div class="container">
         <!-- Left Column -->
         <div class="left-col">
-            <img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/support-local-businesses.webp" alt="Support Local Businesses" style="width:100%;border-radius:8px;margin-bottom:0.5rem;">
-            <a href="/tln-ad-request.html" style="display:block;text-align:center;padding:3px 0;color:#666;font-size:0.9rem;font-weight:600;"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/online-advertising.png" style="height:16px;vertical-align:middle;margin-right:4px;">Advertise Your Business</a>
-            <!-- What Neighbors Say Section - hidden until we have real per-business data -->
+        <!-- Left Column -->
             <!-- What Neighbors Say - Call to action for first review -->
             <div class="card">
                 <div class="card-title">What Neighbors Say</div>
