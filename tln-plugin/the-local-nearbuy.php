@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 3.31 - Removed all Pro/Pro+ tier logic - free profile only
+Version: 3.8 - May 30 update: jQuery fix, review submission, free-only model
 */
 
 // Flush rewrite rules on activation
