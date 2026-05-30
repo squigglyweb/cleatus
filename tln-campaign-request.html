@@ -163,24 +163,37 @@
     </div>
     
     <script>
-        document.getElementById('campaignForm').addEventListener('submit', function(e) {
+        document.getElementById('campaignForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const formData = {
-                businessName: document.getElementById('businessName').value,
-                contactName: document.getElementById('contactName').value,
-                email: document.getElementById('email').value,
-                phone: document.getElementById('phone').value,
-                campaignType: document.getElementById('campaignType').value,
-                message: document.getElementById('message').value,
-                submitted: new Date().toISOString()
-            };
+            const submitBtn = this.querySelector('.btn');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = 'Submitting...';
+            submitBtn.disabled = true;
             
-            // Store locally for now (would connect to backend later)
-            console.log('Campaign request:', formData);
+            const formData = new FormData(this);
             
-            alert('Thanks! We\'ll be in touch within 24 hours.');
-            this.reset();
+            try {
+                const response = await fetch('submit-campaign.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    alert('Thanks! We\'ll be in touch within 24 hours.');
+                    this.reset();
+                } else {
+                    alert('Something went wrong. Please try again or email us directly.');
+                }
+            } catch (error) {
+                console.error('Submission error:', error);
+                alert('Error submitting form. Please try again.');
+            }
+            
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
         });
     </script>
 </body>

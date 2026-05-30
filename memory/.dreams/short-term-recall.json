@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-05-27T12:04:03.711Z",
+  "updatedAt": "2026-05-29T15:39:35.246Z",
   "entries": {
     "memory:memory/2026-05-05.md:72:89": {
       "key": "memory:memory/2026-05-05.md:72:89",
@@ -9,13 +9,13 @@
       "endLine": 89,
       "source": "memory",
       "snippet": "- [ ] Meals donated tracker (glocal - global + local) - [ ] Photo gallery with autoscroll (4+ photos) - [ ] Video upload (based on payment tier) - [ ] Priority support badge ## UTM Sources - directory (web) - newsletter (email) - postcard (print) - direct (none) - google (organic) ## Payment Tiers Impact - Free: Basic listing - Pro ($99): Gallery + basic features - Pro+ ($199): More photos + video + priority support - Sponsor ($349): Everything + featured spots",
-      "recallCount": 7,
+      "recallCount": 9,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 7,
+      "totalScore": 8.634168052906489,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T20:21:50.131Z",
-      "lastRecalledAt": "2026-05-27T12:04:03.711Z",
+      "lastRecalledAt": "2026-05-29T15:39:35.246Z",
       "queryHashes": [
         "3b057c3172e9",
         "80f9208f6c41",
@@ -23,13 +23,16 @@
         "7ebf46060a8c",
         "aa75aa6404d1",
         "7ab793c2d3a9",
-        "d419c3e53d52"
+        "d419c3e53d52",
+        "2c906fd80e44",
+        "0e3001bba3f5"
       ],
       "recallDays": [
         "2026-05-12",
         "2026-05-17",
         "2026-05-18",
-        "2026-05-27"
+        "2026-05-27",
+        "2026-05-29"
       ],
       "conceptTags": [
         "meals",
@@ -49,13 +52,13 @@
       "endLine": 45,
       "source": "memory",
       "snippet": "# May 7, 2026 ## TLN - The Local NearBuy Updates ### Branding Shift: \"Member\" Concept - Moved away from \"customer/client\" language - Everyone is a **Member** - builds community, not transactions - Reference: Brilliant Directories \"Be Part of Something Meaningful\" messaging ### Membership Tiers (Final) - **Free Member** - basic directory listing - **Pro Member** ($99/mo) - profile + offers - **Pro+ Member** ($199/mo) - profile + offers + video + featured + newsletter - **Sponsor Member** ($349/mo) - banner + newsletter ads + homepage ### Add-On Model Everything else is an add-on to membership: - Postcard Campaigns ($150/campaign) - Design Services ($50/project) - Social Management ($200/m",
-      "recallCount": 13,
+      "recallCount": 14,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 13,
+      "totalScore": 14,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T20:21:50.131Z",
-      "lastRecalledAt": "2026-05-27T12:04:03.711Z",
+      "lastRecalledAt": "2026-05-29T01:29:47.492Z",
       "queryHashes": [
         "3b057c3172e9",
         "94cabbf81b68",
@@ -69,7 +72,8 @@
         "7ab793c2d3a9",
         "4dff1c997175",
         "1b32cb054c8b",
-        "d419c3e53d52"
+        "d419c3e53d52",
+        "2c906fd80e44"
       ],
       "recallDays": [
         "2026-05-12",
@@ -79,7 +83,8 @@
         "2026-05-18",
         "2026-05-20",
         "2026-05-22",
-        "2026-05-27"
+        "2026-05-27",
+        "2026-05-29"
       ],
       "conceptTags": [
         "customer/client",
@@ -215,13 +220,13 @@
       "endLine": 46,
       "source": "memory",
       "snippet": "# Bryan Somers - TLN Memory ## About Bryan - Founder, Publisher & Editor of The Local NearBuy (TLN) - Building a local digital media company serving Waxhaw area (Waxhaw, Weddington, Wesley Chapel, Marvin, Indian Land, Ballantyne) - 30+ years graphic design experience - Works at Collegiate Housing Services (CHS) - Helps Bethany Church with social media ## Goals - $60k/month total - Financial freedom - Multiple income streams - Low startup cost, fast to revenue - Recurring, delegatable, not dependent on him forever ## Current Projects - Golf Courses page - set up with tln-golf-shortcode.php plugin (uses [golf_directory] shortcode) - Wants to add filtering to the golf page - Using Poll Maker",
-      "recallCount": 9,
+      "recallCount": 11,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 8.98299461677546,
+      "totalScore": 10.98299461677546,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T20:21:50.131Z",
-      "lastRecalledAt": "2026-05-26T13:53:47.051Z",
+      "lastRecalledAt": "2026-05-29T15:39:35.246Z",
       "queryHashes": [
         "3b057c3172e9",
         "94cabbf81b68",
@@ -231,7 +236,9 @@
         "ffa9d05d566b",
         "af1c32327bb0",
         "1b32cb054c8b",
-        "d550b3ac9297"
+        "d550b3ac9297",
+        "71c34632e60a",
+        "0e3001bba3f5"
       ],
       "recallDays": [
         "2026-05-12",
@@ -239,7 +246,8 @@
         "2026-05-15",
         "2026-05-16",
         "2026-05-22",
-        "2026-05-26"
+        "2026-05-26",
+        "2026-05-29"
       ],
       "conceptTags": [
         "60k/month",
@@ -303,20 +311,22 @@
       "endLine": 13,
       "source": "memory",
       "snippet": "## TLN Business Review Variables - **Quality** - How good is the product/food/service? - **Value** - Is it worth the price? - **Service** - How are you treated? - **Experience** - Overall vibe/ambiance ## TLN Content Structure Change - ACF fields now attached to Posts (not Business post type) - Posts = TLN Reviews (with scoring fields) - Business post type = Directory listings (no ACF) - This aligns with Bryan's content strategy",
-      "recallCount": 2,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 2,
+      "totalScore": 2.634349190297591,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T23:02:04.581Z",
-      "lastRecalledAt": "2026-05-22T00:26:47.520Z",
+      "lastRecalledAt": "2026-05-29T15:39:35.246Z",
       "queryHashes": [
         "94cabbf81b68",
-        "1b32cb054c8b"
+        "1b32cb054c8b",
+        "0e3001bba3f5"
       ],
       "recallDays": [
         "2026-05-12",
-        "2026-05-22"
+        "2026-05-22",
+        "2026-05-29"
       ],
       "conceptTags": [
         "product/food/service",
@@ -336,25 +346,28 @@
       "endLine": 86,
       "source": "memory",
       "snippet": "- Neighbor writes a review, submits, goes to moderation queue - Display on business page alongside Google reviews ## Golf Plugin v1.2 (Ready) - Green border (#7cda24) - Yellow stars (#FABC06) - Clickable phone (tel: link) - Linked address to Google Maps - Status pill: Open Now (green), Closed (red), Hours Unavailable (amber) - Search, location filter, sort - 1-hour caching ## Business Dashboard (To Build) - Claim form → approval → dashboard - Tabs: Business Info, Photos & Media, Offers, Community Impact, Social Media, Google Sync - Pricing tiers: Free / $99 Pro / $199 Pro+ ## Claimed Card Styling Specs - Border: 3px thick, red (#e63946) - for claimed/verified businesses - Border: 2px thic",
-      "recallCount": 6,
+      "recallCount": 8,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 6,
+      "totalScore": 8,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T23:02:04.581Z",
-      "lastRecalledAt": "2026-05-22T00:26:47.520Z",
+      "lastRecalledAt": "2026-05-29T15:39:35.246Z",
       "queryHashes": [
         "94cabbf81b68",
         "80f9208f6c41",
         "7ebf46060a8c",
         "aa75aa6404d1",
         "7ab793c2d3a9",
-        "1b32cb054c8b"
+        "1b32cb054c8b",
+        "2c906fd80e44",
+        "0e3001bba3f5"
       ],
       "recallDays": [
         "2026-05-12",
         "2026-05-18",
-        "2026-05-22"
+        "2026-05-22",
+        "2026-05-29"
       ],
       "conceptTags": [
         "v1.2",
@@ -461,13 +474,13 @@
       "endLine": 34,
       "source": "memory",
       "snippet": "## TLN About Copy (Updated) **The Local NearBuy** Your guide to Waxhaw & surrounding areas' best — restaurants, shops, services, and hidden gems. Every purchase through NearBuy helps feed local kids and families, both here and around the world. Discover your community. Support local. Make a difference. **What We Do** We connect Greater Waxhaw neighbors with local businesses — through our directory, social media, newsletter, and postcard ads. Businesses advertise with us. You discover great local spots. We donate meals for every engagement. It's a win-win-win: - Neighbors discover awesome local businesses - Businesses reach more customers - Kids & families get fed ## T-Shirt Project",
-      "recallCount": 7,
+      "recallCount": 8,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 7,
+      "totalScore": 8,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T23:02:11.759Z",
-      "lastRecalledAt": "2026-05-21T16:55:36.050Z",
+      "lastRecalledAt": "2026-05-29T14:45:09.920Z",
       "queryHashes": [
         "80f9208f6c41",
         "201d5f225c55",
@@ -475,7 +488,8 @@
         "b6f375f7100e",
         "857d09ad5f85",
         "4dff1c997175",
-        "e92d1b15b377"
+        "e92d1b15b377",
+        "71c34632e60a"
       ],
       "recallDays": [
         "2026-05-12",
@@ -483,7 +497,8 @@
         "2026-05-14",
         "2026-05-17",
         "2026-05-20",
-        "2026-05-21"
+        "2026-05-21",
+        "2026-05-29"
       ],
       "conceptTags": [
         "win-win-win",
@@ -613,25 +628,27 @@
       "endLine": 33,
       "source": "memory",
       "snippet": "# Memory - May 2, 2026 ## The Local NearBuy (TLN) - Today's Progress ### Directory Page Build - Created custom HTML/CSS template: `tln-v2/directory-page.html` - **Layout:** 3 cards across, responsive (2 on tablet, 1 on mobile) - **Card content:** Image → Category → Title → Address → Phone → Rating → View button - **Filters:** Location (Waxhaw, Weddington, etc.), Category (Dentist, Restaurant, etc.), Sort (A-Z, Rating) ### Styling - **Font:** GT Walsheim Pro for headings, Open Sans for body text (matches TLN website) - **Icons:** Using inline SVGs (location pin, phone, star) - no external dependencies - **Card design:** White background, subtle shadow, hover effect ### Bryan’s Vision - **",
-      "recallCount": 6,
+      "recallCount": 7,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 5.980111557197454,
+      "totalScore": 6.980111557197454,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-13T00:24:42.413Z",
-      "lastRecalledAt": "2026-05-20T02:26:49.920Z",
+      "lastRecalledAt": "2026-05-29T05:19:17.789Z",
       "queryHashes": [
         "201d5f225c55",
         "071f4c17045c",
         "702ea8f65795",
         "69c4bee04e24",
         "11ee02a36115",
-        "95b12c515877"
+        "95b12c515877",
+        "ee6c82e0de67"
       ],
       "recallDays": [
         "2026-05-13",
         "2026-05-17",
-        "2026-05-20"
+        "2026-05-20",
+        "2026-05-29"
       ],
       "conceptTags": [
         "html/css",
@@ -683,25 +700,27 @@
       "endLine": 144,
       "source": "memory",
       "snippet": "## All Three Profiles Now Match - tln-profile-free-final.html - Free - tln-profile-pro-v2.html - Pro - tln-profile-pro-plus-final.html - Pro+ ## Important Notes (May 9, 2026) - NO CUSSING/SWEARING in website content - keep it clean and professional - \"Think Globally. Feed Locally.\" - correct phrasing, not \"glocal\" as replacement - The tagline is \"Think Globally. Feed Locally.\" - this is what glocal MEANS ## Important Notes (May 9, 2026) - Continued - NO EMOJIS - Bryan HATES emojis. Use SVG icons or other icon methods only. - No emoji in any website content, social media, emails, etc. ## Design Updates (May 9, 2026) - Use fork and spoon icon for meals counter (utensils.png from Bryan's u",
-      "recallCount": 5,
+      "recallCount": 6,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 5,
+      "totalScore": 6,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-13T00:24:50.755Z",
-      "lastRecalledAt": "2026-05-27T12:04:03.711Z",
+      "lastRecalledAt": "2026-05-29T15:39:35.246Z",
       "queryHashes": [
         "280499cabedf",
         "702ea8f65795",
         "3a4001249de8",
         "68e96d92543e",
-        "d419c3e53d52"
+        "d419c3e53d52",
+        "0e3001bba3f5"
       ],
       "recallDays": [
         "2026-05-13",
         "2026-05-15",
         "2026-05-17",
-        "2026-05-27"
+        "2026-05-27",
+        "2026-05-29"
       ],
       "conceptTags": [
         "tln-profile-free-final.html",
@@ -762,23 +781,26 @@
       "endLine": 37,
       "source": "memory",
       "snippet": "- Will need page listing all icons used (Flaticon, SVGs) - Map pin: https://www.flaticon.com/free-icons/location - IconMarketPK - Star icon: https://www.flaticon.com/free-icons/star - Pixel perfect - Phone icon: https://www.flaticon.com/free-icons/phone-number - Those Icons ### Next Steps 1. Connect directory to WordPress posts for dynamic data 2. Build individual business page template 3. Create offer/claim system for businesses ---",
-      "recallCount": 4,
+      "recallCount": 6,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 3.9923333766974274,
+      "totalScore": 5.626682545655024,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-13T01:26:56.496Z",
-      "lastRecalledAt": "2026-05-20T02:26:49.920Z",
+      "lastRecalledAt": "2026-05-29T15:39:35.246Z",
       "queryHashes": [
         "071f4c17045c",
         "69c4bee04e24",
         "11ee02a36115",
-        "95b12c515877"
+        "95b12c515877",
+        "ee6c82e0de67",
+        "0e3001bba3f5"
       ],
       "recallDays": [
         "2026-05-13",
         "2026-05-17",
-        "2026-05-20"
+        "2026-05-20",
+        "2026-05-29"
       ],
       "conceptTags": [
         "www.flaticon.com/free-icons/star",
@@ -798,13 +820,13 @@
       "endLine": 37,
       "source": "memory",
       "snippet": "# May 6, 2026 - The Local NearBuy (TLN) ## Claim Page Issue - FIXED - WordPress was treating `?business=` query param as something special (404 error) - Changed param to `?biz=` — works now - URL: `/claim/?biz=businessname&pid=placeid` ## Directory UX Change - Changed \"Claim This Business\" button to **\"View Profile\"** - Added subtle link: \"Own this business? Claim it\" - Makes TLN feel like a resource, not a marketplace - Bryan approved this approach ## New Locations Added to Directory - Waxhaw (full categories: Restaurant, Retail, Services, Cafe) - Marvin, Wesley Chapel, Weddington, Indian Land (basic: Restaurant, Retail) ## Summer Camps Page - Created `tln-camps.php` plugin - Shortcode:",
-      "recallCount": 9,
+      "recallCount": 10,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 8.949595668588147,
+      "totalScore": 9.949595668588147,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-13T01:26:56.496Z",
-      "lastRecalledAt": "2026-05-26T13:53:47.051Z",
+      "lastRecalledAt": "2026-05-29T05:19:17.789Z",
       "queryHashes": [
         "071f4c17045c",
         "69c4bee04e24",
@@ -814,7 +836,8 @@
         "11ee02a36115",
         "95b12c515877",
         "7221d5b3c41d",
-        "d550b3ac9297"
+        "d550b3ac9297",
+        "ee6c82e0de67"
       ],
       "recallDays": [
         "2026-05-13",
@@ -823,7 +846,8 @@
         "2026-05-17",
         "2026-05-20",
         "2026-05-22",
-        "2026-05-26"
+        "2026-05-26",
+        "2026-05-29"
       ],
       "conceptTags": [
         "tln-camps.php",
@@ -843,22 +867,24 @@
       "endLine": 171,
       "source": "memory",
       "snippet": "- Postcard printing workflow - Offer redemption tracking system - GBP enhancement management ## Claim Flow (tln-claim-form.html) - Step 1: Search/select business from directory - Step 2: Choose plan (Pro $99 or Pro+ $199) - Step 3: Contact info - Step 4: Payment (Stripe would connect here) - Submit → pending review ## What's Built - Complete - tln-pricing-final.html - Full pricing page with all tiers + a la carte + ad add-ons - tln-claim-form.html - Business signup/claim flow (4 steps) - tln-business-dashboard.html - Full business dashboard for members: - Overview with stats (views, redemptions, messages, value) - Meals counter - Recent activity feed - Edit Profile (name, descripti",
-      "recallCount": 3,
+      "recallCount": 4,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 3,
+      "totalScore": 4,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-13T13:44:20.307Z",
-      "lastRecalledAt": "2026-05-27T12:04:03.711Z",
+      "lastRecalledAt": "2026-05-29T15:39:35.246Z",
       "queryHashes": [
         "69c4bee04e24",
         "68e96d92543e",
-        "d419c3e53d52"
+        "d419c3e53d52",
+        "0e3001bba3f5"
       ],
       "recallDays": [
         "2026-05-13",
         "2026-05-17",
-        "2026-05-27"
+        "2026-05-27",
+        "2026-05-29"
       ],
       "conceptTags": [
         "tln-claim-form.html",
@@ -878,13 +904,13 @@
       "endLine": 24,
       "source": "memory",
       "snippet": "# May 13, 2026 - The Local NearBuy (TLN) ## Plugin Issues Fixed Today - Fixed duplicate TLN_GOOGLE_API_KEY warnings (golf + parks shortcodes) - Added profile shortcode to fix profile page design - Fixed \"pg\" PostgreSQL error that crashed the site ## Current State - All TLN plugins deleted from WordPress to clean up duplicates - Need to upload fresh tln-plugin folder ## Files Ready to Upload - tln-plugin/the-local-nearbuy.php (main plugin with shortcodes) - tln-plugin/tln-directory.php (directory functionality) - tln-plugin/templates/profile-free.php (new profile design) - tln-plugin/templates/profile-proplus.php ## Directory Page - Working: /directory/ shows businesses with filters - Sho",
-      "recallCount": 9,
+      "recallCount": 10,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 9,
+      "totalScore": 10,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-14T00:45:26.756Z",
-      "lastRecalledAt": "2026-05-26T13:53:47.051Z",
+      "lastRecalledAt": "2026-05-29T15:39:35.246Z",
       "queryHashes": [
         "b6f375f7100e",
         "6266ca34b52b",
@@ -894,7 +920,8 @@
         "11ee02a36115",
         "95b12c515877",
         "18cb00de911b",
-        "d550b3ac9297"
+        "d550b3ac9297",
+        "0e3001bba3f5"
       ],
       "recallDays": [
         "2026-05-14",
@@ -902,7 +929,8 @@
         "2026-05-16",
         "2026-05-17",
         "2026-05-20",
-        "2026-05-26"
+        "2026-05-26",
+        "2026-05-29"
       ],
       "conceptTags": [
         "tln-google-api-key",
@@ -922,18 +950,20 @@
       "endLine": 51,
       "source": "memory",
       "snippet": "## Future Projects ### The Local NearBuy App - Need to build an app in the future - Will handle: directory, offers, points system, booking ### T-Shirt Designs - Small town artwork series - Towns: Waxhaw, Weddington, Wesley Chapel, Indian Land - Use town illustrations on merchandise ### T-Shirt Design Styles - Whimsical town illustration (your existing style) - Retro - Modern - Minimal ### The Local NearBuy Merch - Branded TLN merchandise - Include with local town designs ### Waxhaw T-Shirt Designs - **Whimsical Waxhaw (Concept)**: Railroad tracks split town down middle, storefronts on both sides, iconic bridge overhead. Ink sketch style, black and white. ## Skills Learned Today ### S",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1,
+      "totalScore": 2,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-14T00:45:26.756Z",
-      "lastRecalledAt": "2026-05-14T00:45:26.756Z",
+      "lastRecalledAt": "2026-05-29T14:45:09.920Z",
       "queryHashes": [
-        "b6f375f7100e"
+        "b6f375f7100e",
+        "71c34632e60a"
       ],
       "recallDays": [
-        "2026-05-14"
+        "2026-05-14",
+        "2026-05-29"
       ],
       "conceptTags": [
         "t-shirt",
@@ -1019,25 +1049,27 @@
       "endLine": 35,
       "source": "memory",
       "snippet": "# May 9, 2026 - The Local NearBuy Build Session ## Business Dashboard Updates - tln-business-dashboard-v2.html created with: - Progress tracker (joined date vs now vs growth) - Time period filter (This Month, Last Month, YTD, All Time) - Offer limit warning when monthly limit reached - \"Postcard Only\" status for hidden offers - Logo upload section - Blinking red dot for new messages - Messages section (unread vs read) - Stripe billing integration shown ## A La Carte - tln-alacarte-form.html created with service selection and contact form - Added GB Profile Enhancement ($1,000/mo) with info modal explaining: - Weekly posts, photo management, review handling - \"Why We Off",
-      "recallCount": 5,
+      "recallCount": 6,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 5,
+      "totalScore": 6,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-15T19:56:59.837Z",
-      "lastRecalledAt": "2026-05-22T01:34:49.257Z",
+      "lastRecalledAt": "2026-05-29T15:39:35.246Z",
       "queryHashes": [
         "6266ca34b52b",
         "ffa9d05d566b",
         "6c8ed5afec83",
         "4dff1c997175",
-        "7221d5b3c41d"
+        "7221d5b3c41d",
+        "0e3001bba3f5"
       ],
       "recallDays": [
         "2026-05-15",
         "2026-05-16",
         "2026-05-20",
-        "2026-05-22"
+        "2026-05-22",
+        "2026-05-29"
       ],
       "conceptTags": [
         "tln-business-dashboard-v2.html",
@@ -1097,23 +1129,25 @@
       "endLine": 72,
       "source": "memory",
       "snippet": "> 1. Gets your business on the postcard (print + distribution) > 2. Feeds kids — we donate 5 meals when someone redeems your offer > 3. Builds Meals4Good — 20% of meal funding goes to launching our non-profit\" ### Front Messaging (Finalized) > \"Support local. Save local. Feed kids.\" > \"Scan ad → Get voucher → We donate a meal\" > \"THAT'S THE LOCAL NEARBUY.\" ### Body Copy > \"This mailing was sent to you by 50+ local businesses in our community — with a purpose bigger than just a sale. Each ad funds 5 meals for HELPp Food Kids. When you scan the QR code on any ad to claim your exclusive offer and show your voucher at checkout, you're supporting local. Thanks for your support!\" > \"It's really",
-      "recallCount": 4,
+      "recallCount": 5,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 4,
+      "totalScore": 5,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-17T11:31:35.512Z",
-      "lastRecalledAt": "2026-05-22T01:34:44.602Z",
+      "lastRecalledAt": "2026-05-29T14:45:09.920Z",
       "queryHashes": [
         "e2bdb1bfb3f4",
         "857d09ad5f85",
         "18cb00de911b",
-        "00d7a82e68ea"
+        "00d7a82e68ea",
+        "71c34632e60a"
       ],
       "recallDays": [
         "2026-05-17",
         "2026-05-20",
-        "2026-05-22"
+        "2026-05-22",
+        "2026-05-29"
       ],
       "conceptTags": [
         "non-profit",
@@ -1133,26 +1167,29 @@
       "endLine": 51,
       "source": "memory",
       "snippet": "- tln-plugin.zip (ready to upload to WordPress) ## Source Tracking Added (May 16 evening) - Added `source` field to vouchers table (postcard/directory/newsletter) - URLs use ?source=directory or ?source=newsletter params - QR scan log also tracks source - Dashboard shows lead source breakdown: - 📮 Postcard: X leads - 📁 Directory: X leads - 📧 Newsletter: X leads - Re-upload plugin after updating to add new column ## Logo Issue - TLN-logo-V1.png exists in workspace but not on server - Need to upload via WordPress Media Library to /wp-content/uploads/2026/01/",
-      "recallCount": 6,
+      "recallCount": 8,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 6,
+      "totalScore": 7.6333350976643395,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-17T18:59:50.564Z",
-      "lastRecalledAt": "2026-05-26T13:53:47.051Z",
+      "lastRecalledAt": "2026-05-29T15:39:35.246Z",
       "queryHashes": [
         "11ee02a36115",
         "7ebf46060a8c",
         "aa75aa6404d1",
         "7ab793c2d3a9",
         "95b12c515877",
-        "d550b3ac9297"
+        "d550b3ac9297",
+        "2c906fd80e44",
+        "0e3001bba3f5"
       ],
       "recallDays": [
         "2026-05-17",
         "2026-05-18",
         "2026-05-20",
-        "2026-05-26"
+        "2026-05-26",
+        "2026-05-29"
       ],
       "conceptTags": [
         "tln-plugin.zip",
