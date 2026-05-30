@@ -66,13 +66,8 @@ setup_postdata($post);
 $tln_profile_business['post_id'] = $post_id;
 $tln_profile_business['place_id'] = $pid;
 
-// Template selection based on tier
+// Always use free profile template
 $template_file = 'profile-free.php';
-if ($tier === 'pro') {
-    $template_file = 'profile-pro.php';
-} elseif (in_array($tier, ['proplus', 'sponsor'])) {
-    $template_file = 'profile-proplus.php';
-}
 
 include dirname(__FILE__) . '/templates/' . $template_file;
 wp_reset_postdata();

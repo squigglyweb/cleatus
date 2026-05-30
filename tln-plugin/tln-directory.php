@@ -151,12 +151,10 @@ function tln_dir_shortcode($atts) {
         $loc = $b['loc'];
         $icon = $icons[$b['cat']] ?? '🏪';
         
-        // Check tier and custom photo - priority: custom upload → Google photo → placeholder
-        $tier = 'free';
+        // Check for custom photo - priority: custom upload → Google photo → placeholder
         $custom_image = '';
         $biz_posts = get_posts(array('post_type'=>'tln_business','meta_key'=>'tln_place_id','meta_value'=>$b['place_id'],'posts_per_page'=>1));
         if(!empty($biz_posts)) {
-            $tier = get_post_meta($biz_posts[0]->ID,'tln_tier',true) ?: 'free';
             $custom_image = get_post_meta($biz_posts[0]->ID,'tln_directory_image',true);
         }
         // Priority: custom uploaded → Google photo (if available) → placeholder
@@ -175,9 +173,6 @@ function tln_dir_shortcode($atts) {
         echo '<div class="tln-img-wrap">'.$img;
         echo '<span class="tln-badge">'.strtoupper($loc).'</span>';
         // Pro badge
-        if(in_array($tier, array('pro','proplus'))) {
-            echo '<span class="tln-pro-badge" style="position:absolute;bottom:10px;left:10px;"><img src="https://thelocalnearbuy.com/wp-content/uploads/2026/05/neighborhood-score-pin.png" alt="Pro Member" style="width:80px;height:auto;"></span>';
-        }
         echo '</div><div class="tln-content">';
         echo '<div class="tln-name-wrap"><h3 class="tln-name">'.esc_html($b['name']).'</h3></div>';
         echo '<div class="tln-cat">'.esc_html($b['cat']).' &bull; '.esc_html($loc).'</div>';

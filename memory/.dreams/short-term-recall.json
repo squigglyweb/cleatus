@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-05-30T22:02:11.984Z",
+  "updatedAt": "2026-05-30T22:06:57.829Z",
   "entries": {
     "memory:memory/2026-05-05.md:72:89": {
       "key": "memory:memory/2026-05-05.md:72:89",
@@ -9,13 +9,13 @@
       "endLine": 89,
       "source": "memory",
       "snippet": "- [ ] Meals donated tracker (glocal - global + local) - [ ] Photo gallery with autoscroll (4+ photos) - [ ] Video upload (based on payment tier) - [ ] Priority support badge ## UTM Sources - directory (web) - newsletter (email) - postcard (print) - direct (none) - google (organic) ## Payment Tiers Impact - Free: Basic listing - Pro ($99): Gallery + basic features - Pro+ ($199): More photos + video + priority support - Sponsor ($349): Everything + featured spots",
-      "recallCount": 11,
+      "recallCount": 12,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 10.634168052906489,
+      "totalScore": 11.634168052906489,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T20:21:50.131Z",
-      "lastRecalledAt": "2026-05-30T22:02:10.206Z",
+      "lastRecalledAt": "2026-05-30T22:06:57.829Z",
       "queryHashes": [
         "3b057c3172e9",
         "80f9208f6c41",
@@ -27,7 +27,8 @@
         "2c906fd80e44",
         "0e3001bba3f5",
         "34f57e3bc4ee",
-        "eae3407b053c"
+        "eae3407b053c",
+        "8d4ed8ac8e90"
       ],
       "recallDays": [
         "2026-05-12",
@@ -55,13 +56,13 @@
       "endLine": 45,
       "source": "memory",
       "snippet": "# May 7, 2026 ## TLN - The Local NearBuy Updates ### Branding Shift: \"Member\" Concept - Moved away from \"customer/client\" language - Everyone is a **Member** - builds community, not transactions - Reference: Brilliant Directories \"Be Part of Something Meaningful\" messaging ### Membership Tiers (Final) - **Free Member** - basic directory listing - **Pro Member** ($99/mo) - profile + offers - **Pro+ Member** ($199/mo) - profile + offers + video + featured + newsletter - **Sponsor Member** ($349/mo) - banner + newsletter ads + homepage ### Add-On Model Everything else is an add-on to membership: - Postcard Campaigns ($150/campaign) - Design Services ($50/project) - Social Management ($200/m",
-      "recallCount": 14,
+      "recallCount": 15,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 14,
+      "totalScore": 15,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T20:21:50.131Z",
-      "lastRecalledAt": "2026-05-29T01:29:47.492Z",
+      "lastRecalledAt": "2026-05-30T22:06:57.829Z",
       "queryHashes": [
         "3b057c3172e9",
         "94cabbf81b68",
@@ -76,7 +77,8 @@
         "4dff1c997175",
         "1b32cb054c8b",
         "d419c3e53d52",
-        "2c906fd80e44"
+        "2c906fd80e44",
+        "8d4ed8ac8e90"
       ],
       "recallDays": [
         "2026-05-12",
@@ -87,7 +89,8 @@
         "2026-05-20",
         "2026-05-22",
         "2026-05-27",
-        "2026-05-29"
+        "2026-05-29",
+        "2026-05-30"
       ],
       "conceptTags": [
         "customer/client",
@@ -107,13 +110,13 @@
       "endLine": 79,
       "source": "memory",
       "snippet": "- ✅ Expandable map placeholder - ✅ Neighborhood Score (Quality, Value, Service, Overall) - ✅ Meals impact (community cause) - ✅ Share buttons - ✅ Ad space on sidebar (monetization) ### Key Files - tln-profile-pro-plus-final.html - Latest Pro+ profile template ### Pending - Integrate profile into WordPress plugin - Build admin dashboard - Connect Stripe webhooks ## Offer Marketing Strategy (May 8, 2026) ### Key Insight Offers can be HIDDEN from the website during print campaigns. This creates value for printed postcards vs website-only listings. ### How It Works - Website offers: Always visible (included in membership) - Print campaigns: Hide offer on website, only accessible via QR code",
-      "recallCount": 8,
+      "recallCount": 9,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 8,
+      "totalScore": 9,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T20:21:50.131Z",
-      "lastRecalledAt": "2026-05-27T12:04:03.711Z",
+      "lastRecalledAt": "2026-05-30T22:06:57.829Z",
       "queryHashes": [
         "3b057c3172e9",
         "280499cabedf",
@@ -122,7 +125,8 @@
         "456802dae32e",
         "68e96d92543e",
         "e92d1b15b377",
-        "d419c3e53d52"
+        "d419c3e53d52",
+        "8d4ed8ac8e90"
       ],
       "recallDays": [
         "2026-05-12",
@@ -131,7 +135,8 @@
         "2026-05-16",
         "2026-05-17",
         "2026-05-21",
-        "2026-05-27"
+        "2026-05-27",
+        "2026-05-30"
       ],
       "conceptTags": [
         "tln-profile-pro-plus-final.html",
@@ -151,13 +156,13 @@
       "endLine": 110,
       "source": "memory",
       "snippet": "- Add \"Think Globally. Feed Locally. — That's Glocal.\" as tagline - Make \"glocal\" the hook/movement - Every membership tier provides meals: - Free: 0 meals/month - Pro ($99): 10 meals/month - Pro+ ($199): 25 meals/month - Sponsor ($349): 50 meals/month - Membership = profit + purpose (social enterprise model) ## Files Updated - tln-pricing-v2.html - New pricing with meals badges, witty membership section - tln-profile-free-final.html - Exact layout from Bryan screenshot - tln-profile-pro-v2.html - Pro in same Free style (special offer, meals counter) ## Promo Products Idea (May 9, 2026) - Sell t-shirts, stickers, promo items with TLN branding - For every item sold = provide X meal",
-      "recallCount": 8,
+      "recallCount": 9,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 8,
+      "totalScore": 9,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T20:21:50.131Z",
-      "lastRecalledAt": "2026-05-30T22:02:08.151Z",
+      "lastRecalledAt": "2026-05-30T22:06:57.829Z",
       "queryHashes": [
         "3b057c3172e9",
         "280499cabedf",
@@ -166,7 +171,8 @@
         "ffa9d05d566b",
         "68e96d92543e",
         "d419c3e53d52",
-        "34f57e3bc4ee"
+        "34f57e3bc4ee",
+        "8d4ed8ac8e90"
       ],
       "recallDays": [
         "2026-05-12",
@@ -717,13 +723,13 @@
       "endLine": 144,
       "source": "memory",
       "snippet": "## All Three Profiles Now Match - tln-profile-free-final.html - Free - tln-profile-pro-v2.html - Pro - tln-profile-pro-plus-final.html - Pro+ ## Important Notes (May 9, 2026) - NO CUSSING/SWEARING in website content - keep it clean and professional - \"Think Globally. Feed Locally.\" - correct phrasing, not \"glocal\" as replacement - The tagline is \"Think Globally. Feed Locally.\" - this is what glocal MEANS ## Important Notes (May 9, 2026) - Continued - NO EMOJIS - Bryan HATES emojis. Use SVG icons or other icon methods only. - No emoji in any website content, social media, emails, etc. ## Design Updates (May 9, 2026) - Use fork and spoon icon for meals counter (utensils.png from Bryan's u",
-      "recallCount": 7,
+      "recallCount": 8,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 7,
+      "totalScore": 8,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-13T00:24:50.755Z",
-      "lastRecalledAt": "2026-05-30T22:02:08.151Z",
+      "lastRecalledAt": "2026-05-30T22:06:57.829Z",
       "queryHashes": [
         "280499cabedf",
         "702ea8f65795",
@@ -731,7 +737,8 @@
         "68e96d92543e",
         "d419c3e53d52",
         "0e3001bba3f5",
-        "34f57e3bc4ee"
+        "34f57e3bc4ee",
+        "8d4ed8ac8e90"
       ],
       "recallDays": [
         "2026-05-13",
@@ -890,24 +897,26 @@
       "endLine": 171,
       "source": "memory",
       "snippet": "- Postcard printing workflow - Offer redemption tracking system - GBP enhancement management ## Claim Flow (tln-claim-form.html) - Step 1: Search/select business from directory - Step 2: Choose plan (Pro $99 or Pro+ $199) - Step 3: Contact info - Step 4: Payment (Stripe would connect here) - Submit → pending review ## What's Built - Complete - tln-pricing-final.html - Full pricing page with all tiers + a la carte + ad add-ons - tln-claim-form.html - Business signup/claim flow (4 steps) - tln-business-dashboard.html - Full business dashboard for members: - Overview with stats (views, redemptions, messages, value) - Meals counter - Recent activity feed - Edit Profile (name, descripti",
-      "recallCount": 4,
+      "recallCount": 5,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 4,
+      "totalScore": 5,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-13T13:44:20.307Z",
-      "lastRecalledAt": "2026-05-29T15:39:35.246Z",
+      "lastRecalledAt": "2026-05-30T22:06:57.829Z",
       "queryHashes": [
         "69c4bee04e24",
         "68e96d92543e",
         "d419c3e53d52",
-        "0e3001bba3f5"
+        "0e3001bba3f5",
+        "8d4ed8ac8e90"
       ],
       "recallDays": [
         "2026-05-13",
         "2026-05-17",
         "2026-05-27",
-        "2026-05-29"
+        "2026-05-29",
+        "2026-05-30"
       ],
       "conceptTags": [
         "tln-claim-form.html",

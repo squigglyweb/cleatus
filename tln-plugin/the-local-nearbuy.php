@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 3.30 - Removed $35 ads from free profile, all directory listings now show Google photos
+Version: 3.31 - Removed all Pro/Pro+ tier logic - free profile only
 */
 
 // Flush rewrite rules on activation
