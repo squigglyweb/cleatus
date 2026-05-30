@@ -161,3 +161,42 @@ After pushing to GitHub, the link format is:
 - **Red blink**: ≤7 days (grace period, expiring soon)
 - **Grey, no blink**: Expired
 - QR code shows under "Your Code" for staff to scan
+
+---
+
+## 🔧 PLUGIN UPDATES (May 28, 2026)
+
+### Fixed jQuery Conflict
+- Removed external CDN jQuery loading from tln-directory.php (line ~191)
+- WordPress already includes jQuery - duplicate loading caused conflicts
+- Changed from `<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>` to rely on WP's jQuery
+
+### Fixed Review Submission (Neighborhood Score)
+- Added REST endpoint `/wp-json/tln/v1/reviews` in the-local-nearbuy.php
+- Updated profile-free.php to send form data via fetch POST
+- Added businessId fallback (hidden input + window.businessId global)
+- Submit button now actually submits reviews instead of just showing alert
+
+### Plugin Version
+- Current version: 3.7 (bumped from earlier version)
+- Latest commit: a1b9ae2 (May 28, 2026)
+- Download: https://github.com/squigglyweb/cleatus/raw/a1b9ae2/tln-plugin.zip
+
+---
+
+## 📋 CURRENT STATE (May 30, 2026)
+
+### Free-Only Model
+- All Pro/Pro+ subscription tiers removed
+- Everyone gets free profile template
+- $35/mo advertising references removed from free profile
+- Google API images now show for ALL directory listings (not just Pro/Pro+)
+
+### Known Issues (as of May 28)
+- Review submission was still being tested - may need console debugging
+- Directory search/filter may have JS conflicts (fixed jQuery loading)
+
+### Session Gap
+- NO memory from May 17-30 (hospital stay)
+- Session transcripts exist but weren't written to memory
+- Recommendation: Always write to MEMORY.md at end of session
