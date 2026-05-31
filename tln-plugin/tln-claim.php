@@ -79,7 +79,7 @@ function tln_claim_func() {
         
         // Send pending approval email
         $message = "Hi $claimant_name,\n\n";
-        $message .= "We've received your claim for $business_name.\n\n";
+        $message .= "We\'ve received your claim for $business_name.\n\n";
         $message .= "Your claim is currently pending review. You'll receive an email once it's approved.\n\n";
         $message .= "The Local NearBuy Team";
         
