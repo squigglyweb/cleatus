@@ -92,8 +92,7 @@ function tln_claim_func() {
         $out = '<div style="padding:2rem;background:#fff3cd;border-radius:8px;text-align:center;max-width:600px;margin:0 auto;">
             <h3>Claim Submitted - Pending Approval</h3>
             <p style="margin-bottom:1rem;">Thank you for claiming <strong>'.esc_html($business_name).'</strong>.</p>
-            <p style="margin-bottom:1.5rem;">Your claim is now pending review. You'll receive an email once it's approved.</p>
-            <p style="font-size:0.9rem;color:#666;">Questions? Email bryan@thelocalnearbuy.com</p>
+<p style="margin-bottom:1.5rem;">Your claim is now pending review. You'll receive an email once it's approved.</p>            <p style="font-size:0.9rem;color:#666;">Questions? Email bryan@thelocalnearbuy.com</p>
         </div>';
         return $out;
     }
