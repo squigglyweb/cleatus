@@ -396,6 +396,7 @@ require_once plugin_dir_path(__FILE__) . 'tln-voucher-system.php';
 require_once plugin_dir_path(__FILE__) . 'tln-golf-shortcode.php';
 require_once plugin_dir_path(__FILE__) . 'tln-parks-shortcode.php';
 require_once plugin_dir_path(__FILE__) . 'inc/camps.php';
+require_once plugin_dir_path(__FILE__) . 'inc/campaign-request.php';
 require_once plugin_dir_path(__FILE__) . 'tln-analytics.php';
 require_once plugin_dir_path(__FILE__) . 'tln-business-dashboard.php';
 require_once plugin_dir_path(__FILE__) . 'tln-admin-campaign.php';

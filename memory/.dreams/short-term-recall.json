@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-05-31T01:40:06.301Z",
+  "updatedAt": "2026-05-31T15:04:25.408Z",
   "entries": {
     "memory:memory/2026-05-05.md:72:89": {
       "key": "memory:memory/2026-05-05.md:72:89",
@@ -9,13 +9,13 @@
       "endLine": 89,
       "source": "memory",
       "snippet": "- [ ] Meals donated tracker (glocal - global + local) - [ ] Photo gallery with autoscroll (4+ photos) - [ ] Video upload (based on payment tier) - [ ] Priority support badge ## UTM Sources - directory (web) - newsletter (email) - postcard (print) - direct (none) - google (organic) ## Payment Tiers Impact - Free: Basic listing - Pro ($99): Gallery + basic features - Pro+ ($199): More photos + video + priority support - Sponsor ($349): Everything + featured spots",
-      "recallCount": 12,
+      "recallCount": 13,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 11.634168052906489,
+      "totalScore": 12.634168052906489,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T20:21:50.131Z",
-      "lastRecalledAt": "2026-05-30T22:06:57.829Z",
+      "lastRecalledAt": "2026-05-31T15:04:25.408Z",
       "queryHashes": [
         "3b057c3172e9",
         "80f9208f6c41",
@@ -28,7 +28,8 @@
         "0e3001bba3f5",
         "34f57e3bc4ee",
         "eae3407b053c",
-        "8d4ed8ac8e90"
+        "8d4ed8ac8e90",
+        "e44499a3fba0"
       ],
       "recallDays": [
         "2026-05-12",
@@ -36,7 +37,8 @@
         "2026-05-18",
         "2026-05-27",
         "2026-05-29",
-        "2026-05-30"
+        "2026-05-30",
+        "2026-05-31"
       ],
       "conceptTags": [
         "meals",
@@ -237,13 +239,13 @@
       "endLine": 46,
       "source": "memory",
       "snippet": "# Bryan Somers - TLN Memory ## About Bryan - Founder, Publisher & Editor of The Local NearBuy (TLN) - Building a local digital media company serving Waxhaw area (Waxhaw, Weddington, Wesley Chapel, Marvin, Indian Land, Ballantyne) - 30+ years graphic design experience - Works at Collegiate Housing Services (CHS) - Helps Bethany Church with social media ## Goals - $60k/month total - Financial freedom - Multiple income streams - Low startup cost, fast to revenue - Recurring, delegatable, not dependent on him forever ## Current Projects - Golf Courses page - set up with tln-golf-shortcode.php plugin (uses [golf_directory] shortcode) - Wants to add filtering to the golf page - Using Poll Maker",
-      "recallCount": 13,
+      "recallCount": 14,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 12.98299461677546,
+      "totalScore": 13.98299461677546,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T20:21:50.131Z",
-      "lastRecalledAt": "2026-05-30T22:02:11.984Z",
+      "lastRecalledAt": "2026-05-31T15:04:25.408Z",
       "queryHashes": [
         "3b057c3172e9",
         "94cabbf81b68",
@@ -257,7 +259,8 @@
         "71c34632e60a",
         "0e3001bba3f5",
         "eae3407b053c",
-        "df643b7f7d45"
+        "df643b7f7d45",
+        "e44499a3fba0"
       ],
       "recallDays": [
         "2026-05-12",
@@ -267,7 +270,8 @@
         "2026-05-22",
         "2026-05-26",
         "2026-05-29",
-        "2026-05-30"
+        "2026-05-30",
+        "2026-05-31"
       ],
       "conceptTags": [
         "60k/month",
@@ -366,13 +370,13 @@
       "endLine": 86,
       "source": "memory",
       "snippet": "- Neighbor writes a review, submits, goes to moderation queue - Display on business page alongside Google reviews ## Golf Plugin v1.2 (Ready) - Green border (#7cda24) - Yellow stars (#FABC06) - Clickable phone (tel: link) - Linked address to Google Maps - Status pill: Open Now (green), Closed (red), Hours Unavailable (amber) - Search, location filter, sort - 1-hour caching ## Business Dashboard (To Build) - Claim form → approval → dashboard - Tabs: Business Info, Photos & Media, Offers, Community Impact, Social Media, Google Sync - Pricing tiers: Free / $99 Pro / $199 Pro+ ## Claimed Card Styling Specs - Border: 3px thick, red (#e63946) - for claimed/verified businesses - Border: 2px thic",
-      "recallCount": 10,
+      "recallCount": 11,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 10,
+      "totalScore": 11,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T23:02:04.581Z",
-      "lastRecalledAt": "2026-05-30T22:02:10.206Z",
+      "lastRecalledAt": "2026-05-31T15:04:25.408Z",
       "queryHashes": [
         "94cabbf81b68",
         "80f9208f6c41",
@@ -383,14 +387,16 @@
         "2c906fd80e44",
         "0e3001bba3f5",
         "34f57e3bc4ee",
-        "eae3407b053c"
+        "eae3407b053c",
+        "e44499a3fba0"
       ],
       "recallDays": [
         "2026-05-12",
         "2026-05-18",
         "2026-05-22",
         "2026-05-29",
-        "2026-05-30"
+        "2026-05-30",
+        "2026-05-31"
       ],
       "conceptTags": [
         "v1.2",
@@ -410,13 +416,13 @@
       "endLine": 105,
       "source": "memory",
       "snippet": "- **Directory** (nearbuy-directory.html) — Browse page with filters, grid view, business cards - **Business Listing** (nearbuy-business-listing.html) — Individual business page with offer card, QR code, reviews, sidebar ### GitHub Repository https://github.com/squigglyweb/cleatus All files pushed and available. --- ## April 14, 2026 — Session Notes ### New Pages Created Today 1. **nearbuy-coverage.html** — Coverage Area page showing Greater Waxhaw coverage (9 towns, 5K/campaign, 20K+ total households), map placeholder, strategic approach section 2. **nearbuy-events.html** — Events page (meal-packing events) with coming soon email capture, mission cards, past events placeholder 3. **near",
-      "recallCount": 7,
+      "recallCount": 8,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 6.983651888716118,
+      "totalScore": 7.983651888716118,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T23:02:04.581Z",
-      "lastRecalledAt": "2026-05-22T01:34:49.257Z",
+      "lastRecalledAt": "2026-05-31T14:51:03.824Z",
       "queryHashes": [
         "94cabbf81b68",
         "201d5f225c55",
@@ -424,13 +430,15 @@
         "702ea8f65795",
         "b6f375f7100e",
         "1b32cb054c8b",
-        "7221d5b3c41d"
+        "7221d5b3c41d",
+        "b2250f3bcf00"
       ],
       "recallDays": [
         "2026-05-12",
         "2026-05-13",
         "2026-05-14",
-        "2026-05-22"
+        "2026-05-22",
+        "2026-05-31"
       ],
       "conceptTags": [
         "nearbuy-directory.html",
@@ -450,13 +458,13 @@
       "endLine": 85,
       "source": "memory",
       "snippet": "| Tier | Size | Price | Meals | |------|------|-------|-------| | Small | 3.8\" x 2.5\" | $250 | 25 | | Small Front | 3.8\" x 5\" | $325 | 40 | | Medium | 7.6\" x 5\" | $625 | 75 | | Large | 7.6\" x 7.5\" | $800 | 110 | **Postcard Layout:** - Total: 12\" x 9\" - No Ad Zone (bottom): 11.75\" x 3.187\" — mailing indicia + NearBuy promo - Available ad space: above the No Ad Zone **Ad Builder Interface:** - Click-to-select grid showing available spots - Tier-based selection (not a la carte) - Custom QR code per ad - Real-time price + meal calculation - Businesses wanting more space can buy multiples or get custom quotes ### Tools (Current Stack) - Moxie CRM — keep using - Google Workspace — keep using -",
-      "recallCount": 12,
+      "recallCount": 13,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 12,
+      "totalScore": 13,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T23:02:04.581Z",
-      "lastRecalledAt": "2026-05-31T01:40:06.301Z",
+      "lastRecalledAt": "2026-05-31T14:51:03.824Z",
       "queryHashes": [
         "94cabbf81b68",
         "280499cabedf",
@@ -469,7 +477,8 @@
         "4dff1c997175",
         "1b32cb054c8b",
         "00d7a82e68ea",
-        "0af5b32b7d6a"
+        "0af5b32b7d6a",
+        "b2250f3bcf00"
       ],
       "recallDays": [
         "2026-05-12",
@@ -499,13 +508,13 @@
       "endLine": 34,
       "source": "memory",
       "snippet": "## TLN About Copy (Updated) **The Local NearBuy** Your guide to Waxhaw & surrounding areas' best — restaurants, shops, services, and hidden gems. Every purchase through NearBuy helps feed local kids and families, both here and around the world. Discover your community. Support local. Make a difference. **What We Do** We connect Greater Waxhaw neighbors with local businesses — through our directory, social media, newsletter, and postcard ads. Businesses advertise with us. You discover great local spots. We donate meals for every engagement. It's a win-win-win: - Neighbors discover awesome local businesses - Businesses reach more customers - Kids & families get fed ## T-Shirt Project",
-      "recallCount": 9,
+      "recallCount": 10,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 9,
+      "totalScore": 10,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T23:02:11.759Z",
-      "lastRecalledAt": "2026-05-30T22:02:10.206Z",
+      "lastRecalledAt": "2026-05-31T15:04:25.408Z",
       "queryHashes": [
         "80f9208f6c41",
         "201d5f225c55",
@@ -515,7 +524,8 @@
         "4dff1c997175",
         "e92d1b15b377",
         "71c34632e60a",
-        "eae3407b053c"
+        "eae3407b053c",
+        "e44499a3fba0"
       ],
       "recallDays": [
         "2026-05-12",
@@ -525,7 +535,8 @@
         "2026-05-20",
         "2026-05-21",
         "2026-05-29",
-        "2026-05-30"
+        "2026-05-30",
+        "2026-05-31"
       ],
       "conceptTags": [
         "win-win-win",
@@ -545,13 +556,13 @@
       "endLine": 33,
       "source": "memory",
       "snippet": "# April 8, 2026 - NearBuy Postcard Project Notes ## Project Status - NearBuy postcard tracker built: nearbuy-tracker-divi.html - Business portal built: nearbuy-business-portal.html - Google Apps Script backend: nearbuy-apps-script.gs - GitHub repo: https://github.com/squigglyweb/cleatus ## Pricing - Standard ad: $500 - Duplex (combined): $900 ## System Issues - OpenClaw environment completely down since April 7 - All exec commands timeout - Unable to make edits or push changes ## Business Strategy Notes - Ideal businesses: Home services (plumbers, HVAC, landscapers), food/dining, health/wellness, retail, auto services - Avoid: Big box stores, national chains, online-only businesses - Cat",
-      "recallCount": 9,
+      "recallCount": 10,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 9,
+      "totalScore": 10,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T23:02:11.759Z",
-      "lastRecalledAt": "2026-05-31T01:40:06.301Z",
+      "lastRecalledAt": "2026-05-31T15:04:25.408Z",
       "queryHashes": [
         "80f9208f6c41",
         "702ea8f65795",
@@ -561,7 +572,8 @@
         "e92d1b15b377",
         "7221d5b3c41d",
         "eae3407b053c",
-        "0af5b32b7d6a"
+        "0af5b32b7d6a",
+        "e44499a3fba0"
       ],
       "recallDays": [
         "2026-05-12",
@@ -860,13 +872,13 @@
       "endLine": 37,
       "source": "memory",
       "snippet": "# May 6, 2026 - The Local NearBuy (TLN) ## Claim Page Issue - FIXED - WordPress was treating `?business=` query param as something special (404 error) - Changed param to `?biz=` — works now - URL: `/claim/?biz=businessname&pid=placeid` ## Directory UX Change - Changed \"Claim This Business\" button to **\"View Profile\"** - Added subtle link: \"Own this business? Claim it\" - Makes TLN feel like a resource, not a marketplace - Bryan approved this approach ## New Locations Added to Directory - Waxhaw (full categories: Restaurant, Retail, Services, Cafe) - Marvin, Wesley Chapel, Weddington, Indian Land (basic: Restaurant, Retail) ## Summer Camps Page - Created `tln-camps.php` plugin - Shortcode:",
-      "recallCount": 12,
+      "recallCount": 13,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 11.949595668588147,
+      "totalScore": 12.949595668588147,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-13T01:26:56.496Z",
-      "lastRecalledAt": "2026-05-30T22:13:24.314Z",
+      "lastRecalledAt": "2026-05-31T14:51:03.824Z",
       "queryHashes": [
         "071f4c17045c",
         "69c4bee04e24",
@@ -879,7 +891,8 @@
         "d550b3ac9297",
         "ee6c82e0de67",
         "df643b7f7d45",
-        "fa8dc069100c"
+        "fa8dc069100c",
+        "b2250f3bcf00"
       ],
       "recallDays": [
         "2026-05-13",
@@ -890,7 +903,8 @@
         "2026-05-22",
         "2026-05-26",
         "2026-05-29",
-        "2026-05-30"
+        "2026-05-30",
+        "2026-05-31"
       ],
       "conceptTags": [
         "tln-camps.php",
