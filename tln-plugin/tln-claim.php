@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: TLN Claim Form
- * Version: 2.0 - Auto-create user account
+ * Version: 2.1 - Fixed parse error
  */
 
 if (!defined('ABSPATH')) exit;
@@ -89,11 +89,12 @@ function tln_claim_func() {
         wp_mail('bryan@thelocalnearbuy.com', 'Pending Claim: '.$business_name, "New claim requires approval:\n\nBusiness: $business_name\nClaimant: $claimant_name\nEmail: $claimant_email\nPhone: $claimant_phone\n\nGo to admin dashboard to approve.");
         
         // Show pending message
-        $out = '<div style="padding:2rem;background:#fff3cd;border-radius:8px;text-align:center;max-width:600px;margin:0 auto;">
-            <h3>Claim Submitted - Pending Approval</h3>
-            <p style="margin-bottom:1rem;">Thank you for claiming <strong>'.esc_html($business_name).'</strong>.</p>
-<p style="margin-bottom:1.5rem;">Your claim is now pending review. You'll receive an email once it's approved.</p>            <p style="font-size:0.9rem;color:#666;">Questions? Email bryan@thelocalnearbuy.com</p>
-        </div>';
+        $out = '<div style="padding:2rem;background:#fff3cd;border-radius:8px;text-align:center;max-width:600px;margin:0 auto;">';
+        $out .= '<h3>Claim Submitted - Pending Approval</h3>';
+        $out .= '<p style="margin-bottom:1rem;">Thank you for claiming <strong>'.esc_html($business_name).'</strong>.</p>';
+        $out .= '<p style="margin-bottom:1.5rem;">Your claim is now pending review. You will receive an email once it is approved.</p>';
+        $out .= '<p style="font-size:0.9rem;color:#666;">Questions? Email bryan@thelocalnearbuy.com</p>';
+        $out .= '</div>';
         return $out;
     }
     
