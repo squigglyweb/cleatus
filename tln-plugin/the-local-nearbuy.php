@@ -2,22 +2,101 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 3.8 - May 30 update: jQuery fix, review submission, free-only model
+Version: 3.9 - Claims system: pending status, approval workflow, admin dashboard
 */
 
-// Flush rewrite rules on activation
-register_activation_hook(__FILE__, function() {
-    // Ensure rewrite rules are registered
-    add_action('init', function() {
-        if (function_exists('tln_voucher_add_rewrite_rules')) {
-            tln_voucher_add_rewrite_rules();
-        }
-        if (function_exists('tln_offer_rewrite')) {
-            tln_offer_rewrite();
-        }
-        flush_rewrite_rules();
-    }, 99);
-});
+// Create database tables on activation
+register_activation_hook(__FILE__, 'tln_create_tables');
+
+function tln_create_tables() {
+    global $wpdb;
+    $charset_collate = $wpdb->get_charset_collate();
+    
+    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+    
+    // Claims table
+    $wpdb->query("CREATE TABLE IF NOT EXISTS {$wpdb->prefix}tln_claims (
+        id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+        business_name VARCHAR(255) NOT NULL,
+        place_id VARCHAR(255),
+        user_id BIGINT(20) UNSIGNED NOT NULL,
+        claimant_name VARCHAR(255) NOT NULL,
+        claimant_email VARCHAR(255) NOT NULL,
+        claimant_phone VARCHAR(50),
+        tier VARCHAR(50) DEFAULT 'free',
+        website VARCHAR(255),
+        custom_offer VARCHAR(255),
+        notes TEXT,
+        user_phone VARCHAR(50),
+        tos_agreed TEXT,
+        tos_signed_date DATE,
+        status VARCHAR(50) DEFAULT 'pending',
+        approved_at DATETIME,
+        approved_by BIGINT(20),
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY (id),
+        KEY user_id (user_id),
+        KEY status (status)
+    ) $charset_collate");
+    
+    // Stripe events table
+    $wpdb->query("CREATE TABLE IF NOT EXISTS {$wpdb->prefix}tln_stripe_events (
+        id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+        event_id VARCHAR(255) NOT NULL,
+        type VARCHAR(255) NOT NULL,
+        amount BIGINT DEFAULT 0,
+        currency VARCHAR(10) DEFAULT '',
+        customer_id VARCHAR(255) DEFAULT '',
+        subscription_id VARCHAR(255) DEFAULT '',
+        created_at DATETIME NOT NULL,
+        PRIMARY KEY (id),
+        UNIQUE KEY event_id (event_id)
+    ) $charset_collate");
+    
+    // Campaigns table
+    $wpdb->query("CREATE TABLE IF NOT EXISTS {$wpdb->prefix}tln_campaigns (
+        id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+        business_id BIGINT(20) UNSIGNED NOT NULL,
+        title VARCHAR(255) NOT NULL,
+        description TEXT,
+        offer_text VARCHAR(255),
+        offer_valid_days INT DEFAULT 30,
+        total_spots INT DEFAULT 9,
+        filled_spots INT DEFAULT 0,
+        campaign_cost DECIMAL(10,2) DEFAULT 0,
+        workflow_status VARCHAR(50) DEFAULT 'setup',
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY (id)
+    ) $charset_collate");
+    
+    // Vouchers table
+    $wpdb->query("CREATE TABLE IF NOT EXISTS {$wpdb->prefix}tln_vouchers (
+        id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+        campaign_id BIGINT(20) UNSIGNED NOT NULL,
+        business_id BIGINT(20) UNSIGNED NOT NULL,
+        lead_name VARCHAR(255) NOT NULL,
+        lead_email VARCHAR(255) NOT NULL,
+        lead_phone VARCHAR(50),
+        code VARCHAR(32) NOT NULL,
+        expires DATETIME NOT NULL,
+        redeemed TINYINT(1) DEFAULT 0,
+        redeemed_at DATETIME NULL,
+        PRIMARY KEY (id),
+        UNIQUE KEY code (code)
+    ) $charset_collate");
+    
+    // QR Scans table
+    $wpdb->query("CREATE TABLE IF NOT EXISTS {$wpdb->prefix}tln_qr_scans (
+        id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+        campaign_id BIGINT(20) UNSIGNED NOT NULL,
+        scanned_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        source VARCHAR(50) DEFAULT 'postcard',
+        PRIMARY KEY (id)
+    ) $charset_collate");
+    
+    // Flush rewrite rules
+    flush_rewrite_rules();
+}
 
 // REST API for reviews
 add_action('rest_api_init', function() {
@@ -73,6 +152,84 @@ add_action('rest_api_init', function() {
             return $reviews;
         },
         'permission_callback' => '__return_true'
+    ));
+    
+    // Save business profile
+    register_rest_route('tln/v1', '/save-profile', array(
+        'methods' => 'POST',
+        'callback' => function($request) {
+            $user_id = get_current_user_id();
+            if (!$user_id) {
+                return new WP_Error('not_logged_in', 'You must be logged in', array('status' => 401));
+            }
+            
+            global $wpdb;
+            $claim = $wpdb->get_row($wpdb->prepare(
+                "SELECT * FROM {$wpdb->prefix}tln_claims WHERE user_id=%d AND status='approved'", 
+                $user_id
+            ));
+            
+            if (!$claim) {
+                return new WP_Error('no_claim', 'No approved claim found', array('status' => 400));
+            }
+            
+            $params = $request->get_json_params();
+            $updates = array();
+            
+            if (isset($params['notes'])) $updates['notes'] = sanitize_textarea_field($params['notes']);
+            if (isset($params['phone'])) $updates['user_phone'] = sanitize_text_field($params['phone']);
+            if (isset($params['website'])) $updates['website'] = sanitize_url($params['website']);
+            if (isset($params['custom_offer'])) $updates['custom_offer'] = sanitize_text_field($params['custom_offer']);
+            
+            if (!empty($updates)) {
+                $wpdb->update($wpdb->prefix . 'tln_claims', $updates, array('id' => $claim->id));
+            }
+            
+            return array('success' => true);
+        },
+        'permission_callback' => function() {
+            return is_user_logged_in();
+        }
+    ));
+    
+    // Save directory photo
+    register_rest_route('tln/v1', '/save-dirphoto', array(
+        'methods' => 'POST',
+        'callback' => function($request) {
+            $user_id = get_current_user_id();
+            if (!$user_id) {
+                return new WP_Error('not_logged_in', 'You must be logged in', array('status' => 401));
+            }
+            
+            global $wpdb;
+            $claim = $wpdb->get_row($wpdb->prepare(
+                "SELECT * FROM {$wpdb->prefix}tln_claims WHERE user_id=%d AND status='approved'", 
+                $user_id
+            ));
+            
+            if (!$claim) {
+                return new WP_Error('no_claim', 'No approved claim found', array('status' => 400));
+            }
+            
+            if (!empty($_FILES['tln_directory_image'])) {
+                require_once(ABSPATH . 'wp-admin/includes/image.php');
+                require_once(ABSPATH . 'wp-admin/includes/file.php');
+                require_once(ABSPATH . 'wp-admin/includes/media.php');
+                
+                $attachment_id = media_handle_upload('tln_directory_image', 0);
+                if (is_wp_error($attachment_id)) {
+                    return new WP_Error('upload_error', $attachment_id->get_error_message(), array('status' => 400));
+                }
+                
+                $image_url = wp_get_attachment_url($attachment_id);
+                return array('success' => true, 'image_url' => $image_url);
+            }
+            
+            return new WP_Error('no_file', 'No file uploaded', array('status' => 400));
+        },
+        'permission_callback' => function() {
+            return is_user_logged_in();
+        }
     ));
 });
 

@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-05-30T22:06:57.829Z",
+  "updatedAt": "2026-05-31T01:40:06.301Z",
   "entries": {
     "memory:memory/2026-05-05.md:72:89": {
       "key": "memory:memory/2026-05-05.md:72:89",
@@ -56,13 +56,13 @@
       "endLine": 45,
       "source": "memory",
       "snippet": "# May 7, 2026 ## TLN - The Local NearBuy Updates ### Branding Shift: \"Member\" Concept - Moved away from \"customer/client\" language - Everyone is a **Member** - builds community, not transactions - Reference: Brilliant Directories \"Be Part of Something Meaningful\" messaging ### Membership Tiers (Final) - **Free Member** - basic directory listing - **Pro Member** ($99/mo) - profile + offers - **Pro+ Member** ($199/mo) - profile + offers + video + featured + newsletter - **Sponsor Member** ($349/mo) - banner + newsletter ads + homepage ### Add-On Model Everything else is an add-on to membership: - Postcard Campaigns ($150/campaign) - Design Services ($50/project) - Social Management ($200/m",
-      "recallCount": 15,
+      "recallCount": 17,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 15,
+      "totalScore": 17,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T20:21:50.131Z",
-      "lastRecalledAt": "2026-05-30T22:06:57.829Z",
+      "lastRecalledAt": "2026-05-31T01:40:06.301Z",
       "queryHashes": [
         "3b057c3172e9",
         "94cabbf81b68",
@@ -78,7 +78,9 @@
         "1b32cb054c8b",
         "d419c3e53d52",
         "2c906fd80e44",
-        "8d4ed8ac8e90"
+        "8d4ed8ac8e90",
+        "fa8dc069100c",
+        "0af5b32b7d6a"
       ],
       "recallDays": [
         "2026-05-12",
@@ -90,7 +92,8 @@
         "2026-05-22",
         "2026-05-27",
         "2026-05-29",
-        "2026-05-30"
+        "2026-05-30",
+        "2026-05-31"
       ],
       "conceptTags": [
         "customer/client",
@@ -110,13 +113,13 @@
       "endLine": 79,
       "source": "memory",
       "snippet": "- ✅ Expandable map placeholder - ✅ Neighborhood Score (Quality, Value, Service, Overall) - ✅ Meals impact (community cause) - ✅ Share buttons - ✅ Ad space on sidebar (monetization) ### Key Files - tln-profile-pro-plus-final.html - Latest Pro+ profile template ### Pending - Integrate profile into WordPress plugin - Build admin dashboard - Connect Stripe webhooks ## Offer Marketing Strategy (May 8, 2026) ### Key Insight Offers can be HIDDEN from the website during print campaigns. This creates value for printed postcards vs website-only listings. ### How It Works - Website offers: Always visible (included in membership) - Print campaigns: Hide offer on website, only accessible via QR code",
-      "recallCount": 9,
+      "recallCount": 11,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 9,
+      "totalScore": 11,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T20:21:50.131Z",
-      "lastRecalledAt": "2026-05-30T22:06:57.829Z",
+      "lastRecalledAt": "2026-05-31T01:40:06.301Z",
       "queryHashes": [
         "3b057c3172e9",
         "280499cabedf",
@@ -126,7 +129,9 @@
         "68e96d92543e",
         "e92d1b15b377",
         "d419c3e53d52",
-        "8d4ed8ac8e90"
+        "8d4ed8ac8e90",
+        "fa8dc069100c",
+        "0af5b32b7d6a"
       ],
       "recallDays": [
         "2026-05-12",
@@ -136,7 +141,8 @@
         "2026-05-17",
         "2026-05-21",
         "2026-05-27",
-        "2026-05-30"
+        "2026-05-30",
+        "2026-05-31"
       ],
       "conceptTags": [
         "tln-profile-pro-plus-final.html",
@@ -444,13 +450,13 @@
       "endLine": 85,
       "source": "memory",
       "snippet": "| Tier | Size | Price | Meals | |------|------|-------|-------| | Small | 3.8\" x 2.5\" | $250 | 25 | | Small Front | 3.8\" x 5\" | $325 | 40 | | Medium | 7.6\" x 5\" | $625 | 75 | | Large | 7.6\" x 7.5\" | $800 | 110 | **Postcard Layout:** - Total: 12\" x 9\" - No Ad Zone (bottom): 11.75\" x 3.187\" — mailing indicia + NearBuy promo - Available ad space: above the No Ad Zone **Ad Builder Interface:** - Click-to-select grid showing available spots - Tier-based selection (not a la carte) - Custom QR code per ad - Real-time price + meal calculation - Businesses wanting more space can buy multiples or get custom quotes ### Tools (Current Stack) - Moxie CRM — keep using - Google Workspace — keep using -",
-      "recallCount": 11,
+      "recallCount": 12,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 11,
+      "totalScore": 12,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T23:02:04.581Z",
-      "lastRecalledAt": "2026-05-22T01:34:44.602Z",
+      "lastRecalledAt": "2026-05-31T01:40:06.301Z",
       "queryHashes": [
         "94cabbf81b68",
         "280499cabedf",
@@ -462,7 +468,8 @@
         "7ab793c2d3a9",
         "4dff1c997175",
         "1b32cb054c8b",
-        "00d7a82e68ea"
+        "00d7a82e68ea",
+        "0af5b32b7d6a"
       ],
       "recallDays": [
         "2026-05-12",
@@ -471,7 +478,8 @@
         "2026-05-15",
         "2026-05-18",
         "2026-05-20",
-        "2026-05-22"
+        "2026-05-22",
+        "2026-05-31"
       ],
       "conceptTags": [
         "3.8",
@@ -537,13 +545,13 @@
       "endLine": 33,
       "source": "memory",
       "snippet": "# April 8, 2026 - NearBuy Postcard Project Notes ## Project Status - NearBuy postcard tracker built: nearbuy-tracker-divi.html - Business portal built: nearbuy-business-portal.html - Google Apps Script backend: nearbuy-apps-script.gs - GitHub repo: https://github.com/squigglyweb/cleatus ## Pricing - Standard ad: $500 - Duplex (combined): $900 ## System Issues - OpenClaw environment completely down since April 7 - All exec commands timeout - Unable to make edits or push changes ## Business Strategy Notes - Ideal businesses: Home services (plumbers, HVAC, landscapers), food/dining, health/wellness, retail, auto services - Avoid: Big box stores, national chains, online-only businesses - Cat",
-      "recallCount": 8,
+      "recallCount": 9,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 8,
+      "totalScore": 9,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T23:02:11.759Z",
-      "lastRecalledAt": "2026-05-30T22:02:10.206Z",
+      "lastRecalledAt": "2026-05-31T01:40:06.301Z",
       "queryHashes": [
         "80f9208f6c41",
         "702ea8f65795",
@@ -552,7 +560,8 @@
         "4dff1c997175",
         "e92d1b15b377",
         "7221d5b3c41d",
-        "eae3407b053c"
+        "eae3407b053c",
+        "0af5b32b7d6a"
       ],
       "recallDays": [
         "2026-05-12",
@@ -562,7 +571,8 @@
         "2026-05-20",
         "2026-05-21",
         "2026-05-22",
-        "2026-05-30"
+        "2026-05-30",
+        "2026-05-31"
       ],
       "conceptTags": [
         "nearbuy-tracker-divi.html",
@@ -766,13 +776,13 @@
       "endLine": 51,
       "source": "memory",
       "snippet": "# Memory: April 9, 2026 ## nearbuy-postcard (The Local NearBuy) ### Project Overview - Direct mail postcard advertising product for local businesses - Front + Back = ad space for local businesses - Includes meal donation component tied to redemptions - Building toward Meals4Good non-profit ### Ad Space Inventory **Front:** - 1 Large: 7.8\" × 3.8\" → $800 - 2 Medium: 3.8\" × 5\" → $625 each - 1 Small: 3.8\" × 3.75\" → $325 **Back:** - 3 Small: 3.8\" × 2.5\" → $250 each - 3 Medium: 3.8\" × 5\" → $625 each **Total potential revenue: $5,000** ### Cost Structure - Print cost: $2,344 - Max meals (capped at 2,000): 2,000 × $0.30 = $600 - M4G building fund: 2,000 × $0.20 = $400 ### Financial Targets -",
-      "recallCount": 7,
+      "recallCount": 8,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 7,
+      "totalScore": 8,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-13T01:26:56.496Z",
-      "lastRecalledAt": "2026-05-22T01:34:49.257Z",
+      "lastRecalledAt": "2026-05-31T01:40:06.301Z",
       "queryHashes": [
         "071f4c17045c",
         "3a4001249de8",
@@ -780,14 +790,16 @@
         "857d09ad5f85",
         "18cb00de911b",
         "00d7a82e68ea",
-        "7221d5b3c41d"
+        "7221d5b3c41d",
+        "0af5b32b7d6a"
       ],
       "recallDays": [
         "2026-05-13",
         "2026-05-15",
         "2026-05-17",
         "2026-05-20",
-        "2026-05-22"
+        "2026-05-22",
+        "2026-05-31"
       ],
       "conceptTags": [
         "nearbuy-postcard",
@@ -848,13 +860,13 @@
       "endLine": 37,
       "source": "memory",
       "snippet": "# May 6, 2026 - The Local NearBuy (TLN) ## Claim Page Issue - FIXED - WordPress was treating `?business=` query param as something special (404 error) - Changed param to `?biz=` — works now - URL: `/claim/?biz=businessname&pid=placeid` ## Directory UX Change - Changed \"Claim This Business\" button to **\"View Profile\"** - Added subtle link: \"Own this business? Claim it\" - Makes TLN feel like a resource, not a marketplace - Bryan approved this approach ## New Locations Added to Directory - Waxhaw (full categories: Restaurant, Retail, Services, Cafe) - Marvin, Wesley Chapel, Weddington, Indian Land (basic: Restaurant, Retail) ## Summer Camps Page - Created `tln-camps.php` plugin - Shortcode:",
-      "recallCount": 11,
+      "recallCount": 12,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 10.949595668588147,
+      "totalScore": 11.949595668588147,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-13T01:26:56.496Z",
-      "lastRecalledAt": "2026-05-30T22:02:11.984Z",
+      "lastRecalledAt": "2026-05-30T22:13:24.314Z",
       "queryHashes": [
         "071f4c17045c",
         "69c4bee04e24",
@@ -866,7 +878,8 @@
         "7221d5b3c41d",
         "d550b3ac9297",
         "ee6c82e0de67",
-        "df643b7f7d45"
+        "df643b7f7d45",
+        "fa8dc069100c"
       ],
       "recallDays": [
         "2026-05-13",
@@ -897,19 +910,20 @@
       "endLine": 171,
       "source": "memory",
       "snippet": "- Postcard printing workflow - Offer redemption tracking system - GBP enhancement management ## Claim Flow (tln-claim-form.html) - Step 1: Search/select business from directory - Step 2: Choose plan (Pro $99 or Pro+ $199) - Step 3: Contact info - Step 4: Payment (Stripe would connect here) - Submit → pending review ## What's Built - Complete - tln-pricing-final.html - Full pricing page with all tiers + a la carte + ad add-ons - tln-claim-form.html - Business signup/claim flow (4 steps) - tln-business-dashboard.html - Full business dashboard for members: - Overview with stats (views, redemptions, messages, value) - Meals counter - Recent activity feed - Edit Profile (name, descripti",
-      "recallCount": 5,
+      "recallCount": 6,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 5,
+      "totalScore": 6,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-13T13:44:20.307Z",
-      "lastRecalledAt": "2026-05-30T22:06:57.829Z",
+      "lastRecalledAt": "2026-05-30T22:13:24.314Z",
       "queryHashes": [
         "69c4bee04e24",
         "68e96d92543e",
         "d419c3e53d52",
         "0e3001bba3f5",
-        "8d4ed8ac8e90"
+        "8d4ed8ac8e90",
+        "fa8dc069100c"
       ],
       "recallDays": [
         "2026-05-13",
@@ -1018,20 +1032,22 @@
       "endLine": 178,
       "source": "memory",
       "snippet": "- Only use SVG icons or plain text. No emoji characters anywhere on the site. - This applies to: profiles, pricing, dashboard, all HTML files ## Icon Assets (from Bryan) All icons hosted at thelocalnearbuy.com/wp-content/uploads/2026/05/ - white-utensils.png - Meals/food - star.png - Ratings - neighborhood-score-pin.png - Location pin - check.png - Checkmark - chat.png - Messages - call.png - Phone - email.png - Email - www.png - Website - social-media.png - Social media - box.png - Offers - statistics.png - Stats",
-      "recallCount": 2,
+      "recallCount": 3,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 2,
+      "totalScore": 3,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-15T14:18:33.479Z",
-      "lastRecalledAt": "2026-05-20T16:15:52.010Z",
+      "lastRecalledAt": "2026-05-30T22:13:24.314Z",
       "queryHashes": [
         "3a4001249de8",
-        "4dff1c997175"
+        "4dff1c997175",
+        "fa8dc069100c"
       ],
       "recallDays": [
         "2026-05-15",
-        "2026-05-20"
+        "2026-05-20",
+        "2026-05-30"
       ],
       "conceptTags": [
         "white-utensils.png",
@@ -1084,27 +1100,29 @@
       "endLine": 35,
       "source": "memory",
       "snippet": "# May 9, 2026 - The Local NearBuy Build Session ## Business Dashboard Updates - tln-business-dashboard-v2.html created with: - Progress tracker (joined date vs now vs growth) - Time period filter (This Month, Last Month, YTD, All Time) - Offer limit warning when monthly limit reached - \"Postcard Only\" status for hidden offers - Logo upload section - Blinking red dot for new messages - Messages section (unread vs read) - Stripe billing integration shown ## A La Carte - tln-alacarte-form.html created with service selection and contact form - Added GB Profile Enhancement ($1,000/mo) with info modal explaining: - Weekly posts, photo management, review handling - \"Why We Off",
-      "recallCount": 6,
+      "recallCount": 7,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 6,
+      "totalScore": 7,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-15T19:56:59.837Z",
-      "lastRecalledAt": "2026-05-29T15:39:35.246Z",
+      "lastRecalledAt": "2026-05-30T22:13:24.314Z",
       "queryHashes": [
         "6266ca34b52b",
         "ffa9d05d566b",
         "6c8ed5afec83",
         "4dff1c997175",
         "7221d5b3c41d",
-        "0e3001bba3f5"
+        "0e3001bba3f5",
+        "fa8dc069100c"
       ],
       "recallDays": [
         "2026-05-15",
         "2026-05-16",
         "2026-05-20",
         "2026-05-22",
-        "2026-05-29"
+        "2026-05-29",
+        "2026-05-30"
       ],
       "conceptTags": [
         "tln-business-dashboard-v2.html",

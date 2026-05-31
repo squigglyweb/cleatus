@@ -16,6 +16,17 @@ function tln_dashboard_shortcode() {
     
     $claim = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}tln_claims WHERE user_id=%d AND status='approved'", $user_id));
     
+    // Check for pending claim
+    $pending_claim = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}tln_claims WHERE user_id=%d AND status='pending'", $user_id));
+    
+    if ($pending_claim) {
+        return '<div style="padding:2rem;background:#fff3cd;border-radius:12px;text-align:center;">
+            <h2>Claim Pending Approval</h2>
+            <p>Your claim for <strong>'.esc_html($pending_claim->business_name).'</strong> is awaiting review.</p>
+            <p style="color:#666;">You will receive an email once your claim is approved.</p>
+        </div>';
+    }
+    
     if (!$claim) {
         return '<div style="padding:2rem;background:#f8f8f8;border-radius:12px;text-align:center;">
             <h2>No Business Claimed</h2>
@@ -212,6 +223,97 @@ function tln_dashboard_shortcode() {
         }
         btn.disabled = false;
         btn.textContent = 'Upload Directory Photo';
+    });
+        <!-- Leads Section -->
+        <div style="background:#fff;padding:1.5rem;border-radius:12px;border:2px solid #1a1a1a;margin-top:1rem;">
+            <h3 style="margin-top:0;">Leads from Your Campaign</h3>
+            <?php
+            $leads = $wpdb->get_results($wpdb->prepare(
+                "SELECT v.*, c.title as campaign_title FROM {$wpdb->prefix}tln_vouchers v 
+                LEFT JOIN {$wpdb->prefix}tln_campaigns c ON v.campaign_id = c.id 
+                WHERE v.business_id = %d ORDER BY v.id DESC LIMIT 50", 
+                $claim->id
+            ));
+            if (count($leads) > 0): ?>
+            <table style="width:100%;border-collapse:collapse;font-size:0.9rem;">
+                <thead>
+                    <tr style="background:#f5f5f5;">
+                        <th style="padding:0.75rem;text-align:left;">Name</th>
+                        <th style="padding:0.75rem;text-align:left;">Email</th>
+                        <th style="padding:0.75rem;text-align:left;">Phone</th>
+                        <th style="padding:0.75rem;text-align:left;">Campaign</th>
+                        <th style="padding:0.75rem;text-align:left;">Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($leads as $lead): ?>
+                    <tr style="border-bottom:1px solid #eee;">
+                        <td style="padding:0.75rem;"><?php echo esc_html($lead->lead_name); ?></td>
+                        <td style="padding:0.75rem;"><a href="mailto:<?php echo esc_attr($lead->lead_email); ?>"><?php echo esc_html($lead->lead_email); ?></a></td>
+                        <td style="padding:0.75rem;"><?php echo esc_html($lead->lead_phone ?: '-'); ?></td>
+                        <td style="padding:0.75rem;"><?php echo esc_html($lead->campaign_title ?: '-'); ?></td>
+                        <td style="padding:0.75rem;">
+                            <?php if ($lead->redeemed): ?>
+                            <span style="color:green;font-weight:600;">Redeemed</span>
+                            <?php else: ?>
+                            <span style="color:#666;">Issued</span>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+            <?php else: ?>
+            <p style="color:#666;">No leads yet. Run a postcard campaign to start capturing leads.</p>
+            <?php endif; ?>
+        </div>
+        
+        <!-- Voucher Validation Section -->
+        <div style="background:#fff;padding:1.5rem;border-radius:12px;border:2px solid #1a1a1a;margin-top:1rem;">
+            <h3 style="margin-top:0;">Validate Customer Voucher</h3>
+            <p style="color:#666;font-size:0.9rem;margin-bottom:1rem;">Enter a customer's voucher code to validate and redeem it.</p>
+            <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+                <input type="text" id="tln-validate-code" placeholder="Enter voucher code" style="padding:0.75rem;border:1px solid #ddd;border-radius:4px;font-size:1rem;flex:1;min-width:200px;">
+                <button type="button" id="tln-validate-btn" style="background:#e63946;color:#fff;padding:0.75rem 1.5rem;border:none;border-radius:4px;font-weight:600;cursor:pointer;">Validate</button>
+            </div>
+            <div id="tln-validate-result" style="margin-top:1rem;"></div>
+        </div>
+    </div>
+    <script>
+    // Voucher validation
+    document.getElementById('tln-validate-btn').addEventListener('click', async function() {
+        const code = document.getElementById('tln-validate-code').value.trim();
+        const resultDiv = document.getElementById('tln-validate-result');
+        if (!code) {
+            resultDiv.innerHTML = '<span style="color:red;">Please enter a code</span>';
+            return;
+        }
+        this.disabled = true;
+        this.textContent = 'Validating...';
+        try {
+            const res = await fetch('/wp-admin/admin-ajax.php?action=tln_validate', {
+                method: 'POST',
+                body: 'code=' + encodeURIComponent(code),
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            });
+            const data = await res.json();
+            if (data.success) {
+                resultDiv.innerHTML = '<span style="color:green;font-weight:700;">✓ Valid! ' + data.data.msg + '</span>';
+                document.getElementById('tln-validate-code').value = '';
+            } else {
+                resultDiv.innerHTML = '<span style="color:red;">✗ ' + (data.data?.msg || 'Invalid code') + '</span>';
+            }
+        } catch(err) {
+            resultDiv.innerHTML = '<span style="color:red;">Error validating code</span>';
+        }
+        this.disabled = false;
+        this.textContent = 'Validate';
+    });
+    
+    document.getElementById('tln-validate-code').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            document.getElementById('tln-validate-btn').click();
+        }
     });
     </script>
     <?php

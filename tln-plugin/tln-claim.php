@@ -50,7 +50,7 @@ function tln_claim_func() {
             'tier' => 'free',
             'tos_agreed' => sanitize_text_field($_POST['csig']),
             'tos_signed_date' => date('Y-m-d'),
-            'status' => 'approved',
+            'status' => 'pending',
             'created_at' => current_time('mysql')
         ));
         
@@ -77,35 +77,23 @@ function tln_claim_func() {
         update_post_meta($profile_id, 'tln_tier', 'free');
         update_post_meta($profile_id, 'tln_user_id', $user_id);
         
-        // Send welcome email with login details
-        $login_url = wp_login_url('/dashboard/');
-        $message = "Welcome to The Local NearBuy, $claimant_name!\n\n";
-        $message .= "Your business ($business_name) has been claimed.\n\n";
-        $message .= "Login to your dashboard:\n$login_url\n\n";
-        $message .= "Email: $claimant_email\n";
-        $message .= "Password: $password\n\n";
-        $message .= "Change your password after first login.\n\n";
+        // Send pending approval email
+        $message = "Hi $claimant_name,\n\n";
+        $message .= "We've received your claim for $business_name.\n\n";
+        $message .= "Your claim is currently pending review. You'll receive an email once it's approved.\n\n";
         $message .= "The Local NearBuy Team";
         
-        wp_mail($claimant_email, "Welcome to The Local NearBuy - $business_name", $message);
+        wp_mail($claimant_email, "Claim Received - $business_name", $message);
         
-        // Notify Bryan
-        wp_mail('bryan@thelocalnearbuy.com', 'New Claim: '.$business_name, "$business_name claimed by $claimant_name ($claimant_email)");
+        // Notify Bryan of new pending claim
+        wp_mail('bryan@thelocalnearbuy.com', 'Pending Claim: '.$business_name, "New claim requires approval:\n\nBusiness: $business_name\nClaimant: $claimant_name\nEmail: $claimant_email\nPhone: $claimant_phone\n\nGo to admin dashboard to approve.");
         
-        // Auto-login and redirect
-        wp_set_auth_cookie($user_id, true);
-        
-        // Show success message with campaign option
-        $out = '<div style="padding:2rem;background:#d4edda;border-radius:8px;text-align:center;max-width:600px;margin:0 auto;">
-            <h3>Your Business Is Claimed!</h3>
-            <p style="margin-bottom:1.5rem;">You can now manage your listing info. But here is the real opportunity:</p>
-            <div style="background:white;border-radius:8px;padding:1.5rem;margin-bottom:1.5rem;">
-                <h4 style="color:#e63946;margin-top:0;">Reach Thousands of Local Households</h4>
-                <p style="font-size:0.95rem;color:#666;">Run a postcard campaign with trackable QR codes. Every scan gives you a real lead with name, email, and phone — people who already want to visit.</p>
-                <p style="font-size:0.9rem;"><strong>Campaigns from $250</strong> — includes 5,000-20,000 mailers + lead capture + QR tracking</p>
-            </div>
-            <a href="/campaign-pricing/" style="display:inline-block;padding:0.75rem 1.5rem;background:#e63946;color:white;text-decoration:none;border-radius:6px;font-weight:600;margin-right:0.5rem;">See Campaign Pricing</a>
-            <a href="/dashboard/" style="display:inline-block;padding:0.75rem 1.5rem;background:#666;color:white;text-decoration:none;border-radius:6px;font-weight:600;">Go to Dashboard</a>
+        // Show pending message
+        $out = '<div style="padding:2rem;background:#fff3cd;border-radius:8px;text-align:center;max-width:600px;margin:0 auto;">
+            <h3>Claim Submitted - Pending Approval</h3>
+            <p style="margin-bottom:1rem;">Thank you for claiming <strong>'.esc_html($business_name).'</strong>.</p>
+            <p style="margin-bottom:1.5rem;">Your claim is now pending review. You'll receive an email once it's approved.</p>
+            <p style="font-size:0.9rem;color:#666;">Questions? Email bryan@thelocalnearbuy.com</p>
         </div>';
         return $out;
     }

@@ -49,6 +49,16 @@ function tln_register_dashboard_page() {
         'tln-analytics',
         'tln_render_analytics'
     );
+    
+    // Claims Management
+    add_submenu_page(
+        'tln-dashboard',
+        'Claims',
+        'Manage Claims',
+        'manage_options',
+        'tln-claims',
+        'tln_render_claims'
+    );
 }
 add_action('admin_menu', 'tln_register_dashboard_page');
 
@@ -634,3 +644,130 @@ function tln_handle_dashboard_actions() {
     }
 }
 add_action('admin_init', 'tln_handle_dashboard_actions');
+
+/**
+ * Render claims management page
+ */
+function tln_render_claims() {
+    global $wpdb;
+    
+    // Handle claim actions
+    if (isset($_GET['action']) && isset($_GET['claim_id'])) {
+        $claim_id = intval($_GET['claim_id']);
+        $action = sanitize_text_field($_GET['action']);
+        
+        if ($action === 'approve') {
+            $wpdb->update(
+                $wpdb->prefix . 'tln_claims',
+                ['status' => 'approved', 'approved_at' => current_time('mysql'), 'approved_by' => get_current_user_id()],
+                ['id' => $claim_id]
+            );
+            
+            // Get claim info for email
+            $claim = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}tln_claims WHERE id = %d", $claim_id));
+            if ($claim) {
+                $user = get_userdata($claim->user_id);
+                if ($user) {
+                    $login_url = wp_login_url('/dashboard/');
+                    $message = "Hi {$claim->claimant_name},\n\n";
+                    $message .= "Great news! Your claim for {$claim->business_name} has been approved.\n\n";
+                    $message .= "Login to your dashboard:\n$login_url\n\n";
+                    $message .= "Email: {$claim->claimant_email}\n";
+                    $message .= "Password: (use the password you set when claiming)\n\n";
+                    $message .= "The Local NearBuy Team";
+                    wp_mail($claim->claimant_email, "Claim Approved - {$claim->business_name}", $message);
+                }
+            }
+            echo '<div class="notice notice-success"><p>Claim approved. Business owner has been notified.</p></div>';
+        } elseif ($action === 'reject') {
+            $claim = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}tln_claims WHERE id = %d", $claim_id));
+            if ($claim) {
+                $message = "Hi {$claim->claimant_name},\n\n";
+                $message .= "Unfortunately, your claim for {$claim->business_name} could not be approved at this time.\n\n";
+                $message .= "Please contact us for more information: bryan@thelocalnearbuy.com\n\n";
+                $message .= "The Local NearBuy Team";
+                wp_mail($claim->claimant_email, "Claim Update - {$claim->business_name}", $message);
+            }
+            $wpdb->delete($wpdb->prefix . 'tln_claims', ['id' => $claim_id]);
+            echo '<div class="notice notice-info"><p>Claim rejected and removed.</p></div>';
+        }
+    }
+    
+    // Get all claims
+    $claims = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}tln_claims ORDER BY created_at DESC");
+    $pending = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}tln_claims WHERE status = 'pending' ORDER BY created_at DESC");
+    $approved = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}tln_claims WHERE status = 'approved' ORDER BY approved_at DESC");
+    
+    ?>
+    <div class="wrap tln-claims">
+        <h1>Manage Business Claims</h1>
+        
+        <?php if (count($pending) > 0): ?>
+        <div style="background:#fff3cd;border:2px solid #ffc107;border-radius:8px;padding:1.5rem;margin-bottom:2rem;">
+            <h2 style="margin-top:0;color:#856404;"><?php echo count($pending); ?> Pending Claim<?php echo count($pending) > 1 ? 's' : ''; ?></h2>
+            <table class="widefat" style="background:white;">
+                <thead>
+                    <tr>
+                        <th>Business</th>
+                        <th>Claimant</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Submitted</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($pending as $claim): ?>
+                    <tr>
+                        <td><strong><?php echo esc_html($claim->business_name); ?></strong></td>
+                        <td><?php echo esc_html($claim->claimant_name); ?></td>
+                        <td><a href="mailto:<?php echo esc_attr($claim->claimant_email); ?>"><?php echo esc_html($claim->claimant_email); ?></a></td>
+                        <td><?php echo esc_html($claim->claimant_phone); ?></td>
+                        <td><?php echo esc_html($claim->created_at); ?></td>
+                        <td>
+                            <a href="?page=tln-claims&action=approve&claim_id=<?php echo $claim->id; ?>" class="button button-primary" style="background:#28a745;margin-right:0.5rem;" onclick="return confirm('Approve this claim?')">Approve</a>
+                            <a href="?page=tln-claims&action=reject&claim_id=<?php echo $claim->id; ?>" class="button" style="background:#dc3545;color:white;" onclick="return confirm('Reject and remove this claim?')">Reject</a>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+        <?php else: ?>
+        <div style="background:#d4edda;border-radius:8px;padding:1.5rem;margin-bottom:2rem;">
+            <p style="margin:0;"><strong>No pending claims</strong> - all caught up!</p>
+        </div>
+        <?php endif; ?>
+        
+        <h2 style="margin-bottom:1rem;">Approved Claims (<?php echo count($approved); ?>)</h2>
+        <?php if (count($approved) > 0): ?>
+        <table class="widefat" style="background:white;">
+            <thead>
+                <tr>
+                    <th>Business</th>
+                    <th>Claimant</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Approved</th>
+                    <th>Tier</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($approved as $claim): ?>
+                <tr>
+                    <td><strong><?php echo esc_html($claim->business_name); ?></strong></td>
+                    <td><?php echo esc_html($claim->claimant_name); ?></td>
+                    <td><a href="mailto:<?php echo esc_attr($claim->claimant_email); ?>"><?php echo esc_html($claim->claimant_email); ?></a></td>
+                    <td><?php echo esc_html($claim->claimant_phone); ?></td>
+                    <td><?php echo esc_html($claim->approved_at); ?></td>
+                    <td><?php echo esc_html($claim->tier); ?></td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <?php else: ?>
+        <p style="color:#666;">No approved claims yet.</p>
+        <?php endif; ?>
+    </div>
+    <?php
+}
