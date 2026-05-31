@@ -35,7 +35,7 @@ function tln_claim_func() {
             ));
             
             if (is_wp_error($user_id)) {
-                return '<div style="padding:2rem;background:#f8d7da;border-radius:8px;"><h3>❌ Error</h3><p>'.esc_html($user_id->get_error_message()).'</p></div>';
+                return '<div style="padding:2rem;background:#f8d7da;border-radius:8px;"><h3>Error</h3><p>'.esc_html($user_id->get_error_message()).'</p></div>';
             }
         }
         
