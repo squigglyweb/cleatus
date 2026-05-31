@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 3.9 - Claims system: pending status, approval workflow, admin dashboard
+Version: 4.0 - Full camps functionality with local JSON data
 */
 
 // Create database tables on activation
@@ -395,7 +395,7 @@ require_once plugin_dir_path(__FILE__) . 'tln-claim.php';
 require_once plugin_dir_path(__FILE__) . 'tln-voucher-system.php';
 require_once plugin_dir_path(__FILE__) . 'tln-golf-shortcode.php';
 require_once plugin_dir_path(__FILE__) . 'tln-parks-shortcode.php';
-require_once plugin_dir_path(__FILE__) . 'inc/camp-shortcode.php';
+require_once plugin_dir_path(__FILE__) . 'inc/camps.php';
 require_once plugin_dir_path(__FILE__) . 'tln-analytics.php';
 require_once plugin_dir_path(__FILE__) . 'tln-business-dashboard.php';
 require_once plugin_dir_path(__FILE__) . 'tln-admin-campaign.php';
