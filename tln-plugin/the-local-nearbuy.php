@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 4.4 - Routes system with campaign route tracking
+Version: 4.5 - Routes page: import form moved to top for visibility
 */
 
 // Create database tables on activation

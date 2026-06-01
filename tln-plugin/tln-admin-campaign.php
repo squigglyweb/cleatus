@@ -948,6 +948,18 @@ function tln_routes_page() {
         <h1>USPS Routes</h1>
         <p style="color:#666;">Add routes to track which neighborhoods you've mailed to. Each campaign should stay under 5,000 households.</p>
 
+        <!-- Bulk Import - Prominent at Top -->
+        <div style="background:#e8f5e9;padding:20px;border-radius:8px;margin-bottom:20px;border:2px solid #4caf50;">
+            <h2 style="margin-top:0;">Bulk Import Routes</h2>
+            <form method="post" action="?page=tln-routes">
+                <?php wp_nonce_field( 'tln_import_routes_action' ); ?>
+                <p>Paste route data (one per line):</p>
+                <p style="font-family:monospace;font-size:12px;background:#fff;padding:5px;display:inline-block;">Format: RouteID Residential Business</p>
+                <textarea name="import_data" rows="8" class="large-text" placeholder="28173-R001 675 26&#10;28173-R002 585 45" style="font-family:monospace;"></textarea>
+                <p class="submit"><input type="submit" name="tln_import_routes" class="button button-primary" value="Import Routes"></p>
+            </form>
+        </div>
+
         <!-- Filter by Town -->
         <div style="display:flex;gap:5px;margin-bottom:20px;flex-wrap:wrap;">
             <a href="?page=tln-routes" class="button <?php echo $town_filter == 'all' ? 'button-primary' : ''; ?>">All Towns</a>
@@ -1000,19 +1012,9 @@ function tln_routes_page() {
                 <?php endif; ?>
             </div>
 
-            <!-- Add/Edit/Import Form -->
+            <!-- Add Single Route Form -->
             <div style="background:#f9f9f9;padding:20px;border-radius:8px;">
-                <h2>Bulk Import Routes</h2>
-                <form method="post" action="?page=tln-routes">
-                    <?php wp_nonce_field( 'tln_import_routes_action' ); ?>
-                    <p class="description">Paste route data (one per line):<br><code>28173-R001 675 26 777</code><br>Format: RouteID Residential Business Total</p>
-                    <textarea name="import_data" rows="6" class="large-text" placeholder="28173-R001 675 26 777&#10;28173-R002 585 45 899"></textarea>
-                    <p class="submit"><input type="submit" name="tln_import_routes" class="button button-primary" value="Import Routes"></p>
-                </form>
-
-                <hr style="margin:20px 0;">
-
-                <h2><?php echo $edit_route ? 'Edit Route' : 'Add Single Route'; ?></h2>
+                <h2>Add Single Route</h2>
                 <form method="post" action="?page=tln-routes">
                     <?php wp_nonce_field( 'tln_save_route_action' ); ?>
                     <?php if ( $edit_route ) : ?>
