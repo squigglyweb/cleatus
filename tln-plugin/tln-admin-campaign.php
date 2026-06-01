@@ -212,6 +212,41 @@ function tln_ensure_all_tables() {
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
         dbDelta( $sql );
     }
+
+    // Routes table for USPS EDDM
+    $routes_table = $wpdb->prefix . 'tln_routes';
+    if ( $wpdb->get_var( "SHOW TABLES LIKE '$routes_table'" ) != $routes_table ) {
+        $sql = "CREATE TABLE $routes_table (
+            id bigint(20) NOT NULL AUTO_INCREMENT,
+            route_id varchar(50) NOT NULL,
+            town varchar(100) NOT NULL,
+            residential int(11) DEFAULT 0,
+            business int(11) DEFAULT 0,
+            total_households int(11) DEFAULT 0,
+            last_used date DEFAULT NULL,
+            created_at datetime DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY  (id),
+            KEY route_id (route_id),
+            KEY town (town)
+        ) $charset_collate;";
+        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+        dbDelta( $sql );
+    }
+
+    // Campaign Routes junction table (which routes used in which campaign)
+    $campaign_routes_table = $wpdb->prefix . 'tln_campaign_routes';
+    if ( $wpdb->get_var( "SHOW TABLES LIKE '$campaign_routes_table'" ) != $campaign_routes_table ) {
+        $sql = "CREATE TABLE $campaign_routes_table (
+            id bigint(20) NOT NULL AUTO_INCREMENT,
+            campaign_id bigint(20) NOT NULL,
+            route_id bigint(20) NOT NULL,
+            PRIMARY KEY  (id),
+            KEY campaign_id (campaign_id),
+            KEY route_id (route_id)
+        ) $charset_collate;";
+        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+        dbDelta( $sql );
+    }
 }
 add_action( 'init', 'tln_ensure_all_tables' );
 
@@ -293,6 +328,16 @@ function tln_admin_menu() {
         'manage_options',
         'tln-zones',
         'tln_zones_page'
+    );
+
+    // Route manager
+    add_submenu_page(
+        'tln-dashboard',
+        'USPS Routes',
+        'USPS Routes',
+        'manage_options',
+        'tln-routes',
+        'tln_routes_page'
     );
 }
 add_action( 'admin_menu', 'tln_admin_menu' );
@@ -380,7 +425,7 @@ function tln_campaigns_page() {
                         <th>ID</th>
                         <th>Title</th>
                         <th>Status</th>
-                        <th>Zone</th>
+                        <th>Routes</th>
                         <th>Created</th>
                         <th>QR</th>
                         <th>Actions</th>
@@ -410,11 +455,22 @@ function tln_campaigns_page() {
                             </td>
                             <td>
                                 <?php
-                                if ( $camp->zone_id ) {
-                                    $zone = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}tln_zones WHERE id = %d", $camp->zone_id ) );
-                                    echo $zone ? esc_html( $zone->zone_name ) : 'N/A';
+                                $campaign_routes_table = $wpdb->prefix . 'tln_campaign_routes';
+                                $routes_table = $wpdb->prefix . 'tln_routes';
+                                $campaign_routes = $wpdb->get_results( $wpdb->prepare( 
+                                    "SELECT r.route_id, r.total_households FROM $campaign_routes_table cr 
+                                    JOIN $routes_table r ON cr.route_id = r.id 
+                                    WHERE cr.campaign_id = %d", 
+                                    $camp->id 
+                                ) );
+                                
+                                if ( ! empty( $campaign_routes ) ) {
+                                    $route_ids = array_map( function($r) { return $r->route_id; }, $campaign_routes );
+                                    $total_hh = array_sum( array_map( function($r) { return $r->total_households; }, $campaign_routes ) );
+                                    echo '<strong>' . count( $campaign_routes ) . ' routes</strong><br>';
+                                    echo '<small>' . number_format( $total_hh ) . ' HH</small>';
                                 } else {
-                                    echo '<span style="color:#999;">—</span>';
+                                    echo '<span style="color:#999;">No routes</span>';
                                 }
                                 ?>
                             </td>
@@ -441,7 +497,7 @@ function tln_campaigns_page() {
 
         <p style="margin-top:20px;">
             <a href="?page=tln-add-campaign" class="button button-primary">+ Add New Campaign</a>
-            <a href="?page=tln-zones" class="button">Manage EDDM Zones</a>
+            <a href="?page=tln-routes" class="button">Manage Routes</a>
         </p>
     </div>
     <?php
@@ -467,7 +523,6 @@ function tln_add_campaign_page() {
             'offer_text'       => sanitize_text_field( $_POST['offer_text'] ),
             'offer_valid_days' => intval( $_POST['valid_days'] ),
             'workflow_status'  => sanitize_text_field( $_POST['workflow_status'] ),
-            'zone_id'          => intval( $_POST['zone_id'] ) ?: null,
             'total_spots'      => intval( $_POST['total_spots'] ),
             'filled_spots'     => intval( $_POST['filled_spots'] ),
             'price_per_spot'    => floatval( $_POST['price_per_spot'] ),
@@ -484,10 +539,36 @@ function tln_add_campaign_page() {
             $edit_id = $wpdb->insert_id;
             echo '<div class="notice notice-success"><p>✅ Campaign created!</p></div>';
         }
+        
+        // Save route selections
+        $campaign_routes_table = $wpdb->prefix . 'tln_campaign_routes';
+        $routes_table = $wpdb->prefix . 'tln_routes';
+        
+        // Clear existing route associations for this campaign
+        $wpdb->delete( $campaign_routes_table, array( 'campaign_id' => $edit_id ) );
+        
+        // Add selected routes
+        if ( ! empty( $_POST['routes'] ) && is_array( $_POST['routes'] ) ) {
+            foreach ( $_POST['routes'] as $route_db_id ) {
+                $route_db_id = intval( $route_db_id );
+                if ( $route_db_id > 0 ) {
+                    $wpdb->insert( $campaign_routes_table, array(
+                        'campaign_id' => $edit_id,
+                        'route_id' => $route_db_id
+                    ) );
+                    
+                    // Update last_used date on the route
+                    $wpdb->update( $routes_table, array( 'last_used' => current_time( 'mysql' ) ), array( 'id' => $route_db_id ) );
+                }
+            }
+        }
+        
         $campaign = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$campaigns_table} WHERE id = %d", $edit_id ) );
     }
 
     $zones = $wpdb->get_results( "SELECT * FROM {$zones_table} ORDER BY zone_name" );
+    $routes_table = $wpdb->prefix . 'tln_routes';
+    $all_routes = $wpdb->get_results( "SELECT * FROM $routes_table ORDER BY town, route_id" );
     $stages = json_decode( TLN_WORKFLOW_STAGES, true );
     ?>
     <div class="wrap">
@@ -526,19 +607,60 @@ function tln_add_campaign_page() {
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row"><label for="zone_id">EDDM Zone</label></th>
+                    <th scope="row"><label>Select Routes</label></th>
                     <td>
-                        <select name="zone_id" id="zone_id">
-                            <option value="">— Select Zone —</option>
-                            <?php foreach ( $zones as $zone ) : ?>
-                                <option value="<?php echo esc_attr( $zone->id ); ?>" <?php selected( $campaign ? $campaign->zone_id : 0, $zone->id ); ?> data-households="<?php echo esc_attr( $zone->households ); ?>">
-                                    <?php echo esc_html( $zone->zone_name ); ?> (<?php echo number_format( $zone->households ); ?> HH)
-                                </option>
-                            <?php endforeach; ?>
-                        </select>
-                        <p class="description"><a href="?page=tln-zones" target="_blank">Manage Zones →</a></p>
-                        <div id="zone-warning" style="display:none;margin-top:10px;padding:10px;background:#fff3cd;border:1px solid #ffc107;border-radius:4px;">
-                            <strong>USPS Limit Warning:</strong> This zone exceeds 5,000 households. You'll need to split into multiple campaigns or select a smaller zone.
+                        <div style="max-height:300px;overflow-y:auto;border:1px solid #ccc;padding:10px;margin-bottom:10px;">
+                            <?php 
+                            // Group routes by town
+                            $routes_by_town = array();
+                            foreach ( $all_routes as $route ) {
+                                $routes_by_town[$route->town][] = $route;
+                            }
+                            
+                            // Get currently selected routes for this campaign
+                            $selected_routes = array();
+                            if ( $campaign && $edit_id ) {
+                                $campaign_routes_table = $wpdb->prefix . 'tln_campaign_routes';
+                                $selected = $wpdb->get_results( $wpdb->prepare( "SELECT route_id FROM $campaign_routes_table WHERE campaign_id = %d", $edit_id ) );
+                                foreach ( $selected as $s ) {
+                                    $selected_routes[] = $s->route_id;
+                                }
+                            }
+                            ?>
+                            <table class="widefat fixed striped" style="font-size:12px;">
+                                <?php foreach ( $routes_by_town as $town => $town_routes ) : ?>
+                                    <tr style="background:#e0e0e0;"><td colspan="5"><strong><?php echo esc_html( $town ); ?></strong></td></tr>
+                                    <?php foreach ( $town_routes as $route ) : ?>
+                                        <tr>
+                                            <td style="width:30px;">
+                                                <input type="checkbox" name="routes[]" value="<?php echo esc_attr( $route->id ); ?>" 
+                                                    class="route-checkbox" 
+                                                    data-households="<?php echo esc_attr( $route->total_households ); ?>"
+                                                    <?php echo in_array( $route->id, $selected_routes ) ? 'checked' : ''; ?>
+                                                >
+                                            </td>
+                                            <td><?php echo esc_html( $route->route_id ); ?></td>
+                                            <td><?php echo number_format( $route->residential ); ?></td>
+                                            <td><?php echo number_format( $route->business ); ?></td>
+                                            <td><strong><?php echo number_format( $route->total_households ); ?></strong></td>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                <?php endforeach; ?>
+                            </table>
+                        </div>
+                        <p><a href="?page=tln-routes" target="_blank">Manage Routes →</a></p>
+                        
+                        <div style="padding:15px;background:#f5f5f5;border-radius:8px;margin-top:10px;">
+                            <div style="display:flex;justify-content:space-between;align-items:center;">
+                                <span><strong>Selected Households:</strong></span>
+                                <span id="route-total" style="font-size:20px;font-weight:bold;">0</span>
+                            </div>
+                            <div id="route-warning" style="display:none;margin-top:10px;padding:10px;background:#ffcccc;border:1px solid #ff0000;border-radius:4px;color:#cc0000;">
+                                <strong>Warning:</strong> Over 5,000 households. USPS limit is 5,000 per campaign. Deselect some routes.
+                            </div>
+                            <div id="route-ok" style="margin-top:10px;color:green;">
+                                ✓ Under 5,000 limit
+                            </div>
                         </div>
                     </td>
                 </tr>
@@ -576,15 +698,30 @@ function tln_add_campaign_page() {
         </form>
 
         <script>
-        document.getElementById('zone_id').addEventListener('change', function() {
-            var selected = this.options[this.selectedIndex];
-            var households = selected.getAttribute('data-households');
-            var warning = document.getElementById('zone-warning');
-            if (households && parseInt(households) > 5000) {
-                warning.style.display = 'block';
-            } else {
-                warning.style.display = 'none';
+        document.addEventListener('DOMContentLoaded', function() {
+            function updateRouteTotal() {
+                var checkboxes = document.querySelectorAll('.route-checkbox:checked');
+                var total = 0;
+                checkboxes.forEach(function(cb) {
+                    total += parseInt(cb.getAttribute('data-households')) || 0;
+                });
+                document.getElementById('route-total').textContent = total.toLocaleString();
+                
+                if (total > 5000) {
+                    document.getElementById('route-warning').style.display = 'block';
+                    document.getElementById('route-ok').style.display = 'none';
+                } else {
+                    document.getElementById('route-warning').style.display = 'none';
+                    document.getElementById('route-ok').style.display = 'block';
+                }
             }
+            
+            document.querySelectorAll('.route-checkbox').forEach(function(cb) {
+                cb.addEventListener('change', updateRouteTotal);
+            });
+            
+            // Initial calculation
+            updateRouteTotal();
         });
         </script>
 
@@ -709,6 +846,214 @@ function tln_zones_page() {
                             <button type="submit" name="tln_delete_zone" class="button button-link-delete" onclick="return confirm('Delete this zone?');">Delete</button>
                             <?php wp_nonce_field( 'tln_delete_zone_action' ); ?>
                             <input type="hidden" name="zone_id" value="<?php echo esc_attr( $edit_zone->id ); ?>">
+                        <?php endif; ?>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+    <?php
+}
+
+/**
+ * Route Manager page.
+ */
+function tln_routes_page() {
+    global $wpdb;
+    $routes_table = $wpdb->prefix . 'tln_routes';
+
+    // Handle bulk import
+    if ( isset( $_POST['tln_import_routes'] ) && check_admin_referer( 'tln_import_routes_action' ) ) {
+        $import_data = $_POST['import_data'];
+        $lines = explode( "\n", trim( $import_data ) );
+        $imported = 0;
+        
+        foreach ( $lines as $line ) {
+            $line = trim( $line );
+            if ( empty( $line ) ) continue;
+            
+            // Parse: 28173-R001    675    26    777    (tab or space separated)
+            $parts = preg_split( '/[\s,]+/', $line );
+            if ( count( $parts ) >= 3 ) {
+                $route_id = sanitize_text_field( $parts[0] );
+                $residential = intval( $parts[1] );
+                $business = intval( $parts[2] );
+                $total = $residential + $business;
+                
+                // Extract town from route ID (e.g., 28173-R001 -> Waxhaw based on ZIP)
+                $zip = preg_replace( '/-R\d+/', '', $route_id );
+                $town = 'Waxhaw'; // Default, can be changed
+                
+                // Check if route exists
+                $exists = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM $routes_table WHERE route_id = %s", $route_id ) );
+                
+                if ( $exists ) {
+                    $wpdb->update( $routes_table, 
+                        array( 'residential' => $residential, 'business' => $business, 'total_households' => $total ),
+                        array( 'route_id' => $route_id )
+                    );
+                } else {
+                    $wpdb->insert( $routes_table, array(
+                        'route_id' => $route_id,
+                        'town' => $town,
+                        'residential' => $residential,
+                        'business' => $business,
+                        'total_households' => $total
+                    ) );
+                }
+                $imported++;
+            }
+        }
+        echo '<div class="notice notice-success"><p>Imported ' . $imported . ' routes.</p></div>';
+    }
+
+    // Handle single route add/edit
+    if ( isset( $_POST['tln_save_route'] ) && check_admin_referer( 'tln_save_route_action' ) ) {
+        $data = array(
+            'route_id' => sanitize_text_field( $_POST['route_id'] ),
+            'town' => sanitize_text_field( $_POST['town'] ),
+            'residential' => intval( $_POST['residential'] ),
+            'business' => intval( $_POST['business'] ),
+            'total_households' => intval( $_POST['residential'] ) + intval( $_POST['business'] )
+        );
+
+        if ( ! empty( $_POST['route_db_id'] ) ) {
+            $wpdb->update( $routes_table, $data, array( 'id' => intval( $_POST['route_db_id'] ) ) );
+            echo '<div class="notice notice-success"><p>Route updated!</p></div>';
+        } else {
+            $wpdb->insert( $routes_table, $data );
+            echo '<div class="notice notice-success"><p>Route added!</p></div>';
+        }
+    }
+
+    // Handle delete
+    if ( isset( $_POST['tln_delete_route'] ) && check_admin_referer( 'tln_delete_route_action' ) ) {
+        $wpdb->delete( $routes_table, array( 'id' => intval( $_POST['route_db_id'] ) ) );
+        echo '<div class="notice notice-warning"><p>Route deleted.</p></div>';
+    }
+
+    // Filter by town
+    $town_filter = isset( $_GET['town'] ) ? sanitize_text_field( $_GET['town'] ) : 'all';
+    if ( $town_filter != 'all' ) {
+        $routes = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $routes_table WHERE town = %s ORDER BY route_id", $town_filter ) );
+    } else {
+        $routes = $wpdb->get_results( "SELECT * FROM $routes_table ORDER BY route_id" );
+    }
+    
+    $towns = $wpdb->get_results( "SELECT DISTINCT town FROM $routes_table ORDER BY town" );
+    
+    $edit_route = isset( $_GET['edit_route'] ) ? $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $routes_table WHERE id = %d", intval( $_GET['edit_route'] ) ) ) : null;
+    ?>
+    <div class="wrap">
+        <h1>USPS Routes</h1>
+        <p style="color:#666;">Add routes to track which neighborhoods you've mailed to. Each campaign should stay under 5,000 households.</p>
+
+        <!-- Filter by Town -->
+        <div style="display:flex;gap:5px;margin-bottom:20px;flex-wrap:wrap;">
+            <a href="?page=tln-routes" class="button <?php echo $town_filter == 'all' ? 'button-primary' : ''; ?>">All Towns</a>
+            <?php foreach ( $towns as $t ) : ?>
+                <a href="?page=tln-routes&town=<?php echo esc_attr( $t->town ); ?>" class="button <?php echo $town_filter == $t->town ? 'button-primary' : ''; ?>"><?php echo esc_html( $t->town ); ?></a>
+            <?php endforeach; ?>
+        </div>
+
+        <div style="display:grid;grid-template-columns:2fr 1fr;gap:20px;">
+            <!-- Route List -->
+            <div>
+                <h2>Routes (<?php echo count( $routes ); ?>)</h2>
+                <?php if ( ! empty( $routes ) ) : $total_hh = 0; ?>
+                    <table class="widefat fixed striped">
+                        <thead>
+                            <tr>
+                                <th>Route ID</th>
+                                <th>Town</th>
+                                <th>Res.</th>
+                                <th>Bus.</th>
+                                <th>Total</th>
+                                <th>Last Used</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ( $routes as $route ) : $total_hh += $route->total_households; ?>
+                                <tr>
+                                    <td><strong><?php echo esc_html( $route->route_id ); ?></strong></td>
+                                    <td><?php echo esc_html( $route->town ); ?></td>
+                                    <td><?php echo number_format( $route->residential ); ?></td>
+                                    <td><?php echo number_format( $route->business ); ?></td>
+                                    <td><strong><?php echo number_format( $route->total_households ); ?></strong></td>
+                                    <td><?php echo $route->last_used ? esc_html( $route->last_used ) : '<span style="color:#999;">Never</span>'; ?></td>
+                                    <td>
+                                        <a href="?page=tln-routes&edit_route=<?php echo esc_attr( $route->id ); ?>" class="button button-small">Edit</a>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                        <tfoot>
+                            <tr style="background:#f0f0f0;">
+                                <td colspan="4"><strong>Total Households</strong></td>
+                                <td colspan="3"><strong><?php echo number_format( $total_hh ); ?></strong></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                <?php else : ?>
+                    <p>No routes found. Add routes manually or use bulk import below.</p>
+                <?php endif; ?>
+            </div>
+
+            <!-- Add/Edit/Import Form -->
+            <div style="background:#f9f9f9;padding:20px;border-radius:8px;">
+                <h2>Bulk Import Routes</h2>
+                <form method="post" action="?page=tln-routes">
+                    <?php wp_nonce_field( 'tln_import_routes_action' ); ?>
+                    <p class="description">Paste route data (one per line):<br><code>28173-R001 675 26 777</code><br>Format: RouteID Residential Business Total</p>
+                    <textarea name="import_data" rows="6" class="large-text" placeholder="28173-R001 675 26 777&#10;28173-R002 585 45 899"></textarea>
+                    <p class="submit"><input type="submit" name="tln_import_routes" class="button button-primary" value="Import Routes"></p>
+                </form>
+
+                <hr style="margin:20px 0;">
+
+                <h2><?php echo $edit_route ? 'Edit Route' : 'Add Single Route'; ?></h2>
+                <form method="post" action="?page=tln-routes">
+                    <?php wp_nonce_field( 'tln_save_route_action' ); ?>
+                    <?php if ( $edit_route ) : ?>
+                        <input type="hidden" name="route_db_id" value="<?php echo esc_attr( $edit_route->id ); ?>">
+                    <?php endif; ?>
+
+                    <table class="form-table">
+                        <tr>
+                            <th scope="row"><label for="route_id">Route ID</label></th>
+                            <td><input name="route_id" id="route_id" type="text" class="regular-text" value="<?php echo $edit_route ? esc_attr( $edit_route->route_id ) : ''; ?>" required placeholder="e.g., 28173-R001"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label for="town">Town</label></th>
+                            <td>
+                                <select name="town" id="town">
+                                    <option value="Waxhaw" <?php selected( $edit_route ? $edit_route->town : 'Waxhaw', 'Waxhaw' ); ?>>Waxhaw</option>
+                                    <option value="Marvin" <?php selected( $edit_route ? $edit_route->town : '', 'Marvin' ); ?>>Marvin</option>
+                                    <option value="Wesley Chapel" <?php selected( $edit_route ? $edit_route->town : '', 'Wesley Chapel' ); ?>>Wesley Chapel</option>
+                                    <option value="Weddington" <?php selected( $edit_route ? $edit_route->town : '', 'Weddington' ); ?>>Weddington</option>
+                                    <option value="Indian Land" <?php selected( $edit_route ? $edit_route->town : '', 'Indian Land' ); ?>>Indian Land</option>
+                                    <option value="Ballantyne" <?php selected( $edit_route ? $edit_route->town : '', 'Ballantyne' ); ?>>Ballantyne</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label for="residential">Residential</label></th>
+                            <td><input name="residential" id="residential" type="number" value="<?php echo $edit_route ? esc_attr( $edit_route->residential ) : 0; ?>" min="0"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row"><label for="business">Business</label></th>
+                            <td><input name="business" id="business" type="number" value="<?php echo $edit_route ? esc_attr( $edit_route->business ) : 0; ?>" min="0"></td>
+                        </tr>
+                    </table>
+
+                    <p class="submit">
+                        <input type="submit" name="tln_save_route" class="button button-primary" value="<?php echo $edit_route ? 'Update Route' : 'Add Route'; ?>">
+                        <?php if ( $edit_route ) : ?>
+                            <a href="?page=tln-routes" class="button">Clear</a>
+                            <button type="submit" name="tln_delete_route" class="button button-link-delete" onclick="return confirm('Delete this route?');">Delete</button>
+                            <?php wp_nonce_field( 'tln_delete_route_action' ); ?>
+                            <input type="hidden" name="route_db_id" value="<?php echo esc_attr( $edit_route->id ); ?>">
                         <?php endif; ?>
                     </p>
                 </form>

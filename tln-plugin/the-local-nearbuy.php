@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 4.3 - Removed Status field from zones (no friction)
+Version: 4.4 - Routes system with campaign route tracking
 */
 
 // Create database tables on activation
