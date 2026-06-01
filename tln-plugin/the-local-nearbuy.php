@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 4.5 - Routes page: import form moved to top for visibility
+Version: 4.6 - Add visual spot grid for postcard layout
 */
 
 // Create database tables on activation

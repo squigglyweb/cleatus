@@ -727,6 +727,59 @@ function tln_add_campaign_page() {
 
         <?php if ( $campaign ) : ?>
             <hr>
+            <h3>Postcard Spot Layout</h3>
+            <p style="color:#666;">Visual representation of ad spots. Click to toggle availability.</p>
+            
+            <style>
+                .tln-spot-grid { display:flex; gap:40px; margin:20px 0; flex-wrap:wrap; }
+                .tln-spot-side { flex:1; min-width:300px; }
+                .tln-spot-side h4 { margin-bottom:10px; text-align:center; background:#2271b1; color:#fff; padding:8px; border-radius:4px 4px 0 0; }
+                .tln-spots { display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; background:#f0f0f0; padding:15px; border-radius:0 0 8px 8px; }
+                .tln-spot { aspect-ratio:4/3; display:flex; align-items:center; justify-content:center; font-weight:bold; font-size:11px; border-radius:4px; cursor:pointer; transition:all 0.2s; text-align:center; padding:5px; }
+                .tln-spot.available { background:#4caf50; color:#fff; }
+                .tln-spot.sold { background:#e74c3c; color:#fff; }
+                .tln-spot:hover { transform:scale(1.05); box-shadow:0 4px 12px rgba(0,0,0,0.3); }
+                .tln-spot-front h4 { background:#2271b1; }
+                .tln-spot-back h4 { background:#8e44ad; }
+                .tln-legend { display:flex; gap:20px; margin:15px 0; }
+                .tln-legend span { display:flex; align-items:center; gap:8px; }
+                .tln-legend .box { width:20px; height:20px; border-radius:4px; }
+                .tln-legend .available { background:#4caf50; }
+                .tln-legend .sold { background:#e74c3c; }
+            </style>
+            
+            <div class="tln-legend">
+                <span><div class="box available"></div> Available ($450)</span>
+                <span><div class="box sold"></div> Sold</span>
+            </div>
+            
+            <div class="tln-spot-grid">
+                <div class="tln-spot-side tln-spot-front">
+                    <h4>Front (8 spots)</h4>
+                    <div class="tln-spots">
+                        <?php for ($i = 1; $i <= 8; $i++): $is_sold = $i <= $campaign->filled_spots; ?>
+                            <div class="tln-spot <?php echo $is_sold ? 'sold' : 'available'; ?>" title="Spot <?php echo $i; ?>">
+                                <?php echo $is_sold ? 'SOLD' : 'Avail'; ?>
+                            </div>
+                        <?php endfor; ?>
+                    </div>
+                </div>
+                <div class="tln-spot-side tln-spot-back">
+                    <h4>Back (8 spots)</h4>
+                    <div class="tln-spots">
+                        <?php for ($i = 9; $i <= 16; $i++): $back_sold = max(0, $campaign->filled_spots - 8); $is_sold = ($i - 8) <= $back_sold; ?>
+                            <div class="tln-spot <?php echo $is_sold ? 'sold' : 'available'; ?>" title="Spot <?php echo $i; ?>">
+                                <?php echo $is_sold ? 'SOLD' : 'Avail'; ?>
+                            </div>
+                        <?php endfor; ?>
+                    </div>
+                </div>
+            </div>
+            
+            <p><strong>Spots Available:</strong> <?php echo max(0, 16 - $campaign->filled_spots); ?> of 16</p>
+            <p><strong>Potential Revenue:</strong> $<?php echo number_format(max(0, 16 - $campaign->filled_spots) * 450); ?></p>
+            
+            <hr>
             <h3>Campaign QR Code</h3>
             <?php
             $qr_link = home_url( '/r/' . $campaign->id );
