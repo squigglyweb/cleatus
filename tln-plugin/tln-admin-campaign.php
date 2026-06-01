@@ -487,7 +487,7 @@ function tln_add_campaign_page() {
         $campaign = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$campaigns_table} WHERE id = %d", $edit_id ) );
     }
 
-    $zones = $wpdb->get_results( "SELECT * FROM {$zones_table} WHERE status = 'approved' ORDER BY zone_name" );
+    $zones = $wpdb->get_results( "SELECT * FROM {$zones_table} ORDER BY zone_name" );
     $stages = json_decode( TLN_WORKFLOW_STAGES, true );
     ?>
     <div class="wrap">
@@ -625,8 +625,7 @@ function tln_zones_page() {
         $data = array(
             'zone_name'    => sanitize_text_field( $_POST['zone_name'] ),
             'zip_codes'    => $zip_codes,
-            'households'   => $households,
-            'status'       => sanitize_text_field( $_POST['status'] )
+            'households'   => $households
         );
 
         if ( ! empty( $_POST['zone_id'] ) ) {
@@ -643,26 +642,12 @@ function tln_zones_page() {
         echo '<div class="notice notice-warning"><p>Zone deleted.</p></div>';
     }
 
-    // Filter
-    $status_filter = isset( $_GET['zone_status'] ) ? sanitize_text_field( $_GET['zone_status'] ) : 'all';
-    if ( $status_filter != 'all' ) {
-        $zones = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$zones_table} WHERE status = %s ORDER BY zone_name", $status_filter ) );
-    } else {
-        $zones = $wpdb->get_results( "SELECT * FROM {$zones_table} ORDER BY zone_name" );
-    }
+    $zones = $wpdb->get_results( "SELECT * FROM {$zones_table} ORDER BY zone_name" );
 
     $edit_zone = isset( $_GET['edit_zone'] ) ? $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$zones_table} WHERE id = %d", intval( $_GET['edit_zone'] ) ) ) : null;
     ?>
     <div class="wrap">
         <h1>USPS EDDM Zones</h1>
-
-        <!-- Filter Tabs -->
-        <div style="display:flex;gap:5px;margin-bottom:20px;">
-            <a href="?page=tln-zones&zone_status=all" class="button <?php echo $status_filter == 'all' ? 'button-primary' : ''; ?>">All</a>
-            <a href="?page=tln-zones&zone_status=suggested" class="button <?php echo $status_filter == 'suggested' ? 'button-primary' : ''; ?>">Suggested</a>
-            <a href="?page=tln-zones&zone_status=approved" class="button <?php echo $status_filter == 'approved' ? 'button-primary' : ''; ?>">Approved</a>
-            <a href="?page=tln-zones&zone_status=rejected" class="button <?php echo $status_filter == 'rejected' ? 'button-primary' : ''; ?>">Rejected</a>
-        </div>
 
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
             <!-- Zone List -->
@@ -675,7 +660,6 @@ function tln_zones_page() {
                                 <th>Zone</th>
                                 <th>ZIPs</th>
                                 <th>Est. Households</th>
-                                <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -685,11 +669,6 @@ function tln_zones_page() {
                                     <td><strong><?php echo esc_html( $zone->zone_name ); ?></strong></td>
                                     <td><?php echo esc_html( substr( $zone->zip_codes, 0, 30 ) ); ?>...</td>
                                     <td><?php echo number_format( $zone->households ); ?></td>
-                                    <td>
-                                        <span class="tln-badge <?php echo esc_attr( $zone->status ); ?>">
-                                            <?php echo esc_html( ucfirst( $zone->status ) ); ?>
-                                        </span>
-                                    </td>
                                     <td>
                                         <a href="?page=tln-zones&edit_zone=<?php echo esc_attr( $zone->id ); ?>" class="button button-small">Edit</a>
                                     </td>
@@ -720,16 +699,6 @@ function tln_zones_page() {
                             <th scope="row"><label for="zip_codes">ZIP Codes (comma or space separated)</label></th>
                             <td><textarea name="zip_codes" id="zip_codes" rows="3" class="large-text" required placeholder="28104, 28108, 28173"><?php echo $edit_zone ? esc_textarea( $edit_zone->zip_codes ) : ''; ?></textarea>
                             <p class="description">Households are automatically estimated (~150 per ZIP code).</p></td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><label for="status">Status</label></th>
-                            <td>
-                                <select name="status" id="status">
-                                    <option value="suggested" <?php selected( $edit_zone ? $edit_zone->status : 'suggested', 'suggested' ); ?>>Suggested</option>
-                                    <option value="approved" <?php selected( $edit_zone ? $edit_zone->status : '', 'approved' ); ?>>Approved</option>
-                                    <option value="rejected" <?php selected( $edit_zone ? $edit_zone->status : '', 'rejected' ); ?>>Rejected</option>
-                                </select>
-                            </td>
                         </tr>
                     </table>
 

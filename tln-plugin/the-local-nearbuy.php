@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 4.2 - Simplified zone editor (auto-calc households, removed manual cost)
+Version: 4.3 - Removed Status field from zones (no friction)
 */
 
 // Create database tables on activation
