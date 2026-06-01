@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 4.1 - Full camps functionality with local JSON data
+Version: 4.2 - Simplified zone editor (auto-calc households, removed manual cost)
 */
 
 // Create database tables on activation

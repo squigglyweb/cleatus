@@ -531,12 +531,15 @@ function tln_add_campaign_page() {
                         <select name="zone_id" id="zone_id">
                             <option value="">— Select Zone —</option>
                             <?php foreach ( $zones as $zone ) : ?>
-                                <option value="<?php echo esc_attr( $zone->id ); ?>" <?php selected( $campaign ? $campaign->zone_id : 0, $zone->id ); ?>>
+                                <option value="<?php echo esc_attr( $zone->id ); ?>" <?php selected( $campaign ? $campaign->zone_id : 0, $zone->id ); ?> data-households="<?php echo esc_attr( $zone->households ); ?>">
                                     <?php echo esc_html( $zone->zone_name ); ?> (<?php echo number_format( $zone->households ); ?> HH)
                                 </option>
                             <?php endforeach; ?>
                         </select>
                         <p class="description"><a href="?page=tln-zones" target="_blank">Manage Zones →</a></p>
+                        <div id="zone-warning" style="display:none;margin-top:10px;padding:10px;background:#fff3cd;border:1px solid #ffc107;border-radius:4px;">
+                            <strong>USPS Limit Warning:</strong> This zone exceeds 5,000 households. You'll need to split into multiple campaigns or select a smaller zone.
+                        </div>
                     </td>
                 </tr>
                 <tr>
@@ -572,6 +575,19 @@ function tln_add_campaign_page() {
             </p>
         </form>
 
+        <script>
+        document.getElementById('zone_id').addEventListener('change', function() {
+            var selected = this.options[this.selectedIndex];
+            var households = selected.getAttribute('data-households');
+            var warning = document.getElementById('zone-warning');
+            if (households && parseInt(households) > 5000) {
+                warning.style.display = 'block';
+            } else {
+                warning.style.display = 'none';
+            }
+        });
+        </script>
+
         <?php if ( $campaign ) : ?>
             <hr>
             <h3>Campaign QR Code</h3>
@@ -600,11 +616,16 @@ function tln_zones_page() {
 
     // Handle zone actions
     if ( isset( $_POST['tln_save_zone'] ) && check_admin_referer( 'tln_save_zone_action' ) ) {
+        $zip_codes = sanitize_textarea_field( $_POST['zip_codes'] );
+        
+        // Auto-calculate households from ZIP codes (estimate ~150 HH per ZIP code)
+        $zip_array = array_filter( array_map( 'trim', preg_split( '/[,\s]+/', $zip_codes ) ) );
+        $households = count( $zip_array ) * 150; // Rough estimate
+        
         $data = array(
             'zone_name'    => sanitize_text_field( $_POST['zone_name'] ),
-            'zip_codes'    => sanitize_textarea_field( $_POST['zip_codes'] ),
-            'households'   => intval( $_POST['households'] ),
-            'cost_per_mailer' => floatval( $_POST['cost_per_mailer'] ),
+            'zip_codes'    => $zip_codes,
+            'households'   => $households,
             'status'       => sanitize_text_field( $_POST['status'] )
         );
 
@@ -653,8 +674,7 @@ function tln_zones_page() {
                             <tr>
                                 <th>Zone</th>
                                 <th>ZIPs</th>
-                                <th>Households</th>
-                                <th>Cost</th>
+                                <th>Est. Households</th>
                                 <th>Status</th>
                                 <th>Actions</th>
                             </tr>
@@ -665,7 +685,6 @@ function tln_zones_page() {
                                     <td><strong><?php echo esc_html( $zone->zone_name ); ?></strong></td>
                                     <td><?php echo esc_html( substr( $zone->zip_codes, 0, 30 ) ); ?>...</td>
                                     <td><?php echo number_format( $zone->households ); ?></td>
-                                    <td>$<?php echo number_format( $zone->cost_per_mailer, 2 ); ?></td>
                                     <td>
                                         <span class="tln-badge <?php echo esc_attr( $zone->status ); ?>">
                                             <?php echo esc_html( ucfirst( $zone->status ) ); ?>
@@ -699,15 +718,8 @@ function tln_zones_page() {
                         </tr>
                         <tr>
                             <th scope="row"><label for="zip_codes">ZIP Codes (comma or space separated)</label></th>
-                            <td><textarea name="zip_codes" id="zip_codes" rows="3" class="large-text" required placeholder="28104, 28108, 28173"><?php echo $edit_zone ? esc_textarea( $edit_zone->zip_codes ) : ''; ?></textarea></td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><label for="households">Households</label></th>
-                            <td><input name="households" id="households" type="number" value="<?php echo $edit_zone ? esc_attr( $edit_zone->households ) : 0; ?>"></td>
-                        </tr>
-                        <tr>
-                            <th scope="row"><label for="cost_per_mailer">Cost per Mailer ($)</label></th>
-                            <td><input name="cost_per_mailer" id="cost_per_mailer" type="number" step="0.01" value="<?php echo $edit_zone ? esc_attr( $edit_zone->cost_per_mailer ) : 0.50; ?>"></td>
+                            <td><textarea name="zip_codes" id="zip_codes" rows="3" class="large-text" required placeholder="28104, 28108, 28173"><?php echo $edit_zone ? esc_textarea( $edit_zone->zip_codes ) : ''; ?></textarea>
+                            <p class="description">Households are automatically estimated (~150 per ZIP code).</p></td>
                         </tr>
                         <tr>
                             <th scope="row"><label for="status">Status</label></th>
