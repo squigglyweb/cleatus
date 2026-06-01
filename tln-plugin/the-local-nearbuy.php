@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 4.6 - Add visual spot grid for postcard layout
+Version: 4.6.1 - Fix campaign form defaults
 */
 
 // Create database tables on activation

@@ -669,7 +669,7 @@ function tln_add_campaign_page() {
                 </tr>
                 <tr>
                     <th scope="row"><label for="total_spots">Total Spots</label></th>
-                    <td><input name="total_spots" id="total_spots" type="number" value="<?php echo $campaign ? esc_attr( $campaign->total_spots ) : 9; ?>" min="1" style="width:80px;">
+                    <td><input name="total_spots" id="total_spots" type="number" value="<?php echo $campaign ? esc_attr( $campaign->total_spots ) : 16; ?>" min="1" style="width:80px;">
                         <span class="description">Number of ad spots on this postcard</span></td>
                 </tr>
                 <tr>
@@ -684,7 +684,7 @@ function tln_add_campaign_page() {
                 </tr>
                 <tr>
                     <th scope="row"><label for="campaign_cost">Your Cost ($)</label></th>
-                    <td><input name="campaign_cost" id="campaign_cost" type="number" value="<?php echo $campaign ? esc_attr( $campaign->campaign_cost ) : 2000; ?>" min="0" step="0.01" style="width:100px;">
+                    <td><input name="campaign_cost" id="campaign_cost" type="number" value="<?php echo $campaign ? esc_attr( $campaign->campaign_cost ) : 2400; ?>" min="0" step="0.01" style="width:100px;">
                         <span class="description">Total cost to print and mail this campaign</span></td>
                 </tr>
             </table>
