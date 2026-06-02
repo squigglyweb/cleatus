@@ -188,6 +188,9 @@ function tln_ensure_all_tables() {
             filled_spots int(11) DEFAULT 0,
             price_per_spot decimal(10,2) DEFAULT 450,
             campaign_cost decimal(10,2) DEFAULT 0,
+            meals_local int(11) DEFAULT 0,
+            meals_global int(11) DEFAULT 0,
+            meals4good_fund decimal(10,2) DEFAULT 0,
             created_at datetime DEFAULT CURRENT_TIMESTAMP,
             updated_at datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
             PRIMARY KEY  (id)
@@ -425,6 +428,8 @@ function tln_campaigns_page() {
                         <th>ID</th>
                         <th>Title</th>
                         <th>Status</th>
+                        <th>Spots</th>
+                        <th>Meals</th>
                         <th>Routes</th>
                         <th>Created</th>
                         <th>QR</th>
@@ -438,6 +443,21 @@ function tln_campaigns_page() {
                             <td>
                                 <strong><?php echo esc_html( $camp->title ); ?></strong><br>
                                 <small><?php echo esc_html( substr( $camp->description, 0, 60 ) ); ?>...</small>
+                            </td>
+                            <td>
+                                <?php echo intval($camp->filled_spots); ?> / <?php echo intval($camp->total_spots); ?>
+                            </td>
+                            <td>
+                                <?php
+                                // Calculate meals: $50 per spot = 1 local (7 meals) + 66 global = 73 total
+                                $spots_sold = intval($camp->filled_spots);
+                                $meals_local = $spots_sold * 7; // 7 local meals per spot
+                                $meals_global = $spots_sold * 66; // 66 global meals per spot
+                                $meals_total = $meals_local + $meals_global;
+                                $meals4good = ($spots_sold * 50) - ($meals_local * 4.30) - ($meals_global * 0.30);
+                                ?>
+                                <span style="color:#28a745;font-weight:bold;"><?php echo $meals_total; ?></span><br>
+                                <small style="color:#666;"><?php echo $meals_local; ?> loc / <?php echo $meals_global; ?> gbl</small>
                             </td>
                             <td>
                                 <form method="post" style="margin:0;">

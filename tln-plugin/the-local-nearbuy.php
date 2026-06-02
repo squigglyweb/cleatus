@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 4.8 - Campaign form redesign with design options
+Version: 4.9 - Add meal tracking to campaigns
 */
 
 // Create database tables on activation
