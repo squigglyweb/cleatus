@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 4.7 - Campaign requests in admin dashboard + SMS opt-in
+Version: 4.7.1 - Fix Campaign Requests menu
 */
 
 // Create database tables on activation
@@ -233,6 +233,9 @@ add_action('rest_api_init', function() {
     ));
 });
 
+// Load admin dashboard functions early so they're available for menus
+require_once plugin_dir_path(__FILE__) . 'tln-admin-dashboard.php';
+
 // Add TLN Admin Menu
 function tln_add_admin_menu() {
     add_menu_page(
@@ -243,6 +246,16 @@ function tln_add_admin_menu() {
         'tln_render_dashboard',         // Callback function (from tln-admin-dashboard.php)
         'dashicons-store',              // Icon
         30                              // Position
+    );
+    
+    // Add submenu pages directly here to avoid hook conflicts
+    add_submenu_page(
+        'tln-dashboard',
+        'Campaign Requests',
+        'Campaign Requests',
+        'manage_options',
+        'tln-campaign-requests',
+        'tln_render_campaign_requests'
     );
 }
 add_action('admin_menu', 'tln_add_admin_menu');
@@ -402,8 +415,6 @@ require_once plugin_dir_path(__FILE__) . 'tln-business-dashboard.php';
 require_once plugin_dir_path(__FILE__) . 'tln-admin-campaign.php';
 require_once plugin_dir_path(__FILE__) . 'tln-settings.php';
 require_once plugin_dir_path(__FILE__) . 'tln-offer-landing.php';
-require_once plugin_dir_path(__FILE__) . 'tln-admin-dashboard.php';
-
 // Profile page handler
 if (!is_admin()) {
     add_filter('the_content', 'tln_profile_content');
