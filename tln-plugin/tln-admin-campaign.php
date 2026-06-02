@@ -429,7 +429,8 @@ function tln_campaigns_page() {
                         <th>Title</th>
                         <th>Status</th>
                         <th>Spots</th>
-                        <th>Meals</th>
+                        <th>Guaranteed Meals</th>
+                        <th>Actual</th>
                         <th>Routes</th>
                         <th>Created</th>
                         <th>QR</th>
@@ -458,6 +459,22 @@ function tln_campaigns_page() {
                                 ?>
                                 <span style="color:#28a745;font-weight:bold;"><?php echo $meals_total; ?></span><br>
                                 <small style="color:#666;"><?php echo $meals_local; ?> loc / <?php echo $meals_global; ?> gbl</small>
+                            </td>
+                            <td>
+                                <?php
+                                // Get actual redemptions for this campaign
+                                $voucher_table = $wpdb->prefix . 'tln_vouchers';
+                                $total_vouchers = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM $voucher_table WHERE campaign_id = %d", $camp->id));
+                                $redeemed_vouchers = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM $voucher_table WHERE campaign_id = %d AND redeemed = 1", $camp->id));
+                                $redemption_meals = $redeemed_vouchers * 1; // 1 meal per redemption
+                                $actual_total = $meals_total + $redemption_meals;
+                                ?>
+                                <?php if ($total_vouchers > 0) : ?>
+                                    <span style="color:#1a73e8;font-weight:bold;"><?php echo $redeemed_vouchers; ?> / <?php echo $total_vouchers; ?></span><br>
+                                    <small style="color:#666;">+<?php echo $redemption_meals; ?> meals</small>
+                                <?php else : ?>
+                                    <span style="color:#999;">-</span>
+                                <?php endif; ?>
                             </td>
                             <td>
                                 <form method="post" style="margin:0;">

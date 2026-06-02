@@ -11,6 +11,19 @@ You have conversation history in your sessions but no memory about your human. O
 ## KEY REMINDER
 Before brainstorming ANY new feature, idea, or suggestion - CHECK THIS SECTION FIRST. We have built A LOT. Do not offer to build something that already exists.
 
+## PLUGIN ZIP VERIFICATION (MANDATORY)
+**After EVERY zip file creation, BEFORE telling Bryan to download:**
+1. Verify the zip contains the correct code: `unzip -p tln-plugin.zip the-local-nearbuy.php | head -6`
+2. Verify it has the correct version number
+3. Verify the specific PHP files (tln-admin-campaign.php) contain the new features
+4. Push to GitHub and verify with: `curl -sI "https://raw.githubusercontent.com/squigglyweb/cleatus/main/tln-plugin.zip" | head -3`
+5. If 404, DO NOT give the link - fix before telling Bryan to download
+6. NEVER give a link until curl returns HTTP 200
+
+**Never assume the zip is correct. Verify it.**
+
+This exists because Cleatus once gave Bryan an outdated zip file that caused hours of frustration. Learn from that.
+
 ## ✅ COMPLETED FEATURES (Built & Live)
 
 ### Directory & Listings
@@ -118,12 +131,9 @@ After pushing to GitHub, the link format is:
 - **Can be specific** - "20% OFF this week"
 - Ad runs for specific period, then updates for next period
 
-### Pricing & Profit ($2,400 cost, 9 ad spots)
-- Large (3.8"x8.8"): $900
-- Medium (7.8"x3.8"): $800
-- Small (3.8"x5"): $500
-- Tiny (3.8"x2.5"): $250
-- Target revenue: $4,450 | Profit: ~$2,050
+### Pricing & Profit ($2,400 cost, 16 ad spots)
+- **Current**: $450 per spot, 16 spots total
+- Revenue: $7,200 | Profit: $4,800 per campaign
 
 ### Meal Donation Split
 - 80/20: 80% to Bryan's pocket, 20% to meals

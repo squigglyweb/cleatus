@@ -40,14 +40,28 @@ function tln_offer_shortcode() {
         return '<div style="padding:2rem;text-align:center;"><h2>Offer Expired</h2><p>This offer is no longer valid.</p></div>';
     }
     
-    // Generate unique code for this visitor (session-based)
+    // Generate unique code for this visitor
     if (!session_id()) {
         session_start();
     }
     $session_key = 'tln_offer_code_' . $campaign_id;
     if (!isset($_SESSION[$session_key])) {
         $title = $campaign->title ?? 'OFFER';
-        $_SESSION[$session_key] = strtoupper(substr($title, 0, 3)) . '-' . $campaign_id . '-' . substr(md5(uniqid()), 0, 4);
+        $offer_code = strtoupper(substr($title, 0, 3)) . '-' . $campaign_id . '-' . substr(md5(uniqid()), 0, 4);
+        $_SESSION[$session_key] = $offer_code;
+        
+        // Save voucher to database
+        $voucher_table = $wpdb->prefix . 'tln_vouchers';
+        $wpdb->insert($voucher_table, array(
+            'code' => $offer_code,
+            'campaign_id' => $campaign_id,
+            'business_id' => $campaign->business_id ?: 0,
+            'customer_name' => isset($_POST['name']) ? sanitize_text_field($_POST['name']) : '',
+            'customer_email' => isset($_POST['email']) ? sanitize_email($_POST['email']) : '',
+            'customer_phone' => isset($_POST['phone']) ? sanitize_text_field($_POST['phone']) : '',
+            'source' => 'qr',
+            'created_at' => current_time('mysql')
+        ));
     }
     $offer_code = $_SESSION[$session_key];
     
