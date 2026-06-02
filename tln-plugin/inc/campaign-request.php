@@ -41,6 +41,11 @@ function tln_campaign_request_shortcode($atts) {
             .tln-cr-submit { display: block; width: 100%; padding: 1rem; background: #e63946; color: white; border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
             .tln-cr-submit:hover { background: #c1121f; }
             .tln-cr-submit:disabled { background: #999; cursor: not-allowed; }
+            .tln-cr-optin { background: #f0f7ff; border: 1px solid #d0e3ff; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem; }
+            .tln-cr-optin label { display: flex; align-items: flex-start; gap: 0.75rem; font-weight: 400; cursor: pointer; }
+            .tln-cr-optin input { width: auto; margin-top: 0.25rem; }
+            .tln-cr-optin-note { font-size: 0.75rem; color: #666; margin-top: 0.25rem; margin-left: 1.5rem; }
+            .tln-cr-support { background: #fffbe6; border: 1px solid #ffe066; padding: 0.75rem; border-radius: 6px; margin-bottom: 1.5rem; font-size: 0.85rem; }
             .tln-cr-success { padding: 1.5rem; background: #d4edda; border-radius: 8px; color: #155724; text-align: center; }
             .tln-cr-error { padding: 1rem; background: #f8d7da; border-radius: 8px; color: #721c24; margin-bottom: 1rem; }
         </style>
@@ -97,6 +102,18 @@ function tln_campaign_request_shortcode($atts) {
                     <textarea id="tln_message" name="tln_message" placeholder="What do you want to promote? Any special offers? What's your target area?"></textarea>
                 </div>
                 
+                <div class="tln-cr-support">
+                    <strong>Need help?</strong> Text us at (704) 555-0123 — we're here to help you get the most out of your campaign.
+                </div>
+                
+                <div class="tln-cr-optin">
+                    <label>
+                        <input type="checkbox" name="tln_sms_optin" value="yes">
+                        <span>Yes, I want to receive text updates about my campaign</span>
+                    </label>
+                    <p class="tln-cr-optin-note">Message & data rates may apply. Reply STOP to opt out.</p>
+                </div>
+                
                 <button type="submit" name="tln_submit_campaign" class="tln-cr-submit">Submit Request</button>
             </form>
         </div>
@@ -114,6 +131,7 @@ function tln_process_campaign_request() {
     $phone = sanitize_text_field($_POST['tln_phone']);
     $campaign_type = sanitize_text_field($_POST['tln_campaign_type']);
     $message = sanitize_textarea_field($_POST['tln_message']);
+    $sms_optin = isset($_POST['tln_sms_optin']) ? 'yes' : 'no';
     
     // Validation
     if (empty($business_name) || empty($contact_name) || empty($email)) {
@@ -130,6 +148,7 @@ function tln_process_campaign_request() {
         'phone' => $phone,
         'campaign_type' => $campaign_type,
         'message' => $message,
+        'sms_optin' => $sms_optin,
         'status' => 'new',
         'created_at' => current_time('mysql')
     ));
@@ -203,6 +222,7 @@ function tln_create_campaign_requests_table() {
         phone VARCHAR(50),
         campaign_type VARCHAR(50),
         message TEXT,
+        sms_optin VARCHAR(3) DEFAULT 'no',
         status VARCHAR(50) DEFAULT 'new',
         assigned_to BIGINT(20),
         notes TEXT,

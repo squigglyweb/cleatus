@@ -59,6 +59,16 @@ function tln_register_dashboard_page() {
         'tln-claims',
         'tln_render_claims'
     );
+    
+    // Campaign Requests
+    add_submenu_page(
+        'tln-dashboard',
+        'Campaign Requests',
+        'Campaign Requests',
+        'manage_options',
+        'tln-campaign-requests',
+        'tln_render_campaign_requests'
+    );
 }
 add_action('admin_menu', 'tln_register_dashboard_page');
 
@@ -767,6 +777,139 @@ function tln_render_claims() {
         </table>
         <?php else: ?>
         <p style="color:#666;">No approved claims yet.</p>
+        <?php endif; ?>
+    </div>
+    <?php
+}
+
+/**
+ * Render Campaign Requests page
+ */
+function tln_render_campaign_requests() {
+    global $wpdb;
+    
+    $table_name = $wpdb->prefix . 'tln_campaign_requests';
+    
+    // Handle status update
+    if (isset($_POST['tln_update_status']) && isset($_POST['request_id'])) {
+        $request_id = intval($_POST['request_id']);
+        $new_status = sanitize_text_field($_POST['status']);
+        $notes = sanitize_textarea_field($_POST['notes']);
+        
+        $wpdb->update(
+            $table_name,
+            array('status' => $new_status, 'notes' => $notes, 'updated_at' => current_time('mysql')),
+            array('id' => $request_id)
+        );
+        echo '<div class="notice notice-success"><p>Request updated.</p></div>';
+    }
+    
+    // Get all requests
+    $requests = $wpdb->get_results("SELECT * FROM $table_name ORDER BY created_at DESC");
+    $new_count = $wpdb->get_var("SELECT COUNT(*) FROM $table_name WHERE status = 'new'");
+    $contacted_count = $wpdb->get_var("SELECT COUNT(*) FROM $table_name WHERE status = 'contacted'");
+    $scheduled_count = $wpdb->get_var("SELECT COUNT(*) FROM $table_name WHERE status = 'scheduled'");
+    $completed_count = $wpdb->get_var("SELECT COUNT(*) FROM $table_name WHERE status = 'completed'");
+    
+    ?>
+    <div class="wrap tln-campaign-requests">
+        <h1>Campaign Requests</h1>
+        
+        <!-- Status Summary -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem;">
+            <div style="background:#fff3cd;border-radius:8px;padding:1rem;text-align:center;">
+                <div style="font-size:2rem;font-weight:bold;color:#856404;"><?php echo intval($new_count); ?></div>
+                <div style="color:#856404;">New</div>
+            </div>
+            <div style="background:#cce5ff;border-radius:8px;padding:1rem;text-align:center;">
+                <div style="font-size:2rem;font-weight:bold;color:#004085;"><?php echo intval($contacted_count); ?></div>
+                <div style="color:#004085;">Contacted</div>
+            </div>
+            <div style="background:#d4edda;border-radius:8px;padding:1rem;text-align:center;">
+                <div style="font-size:2rem;font-weight:bold;color:#155724;"><?php echo intval($scheduled_count); ?></div>
+                <div style="color:#155724;">Scheduled</div>
+            </div>
+            <div style="background:#e2e3e5;border-radius:8px;padding:1rem;text-align:center;">
+                <div style="font-size:2rem;font-weight:bold;color:#383d41;"><?php echo intval($completed_count); ?></div>
+                <div style="color:#383d41;">Completed</div>
+            </div>
+        </div>
+        
+        <?php if (count($requests) > 0): ?>
+        <table class="widefat" style="background:white;">
+            <thead>
+                <tr>
+                    <th>Business</th>
+                    <th>Contact</th>
+                    <th>Email / Phone</th>
+                    <th>Campaign Type</th>
+                    <th>SMS</th>
+                    <th>Message</th>
+                    <th>Submitted</th>
+                    <th>Status</th>
+                    <th>Notes</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($requests as $req): ?>
+                <tr>
+                    <td><strong><?php echo esc_html($req->business_name); ?></strong></td>
+                    <td><?php echo esc_html($req->contact_name); ?></td>
+                    <td>
+                        <a href="mailto:<?php echo esc_attr($req->email); ?>"><?php echo esc_html($req->email); ?></a>
+                        <?php if ($req->phone): ?><br><?php echo esc_html($req->phone); ?><?php endif; ?>
+                    </td>
+                    <td><?php echo esc_html($req->campaign_type); ?></td>
+                    <td><?php echo $req->sms_optin === 'yes' ? '<span style="background:#d4edda;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.75rem;">Yes</span>' : '<span style="color:#999;">No</span>'; ?></td>
+                    <td><?php echo esc_html($req->message); ?></td>
+                    <td><?php echo esc_html($req->created_at); ?></td>
+                    <td>
+                        <?php
+                        $status_colors = array(
+                            'new' => '#fff3cd',
+                            'contacted' => '#cce5ff',
+                            'scheduled' => '#d4edda',
+                            'completed' => '#e2e3e5'
+                        );
+                        $bg = isset($status_colors[$req->status]) ? $status_colors[$req->status] : '#f8f9fa';
+                        ?>
+                        <span style="background:<?php echo $bg; ?>;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.85rem;">
+                            <?php echo esc_html(ucfirst($req->status)); ?>
+                        </span>
+                    </td>
+                    <td><?php echo esc_html($req->notes); ?></td>
+                    <td>
+                        <button class="button" onclick="jQuery('#edit-<?php echo $req->id; ?>').toggle()">Edit</button>
+                        <div id="edit-<?php echo $req->id; ?>" style="display:none;position:absolute;background:white;border:1px solid #ccc;padding:1rem;border-radius:8px;z-index:100;width:300px;box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+                            <form method="post">
+                                <input type="hidden" name="request_id" value="<?php echo $req->id; ?>">
+                                <div style="margin-bottom:0.75rem;">
+                                    <label style="display:block;font-weight:600;margin-bottom:0.25rem;">Status</label>
+                                    <select name="status" style="width:100%;">
+                                        <option value="new" <?php selected($req->status, 'new'); ?>>New</option>
+                                        <option value="contacted" <?php selected($req->status, 'contacted'); ?>>Contacted</option>
+                                        <option value="scheduled" <?php selected($req->status, 'scheduled'); ?>>Scheduled</option>
+                                        <option value="completed" <?php selected($req->status, 'completed'); ?>>Completed</option>
+                                    </select>
+                                </div>
+                                <div style="margin-bottom:0.75rem;">
+                                    <label style="display:block;font-weight:600;margin-bottom:0.25rem;">Notes</label>
+                                    <textarea name="notes" rows="3" style="width:100%;"><?php echo esc_textarea($req->notes); ?></textarea>
+                                </div>
+                                <button type="submit" name="tln_update_status" class="button button-primary">Save</button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <?php else: ?>
+        <div style="background:#d4edda;border-radius:8px;padding:2rem;text-align:center;">
+            <p style="margin:0;font-size:1.1rem;"><strong>No campaign requests yet.</strong></p>
+            <p style="margin:0.5rem 0 0;color:#666;">Share your campaign request form to start getting submissions!</p>
+        </div>
         <?php endif; ?>
     </div>
     <?php
