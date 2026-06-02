@@ -46,18 +46,76 @@ function tln_campaign_request_shortcode($atts) {
             .tln-cr-optin input { width: auto; margin-top: 0.25rem; }
             .tln-cr-optin-note { font-size: 0.75rem; color: #666; margin-top: 0.25rem; margin-left: 1.5rem; }
             .tln-cr-support { background: #fffbe6; border: 1px solid #ffe066; padding: 0.75rem; border-radius: 6px; margin-bottom: 1.5rem; font-size: 0.85rem; }
+            .tln-cr-campaign-info { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); color: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
+            .tln-cr-campaign-info h3 { color: white; margin: 0 0 1rem; font-size: 1.1rem; }
+            .tln-cr-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; text-align: center; }
+            .tln-cr-stat { background: rgba(255,255,255,0.1); border-radius: 8px; padding: 0.75rem; }
+            .tln-cr-stat-num { font-size: 1.5rem; font-weight: 700; color: #e63946; }
+            .tln-cr-stat-label { font-size: 0.75rem; opacity: 0.85; }
+            .tln-cr-design-options { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+            .tln-cr-design-btn { border: 2px solid #ddd; border-radius: 8px; padding: 1rem; text-align: center; cursor: pointer; transition: all 0.2s; }
+            .tln-cr-design-btn:hover { border-color: #aaa; }
+            .tln-cr-design-btn.selected { border-color: #e63946; background: #fef2f2; }
+            .tln-cr-design-btn h4 { margin: 0 0 0.25rem; font-size: 0.95rem; }
+            .tln-cr-design-btn .price { color: #e63946; font-weight: 700; font-size: 0.85rem; }
+            .tln-cr-flow { background: #f0f7ff; border: 2px solid #d0e3ff; border-radius: 12px; padding: 1rem; margin-bottom: 1.5rem; }
+            .tln-cr-flow-title { font-size: 0.8rem; color: #004085; margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
+            .tln-cr-flow-steps { display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+            .tln-cr-flow-step { background: white; border: 2px solid #1a1a2e; border-radius: 50%; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.8rem; }
+            .tln-cr-flow-arrow { color: #999; font-size: 1rem; }
+            @media (max-width: 500px) { .tln-cr-design-options, .tln-cr-stats { grid-template-columns: 1fr; } }
             .tln-cr-success { padding: 1.5rem; background: #d4edda; border-radius: 8px; color: #155724; text-align: center; }
             .tln-cr-error { padding: 1rem; background: #f8d7da; border-radius: 8px; color: #721c24; margin-bottom: 1rem; }
         </style>
         
+        <?php
+    // Get active campaign info
+    global $wpdb;
+    $campaigns_table = $wpdb->prefix . 'tln_campaigns';
+    $active_campaign = $wpdb->get_row("SELECT * FROM $campaigns_table WHERE workflow_status IN ('setup','printing','mailing') ORDER BY created_at DESC LIMIT 1");
+    ?>
         <div class="tln-cr-header">
-            <h2>Request a Campaign</h2>
-            <p>Get started with affordable local advertising</p>
+            <h2>Join the Campaign</h2>
+            <p>Get your business in front of thousands of local households</p>
+        </div>
+        
+        <?php if ($active_campaign): ?>
+        <div class="tln-cr-campaign-info">
+            <h3>Next Campaign: <?php echo esc_html($active_campaign->title); ?></h3>
+            <div class="tln-cr-stats">
+                <div class="tln-cr-stat">
+                    <div class="tln-cr-stat-num"><?php echo intval($active_campaign->total_spots - $active_campaign->filled_spots); ?></div>
+                    <div class="tln-cr-stat-label">Spots Available</div>
+                </div>
+                <div class="tln-cr-stat">
+                    <div class="tln-cr-stat-num">$<?php echo intval($active_campaign->price_per_spot); ?></div>
+                    <div class="tln-cr-stat-label">Per Spot</div>
+                </div>
+                <div class="tln-cr-stat">
+                    <div class="tln-cr-stat-num"><?php echo $active_campaign->offer_valid_days ? esc_html($active_campaign->offer_valid_days) : '30'; ?></div>
+                    <div class="tln-cr-stat-label">Days Valid</div>
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>
+        
+        <div class="tln-cr-flow">
+            <div class="tln-cr-flow-title">How It Works</div>
+            <div class="tln-cr-flow-steps">
+                <div class="tln-cr-flow-step">1</div><span class="tln-cr-flow-arrow">→</span>
+                <div class="tln-cr-flow-step">2</div><span class="tln-cr-flow-arrow">→</span>
+                <div class="tln-cr-flow-step">3</div><span class="tln-cr-flow-arrow">→</span>
+                <div class="tln-cr-flow-step">4</div><span class="tln-cr-flow-arrow">→</span>
+                <div class="tln-cr-flow-step">5</div>
+            </div>
+            <div style="display:flex;justify-content:center;gap:1rem;margin-top:0.5rem;font-size:0.7rem;color:#666;flex-wrap:wrap;">
+                <span>Request</span><span>Pay</span><span>Design</span><span>Print</span><span>Live</span>
+            </div>
         </div>
         
         <div class="tln-cr-content">
             <div class="tln-cr-note">
-                <strong>How it works:</strong> Fill out this form and we'll be in touch within 24 hours to discuss your campaign options, pricing, and get you on the schedule.
+                <strong>What happens next:</strong> We'll review your request within 24 hours. You'll receive a payment link. Once paid, we'll create your ad or confirm yours. That's it!
             </div>
             
             <form method="post" class="tln-cr-form">
@@ -98,8 +156,39 @@ function tln_campaign_request_shortcode($atts) {
                 </div>
                 
                 <div class="tln-cr-form-group">
-                    <label for="tln_message">Tell us about your business and goals</label>
-                    <textarea id="tln_message" name="tln_message" placeholder="What do you want to promote? Any special offers? What's your target area?"></textarea>
+                    <label for="tln_offer">Your Offer (what prints on the postcard) *</label>
+                    <textarea id="tln_offer" name="tln_offer" required placeholder="e.g., Free appetizer with entree purchase of $25+"></textarea>
+                    <p style="font-size:0.75rem;color:#666;margin-top:0.25rem;">Keep it simple: 'Free X with Y purchase' works best.</p>
+                </div>
+                
+                <div class="tln-cr-form-group">
+                    <label>How would you like your ad designed? *</label>
+                    <div class="tln-cr-design-options">
+                        <div class="tln-cr-design-btn" data-design="upload" onclick="jQuery(this).siblings().removeClass('selected');jQuery(this).addClass('selected');jQuery('#tln_design_option').val('upload');jQuery('#tln-upload-section').show();jQuery('#tln-design-section').hide();">
+                            <h4>I have my own ad</h4>
+                            <div class="price">You provide the art</div>
+                        </div>
+                        <div class="tln-cr-design-btn selected" data-design="design" onclick="jQuery(this).siblings().removeClass('selected');jQuery(this).addClass('selected');jQuery('#tln_design_option').val('design');jQuery('#tln-upload-section').hide();jQuery('#tln-design-section').show();">
+                            <h4>Design it for me</h4>
+                            <div class="price">$50 (we create it)</div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="tln_design_option" name="tln_design_option" value="design">
+                </div>
+                
+                <div id="tln-upload-section" style="display:none;">
+                    <div class="tln-cr-form-group">
+                        <label for="tln_ad_image">Upload Your Ad</label>
+                        <input type="file" id="tln_ad_image" name="tln_ad_image" accept="image/*">
+                        <p style="font-size:0.75rem;color:#666;">PNG/JPG. 4"×3" at 300dpi recommended.</p>
+                    </div>
+                </div>
+                
+                <div id="tln-design-section">
+                    <div class="tln-cr-form-group">
+                        <label for="tln_tagline">Tagline (optional)</label>
+                        <input type="text" id="tln_tagline" name="tln_tagline" placeholder="e.g., Serving Waxhaw since 1987">
+                    </div>
                 </div>
                 
                 <div class="tln-cr-support">
@@ -129,8 +218,10 @@ function tln_process_campaign_request() {
     $contact_name = sanitize_text_field($_POST['tln_contact_name']);
     $email = sanitize_email($_POST['tln_email']);
     $phone = sanitize_text_field($_POST['tln_phone']);
-    $campaign_type = sanitize_text_field($_POST['tln_campaign_type']);
-    $message = sanitize_textarea_field($_POST['tln_message']);
+    $campaign_type = 'postcard';
+    $offer = sanitize_textarea_field($_POST['tln_offer']);
+    $design_option = sanitize_text_field($_POST['tln_design_option']);
+    $tagline = sanitize_text_field($_POST['tln_tagline']);
     $sms_optin = isset($_POST['tln_sms_optin']) ? 'yes' : 'no';
     
     // Validation
@@ -147,7 +238,8 @@ function tln_process_campaign_request() {
         'email' => $email,
         'phone' => $phone,
         'campaign_type' => $campaign_type,
-        'message' => $message,
+        'message' => $offer,
+        'notes' => 'Design: ' . $design_option . ' | Tagline: ' . $tagline,
         'sms_optin' => $sms_optin,
         'status' => 'new',
         'created_at' => current_time('mysql')
