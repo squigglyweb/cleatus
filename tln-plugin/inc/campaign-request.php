@@ -91,9 +91,9 @@ function tln_campaign_request_shortcode($atts) {
                     <div class="tln-cr-stat-num">$<?php echo intval($active_campaign->price_per_spot); ?></div>
                     <div class="tln-cr-stat-label">Per Spot</div>
                 </div>
-                <div class="tln-cr-stat">
-                    <div class="tln-cr-stat-num"><?php echo $active_campaign->offer_valid_days ? esc_html($active_campaign->offer_valid_days) : '30'; ?></div>
-                    <div class="tln-cr-stat-label">Days Valid</div>
+                <div class="tln-cr-stat" style="grid-column:span 2;background:rgba(40,167,69,0.2);border:2px solid #28a745;">
+                    <div class="tln-cr-stat-num" style="color:#28a745;">INCLUDED</div>
+                    <div class="tln-cr-stat-label">Design + Meals Donated</div>
                 </div>
             </div>
         </div>
@@ -170,7 +170,7 @@ function tln_campaign_request_shortcode($atts) {
                         </div>
                         <div class="tln-cr-design-btn selected" data-design="design" onclick="jQuery(this).siblings().removeClass('selected');jQuery(this).addClass('selected');jQuery('#tln_design_option').val('design');jQuery('#tln-upload-section').hide();jQuery('#tln-design-section').show();">
                             <h4>Design it for me</h4>
-                            <div class="price">$50 (we create it)</div>
+                            <div class="price">Included</div>
                         </div>
                     </div>
                     <input type="hidden" id="tln_design_option" name="tln_design_option" value="design">
