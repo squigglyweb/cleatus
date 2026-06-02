@@ -1,20 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Postcard Campaign - The Local NearBuy</title>
+    <title>Join the Campaign - The Local NearBuy</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Open Sans', sans-serif; background: #f5f5f5; color: #1a1a1a; padding: 2rem 1rem; }
+        body { font-family: 'Open Sans', sans-serif; background: #f5f5f5; color: #1a1a1a; padding: 2rem 1rem; line-height: 1.6; }
         :root { --red: #e63946; --black: #1a1a1a; }
         
-        .container { max-width: 600px; margin: 0 auto; }
+        .container { max-width: 700px; margin: 0 auto; }
         h1 { font-size: 1.75rem; margin-bottom: 0.5rem; }
         .subtitle { color: #666; margin-bottom: 2rem; }
         
         .card { background: white; border-radius: 12px; padding: 2rem; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        
+        /* Campaign Info Box */
+        .campaign-info { 
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); 
+            color: white; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;
+        }
+        .campaign-info h2 { color: white; margin-bottom: 1rem; font-size: 1.25rem; }
+        .campaign-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; text-align: center; }
+        .stat-box { background: rgba(255,255,255,0.1); border-radius: 8px; padding: 1rem; }
+        .stat-number { font-size: 1.75rem; font-weight: 700; color: var(--red); }
+        .stat-label { font-size: 0.8rem; opacity: 0.85; }
+        
+        /* Flow Animation */
+        .flow-diagram { 
+            background: #f0f7ff; border: 2px solid #d0e3ff; border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; 
+        }
+        .flow-diagram h3 { font-size: 0.9rem; color: #004085; margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 1px; }
+        .flow-steps { display: flex; align-items: center; justify-content: center; gap: 0.5rem; flex-wrap: wrap; }
+        .flow-step { 
+            background: white; border: 2px solid #1a1a2e; border-radius: 50%; width: 50px; height: 50px; 
+            display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; 
+        }
+        .flow-step.active { background: var(--red); border-color: var(--red); color: white; }
+        .flow-arrow { color: #999; font-size: 1.25rem; }
         
         .form-group { margin-bottom: 1.25rem; }
         label { display: block; font-weight: 600; margin-bottom: 0.5rem; font-size: 0.9rem; }
@@ -24,23 +48,17 @@
         }
         input:focus, select:focus, textarea:focus { outline: none; border-color: var(--red); }
         
-        .spots-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem; margin-bottom: 1.5rem; }
-        .spot-btn { 
-            border: 2px solid #ddd; border-radius: 8px; padding: 0.75rem; text-align: center; 
-            cursor: pointer; transition: all 0.2s; font-size: 0.9rem;
-        }
-        .spot-btn:hover { border-color: #aaa; }
-        .spot-btn.selected { border-color: var(--red); background: #fef2f2; color: var(--red); font-weight: 700; }
-        
-        .coverage-options { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
-        .coverage-btn { 
+        .design-options { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+        .design-btn { 
             border: 2px solid #ddd; border-radius: 8px; padding: 1rem; text-align: center; 
             cursor: pointer; transition: all 0.2s;
         }
-        .coverage-btn:hover { border-color: #aaa; }
-        .coverage-btn.selected { border-color: var(--red); background: #fef2f2; }
-        .coverage-btn h3 { font-size: 1rem; margin-bottom: 0.25rem; }
-        .coverage-btn .price { color: var(--red); font-weight: 700; }
+        .design-btn:hover { border-color: #aaa; }
+        .design-btn.selected { border-color: var(--red); background: #fef2f2; }
+        .design-btn h4 { font-size: 1rem; margin-bottom: 0.25rem; }
+        .design-btn .price { color: var(--red); font-weight: 700; }
+        
+        .file-hint { font-size: 0.8rem; color: #666; margin-top: 0.25rem; }
         
         .submit-btn { 
             width: 100%; padding: 1rem; background: var(--red); color: white; 
@@ -58,12 +76,65 @@
         .optin-note { font-size: 0.75rem; color: #666; margin-top: 0.25rem; margin-left: 1.5rem; }
         
         .support-note { margin-top: 1rem; padding: 0.75rem; background: #fffbe6; border-radius: 6px; border: 1px solid #ffe066; font-size: 0.85rem; }
+        
+        .trust-badges { display: flex; justify-content: center; gap: 2rem; margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid #eee; }
+        .badge { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: #666; }
+        .badge svg { width: 20px; height: 20px; fill: var(--red); }
+        
+        @media (max-width: 500px) {
+            .campaign-stats { grid-template-columns: 1fr; }
+            .design-options { grid-template-columns: 1fr; }
+            .flow-steps { gap: 0.25rem; }
+            .flow-step { width: 40px; height: 40px; font-size: 0.75rem; }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Postcard Campaign - The Local NearBuy</h1>
-        <p class="subtitle">Reach thousands of local households with your business.</p>
+        <h1>Join the Campaign - The Local NearBuy</h1>
+        <p class="subtitle">Get your business in front of thousands of local households.</p>
+        
+        <!-- Campaign Info (Read-Only) -->
+        <div class="campaign-info">
+            <h2>Next Campaign: June 2026 — Waxhaw Area</h2>
+            <div class="campaign-stats">
+                <div class="stat-box">
+                    <div class="stat-number">15,000</div>
+                    <div class="stat-label">Households</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Spots Available</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number">$450</div>
+                    <div class="stat-label">Per Spot</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Flow Diagram -->
+        <div class="flow-diagram">
+            <h3>How It Works</h3>
+            <div class="flow-steps">
+                <div class="flow-step">1</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">2</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">3</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">4</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">5</div>
+            </div>
+            <div style="display:flex;justify-content:center;gap:1.5rem;margin-top:0.75rem;font-size:0.8rem;color:#666;flex-wrap:wrap;">
+                <span>Submit Request</span>
+                <span>Review & Pay</span>
+                <span>Design</span>
+                <span>Print & Mail</span>
+                <span>Customers Scan</span>
+            </div>
+        </div>
         
         <div class="card">
             <form id="campaignForm">
@@ -83,43 +154,14 @@
                 </div>
                 
                 <div class="form-group">
-                    <label>Phone</label>
-                    <input type="tel" name="phone" placeholder="(704) 555-0123">
+                    <label>Phone *</label>
+                    <input type="tel" name="phone" required placeholder="(704) 555-0123">
                 </div>
                 
                 <div class="form-group">
-                    <label>How Many Spots? *</label>
-                    <div class="spots-grid">
-                        <div class="spot-btn" data-value="1">1</div>
-                        <div class="spot-btn" data-value="2">2</div>
-                        <div class="spot-btn" data-value="4">4</div>
-                        <div class="spot-btn" data-value="8">8</div>
-                        <div class="spot-btn" data-value="12">12</div>
-                        <div class="spot-btn" data-value="16">Full (16)</div>
-                    </div>
-                    <input type="hidden" name="spots" id="spots" required>
-                    <p style="font-size: 0.8rem; color: #667; margin-top: 0.5rem;">$450 per spot. More spots = more visibility.</p>
-                </div>
-                
-                <div class="form-group">
-                    <label>Coverage Area *</label>
-                    <div class="coverage-options">
-                        <div class="coverage-btn" data-coverage="waxhaw" style="padding: 0.75rem;">
-                            <h3>Waxhaw</h3>
-                            <div class="price">5,000 households</div>
-                        </div>
-                        <div class="coverage-btn" data-coverage="extended" style="padding: 0.75rem;">
-                            <h3>Extended</h3>
-                            <div class="price">15,000+ households</div>
-                        </div>
-                    </div>
-                    <input type="hidden" name="coverage" id="coverage" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>Your Offer (what customers see when they scan)</label>
-                    <textarea name="offer" rows="3" placeholder="e.g., Free appetizer with entree purchase"></textarea>
-                    <p style="font-size: 0.75rem; color: #666; margin-top: 0.25rem;">Leave blank for generic copy. We'll create something that works.</p>
+                    <label>Your Offer (what customers see when they scan) *</label>
+                    <textarea name="offer" rows="3" required placeholder="e.g., Free appetizer with entree purchase of $25+"></textarea>
+                    <p style="font-size: 0.75rem; color: #666; margin-top: 0.25rem;">This is what prints on the postcard. Keep it simple: "Free X with Y purchase" works best.</p>
                 </div>
                 
                 <div class="form-group">
@@ -127,52 +169,102 @@
                     <input type="url" name="website" placeholder="https://">
                 </div>
                 
+                <div class="form-group">
+                    <label>How would you like your ad designed? *</label>
+                    <div class="design-options">
+                        <div class="design-btn" data-design="upload" style="padding: 0.75rem;">
+                            <h4>I have my own ad</h4>
+                            <div class="price">You provide the art</div>
+                        </div>
+                        <div class="design-btn selected" data-design="design" style="padding: 0.75rem;">
+                            <h4>Design it for me</h4>
+                            <div class="price">$50 (we create it)</div>
+                        </div>
+                    </div>
+                    <input type="hidden" name="design_option" id="design_option" value="design">
+                </div>
+                
+                <div id="upload-section" style="display:none;">
+                    <div class="form-group">
+                        <label>Upload Your Ad</label>
+                        <input type="file" name="ad_image" accept="image/*">
+                        <p class="file-hint">PNG or JPG. Recommended: 4" × 3" at 300dpi. We'll review and confirm if it works.</p>
+                    </div>
+                </div>
+                
+                <div id="design-section">
+                    <div class="form-group">
+                        <label>Tagline or special message (if any)</label>
+                        <input type="text" name="tagline" placeholder="e.g., Serving Waxhaw since 1987">
+                    </div>
+                </div>
+                
                 <div class="support-note">
-                    <strong>Need help?</strong> Text us at (833) 632-7289 — we're here to help you get the most out of your campaign.
+                    <strong>Need help?</strong> Text us at (704) 555-0123 — we're here to help you get the most out of your campaign.
                 </div>
                 
                 <div class="form-group optin-group">
                     <label class="checkbox-label">
                         <input type="checkbox" name="sms_optin" value="yes">
-                        <span>Yes, I want to receive text updates about my campaign</span>
+                        <span>Yes, send me text updates about my campaign</span>
                     </label>
                     <p class="optin-note">Message & data rates may apply. Reply STOP to opt out.</p>
                 </div>
                 
-                <button type="submit" class="submit-btn">Request Campaign</button>
+                <button type="submit" class="submit-btn">Request to Join Campaign</button>
             </form>
             
             <div class="note">
-                <strong>What's next?</strong> We'll review your request and get back to you within 24 hours. Each campaign includes a custom QR code, offer landing page, and redemption tracking dashboard.
+                <strong>What happens next?</strong><br>
+                1. We'll review your request within 24 hours<br>
+                2. You'll receive a payment link via email<br>
+                3. Once paid, we'll create your ad (or confirm yours)<br>
+                4. Your spot is confirmed when the postcards mail
+            </div>
+            
+            <div class="trust-badges">
+                <div class="badge">
+                    <svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+                    <span>Trusted by 50+ local businesses</span>
+                </div>
+                <div class="badge">
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                    <span>Trackable results</span>
+                </div>
+                <div class="badge">
+                    <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    <span>Feeds local families</span>
+                </div>
             </div>
         </div>
     </div>
     
     <script>
-        // Spot selection
-        document.querySelectorAll('.spot-btn').forEach(function(btn) {
+        // Design option selection
+        document.querySelectorAll('.design-btn').forEach(function(btn) {
             btn.addEventListener('click', function() {
-                document.querySelectorAll('.spot-btn').forEach(function(b) { b.classList.remove('selected'); });
+                document.querySelectorAll('.design-btn').forEach(function(b) { b.classList.remove('selected'); });
                 btn.classList.add('selected');
-                document.getElementById('spots').value = btn.dataset.value;
-            });
-        });
-        
-        // Coverage selection
-        document.querySelectorAll('.coverage-btn').forEach(function(btn) {
-            btn.addEventListener('click', function() {
-                document.querySelectorAll('.coverage-btn').forEach(function(b) { b.classList.remove('selected'); });
-                btn.classList.add('selected');
-                document.getElementById('coverage').value = btn.dataset.coverage;
+                document.getElementById('design_option').value = btn.dataset.design;
+                
+                if (btn.dataset.design === 'upload') {
+                    document.getElementById('upload-section').style.display = 'block';
+                    document.getElementById('design-section').style.display = 'none';
+                } else {
+                    document.getElementById('upload-section').style.display = 'none';
+                    document.getElementById('design-section').style.display = 'block';
+                }
             });
         });
         
         // Form submit
         document.getElementById('campaignForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            alert('Thank you! Your campaign request has been submitted. We\'ll be in touch soon.');
+            alert('Thank you! Your request has been submitted. We\'ll be in touch within 24 hours.');
             this.reset();
-            document.querySelectorAll('.spot-btn, .coverage-btn').forEach(function(b) { b.classList.remove('selected'); });
+            document.querySelectorAll('.design-btn').forEach(function(b) { b.classList.remove('selected'); });
+            document.querySelector('.design-btn[data-design="design"]').classList.add('selected');
+            document.getElementById('design_option').value = 'design';
         });
     </script>
 </body>
