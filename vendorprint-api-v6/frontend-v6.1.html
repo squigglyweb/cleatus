@@ -448,6 +448,13 @@ input,textarea,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-ra
  if(t.id==='showFront'){state.side='front';render();return;}
  if(t.id==='showBack'){state.side='back';render();return;}
  if(t.id==='openPreview'){openLB({...state.draft,mode:state.mode});return;}
+ if(t.id==='newCard'){
+ const keepShipTo=state.draft.shipTo||'';
+ const keepQty=state.draft.qty||250;
+ const keepApprover=state.draft.approverName||'';
+ state.draft={name:'',title:'',emailFront:'',office:'',cell:'',shipTo:keepShipTo,qty:keepQty,approverName:keepApprover,frontApprovedBy:'',frontAt:'',backApprovedBy:'',backAt:'',id:'',proofFrontData:'',proofBackData:'',proofFrontUrl:'',proofBackUrl:''};
+ state.side='front';render();return;
+ }
  const thumb=t.closest('[data-lb]');if(thumb){openLB(state.pending[+thumb.dataset.lb]);return;}
 
  if(t.id==='approveFront'){
@@ -537,37 +544,8 @@ if(t.id==='addToOrder'){
  function openLB(item,keep=false){
  state.lbItem=item;if(!keep)state.lbSide='front';
  const lb=document.getElementById('bcLB'),f=document.getElementById('lbFaceFront'),b=document.getElementById('lbFaceBack');
-
- if(t.id==='newCard'){
- // Keep Ship To + Qty + Approver name for speed
- const keepShipTo=state.draft.shipTo||'';
- const keepQty=state.draft.qty||250;
- const keepApprover=state.draft.approverName||'';
-
- state.draft={
- name:'',
- title:'',
- emailFront:'',
- office:'',
- cell:'',
- shipTo:keepShipTo,
- qty:keepQty,
- approverName:keepApprover,
- frontApprovedBy:'',
- frontAt:'',
- backApprovedBy:'',
- backAt:'',
- id:'',
- proofFrontData:'',
- proofBackData:'',
- proofFrontUrl:'',
- proofBackUrl:''
- };
- state.side='front';
- render();
- return;
-}
- f.style.backgroundImage=`url('${IMG[item.mode||'field'].front}')`;b.style.backgroundImage=`url('${IMG[item.mode||'field'].back}')`;
+ if(!lb||!f||!b) return;
+ f.style.backgroundImage=`url('${(IMG[item.mode]||IMG.field).front}')`;b.style.backgroundImage=`url('${(IMG[item.mode]||IMG.field).back}')`;
  setLBSide(state.lbSide,true);state.lbOpen=true;lb.classList.add('show');drawLBFront();
  }
  function closeLB(){state.lbOpen=false;state.lbItem=null;document.getElementById('bcLB')?.classList.remove('show');}
