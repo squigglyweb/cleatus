@@ -569,8 +569,30 @@ function tln_validate_endpoint() {
     if (!$code) wp_send_json_error(['msg' => 'Missing code']);
     global $wpdb;
     $voucher = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}tln_vouchers WHERE code = %s", $code));
-    if (!$voucher) wp_send_json_error(['msg' => 'Invalid code']);
-    if ($voucher->redeemed) wp_send_json_error(['msg' => 'Already redeemed']);
+    if (!$voucher) wp_send_json_error(['msg' => 'Invalid code. This voucher does not exist.']);
+    if ($voucher->redeemed) wp_send_json_error(['msg' => 'Already redeemed on ' . date('M j, Y', strtotime($voucher->redeemed_at))]);
+    
+    // Get campaign and business info
+    $campaign = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}tln_campaigns WHERE id = %d", $voucher->campaign_id));
+    $claim = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}tln_claims WHERE id = %d", $voucher->business_id));
+    
+    // Get owner photo
+    $owner_photo = $claim ? get_post_meta($claim->id, 'tln_owner_photo', true) : '';
+    
+    // Check expiry
+    $expires = strtotime($voucher->expires);
+    $now = current_time('timestamp');
+    $days_left = ceil(($expires - $now) / (24 * 60 * 60));
+    $is_expired = $days_left <= 0;
+    
+    if ($is_expired) {
+        wp_send_json_error(['msg' => 'This voucher expired on ' . date('M j, Y', $expires)]);
+    }
+    
+    // Get business name and offer
+    $business_name = $claim ? $claim->business_name : 'Unknown Business';
+    $offer_text = $campaign ? ($campaign->offer_text ?: $campaign->title) : 'Special Offer';
+    
     // Mark as redeemed
     $wpdb->update(
         $wpdb->prefix . 'tln_vouchers',
@@ -579,7 +601,16 @@ function tln_validate_endpoint() {
         ['%d','%s'],
         ['%d']
     );
-    wp_send_json_success(['msg' => 'Code validated and redeemed']);
+    
+    wp_send_json_success([
+        'msg' => 'Code validated and redeemed',
+        'business_name' => $business_name,
+        'offer_text' => $offer_text,
+        'owner_photo' => $owner_photo,
+        'customer_name' => $voucher->lead_name,
+        'days_remaining' => $days_left,
+        'is_valid' => true
+    ]);
 }
 add_action('wp_ajax_nopriv_tln_validate', 'tln_validate_endpoint');
 add_action('wp_ajax_tln_validate', 'tln_validate_endpoint');

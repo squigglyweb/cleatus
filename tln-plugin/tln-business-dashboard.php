@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: TLN Business Dashboard
- * Version: 2.1
+ * Version: 2.2
  */
 
 if (!defined('ABSPATH')) exit;
@@ -176,6 +176,22 @@ function tln_dashboard_shortcode() {
         
         <!-- Business Profile Editor -->
         <div style="background:#fff;padding:1.5rem;border-radius:12px;border:2px solid #1a1a1a;margin-top:1rem;">
+            <h3 style="margin-top:0;">Your Photo for Staff Validation</h3>
+            <p style="color:#666;font-size:0.9rem;margin-bottom:1rem;">Upload your photo. This shows to your staff when they validate a customer's voucher, so they know this offer is authorized by you.</p>
+            <?php $owner_photo = get_post_meta($claim->id, 'tln_owner_photo', true); ?>
+            <?php if($owner_photo): ?>
+            <div style="margin-bottom:1rem;">
+                <img src="<?php echo esc_url($owner_photo); ?>" style="width:120px;height:120px;object-fit:cover;border-radius:50%;border:3px solid #1a1a1a;">
+            </div>
+            <?php endif; ?>
+            <form id="tln-owner-photo-form" enctype="multipart/form-data">
+                <input type="file" name="tln_owner_photo" accept="image/*" style="margin-bottom:0.5rem;">
+                <button type="submit" style="background:#1976d2;color:#fff;padding:0.5rem 1rem;border:none;border-radius:4px;cursor:pointer;"><?php echo $owner_photo ? 'Update Photo' : 'Upload Photo'; ?></button>
+            </form>
+            <div id="tln-owner-photo-msg"></div>
+        </div>
+        
+        <div style="background:#fff;padding:1.5rem;border-radius:12px;border:2px solid #1a1a1a;margin-top:1rem;">
             <h3 style="margin-top:0;">✏️ Edit Your Profile</h3>
             <form id="tln-profile-form">
                 <div style="margin-bottom:1rem;">
@@ -260,6 +276,43 @@ function tln_dashboard_shortcode() {
         btn.disabled = false;
         btn.textContent = 'Upload Directory Photo';
     });
+    
+    // Owner Photo Upload for Staff Validation
+    document.getElementById('tln-owner-photo-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+        const btn = this.querySelector('button');
+        btn.disabled = true;
+        btn.textContent = 'Uploading...';
+        
+        try {
+            const res = await fetch('/wp-json/tln/v1/save-owner-photo', {
+                method: 'POST',
+                body: formData
+            });
+            const data = await res.json();
+            document.getElementById('tln-owner-photo-msg').innerHTML = data.success 
+                ? '<span style="color:green;">✓ Your photo has been updated! Staff will see this when validating vouchers.</span>'
+                : '<span style="color:red;">Error: ' + (data.message || 'Unknown error') + '</span>';
+            if(data.success && data.image_url) {
+                const form = document.getElementById('tln-owner-photo-form');
+                const existingImg = form.previousElementSibling.querySelector('img');
+                if(existingImg) {
+                    existingImg.src = data.image_url;
+                } else {
+                    const img = document.createElement('img');
+                    img.src = data.image_url;
+                    img.style = 'width:120px;height:120px;object-fit:cover;border-radius:50%;border:3px solid #1a1a1a;margin-bottom:1rem;';
+                    form.parentNode.insertBefore(img, form);
+                }
+            }
+        } catch(err) {
+            document.getElementById('tln-owner-photo-msg').innerHTML = '<span style="color:red;">Error uploading photo</span>';
+        }
+        btn.disabled = false;
+        btn.textContent = 'Update Photo';
+    });
+    </script>
         <!-- Leads Section -->
         <div style="background:#fff;padding:1.5rem;border-radius:12px;border:2px solid #1a1a1a;margin-top:1rem;">
             <h3 style="margin-top:0;">Leads from Your Campaign</h3>
@@ -316,7 +369,7 @@ function tln_dashboard_shortcode() {
         </div>
     </div>
     <script>
-    // Voucher validation
+    // Voucher validation with rich display
     document.getElementById('tln-validate-btn').addEventListener('click', async function() {
         const code = document.getElementById('tln-validate-code').value.trim();
         const resultDiv = document.getElementById('tln-validate-result');
@@ -334,11 +387,32 @@ function tln_dashboard_shortcode() {
             });
             const data = await res.json();
             if (data.success) {
-                resultDiv.innerHTML = '<span style="color:green;font-weight:700;">✓ Valid! ' + data.data.msg + '</span>';
+                const d = data.data;
+                let ownerHtml = '';
+                if (d.owner_photo) {
+                    ownerHtml = '<img src="' + d.owner_photo + '" style="width:80px;height:80px;object-fit:cover;border-radius:50%;border:3px solid #1976d2;margin-bottom:0.5rem;">';
+                }
+                resultDiv.innerHTML = '<div style="background:#d4edda;border:2px solid #28a745;border-radius:12px;padding:1.5rem;text-align:center;">' +
+                    ownerHtml +
+                    '<p style="font-size:1.2rem;font-weight:700;margin:0.5rem 0;color:#28a745;">✓ Valid Voucher</p>' +
+                    '<p style="font-size:1rem;font-weight:600;margin:0.25rem 0;">' + d.offer_text + '</p>' +
+                    '<p style="font-size:0.9rem;margin:0.25rem 0;color:#666;">for <strong>' + d.customer_name + '</strong></p>' +
+                    '<p style="font-size:0.85rem;margin:0.5rem 0 0;color:#1976d2;font-weight:600;">at ' + d.business_name + '</p>' +
+                    '<p style="font-size:0.8rem;margin:0.5rem 0 0;color:#666;">' + d.days_remaining + ' days remaining</p>' +
+                    '</div>';
                 document.getElementById('tln-validate-code').value = '';
             } else {
-                resultDiv.innerHTML = '<span style="color:red;">✗ ' + (data.data?.msg || 'Invalid code') + '</span>';
+                resultDiv.innerHTML = '<div style="background:#f8d7da;border:2px solid #dc3545;border-radius:12px;padding:1.5rem;text-align:center;">' +
+                    '<p style="font-size:1.2rem;font-weight:700;margin:0;color:#dc3545;">✗ Invalid Voucher</p>' +
+                    '<p style="margin:0.5rem 0 0;color:#666;">' + (data.data?.msg || 'This code could not be validated') + '</p>' +
+                    '</div>';
             }
+        } catch(err) {
+            resultDiv.innerHTML = '<span style="color:red;">Error validating code. Please try again.</span>';
+        }
+        this.disabled = false;
+        this.textContent = 'Validate';
+    });
         } catch(err) {
             resultDiv.innerHTML = '<span style="color:red;">Error validating code</span>';
         }

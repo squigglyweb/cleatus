@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 5.1 - Business dashboard analytics + validation
+Version: 5.2 - Owner photo for staff validation + rich validation display
 */
 
 // Create database tables on activation
@@ -222,6 +222,49 @@ add_action('rest_api_init', function() {
                 }
                 
                 $image_url = wp_get_attachment_url($attachment_id);
+                return array('success' => true, 'image_url' => $image_url);
+            }
+            
+            return new WP_Error('no_file', 'No file uploaded', array('status' => 400));
+        },
+        'permission_callback' => function() {
+            return is_user_logged_in();
+        }
+    ));
+    
+    // Save owner photo for staff validation
+    register_rest_route('tln/v1', '/save-owner-photo', array(
+        'methods' => 'POST',
+        'callback' => function($request) {
+            $user_id = get_current_user_id();
+            if (!$user_id) {
+                return new WP_Error('not_logged_in', 'You must be logged in', array('status' => 401));
+            }
+            
+            global $wpdb;
+            $claim = $wpdb->get_row($wpdb->prepare(
+                "SELECT * FROM {$wpdb->prefix}tln_claims WHERE user_id=%d AND status='approved'", 
+                $user_id
+            ));
+            
+            if (!$claim) {
+                return new WP_Error('no_claim', 'No approved claim found', array('status' => 400));
+            }
+            
+            if (!empty($_FILES['tln_owner_photo'])) {
+                require_once(ABSPATH . 'wp-admin/includes/image.php');
+                require_once(ABSPATH . 'wp-admin/includes/file.php');
+                require_once(ABSPATH . 'wp-admin/includes/media.php');
+                
+                $attachment_id = media_handle_upload('tln_owner_photo', 0);
+                if (is_wp_error($attachment_id)) {
+                    return new WP_Error('upload_error', $attachment_id->get_error_message(), array('status' => 400));
+                }
+                
+                $image_url = wp_get_attachment_url($attachment_id);
+                // Store as post meta on the claim post
+                update_post_meta($claim->id, 'tln_owner_photo', $image_url);
+                
                 return array('success' => true, 'image_url' => $image_url);
             }
             
