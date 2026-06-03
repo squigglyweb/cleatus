@@ -6,6 +6,25 @@
 
 if (!defined('ABSPATH')) exit;
 
+// Register settings for the Directory Settings page so it shows a usable form
+add_action('admin_init', function() {
+    // Register option placeholders
+    register_setting('tln-directory-group', 'tln_directory_google_api_key');
+    register_setting('tln-directory-group', 'tln_directory_cache_ttl');
+    // Add a settings section
+    add_settings_section('tln_directory_main', 'Directory Settings', null, 'tln-directory');
+    // Google API Key field
+    add_settings_field('tln_directory_google_api_key', 'Google Places API Key', function() {
+        $val = get_option('tln_directory_google_api_key', '');
+        echo '<input type="text" name="tln_directory_google_api_key" value="' . esc_attr($val) . '" class="regular-text" />';
+    }, 'tln-directory', 'tln_directory_main');
+    // Cache TTL field (minutes)
+    add_settings_field('tln_directory_cache_ttl', 'Cache TTL (minutes)', function() {
+        $val = get_option('tln_directory_cache_ttl', '60');
+        echo '<input type="number" name="tln_directory_cache_ttl" value="' . esc_attr($val) . '" class="small-text" min="1" />';
+    }, 'tln-directory', 'tln_directory_main');
+});
+
 /**
  * Register the admin dashboard pages
  */
@@ -460,11 +479,17 @@ function tln_render_analytics() {
     echo '<div class="wrap">';
     echo '<h1>TLN Analytics</h1>';
     
-    // Check if table exists
+    // Ensure analytics table exists – create on the fly if missing
     if ($wpdb->get_var("SHOW TABLES LIKE '$table'") != $table) {
-        echo '<p>Analytics table not found. Please ensure analytics is enabled.</p>';
-        echo '</div>';
-        return;
+        if (function_exists('tln_analytics_install')) {
+            tln_analytics_install();
+        }
+        // Re‑check after attempting install
+        if ($wpdb->get_var("SHOW TABLES LIKE '$table'") != $table) {
+            echo '<p>Analytics table not found and could not be created. Please ensure analytics is enabled.</p>';
+            echo '</div>';
+            return;
+        }
     }
     
     $total_views = $wpdb->get_var("SELECT COUNT(*) FROM $table WHERE event_type = 'page_view'");

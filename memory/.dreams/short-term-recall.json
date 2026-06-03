@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-03T01:30:05.641Z",
+  "updatedAt": "2026-06-03T14:57:25.895Z",
   "entries": {
     "memory:memory/2026-05-05.md:72:89": {
       "key": "memory:memory/2026-05-05.md:72:89",
@@ -250,13 +250,13 @@
       "endLine": 46,
       "source": "memory",
       "snippet": "# Bryan Somers - TLN Memory ## About Bryan - Founder, Publisher & Editor of The Local NearBuy (TLN) - Building a local digital media company serving Waxhaw area (Waxhaw, Weddington, Wesley Chapel, Marvin, Indian Land, Ballantyne) - 30+ years graphic design experience - Works at Collegiate Housing Services (CHS) - Helps Bethany Church with social media ## Goals - $60k/month total - Financial freedom - Multiple income streams - Low startup cost, fast to revenue - Recurring, delegatable, not dependent on him forever ## Current Projects - Golf Courses page - set up with tln-golf-shortcode.php plugin (uses [golf_directory] shortcode) - Wants to add filtering to the golf page - Using Poll Maker",
-      "recallCount": 16,
+      "recallCount": 17,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 15.98299461677546,
+      "totalScore": 16.98299461677546,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T20:21:50.131Z",
-      "lastRecalledAt": "2026-06-02T18:51:24.182Z",
+      "lastRecalledAt": "2026-06-03T14:57:25.895Z",
       "queryHashes": [
         "3b057c3172e9",
         "94cabbf81b68",
@@ -273,7 +273,8 @@
         "df643b7f7d45",
         "e44499a3fba0",
         "78a68306c8b3",
-        "32b652430975"
+        "32b652430975",
+        "12b9ad97e450"
       ],
       "recallDays": [
         "2026-05-12",
@@ -286,7 +287,8 @@
         "2026-05-30",
         "2026-05-31",
         "2026-06-01",
-        "2026-06-02"
+        "2026-06-02",
+        "2026-06-03"
       ],
       "conceptTags": [
         "60k/month",
@@ -385,13 +387,13 @@
       "endLine": 86,
       "source": "memory",
       "snippet": "- Neighbor writes a review, submits, goes to moderation queue - Display on business page alongside Google reviews ## Golf Plugin v1.2 (Ready) - Green border (#7cda24) - Yellow stars (#FABC06) - Clickable phone (tel: link) - Linked address to Google Maps - Status pill: Open Now (green), Closed (red), Hours Unavailable (amber) - Search, location filter, sort - 1-hour caching ## Business Dashboard (To Build) - Claim form → approval → dashboard - Tabs: Business Info, Photos & Media, Offers, Community Impact, Social Media, Google Sync - Pricing tiers: Free / $99 Pro / $199 Pro+ ## Claimed Card Styling Specs - Border: 3px thick, red (#e63946) - for claimed/verified businesses - Border: 2px thic",
-      "recallCount": 12,
+      "recallCount": 13,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 12,
+      "totalScore": 13,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T23:02:04.581Z",
-      "lastRecalledAt": "2026-06-02T18:21:17.599Z",
+      "lastRecalledAt": "2026-06-03T14:57:21.024Z",
       "queryHashes": [
         "94cabbf81b68",
         "80f9208f6c41",
@@ -404,7 +406,8 @@
         "34f57e3bc4ee",
         "eae3407b053c",
         "e44499a3fba0",
-        "2feddb8f16d3"
+        "2feddb8f16d3",
+        "74479c2fac07"
       ],
       "recallDays": [
         "2026-05-12",
@@ -413,7 +416,8 @@
         "2026-05-29",
         "2026-05-30",
         "2026-05-31",
-        "2026-06-02"
+        "2026-06-02",
+        "2026-06-03"
       ],
       "conceptTags": [
         "v1.2",
@@ -433,13 +437,13 @@
       "endLine": 105,
       "source": "memory",
       "snippet": "- **Directory** (nearbuy-directory.html) — Browse page with filters, grid view, business cards - **Business Listing** (nearbuy-business-listing.html) — Individual business page with offer card, QR code, reviews, sidebar ### GitHub Repository https://github.com/squigglyweb/cleatus All files pushed and available. --- ## April 14, 2026 — Session Notes ### New Pages Created Today 1. **nearbuy-coverage.html** — Coverage Area page showing Greater Waxhaw coverage (9 towns, 5K/campaign, 20K+ total households), map placeholder, strategic approach section 2. **nearbuy-events.html** — Events page (meal-packing events) with coming soon email capture, mission cards, past events placeholder 3. **near",
-      "recallCount": 10,
+      "recallCount": 11,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 9.983651888716118,
+      "totalScore": 10.983651888716118,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T23:02:04.581Z",
-      "lastRecalledAt": "2026-06-03T01:30:05.641Z",
+      "lastRecalledAt": "2026-06-03T14:57:21.024Z",
       "queryHashes": [
         "94cabbf81b68",
         "201d5f225c55",
@@ -450,7 +454,8 @@
         "7221d5b3c41d",
         "b2250f3bcf00",
         "de869324e8f1",
-        "c66dd86e5480"
+        "c66dd86e5480",
+        "74479c2fac07"
       ],
       "recallDays": [
         "2026-05-12",
@@ -479,13 +484,13 @@
       "endLine": 85,
       "source": "memory",
       "snippet": "| Tier | Size | Price | Meals | |------|------|-------|-------| | Small | 3.8\" x 2.5\" | $250 | 25 | | Small Front | 3.8\" x 5\" | $325 | 40 | | Medium | 7.6\" x 5\" | $625 | 75 | | Large | 7.6\" x 7.5\" | $800 | 110 | **Postcard Layout:** - Total: 12\" x 9\" - No Ad Zone (bottom): 11.75\" x 3.187\" — mailing indicia + NearBuy promo - Available ad space: above the No Ad Zone **Ad Builder Interface:** - Click-to-select grid showing available spots - Tier-based selection (not a la carte) - Custom QR code per ad - Real-time price + meal calculation - Businesses wanting more space can buy multiples or get custom quotes ### Tools (Current Stack) - Moxie CRM — keep using - Google Workspace — keep using -",
-      "recallCount": 13,
+      "recallCount": 15,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 13,
+      "totalScore": 15,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T23:02:04.581Z",
-      "lastRecalledAt": "2026-05-31T14:51:03.824Z",
+      "lastRecalledAt": "2026-06-03T14:57:25.895Z",
       "queryHashes": [
         "94cabbf81b68",
         "280499cabedf",
@@ -499,7 +504,9 @@
         "1b32cb054c8b",
         "00d7a82e68ea",
         "0af5b32b7d6a",
-        "b2250f3bcf00"
+        "b2250f3bcf00",
+        "74479c2fac07",
+        "12b9ad97e450"
       ],
       "recallDays": [
         "2026-05-12",
@@ -509,7 +516,8 @@
         "2026-05-18",
         "2026-05-20",
         "2026-05-22",
-        "2026-05-31"
+        "2026-05-31",
+        "2026-06-03"
       ],
       "conceptTags": [
         "3.8",
@@ -670,23 +678,26 @@
       "endLine": 147,
       "source": "memory",
       "snippet": "### Coming Soon Page Rebuild - Struggled with layout communication - Bryan showed images I couldn't access clearly - **Issue:** URLs like chs.vendorprint.site blocked, couldn't see mockups properly - **Fix for future:** Bryan agreed to describe layouts in text ### Final Layout Decision - Full background image (town-illustration.png) - **Mosaic pattern** for navigation boxes - like postcard ad spaces - Different sized boxes: some span 1 col, some span 2 - Email signup in bottom left corner - Hover reveals description text - 6 content boxes: TLN Radio, Recommend, Pillars, Coverage, Our Mission, Biz Ads ### Files Modified - nearbuy-coming-soon.html - rebuilt multiple times based on Bryan's fe",
-      "recallCount": 4,
+      "recallCount": 6,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 3.6323000531749825,
+      "totalScore": 5.6323000531749825,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-13T00:24:42.413Z",
-      "lastRecalledAt": "2026-06-02T18:19:38.287Z",
+      "lastRecalledAt": "2026-06-03T14:57:25.895Z",
       "queryHashes": [
         "201d5f225c55",
         "ec69ba75068b",
         "a1e3920ce317",
-        "fab07b23454f"
+        "fab07b23454f",
+        "74479c2fac07",
+        "12b9ad97e450"
       ],
       "recallDays": [
         "2026-05-13",
         "2026-06-01",
-        "2026-06-02"
+        "2026-06-02",
+        "2026-06-03"
       ],
       "conceptTags": [
         "chs.vendorprint.site",
@@ -982,13 +993,13 @@
       "endLine": 171,
       "source": "memory",
       "snippet": "- Postcard printing workflow - Offer redemption tracking system - GBP enhancement management ## Claim Flow (tln-claim-form.html) - Step 1: Search/select business from directory - Step 2: Choose plan (Pro $99 or Pro+ $199) - Step 3: Contact info - Step 4: Payment (Stripe would connect here) - Submit → pending review ## What's Built - Complete - tln-pricing-final.html - Full pricing page with all tiers + a la carte + ad add-ons - tln-claim-form.html - Business signup/claim flow (4 steps) - tln-business-dashboard.html - Full business dashboard for members: - Overview with stats (views, redemptions, messages, value) - Meals counter - Recent activity feed - Edit Profile (name, descripti",
-      "recallCount": 8,
+      "recallCount": 9,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 8,
+      "totalScore": 9,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-13T13:44:20.307Z",
-      "lastRecalledAt": "2026-06-02T18:51:24.182Z",
+      "lastRecalledAt": "2026-06-03T14:57:21.024Z",
       "queryHashes": [
         "69c4bee04e24",
         "68e96d92543e",
@@ -997,7 +1008,8 @@
         "8d4ed8ac8e90",
         "fa8dc069100c",
         "2feddb8f16d3",
-        "32b652430975"
+        "32b652430975",
+        "74479c2fac07"
       ],
       "recallDays": [
         "2026-05-13",
@@ -1005,7 +1017,8 @@
         "2026-05-27",
         "2026-05-29",
         "2026-05-30",
-        "2026-06-02"
+        "2026-06-02",
+        "2026-06-03"
       ],
       "conceptTags": [
         "tln-claim-form.html",
@@ -1149,24 +1162,27 @@
       "endLine": 138,
       "source": "memory",
       "snippet": "- Outputs: gross revenue, print costs, meals cost, M4G fund, net profit, total meals donated - Based on real NearBuy pricing/structure (not generic course material) ### Revenue Simulator Constants - Print cost: $586/campaign (5K households) - M4G fund reserve: $0.20/meal - Default redemption rate: 2.5% ### All Website Pages (14 total on GitHub) 1. nearbuy-homepage.html 2. nearbuy-directory.html 3. nearbuy-business-listing.html 4. nearbuy-about.html 5. nearbuy-mission.html 6. nearbuy-for-businesses.html 7. nearbuy-contact.html 8. nearbuy-subscribe.html 9. nearbuy-ad-builder.html 10. nearbuy-business-portal.html 11. nearbuy-coverage.html 12. nearbuy-events.html 13. nearbuy-admin-dashbo",
-      "recallCount": 4,
+      "recallCount": 6,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 4,
+      "totalScore": 6,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-15T14:18:33.479Z",
-      "lastRecalledAt": "2026-06-02T18:19:38.287Z",
+      "lastRecalledAt": "2026-06-03T14:57:25.895Z",
       "queryHashes": [
         "3a4001249de8",
         "7221d5b3c41d",
         "a1e3920ce317",
-        "fab07b23454f"
+        "fab07b23454f",
+        "74479c2fac07",
+        "12b9ad97e450"
       ],
       "recallDays": [
         "2026-05-15",
         "2026-05-22",
         "2026-06-01",
-        "2026-06-02"
+        "2026-06-02",
+        "2026-06-03"
       ],
       "conceptTags": [
         "pricing/structure",
