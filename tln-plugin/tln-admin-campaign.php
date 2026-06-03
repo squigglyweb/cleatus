@@ -553,9 +553,13 @@ function tln_add_campaign_page() {
 
     // Handle form submission
     if ( isset( $_POST['tln_save_campaign'] ) && check_admin_referer( 'tln_save_campaign_action' ) ) {
-        $data = array(
-            'business_id'      => get_current_user_id(),
-            'title'            => sanitize_text_field( $_POST['title'] ),
+        $business_id = intval( $_POST['business_id'] );
+        if ( ! $business_id ) {
+            echo '<div class="notice notice-error"><p>❌ Please select a business</p></div>';
+        } else {
+            $data = array(
+                'business_id'      => $business_id,
+                'title'            => sanitize_text_field( $_POST['title'] ),
             'description'      => wp_kses_post( $_POST['description'] ),
             'offer_text'       => sanitize_text_field( $_POST['offer_text'] ),
             'offer_valid_days' => intval( $_POST['valid_days'] ),
@@ -601,6 +605,7 @@ function tln_add_campaign_page() {
         }
         
         $campaign = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$campaigns_table} WHERE id = %d", $edit_id ) );
+        }
     }
 
     $zones = $wpdb->get_results( "SELECT * FROM {$zones_table} ORDER BY zone_name" );
@@ -615,6 +620,21 @@ function tln_add_campaign_page() {
             <?php wp_nonce_field( 'tln_save_campaign_action' ); ?>
 
             <table class="form-table">
+                <tr>
+                    <th scope="row"><label for="business_id">Business</label></th>
+                    <td>
+                        <select name="business_id" id="business_id" required>
+                            <option value="">-- Select Business --</option>
+                            <?php
+                            $claims = $wpdb->get_results("SELECT * FROM {$wpdb->prefix}tln_claims WHERE status = 'approved' ORDER BY business_name");
+                            foreach ($claims as $c) {
+                                echo '<option value="' . esc_attr($c->id) . '"' . ($campaign && $campaign->business_id == $c->id ? ' selected' : '') . '>' . esc_html($c->business_name) . '</option>';
+                            }
+                            ?>
+                        </select>
+                        <p class="description">Select the business this campaign is for</p>
+                    </td>
+                </tr>
                 <tr>
                     <th scope="row"><label for="title">Campaign Title</label></th>
                     <td><input name="title" id="title" type="text" class="regular-text" value="<?php echo $campaign ? esc_attr( $campaign->title ) : ''; ?>" required></td>

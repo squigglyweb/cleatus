@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 5.2 - Owner photo for staff validation + rich validation display
+Version: 5.3 - Fix campaign business_id to use claim ID (not user_id)
 */
 
 // Create database tables on activation
