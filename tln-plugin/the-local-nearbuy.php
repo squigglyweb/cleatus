@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 5.0 - Connect vouchers to campaigns for redemption tracking
+Version: 5.1 - Business dashboard analytics + validation
 */
 
 // Create database tables on activation

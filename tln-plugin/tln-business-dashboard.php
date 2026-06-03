@@ -78,7 +78,43 @@ function tln_dashboard_shortcode() {
             
             <div style="background:#fff;padding:1.5rem;border-radius:12px;border:2px solid #1a1a1a;">
                 <h3 style="margin-top:0;">Analytics</h3>
-                <p style="color:#666;">Coming soon</p>
+                <?php
+                // Get real analytics
+                $business_id = $claim->id;
+                $scans = $wpdb->get_var($wpdb->prepare(
+                    "SELECT COUNT(*) FROM {$wpdb->prefix}tln_qr_scans qs 
+                    JOIN {$wpdb->prefix}tln_campaigns c ON qs.campaign_id = c.id 
+                    WHERE c.business_id = %d",
+                    $business_id
+                ));
+                $claims = $wpdb->get_var($wpdb->prepare(
+                    "SELECT COUNT(*) FROM {$wpdb->prefix}tln_vouchers WHERE business_id = %d",
+                    $business_id
+                ));
+                $redeemed = $wpdb->get_var($wpdb->prepare(
+                    "SELECT COUNT(*) FROM {$wpdb->prefix}tln_vouchers WHERE business_id = %d AND redeemed = 1",
+                    $business_id
+                ));
+                ?>
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;text-align:center;">
+                    <div style="padding:1rem;background:#e3f2fd;border-radius:8px;">
+                        <div style="font-size:2rem;font-weight:bold;color:#1976d2;"><?php echo intval($scans); ?></div>
+                        <div style="font-size:0.85rem;color:#666;">QR Scans</div>
+                    </div>
+                    <div style="padding:1rem;background:#e8f5e9;border-radius:8px;">
+                        <div style="font-size:2rem;font-weight:bold;color:#388e3c;"><?php echo intval($claims); ?></div>
+                        <div style="font-size:0.85rem;color:#666;">Claims</div>
+                    </div>
+                    <div style="padding:1rem;background:#fff3e0;border-radius:8px;">
+                        <div style="font-size:2rem;font-weight:bold;color:#f57c00;"><?php echo intval($redeemed); ?></div>
+                        <div style="font-size:0.85rem;color:#666;">Redeemed</div>
+                    </div>
+                </div>
+                <?php if($claims > 0): ?>
+                <p style="margin-top:1rem;font-size:0.9rem;color:#666;text-align:center;">
+                    <?php echo round(($redeemed / $claims) * 100); ?>% of claims have been redeemed
+                </p>
+                <?php endif; ?>
             </div>
         </div>
         

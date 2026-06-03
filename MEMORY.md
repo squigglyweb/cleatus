@@ -55,6 +55,39 @@ This exists because Cleatus once gave Bryan an outdated zip file that caused hou
 - Points tracker
 - Coverage map
 
+### Campaign Tracking System (v5.0+)
+
+**Campaign Admin Columns:**
+| Column | What It Means | Why It Matters |
+|--------|---------------|-----------------|
+| Spots | X/Y = ad spots sold out of total | Campaign capacity |
+| Guaranteed Meals | Meals committed based on sold spots | Cause marketing promise |
+| Actual | X/Y redeemed → +Z meals | Real-time redemption vs. guaranteed |
+| Routes | USPS routes targeted | Who receives mailers |
+| Status | Draft → Active → Completed | Campaign lifecycle |
+
+**How It Works:**
+1. Create campaign with X ad spots → guarantees Y meals
+2. Sell spots → each spot = predetermined meal commitment
+3. Business gets dynamic QR → customers scan → lands on claim page
+4. Customer enters info → gets unique code (stored in vouchers table with campaign_id)
+5. Customer shows code at business → validated → marks `redeemed = 1`
+6. Actual column updates in real-time showing redemptions
+
+**Database Tables:**
+- `tln_campaigns` - Campaign data (spots, meals, routes, status)
+- `tln_vouchers` - Claimed codes (code, campaign_id, business_id, redeemed, created)
+
+**Sidebar Menu:**
+- TLN (main)
+- Campaigns / Add Campaign - Create & manage postcard campaigns
+- EDDM Zones / USPS Routes - Define mailing areas
+- Dashboard - Overview stats
+- View All Vouchers - All claimed codes across campaigns
+- Manage Claims - Business listing claims
+- Directory Settings - Directory config
+- Analytics - Performance reporting
+
 ---
 
 ## 🚨 HARD RULES - NEVER FORGET

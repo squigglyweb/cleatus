@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-02T19:45:13.267Z",
+  "updatedAt": "2026-06-03T01:30:05.641Z",
   "entries": {
     "memory:memory/2026-05-05.md:72:89": {
       "key": "memory:memory/2026-05-05.md:72:89",
@@ -60,13 +60,13 @@
       "endLine": 45,
       "source": "memory",
       "snippet": "# May 7, 2026 ## TLN - The Local NearBuy Updates ### Branding Shift: \"Member\" Concept - Moved away from \"customer/client\" language - Everyone is a **Member** - builds community, not transactions - Reference: Brilliant Directories \"Be Part of Something Meaningful\" messaging ### Membership Tiers (Final) - **Free Member** - basic directory listing - **Pro Member** ($99/mo) - profile + offers - **Pro+ Member** ($199/mo) - profile + offers + video + featured + newsletter - **Sponsor Member** ($349/mo) - banner + newsletter ads + homepage ### Add-On Model Everything else is an add-on to membership: - Postcard Campaigns ($150/campaign) - Design Services ($50/project) - Social Management ($200/m",
-      "recallCount": 19,
+      "recallCount": 20,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 19,
+      "totalScore": 20,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T20:21:50.131Z",
-      "lastRecalledAt": "2026-06-02T19:45:13.267Z",
+      "lastRecalledAt": "2026-06-03T01:30:05.641Z",
       "queryHashes": [
         "3b057c3172e9",
         "94cabbf81b68",
@@ -86,7 +86,8 @@
         "fa8dc069100c",
         "0af5b32b7d6a",
         "2feddb8f16d3",
-        "de869324e8f1"
+        "de869324e8f1",
+        "c66dd86e5480"
       ],
       "recallDays": [
         "2026-05-12",
@@ -100,7 +101,8 @@
         "2026-05-29",
         "2026-05-30",
         "2026-05-31",
-        "2026-06-02"
+        "2026-06-02",
+        "2026-06-03"
       ],
       "conceptTags": [
         "customer/client",
@@ -120,13 +122,13 @@
       "endLine": 79,
       "source": "memory",
       "snippet": "- ✅ Expandable map placeholder - ✅ Neighborhood Score (Quality, Value, Service, Overall) - ✅ Meals impact (community cause) - ✅ Share buttons - ✅ Ad space on sidebar (monetization) ### Key Files - tln-profile-pro-plus-final.html - Latest Pro+ profile template ### Pending - Integrate profile into WordPress plugin - Build admin dashboard - Connect Stripe webhooks ## Offer Marketing Strategy (May 8, 2026) ### Key Insight Offers can be HIDDEN from the website during print campaigns. This creates value for printed postcards vs website-only listings. ### How It Works - Website offers: Always visible (included in membership) - Print campaigns: Hide offer on website, only accessible via QR code",
-      "recallCount": 12,
+      "recallCount": 13,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 12,
+      "totalScore": 13,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T20:21:50.131Z",
-      "lastRecalledAt": "2026-06-02T19:45:13.267Z",
+      "lastRecalledAt": "2026-06-03T01:30:05.641Z",
       "queryHashes": [
         "3b057c3172e9",
         "280499cabedf",
@@ -139,7 +141,8 @@
         "8d4ed8ac8e90",
         "fa8dc069100c",
         "0af5b32b7d6a",
-        "de869324e8f1"
+        "de869324e8f1",
+        "c66dd86e5480"
       ],
       "recallDays": [
         "2026-05-12",
@@ -151,7 +154,8 @@
         "2026-05-27",
         "2026-05-30",
         "2026-05-31",
-        "2026-06-02"
+        "2026-06-02",
+        "2026-06-03"
       ],
       "conceptTags": [
         "tln-profile-pro-plus-final.html",
@@ -429,13 +433,13 @@
       "endLine": 105,
       "source": "memory",
       "snippet": "- **Directory** (nearbuy-directory.html) — Browse page with filters, grid view, business cards - **Business Listing** (nearbuy-business-listing.html) — Individual business page with offer card, QR code, reviews, sidebar ### GitHub Repository https://github.com/squigglyweb/cleatus All files pushed and available. --- ## April 14, 2026 — Session Notes ### New Pages Created Today 1. **nearbuy-coverage.html** — Coverage Area page showing Greater Waxhaw coverage (9 towns, 5K/campaign, 20K+ total households), map placeholder, strategic approach section 2. **nearbuy-events.html** — Events page (meal-packing events) with coming soon email capture, mission cards, past events placeholder 3. **near",
-      "recallCount": 9,
+      "recallCount": 10,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 8.983651888716118,
+      "totalScore": 9.983651888716118,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T23:02:04.581Z",
-      "lastRecalledAt": "2026-06-02T19:45:13.267Z",
+      "lastRecalledAt": "2026-06-03T01:30:05.641Z",
       "queryHashes": [
         "94cabbf81b68",
         "201d5f225c55",
@@ -445,7 +449,8 @@
         "1b32cb054c8b",
         "7221d5b3c41d",
         "b2250f3bcf00",
-        "de869324e8f1"
+        "de869324e8f1",
+        "c66dd86e5480"
       ],
       "recallDays": [
         "2026-05-12",
@@ -453,7 +458,8 @@
         "2026-05-14",
         "2026-05-22",
         "2026-05-31",
-        "2026-06-02"
+        "2026-06-02",
+        "2026-06-03"
       ],
       "conceptTags": [
         "nearbuy-directory.html",
@@ -574,13 +580,13 @@
       "endLine": 33,
       "source": "memory",
       "snippet": "# April 8, 2026 - NearBuy Postcard Project Notes ## Project Status - NearBuy postcard tracker built: nearbuy-tracker-divi.html - Business portal built: nearbuy-business-portal.html - Google Apps Script backend: nearbuy-apps-script.gs - GitHub repo: https://github.com/squigglyweb/cleatus ## Pricing - Standard ad: $500 - Duplex (combined): $900 ## System Issues - OpenClaw environment completely down since April 7 - All exec commands timeout - Unable to make edits or push changes ## Business Strategy Notes - Ideal businesses: Home services (plumbers, HVAC, landscapers), food/dining, health/wellness, retail, auto services - Avoid: Big box stores, national chains, online-only businesses - Cat",
-      "recallCount": 12,
+      "recallCount": 13,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 12,
+      "totalScore": 13,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T23:02:11.759Z",
-      "lastRecalledAt": "2026-06-02T19:45:13.267Z",
+      "lastRecalledAt": "2026-06-03T01:30:05.641Z",
       "queryHashes": [
         "80f9208f6c41",
         "702ea8f65795",
@@ -593,7 +599,8 @@
         "0af5b32b7d6a",
         "e44499a3fba0",
         "a1e3920ce317",
-        "de869324e8f1"
+        "de869324e8f1",
+        "c66dd86e5480"
       ],
       "recallDays": [
         "2026-05-12",
@@ -606,7 +613,8 @@
         "2026-05-30",
         "2026-05-31",
         "2026-06-01",
-        "2026-06-02"
+        "2026-06-02",
+        "2026-06-03"
       ],
       "conceptTags": [
         "nearbuy-tracker-divi.html",
@@ -825,13 +833,13 @@
       "endLine": 51,
       "source": "memory",
       "snippet": "# Memory: April 9, 2026 ## nearbuy-postcard (The Local NearBuy) ### Project Overview - Direct mail postcard advertising product for local businesses - Front + Back = ad space for local businesses - Includes meal donation component tied to redemptions - Building toward Meals4Good non-profit ### Ad Space Inventory **Front:** - 1 Large: 7.8\" × 3.8\" → $800 - 2 Medium: 3.8\" × 5\" → $625 each - 1 Small: 3.8\" × 3.75\" → $325 **Back:** - 3 Small: 3.8\" × 2.5\" → $250 each - 3 Medium: 3.8\" × 5\" → $625 each **Total potential revenue: $5,000** ### Cost Structure - Print cost: $2,344 - Max meals (capped at 2,000): 2,000 × $0.30 = $600 - M4G building fund: 2,000 × $0.20 = $400 ### Financial Targets -",
-      "recallCount": 11,
+      "recallCount": 12,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 10.631601458622614,
+      "totalScore": 11.631601458622614,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-13T01:26:56.496Z",
-      "lastRecalledAt": "2026-06-02T19:45:13.267Z",
+      "lastRecalledAt": "2026-06-03T01:30:05.641Z",
       "queryHashes": [
         "071f4c17045c",
         "3a4001249de8",
@@ -843,7 +851,8 @@
         "0af5b32b7d6a",
         "bcd90bc7afe9",
         "ec69ba75068b",
-        "de869324e8f1"
+        "de869324e8f1",
+        "c66dd86e5480"
       ],
       "recallDays": [
         "2026-05-13",
@@ -853,7 +862,8 @@
         "2026-05-22",
         "2026-05-31",
         "2026-06-01",
-        "2026-06-02"
+        "2026-06-02",
+        "2026-06-03"
       ],
       "conceptTags": [
         "nearbuy-postcard",
