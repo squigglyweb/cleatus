@@ -1,0 +1,164 @@
+<!-- CHS VendorPrint v2 — Inventory Dashboard -->
+<div id="vp-inv-app">
+ <div style="max-width:1200px;margin:0 auto;padding:20px;color:#6b7280">Loading…</div>
+</div>
+
+<style>
+#vp-inv-app{font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;color:#111827}
+#vp-inv-app *{box-sizing:border-box}
+.vp-wrap{max-width:1200px;margin:0 auto;padding:20px}
+.hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.h1{font-size:24px;font-weight:800;color:#0b2a5c}
+.stats{display:flex;gap:16px;margin-bottom:24px}
+.stat{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:16px 20px;flex:1}
+.stat-num{font-size:28px;font-weight:800}
+.stat-label{font-size:13px;color:#6b7280}
+.stat.ok .stat-num{color:#16a34a}
+.stat.warn .stat-num{color:#f59e0b}
+.stat.crit .stat-num{color:#dc2626}
+.inv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.inv-card{background:#fff;border:2px solid #e5e7eb;border-radius:14px;overflow:hidden;transition:all .2s}
+.inv-card:hover{border-color:#0b2a5c;box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.inv-card.low{border-color:#f59e0b}
+.inv-card.critical{border-color:#dc2626}
+.inv-img{width:100%;height:140px;object-fit:contain;background:#f9fafb;border-bottom:1px solid #e5e7eb}
+.inv-body{padding:14px}
+.inv-name{font-weight:700;font-size:15px;margin-bottom:4px}
+.inv-desc{font-size:12px;color:#6b7280;margin-bottom:10px;height:36px;overflow:hidden}
+.inv-qty{display:flex;justify-content:space-between;align-items:center}
+.qty-num{font-size:22px;font-weight:800}
+.qty-label{font-size:11px;color:#6b7280;text-transform:uppercase}
+.inv-card.ok .qty-num{color:#16a34a}
+.inv-card.low .qty-num{color:#f59e0b}
+.inv-card.critical .qty-num{color:#dc2626}
+.edit-btn{background:#0b2a5c;color:#fff;border:none;padding:8px 14px;border-radius:8px;font-size:13px;cursor:pointer}
+.edit-btn:hover{background:#1e3d6b}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:9999}
+.modal.show{display:flex}
+.modal-body{background:#fff;border-radius:16px;padding:24px;width:90%;max-width:400px}
+.modal h3{margin:0 0 16px;font-size:18px}
+.modal input{font-size:20px;padding:12px;border:2px solid #e5e7eb;border-radius:10px;width:100%;margin-bottom:16px}
+.modal-actions{display:flex;gap:10px;justify-content:flex-end}
+.modal .btn{ padding:10px 20px;border-radius:10px;font-size:14px;cursor:pointer;border:none}
+.modal .btn-cancel{background:#e5e7eb;color:#374151}
+.modal .btn-save{background:#16a34a;color:#fff}
+.alert-banner{background:#fef2f2;border:1px solid #fecaca;border-radius:10px;padding:12px 16px;margin-bottom:20px;display:none}
+.alert-banner.show{display:block}
+.alert-banner a{color:#dc2626;font-weight:600}
+</style>
+
+<script>
+(function(){
+const WEBHOOK_URL="https://script.google.com/macros/s/AKfycby6j5v-45VEyew0buXsvmbnPQYCnyg8bByjiuRgcdXgdRCjnl7Bln4tS83nBYxTiHnz/exec";
+const TOKEN="d!dxQPNM38zm";
+
+function jsonp(action,payload){
+ return new Promise((resolve,reject)=>{
+ const cb='vp_cb_'+Math.random().toString(36).slice(2);
+ const s=document.createElement('script');
+ const q=new URLSearchParams({action,token:TOKEN,callback:cb,payload:JSON.stringify(payload||{}),t:String(Date.now())}).toString();
+ s.src=WEBHOOK_URL+(WEBHOOK_URL.includes('?')?'&':'?')+q;
+ window[cb]=(data)=>{resolve(data);cleanup();};
+ s.onerror=()=>{reject(new Error('network'));cleanup();};
+ document.head.appendChild(s);
+ function cleanup(){try{delete window[cb];document.head.removeChild(s);}catch{}}
+ setTimeout(()=>{reject(new Error('timeout'));cleanup();},9000);
+ });
+}
+
+let state={items:[],editing:null,editQty:0};
+
+async function load(){
+ try{
+ const r=await jsonp('inventory',{});
+ if(r&&r.rows){
+ state.items=r.rows.filter(i=>i.name);
+ render();
+ }
+ }catch(e){
+ document.getElementById('vp-inv-app').innerHTML='<p style="color:red">Error loading inventory: '+e.message+'</p>';
+ }
+}
+
+function render(){
+ const items=state.items;
+ const lowCount=items.filter(i=>i.onHand<=i.low&&i.onHand>0).length;
+ const critCount=items.filter(i=>!i.onHand||i.onHand===0).length;
+ const okCount=items.filter(i=>i.onHand>i.low).length;
+
+ let html=`<div class="hdr"><div class="h1">Inventory</div></div>`;
+
+ if(critCount>0){
+ html+=`<div class="alert-banner show"><strong>${critCount} item${critCount>1?'s':' out of stock'}</strong> — <a href="#" onclick="document.querySelector('.inv-grid').scrollIntoView({behavior:'smooth'})">View</a></div>`;
+ }
+
+ html+=`<div class="stats">
+ <div class="stat ok"><div class="stat-num">${okCount}</div><div class="stat-label">In Stock</div></div>
+ <div class="stat warn"><div class="stat-num">${lowCount}</div><div class="stat-label">Low Stock</div></div>
+ <div class="stat crit"><div class="stat-num">${critCount}</div><div class="stat-label">Out of Stock</div></div>
+ </div>`;
+
+ html+=`<div class="inv-grid">`;
+ items.forEach((item,i)=>{
+ let status='ok';
+ if(!item.onHand||item.onHand===0)status='critical';
+ else if(item.onHand<=item.low)status='low';
+ html+=`<div class="inv-card ${status}" data-i="${i}">
+ <img class="inv-img" src="${item.img||''}" alt="${item.name}" onerror="this.style.display='none'">
+ <div class="inv-body">
+ <div class="inv-name">${item.name}</div>
+ <div class="inv-desc">${item.desc||''}</div>
+ <div class="inv-qty">
+ <div><div class="qty-num">${item.onHand||0}</div><div class="qty-label">On Hand</div></div>
+ <div><div class="qty-num" style="font-size:14px;color:#6b7280">${item.low||0}</div><div class="qty-label">Min</div></div>
+ <button class="edit-btn" data-i="${i}">Edit</button>
+ </div>
+ </div>
+ </div>`;
+ });
+ html+=`</div>`;
+
+ document.getElementById('vp-inv-app').innerHTML=html;
+ document.querySelectorAll('.edit-btn').forEach(btn=>{
+ btn.onclick=()=>{const i=+btn.dataset.i;openEdit(state.items[i]);};
+ });
+}
+
+function openEdit(item){
+ state.editing=item;
+ state.editQty=item.onHand||0;
+ const m=document.getElementById('editModal');
+ m.classList.add('show');
+ document.getElementById('editName').textContent=item.name;
+ document.getElementById('editQty').value=state.editQty;
+}
+
+function closeEdit(){
+ document.getElementById('editModal').classList.remove('show');
+ state.editing=null;
+}
+
+async function saveEdit(){
+ if(!state.editing)return;
+ const newQty=parseInt(document.getElementById('editQty').value,10);
+ if(isNaN(newQty)||newQty<0)return alert('Invalid quantity');
+ // TODO: Call API to update
+ alert('Saved! Qty updated to '+newQty+' (API not connected yet)');
+ closeEdit();
+}
+
+load();
+})();
+</script>
+
+<div id="editModal" class="modal">
+<div class="modal-body">
+<h3>Edit Quantity</h3>
+<p id="editName" style="margin-bottom:16px;font-weight:600"></p>
+<input type="number" id="editQty" min="0" step="1">
+<div class="modal-actions">
+<button class="btn btn-cancel" onclick="closeEdit()">Cancel</button>
+<button class="btn btn-save" onclick="saveEdit()">Save</button>
+</div>
+</div>
+</div>

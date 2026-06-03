@@ -1,0 +1,132 @@
+<!-- CHS VendorPrint v2 — Orders Pipeline -->
+<div id="vp-ord-app">
+ <div style="max-width:1200px;margin:0 auto;padding:20px;color:#6b7280">Loading…</div>
+</div>
+
+<style>
+#vp-ord-app{font-family:ui-sans-serif,system-ui,-apple-system,sans-serif;color:#111827}
+#vp-ord-app *{box-sizing:border-box}
+.vp-wrap{max-width:1200px;margin:0 auto;padding:20px}
+.hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+.h1{font-size:24px;font-weight:800;color:#0b2a5c}
+.pipeline{display:flex;gap:12px;margin-bottom:30px;overflow-x:auto;padding-bottom:10px}
+.stage{flex:1;min-width:180px;background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:14px}
+.stage-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.stage-title{font-weight:700;font-size:13px;color:#374151}
+.stage-count{background:#f3f4f6;border-radius:20px;padding:2px 10px;font-size:12px;font-weight:600}
+.stage.pending .stage-count{background:#fef3c7;color:#92400e}
+.stage.approved .stage-count{background:#d1fae5;color:#065f46}
+.stage.production .stage-count{background:#dbeafe;color:#1e40af}
+.stage.ready .stage-count{background:#e0e7ff;color:#3730a3}
+.stage.delivered .stage-count{background:#e5e7eb;color:#374151}
+.stage-cards{display:flex;flex-direction:column;gap:8px;min-height:100px}
+.order-card{background:#f9fafb;border:1px solid #e5e7eb;border-radius:10px;padding:12px;cursor:pointer;transition:all .15s}
+.order-card:hover{border-color:#0b2a5c;background:#fff}
+.order-card-name{font-weight:600;font-size:14px;margin-bottom:4px}
+.order-card-meta{font-size:12px;color:#6b7280}
+.order-card-qty{font-size:11px;color:#9ca3af;margin-top:6px}
+.sticky{position:sticky;top:0;z-index:10;background:#0b2a5c;color:#fff;padding:12px 16px;border-radius:10px;display:flex;justify-content:space-between;align-items:center}
+.close-modal{background:none;border:none;color:#fff;font-size:24px;cursor:pointer;padding:0;line-height:1}
+</style>
+
+<script>
+(function(){
+const WEBHOOK_URL="https://script.google.com/macros/s/AKfycby6j5v-45VEyew0buXsvmbnPQYCnyg8bByjiuRgcdXgdRCjnl7Bln4tS83nBYxTiHnz/exec";
+const TOKEN="d!dxQPNM38zm";
+
+function jsonp(action,payload){
+ return new Promise((resolve,reject)=>{
+ const cb='vp_cb_'+Math.random().toString(36).slice(2);
+ const s=document.createElement('script');
+ const q=new URLSearchParams({action,token:TOKEN,callback:cb,payload:JSON.stringify(payload||{}),t:String(Date.now())}).toString();
+ s.src=WEBHOOK_URL+(WEBHOOK_URL.includes('?')?'&':'?')+q;
+ window[cb]=(data)=>{resolve(data);cleanup();};
+ s.onerror=()=>{reject(new Error('network'));cleanup();};
+ document.head.appendChild(s);
+ function cleanup(){try{delete window[cb];document.head.removeChild(s);}catch{}}
+ setTimeout(()=>{reject(new Error('timeout'));cleanup();},9000);
+ });
+}
+
+const STAGES=['PENDING','APPROVED','IN PRODUCTION','READY','DELIVERED'];
+let state={orders:[],selected:null};
+
+async function load(){
+ try{
+ const r=await jsonp('orders_active',{limit:50});
+ if(r&&r.rows){
+ state.orders=r.rows;
+ render();
+ }
+ }catch(e){
+ document.getElementById('vp-ord-app').innerHTML='<p style="color:red">Error: '+e.message+'</p>';
+ }
+}
+
+function render(){
+ const orders=state.orders;
+ const byStage={};
+ STAGES.forEach(s=>byStage[s]=[]);
+ orders.forEach(o=>{
+ const s=o.status||'PENDING';
+ byStage[s]=(byStage[s]||[]).concat(o);
+ });
+
+ let html=`<div class="hdr"><div class="h1">Orders</div></div>`;
+ html+=`<div class="pipeline">`;
+
+ STAGES.forEach(stage=>{
+ const list=byStage[stage]||[];
+ const stageKey=stage.toLowerCase().replace(' ','_');
+ html+=`<div class="stage ${stageKey}">
+ <div class="stage-header">
+ <div class="stage-title">${stage}</div>
+ <div class="stage-count">${list.length}</div>
+ </div>
+ <div class="stage-cards">
+ ${list.map(o=>`<div class="order-card" data-id="${o.orderNumber}">
+ <div class="order-card-name">${o.name||'—'}</div>
+ <div class="order-card-meta">${o.item||'Business Cards'} • ${o.shipTo||'—'}</div>
+ <div class="order-card-qty">Qty: ${o.qty||0}</div>
+ </div>`).join('')}
+ </div>
+ </div>`;
+ });
+
+ html+=`</div>`;
+ document.getElementById('vp-ord-app').innerHTML=html;
+
+ document.querySelectorAll('.order-card').forEach(card=>{
+ card.onclick=()=>{
+ const id=card.dataset.id;
+ const order=orders.find(o=>o.orderNumber===id);
+ showOrder(order);
+ };
+ });
+}
+
+function showOrder(order){
+ const modal=document.createElement('div');
+ modal.style.cssText='position:fixed;inset:0;background:rgba(0,0,0,.5);display:flex;align-items:center;justify-content:center;z-index:9999';
+ modal.innerHTML=`<div style="background:#fff;border-radius:16px;padding:24px;width:90%;max-width:500px;max-height:80vh;overflow-y:auto">
+ <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+ <h3 style="margin:0">${order.orderNumber||order.name}</h3>
+ <button onclick="this.closest('[style*=\'fixed\']').remove()" style="background:none;border:none;font-size:24px;cursor:pointer">&times;</button>
+ </div>
+ <div style="display:grid;gap:12px">
+ <div><strong>Status:</strong> ${order.status}</div>
+ <div><strong>Name:</strong> ${order.name}</div>
+ <div><strong>Title:</strong> ${order.title}</div>
+ <div><strong>Email:</strong> ${order.email}</div>
+ <div><strong>Qty:</strong> ${order.qty}</div>
+ <div><strong>Ship To:</strong> ${order.shipTo}</div>
+ <div><strong>Approved By:</strong> ${order.approvedBy}</div>
+ <div><strong>Timestamp:</strong> ${order.timestamp||order.approvedAt||'—'}</div>
+ </div>
+ </div>`;
+ document.body.appendChild(modal);
+}
+
+load();
+})();
+</script>
