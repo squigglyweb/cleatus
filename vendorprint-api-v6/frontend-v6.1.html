@@ -277,11 +277,6 @@ input,textarea,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-ra
  function pendingRow(it,i){
  const ok=it.frontApprovedBy&&it.backApprovedBy;
  const warn=ok?'':`<span class="pill">⚠ Needs front & back approval</span>`;
- const proofThumbs = (it.proofFrontUrl || it.proofBackUrl) ? `
- <div class="pending-proof">
- ${it.proofFrontUrl ? `<img src="${it.proofFrontUrl}" alt="Front proof">` : ''}
- ${it.proofBackUrl ? `<img src="${it.proofBackUrl}" alt="Back proof">` : ''}
- </div>` : '';
  const qrThumb = it.qrUrl ? `<div class="thumb" style="background-image:url('${it.qrUrl}')"><div class="cta">QR</div></div>` : '';
  const proofImg = (IMG[it.mode]||IMG.field).front;
  return `<div class="panel" style="display:flex;gap:14px;align-items:flex-start">
@@ -297,7 +292,6 @@ input,textarea,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-ra
  <div class="meta">Cell: ${escapeHTML(fmtPhone(it.cell)||'')}</div>
  <div style="margin-top:8px"><strong>Ship To:</strong><br>${escapeHTML(it.shipTo||'')}</div>
  <div class="meta" style="margin-top:8px">Qty: ${it.qty||250}</div>
- ${proofThumbs}
  <div class="meta" style="margin-top:8px">
  ${it.frontApprovedBy ? `✔ Front OK (${escapeHTML(it.frontApprovedBy)} • ${new Date(it.frontAt).toLocaleString()})` : '✖ Front not approved'}<br>
  ${it.backApprovedBy ? `✔ Back OK (${escapeHTML(it.backApprovedBy)} • ${new Date(it.backAt).toLocaleString()})` : '✖ Back not approved'}
