@@ -293,15 +293,7 @@ function tln_add_admin_menu() {
         30                              // Position
     );
     
-    // Add submenu pages directly here to avoid hook conflicts
-    add_submenu_page(
-        'tln-dashboard',
-        'Campaign Requests',
-        'Campaign Requests',
-        'manage_options',
-        'tln-campaign-requests',
-        'tln_render_campaign_requests'
-    );
+    // Submenu pages are registered in tln-admin-dashboard.php; no duplicate needed
 }
 add_action('admin_menu', 'tln_add_admin_menu');
 
