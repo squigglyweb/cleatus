@@ -123,7 +123,7 @@ input,textarea,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-ra
  lbOpen:false,lbSide:'front',lbItem:null
  };
 
- const imgs=()=>IMG[state.mode];
+ const imgs=()=>IMG[state.mode]||IMG.field;
 
  /* ===== Proof capture ===== */
  function captureCanvas(canvasId) {
@@ -286,7 +286,7 @@ input,textarea,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-ra
  </div>` : '';
  const qrThumb = it.qrUrl ? `<div class="thumb" style="background-image:url('${it.qrUrl}')"><div class="cta">QR</div></div>` : '';
  return `<div class="panel" style="display:flex;gap:14px;align-items:flex-start">
- <div class="thumb" data-lb="${i}" style="background-image:url('${IMG[it.mode].front}')">
+ <div class="thumb" data-lb="${i}" style="background-image:url('${(IMG[it.mode]||IMG.field).front}')">
  <div class="cta">Click to View</div>
  </div>
  ${qrThumb}
