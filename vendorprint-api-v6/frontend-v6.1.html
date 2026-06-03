@@ -283,7 +283,7 @@ input,textarea,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-ra
  ${it.proofBackUrl ? `<img src="${it.proofBackUrl}" alt="Back proof">` : ''}
  </div>` : '';
  const qrThumb = it.qrUrl ? `<div class="thumb" style="background-image:url('${it.qrUrl}')"><div class="cta">QR</div></div>` : '';
- const proofImg = it.proofFrontUrl && it.proofFrontUrl.startsWith('http') ? it.proofFrontUrl : (it.proofFrontData && it.proofFrontData.startsWith('data:') ? it.proofFrontData : (IMG[it.mode]||IMG.field).front);
+ const proofImg = (IMG[it.mode]||IMG.field).front;
  return `<div class="panel" style="display:flex;gap:14px;align-items:flex-start">
  <div class="thumb" data-lb="${i}" style="background-image:url('${proofImg}')">
  <div class="cta">Click to View</div>
@@ -544,8 +544,8 @@ if(t.id==='addToOrder'){
  state.lbItem=item;if(!keep)state.lbSide='front';
  const lb=document.getElementById('bcLB'),f=document.getElementById('lbFaceFront'),b=document.getElementById('lbFaceBack');
  if(!lb||!f||!b) return;
- const frontImg = item.proofFrontUrl && item.proofFrontUrl.startsWith('http') ? item.proofFrontUrl : (item.proofFrontData && item.proofFrontData.startsWith('data:') ? item.proofFrontData : (IMG[item.mode]||IMG.field).front);
- const backImg = item.proofBackUrl && item.proofBackUrl.startsWith('http') ? item.proofBackUrl : (item.proofBackData && item.proofBackData.startsWith('data:') ? item.proofBackData : (IMG[item.mode]||IMG.field).back);
+ const frontImg = (IMG[item.mode]||IMG.field).front;
+ const backImg = (IMG[item.mode]||IMG.field).back;
  f.style.backgroundImage=`url('${frontImg}')`;b.style.backgroundImage=`url('${backImg}')`;
  setLBSide(state.lbSide,true);state.lbOpen=true;lb.classList.add('show');drawLBFront();
  }
