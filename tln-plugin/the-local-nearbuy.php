@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 5.3 - Fix campaign business_id to use claim ID (not user_id)
+Version: 5.4 - Campaign code slugs, admin business names, deprecated offer-landing
 */
 
 // Create database tables on activation
@@ -57,6 +57,7 @@ function tln_create_tables() {
     $wpdb->query("CREATE TABLE IF NOT EXISTS {$wpdb->prefix}tln_campaigns (
         id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
         business_id BIGINT(20) UNSIGNED NOT NULL,
+        campaign_code VARCHAR(50),
         title VARCHAR(255) NOT NULL,
         description TEXT,
         offer_text VARCHAR(255),
@@ -66,7 +67,8 @@ function tln_create_tables() {
         campaign_cost DECIMAL(10,2) DEFAULT 0,
         workflow_status VARCHAR(50) DEFAULT 'setup',
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        PRIMARY KEY (id)
+        PRIMARY KEY (id),
+        UNIQUE KEY campaign_code (campaign_code)
     ) $charset_collate");
     
     // Vouchers table

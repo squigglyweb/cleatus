@@ -120,6 +120,29 @@ function tln_process_voucher_redirect($code) {
             exit;
         }
     }
+    
+    // Try campaign_code (slug) - e.g., "pizza-hut-ABC"
+    $campaign = $wpdb->get_row($wpdb->prepare(
+        "SELECT * FROM {$wpdb->prefix}tln_campaigns WHERE campaign_code = %s",
+        sanitize_title($code)
+    ));
+    if ($campaign) {
+        $scan_source = isset($_GET['source']) ? sanitize_text_field($_GET['source']) : 'postcard';
+        if (!in_array($scan_source, ['postcard', 'directory', 'newsletter'])) $scan_source = 'postcard';
+        
+        $wpdb->insert(
+            $wpdb->prefix . 'tln_qr_scans',
+            array(
+                'campaign_id' => $campaign->id,
+                'scanned_at'  => current_time('mysql'),
+                'source'      => $scan_source
+            ),
+            array('%d', '%s', '%s')
+        );
+        echo tln_render_campaign_offer($campaign);
+        exit;
+    }
+    
     // If not a campaign, try a voucher code.
     $voucher = $wpdb->get_row($wpdb->prepare(
         "SELECT * FROM {$wpdb->prefix}tln_vouchers WHERE code = %s",

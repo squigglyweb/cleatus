@@ -1,6 +1,10 @@
 <?php
 /**
  * TLN Offer Landing Page
+ * 
+ * DEPRECATED: This file is outdated. Use tln-voucher-system.php for QR redirects.
+ * This file only remains for backward compatibility if somehow in use.
+ * 
  * Handles /r/{campaign_id} QR code redirects
  */
 

@@ -374,9 +374,20 @@ function tln_campaigns_page() {
 
     // Build query
     if ( $current_filter != 'all' ) {
-        $campaigns = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM {$table_name} WHERE workflow_status = %s ORDER BY updated_at DESC", $current_filter ) );
+        $campaigns = $wpdb->get_results( $wpdb->prepare( 
+            "SELECT c.*, cl.business_name 
+             FROM {$table_name} c 
+             LEFT JOIN {$wpdb->prefix}tln_claims cl ON c.business_id = cl.id 
+             WHERE c.workflow_status = %s ORDER BY c.updated_at DESC", 
+            $current_filter 
+        ) );
     } else {
-        $campaigns = $wpdb->get_results( "SELECT * FROM {$table_name} ORDER BY updated_at DESC" );
+        $campaigns = $wpdb->get_results( 
+            "SELECT c.*, cl.business_name 
+             FROM {$table_name} c 
+             LEFT JOIN {$wpdb->prefix}tln_claims cl ON c.business_id = cl.id 
+             ORDER BY c.updated_at DESC" 
+        );
     }
 
     $stages = json_decode( TLN_WORKFLOW_STAGES, true );
@@ -443,6 +454,7 @@ function tln_campaigns_page() {
                             <td><?php echo esc_html( $camp->id ); ?></td>
                             <td>
                                 <strong><?php echo esc_html( $camp->title ); ?></strong><br>
+                                <small style="color:#1976d2;"><?php echo esc_html( $camp->business_name ?: 'No business linked' ); ?></small><br>
                                 <small><?php echo esc_html( substr( $camp->description, 0, 60 ) ); ?>...</small>
                             </td>
                             <td>
@@ -514,7 +526,7 @@ function tln_campaigns_page() {
                             <td><?php echo esc_html( $camp->created_at ); ?></td>
                             <td style="text-align:center;">
                                 <?php
-                                $qr_link = home_url( '/r/' . $camp->id );
+                                $qr_link = home_url( '/r/' . ($camp->campaign_code ?: $camp->id) );
                                 $qr_api = 'https://quickchart.io/qr?size=80x80&text=' . urlencode( $qr_link );
                                 ?>
                                 <a href="<?php echo esc_url( $qr_link ); ?>" target="_blank">
@@ -576,6 +588,16 @@ function tln_add_campaign_page() {
             tln_campaign_spot_alerts($edit_id);
         } else {
             $data['created_at'] = current_time( 'mysql' );
+            
+            // Generate campaign_code from business name + random suffix
+            $business_name = '';
+            $claim = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}tln_claims WHERE id = %d", $business_id));
+            if ($claim) {
+                $business_name = sanitize_title($claim->business_name);
+            }
+            $suffix = strtoupper(wp_generate_password(3, false));
+            $data['campaign_code'] = $business_name ? $business_name . '-' . $suffix : 'campaign-' . $suffix;
+            
             $wpdb->insert( $campaigns_table, $data );
             $edit_id = $wpdb->insert_id;
             echo '<div class="notice notice-success"><p>✅ Campaign created!</p></div>';
@@ -839,7 +861,7 @@ function tln_add_campaign_page() {
             <hr>
             <h3>Campaign QR Code</h3>
             <?php
-            $qr_link = home_url( '/r/' . $campaign->id );
+            $qr_link = home_url( '/r/' . ($campaign->campaign_code ?: $campaign->id) );
             $qr_api = 'https://quickchart.io/qr?size=200x200&text=' . urlencode( $qr_link );
             ?>
             <div class="tln-qr-box">
