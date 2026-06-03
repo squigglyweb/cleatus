@@ -230,7 +230,9 @@ input,textarea,select{width:100%;padding:12px;border:1px solid #cbd5e1;border-ra
  email: fullEmail(card.emailFront) || '',
  office: OFFICE_BASE+card.office || '',
  cell: fmtPhone(card.cell) || '',
- approvedBy: card.approverName || 'CHS'
+ approvedBy: card.approverName || 'CHS',
+ proofFrontUrl: card.proofFrontUrl || '',
+ proofBackUrl: card.proofBackUrl || ''
  };
  try{const r=await jsonp('order.create',{row});if(r&&r.ok)ok++;else{fail++;lastErr=(r&&(r.error||r.raw))?String(r.error||r.raw):'unknown';}}
  catch{fail++;lastErr='network';}
