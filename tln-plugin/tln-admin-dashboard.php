@@ -88,6 +88,16 @@ function tln_register_dashboard_page() {
         'tln-campaign-requests',
         'tln_render_campaign_requests'
     );
+    
+    // Gift Claims (Pens)
+    add_submenu_page(
+        'tln-dashboard',
+        'Gift Claims',
+        'Gift Claims',
+        'manage_options',
+        'tln-gift-claims',
+        'tln_render_gift_claims'
+    );
 }
 add_action('admin_menu', 'tln_register_dashboard_page');
 
@@ -934,6 +944,95 @@ function tln_render_campaign_requests() {
         <div style="background:#d4edda;border-radius:8px;padding:2rem;text-align:center;">
             <p style="margin:0;font-size:1.1rem;"><strong>No campaign requests yet.</strong></p>
             <p style="margin:0.5rem 0 0;color:#666;">Share your campaign request form to start getting submissions!</p>
+        </div>
+        <?php endif; ?>
+    </div>
+    <?php
+}
+/**
+ * Render Gift Claims page (Pens)
+ */
+function tln_render_gift_claims() {
+    global $wpdb;
+    
+    $table_name = $wpdb->prefix . 'tln_gift_claims';
+    
+    // Handle status update (mark as delivered)
+    if (isset($_POST['tln_mark_delivered']) && isset($_POST['claim_id'])) {
+        $claim_id = intval($_POST['claim_id']);
+        $wpdb->update(
+            $table_name,
+            array('delivered' => 1, 'delivered_at' => current_time('mysql')),
+            array('id' => $claim_id)
+        );
+        echo '<div class="notice notice-success"><p>Marked as delivered.</p></div>';
+    }
+    
+    // Get all gift claims
+    $claims = $wpdb->get_results("SELECT * FROM $table_name ORDER BY created_at DESC");
+    $pending_count = $wpdb->get_var("SELECT COUNT(*) FROM $table_name WHERE delivered = 0");
+    $delivered_count = $wpdb->get_var("SELECT COUNT(*) FROM $table_name WHERE delivered = 1");
+    
+    ?>
+
+    <div style="padding:1rem;">
+        <h1 style="margin-top:0;">Gift Claims (Pens)</h1>
+        
+        <div style="display:flex;gap:1rem;margin-bottom:1.5rem;">
+            <div style="background:#fff3cd;padding:1rem 1.5rem;border-radius:8px;">
+                <strong style="font-size:1.5rem;"><?php echo intval($pending_count); ?></strong> Pending Delivery
+            </div>
+            <div style="background:#d4edda;padding:1rem 1.5rem;border-radius:8px;">
+                <strong style="font-size:1.5rem;"><?php echo intval($delivered_count); ?></strong> Delivered
+            </div>
+        </div>
+        
+        <?php if (!empty($claims)): ?>
+        <table class="widefat fixed striped" style="width:100%;max-width:1200px;">
+            <thead>
+                <tr>
+                    <th>Business</th>
+                    <th>Contact</th>
+                    <th>Phone</th>
+                    <th>Time Slot</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($claims as $claim): ?>
+                <tr>
+                    <td><strong><?php echo esc_html($claim->business_name); ?></strong></td>
+                    <td><?php echo esc_html($claim->contact_name); ?><br><small><?php echo esc_html($claim->contact_email); ?></small></td>
+                    <td><?php echo esc_html($claim->contact_phone); ?></td>
+                    <td><?php echo esc_html($claim->time_slot); ?></td>
+                    <td>
+                        <?php if ($claim->delivered): ?>
+                        <span style="background:#d4edda;color:#155724;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.85rem;">Delivered</span>
+                        <?php else: ?>
+                        <span style="background:#fff3cd;color:#856404;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.85rem;">Pending</span>
+                        <?php endif; ?>
+                    </td>
+                    <td><?php echo date('M j, Y', strtotime($claim->created_at)); ?></td>
+                    <td>
+                        <?php if (!$claim->delivered): ?>
+                        <form method="post">
+                            <input type="hidden" name="claim_id" value="<?php echo intval($claim->id); ?>">
+                            <button type="submit" name="tln_mark_delivered" class="button button-primary" onclick="return confirm('Mark as delivered?');">Delivered</button>
+                        </form>
+                        <?php else: ?>
+                        <span style="color:#666;">-</span>
+                        <?php endif; ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <?php else: ?>
+        <div style="background:#f8f8f8;border-radius:8px;padding:2rem;text-align:center;">
+            <p style="margin:0;font-size:1.1rem;"><strong>No gift claims yet.</strong></p>
+            <p style="margin:0.5rem 0 0;color:#666;">Share your gift claim link with businesses!</p>
         </div>
         <?php endif; ?>
     </div>

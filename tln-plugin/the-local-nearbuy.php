@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 5.5 - Claim form email notification, text opt-in, UI fixes
+Version: 5.6 - Gift claims (pens), admin panel
 */
 
 // Create database tables on activation
@@ -95,6 +95,25 @@ function tln_create_tables() {
         scanned_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         source VARCHAR(50) DEFAULT 'postcard',
         PRIMARY KEY (id)
+    ) $charset_collate");
+    
+    // Gift Claims table (pens, swag, etc)
+    $wpdb->query("CREATE TABLE IF NOT EXISTS {$wpdb->prefix}tln_gift_claims (
+        id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+        business_id BIGINT(20) UNSIGNED NOT NULL,
+        business_name VARCHAR(255) NOT NULL,
+        contact_name VARCHAR(255) NOT NULL,
+        contact_email VARCHAR(255) NOT NULL,
+        contact_phone VARCHAR(50),
+        time_slot VARCHAR(100),
+        gift_type VARCHAR(50) DEFAULT 'pens',
+        status VARCHAR(50) DEFAULT 'pending',
+        delivered TINYINT(1) DEFAULT 0,
+        delivered_at DATETIME NULL,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY  (id),
+        KEY business_id (business_id),
+        KEY status (status)
     ) $charset_collate");
     
     // Flush rewrite rules
@@ -459,10 +478,19 @@ require_once plugin_dir_path(__FILE__) . 'tln-business-dashboard.php';
 require_once plugin_dir_path(__FILE__) . 'tln-admin-campaign.php';
 require_once plugin_dir_path(__FILE__) . 'tln-settings.php';
 require_once plugin_dir_path(__FILE__) . 'tln-offer-landing.php';
+require_once plugin_dir_path(__FILE__) . 'templates/gift-claim.php';
 // Profile page handler
 if (!is_admin()) {
     add_filter('the_content', 'tln_profile_content');
     add_filter('the_content', 'tln_directory_content');
+    add_filter('the_content', 'tln_gift_claim_page');
+}
+
+function tln_gift_claim_page($content) {
+    if (!is_page('claim-gift') && !is_page('free-gift')) {
+        return $content;
+    }
+    return tln_render_gift_claim();
 }
 
 function tln_directory_content($content) {
