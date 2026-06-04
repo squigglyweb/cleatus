@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 5.8 - Add unverify feature for admin
+Version: 5.9 - Directory management (add from Google, hide/show)
 */
 
 // Create database tables on activation
@@ -114,6 +114,24 @@ function tln_create_tables() {
         PRIMARY KEY  (id),
         KEY business_id (business_id),
         KEY status (status)
+    ) $charset_collate");
+    
+    // Directory Management table (manual adds + hidden businesses)
+    $wpdb->query("CREATE TABLE IF NOT EXISTS {$wpdb->prefix}tln_directory_mgmt (
+        id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+        place_id VARCHAR(255) NOT NULL,
+        name VARCHAR(255) NOT NULL,
+        address TEXT,
+        phone VARCHAR(50),
+        category VARCHAR(100),
+        location VARCHAR(50),
+        rating DECIMAL(3,2) DEFAULT 0,
+        photo_ref VARCHAR(255),
+        source VARCHAR(50) DEFAULT 'manual',
+        is_hidden TINYINT(1) DEFAULT 0,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY  (id),
+        UNIQUE KEY place_id (place_id)
     ) $charset_collate");
     
     // Flush rewrite rules

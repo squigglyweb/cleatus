@@ -106,6 +106,53 @@ function tln_get_cached_businesses() {
         return $b['rating'] - $a['rating'];
     });
     
+    // Add manually added businesses (not hidden)
+    global $wpdb;
+    $mgmt_table = $wpdb->prefix . 'tln_directory_mgmt';
+    
+    // Get hidden place_ids to filter out
+    $hidden_places = $wpdb->get_results("SELECT place_id FROM $mgmt_table WHERE is_hidden = 1");
+    $hidden_place_ids = array();
+    foreach($hidden_places as $hp) {
+        $hidden_place_ids[strtolower($hp->place_id)] = true;
+    }
+    
+    // Filter out hidden Google businesses
+    $filtered_out = array();
+    foreach($out as $biz) {
+        $pid = strtolower($biz['place_id'] ?? '');
+        if(!empty($pid) && isset($hidden_place_ids[$pid])) {
+            continue;
+        }
+        $filtered_out[] = $biz;
+    }
+    $out = $filtered_out;
+    
+    // Get manual adds
+    $manual_businesses = $wpdb->get_results("SELECT * FROM $mgmt_table WHERE is_hidden = 0");
+    
+    $seen_place_ids = array();
+    foreach($out as $existing) {
+        if(!empty($existing['place_id'])) {
+            $seen_place_ids[strtolower($existing['place_id'])] = true;
+        }
+    }
+    
+    foreach($manual_businesses as $mb) {
+        $pid = strtolower($mb->place_id);
+        if(!isset($seen_place_ids[$pid])) {
+            $out[] = array(
+                'name' => $mb->name,
+                'place_id' => $mb->place_id,
+                'cat' => $mb->category,
+                'loc' => $mb->location,
+                'addr' => $mb->address,
+                'rating' => floatval($mb->rating),
+                'photo_ref' => $mb->photo_ref
+            );
+        }
+    }
+    
     set_transient('tln_businesses', $out, DAY_IN_SECONDS * 7);
     return $out;
 }

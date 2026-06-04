@@ -98,6 +98,16 @@ function tln_register_dashboard_page() {
         'tln-gift-claims',
         'tln_render_gift_claims'
     );
+    
+    // Directory Management
+    add_submenu_page(
+        'tln-dashboard',
+        'Directory',
+        'Directory Mgmt',
+        'manage_options',
+        'tln-directory-mgmt',
+        'tln_render_directory_mgmt'
+    );
 }
 add_action('admin_menu', 'tln_register_dashboard_page');
 
@@ -1048,6 +1058,205 @@ function tln_render_gift_claims() {
         <div style="background:#f8f8f8;border-radius:8px;padding:2rem;text-align:center;">
             <p style="margin:0;font-size:1.1rem;"><strong>No gift claims yet.</strong></p>
             <p style="margin:0.5rem 0 0;color:#666;">Share your gift claim link with businesses!</p>
+        </div>
+        <?php endif; ?>
+    </div>
+    <?php
+}
+
+/**
+ * Render Directory Management page
+ */
+function tln_render_directory_mgmt() {
+    global $wpdb;
+    
+    $table_name = $wpdb->prefix . 'tln_directory_mgmt';
+    $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : get_option('tln_directory_google_api_key', '');
+    
+    // Handle actions
+    if (isset($_POST['tln_add_business']) && !empty($_POST['business_query'])) {
+        $query = sanitize_text_field($_POST['business_query']);
+        $location = sanitize_text_field($_POST['business_location']);
+        $full_query = $query . ' in ' . $location . ' NC';
+        
+        // Search Google Places
+        $url = 'https://maps.googleapis.com/maps/api/place/textsearch/json?query=' . urlencode($full_query) . '&key=' . $api_key;
+        $response = wp_remote_get($url);
+        
+        if (is_wp_error($response)) {
+            echo '<div class="notice notice-error"><p>Error searching Google: ' . esc_html($response->get_error_message()) . '</p></div>';
+        } else {
+            $body = json_decode(wp_remote_retrieve_body($response), true);
+            if (!empty($body['results'])) {
+                $result = $body['results'][0]; // Take first result
+                
+                // Determine location
+                $addr = $result['formatted_address'] ?? '';
+                $loc = 'Waxhaw';
+                if (stripos($addr, 'Marvin') !== false) $loc = 'Marvin';
+                elseif (stripos($addr, 'Wesley Chapel') !== false) $loc = 'Wesley Chapel';
+                elseif (stripos($addr, 'Weddington') !== false) $loc = 'Weddington';
+                elseif (stripos($addr, 'Indian Land') !== false) $loc = 'Indian Land';
+                
+                // Get photo reference
+                $photo_ref = '';
+                if (!empty($result['photos'][0]['photo_reference'])) {
+                    $photo_ref = $result['photos'][0]['photo_reference'];
+                }
+                
+                // Check if already exists
+                $exists = $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM $table_name WHERE place_id = %s", $result['place_id']));
+                
+                if ($exists) {
+                    echo '<div class="notice notice-warning"><p>This business is already in your directory.</p></div>';
+                } else {
+                    // Determine category
+                    $category = 'Services';
+                    $types = $result['types'] ?? [];
+                    foreach ($types as $type) {
+                        if (in_array($type, ['restaurant', 'cafe', 'bar'])) { $category = 'Restaurant'; break; }
+                        if (in_array($type, ['store', 'shopping_mall'])) { $category = 'Retail'; break; }
+                        if (in_array($type, ['gym', 'health_club'])) { $category = 'Fitness'; break; }
+                        if (in_array($type, ['salon', 'spa'])) { $category = 'Salon'; break; }
+                        if (in_array($type, ['car_repair', ['car_wash']])) { $category = 'Auto'; break; }
+                    }
+                    
+                    $wpdb->insert($table_name, [
+                        'place_id' => $result['place_id'],
+                        'name' => $result['name'],
+                        'address' => $addr,
+                        'phone' => $result['formatted_phone_number'] ?? '',
+                        'category' => $category,
+                        'location' => $loc,
+                        'rating' => $result['rating'] ?? 0,
+                        'photo_ref' => $photo_ref,
+                        'source' => 'manual',
+                        'is_hidden' => 0,
+                        'created_at' => current_time('mysql')
+                    ]);
+                    
+                    echo '<div class="notice notice-success"><p><strong>' . esc_html($result['name']) . '</strong> added to your directory!</p></div>';
+                }
+            } else {
+                echo '<div class="notice notice-error"><p>No results found. Try a different search.</p></div>';
+            }
+        }
+    }
+    
+    // Handle hide/show/delete
+    if (isset($_GET['action']) && isset($_GET['id'])) {
+        $id = intval($_GET['id']);
+        $action = sanitize_text_field($_GET['action']);
+        
+        if ($action === 'hide') {
+            $wpdb->update($table_name, ['is_hidden' => 1], ['id' => $id]);
+            echo '<div class="notice notice-success"><p>Business hidden from directory.</p></div>';
+        } elseif ($action === 'show') {
+            $wpdb->update($table_name, ['is_hidden' => 0], ['id' => $id]);
+            echo '<div class="notice notice-success"><p>Business restored to directory.</p></div>';
+        } elseif ($action === 'delete') {
+            $wpdb->delete($table_name, ['id' => $id]);
+            echo '<div class="notice notice-info"><p>Business removed from management.</p></div>';
+        }
+    }
+    
+    // Get all managed businesses
+    $businesses = $wpdb->get_results("SELECT * FROM $table_name ORDER BY created_at DESC");
+    $hidden_count = $wpdb->get_var("SELECT COUNT(*) FROM $table_name WHERE is_hidden = 1");
+    $active_count = $wpdb->get_var("SELECT COUNT(*) FROM $table_name WHERE is_hidden = 0");
+    ?>
+
+    <div style="padding:1rem;">
+        <h1 style="margin-top:0;">Directory Management</h1>
+        
+        <!-- Add Business Form -->
+        <div style="background:#fff;padding:1.5rem;border-radius:8px;margin-bottom:2rem;border:2px solid #e63946;">
+            <h2 style="margin-top:0;">Add Business from Google</h2>
+            <p style="margin-bottom:1rem;color:#666;">Search for a business by name - we'll pull the info and image from Google automatically.</p>
+            
+            <form method="post" style="display:flex;gap:1rem;flex-wrap:wrap;align-items:flex-end;">
+                <div style="flex:1;min-width:250px;">
+                    <label style="display:block;margin-bottom:0.5rem;font-weight:600;">Business Name</label>
+                    <input type="text" name="business_query" required placeholder="e.g. Joe's Pizza" style="width:100%;padding:0.5rem;font-size:1rem;">
+                </div>
+                <div style="flex:1;min-width:150px;">
+                    <label style="display:block;margin-bottom:0.5rem;font-weight:600;">Location</label>
+                    <select name="business_location" style="width:100%;padding:0.5rem;font-size:1rem;">
+                        <option value="Waxhaw">Waxhaw</option>
+                        <option value="Marvin">Marvin</option>
+                        <option value="Wesley Chapel">Wesley Chapel</option>
+                        <option value="Weddington">Weddington</option>
+                        <option value="Indian Land">Indian Land</option>
+                    </select>
+                </div>
+                <button type="submit" name="tln_add_business" class="button button-primary" style="background:#e63946;">Search & Add</button>
+            </form>
+        </div>
+        
+        <!-- Stats -->
+        <div style="display:flex;gap:1rem;margin-bottom:1.5rem;">
+            <div style="background:#d4edda;padding:1rem 1.5rem;border-radius:8px;">
+                <strong style="font-size:1.5rem;"><?php echo intval($active_count); ?></strong> Active
+            </div>
+            <div style="background:#f8d7da;padding:1rem 1.5rem;border-radius:8px;">
+                <strong style="font-size:1.5rem;"><?php echo intval($hidden_count); ?></strong> Hidden
+            </div>
+        </div>
+        
+        <!-- List -->
+        <?php if (!empty($businesses)): ?>
+        <table class="widefat fixed striped" style="width:100%;max-width:1200px;">
+            <thead>
+                <tr>
+                    <th>Business</th>
+                    <th>Location</th>
+                    <th>Category</th>
+                    <th>Rating</th>
+                    <th>Photo</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($businesses as $biz): ?>
+                <tr>
+                    <td>
+                        <strong><?php echo esc_html($biz->name); ?></strong><br>
+                        <small><?php echo esc_html($biz->address); ?></small>
+                    </td>
+                    <td><?php echo esc_html($biz->location); ?></td>
+                    <td><?php echo esc_html($biz->category); ?></td>
+                    <td><?php echo floatval($biz->rating); ?></td>
+                    <td>
+                        <?php if (!empty($biz->photo_ref)): ?>
+                        <img src="https://maps.googleapis.com/maps/api/place/photo?maxwidth=100&photoreference=<?php echo esc_attr($biz->photo_ref); ?>&key=<?php echo esc_attr($api_key); ?>" style="width:60px;height:60px;object-fit:cover;border-radius:4px;">
+                        <?php else: ?>
+                        <span style="color:#999;">No photo</span>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?php if ($biz->is_hidden): ?>
+                        <span style="background:#f8d7da;color:#721c24;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.85rem;">Hidden</span>
+                        <?php else: ?>
+                        <span style="background:#d4edda;color:#155724;padding:0.25rem 0.5rem;border-radius:4px;font-size:0.85rem;">Active</span>
+                        <?php endif; ?>
+                    </td>
+                    <td>
+                        <?php if ($biz->is_hidden): ?>
+                        <a href="?page=tln-directory-mgmt&action=show&id=<?php echo intval($biz->id); ?>" class="button button-small" style="background:#28a745;color:#fff;">Show</a>
+                        <?php else: ?>
+                        <a href="?page=tln-directory-mgmt&action=hide&id=<?php echo intval($biz->id); ?>" class="button button-small" style="background:#ffc107;color:#000;">Hide</a>
+                        <?php endif; ?>
+                        <a href="?page=tln-directory-mgmt&action=delete&id=<?php echo intval($biz->id); ?>" class="button button-small" style="background:#dc3545;color:#fff;" onclick="return confirm('Remove this business entirely?');">Delete</a>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+        <?php else: ?>
+        <div style="background:#f8f8f8;border-radius:8px;padding:2rem;text-align:center;">
+            <p style="margin:0;font-size:1.1rem;"><strong>No manually added businesses yet.</strong></p>
+            <p style="margin:0.5rem 0 0;color:#666;">Use the form above to add businesses from Google.</p>
         </div>
         <?php endif; ?>
     </div>
