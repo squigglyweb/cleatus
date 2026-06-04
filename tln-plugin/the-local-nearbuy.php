@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 5.4 - Campaign code slugs, admin business names, deprecated offer-landing
+Version: 5.5 - Claim form email notification, text opt-in, UI fixes
 */
 
 // Create database tables on activation
@@ -30,6 +30,7 @@ function tln_create_tables() {
         user_phone VARCHAR(50),
         tos_agreed TEXT,
         tos_signed_date DATE,
+        text_optin TINYINT(1) DEFAULT 0,
         status VARCHAR(50) DEFAULT 'pending',
         approved_at DATETIME,
         approved_by BIGINT(20),
@@ -98,6 +99,12 @@ function tln_create_tables() {
     
     // Flush rewrite rules
     flush_rewrite_rules();
+    
+    // Add text_optin column to claims table if it doesn't exist (v5.5+)
+    $column_exists = $wpdb->get_var("SELECT COUNT(*) FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME='{$wpdb->prefix}tln_claims' AND COLUMN_NAME='text_optin'");
+    if (!$column_exists) {
+        $wpdb->query("ALTER TABLE {$wpdb->prefix}tln_claims ADD COLUMN text_optin TINYINT(1) DEFAULT 0");
+    }
 }
 
 // REST API for reviews
