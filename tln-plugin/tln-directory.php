@@ -214,7 +214,7 @@ function tln_dir_shortcode($atts) {
             $img = '<img class="tln-img" src="'.esc_url($placeholder).'" alt="'.esc_attr($b['name']).'" loading="lazy">';
         }
         
-        $claim_url = '/claim/?biz='.urlencode($b['name']).'&pid='.urlencode($b['place_id']);
+        $claim_url = '/advertise/?biz='.urlencode($b['name']).'&pid='.urlencode($b['place_id']);
         
         echo '<div class="tln-card" data-n="'.strtolower($b['name']).'" data-c="'.$b['cat'].'" data-l="'.$loc.'">';
         echo '<div class="tln-img-wrap">'.$img;
@@ -240,7 +240,7 @@ if (!empty($matched)) {
     // Fallback to static profile page for unclaimed businesses
     echo '<a href="/profile/?biz='.urlencode($b['name']).'&pid='.urlencode($b['place_id']).'" class="tln-btn">View Profile</a>';
 }
-        echo '<div class="tln-claim-link"><a href="'.esc_url($claim_url).'">Own this business? Claim it</a></div>';
+        echo '<div class="tln-claim-link"><a href="'.esc_url($claim_url).'">Partner with The Local NearBuy</a></div>';
         echo '</div></div>';
     }
     echo '</div>';
@@ -299,7 +299,7 @@ if (!empty($matched)) {
                     '<div class="tln-rating"><span class="tln-stars">'+'★'.repeat(Math.floor(b.rating))+'</span> <span class="tln-reviews">('+b.rating+')</span></div>' +
                     '<div class="tln-address">📍 '+b.addr+'</div>' +
                     '<a href="/profile/?biz='+encodeURIComponent(b.name)+'&pid='+b.place_id+'" class="tln-btn">View Profile</a>' +
-                    '<div class="tln-claim-link"><a href="/claim/?biz='+encodeURIComponent(b.name)+'&pid='+b.place_id+'">Own this business? Claim it</a></div>' +
+                    '<div class="tln-claim-link"><a href="/advertise/?biz='+encodeURIComponent(b.name)+'&pid='+b.place_id+'">Partner with The Local NearBuy</a></div>' +
                     '</div></div>';
             }).join('');
             

@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 5.9 - Directory management (add from Google, hide/show)
+Version: 6.0 - Updated Claim to Partner/Advertise language throughout
 */
 
 // Create database tables on activation

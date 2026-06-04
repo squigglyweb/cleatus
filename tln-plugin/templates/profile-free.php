@@ -297,10 +297,10 @@ $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
                 </iframe>
             </div>
 
-            <div class="claim-box" style="background:#f5f5f5;border:1px solid #ddd;">
-                <h3 style="color:#333;">Claim This Page</h3>
-                <p style="color:#666;">Not ready to claim yet? <a href="/campaign-pricing/" style="color:var(--red);">Run a postcard campaign</a> to reach thousands of local households.</p>
-                <a href="/claim/" class="claim-btn" style="background:var(--red);">Claim Your Page</a>
+            <div class="claim-box" style="background:#1a1a1a;border-radius:12px;padding:1.5rem;text-align:center;margin-top:1.5rem;">
+                <h3 style="color:white;font-size:1.25rem;margin-bottom:0.5rem;">Partner with The Local NearBuy</h3>
+                <p style="color:#ccc;margin-bottom:1rem;">Want to reach local households with TLN postcard campaigns? Get your business in front of thousands of neighbors.</p>
+                <a href="/advertise/" class="claim-btn" style="background:var(--red);">Get Started</a>
             </div>
         </div>
     </div>

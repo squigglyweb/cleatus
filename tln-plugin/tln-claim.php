@@ -50,16 +50,17 @@ function tln_claim_func() {
         $headers = ['Content-Type: text/plain; charset=UTF-8'];
         wp_mail($cemail, $subject, $message, $headers);
         
-        $out = '<div style="padding:2rem;background:#fff3cd;border-radius:8px;text-align:center;max-width:600px;margin:0 auto;">';
-        $out .= '<h3>Claim Submitted</h3>';
-        $out .= '<p>Thank you for claiming <strong>'.esc_html($biz_name).'</strong>.</p>';
-        $out .= '<p>You will receive an email confirmation shortly.</p>';
+        $out = '<div style="padding:2rem;background:#d4edda;border-radius:8px;text-align:center;max-width:600px;margin:0 auto;">';
+        $out .= '<h3 style="color:#155724;">Thank You!</h3>';
+        $out .= '<p>Your information for <strong>'.esc_html($biz_name).'</strong> has been submitted.</p>';
+        $out .= '<p>We will be in touch shortly.</p>';
         $out .= '</div>';
         return $out;
     }
     
     $out = '<div style="padding:2rem;background:#f8f8f8;border-radius:12px;max-width:600px;margin:0 auto;">';
-    $out .= '<h2 style="margin-top:0;">Claim Your Business</h2>';
+    $out .= '<h2 style="margin-top:0;">Partner with The Local NearBuy</h2>';
+    $out .= '<p style="margin-bottom:1.5rem;color:#666;">Get your business featured on The Local NearBuy directory and advertising campaigns.</p>';
     $out .= '<form method="post">';
     $out .= '<p><label>Business Name *<br><input name="biz_name" value="'.esc_attr($biz).'" required style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;font-size:1rem;"></label></p>';
     $out .= '<input type="hidden" name="pid" value="'.(isset($_GET['pid']) ? esc_attr($_GET['pid']) : '').'">';
@@ -67,7 +68,7 @@ function tln_claim_func() {
     $out .= '<p><label>Email *<br><input name="cemail" type="email" required style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;font-size:1rem;"></label></p>';
     $out .= '<p><label>Phone *<br><input name="cphone" required style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;font-size:1rem;"></label></p>';
     $out .= '<p><label><input type="checkbox" required> I agree to the <a href="/terms-of-service/" target="_blank" style="color:#e63946;text-decoration:underline;">Terms of Service</a></label></p>';
-    $out .= '<p><label><input type="checkbox" name="text_optin"> Yes, I want to receive text messages about my claim and campaign updates</label></p>';
+    $out .= '<p><label><input type="checkbox" name="text_optin"> Yes, I want to receive text messages about advertising and campaign updates</label></p>';
     $out .= '<p><label>Digital Signature *<br><input name="csig" required placeholder="Type Full Name" style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;font-size:1rem;"></label></p>';
     $out .= '<div style="margin-top:1.5rem;"><button type="submit" name="submit_claim" style="background:#e63946;color:white;padding:1rem 2rem;border:none;border-radius:8px;font-size:1rem;font-weight:600;cursor:pointer;width:100%;">SUBMIT</button></div>';
     $out .= '</form></div>';
