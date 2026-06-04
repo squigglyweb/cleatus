@@ -53,8 +53,9 @@ function tln_claim_func() {
         $out = '<div style="padding:2rem;background:#d4edda;border-radius:8px;text-align:center;max-width:600px;margin:0 auto;">';
         $out .= '<h3 style="color:#155724;">Claim Submitted!</h3>';
         $out .= '<p>Thank you for claiming <strong>'.esc_html($biz_name).'</strong>.</p>';
-        $out .= '<p><strong>What happens next:</strong></p>';
-        $out .= '<ul style="text-align:left;margin:1rem 0;"><li>We will bring you a FREE box of customized pens</li><li>You will get access to your business dashboard</li><li>You will be able to run TLN postcard campaigns</li></ul>';
+        $out .= '<p><strong>Your FREE gift:</strong> A box of customized pens for your business!</p>';
+        $out .= '<p><strong>Your perks include:</strong></p>';
+        $out .= '<ul style="text-align:left;margin:1rem 0;"><li>Access to update your business info and photos</li><li>Ability to run TLN postcard campaigns to reach local households</li></ul>';
         $out .= '<p>Check your email for next steps!</p>';
         $out .= '</div>';
         return $out;
@@ -62,8 +63,7 @@ function tln_claim_func() {
     
     $out = '<div style="padding:2rem;background:#f8f8f8;border-radius:12px;max-width:600px;margin:0 auto;">';
     $out .= '<h2 style="margin-top:0;">Claim Your Business Page</h2>';
-    $out .= '<p style="margin-bottom:1.5rem;color:#666;"><strong>When you claim your page, you get:</strong></p>';
-    $out .= '<ul style="margin-bottom:1.5rem;color:#666;"><li>A FREE box of customized pens for your business</li><li>Access to update your business info and photos</li><li>Ability to run TLN postcard campaigns to reach local households</li></ul>';
+    $out .= '<p style="margin-bottom:1.5rem;color:#666;"><strong>When you claim your page, you get a FREE gift plus exclusive perks.</strong> Details revealed after you submit!</p>';
     $out .= '<form method="post">';
     $out .= '<p><label>Business Name *<br><input name="biz_name" value="'.esc_attr($biz).'" required style="width:100%;padding:0.75rem;border:1px solid #ddd;border-radius:6px;font-size:1rem;"></label></p>';
     $out .= '<input type="hidden" name="pid" value="'.(isset($_GET['pid']) ? esc_attr($_GET['pid']) : '').'">';

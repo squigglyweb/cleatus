@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 6.1 - Claim unlocks free pens + advertising perks
+Version: 6.2 - Keep mystery: free gift + perks, reveal after submit
 */
 
 // Create database tables on activation
