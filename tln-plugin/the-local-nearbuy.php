@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 5.7 - Fix directory Google images
+Version: 5.8 - Add unverify feature for admin
 */
 
 // Create database tables on activation

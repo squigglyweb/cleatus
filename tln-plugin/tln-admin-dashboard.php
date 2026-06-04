@@ -735,6 +735,17 @@ function tln_render_claims() {
             }
             $wpdb->delete($wpdb->prefix . 'tln_claims', ['id' => $claim_id]);
             echo '<div class="notice notice-info"><p>Claim rejected and removed.</p></div>';
+        } elseif ($action === 'unverify') {
+            $claim = $wpdb->get_row($wpdb->prepare("SELECT * FROM {$wpdb->prefix}tln_claims WHERE id = %d", $claim_id));
+            if ($claim) {
+                $message = "Hi {$claim->claimant_name},\n\n";
+                $message .= "Your verification for {$claim->business_name} has been removed from The Local NearBuy.\n\n";
+                $message .= "If you'd like to re-verify, please contact us: bryan@thelocalnearbuy.com\n\n";
+                $message .= "The Local NearBuy Team";
+                wp_mail($claim->claimant_email, "Verification Removed - {$claim->business_name}", $message);
+            }
+            $wpdb->delete($wpdb->prefix . 'tln_claims', ['id' => $claim_id]);
+            echo '<div class="notice notice-warning"><p>Business verification removed. Claim record deleted.</p></div>';
         }
     }
     
@@ -784,7 +795,7 @@ function tln_render_claims() {
         </div>
         <?php endif; ?>
         
-        <h2 style="margin-bottom:1rem;">Approved Claims (<?php echo count($approved); ?>)</h2>
+        <h2 style="margin-bottom:1rem;">Verified Businesses (<?php echo count($approved); ?>)</h2>
         <?php if (count($approved) > 0): ?>
         <table class="widefat" style="background:white;">
             <thead>
@@ -793,8 +804,9 @@ function tln_render_claims() {
                     <th>Claimant</th>
                     <th>Email</th>
                     <th>Phone</th>
-                    <th>Approved</th>
+                    <th>Verified</th>
                     <th>Tier</th>
+                    <th>Admin Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -806,6 +818,9 @@ function tln_render_claims() {
                     <td><?php echo esc_html($claim->claimant_phone); ?></td>
                     <td><?php echo esc_html($claim->approved_at); ?></td>
                     <td><?php echo esc_html($claim->tier); ?></td>
+                    <td>
+                        <a href="?page=tln-claims&action=unverify&claim_id=<?php echo $claim->id; ?>" class="button" style="background:#6c7575;color:white;" onclick="return confirm('Unverify this business? They will lose access to their dashboard.');">Unverify</a>
+                    </td>
                 </tr>
                 <?php endforeach; ?>
             </tbody>
