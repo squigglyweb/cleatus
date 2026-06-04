@@ -30,8 +30,10 @@ jQuery(document).ready(function($) {
         for (var i = 0; i < items.length; i++) {
             var b = items[i];
             var icon = icons[b.cat] || '🏪';
-            // Always use placeholder - tier check happens server-side in PHP
-            var imgUrl = placeholder;
+            // Use Google photo if available, otherwise placeholder
+            var imgUrl = b.photo_ref 
+                ? 'https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=' + b.photo_ref + '&key=' + apiKey
+                : placeholder;
             
             html += '<div class="tln-card" data-n="'+b.name.toLowerCase()+'" data-c="'+b.cat+'" data-l="'+b.loc+'">';
             html += '<div class="tln-img-wrap"><img class="tln-img" src="'+imgUrl+'" alt="'+b.name+'" loading="lazy">';
