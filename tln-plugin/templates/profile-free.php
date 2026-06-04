@@ -298,9 +298,9 @@ $api_key = defined('TLN_GOOGLE_API_KEY') ? TLN_GOOGLE_API_KEY : '';
             </div>
 
             <div class="claim-box" style="background:#1a1a1a;border-radius:12px;padding:1.5rem;text-align:center;margin-top:1.5rem;">
-                <h3 style="color:white;font-size:1.25rem;margin-bottom:0.5rem;">Partner with The Local NearBuy</h3>
-                <p style="color:#ccc;margin-bottom:1rem;">Want to reach local households with TLN postcard campaigns? Get your business in front of thousands of neighbors.</p>
-                <a href="/advertise/" class="claim-btn" style="background:var(--red);">Get Started</a>
+                <h3 style="color:white;font-size:1.25rem;margin-bottom:0.5rem;">Claim Your Free Page</h3>
+                <p style="color:#ccc;margin-bottom:1rem;">Claim your page and get a FREE box of customized pens for your business PLUS access to run TLN postcard campaigns to reach thousands of local households.</p>
+                <a href="/claim/" class="claim-btn" style="background:var(--red);">Claim Your Page</a>
             </div>
         </div>
     </div>

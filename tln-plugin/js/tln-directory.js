@@ -43,7 +43,7 @@ jQuery(document).ready(function($) {
             html += '<div class="tln-rating"><span class="tln-stars">'+'★'.repeat(Math.floor(b.rating))+'</span> <span class="tln-reviews">('+b.rating+')</span></div>';
             html += '<div class="tln-address">📍 '+b.addr+'</div>';
             html += '<a href="/profile/?biz='+encodeURIComponent(b.name)+'&pid='+b.place_id+'" class="tln-btn">View Profile</a>';
-            html += '<div class="tln-claim-link"><a href="/advertise/?biz='+encodeURIComponent(b.name)+'&pid='+b.place_id+'">Partner with The Local NearBuy</a></div>';
+            html += '<div class="tln-claim-link"><a href="/claim/?biz='+encodeURIComponent(b.name)+'&pid='+b.place_id+'">Own this business? Claim it</a></div>';
             html += '</div></div>';
         }
         

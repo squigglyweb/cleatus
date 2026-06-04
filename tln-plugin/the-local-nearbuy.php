@@ -2,7 +2,7 @@
 /*
 Plugin Name: TLN Plugin Bundle
 Description: Business profiles, directory, and member features for The Local NearBuy
-Version: 6.0 - Updated Claim to Partner/Advertise language throughout
+Version: 6.1 - Claim unlocks free pens + advertising perks
 */
 
 // Create database tables on activation
