@@ -3,6 +3,8 @@
 
 > **NOTE (June 2026):** Will integrate with [PrinterBridge](https://www.printerbridge.com/) (4over white-label web-to-print) instead of building custom ordering. Keep MVP landing page for lead capture.
 
+**The Model:** Old-school print shops would print a "shell" (base design) once, then overlay new info when reprinting. We're doing the same digitally — store the template, plug in new employee info per order.
+
 ---
 
 # PART 1: THE PAIN POINT ANALYSIS
