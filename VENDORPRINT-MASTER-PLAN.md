@@ -5,6 +5,8 @@
 
 **The Model:** Old-school print shops would print a "shell" (base design) once, then overlay new info when reprinting. We're doing the same digitally — store the template, plug in new employee info per order.
 
+**Payment Options:** Add BNPL (buy now, pay later) via Affirm or similar — helps close bigger orders by spreading payments.
+
 ---
 
 # PART 1: THE PAIN POINT ANALYSIS
