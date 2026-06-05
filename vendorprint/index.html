@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VendorPrint - Business Card Printing for Growing Teams</title>
+    <meta name="description" content="Stop overpaying for business cards. We specialize in high-volume orders for companies with frequent hiring. Get bulk pricing without the hassle.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #1a1a2e;
+            --accent: #2563eb;
+            --accent-hover: #1d4ed8;
+            --text: #374151;
+            --light: #f9fafb;
+            --border: #e5e7eb;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: var(--light);
+        }
+        
+        header {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.9rem;
+        }
+        
+        nav a:hover {
+            color: var(--accent);
+        }
+        
+        .hero {
+            background: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: #6b7280;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        
+        .hero .highlight {
+            color: var(--accent);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        
+        .cta-button:hover {
+            background: var(--accent-hover);
+        }
+        
+        .features {
+            padding: 4rem 0;
+            background: var(--light);
+        }
+        
+        .features h2 {
+            text-align: center;
+            font-size: 1.75rem;
+            color: var(--primary);
+            margin-bottom: 3rem;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+        
+        .feature-card h3 {
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+        
+        .feature-card p {
+            color: #6b7280;
+            font-size: 0.95rem;
+        }
+        
+        .how-it-works {
+            padding: 4rem 0;
+            background: white;
+        }
+        
+        .how-it-works h2 {
+            text-align: center;
+            font-size: 1.75rem;
+            color: var(--primary);
+            margin-bottom: 3rem;
+        }
+        
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .step {
+            text-align: center;
+        }
+        
+        .step-number {
+            width: 48px;
+            height: 48px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin: 0 auto 1rem;
+        }
+        
+        .step h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .step p {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        .contact {
+            padding: 4rem 0;
+            background: var(--light);
+        }
+        
+        .contact h2 {
+            text-align: center;
+            font-size: 1.75rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .contact-subtitle {
+            text-align: center;
+            color: #6b7280;
+            margin-bottom: 2rem;
+        }
+        
+        .contact-form {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+        
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background: var(--accent);
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .submit-btn:hover {
+            background: var(--accent-hover);
+        }
+        
+        .submit-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+        
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .success-message h3 {
+            color: #059669;
+            margin-bottom: 0.5rem;
+        }
+        
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        footer p {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+            
+            .steps {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+            
+            nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">Vendor<span>Print</span></div>
+            <nav>
+                <a href="#features">Features</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#contact">Contact</a>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>Business Cards That Don't<br><span class="highlight">Break the Budget</span></h1>
+            <p>We handle high-volume business card printing for companies with frequent hiring. Bulk pricing, automated proofs, and simple reorders.</p>
+            <a href="#contact" class="cta-button">Get a Quote</a>
+        </div>
+    </section>
+    
+    <section class="features" id="features">
+        <div class="container">
+            <h2>Why Companies Choose Us</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <h3>Bulk Pricing</h3>
+                    <p>The more you order, the less you pay. We pass savings directly to companies with ongoing printing needs.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Automated Reorders</h3>
+                    <p>Hire someone new? One click and their cards are on the way. No more chasing down vendors.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Quick Proofs</h3>
+                    <p>Upload your design or use our templates. Get a digital proof within 24 hours.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Quality Stock</h3>
+                    <p>Premium paper, vibrant prints. Your cards represent your company — make them count.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Stored Templates</h3>
+                    <p>We keep your templates on file. Same great design, zero setup time on reorders.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>Dedicated Account Manager</h3>
+                    <p>One point of contact who knows your company, your designs, and your preferences.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <h2>How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Upload Your Design</h3>
+                    <p>Send us your logo and branding. We create templates your team can use anytime.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>We Handle the Rest</h3>
+                    <p>Proofs, printing, quality checks. You approve, we print.</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Reorder in Seconds</h3>
+                    <p>Future orders take seconds. New hire = new cards, no hassle.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Let's Talk Printing</h2>
+            <p class="contact-subtitle">Tell us about your needs and we'll put together a custom quote.</p>
+            
+            <div class="contact-form">
+                <form id="leadForm">
+                    <div class="form-group">
+                        <label for="company">Company Name</label>
+                        <input type="text" id="company" name="company" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone (optional)</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="monthly-volume">Estimated Monthly Cards</label>
+                        <select id="monthly-volume" name="monthly-volume">
+                            <option value="">Select volume...</option>
+                            <option value="1-50">1-50 cards</option>
+                            <option value="51-200">51-200 cards</option>
+                            <option value="201-500">201-500 cards</option>
+                            <option value="500+">500+ cards</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Anything else we should know?</label>
+                        <textarea id="message" name="message" placeholder="Current printing challenges, specific needs, timeline..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Send Request</button>
+                </form>
+                
+                <div class="success-message" id="successMessage">
+                    <h3>Thanks for reaching out!</h3>
+                    <p>We'll be in touch within 24 hours with your custom quote.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 VendorPrint. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.getElementById('leadForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            
+            const formData = {
+                company: document.getElementById('company').value,
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                monthlyVolume: document.getElementById('monthly-volume').value,
+                message: document.getElementById('message').value,
+                submittedAt: new Date().toISOString()
+            };
+            
+            // For MVP: log to console and show success
+            // In production: send to backend/API
+            console.log('Lead submitted:', formData);
+            
+            // Simulate API call
+            await new Promise(resolve => setTimeout(resolve, 800));
+            
+            this.style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
