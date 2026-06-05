@@ -1,6 +1,8 @@
 # VENDORPRINT MASTER PLAN
 ## The Secret Printing Company That Saves Businesses Money
 
+> **NOTE (June 2026):** Will integrate with [PrinterBridge](https://www.printerbridge.com/) (4over white-label web-to-print) instead of building custom ordering. Keep MVP landing page for lead capture.
+
 ---
 
 # PART 1: THE PAIN POINT ANALYSIS
