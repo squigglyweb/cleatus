@@ -19,7 +19,6 @@ with csv_path.open(newline='', encoding='utf-8') as f:
         phone_work = f"{base_work_number} x {phone_work_ext}" if phone_work_ext else ''
         phone_cell = row.get('Cell Phone', '').strip()
         email = row.get('Work_Email', '').strip()
-        website = 'https://housingservices.com'
         vcard = [
             'BEGIN:VCARD',
             'VERSION:3.0',
@@ -30,7 +29,6 @@ with csv_path.open(newline='', encoding='utf-8') as f:
             f'TEL;TYPE=WORK,VOICE:{phone_work}',
             f'TEL;TYPE=CELL,VOICE:{phone_cell}',
             f'EMAIL:{email}',
-            f'URL:{website}',
             'END:VCARD'
         ]
         vcard_str = "\r\n".join(vcard)
