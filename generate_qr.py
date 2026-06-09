@@ -14,7 +14,10 @@ with csv_path.open(newline='', encoding='utf-8') as f:
         last = row.get('Last Name', '').strip()
         title = row.get('Position', '').strip()
         org = 'Collegiate Housing Services'
-        phone_work = row.get('Work Phone', '').strip()
+        phone_work_ext = row.get('Work Phone', '').strip()
+        # Base work number is constant for CHS
+        base_work_number = '317-920-2600'
+        phone_work = f"{base_work_number} x {phone_work_ext}" if phone_work_ext else ''
         phone_cell = row.get('Cell Phone', '').strip()
         email = row.get('Work_Email', '').strip()
         address = row.get('Primary Shipping Address', '').strip()
