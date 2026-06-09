@@ -20,11 +20,7 @@ with csv_path.open(newline='', encoding='utf-8') as f:
         phone_work = f"{base_work_number} x {phone_work_ext}" if phone_work_ext else ''
         phone_cell = row.get('Cell Phone', '').strip()
         email = row.get('Work_Email', '').strip()
-        address = row.get('Primary Shipping Address', '').strip()
-        city = row.get('City', '').strip()
-        state = row.get('State', '').strip()
-        zipc = row.get('Zipcode', '').strip()
-        # Build vCard 3.0
+        # Build vCard 3.0 (no address)
         vcard = [
             'BEGIN:VCARD',
             'VERSION:3.0',
@@ -35,7 +31,6 @@ with csv_path.open(newline='', encoding='utf-8') as f:
             f'TEL;TYPE=WORK,VOICE:{phone_work}',
             f'TEL;TYPE=CELL,VOICE:{phone_cell}',
             f'EMAIL:{email}',
-            f'ADR;TYPE=WORK:;;{address};{city};{state};{zipc};USA',
             'END:VCARD'
         ]
         vcard_str = "\r\n".join(vcard)
