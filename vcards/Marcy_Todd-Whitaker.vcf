@@ -1,0 +1,12 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Todd-Whitaker;Marcy;;;
+FN:Marcy Todd-Whitaker
+ORG:Collegiate Housing Services
+TITLE:Accounts Coordinator
+TEL;TYPE=WORK,VOICE:317-920-2600 x 224
+TEL;TYPE=CELL,VOICE:248-308-8645
+EMAIL:mtoddwhitaker@housingservices.com
+URL:https://housingservices.com
+LOGO;ENCODING=b;TYPE=PNG:iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGP4z8DwHwAFAAH/iZk9HQAAAABJRU5ErkJggg==
+END:VCARD

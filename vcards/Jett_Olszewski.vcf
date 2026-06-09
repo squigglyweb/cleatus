@@ -1,0 +1,12 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Olszewski;Jett;;;
+FN:Jett Olszewski
+ORG:Collegiate Housing Services
+TITLE:Director of Housing
+TEL;TYPE=WORK,VOICE:317-920-2600 x 120
+TEL;TYPE=CELL,VOICE:N/A
+EMAIL:jolszewski@housingservices.com
+URL:https://housingservices.com
+LOGO;ENCODING=b;TYPE=PNG:iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGP4z8DwHwAFAAH/iZk9HQAAAABJRU5ErkJggg==
+END:VCARD

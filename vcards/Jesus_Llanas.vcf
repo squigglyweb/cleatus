@@ -1,0 +1,12 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Llanas;Jesus;;;
+FN:Jesus Llanas
+ORG:Collegiate Housing Services
+TITLE:Housing Representative
+TEL;TYPE=WORK,VOICE:317-920-2600 x 102
+TEL;TYPE=CELL,VOICE:317-509-0911
+EMAIL:jllanas@housingservices.com
+URL:https://housingservices.com
+LOGO;ENCODING=b;TYPE=PNG:iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4nGP4z8DwHwAFAAH/iZk9HQAAAABJRU5ErkJggg==
+END:VCARD
