@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
-import csv, base64
+import csv
 from pathlib import Path
 
 csv_path = Path('data.csv')
 output_dir = Path('vcards')
 output_dir.mkdir(exist_ok=True)
-
-logo_path = Path('assets/chs_logo_1.png')
-logo_b64 = base64.b64encode(logo_path.read_bytes()).decode()
 
 with csv_path.open(newline='', encoding='utf-8') as f:
     reader = csv.DictReader(f)
@@ -33,7 +30,6 @@ with csv_path.open(newline='', encoding='utf-8') as f:
             f'TEL;TYPE=CELL,VOICE:{phone_cell}',
             f'EMAIL:{email}',
             f'URL:{website}',
-            f'LOGO;ENCODING=b;TYPE=PNG:{logo_b64}',
             'END:VCARD'
         ]
         vcard_str = "\r\n".join(vcard)
