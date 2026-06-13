@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VendorPrint - Business Card Printing for Growing Teams</title>
-    <meta name="description" content="Stop overpaying for business cards. We specialize in high-volume orders for companies with frequent hiring. Get bulk pricing without the hassle.">
+    <title>VendorPrint - Business Cards for Companies That Hire</title>
+    <meta name="description" content="Business card printing for companies that hire frequently. Stored templates, one-click reorders, bulk pricing. We make it effortless.">
     <style>
         * {
             margin: 0;
@@ -13,11 +13,11 @@
         }
         
         :root {
-            --primary: #1a1a2e;
+            --primary: #0f0f0f;
             --accent: #2563eb;
             --accent-hover: #1d4ed8;
             --text: #374151;
-            --light: #f9fafb;
+            --light: #fafafa;
             --border: #e5e7eb;
         }
         
@@ -28,10 +28,13 @@
             background: var(--light);
         }
         
+        /* Header - PressCentric style dark bar */
         header {
-            background: white;
-            border-bottom: 1px solid var(--border);
+            background: var(--primary);
             padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         
         .container {
@@ -47,9 +50,10 @@
         }
         
         .logo {
-            font-size: 1.5rem;
+            font-size: 1.25rem;
             font-weight: 700;
-            color: var(--primary);
+            color: white;
+            letter-spacing: -0.02em;
         }
         
         .logo span {
@@ -57,33 +61,54 @@
         }
         
         nav a {
-            color: var(--text);
+            color: rgba(255,255,255,0.8);
             text-decoration: none;
             margin-left: 2rem;
             font-size: 0.9rem;
+            transition: color 0.2s;
         }
         
         nav a:hover {
-            color: var(--accent);
+            color: white;
         }
         
+        .cta-small {
+            background: var(--accent);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-left: 2rem;
+            transition: background 0.2s;
+        }
+        
+        .cta-small:hover {
+            background: var(--accent-hover);
+        }
+        
+        /* Hero */
         .hero {
             background: white;
-            padding: 4rem 0;
+            padding: 5rem 0;
             text-align: center;
+            border-bottom: 1px solid var(--border);
         }
         
         .hero h1 {
-            font-size: 2.5rem;
+            font-size: 3rem;
             color: var(--primary);
-            margin-bottom: 1rem;
-            line-height: 1.2;
+            margin-bottom: 1.25rem;
+            line-height: 1.1;
+            font-weight: 700;
+            letter-spacing: -0.03em;
         }
         
         .hero p {
             font-size: 1.2rem;
             color: #6b7280;
-            max-width: 600px;
+            max-width: 640px;
             margin: 0 auto 2rem;
         }
         
@@ -95,125 +120,174 @@
             display: inline-block;
             background: var(--accent);
             color: white;
-            padding: 1rem 2rem;
-            border-radius: 8px;
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
             text-decoration: none;
             font-weight: 600;
+            font-size: 1rem;
             transition: background 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
         
         .cta-button:hover {
             background: var(--accent-hover);
         }
         
-        .features {
+        /* What's the real problem */
+        .problem {
             padding: 4rem 0;
-            background: var(--light);
+            background: var(--primary);
+            color: white;
         }
         
-        .features h2 {
-            text-align: center;
+        .problem h2 {
             font-size: 1.75rem;
-            color: var(--primary);
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-weight: 600;
         }
         
-        .features-grid {
+        .problem-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .problem-item {
+            background: rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .problem-item h3 {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .problem-item p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.95rem;
+        }
+        
+        /* Solution */
+        .solution {
+            padding: 5rem 0;
+            background: white;
+        }
+        
+        .solution h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+        
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
         }
         
-        .feature-card {
-            background: white;
+        .solution-card {
+            text-align: center;
             padding: 2rem;
-            border-radius: 12px;
-            border: 1px solid var(--border);
         }
         
-        .feature-card h3 {
+        .solution-card h3 {
             color: var(--primary);
-            margin-bottom: 0.75rem;
             font-size: 1.1rem;
+            margin-bottom: 0.75rem;
         }
         
-        .feature-card p {
+        .solution-card p {
             color: #6b7280;
             font-size: 0.95rem;
         }
         
-        .how-it-works {
-            padding: 4rem 0;
-            background: white;
+        /* Products */
+        .products {
+            padding: 5rem 0;
+            background: var(--light);
         }
         
-        .how-it-works h2 {
+        .products h2 {
             text-align: center;
-            font-size: 1.75rem;
+            font-size: 2rem;
             color: var(--primary);
             margin-bottom: 3rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
         }
         
-        .steps {
+        .product-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 2rem;
-            max-width: 900px;
-            margin: 0 auto;
         }
         
-        .step {
-            text-align: center;
+        .product-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            transition: transform 0.2s, box-shadow 0.2s;
         }
         
-        .step-number {
-            width: 48px;
-            height: 48px;
-            background: var(--accent);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1.25rem;
-            margin: 0 auto 1rem;
+        .product-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
         }
         
-        .step h3 {
+        .product-card h3 {
             color: var(--primary);
+            font-size: 1.1rem;
             margin-bottom: 0.5rem;
         }
         
-        .step p {
+        .product-card p {
             color: #6b7280;
             font-size: 0.9rem;
+            margin-bottom: 1rem;
         }
         
+        .product-card .price {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        /* Contact */
         .contact {
-            padding: 4rem 0;
-            background: var(--light);
+            padding: 5rem 0;
+            background: white;
         }
         
         .contact h2 {
             text-align: center;
-            font-size: 1.75rem;
+            font-size: 2rem;
             color: var(--primary);
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
         }
         
         .contact-subtitle {
             text-align: center;
             color: #6b7280;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
         
         .contact-form {
             max-width: 500px;
             margin: 0 auto;
             background: white;
-            padding: 2rem;
-            border-radius: 12px;
+            padding: 2.5rem;
+            border-radius: 8px;
             border: 1px solid var(--border);
         }
         
@@ -226,6 +300,7 @@
             font-weight: 500;
             margin-bottom: 0.5rem;
             color: var(--primary);
+            font-size: 0.9rem;
         }
         
         .form-group input,
@@ -234,7 +309,7 @@
             width: 100%;
             padding: 0.75rem;
             border: 1px solid var(--border);
-            border-radius: 6px;
+            border-radius: 4px;
             font-size: 1rem;
             font-family: inherit;
         }
@@ -258,11 +333,13 @@
             color: white;
             padding: 1rem;
             border: none;
-            border-radius: 8px;
+            border-radius: 4px;
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
             transition: background 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
         
         .submit-btn:hover {
@@ -293,21 +370,25 @@
         }
         
         footer p {
-            opacity: 0.8;
-            font-size: 0.9rem;
+            opacity: 0.7;
+            font-size: 0.85rem;
         }
         
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 1.75rem;
+                font-size: 2rem;
             }
             
-            .steps {
+            .solution-grid,
+            .product-grid {
                 grid-template-columns: 1fr;
-                gap: 1.5rem;
             }
             
             nav {
+                display: none;
+            }
+            
+            .cta-small {
                 display: none;
             }
         }
@@ -316,78 +397,101 @@
 <body>
     <header>
         <div class="container header-content">
-            <img src="https://chs.vendorprint.site/wp-content/uploads/2026/06/VendorPrint.png" alt="VendorPrint" style="height:50px;">
+            <div class="logo">Vendor<span>Print</span></div>
             <nav>
-                <a href="#features">Features</a>
-                <a href="#how-it-works">How It Works</a>
-                <a href="#contact">Contact</a>
+                <a href="#problem">Why This Matters</a>
+                <a href="#solution">How It Works</a>
+                <a href="#products">Products</a>
+                <a href="#contact" class="cta-small">Get Quote</a>
             </nav>
         </div>
     </header>
     
     <section class="hero">
         <div class="container">
-            <h1>Business Cards That Don't<br><span class="highlight">Break the Budget</span></h1>
-            <p>We handle high-volume business card printing for companies with frequent hiring. Bulk pricing, automated proofs, and simple reorders.</p>
-            <p style="color: #059669; font-weight: 600; margin-top: 0.5rem;">20% cheaper than the big guys — shipping included.</p>
-            <a href="#contact" class="cta-button">Get a Quote</a>
+            <h1>Business Cards That Don't<br><span class="highlight">Waste Your Time</span></h1>
+            <p>You hire. We print. That's it. Stored templates, one-click reorders, bulk pricing for companies that can't afford to waste hours on every new hire.</p>
+            <a href="#contact" class="cta-button">Get Started</a>
         </div>
     </section>
     
-    <section class="features" id="features">
+    <section class="problem" id="problem">
         <div class="container">
-            <h2>Why Companies Choose Us</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <h3>Bulk Pricing</h3>
-                    <p>The more you order, the less you pay. We pass savings directly to companies with ongoing printing needs.</p>
+            <h2>Here's What You're Dealing With</h2>
+            <div class="problem-grid">
+                <div class="problem-item">
+                    <h3>Finding That File Every Time</h3>
+                    <p>Where did you save the logo? What version is the right one? Every reorder starts with 10 minutes of digging.</p>
                 </div>
-                <div class="feature-card">
-                    <h3>Automated Reorders</h3>
-                    <p>Hire someone new? One click and their cards are on the way. No more chasing down vendors.</p>
+                <div class="problem-item">
+                    <h3>Chasing The Vendor</h3>
+                    <p>Upload, wait for proof, request changes, wait again, approve, wait for shipping. Two weeks for business cards?</p>
                 </div>
-                <div class="feature-card">
-                    <h3>Quick Proofs</h3>
-                    <p>Upload your design or use our templates. Get a digital proof within 24 hours.</p>
+                <div class="problem-item">
+                    <h3>Paying Full Price</h3>
+                    <p>One-offs are expensive. You're not getting any bulk discount when you order 50 cards here, 100 there.</p>
                 </div>
-                <div class="feature-card">
-                    <h3>Quality Stock</h3>
-                    <p>Premium paper, vibrant prints. Your cards represent your company — make them count.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Stored Templates</h3>
-                    <p>We keep your templates on file. Same great design, zero setup time on reorders.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Dedicated Account Manager</h3>
-                    <p>One point of contact who knows your company, your designs, and your preferences.</p>
-                </div>
-                <div class="feature-card">
-                    <h3>Buy Now, Pay Later</h3>
-                    <p>Spread payments over time with flexible financing options. Close bigger orders without upfront costs.</p>
+                <div class="problem-item">
+                    <h3>Managing It All Yourself</h3>
+                    <p>You're not in the printing business. But you're the one keeping track of when everyone needs cards.</p>
                 </div>
             </div>
         </div>
     </section>
     
-    <section class="how-it-works" id="how-it-works">
+    <section class="solution" id="solution">
         <div class="container">
-            <h2>How It Works</h2>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-number">1</div>
-                    <h3>Upload Your Design</h3>
-                    <p>Send us your logo and branding. We create templates your team can use anytime.</p>
+            <h2>Here's What We Do About It</h2>
+            <div class="solution-grid">
+                <div class="solution-card">
+                    <h3>We Store Your Templates</h3>
+                    <p>Upload once. We keep your design on file. Future orders take seconds, not searches.</p>
                 </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3>We Handle the Rest</h3>
-                    <p>Proofs, printing, quality checks. You approve, we print.</p>
+                <div class="solution-card">
+                    <h3>We Handle Everything</h3>
+                    <p>Just tell us the name. We handle proof, printing, quality checks. You just approve or request a change.</p>
                 </div>
-                <div class="step">
-                    <div class="step-number">3</div>
-                    <h3>Reorder in Seconds</h3>
-                    <p>Future orders take seconds. New hire = new cards, no hassle.</p>
+                <div class="solution-card">
+                    <h3>You Get Bulk Pricing</h3>
+                    <p>All your orders, one account. Monthly billing with volume discounts built in.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="products" id="products">
+        <div class="container">
+            <h2>What We Print</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <h3>Business Cards</h3>
+                    <p>Premium stock, full color both sides. Standard or custom sizes.</p>
+                    <div class="price">From $25/500</div>
+                </div>
+                <div class="product-card">
+                    <h3>Staff Directories</h3>
+                    <p>Keep everyone on the same page. Updated versions shipped automatically.</p>
+                    <div class="price">From $50/100</div>
+                </div>
+                <div class="product-card">
+                    <h3>Welcome Packets</h3>
+                    <p>New hire welcome packages with business cards, folder, and inserts.</p>
+                    <div class="price">From $15/ea</div>
+                </div>
+                <div class="product-card">
+                    <h3>Retreat & Event Materials</h3>
+                    <p>Name tags, agendas, program books. We handle the details.</p>
+                    <div class="price">From $75/100</div>
+                </div>
+                <div class="product-card">
+                    <h3>Promotional Products</h3>
+                    <p>Logo gear for events, client gifts, recruiting materials.</p>
+                    <div class="price">Custom quotes</div>
+                </div>
+                <div class="product-card">
+                    <h3>Custom Projects</h3>
+                    <p>Need something else? Ask us. If it prints, we can do it.</p>
+                    <div class="price">Custom quotes</div>
                 </div>
             </div>
         </div>
@@ -395,8 +499,8 @@
     
     <section class="contact" id="contact">
         <div class="container">
-            <h2>Let's Talk Printing</h2>
-            <p class="contact-subtitle">Tell us about your needs and we'll put together a custom quote.</p>
+            <h2>Let's Get Started</h2>
+            <p class="contact-subtitle">Tell us about what you print and we'll build a custom quote.</p>
             
             <div class="contact-form">
                 <form id="leadForm">
@@ -413,7 +517,7 @@
                         <input type="email" id="email" name="email" required>
                     </div>
                     <div class="form-group">
-                        <label for="phone">Phone (optional)</label>
+                        <label for="phone">Phone</label>
                         <input type="tel" id="phone" name="phone">
                     </div>
                     <div class="form-group">
@@ -421,14 +525,14 @@
                         <input type="text" id="monthly-volume" name="monthly-volume" placeholder="e.g., 50, 500, 2000...">
                     </div>
                     <div class="form-group">
-                        <label for="message">Anything else we should know?</label>
-                        <textarea id="message" name="message" placeholder="Current printing challenges, specific needs, timeline..."></textarea>
+                        <label for="message">What are you currently printing?</label>
+                        <textarea id="message" name="message" placeholder="Types of prints, quantities, current challenges..."></textarea>
                     </div>
                     <button type="submit" class="submit-btn">Send Request</button>
                 </form>
                 
                 <div class="success-message" id="successMessage">
-                    <h3>Thanks for reaching out!</h3>
+                    <h3>Thanks for reaching out</h3>
                     <p>We'll be in touch within 24 hours with your custom quote.</p>
                 </div>
             </div>
@@ -459,11 +563,8 @@
                 submittedAt: new Date().toISOString()
             };
             
-            // For MVP: log to console and show success
-            // In production: send to backend/API
             console.log('Lead submitted:', formData);
             
-            // Simulate API call
             await new Promise(resolve => setTimeout(resolve, 800));
             
             this.style.display = 'none';
