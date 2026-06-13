@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CorporatePrint Solutions - Your Production Partner</title>
+    <meta name="description" content="Print production services for agencies and marketing teams. Reliable fulfillment, consistent quality, scalable volume. We handle everything.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0f3460;
+            --highlight: #e94560;
+            --text: #333;
+            --light: #f8f9fa;
+            --border: #e9ecef;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: white;
+        }
+        
+        header {
+            background: var(--primary);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            letter-spacing: -0.02em;
+        }
+        
+        .logo span {
+            color: var(--highlight);
+        }
+        
+        nav a {
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        
+        nav a:hover {
+            color: white;
+        }
+        
+        .cta-small {
+            background: var(--highlight);
+            color: white;
+            padding: 0.6rem 1.25rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-left: 2rem;
+            transition: background 0.2s;
+        }
+        
+        .cta-small:hover {
+            background: #d63653;
+        }
+        
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            padding: 6rem 0;
+            text-align: center;
+            color: white;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.25rem;
+            line-height: 1.1;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.8);
+            max-width: 650px;
+            margin: 0 auto 2rem;
+        }
+        
+        .hero .highlight {
+            color: var(--highlight);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--highlight);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: background 0.2s;
+        }
+        
+        .cta-button:hover {
+            background: #d63653;
+        }
+        
+        .hero-sub {
+            margin-top: 1.5rem;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.6);
+        }
+        
+        /* Stats */
+        .stats {
+            background: var(--light);
+            padding: 3rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            text-align: center;
+        }
+        
+        .stat-item strong {
+            display: block;
+            font-size: 2.5rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+        
+        .stat-item span {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* For Agencies */
+        .for-agencies {
+            padding: 5rem 0;
+            background: white;
+        }
+        
+        .for-agencies h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 3rem;
+            font-weight: 700;
+        }
+        
+        .agency-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+        }
+        
+        .agency-card {
+            padding: 2rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+        
+        .agency-card h3 {
+            color: var(--primary);
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .agency-card h3::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            background: var(--highlight);
+            border-radius: 50%;
+        }
+        
+        .agency-card ul {
+            list-style: none;
+        }
+        
+        .agency-card li {
+            padding: 0.5rem 0;
+            color: #555;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .agency-card li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.9rem;
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+        }
+        
+        /* Services */
+        .services {
+            padding: 5rem 0;
+            background: var(--primary);
+            color: white;
+        }
+        
+        .services h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            font-weight: 700;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background: rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .service-card h3 {
+            color: white;
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .service-card p {
+            color: rgba(255,255,255,0.7);
+            font-size: 0.9rem;
+        }
+        
+        /* Workflow */
+        .workflow {
+            padding: 5rem 0;
+            background: var(--light);
+        }
+        
+        .workflow h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 3rem;
+            font-weight: 700;
+        }
+        
+        .workflow-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .workflow-step {
+            text-align: center;
+            position: relative;
+        }
+        
+        .workflow-step::after {
+            content: "";
+            position: absolute;
+            top: 25px;
+            right: -15px;
+            width: 30px;
+            height: 2px;
+            background: var(--border);
+        }
+        
+        .workflow-step:last-child::after {
+            display: none;
+        }
+        
+        .workflow-num {
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin: 0 auto 1rem;
+        }
+        
+        .workflow-step h3 {
+            color: var(--primary);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .workflow-step p {
+            color: #666;
+            font-size: 0.85rem;
+        }
+        
+        /* Pricing Tiers */
+        .pricing {
+            padding: 5rem 0;
+            background: white;
+        }
+        
+        .pricing h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .pricing-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 3rem;
+        }
+        
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .pricing-card {
+            padding: 2rem;
+            border: 2px solid var(--border);
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .pricing-card.featured {
+            border-color: var(--highlight);
+            background: #fdf9f9;
+        }
+        
+        .pricing-card h3 {
+            color: var(--primary);
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .pricing-card .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+        
+        .pricing-card .price span {
+            font-size: 0.9rem;
+            color: #888;
+            font-weight: 400;
+        }
+        
+        .pricing-card .desc {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .pricing-card ul {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+        
+        .pricing-card li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--light);
+            font-size: 0.9rem;
+            color: #555;
+        }
+        
+        .pricing-card li:last-child {
+            border-bottom: none;
+        }
+        
+        /* Contact */
+        .contact {
+            padding: 5rem 0;
+            background: var(--light);
+        }
+        
+        .contact h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .contact-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 2.5rem;
+        }
+        
+        .contact-form {
+            max-width: 520px;
+            margin: 0 auto;
+            background: white;
+            padding: 2.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(15,52,96,0.1);
+        }
+        
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background: var(--highlight);
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .submit-btn:hover {
+            background: #d63653;
+        }
+        
+        .submit-btn:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+        
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .success-message h3 {
+            color: #27ae60;
+            margin-bottom: 0.5rem;
+        }
+        
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        footer p {
+            opacity: 0.7;
+            font-size: 0.85rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font: 2rem;
+            }
+            
+            .stats-grid,
+            .agency-grid,
+            .services-grid,
+            .workflow-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .workflow-step::after {
+                display: none;
+            }
+            
+            nav {
+                display: none;
+            }
+            
+            .cta-small {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">CorporatePrint<span>Solutions</span></div>
+            <nav>
+                <a href="#agencies">For Agencies</a>
+                <a href="#services">Services</a>
+                <a href="#pricing">Pricing</a>
+                <a href="#contact" class="cta-small">Request Demo</a>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>Your Production Partner.<br><span class="highlight">We Handle Everything.</span></h1>
+            <p>Reliable print fulfillment for agencies and marketing teams. Scalable volume, consistent quality, white-glove service. You focus on clients - we handle production.</p>
+            <a href="#contact" class="cta-button">Request a Demo</a>
+            <p class="hero-sub">Trusted by 50+ agencies. Average 15-year client relationships.</p>
+        </div>
+    </section>
+    
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <strong>2M+</strong>
+                    <span>Impressions printed annually</span>
+                </div>
+                <div class="stat-item">
+                    <strong>99.8%</strong>
+                    <span>On-time delivery</span>
+                </div>
+                <div class="stat-item">
+                    <strong>50+</strong>
+                    <span>Agency partners</span>
+                </div>
+                <div class="stat-item">
+                    <strong>15 yrs</strong>
+                    <span>Avg. client relationship</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="for-agencies" id="agencies">
+        <div class="container">
+            <h2>Built for Marketing Agencies</h2>
+            <div class="agency-grid">
+                <div class="agency-card">
+                    <h3>You Win More Clients</h3>
+                    <ul>
+                        <li>Turnkey production - present print as a seamless service</li>
+                        <li>Consistent quality across all client deliverables</li>
+                        <li>Professional proofs that impress your clients</li>
+                        <li>No finger-pointing - we own the production</li>
+                    </ul>
+                </div>
+                <div class="agency-card">
+                    <h3>We Handle The Details</h3>
+                    <ul>
+                        <li>Dedicated account manager - always know who to call</li>
+                        <li>File management and storage - never lose a client file</li>
+                        <li>Rush capabilities for tight deadlines</li>
+                        <li>Blind shipping to your clients (no vendor branding)</li>
+                    </ul>
+                </div>
+                <div class="agency-card">
+                    <h3>Scales With You</h3>
+                    <ul>
+                        <li>Volume pricing tiers - more jobs, better rates</li>
+                        <li>Flexible fulfillment - individual or bulk shipping</li>
+                        <li>Can manage multiple client accounts</li>
+                        <li>Need it yesterday? We've got you.</li>
+                    </ul>
+                </div>
+                <div class="agency-card">
+                    <h3>Business-Class Service</h3>
+                    <ul>
+                        <li>Net-30 terms for approved agencies</li>
+                        <li>Detailed invoicing by client/job</li>
+                        <li>Monthly reporting and analytics</li>
+                        <li>Production portal for easy ordering</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="services" id="services">
+        <div class="container">
+            <h2>Production Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Offset Printing</h3>
+                    <p>High-volume runs. Magazine quality. The gold standard for premium print.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Digital Printing</h3>
+                    <p>Quick turns, variable data, short runs. Perfect for personalized campaigns.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Large Format</h3>
+                    <p>Banners, posters, tradeshow materials. Indoor and outdoor signage.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Direct Mail</h3>
+                    <p>List management, postage, fulfillment. Complete campaign handling.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Packaging</h3>
+                    <p>Product boxes, retail packaging, promotional kits. Branded unboxing experiences.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Custom Projects</h3>
+                    <p>Anything you can imagine. We love a challenge.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="workflow">
+        <div class="container">
+            <h2>How It Works</h2>
+            <div class="workflow-grid">
+                <div class="workflow-step">
+                    <div class="workflow-num">1</div>
+                    <h3>Setup</h3>
+                    <p>We learn your clients, preferences, and brand standards.</p>
+                </div>
+                <div class="workflow-step">
+                    <div class="workflow-num">2</div>
+                    <h3>Order</h3>
+                    <p>You send files or we create them. One portal for all clients.</p>
+                </div>
+                <div class="workflow-step">
+                    <div class="workflow-num">3</div>
+                    <h3>Proof</h3>
+                    <p>Professional proofs within 24 hours. You approve.</p>
+                </div>
+                <div class="workflow-step">
+                    <div class="workflow-num">4</div>
+                    <h3>Print</h3>
+                    <p>Quality check at every stage. We don't ship mistakes.</p>
+                </div>
+                <div class="workflow-step">
+                    <div class="workflow-num">5</div>
+                    <h3>Deliver</h3>
+                    <p>Ship to offices, events, or blind to your clients.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2>Partnership Tiers</h2>
+            <p class="pricing-subtitle">Volume-based pricing. More jobs, better rates.</p>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Starter</h3>
+                    <div class="price">$0<span>/mo</span></div>
+                    <p class="desc">No monthly minimum</p>
+                    <ul>
+                        <li>Dedicated account manager</li>
+                        <li>Standard turnaround</li>
+                        <li>Online ordering portal</li>
+                        <li>File storage</li>
+                        <li>Email support</li>
+                    </ul>
+                    <a href="#contact" class="cta-button" style="background:#666;width:100%;">Get Started</a>
+                </div>
+                <div class="pricing-card featured">
+                    <h3>Growth</h3>
+                    <div class="price">$500<span>/mo</span></div>
+                    <p class="desc">Minimum monthly spend</p>
+                    <ul>
+                        <li>Everything in Starter</li>
+                        <li>Priority turnaround</li>
+                        <li>Rush service included</li>
+                        <li>Net-30 terms</li>
+                        <li>Phone support</li>
+                    </ul>
+                    <a href="#contact" class="cta-button" style="width:100%;">Get Started</a>
+                </div>
+                <div class="pricing-card">
+                    <h3>Enterprise</h3>
+                    <div class="price">$2,500<span>/mo</span></div>
+                    <p class="desc">Minimum monthly spend</p>
+                    <ul>
+                        <li>Everything in Growth</li>
+                        <li>Dedicated production team</li>
+                        <li>Same-day rush</li>
+                        <li>Custom reporting</li>
+                        <li>Executive reviews</li>
+                    </ul>
+                    <a href="#contact" class="cta-button" style="background:#666;width:100%;">Contact Us</a>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Let's Talk Partnership</h2>
+            <p class="contact-subtitle">Schedule a demo. We'll show you how we work.</p>
+            
+            <div class="contact-form">
+                <form id="leadForm">
+                    <div class="form-group">
+                        <label for="company">Agency / Company Name</label>
+                        <input type="text" id="company" name="company" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="title">Your Title</label>
+                        <input type="text" id="title" name="title">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Work Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="volume">Monthly print volume</label>
+                        <select id="volume" name="volume">
+                            <option value="">Select...</option>
+                            <option value="under-5k">Under $5,000</option>
+                            <option value="5k-15k">$5,000 - $15,000</option>
+                            <option value="15k-50k">$15,000 - $50,000</option>
+                            <option value="over-50k">Over $50,000</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Tell us about your needs</label>
+                        <textarea id="message" name="message" placeholder="Types of work, clients, current challenges..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Request Demo</button>
+                </form>
+                
+                <div class="success-message" id="successMessage">
+                    <h3>Request Received</h3>
+                    <p>We'll be in touch within 24 hours to schedule your demo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 CorporatePrint Solutions. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.getElementById('leadForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            
+            const formData = {
+                company: document.getElementById('company').value,
+                name: document.getElementById('name').value,
+                title: document.getElementById('title').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                volume: document.getElementById('volume').value,
+                message: document.getElementById('message').value,
+                submittedAt: new Date().toISOString()
+            };
+            
+            console.log('CorporatePrint lead:', formData);
+            
+            await new Promise(resolve => setTimeout(resolve, 800));
+            
+            this.style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
