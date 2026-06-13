@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrintSource - Your Reliable Print Partner</title>
+    <meta name="description" content="Professional print vendor for designers and freelancers. Reliable proofs, quality printing, fast turnaround. Your clients will thank you.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #1a1a1a;
+            --accent: #0066cc;
+            --accent-hover: #0052a3;
+            --text: #333;
+            --light: #f8f9fa;
+            --border: #dee2e6;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background: white;
+        }
+        
+        header {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: -0.03em;
+        }
+        
+        .logo span {
+            color: var(--accent);
+        }
+        
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+        
+        nav a:hover {
+            color: var(--accent);
+        }
+        
+        .cta-small {
+            background: var(--accent);
+            color: white;
+            padding: 0.5rem 1.25rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin-left: 2rem;
+            transition: background 0.2s;
+        }
+        
+        .cta-small:hover {
+            background: var(--accent-hover);
+        }
+        
+        /* Hero */
+        .hero {
+            background: var(--light);
+            padding: 5rem 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.75rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            line-height: 1.15;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+        }
+        
+        .hero p {
+            font-size: 1.15rem;
+            color: #666;
+            max-width: 580px;
+            margin: 0 auto 2rem;
+        }
+        
+        .hero .highlight {
+            color: var(--accent);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--accent);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: background 0.2s;
+        }
+        
+        .cta-button:hover {
+            background: var(--accent-hover);
+        }
+        
+        .sub-cta {
+            display: block;
+            margin-top: 1rem;
+            color: #888;
+            font-size: 0.9rem;
+        }
+        
+        .sub-cta a {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+        
+        /* Why Designers */
+        .why {
+            padding: 5rem 0;
+            background: white;
+        }
+        
+        .why h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 3rem;
+            font-weight: 700;
+        }
+        
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        
+        .why-card {
+            padding: 2rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+        }
+        
+        .why-card h3 {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .why-card p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        
+        /* For Your Clients */
+        .clients {
+            padding: 5rem 0;
+            background: var(--primary);
+            color: white;
+        }
+        
+        .clients h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .clients-subtitle {
+            text-align: center;
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+        
+        .client-list {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .client-item {
+            background: rgba(255,255,255,0.1);
+            padding: 1.25rem;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+        
+        /* Products */
+        .products {
+            padding: 5rem 0;
+            background: var(--light);
+        }
+        
+        .products h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 3rem;
+            font-weight: 700;
+        }
+        
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+        }
+        
+        .product-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+        
+        .product-card h3 {
+            color: var(--primary);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-card p {
+            color: #888;
+            font-size: 0.85rem;
+        }
+        
+        /* Process */
+        .process {
+            padding: 5rem 0;
+            background: white;
+        }
+        
+        .process h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 3rem;
+            font-weight: 700;
+        }
+        
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+        
+        .process-step {
+            text-align: center;
+        }
+        
+        .process-num {
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin: 0 auto 1rem;
+        }
+        
+        .process-step h3 {
+            color: var(--primary);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .process-step p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        /* Contact */
+        .contact {
+            padding: 5rem 0;
+            background: var(--light);
+        }
+        
+        .contact h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .contact-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 2.5rem;
+        }
+        
+        .contact-form {
+            max-width: 480px;
+            margin: 0 auto;
+            background: white;
+            padding: 2.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(0,102,204,0.1);
+        }
+        
+        .form-group textarea {
+            min-height: 80px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background: var(--accent);
+            color: white;
+            padding: 1rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        
+        .submit-btn:hover {
+            background: var(--accent-hover);
+        }
+        
+        .submit-btn:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+        
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .success-message h3 {
+            color: #28a745;
+            margin-bottom: 0.5rem;
+        }
+        
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        footer p {
+            opacity: 0.7;
+            font-size: 0.85rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .why-grid,
+            .client-list,
+            .product-grid,
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            nav {
+                display: none;
+            }
+            
+            .cta-small {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">Print<span>Source</span></div>
+            <nav>
+                <a href="#why">Why</a>
+                <a href="#products">Products</a>
+                <a href="#process">How It Works</a>
+                <a href="#contact" class="cta-small">Open Account</a>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>Your Print Vendor.<br>Your <span class="highlight">Reputation.</span></h1>
+            <p>Reliable printing for designers and freelancers. Professional proofs, quality output, turnaround you can bet your client's deadline on.</p>
+            <a href="#contact" class="cta-button">Open Trade Account</a>
+            <span class="sub-cta">Already have an account? <a href="#contact">Sign in</a></span>
+        </div>
+    </section>
+    
+    <section class="why" id="why">
+        <div class="container">
+            <h2>Why Designers Choose PrintSource</h2>
+            <div class="why-grid">
+                <div class="why-card">
+                    <h3>Proofs That Impress Your Clients</h3>
+                    <p>Every order includes professional PDF proofs. Your client approves before we print. No surprises.</p>
+                </div>
+                <div class="why-card">
+                    <h3>Reliable Turnaround</h3>
+                    <p>Standard 3-5 day turnaround. Rush available for tight deadlines. We know your client is waiting.</p>
+                </div>
+                <div class="why-card">
+                    <h3>Consistent Quality</h3>
+                    <p>Color calibration, premium stock, careful QC. Every print looks exactly like the proof.</p>
+                </div>
+                <div class="why-card">
+                    <h3>Easy Reorders</h3>
+                    <p>We store your files. Same client needs 500 more? One click. Done.</p>
+                </div>
+                <div class="why-card">
+                    <h3>Trade Pricing</h3>
+                    <p>Wholesale rates for designers and freelancers. Build margin into your client proposals.</p>
+                </div>
+                <div class="why-card">
+                    <h3>Dedicated Support</h3>
+                    <p>One point of contact who knows your account. No shuffling through call centers.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="clients">
+        <div class="container">
+            <h2>What Your Clients Need</h2>
+            <p class="clients-subtitle">We print all of it. You design it. Everyone's happy.</p>
+            <div class="client-list">
+                <div class="client-item">Business Cards</div>
+                <div class="client-item">Flyers & Brochures</div>
+                <div class="client-item">Posters</div>
+                <div class="client-item">Presentation Materials</div>
+                <div class="client-item">Restaurant Menus</div>
+                <div class="client-item">Real Estate Kits</div>
+                <div class="client-item">Event Materials</div>
+                <div class="client-item">Custom Projects</div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="products" id="products">
+        <div class="container">
+            <h2>What We Print</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <h3>Business Cards</h3>
+                    <p>Standard, matte, soft-touch, metallic</p>
+                </div>
+                <div class="product-card">
+                    <h3>Flyers & Leaflets</h3>
+                    <p>Any size, any stock, folding options</p>
+                </div>
+                <div class="product-card">
+                    <h3>Brochures</h3>
+                    <p>Bi-fold, tri-fold, z-fold</p>
+                </div>
+                <div class="product-card">
+                    <h3>Posters</h3>
+                    <p>Up to 18x24, rigid or mounted</p>
+                </div>
+                <div class="product-card">
+                    <h3>Cards & Invites</h3>
+                    <p>RSVP, birthday, event</p>
+                </div>
+                <div class="product-card">
+                    <h3>Booklets</h3>
+                    <p>Perfect bound, saddle stitch</p>
+                </div>
+                <div class="product-card">
+                    <h3>Banner & Signs</h3>
+                    <p>Vinyl, foam board, rigid</p>
+                </div>
+                <div class="product-card">
+                    <h3>Custom</h3>
+                    <p>Ask us. If it prints, we do it.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="process" id="process">
+        <div class="container">
+            <h2>How It Works</h2>
+            <div class="process-grid">
+                <div class="process-step">
+                    <div class="process-num">1</div>
+                    <h3>Open Your Account</h3>
+                    <p>Fill out the form. We verify your design business. Account approved within 24 hours.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-num">2</div>
+                    <h3>Upload Your Files</h3>
+                    <p>Send us print-ready files or let us know if you need help.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-num">3</div>
+                    <h3>We Send Proofs</h3>
+                    <p>PDF proofs within 24 hours. Your client approves. We print.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-num">4</div>
+                    <h3>Fast Delivery</h3>
+                    <p>3-5 days standard. We ship to your office or directly to your client.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Open Your Trade Account</h2>
+            <p class="contact-subtitle">Designer or freelancer? Let's set you up with wholesale pricing.</p>
+            
+            <div class="contact-form">
+                <form id="leadForm">
+                    <div class="form-group">
+                        <label for="company">Business / Studio Name</label>
+                        <input type="text" id="company" name="company" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="website">Portfolio / Website</label>
+                        <input type="url" id="website" name="website" placeholder="https://">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Tell us about your print needs</label>
+                        <textarea id="message" name="message" placeholder="Typical quantities, types of projects, clients..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit Application</button>
+                </form>
+                
+                <div class="success-message" id="successMessage">
+                    <h3>Application Received</h3>
+                    <p>We'll be in touch within 24 hours to activate your trade account.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 PrintSource. All rights reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.getElementById('leadForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+            
+            const formData = {
+                company: document.getElementById('company').value,
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                website: document.getElementById('website').value,
+                message: document.getElementById('message').value,
+                submittedAt: new Date().toISOString()
+            };
+            
+            console.log('PrintSource lead:', formData);
+            
+            await new Promise(resolve => setTimeout(resolve, 800));
+            
+            this.style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
