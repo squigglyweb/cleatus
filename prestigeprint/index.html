@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PrestigePrint - White Glove Print Services</title>
+    <meta name="description" content="Exclusive print services for executives, luxury brands, and discerning clients. White glove service. No request is too much.">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #0a0a0a;
+            --gold: #c9a227;
+            --gold-light: #e8c547;
+            --text: #333;
+            --text-light: #f5f5f5;
+            --light: #fafafa;
+            --border: #2a2a2a;
+        }
+        
+        body {
+            font-family: 'Playfair Display', Georgia, serif;
+            line-height: 1.7;
+            color: var(--text);
+            background: var(--light);
+        }
+        
+        header {
+            background: var(--primary);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--gold);
+        }
+        
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.75rem;
+            font-weight: 400;
+            color: white;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        
+        .logo span {
+            color: var(--gold);
+            font-weight: 600;
+        }
+        
+        nav a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            margin-left: 2.5rem;
+            font-size: 0.85rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: color 0.2s;
+        }
+        
+        nav a:hover {
+            color: var(--gold);
+        }
+        
+        .cta-small {
+            background: transparent;
+            color: var(--gold);
+            padding: 0.6rem 1.5rem;
+            border: 1px solid var(--gold);
+            border-radius: 2px;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-weight: 500;
+            margin-left: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s;
+        }
+        
+        .cta-small:hover {
+            background: var(--gold);
+            color: var(--primary);
+        }
+        
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, var(--primary) 0%, #1a1a1a 100%);
+            padding: 8rem 0;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(201,162,39,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+        }
+        
+        .hero p {
+            font-size: 1.25rem;
+            color: rgba(255,255,255,0.7);
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .hero .highlight {
+            color: var(--gold);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--primary);
+            padding: 1rem 3rem;
+            border-radius: 2px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            transition: all 0.3s;
+        }
+        
+        .cta-button:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+        }
+        
+        .hero-sub {
+            margin-top: 2rem;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.5);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            letter-spacing: 0.1em;
+        }
+        
+        /* Exclusive */
+        .exclusive {
+            padding: 6rem 0;
+            background: white;
+        }
+        
+        .exclusive h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 3rem;
+            font-weight: 400;
+            letter-spacing: 0.05em;
+        }
+        
+        .exclusive-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+        
+        .exclusive-card {
+            text-align: center;
+            padding: 2rem;
+        }
+        
+        .exclusive-card-icon {
+            width: 60px;
+            height: 60px;
+            border: 1px solid var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+        
+        .exclusive-card h3 {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+        
+        .exclusive-card p {
+            color: #666;
+            font-size: 0.95rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        /* Clients */
+        .clients {
+            padding: 5rem 0;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+        }
+        
+        .clients h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+        
+        .clients-subtitle {
+            color: rgba(255,255,255,0.5);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 0.9rem;
+            margin-bottom: 3rem;
+        }
+        
+        .client-logos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+            opacity: 0.6;
+        }
+        
+        .client-placeholder {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: rgba(255,255,255,0.5);
+        }
+        
+        /* Services */
+        .services {
+            padding: 6rem 0;
+            background: var(--light);
+        }
+        
+        .services h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 3rem;
+            font-weight: 400;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+        
+        .service-card {
+            background: white;
+            padding: 2.5rem;
+            border: 1px solid var(--border);
+            display: flex;
+            gap: 1.5rem;
+        }
+        
+        .service-icon {
+            width: 50px;
+            height: 50px;
+            flex-shrink: 0;
+            border: 1px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gold);
+            font-size: 1.25rem;
+        }
+        
+        .service-card h3 {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-bottom: 0.75rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-weight: 600;
+        }
+        
+        .service-card p {
+            color: #666;
+            font-size: 0.9rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        /* Process */
+        .process {
+            padding: 6rem 0;
+            background: white;
+        }
+        
+        .process h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 3rem;
+            font-weight: 400;
+        }
+        
+        .process-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+        
+        .process-step {
+            text-align: center;
+            position: relative;
+        }
+        
+        .process-step::after {
+            content: "";
+            position: absolute;
+            top: 25px;
+            right: -20px;
+            width: 40px;
+            height: 1px;
+            background: var(--border);
+        }
+        
+        .process-step:last-child::after {
+            display: none;
+        }
+        
+        .process-num {
+            width: 50px;
+            height: 50px;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            font-size: 1.1rem;
+            margin: 0 auto 1.5rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .process-step h3 {
+            color: var(--primary);
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-weight: 600;
+        }
+        
+        .process-step p {
+            color: #888;
+            font-size: 0.85rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        /* Concierge */
+        .concierge {
+            padding: 6rem 0;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+        }
+        
+        .concierge h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 400;
+            color: var(--gold);
+        }
+        
+        .concierge-subtitle {
+            color: rgba(255,255,255,0.7);
+            margin-bottom: 3rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .concierge-list {
+            max-width: 700px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            text-align: left;
+        }
+        
+        .concierge-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .concierge-item::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            background: var(--gold);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        
+        /* Contact */
+        .contact {
+            padding: 6rem 0;
+            background: var(--light);
+        }
+        
+        .contact h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-weight: 400;
+        }
+        
+        .contact-subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 3rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .contact-form {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            padding: 3rem;
+            border: 1px solid var(--border);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            font-size: 0.85rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            border: 1px solid var(--border);
+            border-radius: 2px;
+            font-size: 1rem;
+            font-family: inherit;
+            background: var(--light);
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background: var(--gold);
+            color: var(--primary);
+            padding: 1.25rem;
+            border: none;
+            border-radius: 2px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        .submit-btn:hover {
+            background: var(--gold-light);
+        }
+        
+        .submit-btn:disabled {
+            background: #999;
+            cursor: not-allowed;
+        }
+        
+        .success-message {
+            display: none;
+            text-align: center;
+            padding: 3rem;
+        }
+        
+        .success-message h3 {
+            color: var(--gold);
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+        }
+        
+        footer {
+            background: var(--primary);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+        
+        footer p {
+            opacity: 0.5;
+            font-size: 0.8rem;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .exclusive-grid,
+            .services-grid,
+            .process-grid,
+            .concierge-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .process-step::after {
+                display: none;
+            }
+            
+            nav {
+                display: none;
+            }
+            
+            .cta-small {
+                display: none;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">Prestige<span>Print</span></div>
+            <nav>
+                <a href="#exclusive">Why Prestige</a>
+                <a href="#services">Services</a>
+                <a href="#concierge">Concierge</a>
+                <a href="#contact" class="cta-small">Inquire</a>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>Print, <span class="highlight">Elevated</span></h1>
+            <p>White glove print services for executives, luxury brands, and those who demand perfection. No request is too much.</p>
+            <a href="#contact" class="cta-button">Request Consultation</a>
+            <p class="hero-sub">By Invitation Only</p>
+        </div>
+    </section>
+    
+    <section class="exclusive" id="exclusive">
+        <div class="container">
+            <h2>The Prestige Difference</h2>
+            <div class="exclusive-grid">
+                <div class="exclusive-card">
+                    <div class="exclusive-card-icon">&#9827;</div>
+                    <h3>Exclusivity Assured</h3>
+                    <p>We work with a limited number of clients to ensure every project receives undivided attention.</p>
+                </div>
+                <div class="exclusive-card">
+                    <div class="exclusive-card-icon">&#9733;</div>
+                    <h3>White Glove Service</h3>
+                    <p>Every detail considered. Every expectation exceeded. Your vision, executed flawlessly.</p>
+                </div>
+                <div class="exclusive-card">
+                    <div class="exclusive-card-icon">&#9830;</div>
+                    <h3>discerning Eye</h3>
+                    <p>We understand subtlety, sophistication, and the power of exceptional execution.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="clients">
+        <div class="container">
+            <h2>A Curated Clientele</h2>
+            <p class="clients-subtitle">We serve those who understand the difference</p>
+            <div class="client-logos">
+                <div class="client-placeholder">Luxury Brands</div>
+                <div class="client-placeholder">Private Equity</div>
+                <div class="client-placeholder">Executive Suites</div>
+                <div class="client-placeholder">Family Offices</div>
+                <div class="client-placeholder">Ultra-Premium Real Estate</div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="services" id="services">
+        <div class="container">
+            <h2>Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">&#10022;</div>
+                    <div>
+                        <h3>Executive Stationery</h3>
+                        <p>Business cards, letterhead, envelopes of uncompromising quality. Your name, elevated.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">&#10022;</div>
+                    <div>
+                        <h3>Private Event Materials</h3>
+                        <p>Invitations, programs, menus for intimate gatherings where only the finest will do.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">&#10022;</div>
+                    <div>
+                        <h3>Luxury Brand Collateral</h3>
+                        <p>Brochures, lookbooks, presentations that reflect your brand's highest expression.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">&#10022;</div>
+                    <div>
+                        <h3> Bespoke Projects</h3>
+                        <p>Unique specifications, rare materials, custom finishes. If you can envision it, we can create it.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="process">
+        <div class="container">
+            <h2>Our Process</h2>
+            <div class="process-grid">
+                <div class="process-step">
+                    <div class="process-num">1</div>
+                    <h3>Discovery</h3>
+                    <p>Private consultation to understand your vision and requirements.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-num">2</div>
+                    <h3>Curated Selection</h3>
+                    <p>We present options tailored to your discerning taste.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-num">3</div>
+                    <h3>Artisan Execution</h3>
+                    <p>Your project crafted with meticulous attention to every detail.</p>
+                </div>
+                <div class="process-step">
+                    <div class="process-num">4</div>
+                    <h3>White Glove Delivery</h3>
+                    <p>Packaging and delivery befitting the exceptional contents within.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="concierge" id="concierge">
+        <div class="container">
+            <h2>Concierge Services</h2>
+            <p class="concierge-subtitle">No request is too much. We handle every detail.</p>
+            <div class="concierge-list">
+                <div class="concierge-item">Private consultations at your convenience</div>
+                <div class="concierge-item">Curated paper and material selections</div>
+                <div class="concierge-item">Custom die-cuts and specialty finishes</div>
+                <div class="concierge-item">Hand-assembly and quality inspection</div>
+                <div class="concierge-item">Complimentary storage for reorders</div>
+                <div class="concierge-item">Discreet packaging - no visible branding</div>
+                <div class="concierge-item">Rush service when time is essential</div>
+                <div class="concierge-item">Dedicated account director</div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Begin the Conversation</h2>
+            <p class="contact-subtitle">PrestigePrint services are available by invitation. Tell us about your project.</p>
+            
+            <div class="contact-form">
+                <form id="leadForm">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="company">Company / Organization</label>
+                        <input type="text" id="company" name="company">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Tell us about your project</label>
+                        <textarea id="message" name="message" placeholder="Describe your vision, timeline, and any specific requirements..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Submit Inquiry</button>
+                </form>
+                
+                <div class="success-message" id="successMessage">
+                    <h3>Thank You</h3>
+                    <p>We will be in touch to discuss your project.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 PrestigePrint. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <script>
+        document.getElementById('leadForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const submitBtn = this.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+            
+            const formData = {
+                name: document.getElementById('name').value,
+                company: document.getElementById('company').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                message: document.getElementById('message').value,
+                submittedAt: new Date().toISOString()
+            };
+            
+            console.log('PrestigePrint lead:', formData);
+            
+            await new Promise(resolve => setTimeout(resolve, 800));
+            
+            this.style.display = 'none';
+            document.getElementById('successMessage').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
