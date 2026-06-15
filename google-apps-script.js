@@ -14,7 +14,7 @@
  * 10. Paste that URL into submit-campaign.php for $googleSheetUrl
  */
 
-const SPREADSHEET_ID = 'YOUR_SPREADSHEET_ID_HERE';
+const SPREADSHEET_ID = '1jfOqV3ykRJwBPQLX5QegBbuarwirqJtObywZmEzhK8E';
 const SHEET_NAME = 'Orders';
 
 function doGet(e) {
