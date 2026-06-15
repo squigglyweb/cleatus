@@ -11,7 +11,7 @@
  .header{text-align:center;margin-bottom:32px}
  .header h1{font-size:28px;font-weight:700;color:#0b2a5c;margin-bottom:8px}
  .header p{color:#64748b;font-size:15px}
- .status-card{background:#fff;border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,0.1);overflow:hidden;margin-bottom:24px}
+ .status-card{background:#fff;border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,0.1);overflow:hidden;margin-bottom:24px;overflow-x:auto}
  .status-title{background:#0b2a5c;color:#fff;padding:16px 20px;font-size:18px;font-weight:700;border-radius:16px 16px 0 0}
  .status-title span{font-weight:400;font-size:14px;opacity:0.9}
  .status-table{width:100%;border-collapse:collapse}
@@ -19,6 +19,9 @@
  .status-table td{padding:14px 16px;border-bottom:1px solid #e2e8f0;font-size:14px}
  .status-table tr:last-child td{border-bottom:none}
  .status-table tr:hover{background:#f8fafc}
+.status-table tr.row-production{background:#dbeafe}
+.status-table tr.row-shipped{background:#dcfce7}
+.status-table tr.row-hold{background:#fef2f2}
  .status-badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600}
  .status-new{background:#dbeafe;color:#1d4ed8}
  .status-printing{background:#fef3c7;color:#b45309}
@@ -149,10 +152,15 @@
  const notesRaw = o.tracking || "";
  let notesHtml = escapeHTML(notesRaw);
  if(notesRaw && /^https?:\/\//i.test(notesRaw)){
- notesHtml = `<span class="link"><a href="${escapeHTML(notesRaw)}" target="_blank" rel="noopener">Track Package</a></span>`;
+ notesHtml = `<span class="link"><a href="${escapeHTML(notesRaw)}" target="_blank" rel="noopener">More Details</a></span>`;
  }
+ const s = (o.status||"").toLowerCase();
+ let rowClass = "";
+ if(s.includes("production")) rowClass = "row-production";
+ else if(s.includes("ship")) rowClass = "row-shipped";
+ else if(s.includes("hold")) rowClass = "row-hold";
  return `
- <tr>
+ <tr class="${rowClass}">
  <td>${formatDate(d)}</td>
  <td>${escapeHTML(o.name|| o.requester||"")}</td>
  <td>${escapeHTML(o.title||"")}</td>
@@ -171,7 +179,7 @@
  <th>Title</th>
  <th>Qty</th>
  <th>Status</th>
- <th>Tracking</th>
+ <th>Details</th>
  </tr>
  </thead>
  <tbody>${rows}</tbody>
