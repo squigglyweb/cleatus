@@ -41,24 +41,32 @@ function handleRequest(e) {
     const headers = data[0];
     const orders = [];
     
+    // Map columns based on actual headers
+    // Order #, Requester, Item, Qty, Ship To, Status, Name, Title, Email, Rep, Timestamp, Approved At, Tracking, etc.
+    const col = {};
+    headers.forEach((h, idx) => {
+      const key = String(h).trim().toLowerCase().replace(/[^a-z0-9]/g, '');
+      col[key] = idx;
+    });
+    
     for (let i = 1; i < data.length; i++) {
       const row = data[i];
-      const orderId = row[0];
+      const orderId = row[col['order']] || row[col['order#']] || '';
       if (!orderId) continue;
       
       orders.push({
         orderId: String(orderId),
-        requester: row[1] || '',
-        item: row[2] || 'Business Cards',
-        qty: row[3] || 250,
-        shipTo: row[4] || '',
-        status: row[5] || 'In Production',
-        lastScan: row[6] || '',
-        tracking: row[7] || '',
-        name: row[8] || '',
-        rep: row[9] || '',
-        timestamp: row[10] || '',
-        approvedAt: row[11] || ''
+        requester: row[col['requester']] || '',
+        item: row[col['item']] || 'Business Cards',
+        qty: row[col['qty']] || 250,
+        shipTo: row[col['shipto']] || row[col['ship_to']] || '',
+        status: row[col['status']] || 'In Production',
+        name: row[col['name']] || '',
+        title: row[col['title']] || '',
+        rep: row[col['rep']] || '',
+        timestamp: row[col['timestamp']] || '',
+        approvedAt: row[col['approvedat']] || row[col['approved']] || '',
+        tracking: row[col['tracking']] || ''
       });
     }
     
