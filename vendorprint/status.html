@@ -200,13 +200,16 @@
 
  async function init(){
  try{
+ console.log('Fetching orders...');
  const res = await jsonp("orders.list",{});
+ console.log('Response:', res);
  if(!res || !res.ok || !Array.isArray(res.orders)){
  renderError("Could not load orders: " + (res && res.error ? res.error : "Unknown error"));
  return;
  }
  renderTable(res.orders);
  }catch(err){
+ console.error('Fetch error:', err);
  renderError("Error loading orders: " + (err && err.message ? err.message : String(err)));
  }
  }
