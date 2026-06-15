@@ -66,7 +66,8 @@ function handleRequest(e) {
         rep: row[col['rep']] || '',
         timestamp: row[col['timestamp']] || '',
         approvedAt: row[col['approvedat']] || row[col['approved']] || '',
-        tracking: row[col['tracking']] || ''
+        tracking: row[col['tracking']] || '',
+        project: row[26] || ''  // Column AA
       });
     }
     
