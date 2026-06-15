@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <title>Order Status | VendorPrint</title>
+ <style>
+ *{box-sizing:border-box;margin:0;padding:0}
+ body{font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:#f8fafc;color:#1e293b;min-height:100vh}
+ .container{max-width:1100px;margin:0 auto;padding:24px 16px}
+ .header{text-align:center;margin-bottom:32px}
+ .header h1{font-size:28px;font-weight:700;color:#0b2a5c;margin-bottom:8px}
+ .header p{color:#64748b;font-size:15px}
+ .status-card{background:#fff;border-radius:16px;box-shadow:0 1px 3px rgba(0,0,0,0.1);overflow:hidden;margin-bottom:24px}
+ .status-title{background:#0b2a5c;color:#fff;padding:16px 20px;font-size:18px;font-weight:700;border-radius:16px 16px 0 0}
+ .status-title span{font-weight:400;font-size:14px;opacity:0.9}
+ .status-table{width:100%;border-collapse:collapse}
+ .status-table th{background:#f1f5f9;padding:14px 16px;text-align:left;font-weight:600;font-size:12px;color:#475569;text-transform:uppercase;letter-spacing:0.5px;border-bottom:2px solid #e2e8f0}
+ .status-table td{padding:14px 16px;border-bottom:1px solid #e2e8f0;font-size:14px}
+ .status-table tr:last-child td{border-bottom:none}
+ .status-table tr:hover{background:#f8fafc}
+ .status-badge{display:inline-block;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600}
+ .status-new{background:#dbeafe;color:#1d4ed8}
+ .status-printing{background:#fef3c7;color:#b45309}
+ .status-shipped{background:#dcfce7;color:#16a34a}
+ .status-delivered{background:#dcfce7;color:#15803d}
+ .empty-state{padding:48px 24px;text-align:center;color:#64748b}
+ .empty-state svg{width:64px;height:64px;margin-bottom:16px;opacity:0.4}
+ .loading{text-align:center;padding:48px;color:#64748b}
+ .error{background:#fef2f2;border:1px solid #fecaca;color:#991b1b;padding:16px;border-radius:10px}
+ .link a{color:#2563eb;text-decoration:none}
+ .link a:hover{text-decoration:underline}
+ .refresh-btn{display:inline-flex;align-items:center;gap:8px;background:#0b2a5c;color:#fff;border:none;padding:12px 20px;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;margin-top:16px}
+ .refresh-btn:hover{background:#0d3666}
+ .refresh-btn svg{width:16px;height:16px}
+ .footer{text-align:center;padding:24px;color:#94a3b8;font-size:13px}
+ </style>
+</head>
+<body>
+ <div class="container">
+ <div class="header">
+ <h1>VendorPrint</h1>
+ <p>Business Card Order Status</p>
+ </div>
+ <div class="status-card">
+ <div class="status-title">Order History</div>
+ <div id="status-content">
+ <div class="loading">Loading orders...</div>
+ </div>
+ </div>
+ <div class="footer">
+ Powered by VendorPrint | Collegiate Housing Services
+ </div>
+ </div>
+</body>
+</html>
+
+<script>
+(function(){
+ const API_URL = "https://script.google.com/macros/s/AKfycby6j5v-45VEyew0buXsvmbnPQYCnyg8bByjiuRgcdXgdRCjnl7Bln4tS83nBYxTiHnz/exec";
+ const TOKEN = "d!dxQPNM38zm";
+
+ const mount = document.getElementById('status-content');
+ if(!mount) return;
+
+ const escapeHTML = s => String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+
+ function parseDate(obj){
+ if(obj.approvedAt){
+ const d = new Date(obj.approvedAt);
+ if(!isNaN(d)) return d;
+ }
+ if(obj.timestamp){
+ const d = new Date(obj.timestamp);
+ if(!isNaN(d)) return d;
+ }
+ if(obj.orderId && /^ORD-(\d{2})(\d{2})(\d{2})-/.test(obj.orderId)){
+ const m = RegExp.$1, d = RegExp.$2, y = RegExp.$3;
+ const year = 2000 + parseInt(y,10);
+ return new Date(year, parseInt(m,10)-1, parseInt(d,10));
+ }
+ return null;
+ }
+
+ function formatDate(d){
+ if(!(d instanceof Date) || isNaN(d)) return '';
+ return d.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+ }
+
+ function getStatusBadge(status){
+ const s = (status||'').toLowerCase();
+ let cls = 'status-new';
+ if(s.includes('print')) cls = 'status-printing';
+ else if(s.includes('ship')) cls = 'status-shipped';
+ else if(s.includes('deliver')) cls = 'status-delivered';
+ return `<span class="status-badge ${cls}">${escapeHTML(status)}</span>`;
+ }
+
+ function jsonp(action, payload){
+ return new Promise((resolve,reject)=>{
+ const cb = "vpst_cb_" + Math.random().toString(36).slice(2);
+ const params = {action, callback:cb, token:TOKEN, t:String(Date.now())};
+ if(payload && typeof payload==="object"){
+ Object.keys(payload).forEach(k => {
+ let v = payload[k];
+ params[k] = String(v==null ? "" : v);
+ });
+ }
+ const q = new URLSearchParams(params).toString();
+ const s = document.createElement("script");
+ s.src = API_URL + (API_URL.includes("?")?"&":"?") + q;
+ let done = false;
+ window[cb] = (data)=>{done=true; resolve(data); cleanup();};
+ s.onerror = ()=>{if(!done){reject(new Error("network")); cleanup();}};
+ document.head.appendChild(s);
+ function cleanup(){try{delete window[cb]; document.head.removeChild(s);}catch(e){}}
+ setTimeout(()=>{if(!done){reject(new Error("timeout")); cleanup();}},9000);
+ });
+ }
+
+ function renderError(msg){
+ mount.innerHTML = `<div class="error">${escapeHTML(msg)}</div>
+ <button class="refresh-btn" onclick="location.reload()">
+ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+ Try Again
+ </button>`;
+ }
+
+ function renderTable(allOrders){
+ const now = new Date();
+ 
+ // Filter: Business Cards only, year 2026, Delivered <= 10 days
+ const cards = allOrders.filter(o => {
+ if((o.item||"") !== "Business Cards") return false;
+ const d = parseDate(o);
+ if(!d || d.getFullYear() !== 2026) return false;
+ const status = (o.status||"").toLowerCase();
+ if(status.indexOf("deliver") !== -1){
+ const ageDays = (now - d)/(1000*60*60*24);
+ if(ageDays > 10) return false;
+ }
+ return true;
+ });
+
+ if(!cards.length){
+ mount.innerHTML = `
+ <div class="empty-state">
+ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+ <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+ </svg>
+ <p>No recent orders found</p>
+ </div>`;
+ return;
+ }
+
+ cards.sort((a,b) => {
+ const da = parseDate(a), db = parseDate(b);
+ return db - da;
+ });
+
+ const rows = cards.map(o => {
+ const d = parseDate(o);
+ const notesRaw = o.tracking || "";
+ let notesHtml = escapeHTML(notesRaw);
+ if(notesRaw && /^https?:\/\//i.test(notesRaw)){
+ notesHtml = `<span class="link"><a href="${escapeHTML(notesRaw)}" target="_blank" rel="noopener">Track Package</a></span>`;
+ }
+ return `
+ <tr>
+ <td>${formatDate(d)}</td>
+ <td>${escapeHTML(o.name|| o.requester||"")}</td>
+ <td>${escapeHTML(o.title||"")}</td>
+ <td>${o.qty||250}</td>
+ <td>${getStatusBadge(o.status)}</td>
+ <td>${notesHtml}</td>
+ </tr>`;
+ }).join("");
+
+ mount.innerHTML = `
+ <table class="status-table">
+ <thead>
+ <tr>
+ <th>Date</th>
+ <th>Name</th>
+ <th>Title</th>
+ <th>Qty</th>
+ <th>Status</th>
+ <th>Tracking</th>
+ </tr>
+ </thead>
+ <tbody>${rows}</tbody>
+ </table>
+ <div style="padding:16px">
+ <button class="refresh-btn" onclick="location.reload()">
+ <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+ Refresh
+ </button>
+ </div>`;
+ }
+
+ async function init(){
+ try{
+ const res = await jsonp("orders.list",{});
+ if(!res || !res.ok || !Array.isArray(res.orders)){
+ renderError("Could not load orders: " + (res && res.error ? res.error : "Unknown error"));
+ return;
+ }
+ renderTable(res.orders);
+ }catch(err){
+ renderError("Error loading orders: " + (err && err.message ? err.message : String(err)));
+ }
+ }
+
+ init();
+})();
+</script>
