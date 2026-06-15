@@ -15,7 +15,7 @@
  */
 
 const SPREADSHEET_ID = 'YOUR_SPREADSHEET_ID_HERE';
-const SHEET_NAME = 'Campaign Requests';
+const SHEET_NAME = 'Orders';
 
 function doGet(e) {
   return handleRequest(e);
