@@ -57,7 +57,7 @@
 
 <script>
 (function(){
- const API_URL = "https://script.google.com/macros/s/AKfycbyFonnyEXEUX3sBG68ZrV4plidnbnYRyGGYnQyinTSaaBSbC6fMaG0TPKf7vOp5rLdt/exec";
+ const API_URL = "./api/orders.php";
  const TOKEN = "d!dxQPNM38zm";
 
  const mount = document.getElementById('status-content');
@@ -98,49 +98,18 @@
 
  function jsonp(action, payload){
  return new Promise((resolve,reject)=>{
- const cb = "cb" + Math.random().toString(36).slice(2);
- const params = {action, callback:cb, t:String(Date.now())};
- if(payload && typeof payload==="object"){
- Object.keys(payload).forEach(k => {
- let v = payload[k];
- params[k] = String(v==null ? "" : v);
- });
- }
- const q = new URLSearchParams(params).toString();
- const fullUrl = API_URL + "?" + q;
- console.log('Loading:', fullUrl);
- const s = document.createElement("script");
- s.src = fullUrl;
- s.async = true;
- let done = false;
- const timeout = setTimeout(()=>{
- if(!done){
- done = true;
- console.log('Timeout');
- reject(new Error("timeout"));
- cleanup();
- }
- },15000);
- function cleanup(){
- clearTimeout(timeout);
- try{delete window[cb];}catch(e){}
- if(s.parentNode) s.parentNode.removeChild(s);
- }
- window[cb] = (data)=>{
- done = true;
+ const url = API_URL + "?action=" + encodeURIComponent(action);
+ console.log('Loading:', url);
+ fetch(url)
+ .then(resp => resp.json())
+ .then(data => {
  console.log('Success');
  resolve(data);
- cleanup();
- };
- s.onerror = (e)=>{
- console.log('Script error:', e);
- if(!done){
- done = true;
+ })
+ .catch(err => {
+ console.error('Error:', err);
  reject(new Error("network"));
- cleanup();
- }
- };
- document.head.appendChild(s);
+ });
  });
  }
 
