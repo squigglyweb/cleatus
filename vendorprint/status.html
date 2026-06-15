@@ -57,7 +57,7 @@
 
 <script>
 (function(){
- const API_URL = "./api/orders.php";
+ const API_URL = "./data.json";
  const TOKEN = "d!dxQPNM38zm";
 
  const mount = document.getElementById('status-content');
@@ -98,9 +98,8 @@
 
  function jsonp(action, payload){
  return new Promise((resolve,reject)=>{
- const url = API_URL + "?action=" + encodeURIComponent(action);
- console.log('Loading:', url);
- fetch(url)
+ console.log('Loading:', API_URL);
+ fetch(API_URL)
  .then(resp => resp.json())
  .then(data => {
  console.log('Success');
