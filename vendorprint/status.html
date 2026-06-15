@@ -107,11 +107,13 @@
  });
  }
  const q = new URLSearchParams(params).toString();
+ const fullUrl = API_URL + (API_URL.includes("?")?"&":"?") + q;
+ console.log('Loading:', fullUrl);
  const s = document.createElement("script");
- s.src = API_URL + (API_URL.includes("?")?"&":"?") + q;
+ s.src = fullUrl;
  let done = false;
- window[cb] = (data)=>{done=true; resolve(data); cleanup();};
- s.onerror = ()=>{if(!done){reject(new Error("network")); cleanup();}};
+ window[cb] = (data)=>{done=true; console.log('Success:', data); resolve(data); cleanup();};
+ s.onerror = ()=>{console.log('Script load error'); if(!done){reject(new Error("network")); cleanup();}};
  document.head.appendChild(s);
  function cleanup(){try{delete window[cb]; document.head.removeChild(s);}catch(e){}}
  setTimeout(()=>{if(!done){reject(new Error("timeout")); cleanup();}},9000);
