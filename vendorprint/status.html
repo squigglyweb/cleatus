@@ -98,8 +98,8 @@
 
  function jsonp(action, payload){
  return new Promise((resolve,reject)=>{
- const cb = "vpst_cb_" + Math.random().toString(36).slice(2);
- const params = {action, callback:cb, token:TOKEN, t:String(Date.now())};
+ const cb = "cb" + Math.random().toString(36).slice(2);
+ const params = {action, callback:cb, t:String(Date.now())};
  if(payload && typeof payload==="object"){
  Object.keys(payload).forEach(k => {
  let v = payload[k];
@@ -107,16 +107,40 @@
  });
  }
  const q = new URLSearchParams(params).toString();
- const fullUrl = API_URL + (API_URL.includes("?")?"&":"?") + q;
+ const fullUrl = API_URL + "?" + q;
  console.log('Loading:', fullUrl);
  const s = document.createElement("script");
  s.src = fullUrl;
+ s.async = true;
  let done = false;
- window[cb] = (data)=>{done=true; console.log('Success:', data); resolve(data); cleanup();};
- s.onerror = ()=>{console.log('Script load error'); if(!done){reject(new Error("network")); cleanup();}};
+ const timeout = setTimeout(()=>{
+ if(!done){
+ done = true;
+ console.log('Timeout');
+ reject(new Error("timeout"));
+ cleanup();
+ }
+ },15000);
+ function cleanup(){
+ clearTimeout(timeout);
+ try{delete window[cb];}catch(e){}
+ if(s.parentNode) s.parentNode.removeChild(s);
+ }
+ window[cb] = (data)=>{
+ done = true;
+ console.log('Success');
+ resolve(data);
+ cleanup();
+ };
+ s.onerror = (e)=>{
+ console.log('Script error:', e);
+ if(!done){
+ done = true;
+ reject(new Error("network"));
+ cleanup();
+ }
+ };
  document.head.appendChild(s);
- function cleanup(){try{delete window[cb]; document.head.removeChild(s);}catch(e){}}
- setTimeout(()=>{if(!done){reject(new Error("timeout")); cleanup();}},9000);
  });
  }
 
