@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-06-08T16:40:28.743Z",
+  "updatedAt": "2026-06-16T13:42:38.062Z",
   "entries": {
     "memory:memory/2026-05-05.md:72:89": {
       "key": "memory:memory/2026-05-05.md:72:89",
@@ -60,13 +60,13 @@
       "endLine": 45,
       "source": "memory",
       "snippet": "# May 7, 2026 ## TLN - The Local NearBuy Updates ### Branding Shift: \"Member\" Concept - Moved away from \"customer/client\" language - Everyone is a **Member** - builds community, not transactions - Reference: Brilliant Directories \"Be Part of Something Meaningful\" messaging ### Membership Tiers (Final) - **Free Member** - basic directory listing - **Pro Member** ($99/mo) - profile + offers - **Pro+ Member** ($199/mo) - profile + offers + video + featured + newsletter - **Sponsor Member** ($349/mo) - banner + newsletter ads + homepage ### Add-On Model Everything else is an add-on to membership: - Postcard Campaigns ($150/campaign) - Design Services ($50/project) - Social Management ($200/m",
-      "recallCount": 20,
+      "recallCount": 21,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 20,
+      "totalScore": 21,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T20:21:50.131Z",
-      "lastRecalledAt": "2026-06-03T01:30:05.641Z",
+      "lastRecalledAt": "2026-06-10T20:11:24.521Z",
       "queryHashes": [
         "3b057c3172e9",
         "94cabbf81b68",
@@ -87,7 +87,8 @@
         "0af5b32b7d6a",
         "2feddb8f16d3",
         "de869324e8f1",
-        "c66dd86e5480"
+        "c66dd86e5480",
+        "fe2ea6e9576e"
       ],
       "recallDays": [
         "2026-05-12",
@@ -102,7 +103,8 @@
         "2026-05-30",
         "2026-05-31",
         "2026-06-02",
-        "2026-06-03"
+        "2026-06-03",
+        "2026-06-10"
       ],
       "conceptTags": [
         "customer/client",
@@ -175,13 +177,13 @@
       "endLine": 110,
       "source": "memory",
       "snippet": "- Add \"Think Globally. Feed Locally. — That's Glocal.\" as tagline - Make \"glocal\" the hook/movement - Every membership tier provides meals: - Free: 0 meals/month - Pro ($99): 10 meals/month - Pro+ ($199): 25 meals/month - Sponsor ($349): 50 meals/month - Membership = profit + purpose (social enterprise model) ## Files Updated - tln-pricing-v2.html - New pricing with meals badges, witty membership section - tln-profile-free-final.html - Exact layout from Bryan screenshot - tln-profile-pro-v2.html - Pro in same Free style (special offer, meals counter) ## Promo Products Idea (May 9, 2026) - Sell t-shirts, stickers, promo items with TLN branding - For every item sold = provide X meal",
-      "recallCount": 9,
+      "recallCount": 10,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 9,
+      "totalScore": 10,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T20:21:50.131Z",
-      "lastRecalledAt": "2026-05-30T22:06:57.829Z",
+      "lastRecalledAt": "2026-06-10T20:11:24.521Z",
       "queryHashes": [
         "3b057c3172e9",
         "280499cabedf",
@@ -191,7 +193,8 @@
         "68e96d92543e",
         "d419c3e53d52",
         "34f57e3bc4ee",
-        "8d4ed8ac8e90"
+        "8d4ed8ac8e90",
+        "fe2ea6e9576e"
       ],
       "recallDays": [
         "2026-05-12",
@@ -199,7 +202,8 @@
         "2026-05-15",
         "2026-05-17",
         "2026-05-27",
-        "2026-05-30"
+        "2026-05-30",
+        "2026-06-10"
       ],
       "conceptTags": [
         "hook/movement",
@@ -310,13 +314,13 @@
       "endLine": 43,
       "source": "memory",
       "snippet": "# Memory - April 13, 2026 ## Session Notes ### Video Background Identified - The header on the template page uses **YouTube video ID: XzbVs1-48ZY** as a background - It's likely stock drone footage of neighborhoods/aerial shots (common in marketing agency templates) - URL: https://www.youtube.com/watch?v=XzbVs1-48ZY ### For The Local NearBuy Project - The signup page (nearbuy-signup-v2.html) uses CSS animation instead of video for better reliability - This avoids YouTube embed issues and ensures consistent performance ### Full Vision Discussed (from Claude.ai conversation) **Bryan's 4 Assets:** 1. Local Social Accounts — daily attention, brand awareness, community voice 2. Local Director",
-      "recallCount": 8,
+      "recallCount": 9,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 8,
+      "totalScore": 9,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T22:41:06.839Z",
-      "lastRecalledAt": "2026-05-22T01:34:44.602Z",
+      "lastRecalledAt": "2026-06-16T13:42:38.062Z",
       "queryHashes": [
         "47ce4d615495",
         "1532b7c86815",
@@ -325,7 +329,8 @@
         "857d09ad5f85",
         "18cb00de911b",
         "e92d1b15b377",
-        "00d7a82e68ea"
+        "00d7a82e68ea",
+        "e424a3a93d98"
       ],
       "recallDays": [
         "2026-05-12",
@@ -334,7 +339,8 @@
         "2026-05-17",
         "2026-05-20",
         "2026-05-21",
-        "2026-05-22"
+        "2026-05-22",
+        "2026-06-16"
       ],
       "conceptTags": [
         "xzbvs1-48zy",
@@ -554,13 +560,13 @@
       "endLine": 34,
       "source": "memory",
       "snippet": "## TLN About Copy (Updated) **The Local NearBuy** Your guide to Waxhaw & surrounding areas' best — restaurants, shops, services, and hidden gems. Every purchase through NearBuy helps feed local kids and families, both here and around the world. Discover your community. Support local. Make a difference. **What We Do** We connect Greater Waxhaw neighbors with local businesses — through our directory, social media, newsletter, and postcard ads. Businesses advertise with us. You discover great local spots. We donate meals for every engagement. It's a win-win-win: - Neighbors discover awesome local businesses - Businesses reach more customers - Kids & families get fed ## T-Shirt Project",
-      "recallCount": 12,
+      "recallCount": 13,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 11.631725170609707,
+      "totalScore": 12.631725170609707,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T23:02:11.759Z",
-      "lastRecalledAt": "2026-06-01T13:41:18.538Z",
+      "lastRecalledAt": "2026-06-16T13:42:38.062Z",
       "queryHashes": [
         "80f9208f6c41",
         "201d5f225c55",
@@ -573,7 +579,8 @@
         "eae3407b053c",
         "e44499a3fba0",
         "bcd90bc7afe9",
-        "ec69ba75068b"
+        "ec69ba75068b",
+        "e424a3a93d98"
       ],
       "recallDays": [
         "2026-05-12",
@@ -585,7 +592,8 @@
         "2026-05-29",
         "2026-05-30",
         "2026-05-31",
-        "2026-06-01"
+        "2026-06-01",
+        "2026-06-16"
       ],
       "conceptTags": [
         "win-win-win",
@@ -605,13 +613,13 @@
       "endLine": 33,
       "source": "memory",
       "snippet": "# April 8, 2026 - NearBuy Postcard Project Notes ## Project Status - NearBuy postcard tracker built: nearbuy-tracker-divi.html - Business portal built: nearbuy-business-portal.html - Google Apps Script backend: nearbuy-apps-script.gs - GitHub repo: https://github.com/squigglyweb/cleatus ## Pricing - Standard ad: $500 - Duplex (combined): $900 ## System Issues - OpenClaw environment completely down since April 7 - All exec commands timeout - Unable to make edits or push changes ## Business Strategy Notes - Ideal businesses: Home services (plumbers, HVAC, landscapers), food/dining, health/wellness, retail, auto services - Avoid: Big box stores, national chains, online-only businesses - Cat",
-      "recallCount": 14,
+      "recallCount": 15,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 14,
+      "totalScore": 15,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-12T23:02:11.759Z",
-      "lastRecalledAt": "2026-06-05T00:17:44.634Z",
+      "lastRecalledAt": "2026-06-16T13:42:38.062Z",
       "queryHashes": [
         "80f9208f6c41",
         "702ea8f65795",
@@ -626,7 +634,8 @@
         "a1e3920ce317",
         "de869324e8f1",
         "c66dd86e5480",
-        "be6b0b979c63"
+        "be6b0b979c63",
+        "e424a3a93d98"
       ],
       "recallDays": [
         "2026-05-12",
@@ -641,7 +650,8 @@
         "2026-06-01",
         "2026-06-02",
         "2026-06-03",
-        "2026-06-05"
+        "2026-06-05",
+        "2026-06-16"
       ],
       "conceptTags": [
         "nearbuy-tracker-divi.html",
@@ -1396,13 +1406,13 @@
       "endLine": 51,
       "source": "memory",
       "snippet": "- tln-plugin.zip (ready to upload to WordPress) ## Source Tracking Added (May 16 evening) - Added `source` field to vouchers table (postcard/directory/newsletter) - URLs use ?source=directory or ?source=newsletter params - QR scan log also tracks source - Dashboard shows lead source breakdown: - 📮 Postcard: X leads - 📁 Directory: X leads - 📧 Newsletter: X leads - Re-upload plugin after updating to add new column ## Logo Issue - TLN-logo-V1.png exists in workspace but not on server - Need to upload via WordPress Media Library to /wp-content/uploads/2026/01/",
-      "recallCount": 10,
+      "recallCount": 11,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 9.26667003313375,
+      "totalScore": 10.26667003313375,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-17T18:59:50.564Z",
-      "lastRecalledAt": "2026-06-01T13:41:18.538Z",
+      "lastRecalledAt": "2026-06-10T20:11:24.521Z",
       "queryHashes": [
         "11ee02a36115",
         "7ebf46060a8c",
@@ -1413,7 +1423,8 @@
         "2c906fd80e44",
         "0e3001bba3f5",
         "df643b7f7d45",
-        "ec69ba75068b"
+        "ec69ba75068b",
+        "fe2ea6e9576e"
       ],
       "recallDays": [
         "2026-05-17",
@@ -1422,7 +1433,8 @@
         "2026-05-26",
         "2026-05-29",
         "2026-05-30",
-        "2026-06-01"
+        "2026-06-01",
+        "2026-06-10"
       ],
       "conceptTags": [
         "tln-plugin.zip",
@@ -1482,18 +1494,20 @@
       "endLine": 4,
       "source": "memory",
       "snippet": "## Marketing Wording - \"a portion of each purchase funds meals\" - the official phrasing for the charity model",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1,
+      "totalScore": 2,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-21T16:55:36.050Z",
-      "lastRecalledAt": "2026-05-21T16:55:36.050Z",
+      "lastRecalledAt": "2026-06-16T13:42:38.062Z",
       "queryHashes": [
-        "e92d1b15b377"
+        "e92d1b15b377",
+        "e424a3a93d98"
       ],
       "recallDays": [
-        "2026-05-21"
+        "2026-05-21",
+        "2026-06-16"
       ],
       "conceptTags": [
         "marketing",

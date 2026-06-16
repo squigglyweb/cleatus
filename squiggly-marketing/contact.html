@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Squiggly Marketing</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+    <div class="container">
+        <div class="header-inner">
+            <a href="index.html" class="logo">Squiggly<span>Marketing</span></a>
+            
+            <nav class="nav">
+                <a href="services.html">Services</a>
+                <a href="pricing.html">Pricing</a>
+                <a href="about.html">About</a>
+                <a href="quiz.html" class="btn btn-primary">Take the Quiz</a>
+            </nav>
+            
+            <div class="mobile-toggle" onclick="document.querySelector('.nav').classList.toggle('active')">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="section">
+    <div class="container">
+        <div class="section-title">
+            <h1>Let's Talk</h1>
+            <p>Ready to grow without the marketing headaches?</p>
+        </div>
+        
+        <div class="contact-grid">
+            <div class="contact-form">
+                <form>
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="business">Business Name</label>
+                        <input type="text" id="business" name="business" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="goal">What are you hoping to achieve?</label>
+                        <select id="goal" name="goal">
+                            <option value="">Select an option...</option>
+                            <option value="walkin">Get more walk-in customers</option>
+                            <option value="leads">Generate more leads/calls</option>
+                            <option value="reviews">Better reviews</option>
+                            <option value="presence">Build my online presence</option>
+                            <option value="dontknow">I don't know - that's why I'm asking</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+            
+            <div class="contact-info">
+                <h3>Get In Touch</h3>
+                <p>Fill out the form and we'll get back to you within 24 hours. Or just want to say hi? That's cool too.</p>
+                
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <strong>Location</strong>
+                            <p>Waxhaw, NC</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📧</div>
+                        <div>
+                            <strong>Email</strong>
+                            <p>hello@squigglymarketing.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">⏰</div>
+                        <div>
+                            <strong>Response Time</strong>
+                            <p>We typically respond within 24 hours</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-40">
+                    <h4>Serving:</h4>
+                    <p>Waxhaw, Marvin, Wesley Chapel, Weddington, Indian Land, Ballantyne, Charlotte</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3>Squiggly Marketing</h3>
+                <p>We handle your marketing. You run your business.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="quiz.html">Take the Quiz</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Squiggly Marketing</p>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

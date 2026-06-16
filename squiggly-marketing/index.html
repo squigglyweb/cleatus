@@ -1,56 +1,256 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Squiggly Marketing – Diagnose Your Business</title>
-  <style>
-    body {font-family:Arial,sans-serif;max-width:800px;margin:auto;padding:1rem;}
-    .step {display:none;}
-    .step.active {display:block;}
-    .question {margin-bottom:1rem;}
-    button {padding:0.5rem 1rem;margin-top:1rem;}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Squiggly Marketing - Your Marketing. Handled.</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>What's breaking your business?</h1>
-  <form id="diagnoseForm">
-    <div class="step active" id="step1">
-      <p class="question">1. Are you struggling to get new customers?</p>
-      <label><input type="radio" name="q1" value="yes" required> Yes</label>
-      <label><input type="radio" name="q1" value="no"> No</label>
-      <button type="button" onclick="nextStep(2)">Next</button>
+
+<!-- Header -->
+<div class="header">
+    <div class="container">
+        <div class="header-inner">
+            <a href="index.html" class="logo">Squiggly<span>Marketing</span></a>
+            
+            <nav class="nav">
+                <a href="services.html">Services</a>
+                <a href="pricing.html">Pricing</a>
+                <a href="about.html">About</a>
+                <a href="quiz.html" class="btn btn-primary">Take the Quiz</a>
+            </nav>
+            
+            <div class="mobile-toggle" onclick="document.querySelector('.nav').classList.toggle('active')">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
     </div>
-    <div class="step" id="step2">
-      <p class="question">2. Is your online presence (website/social) underperforming?</p>
-      <label><input type="radio" name="q2" value="yes" required> Yes</label>
-      <label><input type="radio" name="q2" value="no"> No</label>
-      <button type="button" onclick="prevStep(1)">Back</button>
-      <button type="button" onclick="nextStep(3)">Next</button>
+</div>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <h1>Your Marketing. Handled.</h1>
+        <p class="subtitle">We run the ads, post to social, manage your reviews, and mail postcards to 15,000+ homes. You focus on your customers.</p>
+        
+        <a href="quiz.html" class="btn btn-primary">See If We're a Good Fit</a>
+        <a href="pricing.html" class="btn btn-outline" style="border-color: white; color: white;">View Pricing</a>
+        
+        <div class="hero-stats">
+            <div class="stat">
+                <div class="stat-number">$2.4M+</div>
+                <div class="stat-label">Revenue Generated</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">15K+</div>
+                <div class="stat-label">Postcards Mailed</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">200+</div>
+                <div class="stat-label">Local Businesses</div>
+            </div>
+        </div>
     </div>
-    <div class="step" id="step3">
-      <p class="question">3. Do you need help with paid advertising?</p>
-      <label><input type="radio" name="q3" value="yes" required> Yes</label>
-      <label><input type="radio" name="q3" value="no"> No</label>
-      <button type="button" onclick="prevStep(2)">Back</button>
-      <button type="button" onclick="nextStep(4)">Next</button>
+</section>
+
+<!-- Problems Section -->
+<section class="section">
+    <div class="container">
+        <div class="section-title">
+            <h2>Does This Sound Like You?</h2>
+            <p>You're busy running your business. You shouldn't have to be a marketing expert too.</p>
+        </div>
+        
+        <div class="problems">
+            <div class="problem-card">
+                <div class="problem-icon">⏰</div>
+                <h3>You're Too Busy</h3>
+                <p>You don't have time to post on Instagram every day, let alone run Facebook ads.</p>
+            </div>
+            
+            <div class="problem-card">
+                <div class="problem-icon">📚</div>
+                <h3>You're Not a Marketer</h3>
+                <p>And you shouldn't have to be. You went into business to do what you love, not study algorithms.</p>
+            </div>
+            
+            <div class="problem-card">
+                <div class="problem-icon">🔄</div>
+                <h3>You Tried and Failed</h3>
+                <p>The "post yourself" route never worked. You need someone who actually does the work.</p>
+            </div>
+        </div>
     </div>
-    <div class="step" id="step4">
-      <p class="question">4. How would you like us to help?</p>
-      <textarea name="details" rows="4" cols="40" placeholder="Briefly describe your challenge" required></textarea>
-      <button type="button" onclick="prevStep(3)">Back</button>
-      <button type="button" onclick="showLeadCapture()">Next</button>
+</section>
+
+<!-- Services Section -->
+<section class="section section-light">
+    <div class="container">
+        <div class="section-title">
+            <h2>What We Actually Do</h2>
+            <p>We handle everything. You just answer the phone when customers call.</p>
+        </div>
+        
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">📱</div>
+                <h3>Social Media Management</h3>
+                <p>We post to your Facebook and Instagram. Every day. No more blank pages.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">📢</div>
+                <h3>Facebook & Instagram Ads</h3>
+                <p>We run the ads. You get leads. We optimize for results, not just spend.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">🔍</div>
+                <h3>Google Business Profile</h3>
+                <p>You show up when locals search. We optimize and keep it updated.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">⭐</div>
+                <h3>Review Management</h3>
+                <p>We monitor and respond to every review. Good or bad - we handle it.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">📧</div>
+                <h3>Email Newsletter</h3>
+                <p>5,000+ local inboxes, every month. Your offer gets seen.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">📬</div>
+                <h3>Direct Mail Postcards</h3>
+                <p>We design, print, and mail to 15,000+ homes in your area.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-icon">📁</div>
+                <h3>Directory Listings</h3>
+                <p>You exist forever - not just when you pay. Permanent SEO.</p>
+            </div>
+        </div>
+        
+        <div class="text-center mt-40">
+            <a href="services.html" class="btn btn-secondary">See All Services</a>
+        </div>
     </div>
-    <div class="step" id="leadCapture">
-      <p class="question">Ready to get a solution? Leave your contact info.</p>
-      <input type="text" name="name" placeholder="Name" required /><br/>
-      <input type="email" name="email" placeholder="Email" required /><br/>
-      <input type="tel" name="phone" placeholder="Phone (optional)" /><br/>
-      <label><input type="checkbox" name="optin" value="yes" checked> Send me offers & updates</label><br/>
-      <button type="button" onclick="prevStep(4)">Back</button>
-      <button type="submit">Submit</button>
+</section>
+
+<!-- How It Works -->
+<section class="section">
+    <div class="container">
+        <div class="section-title">
+            <h2>How It Works</h2>
+            <p>Three simple steps. We handle everything.</p>
+        </div>
+        
+        <div class="steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <h3>We Audit</h3>
+                <p>We look at what you're doing now and what your competitors are doing.</p>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">2</div>
+                <h3>We Build</h3>
+                <p>We set up everything - profiles, pages, ads, funnels, listings.</p>
+            </div>
+            
+            <div class="step">
+                <div class="step-number">3</div>
+                <h3>We Run</h3>
+                <p>We manage it all, every month. You get simple reports.</p>
+            </div>
+        </div>
     </div>
-  </form>
-  <script src="script.js"></script>
+</section>
+
+<!-- Is This You -->
+<section class="section section-light">
+    <div class="container">
+        <div class="section-title">
+            <h2>Is This You?</h2>
+        </div>
+        
+        <div class="fit-section">
+            <p class="text-center">We work with local businesses who:</p>
+            
+            <div class="fit-list">
+                <div class="fit-item">
+                    <div class="fit-check">✓</div>
+                    <span>Have a physical location (restaurant, salon, retail, office)</span>
+                </div>
+                <div class="fit-item">
+                    <div class="fit-check">✓</div>
+                    <span>Want more customers but don't want to do marketing themselves</span>
+                </div>
+                <div class="fit-item">
+                    <div class="fit-check">✓</div>
+                    <span>Have $500+/mo marketing budget</span>
+                </div>
+                <div class="fit-item">
+                    <div class="fit-check">✓</div>
+                    <span>Can handle 10-20 new customers per week</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-40">
+            <a href="quiz.html" class="btn btn-primary">Take the 2-Minute Fit Quiz</a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <h3>Squiggly Marketing</h3>
+                <p>We handle your marketing. You run your business. Based in Waxhaw, NC - serving the Greater Charlotte area.</p>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="services.html">Services</a></li>
+                    <li><a href="pricing.html">Pricing</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="quiz.html">Take the Quiz</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="services.html#digital">Digital Marketing</a></li>
+                    <li><a href="services.html#reputation">Reputation</a></li>
+                    <li><a href="services.html#physical">Physical Marketing</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2026 Squiggly Marketing. Based in Waxhaw, NC - Serving Greater Charlotte Area.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+document.querySelector('.mobile-toggle').addEventListener('click', function() {
+    document.querySelector('.nav').classList.toggle('active');
+});
+</script>
+
 </body>
 </html>
